@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <AssemblyVersion>3.2.1.0</AssemblyVersion>
+    <AssemblyInformationalVersion>3.2.1.0</AssemblyInformationalVersion>
+    <FileVersion>3.2.1.0</FileVersion>
+    <Version>3.2.1.0</Version>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(MSBuildProjectExtension)' == '.csproj'">
+    <Compile Include="$(BuildRootDir)CommonAssemblyInfo.cs" >
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
+  </ItemGroup>
+
+</Project>

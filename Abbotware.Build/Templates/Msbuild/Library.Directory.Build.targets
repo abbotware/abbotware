@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<Project>
+  
+  <Import Condition="Exists('$(MSBuildProjectDirectory)../Build/Common/Msbuild.targets/Abbotware.Common.targets')" Project="../Build/Common/Msbuild.targets/Abbotware.Common.targets" />
+  <Import Condition="Exists('$(MSBuildProjectDirectory)../../Build/Common/Msbuild.targets/Abbotware.Common.targets')" Project="../../Build/Common/Msbuild.targets/Abbotware.Common.targets" />
+  <Import Condition="Exists('$(MSBuildProjectDirectory)../../../Build/Common/Msbuild.targets/Abbotware.Common.targets')" Project="../../../Build/Common/Msbuild.targets/Abbotware.Common.targets" />
+  <Import Condition="Exists('$(MSBuildProjectDirectory)../../../../Build/Common/Msbuild.targets/Abbotware.Common.targets')" Project="../../../../Build/Common/Msbuild.targets/Abbotware.Common.targets" />
+
+</Project>

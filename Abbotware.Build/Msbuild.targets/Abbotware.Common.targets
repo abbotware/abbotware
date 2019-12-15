@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<Project>
+
+  <PropertyGroup>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(RuntimeIdentifier)\$(MSBuildProjectName).xml</DocumentationFile>
+  </PropertyGroup>
+
+</Project>
