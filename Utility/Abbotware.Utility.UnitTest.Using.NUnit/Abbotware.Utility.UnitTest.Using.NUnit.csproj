@@ -9,7 +9,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Abbotware.Core.Test\Abbotware.Core.Test.csproj" />
+    <ProjectReference Include="..\..\Common\Abbotware.Core\Abbotware.Core.csproj" />
+    <ProjectReference Include="..\Abbotware.Utility.UnitTest\Abbotware.Utility.UnitTest.csproj" />
   </ItemGroup>
 
 </Project>

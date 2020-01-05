@@ -2,7 +2,7 @@
 {
     using System;
     using Abbotware.Core;
-    using Abbotware.Interop.NUnit;
+    using Abbotware.Utility.UnitTest.Using.NUnit;
     using NUnit.Framework;
 
     [Category("Core")]

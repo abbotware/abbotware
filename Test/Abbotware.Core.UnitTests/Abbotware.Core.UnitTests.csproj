@@ -12,8 +12,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Abbotware.Core\Abbotware.Core.csproj" />
-    <ProjectReference Include="..\Abbotware.Interop.NUnit\Abbotware.Interop.NUnit.csproj" />
+    <ProjectReference Include="..\..\Common\Abbotware.Core\Abbotware.Core.csproj" />
+    <ProjectReference Include="..\..\Common\Abbotware.Interop.NUnit\Abbotware.Interop.NUnit.csproj" />
+    <ProjectReference Include="..\..\Utility\Abbotware.Utility.UnitTest.Using.NUnit\Abbotware.Utility.UnitTest.Using.NUnit.csproj" />
   </ItemGroup>
 
 </Project>

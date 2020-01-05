@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------
 // <author>Anthony Abate</author>
 
-namespace Abbotware.Core.Test
+namespace Abbotware.Utility.UnitTest
 {
     using System;
     using System.Diagnostics;

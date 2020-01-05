@@ -5,10 +5,9 @@
 // -----------------------------------------------------------------------
 // <author>Anthony Abate</author>
 
-namespace Abbotware.Interop.NUnit
+namespace Abbotware.Utility.UnitTest.Using.NUnit
 {
     using System.Diagnostics.CodeAnalysis;
-    using Abbotware.Core.Test;
     using global::NUnit.Framework;
 
     /// <summary>

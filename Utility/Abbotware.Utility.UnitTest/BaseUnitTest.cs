@@ -4,12 +4,13 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Abbotware.Core.Test
+namespace Abbotware.Utility.UnitTest
 {
     using System;
     using System.Diagnostics;
     using System.Diagnostics.CodeAnalysis;
     using System.Threading;
+    using Abbotware.Core;
     using Abbotware.Core.Diagnostics;
     using Abbotware.Core.Helpers;
     using Abbotware.Core.Logging;
@@ -33,11 +34,6 @@ namespace Abbotware.Core.Test
                 return new Uri(Environment.CurrentDirectory);
             }
         }
-
-        /// <summary>
-        /// Gets the logger (in memory) for unit test
-        /// </summary>
-        protected ILogger NewLogger { get; }
 
         /// <summary>
         /// Checks if system is linux
