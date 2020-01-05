@@ -1,0 +1,3 @@
+[submodule "core.build"]
+	path = src/Abbotware.Core/Build/
+	url = https://github.com/abbotware/abbotware.build.git
