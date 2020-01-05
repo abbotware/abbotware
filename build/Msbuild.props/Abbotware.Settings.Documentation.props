@@ -7,8 +7,8 @@
 
   <ItemGroup Condition="'$(MSBuildProjectExtension)' == '.csproj'">
 
-    <!-- Embed Source files? -->
-    <EmbeddedFiles Include="@(Compile);@(AdditionalFiles)" />
+  <!-- Embed Source files? -->
+  <EmbeddedFiles Include="@(Compile);@(AdditionalFiles)" />
 
   </ItemGroup>
 

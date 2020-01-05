@@ -9,5 +9,5 @@ Rulesets\              Code Analysis Rulesets
 
 MSBuild.props\         MSBuild Property Files (common project settings)
 
-linqpad\               Linqpad Queries
+
 
