@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  
+  <PropertyGroup>
+    <CodeAnalysisRuleSet>Abbotware.ruleset</CodeAnalysisRuleSet>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <NoWarn>CS8002</NoWarn>
+  </PropertyGroup>
+
+  <Import Project="Abbotware.Settings.Common.props" />
+
+  <PropertyGroup>
+    <NoWarn Condition="'$(Nullable)' == 'enable'">$(NoWarn);CA1062</NoWarn>
+
+    <!-- STRONG NAME SIGNING-->
+    <SignAssembly Condition="Exists('$(BuildRootDir)StrongName.snk')">true</SignAssembly>
+    <AssemblyOriginatorKeyFile Condition="Exists('$(BuildRootDir)StrongName.snk')">$(BuildRootDir)StrongName.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+
+  <Import Project="Abbotware.Settings.Nuget.props" />
+
+</Project>

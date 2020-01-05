@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<Project>
+
+  <Import Condition="Exists('$(MSBuildProjectDirectory)../Build/Common/Msbuild.props/Abbotware.Library.props')" Project="../Build/Common/Msbuild.props/Abbotware.Library.props" />
+  <Import Condition="Exists('$(MSBuildProjectDirectory)../../Build/Common/Msbuild.props/Abbotware.Library.props')" Project="../../Build/Common/Msbuild.props/Abbotware.Library.props" />
+  <Import Condition="Exists('$(MSBuildProjectDirectory)../../../Build/Common/Msbuild.props/Abbotware.Library.props')" Project="../../../Build/Common/Msbuild.props/Abbotware.Library.props" />
+  <Import Condition="Exists('$(MSBuildProjectDirectory)../../../../Build/Common/Msbuild.props/Abbotware.Library.props')" Project="../../../../Build/Common/Msbuild.props/Abbotware.Library.props" />
+
+</Project>

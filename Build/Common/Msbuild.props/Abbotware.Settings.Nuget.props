@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+  
+    <!-- NUGET Related -->
+    <PackageOutputPath Condition="'$(GeneratePackageOnBuild)' == 'true'">$(SourceRootDir)_Target/$(Configuration)/nuget</PackageOutputPath>
+    <!-- <IncludeSymbols Condition="'$(GeneratePackageOnBuild)' == 'true'">true</IncludeSymbols> -->
+    <!-- <IncludeSource Condition="'$(GeneratePackageOnBuild)' == 'true'">true</IncludeSource> -->
+
+  </PropertyGroup>
+
+</Project>

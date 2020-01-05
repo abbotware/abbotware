@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <!-- Find the setup file up the folder tree -->
+  <Import Project="$(MSBuildThisFileDirectory)../setup.props"  Condition="Exists('$(MSBuildThisFileDirectory)../setup.props')"/>
+  <Import Project="$(MSBuildThisFileDirectory)../../setup.props"  Condition="Exists('$(MSBuildThisFileDirectory)../../setup.props')"/>
+
+  <PropertyGroup Condition=" '$(SolutionDir)' == '' ">
+
+    <!-- Find the solution up the folder tree -->
+    <SolutionDir Condition="Exists('$(MSBuildProjectDirectory)/../$(SolutionFile)')">$(MSBuildProjectDirectory)/../</SolutionDir>
+    <SolutionDir Condition="Exists('$(MSBuildProjectDirectory)/../../$(SolutionFile)')">$(MSBuildProjectDirectory)/../../</SolutionDir>
+    <SolutionDir Condition="Exists('$(MSBuildProjectDirectory)/../../../$(SolutionFile)')">$(MSBuildProjectDirectory)/../../../</SolutionDir>
+    <SolutionDir Condition="Exists('$(MSBuildProjectDirectory)/../../../../$(SolutionFile)')">$(MSBuildProjectDirectory)/../../../../</SolutionDir>
+
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!-- ///// GLOBAL DEFAULTS  -->
+    <SourceRootDir Condition=" '$(SourceRootDir)' == '' ">$(SolutionDir)</SourceRootDir>
+    <BuildRootDir Condition=" '$(BuildRootDir)' == '' ">$(SourceRootDir)Build/</BuildRootDir>
+    <BuildCommonDir Condition=" '$(BuildCommonDir)' == '' ">$(BuildRootDir)Common/</BuildCommonDir>
+    <BuildRulesetsDir Condition=" '$(BuildRulesetsDir )' == '' ">$(BuildCommonDir)Rulesets/</BuildRulesetsDir>
+    <ThirdpartyRootDir Condition=" '$(ThirdpartyRootDir)' == '' ">$(SourceRootDir)thirdparty/</ThirdpartyRootDir>
+  </PropertyGroup>
+
+  <Import Project="Abbotware.Settings.Metadata.props" />
+
+  <Import Project="Abbotware.Settings.Compiler.props" />
+
+  <Import Project="Abbotware.Settings.Documentation.props" />
+
+  <Import Project="Abbotware.Settings.CodeAnalysis.props" />
+
+</Project>

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <CodeAnalysisRuleSet>Abbotware.UnitTest.ruleset</CodeAnalysisRuleSet>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <NoWarn>CS1591</NoWarn>
+  </PropertyGroup>
+
+  <Import Project="Abbotware.Settings.Common.props" />
+
+  <ItemGroup>
+    <PackageReference Include="coverlet.msbuild" Version="2.7.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>

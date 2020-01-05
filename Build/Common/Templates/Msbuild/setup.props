@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <Company>COMPANY,INC</Company>
+    <Authors>AUTHOR</Authors>
+    <Product>PRODUCT</Product>
+	<SolutionFile>SOLUTION.SLN</SolutionFile>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>	
+  </PropertyGroup>
+
+</Project>

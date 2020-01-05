@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup Condition="'$(MSBuildProjectExtension)' == '.csproj'">
+    <CodeAnalysisRuleSet>$(BuildRulesetsDir)$(CodeAnalysisRuleSet)</CodeAnalysisRuleSet>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(MSBuildProjectExtension)' == '.csproj'">
+
+    <!-- STYLE COP ANALYZER -->
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118" PrivateAssets="all" />
+
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+
+    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="2.9.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+
+    <!-- <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.3.1" /> -->
+
+    <!-- STYLE COP CONFIG -->
+    <AdditionalFiles Include="$(BuildRootDir)stylecop.json" >
+      <Link>Properties\stylecop.json</Link>
+    </AdditionalFiles>
+  </ItemGroup>
+  
+</Project>
