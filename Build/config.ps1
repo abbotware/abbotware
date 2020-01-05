@@ -18,5 +18,7 @@ $Projects        = @{"Abbotware.Core.Nugets" = @{
 						Configuration  = "Release"
 						} 
 
+					}
+
 $CodeCoverageExcludeAssemblies = "-Abbotware.Cleanup;-Abbotware.Contrib.Roslyn;-Abbotware.Unknown"
 $NugetPublishUrl = "https://www.nuget.org"					
