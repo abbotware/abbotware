@@ -5,7 +5,7 @@
     <Company>Abbotware, LLC</Company>
     <Authors>Anthony Abate</Authors>
     <Product>Abbotware</Product>
-	<SolutionFile>Abbotware.sln</SolutionFile>
+	<SolutionFile>Abbotware.Core.sln</SolutionFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
