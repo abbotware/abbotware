@@ -7,6 +7,13 @@
     <Product>Abbotware</Product>
 	<SolutionFile>Abbotware.Core.sln</SolutionFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	
+	<Description>Abbotware Core Libraries</Description>
+    <Copyright>Copyright © Abbotware, LLC 2020</Copyright>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/abbotware/abbotware</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/abbotware/abbotware</PackageProjectUrl>
   </PropertyGroup>
 
 

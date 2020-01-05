@@ -7,6 +7,5 @@ using System.Runtime.InteropServices;
 
 [assembly: ComVisible(false)]
 
-[assembly: AssemblyCopyright("Copyright © Abbotware, LLC 2020")]
 [assembly: AssemblyTrademark("Abbotware®")]
 [assembly: AssemblyCulture("")]
