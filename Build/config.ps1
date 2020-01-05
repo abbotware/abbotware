@@ -30,4 +30,4 @@ $Projects        = @{"Abbotware.Core.Nugets" = @{
 					}
 
 $CodeCoverageExcludeAssemblies = "-Abbotware.Cleanup;-Abbotware.Contrib.Roslyn;-Abbotware.Unknown"
-$NugetPublishUrl = "http://10.10.10.50:8081/repository/abbotware/"					
+$NugetPublishUrl = "https://www.nuget.org"					
