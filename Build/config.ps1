@@ -1,5 +1,5 @@
-$Projects        = @{"Abbotware.Nugets" = @{ 
-						Name           = "Abbotware.UnitTests";
+$Projects        = @{"Abbotware.Core.Nugets" = @{ 
+						Name           = "Abbotware.Core.UnitTests;
 						Type           = "build"; 
 						Action         = "build"
 						Source         = "";
@@ -8,17 +8,17 @@ $Projects        = @{"Abbotware.Nugets" = @{
 						Configuration  = "Release"
 						}
 
-					"Abbotware.UnitTests" = @{ 
-						Name           = "Abbotware.UnitTests";
+					"Abbotware.Core.UnitTests" = @{ 
+						Name           = "Abbotware.Core.UnitTests";
 						Type           = "unittest"; 
 						Action         = "publish";
-						Source         = "Test\Abbotware.UnitTests\" 
+						Source         = "Test\Abbotware.Core.UnitTests\" 
 						Runtime        = "win-x64;linux-x64;linux-arm"
 						Framework      = "netcoreapp3.1";
 						Configuration  = "Release"
 						} 
 
-					"Abbotware.IntegrationTests" = @{ 
+					"Abbotware.Core.IntegrationTests" = @{ 
 						Name           = "Abbotware.IntegrationTests";
 						Type           = "integrationtest"; 
 						Action         = "publish";
