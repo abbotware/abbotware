@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <Company>Abbotware, LLC</Company>
+    <Authors>Anthony Abate</Authors>
+    <Product>Abbotware</Product>
+	<SolutionFile>Abbotware.sln</SolutionFile>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+
+</Project>
