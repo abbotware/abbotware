@@ -1,5 +1,5 @@
 $Projects        = @{"Abbotware.Core.Nugets" = @{ 
-						Name           = "Abbotware.Core.UnitTests;
+						Name           = "Abbotware.Core.UnitTests";
 						Type           = "build"; 
 						Action         = "build"
 						Source         = "";
