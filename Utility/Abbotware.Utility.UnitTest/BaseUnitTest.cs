@@ -25,6 +25,15 @@ namespace Abbotware.Utility.UnitTest
     public abstract class BaseUnitTest : BaseComponent
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="BaseUnitTest"/> class.
+        /// </summary>
+        /// <param name="logger">injected logger</param>
+        protected BaseUnitTest(ILogger logger)
+            : base(logger)
+        {
+        }
+
+        /// <summary>
         ///  Gets the path for unit test exports
         /// </summary>
         public static Uri UnitTestExportPath
