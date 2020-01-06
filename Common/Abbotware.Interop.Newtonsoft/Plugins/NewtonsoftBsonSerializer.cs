@@ -37,11 +37,10 @@ namespace Abbotware.Interop.Newtonsoft.Plugins
         public byte[] Encode<T>(T @object)
         {
             using var stream = new MemoryStream();
-            using (var writer = new BsonDataWriter(stream))
-            {
-                var serializer = new JsonSerializer();
-                serializer.Serialize(writer, @object);
-            }
+            using var writer = new BsonDataWriter(stream);
+
+            var serializer = new JsonSerializer();
+            serializer.Serialize(writer, @object);
 
             return stream.ToArray();
         }

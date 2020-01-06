@@ -25,7 +25,7 @@ namespace Abbotware.Utility.UnitTest
     /// Base class for creating a unit test with helper / utility features
     /// </summary>
     [ExcludeFromCodeCoverage]
-    public abstract class BaseUnitTest : BaseComponent
+    public abstract class BaseUnitTest : BaseComponent, IAssert
     {
         private readonly NewtonsoftJsonSerializer jsonSerializer = new NewtonsoftJsonSerializer();
 
@@ -70,6 +70,15 @@ namespace Abbotware.Utility.UnitTest
         /// Gets a json serializer using byte[]
         /// </summary>
         protected IBinarySerializaton JsonBinarySerializer => this.jsonSerializer;
+
+        /// <inheritdoc/>
+        public abstract void AssertInconclusive(string message);
+
+        /// <inheritdoc/>
+        public abstract void AssertFail(string message);
+
+        /// <inheritdoc/>
+        public abstract void AssertEqual(object left, object right);
 
         /// <summary>
         /// Checks if system is linux
@@ -207,25 +216,6 @@ namespace Abbotware.Utility.UnitTest
                 this.AssertInconclusive($"Not Available on this platform:{message}");
             }
         }
-
-        /// <summary>
-        /// Assert Test is Inconclusive
-        /// </summary>
-        /// <param name="message">message</param>
-        protected abstract void AssertInconclusive(string message);
-
-        /// <summary>
-        /// Assert Test failue
-        /// </summary>
-        /// <param name="message">message</param>
-        protected abstract void AssertFail(string message);
-
-        /// <summary>
-        /// Assert Equal
-        /// </summary>
-        /// <param name="left">left</param>
-        /// <param name="right">right</param>
-        protected abstract void AssertEqual(object left, object right);
 
         private static void BlockForever()
         {

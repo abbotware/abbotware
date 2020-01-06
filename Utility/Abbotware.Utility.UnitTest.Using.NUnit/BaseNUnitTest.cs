@@ -9,7 +9,6 @@ namespace Abbotware.Utility.UnitTest.Using.NUnit
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
-    using Abbotware.Core.Logging;
     using Abbotware.Core.Logging.Plugins;
     using global::NUnit.Framework;
 
@@ -29,19 +28,19 @@ namespace Abbotware.Utility.UnitTest.Using.NUnit
         }
 
         /// <inheritdoc/>
-        protected override void AssertInconclusive(string message)
+        public override void AssertInconclusive(string message)
         {
             Assert.Inconclusive(message);
         }
 
         /// <inheritdoc/>
-        protected override void AssertFail(string message)
+        public override void AssertFail(string message)
         {
             Assert.Fail(message);
         }
 
         /// <inheritdoc/>
-        protected override void AssertEqual(object left, object right)
+        public override void AssertEqual(object left, object right)
         {
             Assert.AreEqual(left, right);
         }
