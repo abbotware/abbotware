@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Abbotware.Core\Abbotware.Core.csproj" />
+    <ProjectReference Include="..\..\Common\Abbotware.Interop.Microsoft\Abbotware.Interop.Microsoft.csproj" />
     <ProjectReference Include="..\..\Common\Abbotware.Interop.Newtonsoft\Abbotware.Interop.Newtonsoft.csproj" />
   </ItemGroup>
 

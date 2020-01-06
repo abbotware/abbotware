@@ -16,6 +16,7 @@ namespace Abbotware.Utility.UnitTest
     using Abbotware.Core.Logging;
     using Abbotware.Core.Objects;
     using Abbotware.Core.Serialization;
+    using Abbotware.Interop.Microsoft;
     using Abbotware.Interop.Newtonsoft.Plugins;
     using AutoFixture;
     using Moq;
@@ -35,6 +36,18 @@ namespace Abbotware.Utility.UnitTest
         protected BaseUnitTest(ILogger logger)
             : base(logger)
         {
+        }
+
+        /// <summary>
+        /// Gets the name of the settings file
+        /// </summary>
+        /// <returns>name of settings file</returns>
+        public static string UnitTestSettingsFile
+        {
+            get
+            {
+                return AppSettings.Locate();
+            }
         }
 
         /// <summary>
