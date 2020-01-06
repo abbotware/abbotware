@@ -27,6 +27,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abbotware.Interop.Log4net",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Interop", "Interop", "{63414C79-BEF0-4A80-834A-4B47ABF9676F}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abbotware.Interop.Castle", "Common\Abbotware.Interop.Castle\Abbotware.Interop.Castle.csproj", "{0A725F89-F524-41BE-A862-71BFFD519C1E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -65,6 +67,10 @@ Global
 		{86731265-32FF-4DF7-BAF2-3C85E69108C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86731265-32FF-4DF7-BAF2-3C85E69108C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86731265-32FF-4DF7-BAF2-3C85E69108C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A725F89-F524-41BE-A862-71BFFD519C1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A725F89-F524-41BE-A862-71BFFD519C1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A725F89-F524-41BE-A862-71BFFD519C1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A725F89-F524-41BE-A862-71BFFD519C1E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -78,6 +84,7 @@ Global
 		{593B13F9-BAD1-4A60-BA45-746C2D5B677B} = {63414C79-BEF0-4A80-834A-4B47ABF9676F}
 		{872FF191-BA7B-4AF2-8081-3BB47E10B36A} = {63414C79-BEF0-4A80-834A-4B47ABF9676F}
 		{86731265-32FF-4DF7-BAF2-3C85E69108C0} = {63414C79-BEF0-4A80-834A-4B47ABF9676F}
+		{0A725F89-F524-41BE-A862-71BFFD519C1E} = {63414C79-BEF0-4A80-834A-4B47ABF9676F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7EE1C721-9604-4A41-B647-816294134415}
