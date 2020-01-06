@@ -7,7 +7,10 @@
 
 namespace Abbotware.Utility.UnitTest.Using.NUnit
 {
+    using System;
     using System.Diagnostics.CodeAnalysis;
+    using Abbotware.Core.Logging;
+    using Abbotware.Core.Logging.Plugins;
     using global::NUnit.Framework;
 
     /// <summary>
@@ -16,6 +19,15 @@ namespace Abbotware.Utility.UnitTest.Using.NUnit
     [ExcludeFromCodeCoverage]
     public class BaseNUnitTest : BaseUnitTest
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BaseNUnitTest"/> class.
+        /// </summary>
+        [Obsolete("work around while rest of code is moved to github")]
+        public BaseNUnitTest()
+            : base(NullLogger.Instance)
+        {
+        }
+
         /// <inheritdoc/>
         protected override void AssertInconclusive(string message)
         {
