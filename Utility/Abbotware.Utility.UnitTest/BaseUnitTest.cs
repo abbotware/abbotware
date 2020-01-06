@@ -15,6 +15,8 @@ namespace Abbotware.Utility.UnitTest
     using Abbotware.Core.Helpers;
     using Abbotware.Core.Logging;
     using Abbotware.Core.Objects;
+    using Abbotware.Core.Serialization;
+    using Abbotware.Interop.Newtonsoft.Plugins;
     using AutoFixture;
     using Moq;
 
@@ -24,6 +26,8 @@ namespace Abbotware.Utility.UnitTest
     [ExcludeFromCodeCoverage]
     public abstract class BaseUnitTest : BaseComponent
     {
+        private readonly NewtonsoftJsonSerializer jsonSerializer = new NewtonsoftJsonSerializer();
+
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseUnitTest"/> class.
         /// </summary>
@@ -43,6 +47,16 @@ namespace Abbotware.Utility.UnitTest
                 return new Uri(Environment.CurrentDirectory);
             }
         }
+
+        /// <summary>
+        /// Gets a json serializer using strings
+        /// </summary>
+        protected IStringSerializaton JsonStringSerializer => this.jsonSerializer;
+
+        /// <summary>
+        /// Gets a json serializer using byte[]
+        /// </summary>
+        protected IBinarySerializaton JsonBinarySerializer => this.jsonSerializer;
 
         /// <summary>
         /// Checks if system is linux
