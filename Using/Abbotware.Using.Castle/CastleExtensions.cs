@@ -6,7 +6,6 @@
 
 namespace Abbotware.Using.Castle
 {
-    using System.Diagnostics.CodeAnalysis;
     using Abbotware.Core;
     using Abbotware.Interop.Castle.Plugins.Installers;
     using global::Castle.MicroKernel.Registration;

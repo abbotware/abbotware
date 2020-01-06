@@ -5,11 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NUnit" Version="3.12.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\Common\Abbotware.Core\Abbotware.Core.csproj" />
+    <ProjectReference Include="..\..\Common\Abbotware.Interop.NUnit\Abbotware.Interop.NUnit.csproj" />
     <ProjectReference Include="..\..\Using\Abbotware.Using.Castle.With.Log4net\Abbotware.Using.Castle.With.Log4net.csproj" />
     <ProjectReference Include="..\Abbotware.Utility.UnitTest\Abbotware.Utility.UnitTest.csproj" />
   </ItemGroup>

@@ -7,7 +7,6 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
-    <PackageReference Include="NUnit" Version="3.12.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.16.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -15,8 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Common\Abbotware.Core\Abbotware.Core.csproj" />
-    <ProjectReference Include="..\..\Common\Abbotware.Interop.NUnit\Abbotware.Interop.NUnit.csproj" />
     <ProjectReference Include="..\..\Utility\Abbotware.Utility.UnitTest.Using.NUnit\Abbotware.Utility.UnitTest.Using.NUnit.csproj" />
   </ItemGroup>
 
