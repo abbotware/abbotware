@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="OptionsAdapter.cs" company="Abbotware, LLC">
+// <copyright file="SqlOptionsAdapter.cs" company="Abbotware, LLC">
 // Copyright © Abbotware, LLC 2012-2020. All rights reserved
 // </copyright>
 // -----------------------------------------------------------------------
@@ -14,7 +14,7 @@ namespace Abbotware.Interop.EntityFramework.Adapters
     /// Creates a DbContextOptions class from the configured options
     /// </summary>
     /// <typeparam name="TContext">class type of the EF Context</typeparam>
-    public class OptionsAdapter<TContext> : IDbContextOptionsAdapter<TContext>
+    public class SqlOptionsAdapter<TContext> : IDbContextOptionsAdapter<TContext>
            where TContext : DbContext
     {
         /// <inheritdoc/>
