@@ -61,17 +61,6 @@ namespace Abbotware.Core.Entity
         /// Creates an IQueryable compatible expression for searching by supplied primary keys
         /// </summary>
         /// <typeparam name="TEntity">entity type</typeparam>
-        /// <param name="key">key</param>
-        /// <returns>expression function for searching by primary key</returns>
-        public static Expression<Func<TEntity, bool>> FindExpression<TEntity>(object key)
-        {
-            return FindExpression<TEntity>(new object[] { key });
-        }
-
-        /// <summary>
-        /// Creates an IQueryable compatible expression for searching by supplied primary keys
-        /// </summary>
-        /// <typeparam name="TEntity">entity type</typeparam>
         /// <param name="names">key names</param>
         /// <param name="keys">key</param>
         /// <returns>expression function for searching by primary key</returns>
