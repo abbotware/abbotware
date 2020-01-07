@@ -10,9 +10,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Common\Abbotware.Interop.Castle\Abbotware.Interop.Castle.csproj" />
-    <ProjectReference Include="..\..\Common\Abbotware.Interop.Microsoft\Abbotware.Interop.Microsoft.csproj" />
-    <ProjectReference Include="..\..\Common\Abbotware.Interop.Newtonsoft\Abbotware.Interop.Newtonsoft.csproj" />
+    <ProjectReference Include="..\..\Interop\Abbotware.Interop.Castle\Abbotware.Interop.Castle.csproj" />
+    <ProjectReference Include="..\..\Interop\Abbotware.Interop.Microsoft\Abbotware.Interop.Microsoft.csproj" />
+    <ProjectReference Include="..\..\Interop\Abbotware.Interop.Newtonsoft\Abbotware.Interop.Newtonsoft.csproj" />
   </ItemGroup>
 
 </Project>

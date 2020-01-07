@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Abbotware.Core\Abbotware.Core.csproj" />
+    <ProjectReference Include="..\..\Common\Abbotware.Core\Abbotware.Core.csproj" />
   </ItemGroup>
 
 </Project>

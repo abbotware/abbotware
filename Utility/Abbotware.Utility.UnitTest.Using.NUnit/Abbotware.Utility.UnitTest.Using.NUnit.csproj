@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Common\Abbotware.Interop.NUnit\Abbotware.Interop.NUnit.csproj" />
+    <ProjectReference Include="..\..\Interop\Abbotware.Interop.NUnit\Abbotware.Interop.NUnit.csproj" />
     <ProjectReference Include="..\..\Using\Abbotware.Using.Castle.With.Log4net\Abbotware.Using.Castle.With.Log4net.csproj" />
     <ProjectReference Include="..\Abbotware.Utility.UnitTest\Abbotware.Utility.UnitTest.csproj" />
   </ItemGroup>
