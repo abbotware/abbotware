@@ -4,10 +4,9 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Abbotware.Data.Entity.Models
+namespace Abbotware.Core.Data.Configuration.Models
 {
     using System;
-    using Microsoft.EntityFrameworkCore;
 
     /// <summary>
     ///     sql configuration class for in memory database
@@ -37,17 +36,5 @@ namespace Abbotware.Data.Entity.Models
 
         /// <inheritdoc/>
         public override string ConnectionString => this.NameOrConnectionString;
-
-        /// <inheritdoc/>
-        public override DbContextOptions<TContext> ToDbContextOptions<TContext>()
-        {
-            var optionsBuilder = new DbContextOptionsBuilder<TContext>();
-
-            optionsBuilder.UseInMemoryDatabase(this.ConnectionString);
-
-            var options = optionsBuilder.Options;
-
-            return options;
-        }
     }
 }

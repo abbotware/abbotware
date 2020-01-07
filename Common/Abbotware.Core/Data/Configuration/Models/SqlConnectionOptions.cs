@@ -4,14 +4,12 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Abbotware.Data.Entity.Models
+namespace Abbotware.Core.Data.Configuration.Models
 {
     using System;
     using System.Data;
-    using System.Diagnostics.CodeAnalysis;
+    using System.Data.Common;
     using Abbotware.Core.Data.Configuration;
-    using Microsoft.Data.SqlClient;
-    using Microsoft.EntityFrameworkCore;
 
     /// <summary>
     ///     configuration class containg SQL Connection properties
@@ -21,7 +19,7 @@ namespace Abbotware.Data.Entity.Models
         /// <summary>
         ///     internal sql connection string builder
         /// </summary>
-        private readonly SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
+        private readonly DbConnectionStringBuilder builder = new DbConnectionStringBuilder();
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="SqlConnectionOptions" /> class.
@@ -74,23 +72,5 @@ namespace Abbotware.Data.Entity.Models
 
         /// <inheritdoc/>
         public virtual bool SupportsMetadata => true;
-
-        /// <summary>
-        /// Creates a DbContextOptions class from the configured options
-        /// </summary>
-        /// <typeparam name="TContext">class type of the EF Context</typeparam>
-        /// <returns>configuration object for EF Core</returns>
-        [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "requried to pass type into EF Core")]
-        public virtual DbContextOptions<TContext> ToDbContextOptions<TContext>()
-            where TContext : DbContext
-        {
-            var optionsBuilder = new DbContextOptionsBuilder<TContext>();
-
-            optionsBuilder.UseSqlServer(this.ConnectionString);
-
-            var options = optionsBuilder.Options;
-
-            return options;
-        }
     }
 }
