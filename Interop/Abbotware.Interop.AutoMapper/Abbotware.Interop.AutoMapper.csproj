@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Automapper" Version="9.0.0" />
-    <PackageReference Include="AutoMapper.Extensions.ExpressionMapping" Version="3.0.3" />
+    <PackageReference Include="AutoMapper.Extensions.ExpressionMapping" Version="3.0.5" />
   </ItemGroup>
 
 </Project>
