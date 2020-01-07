@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<Project>
+  
+  <Import Project="../Build/Common/Msbuild.targets/Abbotware.Common.targets" />
+
+</Project>
