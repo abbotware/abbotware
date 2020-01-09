@@ -11,12 +11,42 @@ namespace Abbotware.Core.Extensions
     using System.Diagnostics.CodeAnalysis;
 #endif
     using System.Runtime.CompilerServices;
+    using Abbotware.Core.Diagnostics;
 
     /// <summary>
     ///     Object Helper methods
     /// </summary>
     public static class ObjectExtensions
     {
+        /// <summary>
+        ///     Dumps an object's contents to a string
+        /// </summary>
+        /// <param name="extended">object to dump</param>
+        /// <returns>object's contents</returns>
+        public static string Dump(this object extended)
+        {
+            Arguments.NotNull(extended, nameof(extended));
+
+            return extended.Dump(4);
+        }
+
+        /// <summary>
+        ///     Dumps an object's contents to a string
+        /// </summary>
+        /// <param name="extended">object to dump</param>
+        /// <param name="maxDepth">max depth to walk</param>
+        /// <returns>object's contents</returns>
+        public static string Dump(this object extended, ushort maxDepth)
+        {
+            Arguments.NotNull(extended, nameof(extended));
+
+            var context = new DumperContext(maxDepth);
+
+            DumpHelper.Write(extended, context);
+
+            return context.ToString();
+        }
+
         /// <summary>
         ///     Used when overriding the Equals() to provide implementation for common trivial equality checks
         /// </summary>

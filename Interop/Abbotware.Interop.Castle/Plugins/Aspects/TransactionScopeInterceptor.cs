@@ -53,7 +53,7 @@ namespace Abbotware.Interop.Castle.Plugins.Aspects
         /// <param name="attributes">transaction attributes</param>
         protected override void OnIntercepted(IInvocation invocation, TransactionScopeAttribute[] attributes)
         {
-            Arguments.NotNull(invocation, nameof(invocation));
+            invocation = Arguments.EnsureNotNull(invocation, nameof(invocation));
 
             try
             {
@@ -61,9 +61,7 @@ namespace Abbotware.Interop.Castle.Plugins.Aspects
 
                 using var ts = new TransactionScope(this.scopeOption, this.options, esio);
 
-#pragma warning disable CA1062 // Validate arguments of public methods
                 invocation.Proceed();
-#pragma warning restore CA1062 // Validate arguments of public methods
 
                 var stopwatch = Stopwatch.StartNew();
 

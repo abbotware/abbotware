@@ -65,5 +65,39 @@ namespace Abbotware.Using.Castle
                 .LifestyleTransient()
                 .DependsOn(Dependency.OnValue<DbContextOptions<TContext>>(adapter.Convert(options))));
         }
+
+        /// <summary>
+        /// Adds and configures an Abbotware BaseContext
+        /// </summary>
+        /// <typeparam name="TContext">context type</typeparam>
+        /// <param name="container">container</param>
+        /// <returns>Add Context</returns>
+        public static IAddDbContext<TContext> AddAbbotwareContext<TContext>(this IWindsorContainer container)
+          where TContext : BaseContext<TContext>
+        {
+            Arguments.NotNull(container, nameof(container));
+
+            return new AddAbbotwareContext<TContext>(container);
+        }
+
+        /// <summary>
+        /// Registers an Abbotware BaseContext
+        /// </summary>
+        /// <typeparam name="TContext">context type</typeparam>
+        /// <param name="container">container</param>
+        /// <param name="connection">connection configuration</param>
+        /// <param name="adapter">options adapter</param>
+        public static void RegisterAbbotwareContext<TContext>(this IWindsorContainer container, ISqlConnectionOptions connection, IDbContextOptionsAdapter<TContext> adapter)
+            where TContext : BaseContext<TContext>
+        {
+            container = Arguments.EnsureNotNull(container, nameof(container));
+            connection = Arguments.EnsureNotNull(connection, nameof(connection));
+
+            container.Register(Component.For<TContext>()
+                .ImplementedBy<TContext>()
+                .LifestyleTransient()
+                .DependsOn(Dependency.OnValue<ISqlConnectionOptions>(connection))
+                .DependsOn(Dependency.OnValue<IDbContextOptionsAdapter<TContext>>(adapter)));
+        }
     }
 }

@@ -65,12 +65,9 @@ namespace Abbotware.Interop.Castle.Plugins.Aspects
         /// <inheritdoc />
         protected override void OnIntercept(IInvocation invocation)
         {
-            Arguments.NotNull(invocation, nameof(invocation));
+            invocation = Arguments.EnsureNotNull(invocation, nameof(invocation));
 
-#pragma warning disable CA1062 // Validate arguments of public methods
             var currentLogger = this.loggers.GetOrAdd(invocation.TargetType, s => this.Logger.Create(s.Name));
-#pragma warning restore CA1062 // Validate arguments of public methods
-
             var parameters = !this.ShouldLogParameters ? "..." : LoggingInterceptor.CreateParametersMessage(invocation);
 
             currentLogger.Debug(LoggingInterceptor.CreateEntryMessage(invocation, parameters));
@@ -113,11 +110,9 @@ namespace Abbotware.Interop.Castle.Plugins.Aspects
         /// <returns>message for logging</returns>
         private static string CreateExitMessage(IInvocation invocation, string parameters)
         {
-            Arguments.NotNull(invocation, nameof(invocation));
+            invocation = Arguments.EnsureNotNull(invocation, nameof(invocation));
 
-#pragma warning disable CA1307 // Specify StringComparison
-            var retValue = invocation.Method.ReturnType.Name.Equals("Void") ? "void" : invocation.ReturnValue;
-#pragma warning restore CA1307 // Specify StringComparison
+            var retValue = invocation.Method.ReturnType.Name.Equals("Void", StringComparison.InvariantCultureIgnoreCase) ? "void" : invocation.ReturnValue;
 
             var message = string.Format(CultureInfo.InvariantCulture, "EXIT: {0}({1}) ret:({2})", invocation.Method.Name, parameters, retValue);
 

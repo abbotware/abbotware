@@ -107,6 +107,24 @@ namespace Abbotware.Core.Diagnostics
         }
 
         /// <summary>
+        /// Gets the property value if it is present on the object
+        /// </summary>
+        /// <typeparam name="T">property type</typeparam>
+        /// <param name="source">object</param>
+        /// <param name="propertyName">property name</param>
+        /// <returns>value</returns>
+        public static T? GetPropertyStructValue<T>(object source, string propertyName)
+            where T : struct
+        {
+            source = Arguments.EnsureNotNull(source, nameof(source));
+
+            var property = source.GetType()
+                .GetProperty(propertyName);
+
+            return property.GetValue(source, null) as T?;
+        }
+
+        /// <summary>
         ///     Gets the properties of a class
         /// </summary>
         /// <typeparam name="TClass">class type</typeparam>

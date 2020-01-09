@@ -65,9 +65,7 @@ namespace Abbotware.Interop.Castle.Plugins.Installers
                 {
                     var installers = FromAssembly.Named(assembly.LocalPath);
                 }
-#pragma warning disable CA1031 // Do not catch general exception types
                 catch (Exception ex)
-#pragma warning restore CA1031 // Do not catch general exception types
                 {
                     this.logger.Error(ex, "installer:{0}", assembly.LocalPath);
                 }
