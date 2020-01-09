@@ -63,9 +63,7 @@ namespace Abbotware.Interop.Castle.Plugins.Installers
 
                 try
                 {
-#pragma warning disable CA1062 // Validate arguments of public methods
                     var installers = FromAssembly.Named(assembly.LocalPath);
-#pragma warning restore CA1062 // Validate arguments of public methods
                 }
 #pragma warning disable CA1031 // Do not catch general exception types
                 catch (Exception ex)

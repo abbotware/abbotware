@@ -9,7 +9,7 @@ namespace Abbotware.Utility.UnitTest.Using.NUnit
 {
     using System.Diagnostics.CodeAnalysis;
     using Abbotware.Core.Logging;
-    using Abbotware.Using.Castle.With.Log4net;
+    using Abbotware.Using.Castle;
     using Castle.MicroKernel.Registration;
     using Castle.MicroKernel.SubSystems.Configuration;
     using Castle.Windsor;
@@ -85,7 +85,8 @@ namespace Abbotware.Utility.UnitTest.Using.NUnit
         /// <returns>initialized container</returns>
         protected static IWindsorContainer CreateTestContainer()
         {
-            return IocContainer.Create("UnitTest", false, "log4net.unittest.config");
+            return IocContainer.Create("UnitTest", false)
+                .AddLog4net("log4net.unittest.config");
         }
 
         /// <summary>

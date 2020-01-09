@@ -55,11 +55,9 @@ namespace Abbotware.Using.Castle.Internal
         /// <inheritdoc />
         public bool CanResolve(CreationContext context, ISubDependencyResolver contextHandlerResolver, ComponentModel model, DependencyModel dependency)
         {
-            Abbotware.Core.Arguments.NotNull(dependency, nameof(dependency));
+            dependency = Abbotware.Core.Arguments.EnsureNotNull(dependency, nameof(dependency));
 
-#pragma warning disable CA1062 // Validate arguments of public methods
             if (dependency.TargetType == typeof(CastleILogger))
-#pragma warning restore CA1062 // Validate arguments of public methods
             {
                 return true;
             }
@@ -75,13 +73,11 @@ namespace Abbotware.Using.Castle.Internal
         /// <inheritdoc />
         public object Resolve(CreationContext context, ISubDependencyResolver contextHandlerResolver, ComponentModel model, DependencyModel dependency)
         {
-            Abbotware.Core.Arguments.NotNull(model, nameof(model));
+            model = Abbotware.Core.Arguments.EnsureNotNull(model, nameof(model));
 
-#pragma warning disable CA1062 // Validate arguments of public methods
             return string.IsNullOrEmpty(this.logName)
                 ? this.loggerFactory.Create(model.Implementation)
                 : this.loggerFactory.Create(this.logName).Create(model.Implementation.Name);
-#pragma warning restore CA1062 // Validate arguments of public methods
         }
     }
 }

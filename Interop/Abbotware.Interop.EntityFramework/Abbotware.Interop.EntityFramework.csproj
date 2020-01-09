@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Abbotware.Core\Abbotware.Core.csproj" />
+    <ProjectReference Include="..\..\Common\Abbotware.Data\Abbotware.Data.csproj" />
   </ItemGroup>
 
 </Project>

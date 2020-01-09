@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Abbotware.Core\Abbotware.Core.csproj" />
+    <ProjectReference Include="..\..\Common\Abbotware.Data\Abbotware.Data.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.AutoMapper\Abbotware.Interop.AutoMapper.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Castle\Abbotware.Interop.Castle.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.EntityFramework\Abbotware.Interop.EntityFramework.csproj" />
@@ -22,6 +23,7 @@
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Microsoft\Abbotware.Interop.Microsoft.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Newtonsoft\Abbotware.Interop.Newtonsoft.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.NUnit\Abbotware.Interop.NUnit.csproj" />
+    <ProjectReference Include="..\..\Using\Abbotware.Data.Using.Castle\Abbotware.Data.Using.Castle.csproj" />
     <ProjectReference Include="..\..\Using\Abbotware.Using.Castle.With.Log4net\Abbotware.Using.Castle.With.Log4net.csproj" />
     <ProjectReference Include="..\..\Using\Abbotware.Using.Castle\Abbotware.Using.Castle.csproj" />
     <ProjectReference Include="..\..\Utility\Abbotware.Utility.UnitTest.Using.NUnit\Abbotware.Utility.UnitTest.Using.NUnit.csproj" />

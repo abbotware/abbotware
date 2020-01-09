@@ -70,13 +70,11 @@ namespace Abbotware.Interop.Castle.Plugins.Installers
         /// <inheritdoc />
         protected override void OnInstall(IWindsorContainer container, IConfigurationStore store)
         {
-            Arguments.NotNull(container, nameof(container));
+            container = Arguments.EnsureNotNull(container, nameof(container));
 
-#pragma warning disable CA1062 // Validate arguments of public methods
             container.Kernel.Resolver.AddSubResolver(new CollectionResolver(container.Kernel, true));
             container.Kernel.Resolver.AddSubResolver(new ArrayResolver(container.Kernel, true));
             container.Kernel.Resolver.AddSubResolver(new ListResolver(container.Kernel, true));
-#pragma warning restore CA1062 // Validate arguments of public methods
 
             container.Register(Component.For<ILazyComponentLoader>()
                 .ImplementedBy<LazyOfTComponentLoader>());

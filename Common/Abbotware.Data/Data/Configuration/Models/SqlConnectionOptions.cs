@@ -4,12 +4,11 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Abbotware.Core.Data.Configuration.Models
+namespace Abbotware.Data.Configuration.Models
 {
     using System;
     using System.Data;
     using System.Data.Common;
-    using Abbotware.Core.Data.Configuration;
 
     /// <summary>
     ///     configuration class containg SQL Connection properties

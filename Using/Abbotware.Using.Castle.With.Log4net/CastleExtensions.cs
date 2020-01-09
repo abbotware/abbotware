@@ -4,11 +4,12 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Abbotware.Using.Castle.With.Log4net
+namespace Abbotware.Using.Castle
 {
     using System;
     using Abbotware.Core;
-    using Abbotware.Interop.Log4net;
+    using Abbotware.Core.Configuration;
+    using Abbotware.Core.Helpers;
     using Abbotware.Using.Castle.Internal;
     using global::Castle.Windsor;
 
@@ -18,39 +19,72 @@ namespace Abbotware.Using.Castle.With.Log4net
     public static class CastleExtensions
     {
         /// <summary>
-        /// Adds and configures Log4net for the container
+        ///     name of the default config file
         /// </summary>
-        /// <param name="container">container</param>
-        /// <param name="component">component name</param>
-        public static void AddLog4net(this IWindsorContainer container, string component)
+        public const string DefaultWindowsLogConfigFile = "log4net.windows.config";
+
+        /// <summary>
+        ///     name of the default config file
+        /// </summary>
+        public const string DefaultLinuxLogConfigFile = "log4net.linux.config";
+
+        /// <summary>
+        ///     Gets the default config file name
+        /// </summary>
+        /// <returns>file name for config file</returns>
+        private static string DefaultConfigFile
         {
-            container = Arguments.EnsureNotNull(container, nameof(container));
-
-            CommonInit(component);
-
-            container.AddFacility<AbbotwareLoggingFacility>();
+            get
+            {
+                if (OperatingSystemHelper.IsUnix)
+                {
+                    return DefaultLinuxLogConfigFile;
+                }
+                else
+                {
+                    return DefaultWindowsLogConfigFile;
+                }
+            }
         }
 
         /// <summary>
         /// Adds and configures Log4net for the container
         /// </summary>
         /// <param name="container">container</param>
-        /// <param name="component">component name</param>
-        /// <param name="onCreate">callback to configure</param>
-        public static void AddLog4net(this IWindsorContainer container, string component, Action<AbbotwareLoggingFacility> onCreate)
+        /// <returns>contianer for fluent api</returns>
+        public static IWindsorContainer AddLog4net(this IWindsorContainer container)
         {
             container = Arguments.EnsureNotNull(container, nameof(container));
 
-            CommonInit(component);
-
-            container.AddFacility(onCreate);
+            return container.AddLog4net(DefaultConfigFile);
         }
 
-        private static void CommonInit(string component)
+        /// <summary>
+        /// Adds and configures Log4net for the container
+        /// </summary>
+        /// <param name="container">container</param>
+        /// <param name="conifg">log4net config file</param>
+        /// <returns>contianer for fluent api</returns>
+        public static IWindsorContainer AddLog4net(this IWindsorContainer container, string conifg)
         {
-            Log4netHelper.SetComponent(component);
-            Log4netHelper.SetVersion();
-            Log4netHelper.SetCommandLine();
+            container = Arguments.EnsureNotNull(container, nameof(container));
+
+            return container.AddLog4net((o, f) => f.WithConfig(conifg).WithOptions(o));
+        }
+
+        /// <summary>
+        /// Adds and configures Log4net for the container
+        /// </summary>
+        /// <param name="container">container</param>
+        /// <param name="onCreate">callback to configure</param>
+        /// <returns>contianer for fluent api</returns>
+        public static IWindsorContainer AddLog4net(this IWindsorContainer container, Action<IContainerOptions, AbbotwareLoggingFacility> onCreate)
+        {
+            container = Arguments.EnsureNotNull(container, nameof(container));
+
+            var opts = container.Resolve<IContainerOptions>();
+
+            return container.AddFacility<AbbotwareLoggingFacility>(x => onCreate(opts, x));
         }
     }
 }

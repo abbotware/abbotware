@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Abbotware.Core.Data.Configuration.Models
+namespace Abbotware.Data.Configuration.Models
 {
     using System;
 

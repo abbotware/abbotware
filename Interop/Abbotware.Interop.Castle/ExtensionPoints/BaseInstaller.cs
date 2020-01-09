@@ -23,13 +23,13 @@ namespace Abbotware.Interop.Castle.ExtensionPoints
         /// <inheritdoc />
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
+            container = Arguments.EnsureNotNull(container, nameof(container));
+
             var fileName = string.Format(CultureInfo.InvariantCulture, "{0}.castle.config", this.GetType().Name);
 
             if (File.Exists(fileName))
             {
-#pragma warning disable CA1062 // Validate arguments of public methods
                 container.Install(Configuration.FromXmlFile(fileName));
-#pragma warning restore CA1062 // Validate arguments of public methods
             }
             else
             {

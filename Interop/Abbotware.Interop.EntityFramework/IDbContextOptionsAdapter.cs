@@ -8,7 +8,7 @@
 namespace Abbotware.Interop.EntityFramework
 {
     using Abbotware.Core;
-    using Abbotware.Core.Data.Configuration;
+    using Abbotware.Data.Configuration;
     using Microsoft.EntityFrameworkCore;
 
     /// <summary>

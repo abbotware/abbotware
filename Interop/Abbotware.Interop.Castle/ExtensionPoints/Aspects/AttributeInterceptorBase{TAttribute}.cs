@@ -32,11 +32,9 @@ namespace Abbotware.Interop.Castle.ExtensionPoints.Aspects
         /// <inheritdoc />
         protected override sealed void OnIntercept(IInvocation invocation)
         {
-            Arguments.NotNull(invocation, nameof(invocation));
+            invocation = Arguments.EnsureNotNull(invocation, nameof(invocation));
 
-#pragma warning disable CA1062 // Validate arguments of public methods
             var attributes = invocation.Method.GetCustomAttributes(typeof(TAttribute), true) as TAttribute[];
-#pragma warning restore CA1062 // Validate arguments of public methods
 
             if (attributes.Length > 0)
             {

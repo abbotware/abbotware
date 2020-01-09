@@ -40,15 +40,13 @@ namespace Abbotware.Interop.Castle.Plugins.Aspects
         /// <param name="invocation">current invocation site</param>
         protected override sealed void OnIntercept(IInvocation invocation)
         {
-            Arguments.NotNull(invocation, nameof(invocation));
+            invocation = Arguments.EnsureNotNull(invocation, nameof(invocation));
 
             var start = this.timer.ElapsedTicks;
 
             try
             {
-#pragma warning disable CA1062 // Validate arguments of public methods
                 invocation.Proceed();
-#pragma warning restore CA1062 // Validate arguments of public methods
             }
             finally
             {

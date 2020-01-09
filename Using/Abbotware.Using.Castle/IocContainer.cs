@@ -6,6 +6,9 @@
 
 namespace Abbotware.Using.Castle
 {
+    using Abbotware.Core.Configuration;
+    using Abbotware.Core.Configuration.Models;
+    using global::Castle.MicroKernel.Registration;
     using global::Castle.Windsor;
 
     /// <summary>
@@ -31,6 +34,9 @@ namespace Abbotware.Using.Castle
         public static IWindsorContainer Create(string component, bool enableStartable)
         {
             var c = new WindsorContainer();
+
+            c.Register(Component.For<IContainerOptions>()
+                .Instance(new ContainerOptions { Name = component }));
 
             c.AddDefaultFacilities(component, enableStartable);
 

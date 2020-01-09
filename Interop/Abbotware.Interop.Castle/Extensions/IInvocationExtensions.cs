@@ -23,11 +23,9 @@ namespace Abbotware.Interop.Castle.Extensions
         /// <returns>method name</returns>
         public static string GetMethodName(this IInvocation invocation)
         {
-            Arguments.NotNull(invocation, nameof(invocation));
+            invocation = Arguments.EnsureNotNull(invocation, nameof(invocation));
 
-#pragma warning disable CA1062 // Validate arguments of public methods
             var targetType = invocation.TargetType;
-#pragma warning restore CA1062 // Validate arguments of public methods
             var concreteMethod = invocation.GetConcreteMethod();
 
             return targetType.FullName + "." + concreteMethod.Name;

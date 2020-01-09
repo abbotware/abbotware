@@ -9,7 +9,9 @@ namespace Abbotware.Using.Castle.Internal
 {
     using System;
     using Abbotware.Core;
+    using Abbotware.Core.Configuration;
     using Abbotware.Core.Extensions;
+    using Abbotware.Interop.Log4net;
     using global::Castle.Core.Logging;
     using global::Castle.MicroKernel.Facilities;
     using global::Castle.MicroKernel.Registration;
@@ -41,6 +43,11 @@ namespace Abbotware.Using.Castle.Internal
         ///     level of the default logger
         /// </summary>
         private LoggerLevel? defaultLoggerLevel;
+
+        /// <summary>
+        /// the container name
+        /// </summary>
+        private string containerName = string.Empty;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="AbbotwareLoggingFacility" /> class.
@@ -90,6 +97,20 @@ namespace Abbotware.Using.Castle.Internal
         }
 
         /// <summary>
+        ///     Fluent API to Indicate Logging Facility should use the specified options
+        /// </summary>
+        /// <param name="options">container options</param>
+        /// <returns>the logging facility</returns>
+        public AbbotwareLoggingFacility WithOptions(IContainerOptions options)
+        {
+            options = Arguments.EnsureNotNull(options, nameof(options));
+
+            this.containerName = options.Name;
+
+            return this;
+        }
+
+        /// <summary>
         ///     Fluent API to Indicate Logging Facility should use the specified logging level
         /// </summary>
         /// <param name="level">level of log</param>
@@ -118,6 +139,10 @@ namespace Abbotware.Using.Castle.Internal
         /// <inheritdoc />
         protected override void Init()
         {
+            Log4netHelper.SetComponent(this.containerName);
+            Log4netHelper.SetVersion();
+            Log4netHelper.SetCommandLine();
+
             if (this.FacilityConfig != null && this.FacilityConfig.Attributes != null)
             {
                 if (!string.IsNullOrWhiteSpace(this.FacilityConfig.Attributes["configFile"]))

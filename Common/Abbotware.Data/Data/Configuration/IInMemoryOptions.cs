@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Abbotware.Core.Data.Configuration
+namespace Abbotware.Data.Configuration
 {
     /// <summary>
     /// Interface for an in memory database configuration

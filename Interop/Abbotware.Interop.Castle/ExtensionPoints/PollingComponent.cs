@@ -95,9 +95,7 @@ namespace Abbotware.Interop.Castle.ExtensionPoints
                     await this.OnIterationAsync()
                         .ConfigureAwait(false);
                 }
-#pragma warning disable CA1031 // Do not catch general exception types
                 catch (Exception ex)
-#pragma warning restore CA1031 // Do not catch general exception types
                 {
                     this.Logger.Error(ex, "Iteration");
                 }

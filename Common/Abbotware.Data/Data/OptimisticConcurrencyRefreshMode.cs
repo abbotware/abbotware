@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------
 // <author>Anthony Abate</author>
 
-namespace Abbotware.Core.Data
+namespace Abbotware.Data
 {
     /// <summary>
     ///     Enumeration used to specify the concurrency refresh mode

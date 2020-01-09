@@ -21,13 +21,10 @@ namespace Abbotware.Interop.Castle.ExtensionPoints
         /// <inheritdoc />
         protected override void OnInstall(IWindsorContainer container, IConfigurationStore store)
         {
-            Arguments.NotNull(container, nameof(container));
+            container = Arguments.EnsureNotNull(container, nameof(container));
 
-#pragma warning disable CA1062 // Validate arguments of public methods
             container.Register(this.OnFindTypes()
                 .Configure(this.OnConfigureTypes()));
-#pragma warning restore CA1062 // Validate arguments of public methods
-
         }
 
         /// <summary>
