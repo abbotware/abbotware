@@ -27,7 +27,7 @@ namespace Abbotware.Core.Serialization.Helpers
 
             using var memStream = new MemoryStream();
 
-            var serializer = new DataContractSerializer(extended.GetType());
+            var serializer = new DataContractSerializer(extended!.GetType());
             serializer.WriteObject(memStream, extended);
 
             var retVal = memStream.ToArray();

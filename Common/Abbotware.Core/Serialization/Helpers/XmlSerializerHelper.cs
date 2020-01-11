@@ -142,7 +142,7 @@ namespace Abbotware.Core.Serialization.Helpers
 
             using var memStream = new MemoryStream();
 
-            var serializer = new XmlSerializer(extended.GetType());
+            var serializer = new XmlSerializer(extended!.GetType());
             serializer.Serialize(memStream, extended);
 
             var retVal = memStream.ToArray();
