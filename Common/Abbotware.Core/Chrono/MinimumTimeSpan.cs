@@ -35,7 +35,7 @@ namespace Abbotware.Core.Chrono
         }
 
         /// <summary>
-        /// Gets a value indicating whether the minimum timespan passed since the last check
+        /// Gets a value indicating whether the minimum timespan passed since the last check (if true, the timespan resets)
         /// </summary>
         public bool IsExpired
         {
