@@ -30,4 +30,16 @@
     <ProjectReference Include="..\..\Utility\Abbotware.Utility.UnitTest\Abbotware.Utility.UnitTest.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Sample\Data\Average_Daily_Traffic_Counts.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample\Data\Average_Daily_Traffic_Counts.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample\Data\Average_Daily_Traffic_Counts.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
