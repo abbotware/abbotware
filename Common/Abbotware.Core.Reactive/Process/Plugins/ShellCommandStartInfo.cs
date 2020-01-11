@@ -8,7 +8,6 @@
 namespace Abbotware.Core.Process.Plugins
 {
     using System;
-    using System.Reactive.Subjects;
 
     /// <summary>
     ///     POCO class for shell command start info

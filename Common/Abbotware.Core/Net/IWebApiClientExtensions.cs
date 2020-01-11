@@ -1,0 +1,363 @@
+﻿// -----------------------------------------------------------------------
+// <copyright file="IWebApiClientExtensions.cs" company="Abbotware, LLC">
+// Copyright © Abbotware, LLC 2012-2020. All rights reserved
+// </copyright>
+// -----------------------------------------------------------------------
+// <author>Anthony Abate</author>
+
+namespace Abbotware.Core.Net
+{
+    using System;
+    using System.Globalization;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using Abbotware.Core.Extensions;
+
+    /// <summary>
+    /// Provides extension methods for <see cref="IWebApiClient"/>
+    /// </summary>
+    public static class IWebApiClientExtensions
+    {
+        /// <summary>
+        /// performs an HTTP Delete
+        /// </summary>
+        /// <param name="client">client</param>
+        /// <param name="uri">uri</param>
+        public static void Delete(
+            this IWebApiClient client,
+            Uri uri)
+        {
+            client.Delete(uri, Timeout.InfiniteTimeSpan, CancellationToken.None);
+        }
+
+        /// <summary>
+        /// performs an HTTP Delete
+        /// </summary>
+        /// <param name="client">client</param>
+        /// <param name="uri">uri</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        public static void Delete(
+            this IWebApiClient client,
+            Uri uri,
+            CancellationToken cancellationToken)
+        {
+            client.Delete(uri, Timeout.InfiniteTimeSpan, cancellationToken);
+        }
+
+        /// <summary>
+        /// performs an HTTP Delete
+        /// </summary>
+        /// <param name="client">client</param>
+        /// <param name="uri">uri</param>
+        /// <param name="timeout">call timeout</param>
+        public static void Delete(
+            this IWebApiClient client,
+            Uri uri,
+            TimeSpan timeout)
+        {
+            client.Delete(uri, timeout, CancellationToken.None);
+        }
+
+        /// <summary>
+        /// performs an HTTP Delete
+        /// </summary>
+        /// <param name="client">client</param>
+        /// <param name="uri">uri</param>
+        /// <param name="timeout">call timeout</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        public static void Delete(
+            this IWebApiClient client,
+            Uri uri,
+            TimeSpan timeout,
+            CancellationToken cancellationToken)
+        {
+            Arguments.NotNull(client, nameof(client));
+            Arguments.NotNull(uri, nameof(uri));
+
+#pragma warning disable CA1062 // Validate arguments of public methods
+            client.DeleteAsync(uri, cancellationToken).Wait(timeout);
+#pragma warning restore CA1062 // Validate arguments of public methods
+        }
+
+        /// <summary>
+        /// performs an HTTP Delete and deserializes the response to an object
+        /// </summary>
+        /// <typeparam name="TResponse">response type</typeparam>
+        /// <param name="client">client</param>
+        /// <param name="uri">uri</param>
+        /// <returns>response object</returns>
+        public static TResponse Delete<TResponse>(
+            this IWebApiClient client,
+            Uri uri)
+        {
+            return client.Delete<TResponse>(uri, Timeout.InfiniteTimeSpan, CancellationToken.None);
+        }
+
+        /// <summary>
+        /// performs an HTTP Delete and deserializes the response to an object
+        /// </summary>
+        /// <typeparam name="TResponse">response type</typeparam>
+        /// <param name="client">client</param>
+        /// <param name="uri">uri</param>
+        /// <param name="timeout">call timeout</param>
+        /// <returns>response object</returns>
+        public static TResponse Delete<TResponse>(
+            this IWebApiClient client,
+            Uri uri,
+            TimeSpan timeout)
+        {
+            return client.Delete<TResponse>(uri, timeout, CancellationToken.None);
+        }
+
+        /// <summary>
+        /// performs an HTTP Delete and deserializes the response to an object
+        /// </summary>
+        /// <typeparam name="TResponse">response type</typeparam>
+        /// <param name="client">client</param>
+        /// <param name="uri">uri</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>response object</returns>
+        public static TResponse Delete<TResponse>(
+            this IWebApiClient client,
+            Uri uri,
+            CancellationToken cancellationToken)
+        {
+            Arguments.NotNull(client, nameof(client));
+
+            return client.Delete<TResponse>(uri, Timeout.InfiniteTimeSpan, cancellationToken);
+        }
+
+        /// <summary>
+        /// performs an HTTP Delete and deserializes the response to an object
+        /// </summary>
+        /// <typeparam name="TResponse">response type</typeparam>
+        /// <param name="client">client</param>
+        /// <param name="uri">uri</param>
+        /// <param name="timeout">call timeout</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>response object</returns>
+        public static TResponse Delete<TResponse>(
+            this IWebApiClient client,
+            Uri uri,
+            TimeSpan timeout,
+            CancellationToken cancellationToken)
+        {
+            Arguments.NotNull(client, nameof(client));
+            Arguments.NotNull(uri, nameof(uri));
+
+#pragma warning disable CA1062 // Validate arguments of public methods
+            var task = client.DeleteAsync<TResponse>(uri, cancellationToken);
+#pragma warning restore CA1062 // Validate arguments of public methods
+
+            task.Wait(timeout);
+
+            return task.Result;
+        }
+
+        /// <summary>
+        /// performs an HTTP Get and deserializes the response to an object
+        /// </summary>
+        /// <typeparam name="TResponse">response type</typeparam>
+        /// <param name="client">client</param>
+        /// <param name="uri">uri</param>
+        /// <returns>response object</returns>
+        public static TResponse Get<TResponse>(
+            this IWebApiClient client,
+            Uri uri)
+        {
+            Arguments.NotNull(client, nameof(client));
+
+            return client.Get<TResponse>(uri, Timeout.InfiniteTimeSpan, CancellationToken.None);
+        }
+
+        /// <summary>
+        /// performs an HTTP Get and deserializes the response to an object
+        /// </summary>
+        /// <typeparam name="TResponse">response type</typeparam>
+        /// <param name="client">client</param>
+        /// <param name="uri">uri</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>response object</returns>
+        public static TResponse Get<TResponse>(
+            this IWebApiClient client,
+            Uri uri,
+            CancellationToken cancellationToken)
+        {
+            Arguments.NotNull(client, nameof(client));
+
+            return client.Get<TResponse>(uri, Timeout.InfiniteTimeSpan, cancellationToken);
+        }
+
+        /// <summary>
+        /// performs an HTTP Get and deserializes the response to an object
+        /// </summary>
+        /// <typeparam name="TResponse">response type</typeparam>
+        /// <param name="client">client</param>
+        /// <param name="uri">uri</param>
+        /// <param name="timeout">call timeout</param>
+        /// <returns>response object</returns>
+        public static TResponse Get<TResponse>(
+            this IWebApiClient client,
+            Uri uri,
+            TimeSpan timeout)
+        {
+            Arguments.NotNull(client, nameof(client));
+
+            return client.Get<TResponse>(uri, timeout, CancellationToken.None);
+        }
+
+        /// <summary>
+        /// performs an HTTP Get and deserializes the response to an object
+        /// </summary>
+        /// <typeparam name="TResponse">response type</typeparam>
+        /// <param name="client">client</param>
+        /// <param name="uri">uri</param>
+        /// <param name="timeout">call timeout</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>response object</returns>
+        public static TResponse Get<TResponse>(
+            this IWebApiClient client,
+            Uri uri,
+            TimeSpan timeout,
+            CancellationToken cancellationToken)
+        {
+            Arguments.NotNull(client, nameof(client));
+            Arguments.NotNull(uri, nameof(uri));
+
+#pragma warning disable CA1062 // Validate arguments of public methods
+            var task = client.GetAsync<TResponse>(uri, cancellationToken);
+#pragma warning restore CA1062 // Validate arguments of public methods
+
+            task.Wait(timeout);
+
+            return task.Result;
+        }
+
+        /// <summary>
+        /// performs an HTTP Post with a request object serialized as the body and deserialized the response
+        /// </summary>
+        /// <typeparam name="TRequest">request type</typeparam>
+        /// <typeparam name="TResponse">response type</typeparam>
+        /// <param name="client">client</param>
+        /// <param name="uri">uri</param>
+        /// <param name="request">request date</param>
+        /// <returns>response object</returns>
+        public static TResponse Post<TRequest, TResponse>(
+            this IWebApiClient client,
+            Uri uri,
+            TRequest request)
+        {
+            return client.Post<TRequest, TResponse>(uri, request, Timeout.InfiniteTimeSpan, CancellationToken.None);
+        }
+
+        /// <summary>
+        /// performs an HTTP Post with a request object serialized as the body and deserialized the response
+        /// </summary>
+        /// <typeparam name="TRequest">request type</typeparam>
+        /// <typeparam name="TResponse">response type</typeparam>
+        /// <param name="client">client</param>
+        /// <param name="uri">uri</param>
+        /// <param name="request">request date</param>
+        /// <param name="timeout">call timeout</param>
+        /// <returns>response object</returns>
+        public static TResponse Post<TRequest, TResponse>(
+            this IWebApiClient client,
+            Uri uri,
+            TRequest request,
+            TimeSpan timeout)
+        {
+            return client.Post<TRequest, TResponse>(uri, request, timeout, CancellationToken.None);
+        }
+
+        /// <summary>
+        /// performs an HTTP Post with a request object serialized as the body and deserialized the response
+        /// </summary>
+        /// <typeparam name="TRequest">request type</typeparam>
+        /// <typeparam name="TResponse">response type</typeparam>
+        /// <param name="client">client</param>
+        /// <param name="uri">uri</param>
+        /// <param name="request">request date</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>response object</returns>
+        public static TResponse Post<TRequest, TResponse>(
+            this IWebApiClient client,
+            Uri uri,
+            TRequest request,
+            CancellationToken cancellationToken)
+        {
+            return client.Post<TRequest, TResponse>(uri, request, Timeout.InfiniteTimeSpan, cancellationToken);
+        }
+
+        /// <summary>
+        /// performs an HTTP Post with a request object serialized as the body and deserialized the response
+        /// </summary>
+        /// <typeparam name="TRequest">request type</typeparam>
+        /// <typeparam name="TResponse">response type</typeparam>
+        /// <param name="client">client</param>
+        /// <param name="uri">uri</param>
+        /// <param name="request">request date</param>
+        /// <param name="timeout">call timeout</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>response object</returns>
+        public static TResponse Post<TRequest, TResponse>(
+            this IWebApiClient client,
+            Uri uri,
+            TRequest request,
+            TimeSpan timeout,
+            CancellationToken cancellationToken)
+        {
+            Arguments.NotNull(client, nameof(client));
+            Arguments.NotNull(uri, nameof(uri));
+
+#pragma warning disable CA1062 // Validate arguments of public methods
+            var task = client.PostAsync<TRequest, TResponse>(uri, request, cancellationToken);
+#pragma warning restore CA1062 // Validate arguments of public methods
+
+            task.Wait(timeout);
+
+            return task.Result;
+        }
+
+        /// <summary>
+        /// Performs an HTTP Get
+        /// </summary>
+        /// <typeparam name="TResponse">method return type</typeparam>
+        /// <param name="client">client</param>
+        /// <param name="action">request route action</param>
+        /// <param name="id">request route id</param>
+        /// <returns>data of type T</returns>
+        public static Task<TResponse> RestGetAsync<TResponse>(this IWebApiClient client, string action, string id)
+            where TResponse : new()
+        {
+            Arguments.NotNull(client, nameof(client));
+            Arguments.NotNull(id, nameof(id));
+
+#pragma warning disable CA1062 // Validate arguments of public methods
+            var uri = client.Configuration.BaseUri.Append(action, id.ToString(CultureInfo.InvariantCulture));
+#pragma warning restore CA1062 // Validate arguments of public methods
+
+            return client.GetAsync<TResponse>(uri);
+        }
+
+        /// <summary>
+        /// Performs an HTTP Get
+        /// </summary>
+        /// <typeparam name="TRequest">method request type</typeparam>
+        /// <typeparam name="TResponse">method return type</typeparam>
+        /// <param name="client">client</param>
+        /// <param name="action">request route action</param>
+        /// <param name="request">request object data</param>
+        /// <returns>data of type T</returns>
+        public static Task<TResponse> RestPostAsync<TRequest, TResponse>(this IWebApiClient client, string action, TRequest request)
+            where TResponse : new()
+        {
+            Arguments.NotNull(client, nameof(client));
+
+#pragma warning disable CA1062 // Validate arguments of public methods
+            var uri = client.Configuration.BaseUri.Append(action);
+#pragma warning restore CA1062 // Validate arguments of public methods
+
+            return client.PostAsync<TRequest, TResponse>(uri, request);
+        }
+    }
+}
