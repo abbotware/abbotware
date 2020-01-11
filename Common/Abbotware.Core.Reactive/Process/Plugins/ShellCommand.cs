@@ -108,9 +108,11 @@ namespace Abbotware.Core.Process.Plugins
                 process.StartInfo.ErrorDialog = false;
                 process.StartInfo.UseShellExecute = false;
                 process.StartInfo.CreateNoWindow = true;
+                process.StartInfo.LoadUserProfile = false;
 
                 process.StartInfo.RedirectStandardOutput = true;
                 process.StartInfo.RedirectStandardError = true;
+                process.StartInfo.RedirectStandardInput = true;
                 process.EnableRaisingEvents = true;
 
                 process.OutputDataReceived += (s, e) =>

@@ -136,9 +136,9 @@ namespace Abbotware.Core
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Within(long argument, long min, long max, string name, [CallerMemberName] string? method = null)
         {
-            var floor = Math.Min(max, min);
+            var floor = global::System.Math.Min(max, min);
 
-            var ceiling = Math.Max(max, min);
+            var ceiling = global::System.Math.Max(max, min);
 
             if (argument > ceiling)
             {
