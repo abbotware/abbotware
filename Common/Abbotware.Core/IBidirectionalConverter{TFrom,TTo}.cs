@@ -14,13 +14,17 @@ namespace Abbotware.Core
     public interface IBidirectionalConverter<TFrom, TTo>
     {
         /// <summary>
-        /// Gets the From -> To Converter
+        /// Converts TFrom to TTo
         /// </summary>
-        IConverter<TFrom, TTo> Forward { get; }
+        /// <param name="input">input</param>
+        /// <returns>converted</returns>
+        TTo Convert(TFrom input);
 
         /// <summary>
-        /// Gets the To -> From Converter
+        /// Converts TTo to TFrom
         /// </summary>
-        IConverter<TTo, TFrom> Reverse { get; }
+        /// <param name="input">input</param>
+        /// <returns>converted</returns>
+        TFrom Convert(TTo input);
     }
 }
