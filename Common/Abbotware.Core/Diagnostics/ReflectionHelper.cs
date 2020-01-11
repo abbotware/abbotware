@@ -130,7 +130,6 @@ namespace Abbotware.Core.Diagnostics
         /// <typeparam name="TClass">class type</typeparam>
         /// <param name="bindings">optional binding flags (default is public)</param>
         /// <returns>list of property names</returns>
-        [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "this is intended")]
         public static IEnumerable<string> PropertyNames<TClass>(BindingFlags bindings)
         {
             var properties = typeof(TClass).GetProperties(bindings);
@@ -143,7 +142,6 @@ namespace Abbotware.Core.Diagnostics
         /// </summary>
         /// <typeparam name="TClass">class type</typeparam>
         /// <returns>list of property names</returns>
-        [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "this is intended")]
         public static IEnumerable<string> PropertyNames<TClass>()
         {
             return ReflectionHelper.PropertyNames<TClass>(BindingFlags.Public | BindingFlags.Instance);
@@ -154,7 +152,6 @@ namespace Abbotware.Core.Diagnostics
         /// </summary>
         /// <typeparam name="TClass">class type</typeparam>
         /// <returns>list of property info</returns>
-        [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "designed as a helper class")]
         public static IEnumerable<PropertyInfo> Properties<TClass>()
         {
             return ReflectionHelper.Properties<TClass>(BindingFlags.Public | BindingFlags.Instance);
@@ -166,7 +163,6 @@ namespace Abbotware.Core.Diagnostics
         /// <typeparam name="TClass">class type</typeparam>
         /// <param name="instance">instance of class to flatten</param>
         /// <returns>list of property info</returns>
-        [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "designed as a helper class")]
         public static IReadOnlyDictionary<string, object?> Flatten<TClass>(TClass instance)
         {
             return Flatten(instance, Enumerable.Empty<string>());
@@ -179,7 +175,6 @@ namespace Abbotware.Core.Diagnostics
         /// <param name="instance">instance of class to flatten</param>
         /// <param name="ignore">list of properties to ignore</param>
         /// <returns>list of property info</returns>
-        [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "designed as a helper class")]
         public static IReadOnlyDictionary<string, object?> Flatten<TClass>(TClass instance, IEnumerable<string> ignore)
         {
             var values = new Dictionary<string, object?>();
@@ -212,7 +207,6 @@ namespace Abbotware.Core.Diagnostics
         /// </summary>
         /// <typeparam name="TClass">class type</typeparam>
         /// <returns>list of property names</returns>
-        [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "this is intended")]
         public static IEnumerable<string> GetSimplePropertyNames<TClass>()
         {
             var properties = ReflectionHelper.GetSimpleProperties<TClass>();
@@ -225,7 +219,6 @@ namespace Abbotware.Core.Diagnostics
         /// </summary>
         /// <typeparam name="TClass">class type</typeparam>
         /// <returns>list of property info</returns>
-        [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "this is intended")]
         public static IEnumerable<PropertyInfo> GetSimpleProperties<TClass>()
         {
             var properties = typeof(TClass).GetProperties();
@@ -259,7 +252,6 @@ namespace Abbotware.Core.Diagnostics
         /// <typeparam name="TClass">class type</typeparam>
         /// <param name="bindings">optional binding flags (default is public)</param>
         /// <returns>list of property names</returns>
-        [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "designed as a helper class")]
         public static IEnumerable<PropertyInfo> Properties<TClass>(BindingFlags bindings)
         {
             var t = typeof(TClass);

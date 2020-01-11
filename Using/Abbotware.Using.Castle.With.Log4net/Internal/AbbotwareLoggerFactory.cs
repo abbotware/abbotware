@@ -135,9 +135,6 @@ namespace Abbotware.Using.Castle.Internal
         /// <param name="name">Name of logger</param>
         /// <param name="level">level of logger</param>
         /// <returns>new logger</returns>
-        [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "name", Justification = "as per castle's logger factory")]
-        [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "level", Justification = "as per castle's logger factory")]
-        [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic", Justification = "as per castle's logger factory")]
         public AbbotwareILoggerV2 Create(string name, LoggerLevel level)
         {
             throw new NotSupportedException($"Logger levels cannot be set at runtime. Please review your configuration file. name:{name} level:{level}");
@@ -161,9 +158,6 @@ namespace Abbotware.Using.Castle.Internal
         /// <param name="type">type to create logger as</param>
         /// <param name="level">level of logger</param>
         /// <returns>new logger</returns>
-        [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "type", Justification = "as per castle's logger factory")]
-        [SuppressMessage("Microsoft.Usage", "CA1801:ReviewUnusedParameters", MessageId = "level", Justification = "as per castle's logger factory")]
-        [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic", Justification = "as per castle's logger factory")]
         public virtual AbbotwareILoggerV2 Create(Type type, LoggerLevel level)
         {
             throw new NotSupportedException("Logger levels cannot be set at runtime. Please review your configuration file.");

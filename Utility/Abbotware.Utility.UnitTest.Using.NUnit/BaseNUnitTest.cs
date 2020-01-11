@@ -93,7 +93,6 @@ namespace Abbotware.Utility.UnitTest.Using.NUnit
         ///     Hook to install custom installers for this unit test container class
         /// </summary>
         /// <param name="container">container to install with installers</param>
-        [SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", MessageId = "0", Justification = "Code Contracts in base should handle this")]
         protected virtual void OnInstall(IWindsorContainer container)
         {
         }

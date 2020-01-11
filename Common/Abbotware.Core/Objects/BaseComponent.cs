@@ -74,20 +74,9 @@ namespace Abbotware.Core.Objects
         /// <summary>
         ///     Finalizes an instance of the <see cref="BaseComponent" /> class.
         /// </summary>
-        [SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "Abbotware.Core.BaseDisposableObject.OnLogIfAvailable(System.String)", Justification = "logging message")]
-        [SuppressMessage("Microsoft.Design", "CA1063:ImplementIDisposableCorrectly", Justification = "BaseDisposableObject is a special class for implementing dispose")]
         [ExcludeFromCodeCoverage]
         ~BaseComponent()
         {
-#if !DEBUG
-            var str = string.Format(CultureInfo.InvariantCulture, "this object:{0} was not disposed! Allocation Stack:(Not Available in Release build)", this.GetType());
-#else
-            var str = string.Format(CultureInfo.InvariantCulture, "this object:{0} was allocated here:{1} and should be disposed instead of finalized", this.GetType(), this.debugCallStack);
-#endif
-            Debug.WriteLine(str);
-
-            this.Logger?.Warn(str);
-
             this.Dispose(false);
         }
 
@@ -234,6 +223,19 @@ namespace Abbotware.Core.Objects
 
             try
             {
+                // called by the finalizer
+                if (!disposing)
+                {
+#if !DEBUG
+                    var str = string.Format(CultureInfo.InvariantCulture, "this object:{0} was not disposed! Allocation Stack:(Not Available in Release build)", this.GetType());
+#else
+                    var str = string.Format(CultureInfo.InvariantCulture, "this object:{0} was allocated here:{1} and should be disposed instead of finalized", this.GetType(), this.debugCallStack);
+#endif
+                    Debug.WriteLine(str);
+
+                    this.Logger?.Warn(str);
+                }
+
                 if (disposing)
                 {
                     this.OnDisposeManagedResources();

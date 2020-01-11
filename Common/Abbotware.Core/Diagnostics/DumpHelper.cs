@@ -85,7 +85,6 @@ namespace Abbotware.Core.Diagnostics
         ///     writes/walks the element's name/header into a context
         /// </summary>
         /// <param name="context">current dump context</param>
-        [SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "Abbotware.Core.Diagnostics.DumperContext.AppendFormat(System.IFormatProvider,System.String,System.Object[])", Justification = "used for diagnostic messages")]
         private static void WriteHeader(DumperContext context)
         {
             Arguments.NotNull(context, nameof(context));
@@ -98,7 +97,6 @@ namespace Abbotware.Core.Diagnostics
         /// </summary>
         /// <param name="element">element to write/walk</param>
         /// <param name="context">current dump context</param>
-        [SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "Abbotware.Core.Diagnostics.DumperContext.Append(System.String)", Justification = "used for diagnostic messages")]
         private static void WriteValue(object element, DumperContext context)
         {
             Arguments.NotNull(context, nameof(context));

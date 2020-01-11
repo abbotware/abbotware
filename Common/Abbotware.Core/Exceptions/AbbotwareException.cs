@@ -15,7 +15,6 @@ namespace Abbotware.Core.Exceptions
     /// <summary>
     ///     Base Exception class for all Abbotware thrown exceptions
     /// </summary>
-    [SuppressMessage("Microsoft.Design", "CA1032:ImplementStandardExceptionConstructors", Justification = "favoring exception string formatting over the convention")]
     [Serializable]
     public class AbbotwareException : Exception
     {
@@ -34,6 +33,16 @@ namespace Abbotware.Core.Exceptions
             : base(message)
         {
             Arguments.NotNullOrWhitespace(message, nameof(message));
+        }
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="AbbotwareException" /> class.
+        /// </summary>
+        /// <param name="message">exception message</param>
+        /// <param name="innerException">inner exception</param>
+        public AbbotwareException(string message, Exception innerException)
+            : base(message, innerException)
+        {
         }
 
         /// <summary>
