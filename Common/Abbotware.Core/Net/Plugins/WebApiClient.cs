@@ -189,12 +189,10 @@ namespace Abbotware.Core.Net.Plugins
         /// <returns>desrialized object</returns>
         protected virtual async Task<TResponse> OnCreateResponseAsync<TResponse>(HttpResponseMessage response)
         {
-            Arguments.NotNull(response, nameof(response));
+            response = Arguments.EnsureNotNull(response, nameof(response));
 
-#pragma warning disable CA1062 // Validate arguments of public methods
             var content = await response.Content.ReadAsStringAsync()
                 .ConfigureAwait(false);
-#pragma warning restore CA1062 // Validate arguments of public methods
 
             if (typeof(TResponse) == typeof(string))
             {

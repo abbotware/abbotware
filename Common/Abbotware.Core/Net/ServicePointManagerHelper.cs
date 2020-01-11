@@ -22,11 +22,9 @@ namespace Abbotware.Core.Net
         /// <param name="config">configuration class</param>
         public static void Configure(IServicePointManagerConfiguration config)
         {
-            Arguments.NotNull(config, nameof(config));
+            config = Arguments.EnsureNotNull(config, nameof(config));
 
-#pragma warning disable CA1062 // Validate arguments of public methods
             if (config.ReusePort.HasValue)
-#pragma warning restore CA1062 // Validate arguments of public methods
             {
                 ServicePointManager.ReusePort = config.ReusePort.Value;
             }

@@ -71,12 +71,10 @@ namespace Abbotware.Core.Net
             TimeSpan timeout,
             CancellationToken cancellationToken)
         {
-            Arguments.NotNull(client, nameof(client));
+            client = Arguments.EnsureNotNull(client, nameof(client));
             Arguments.NotNull(uri, nameof(uri));
 
-#pragma warning disable CA1062 // Validate arguments of public methods
             client.DeleteAsync(uri, cancellationToken).Wait(timeout);
-#pragma warning restore CA1062 // Validate arguments of public methods
         }
 
         /// <summary>
@@ -142,12 +140,10 @@ namespace Abbotware.Core.Net
             TimeSpan timeout,
             CancellationToken cancellationToken)
         {
-            Arguments.NotNull(client, nameof(client));
+            client = Arguments.EnsureNotNull(client, nameof(client));
             Arguments.NotNull(uri, nameof(uri));
 
-#pragma warning disable CA1062 // Validate arguments of public methods
             var task = client.DeleteAsync<TResponse>(uri, cancellationToken);
-#pragma warning restore CA1062 // Validate arguments of public methods
 
             task.Wait(timeout);
 
@@ -221,12 +217,10 @@ namespace Abbotware.Core.Net
             TimeSpan timeout,
             CancellationToken cancellationToken)
         {
-            Arguments.NotNull(client, nameof(client));
+            client = Arguments.EnsureNotNull(client, nameof(client));
             Arguments.NotNull(uri, nameof(uri));
 
-#pragma warning disable CA1062 // Validate arguments of public methods
             var task = client.GetAsync<TResponse>(uri, cancellationToken);
-#pragma warning restore CA1062 // Validate arguments of public methods
 
             task.Wait(timeout);
 
@@ -306,12 +300,10 @@ namespace Abbotware.Core.Net
             TimeSpan timeout,
             CancellationToken cancellationToken)
         {
-            Arguments.NotNull(client, nameof(client));
+            client = Arguments.EnsureNotNull(client, nameof(client));
             Arguments.NotNull(uri, nameof(uri));
 
-#pragma warning disable CA1062 // Validate arguments of public methods
             var task = client.PostAsync<TRequest, TResponse>(uri, request, cancellationToken);
-#pragma warning restore CA1062 // Validate arguments of public methods
 
             task.Wait(timeout);
 
@@ -329,12 +321,10 @@ namespace Abbotware.Core.Net
         public static Task<TResponse> RestGetAsync<TResponse>(this IWebApiClient client, string action, string id)
             where TResponse : new()
         {
-            Arguments.NotNull(client, nameof(client));
-            Arguments.NotNull(id, nameof(id));
+            client = Arguments.EnsureNotNull(client, nameof(client));
+            id = Arguments.EnsureNotNull(id, nameof(id));
 
-#pragma warning disable CA1062 // Validate arguments of public methods
             var uri = client.Configuration.BaseUri.Append(action, id.ToString(CultureInfo.InvariantCulture));
-#pragma warning restore CA1062 // Validate arguments of public methods
 
             return client.GetAsync<TResponse>(uri);
         }
@@ -351,11 +341,9 @@ namespace Abbotware.Core.Net
         public static Task<TResponse> RestPostAsync<TRequest, TResponse>(this IWebApiClient client, string action, TRequest request)
             where TResponse : new()
         {
-            Arguments.NotNull(client, nameof(client));
+            client = Arguments.EnsureNotNull(client, nameof(client));
 
-#pragma warning disable CA1062 // Validate arguments of public methods
             var uri = client.Configuration.BaseUri.Append(action);
-#pragma warning restore CA1062 // Validate arguments of public methods
 
             return client.PostAsync<TRequest, TResponse>(uri, request);
         }

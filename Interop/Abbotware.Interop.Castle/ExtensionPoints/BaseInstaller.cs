@@ -46,7 +46,6 @@ namespace Abbotware.Interop.Castle.ExtensionPoints
         /// </summary>
         /// <param name="container">The container</param>
         /// <param name="store"> The configuration store</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", MessageId = "PreInstall", Justification ="PreInstall matches with PostInstall")]
         protected virtual void OnPreInstall(IWindsorContainer container, IConfigurationStore store)
         {
         }
