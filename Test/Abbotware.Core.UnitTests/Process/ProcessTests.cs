@@ -70,7 +70,7 @@ namespace Abbotware.UnitTests.Core
 
         [Test]
         [MaxTime(10000)]
-        public void ShellCommand_Ping_ExecuteAsync_Kill()
+        public async Task ShellCommand_Ping_ExecuteAsync_Kill()
         {
             IShellCommandResult result = null;
 
@@ -79,7 +79,7 @@ namespace Abbotware.UnitTests.Core
 
             using (var child = new ShellCommand(cfg, this.Logger))
             {
-                result = child.Execute();
+                result = await child.ExecuteAsync();
 
                 Assert.IsTrue(result.StartInfo.Started);
                 Assert.IsTrue(result.StartInfo.ProcessId > 0);
@@ -89,6 +89,8 @@ namespace Abbotware.UnitTests.Core
 
                 Assert.IsTrue(child.Started.IsCompleted);
             }
+
+            await Task.Delay(1000);
 
             try
             {
