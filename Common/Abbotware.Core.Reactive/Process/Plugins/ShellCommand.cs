@@ -12,6 +12,7 @@ namespace Abbotware.Core.Process.Plugins
     using System.Reactive.Subjects;
     using System.Threading.Tasks;
     using Abbotware.Core.Extensions;
+    using Abbotware.Core.Helpers;
     using Abbotware.Core.Logging;
     using Abbotware.Core.Objects;
     using Abbotware.Core.Process.Configuration;
@@ -108,7 +109,11 @@ namespace Abbotware.Core.Process.Plugins
                 process.StartInfo.ErrorDialog = false;
                 process.StartInfo.UseShellExecute = false;
                 process.StartInfo.CreateNoWindow = true;
-                process.StartInfo.LoadUserProfile = false;
+
+                if (!OperatingSystemHelper.IsUnix)
+                {
+                    process.StartInfo.LoadUserProfile = false;
+                }
 
                 process.StartInfo.RedirectStandardOutput = true;
                 process.StartInfo.RedirectStandardError = true;
