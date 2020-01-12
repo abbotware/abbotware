@@ -8,7 +8,6 @@
 namespace Abbotware.Core.Helpers
 {
     using System;
-    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Net;
     using System.Net.NetworkInformation;

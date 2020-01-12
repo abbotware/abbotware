@@ -110,7 +110,7 @@ namespace Abbotware.Core.Process.Plugins
                 process.StartInfo.UseShellExecute = false;
                 process.StartInfo.CreateNoWindow = true;
 
-                if (!OperatingSystemHelper.IsUnix)
+                if (!PlatformHelper.IsUnix)
                 {
                     process.StartInfo.LoadUserProfile = false;
                 }

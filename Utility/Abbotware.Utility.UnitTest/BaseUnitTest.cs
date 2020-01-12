@@ -86,7 +86,7 @@ namespace Abbotware.Utility.UnitTest
         /// <returns>true if linux</returns>
         protected static bool IsLinux()
         {
-            return OperatingSystemHelper.IsUnix;
+            return PlatformHelper.IsUnix;
         }
 
         /// <summary>

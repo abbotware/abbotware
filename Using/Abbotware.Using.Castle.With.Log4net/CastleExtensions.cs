@@ -36,7 +36,7 @@ namespace Abbotware.Using.Castle
         {
             get
             {
-                if (OperatingSystemHelper.IsUnix)
+                if (PlatformHelper.IsUnix)
                 {
                     return DefaultLinuxLogConfigFile;
                 }

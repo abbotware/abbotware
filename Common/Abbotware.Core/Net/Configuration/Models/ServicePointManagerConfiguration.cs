@@ -117,7 +117,7 @@ namespace Abbotware.Core.Net.Configuration.Models
 #pragma warning restore CA5359 // Do Not Disable Certificate Validation
 #endif
 
-            if (!OperatingSystemHelper.IsUnix)
+            if (!PlatformHelper.IsUnix)
             {
                 cfg.ReusePort = true;
                 cfg.EnableDnsRoundRobin = false;

@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="OperatingSystemHelper.cs" company="Abbotware, LLC">
+// <copyright file="PlatformHelper.cs" company="Abbotware, LLC">
 // Copyright © Abbotware, LLC 2012-2020. All rights reserved
 // </copyright>
 // -----------------------------------------------------------------------
@@ -12,7 +12,7 @@ namespace Abbotware.Core.Helpers
     /// <summary>
     ///     Helper methods for operating system
     /// </summary>
-    public static class OperatingSystemHelper
+    public static class PlatformHelper
     {
         /// <summary>
         ///     Gets a value indicating whether the operating system is linux
