@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="BulkInsertConfiguration.cs" company="Abbotware, LLC">
+// <copyright file="BulkInsertOptions.cs" company="Abbotware, LLC">
 // Copyright © Abbotware, LLC 2012-2020. All rights reserved
 // </copyright>
 // -----------------------------------------------------------------------
@@ -17,14 +17,14 @@ namespace Abbotware.Data.Configuration.Models
     /// <summary>
     ///     Configuration class for BulkInsert
     /// </summary>
-    public class BulkInsertConfiguration : BaseConfiguration, IBulkInsertConfiguration
+    public class BulkInsertOptions : BaseOptions, IBulkInsertOptions
     {
         /// <summary>
-        ///     Initializes a new instance of the <see cref="BulkInsertConfiguration" /> class.
+        ///     Initializes a new instance of the <see cref="BulkInsertOptions" /> class.
         /// </summary>
         /// <param name="tableInfo"> Destination schema name</param>
         /// <param name="sqlConnectionConfiguration">sql database configuration</param>
-        public BulkInsertConfiguration(TableAttribute tableInfo, ISqlConnectionOptions sqlConnectionConfiguration)
+        public BulkInsertOptions(TableAttribute tableInfo, ISqlConnectionOptions sqlConnectionConfiguration)
         {
             tableInfo = Arguments.EnsureNotNull(tableInfo, nameof(tableInfo));
             Arguments.NotNull(sqlConnectionConfiguration, nameof(sqlConnectionConfiguration));
@@ -32,15 +32,16 @@ namespace Abbotware.Data.Configuration.Models
             this.SqlConnection = sqlConnectionConfiguration;
             this.DestinationSchemaName = tableInfo.Schema;
             this.DestinationTableName = tableInfo.Name;
+            this.LogOptions = true;
         }
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="BulkInsertConfiguration" /> class.
+        ///     Initializes a new instance of the <see cref="BulkInsertOptions" /> class.
         /// </summary>
         /// <param name="schemaName"> Destination schema name</param>
         /// <param name="tableName"> Destination tchema name</param>
         /// <param name="sqlConnectionConfiguration">sql database configuration</param>
-        public BulkInsertConfiguration(string schemaName, string tableName, ISqlConnectionOptions sqlConnectionConfiguration)
+        public BulkInsertOptions(string schemaName, string tableName, ISqlConnectionOptions sqlConnectionConfiguration)
         {
             this.SqlConnection = sqlConnectionConfiguration;
             this.DestinationSchemaName = schemaName;

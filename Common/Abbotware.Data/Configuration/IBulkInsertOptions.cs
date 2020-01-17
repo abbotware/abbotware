@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IBulkInsertConfiguration.cs" company="Abbotware, LLC">
+// <copyright file="IBulkInsertOptions.cs" company="Abbotware, LLC">
 // Copyright © Abbotware, LLC 2012-2020. All rights reserved
 // </copyright>
 // -----------------------------------------------------------------------
@@ -13,7 +13,7 @@ namespace Abbotware.Data.Configuration
     /// <summary>
     /// Bulk Insert configuration
     /// </summary>
-    public interface IBulkInsertConfiguration
+    public interface IBulkInsertOptions
     {
         /// <summary>
         ///     Gets the Flags that specify SqlBulkCopyOptions

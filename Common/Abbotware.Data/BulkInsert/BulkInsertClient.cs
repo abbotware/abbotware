@@ -18,14 +18,14 @@ namespace Abbotware.Data.BulkInsert
     /// <summary>
     ///     Class that perform SQL bulk inserts
     /// </summary>
-    public class BulkInsertClient : BaseComponent<IBulkInsertConfiguration>
+    public class BulkInsertClient : BaseComponent<IBulkInsertOptions>
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="BulkInsertClient" /> class.
         /// </summary>
         /// <param name="configuration">configuration for class</param>
         /// <param name="logger">injected logger</param>
-        public BulkInsertClient(IBulkInsertConfiguration configuration, ILogger logger)
+        public BulkInsertClient(IBulkInsertOptions configuration, ILogger logger)
             : base(configuration, logger)
         {
             Arguments.NotNull(configuration, nameof(configuration));
