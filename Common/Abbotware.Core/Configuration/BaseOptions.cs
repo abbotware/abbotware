@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IConfiguration.cs" company="Abbotware, LLC">
+// <copyright file="BaseOptions.cs" company="Abbotware, LLC">
 // Copyright © Abbotware, LLC 2012-2020. All rights reserved
 // </copyright>
 // -----------------------------------------------------------------------
@@ -8,13 +8,13 @@
 namespace Abbotware.Core.Configuration
 {
     /// <summary>
-    ///     Manager configuration
+    ///   base options class for component{TConfiguration} objects
     /// </summary>
-    public interface IConfiguration
+    public abstract class BaseOptions
     {
         /// <summary>
-        ///     Gets a value indicating whether or not the configuration should be logged
+        /// Gets or sets a value indicating whether the options should be logged
         /// </summary>
-        bool LogConfigurationValues { get; }
+        public bool LogOptions { get; set; }
     }
 }
