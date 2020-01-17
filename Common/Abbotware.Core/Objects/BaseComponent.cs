@@ -112,7 +112,6 @@ namespace Abbotware.Core.Objects
         /// </summary>
         public void Dispose()
         {
-            // Ok to lock in Dispose(), this is not called by the finalizer
             this.Dispose(true);
             GC.SuppressFinalize(this);
         }
@@ -163,6 +162,8 @@ namespace Abbotware.Core.Objects
 
                 try
                 {
+                    this.Logger.Debug($"Initializing:{this.GetType().Name}");
+
                     this.OnInitialize();
                 }
                 catch (Exception)
