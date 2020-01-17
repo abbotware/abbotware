@@ -19,8 +19,10 @@ namespace Abbotware.Core.Objects.Configuration.Models
         /// </summary>
         /// <param name="endpoint">connection endpoint</param>
         public ConnectionOptions(Uri endpoint)
-            : this(endpoint, null)
         {
+            endpoint = Arguments.EnsureNotNull(endpoint, nameof(endpoint));
+
+            this.Endpoint = endpoint;
         }
 
         /// <summary>
@@ -28,18 +30,19 @@ namespace Abbotware.Core.Objects.Configuration.Models
         /// </summary>
         /// <param name="endpoint">connection endpoint</param>
         /// <param name="credential">optional connection credentials</param>
-        public ConnectionOptions(Uri endpoint, NetworkCredential? credential)
+        public ConnectionOptions(Uri endpoint, NetworkCredential credential)
         {
             endpoint = Arguments.EnsureNotNull(endpoint, nameof(endpoint));
+            credential = Arguments.EnsureNotNull(credential, nameof(credential));
 
             this.Endpoint = endpoint;
             this.Credential = credential;
         }
 
         /// <inheritdoc/>
-        public Uri Endpoint { get; }
+        public Uri Endpoint { get; set; }
 
         /// <inheritdoc/>
-        public NetworkCredential? Credential { get; }
+        public NetworkCredential? Credential { get; set; }
     }
 }
