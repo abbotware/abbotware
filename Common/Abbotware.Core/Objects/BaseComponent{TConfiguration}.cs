@@ -7,6 +7,9 @@
 
 namespace Abbotware.Core.Objects
 {
+    using Abbotware.Core.Configuration;
+    using Abbotware.Core.Diagnostics;
+    using Abbotware.Core.Extensions;
     using Abbotware.Core.Logging;
 
     /// <summary>
@@ -25,11 +28,32 @@ namespace Abbotware.Core.Objects
             : base(logger)
         {
             this.Configuration = Arguments.EnsureNotNull(configuration, nameof(configuration));
+
+            this.LogConfiguration();
         }
 
         /// <summary>
         /// Gets the configuration for the component
         /// </summary>
         public TConfiguration Configuration { get; }
+
+        private void LogConfiguration()
+        {
+            var logConfig = ReflectionHelper.GetPropertyValueAsStruct<bool>(this.Configuration, nameof(BaseOptions.LogOptions));
+
+            if (!logConfig.HasValue)
+            {
+                return;
+            }
+
+            if (!logConfig.Value)
+            {
+                return;
+            }
+
+            var cfg = this.Configuration.Dump(1);
+
+            this.Logger.Debug(cfg);
+        }
     }
 }
