@@ -11,7 +11,6 @@ namespace Abbotware.Core.Diagnostics
     using System.Collections;
     using System.Collections.Generic;
     using System.Diagnostics;
-    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Linq;
     using System.Reflection;
@@ -118,10 +117,12 @@ namespace Abbotware.Core.Diagnostics
         {
             source = Arguments.EnsureNotNull(source, nameof(source));
 
-            var property = source.GetType()
-                .GetProperty(propertyName);
+            if (!TryGetPropertyValue(source, propertyName, out var val))
+            {
+                return null;
+            }
 
-            return (T?)property.GetValue(source, null);
+            return (T?)val;
         }
 
         /// <summary>
@@ -131,15 +132,17 @@ namespace Abbotware.Core.Diagnostics
         /// <param name="source">object</param>
         /// <param name="propertyName">property name</param>
         /// <returns>value</returns>
-        public static T? GetCPropertyValueAsClass<T>(object source, string propertyName)
+        public static T? GetPropertyValueAsClass<T>(object source, string propertyName)
             where T : class
         {
             source = Arguments.EnsureNotNull(source, nameof(source));
 
-            var property = source.GetType()
-                .GetProperty(propertyName);
+            if (!TryGetPropertyValue(source, propertyName, out var val))
+            {
+                return null;
+            }
 
-            return (T?)property.GetValue(source, null);
+            return (T?)val;
         }
 
         /// <summary>
@@ -473,6 +476,28 @@ namespace Abbotware.Core.Diagnostics
             }
 
             return result;
+        }
+
+        private static bool TryGetPropertyValue(object source, string propertyName, out object? value)
+        {
+            value = null;
+
+            var property = source.GetType()
+                .GetProperty(propertyName);
+
+            if (property == null)
+            {
+                return false;
+            }
+
+            value = property.GetValue(source, null);
+
+            if (value == null)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }
