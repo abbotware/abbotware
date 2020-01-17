@@ -4,15 +4,18 @@
 
 Collection of many utility classes, interfaces, extension methods that have been accumulated over the years. 
 
+* Designed to be DI friendly and contiainer agnostic
 * .NetStandard 2.0 and 2.1 compatible
 * uses nullable checks via C# 8.0
 * Code Coverage via Coverlet
 * Coverage Report aggreagation via ReportGenerator
 
-### Abbotware.Interop.* 
-These assemblies contain interop/wrapper classes around various thirdparty libraries to encapsulate initialization and logic.   
 
+### Abbotware.Interop.{Library} 
+These assemblies contain interop/wrapper classes around various thirdparty libraries to encapsulate initialization and logic.  Somtimes the are abstracted away as via interfaces  
 
+### Abbotware.{Feature}.Using.{Container} 
+These assemblies contain fluent api / builder syntax to help a **feature** be registered wuth a specific **container**.  O
 
 # Base Objects
 
