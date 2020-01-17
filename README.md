@@ -1,7 +1,4 @@
 # abbotware
-
-### Abbotware.Core
-
 Collection of many utility classes, interfaces, extension methods that have been accumulated over the years. 
 
 * Designed to be DI friendly and contiainer agnostic
@@ -9,6 +6,9 @@ Collection of many utility classes, interfaces, extension methods that have been
 * uses nullable checks via C# 8.0
 * Code Coverage via Coverlet
 * Coverage Report aggreagation via ReportGenerator
+
+### Abbotware.Core
+This assembly has no dependencies on any other nugets other than the .Net Standard
 
 ### Abbotware.Interop.{Library} 
 These assemblies contain interop/wrapper classes around various thirdparty libraries to encapsulate initialization and logic.  Somtimes the are abstracted away as via interfaces  
