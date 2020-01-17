@@ -19,7 +19,7 @@ namespace Abbotware.Core.Net.Plugins
     /// <summary>
     ///     Web Api Client
     /// </summary>
-    public class WebApiClient : BaseComponent<IWebApiClientConfiguration>, IWebApiClient
+    public class WebApiClient : BaseComponent<IWebApiClientOptions>, IWebApiClient
     {
         private readonly HttpClient httpClient = new HttpClient();
 
@@ -28,7 +28,7 @@ namespace Abbotware.Core.Net.Plugins
         /// </summary>
         /// <param name="configuration">configuration</param>
         /// <param name="logger">injected logger</param>
-        public WebApiClient(IWebApiClientConfiguration configuration, ILogger logger)
+        public WebApiClient(IWebApiClientOptions configuration, ILogger logger)
             : base(configuration, logger)
         {
             this.httpClient.Timeout = this.Configuration.RequestTimeout;

@@ -20,7 +20,7 @@ namespace Abbotware.Core.Net
         /// Configures the service point manager
         /// </summary>
         /// <param name="config">configuration class</param>
-        public static void Configure(IServicePointManagerConfiguration config)
+        public static void Configure(IServicePointManagerOptions config)
         {
             config = Arguments.EnsureNotNull(config, nameof(config));
 

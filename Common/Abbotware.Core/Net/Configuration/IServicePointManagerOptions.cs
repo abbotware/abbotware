@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IServicePointManagerConfiguration.cs" company="Abbotware, LLC">
+// <copyright file="IServicePointManagerOptions.cs" company="Abbotware, LLC">
 // Copyright © Abbotware, LLC 2012-2020. All rights reserved
 // </copyright>
 // -----------------------------------------------------------------------
@@ -14,7 +14,7 @@ namespace Abbotware.Core.Net.Configuration
     /// <summary>
     /// Readonly Configuration interface that encapsulates the settable properties on the ServicePointManager
     /// </summary>
-    public interface IServicePointManagerConfiguration
+    public interface IServicePointManagerOptions
     {
         /// <summary>
         /// Gets the ServicePointManager config value

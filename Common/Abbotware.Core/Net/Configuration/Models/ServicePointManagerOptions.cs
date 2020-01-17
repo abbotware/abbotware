@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="ServicePointManagerConfiguration.cs" company="Abbotware, LLC">
+// <copyright file="ServicePointManagerOptions.cs" company="Abbotware, LLC">
 // Copyright © Abbotware, LLC 2012-2020. All rights reserved
 // </copyright>
 // -----------------------------------------------------------------------
@@ -15,7 +15,7 @@ namespace Abbotware.Core.Net.Configuration.Models
     /// <summary>
     /// Configuration that encapsulates the settable properties on the ServicePointManager
     /// </summary>
-    public class ServicePointManagerConfiguration : IServicePointManagerConfiguration
+    public class ServicePointManagerOptions : IServicePointManagerOptions
     {
         /// <summary>
         /// Gets or sets the ServicePointManager config value
@@ -93,9 +93,9 @@ namespace Abbotware.Core.Net.Configuration.Models
         /// Creates the legacy values for the service point manager
         /// </summary>
         /// <returns>config object</returns>
-        public static ServicePointManagerConfiguration CreateDefault()
+        public static ServicePointManagerOptions CreateDefault()
         {
-            var cfg = new ServicePointManagerConfiguration()
+            var cfg = new ServicePointManagerOptions()
             {
                 Expect100Continue = false,
                 UseNagleAlgorithm = false,

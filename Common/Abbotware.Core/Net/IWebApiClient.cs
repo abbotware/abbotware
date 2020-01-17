@@ -20,7 +20,7 @@ namespace Abbotware.Core.Net
         /// <summary>
         /// Gets the config
         /// </summary>
-        IWebApiClientConfiguration Configuration { get; }
+        IWebApiClientOptions Configuration { get; }
 
         /// <summary>
         /// performs an HTTP Delete

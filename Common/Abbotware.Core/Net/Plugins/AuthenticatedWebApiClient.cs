@@ -25,7 +25,7 @@ namespace Abbotware.Core.Net.Plugins
         /// <param name="secret">secret</param>
         /// <param name="configuration">configuration</param>
         /// <param name="logger">injected logger</param>
-        public AuthenticatedWebApiClient(string secret, IWebApiClientConfiguration configuration, ILogger logger)
+        public AuthenticatedWebApiClient(string secret, IWebApiClientOptions configuration, ILogger logger)
             : base(configuration, logger)
         {
             this.secret = secret;

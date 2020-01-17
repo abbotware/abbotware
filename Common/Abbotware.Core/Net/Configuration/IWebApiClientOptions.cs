@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IWebApiClientConfiguration.cs" company="Abbotware, LLC">
+// <copyright file="IWebApiClientOptions.cs" company="Abbotware, LLC">
 // Copyright © Abbotware, LLC 2012-2020. All rights reserved
 // </copyright>
 // -----------------------------------------------------------------------
@@ -13,7 +13,7 @@ namespace Abbotware.Core.Net
     /// <summary>
     /// Readonly Interface for the Web API Configuration class
     /// </summary>
-    public interface IWebApiClientConfiguration
+    public interface IWebApiClientOptions
     {
         /// <summary>
         /// Gets the Request Timeout
