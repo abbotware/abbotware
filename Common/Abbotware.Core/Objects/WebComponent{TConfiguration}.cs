@@ -16,7 +16,7 @@ namespace Abbotware.Core.Objects
     /// </summary>
     /// <typeparam name="TConfiguration">configuration</typeparam>
     public abstract class WebComponent<TConfiguration> : BaseComponent<TConfiguration>
-        where TConfiguration : class, IWebApiClientConfiguration
+        where TConfiguration : class, IWebApiClientOptions
     {
         private IWebApiClient? client;
 

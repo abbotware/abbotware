@@ -16,7 +16,7 @@ namespace Abbotware.Core.Objects
     /// </summary>
     /// <typeparam name="TConfiguration">configuration</typeparam>
     public abstract class AuthenticatedWebComponent<TConfiguration> : WebComponent<TConfiguration>
-        where TConfiguration : class, IWebApiClientConfiguration
+        where TConfiguration : class, IWebApiClientOptions
     {
         private readonly string secret;
 
