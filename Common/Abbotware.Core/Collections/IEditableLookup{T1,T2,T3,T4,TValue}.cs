@@ -8,7 +8,7 @@
 namespace Abbotware.Core.Collections
 {
     /// <summary>
-    ///     Interface for an editable 6-key/level look up structure
+    ///     Interface for an editable 4-key/level look up structure
     /// </summary>
     /// <typeparam name="T1">key for level 1</typeparam>
     /// <typeparam name="T2">key for level 2</typeparam>

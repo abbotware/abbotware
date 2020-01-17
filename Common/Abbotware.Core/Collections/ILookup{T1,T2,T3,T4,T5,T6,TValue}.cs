@@ -8,7 +8,6 @@
 namespace Abbotware.Core.Collections
 {
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
     ///     Interface for a readonly 6-key/level look up structure

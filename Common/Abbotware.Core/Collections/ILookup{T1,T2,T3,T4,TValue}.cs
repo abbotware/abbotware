@@ -10,7 +10,7 @@ namespace Abbotware.Core.Collections
     using System.Collections.Generic;
 
     /// <summary>
-    ///     Interface for a readonly 6-key/level look up structure
+    ///     Interface for a readonly 4-key/level look up structure
     /// </summary>
     /// <typeparam name="T1">key for level 1</typeparam>
     /// <typeparam name="T2">key for level 2</typeparam>
