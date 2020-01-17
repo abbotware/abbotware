@@ -10,12 +10,18 @@ Collection of many utility classes, interfaces, extension methods that have been
 * Code Coverage via Coverlet
 * Coverage Report aggreagation via ReportGenerator
 
-
 ### Abbotware.Interop.{Library} 
 These assemblies contain interop/wrapper classes around various thirdparty libraries to encapsulate initialization and logic.  Somtimes the are abstracted away as via interfaces  
 
+### Abbotware.{Feature}
+These assemblies contain feature/modules that group a common area. Sometimes these are biased towards a specific implementation and may link to specific Interop assemblies creating an external dependency.  
+Example.  `Abbotware.Data` is heavily biased towards SQL Server and Entity Framework and depends on `Abbotware.Interop.EntityFramework`
+
+
+
 ### Abbotware.{Feature}.Using.{Container} 
-These assemblies contain fluent api / builder syntax to help a **feature** be registered wuth a specific **container**.  O
+These assemblies contain fluent api / builder syntax to help a **feature** be registered wuth a specific **container**. 
+Example: `Abbotware.Data.Using.Castle` provides many ways to register contexts in castle container.
 
 # Base Objects
 
