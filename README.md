@@ -1,1 +1,35 @@
 # abbotware
+
+### Abbotware.Core
+
+Collection of many utility classes, interfaces, extension methods that have been accumulated over the years. 
+
+* .NetStandard 2.0 and 2.1 compatible
+* uses nullable checks via C# 8.0
+* Code Coverage via Coverlet
+* Coverage Report aggreagation via ReportGenerator
+
+### Abbotware.Interop.* 
+These assemblies contain interop/wrapper classes around various thirdparty libraries to encapsulate initialization and logic.   
+
+
+
+# Base Objects
+
+the following base objects make up the majority of components in this library to provide common and consistent features and behavior
+
+|class| inherits | description |
+|---|---|---|
+|`BaseLoggable`| n/a | minimal class with a logger | 
+|`BaseComponent`| `BaseLoggable` |  adds in disposable, eager and lazy initialization |
+|`BaseComponent<TConfiguration>`|`BaseComponent` |  adds in configuration  |
+
+
+# Interface and Plugins
+
+Many features are implemented as plugins that implement an interface.  
+
+An example is: `IBinarySerializaton` - there are plugins such as `DataContractSerializer` and `XmlSerializer`
+
+General interfaces are defined in `Abbotware.Core` and plugins maybe be in secondary assemblies to allow consumption of only the minimal number of thirdparty nugets in the end project.
+
