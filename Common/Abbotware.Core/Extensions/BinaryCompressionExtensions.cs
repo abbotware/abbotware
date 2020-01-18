@@ -21,9 +21,9 @@ namespace Abbotware.Core.Extensions
         /// <param name="compression">binary compression plugin</param>
         /// <param name="s">string to encode</param>
         /// <returns>binary</returns>
-        public static byte[] Compress(this IBinaryCompression compression, string s)
+        public static byte[] CompressString(this IBinaryCompression compression, string s)
         {
-            return Compress(compression, s, Encoding.UTF8);
+            return CompressString(compression, s, Encoding.UTF8);
         }
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace Abbotware.Core.Extensions
         /// <param name="s">string to encode</param>
         /// <param name="encoding">string encoding type</param>
         /// <returns>binary</returns>
-        public static byte[] Compress(this IBinaryCompression compression, string s, Encoding encoding)
+        public static byte[] CompressString(this IBinaryCompression compression, string s, Encoding encoding)
         {
             var decorator = new BinaryToString(compression, encoding);
 
@@ -46,9 +46,9 @@ namespace Abbotware.Core.Extensions
         /// <param name="compression">binary compression plugin</param>
         /// <param name="bytes">bytes to decode</param>
         /// <returns>string</returns>
-        public static string Decompress(this IBinaryCompression compression, byte[] bytes)
+        public static string DecompressString(this IBinaryCompression compression, byte[] bytes)
         {
-            return Decompress(compression, bytes, Encoding.UTF8);
+            return DecompressString(compression, bytes, Encoding.UTF8);
         }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace Abbotware.Core.Extensions
         /// <param name="bytes">bytes to decode</param>
         /// <param name="encoding">string encoding type</param>
         /// <returns>string</returns>
-        public static string Decompress(this IBinaryCompression compression, byte[] bytes, Encoding encoding)
+        public static string DecompressString(this IBinaryCompression compression, byte[] bytes, Encoding encoding)
         {
             var decorator = new BinaryToString(compression, encoding);
 

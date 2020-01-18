@@ -7,6 +7,7 @@
     using Abbotware.Interop.NUnit;
     using Abbotware.Utility.UnitTest.Using.NUnit;
     using NUnit.Framework;
+    using Abbotware.Core.Extensions;
 
     [Category("Core")]
     [Category("Core.Compression")]
@@ -34,10 +35,10 @@
         [Test]
         public void Compress_EmptyString()
         {
-            var gz = new GZipCompression() as IStringCompression;
+            var gz = new GZipCompression(); 
 
-            var b = gz.Compress(string.Empty);
-            var s = gz.Decompress(b);
+            var b = gz.CompressString(string.Empty);
+            var s = gz.DecompressString(b);
 
             Assert.AreEqual(string.Empty, s);
         }
@@ -45,15 +46,15 @@
         [Test]
         public void Compress_String()
         {
-            var gz = new GZipCompression() as IStringCompression;
+            var gz = new GZipCompression();
 
             var input = "alaksjdflkajsd;lfkja;slkdfj;alksdjf;lkasjd;lfkasdlkfj;alkdsjf;lkasjd;lfkjas;ldkfja;lskdjf;laksjdf;lkajsd;lkjfa;slkdfj;laskdjf;laskdjf;laksdjf";
 
-            var b = gz.Compress(input);
+            var b = gz.CompressString(input);
 
             Assert.IsTrue(b.Length < input.Length);
 
-            var s = gz.Decompress(b);
+            var s = gz.DecompressString(b);
 
             Assert.AreEqual(input, s);
         }
@@ -64,16 +65,16 @@
         {
             this.SkipTestOnLinux();
 
-            var gz = new GZipCompression() as IStringCompression;
+            var gz = new GZipCompression();
 
             var input = File.ReadAllText(Path.Combine("Sample", "Data", "Average_Daily_Traffic_Counts.xml"));
 
-            var b = gz.Compress(input);
+            var b = gz.CompressString(input);
 
             Assert.IsTrue(b.Length < input.Length);
             Assert.AreEqual(106686, b.Length);
 
-            var s = gz.Decompress(b);
+            var s = gz.DecompressString(b);
 
             Assert.AreEqual(input, s);
         }
