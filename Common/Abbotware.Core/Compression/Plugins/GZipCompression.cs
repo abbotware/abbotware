@@ -8,57 +8,24 @@ namespace Abbotware.Core.Compression.Plugins
 {
     using System.IO;
     using System.IO.Compression;
-    using System.Text;
 
     /// <summary>
     /// Wrapper for System.IO.Compression.GZipStream
     /// </summary>
-    public class GZipCompression : IStringCompression, IByteCompression
+    public class GZipCompression : BaseBinaryCompression
     {
         /// <inheritdoc/>
-        public byte[] Compress(byte[] bytes)
+        protected override void OnCompress(Stream input, Stream output)
         {
-            using var input = new MemoryStream(bytes);
-            using var output = new MemoryStream();
+            input = Arguments.EnsureNotNull(input, nameof(input));
 
-            this.CompressTo(input, output);
-
-            return output.ToArray();
-        }
-
-        /// <inheritdoc/>
-        public byte[] Decompress(byte[] bytes)
-        {
-            using var input = new MemoryStream(bytes);
-            using var output = new MemoryStream();
-
-            this.DecompressTo(input, output);
-
-            return output.ToArray();
-        }
-
-        /// <inheritdoc/>
-        byte[] ICompression<string>.Compress(string uncompressed)
-        {
-            var bytes = Encoding.UTF8.GetBytes(uncompressed);
-
-            return this.Compress(bytes);
-        }
-
-        /// <inheritdoc/>
-        string ICompression<string>.Decompress(byte[] bytes)
-        {
-            return Encoding.UTF8.GetString(this.Decompress(bytes));
-        }
-
-        private void CompressTo(Stream input, Stream output)
-        {
             using var gz = new GZipStream(output, CompressionLevel.Optimal, false);
 
             input.CopyTo(gz);
         }
 
-        private void DecompressTo(Stream input, Stream output)
+        /// <inheritdoc/>
+        protected override void OnDecompress(Stream input, Stream output)
         {
             using var gz = new GZipStream(input, CompressionMode.Decompress, false);
 
