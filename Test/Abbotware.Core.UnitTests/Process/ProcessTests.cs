@@ -6,7 +6,6 @@ namespace Abbotware.UnitTests.Core
 {
     using System;
     using System.Diagnostics;
-    using System.Linq;
     using System.Threading.Tasks;
     using Abbotware.Core.Process;
     using Abbotware.Core.Process.Configuration.Models;

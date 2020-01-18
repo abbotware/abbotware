@@ -2,12 +2,11 @@
 {
     using System;
     using System.IO;
-    using Abbotware.Core.Compression;
     using Abbotware.Core.Compression.Plugins;
+    using Abbotware.Core.Extensions;
     using Abbotware.Interop.NUnit;
     using Abbotware.Utility.UnitTest.Using.NUnit;
     using NUnit.Framework;
-    using Abbotware.Core.Extensions;
 
     [Category("Core")]
     [Category("Core.Compression")]
@@ -35,7 +34,7 @@
         [Test]
         public void Compress_EmptyString()
         {
-            var gz = new GZipCompression(); 
+            var gz = new GZipCompression();
 
             var b = gz.CompressString(string.Empty);
             var s = gz.DecompressString(b);

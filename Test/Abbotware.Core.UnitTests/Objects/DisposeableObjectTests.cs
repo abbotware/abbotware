@@ -10,6 +10,7 @@ namespace Abbotware.UnitTests.Core
     using NUnit.Framework;
 
     [TestFixture]
+    [Category("Core")]
     [Category("Core.Objects")]
     public class DisposeableObjectTests
     {
