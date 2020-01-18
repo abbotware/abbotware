@@ -703,6 +703,7 @@ Legal:
       <xs:enumeration value="log4net.Appender.TextWriterAppender" />
       <xs:enumeration value="log4net.Appender.TraceAppender" />
       <xs:enumeration value="log4net.Appender.UdpAppender" />
+      <xs:enumeration value="log4net.Appender.ManagedColoredConsoleAppender" />
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="log4netUpdateAttribute">
