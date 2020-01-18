@@ -51,6 +51,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abbotware.Web", "Common\Abb
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abbotware.Interop.Ipify", "Interop\Abbotware.Interop.Ipify\Abbotware.Interop.Ipify.csproj", "{729F496D-E13F-491D-A5D7-85396355957F}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abbotware.Interop.UnitTests", "Test\Abbotware.Interop.UnitTests\Abbotware.Interop.UnitTests.csproj", "{1A3600D6-6288-4002-A565-0134870F2E8E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -133,6 +135,10 @@ Global
 		{729F496D-E13F-491D-A5D7-85396355957F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{729F496D-E13F-491D-A5D7-85396355957F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{729F496D-E13F-491D-A5D7-85396355957F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A3600D6-6288-4002-A565-0134870F2E8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A3600D6-6288-4002-A565-0134870F2E8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A3600D6-6288-4002-A565-0134870F2E8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A3600D6-6288-4002-A565-0134870F2E8E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -157,6 +163,7 @@ Global
 		{30D2DD23-CD24-47DA-AA93-7A5674102739} = {63414C79-BEF0-4A80-834A-4B47ABF9676F}
 		{0D44E217-B97A-4118-8C81-D5D0A652A3A7} = {B2B83BE9-47D3-4A0E-8172-EF4B6EF5F68C}
 		{729F496D-E13F-491D-A5D7-85396355957F} = {63414C79-BEF0-4A80-834A-4B47ABF9676F}
+		{1A3600D6-6288-4002-A565-0134870F2E8E} = {9670F72E-2B7D-471F-BC9E-0D0B2578C4FC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7EE1C721-9604-4A41-B647-816294134415}

@@ -9,7 +9,6 @@ namespace Abbotware.Interop.Microsoft
     using System;
     using System.IO;
     using Abbotware.Core.Helpers;
-    using Abbotware.Interop.Microsoft;
     using global::Microsoft.Extensions.Configuration;
 
     /// <summary>
