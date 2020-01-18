@@ -5,20 +5,22 @@
 // -----------------------------------------------------------------------
 // <author>Anthony Abate</author>
 
-namespace Abbotware.Core.Objects
+namespace Abbotware.Web.Objects
 {
     using Abbotware.Core.Logging;
-    using Abbotware.Core.Net;
-    using Abbotware.Core.Net.Plugins;
+    using Abbotware.Core.Objects;
+    using Abbotware.Web.Api;
+    using Abbotware.Web.Api.Configuration;
+    using Abbotware.Web.Api.Plugins;
 
     /// <summary>
     /// Component that uses a web client
     /// </summary>
     /// <typeparam name="TConfiguration">configuration</typeparam>
     public abstract class WebComponent<TConfiguration> : BaseComponent<TConfiguration>
-        where TConfiguration : class, IWebApiClientOptions
+        where TConfiguration : class, IApiClientOptions
     {
-        private IWebApiClient? client;
+        private IApiClient? client;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="WebComponent{TConfig}"/> class.
@@ -33,7 +35,7 @@ namespace Abbotware.Core.Objects
         /// <summary>
         /// Gets the client
         /// </summary>
-        protected IWebApiClient Client
+        protected IApiClient Client
         {
             get
             {
@@ -55,9 +57,9 @@ namespace Abbotware.Core.Objects
         /// Factory method to Create the web client
         /// </summary>
         /// <returns>client</returns>
-        protected virtual IWebApiClient CreateWebClient()
+        protected virtual IApiClient CreateWebClient()
         {
-            return new WebApiClient(this.Configuration, this.Logger);
+            return new ApiClient(this.Configuration, this.Logger);
         }
 
         /// <inheritdoc/>

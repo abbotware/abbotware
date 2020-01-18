@@ -1,22 +1,22 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IWebApiClientExtensions.cs" company="Abbotware, LLC">
+// <copyright file="IApiClientExtensions.cs" company="Abbotware, LLC">
 // Copyright © Abbotware, LLC 2012-2020. All rights reserved
 // </copyright>
 // -----------------------------------------------------------------------
 // <author>Anthony Abate</author>
 
-namespace Abbotware.Core.Net
+namespace Abbotware.Core.Extensions
 {
     using System;
     using System.Globalization;
     using System.Threading;
     using System.Threading.Tasks;
-    using Abbotware.Core.Extensions;
+    using Abbotware.Web.Api;
 
     /// <summary>
-    /// Provides extension methods for <see cref="IWebApiClient"/>
+    /// Provides extension methods for <see cref="IApiClient"/>
     /// </summary>
-    public static class IWebApiClientExtensions
+    public static class IApiClientExtensions
     {
         /// <summary>
         /// performs an HTTP Delete
@@ -24,7 +24,7 @@ namespace Abbotware.Core.Net
         /// <param name="client">client</param>
         /// <param name="uri">uri</param>
         public static void Delete(
-            this IWebApiClient client,
+            this IApiClient client,
             Uri uri)
         {
             client.Delete(uri, Timeout.InfiniteTimeSpan, CancellationToken.None);
@@ -37,7 +37,7 @@ namespace Abbotware.Core.Net
         /// <param name="uri">uri</param>
         /// <param name="cancellationToken">Cancellation token</param>
         public static void Delete(
-            this IWebApiClient client,
+            this IApiClient client,
             Uri uri,
             CancellationToken cancellationToken)
         {
@@ -51,7 +51,7 @@ namespace Abbotware.Core.Net
         /// <param name="uri">uri</param>
         /// <param name="timeout">call timeout</param>
         public static void Delete(
-            this IWebApiClient client,
+            this IApiClient client,
             Uri uri,
             TimeSpan timeout)
         {
@@ -66,7 +66,7 @@ namespace Abbotware.Core.Net
         /// <param name="timeout">call timeout</param>
         /// <param name="cancellationToken">Cancellation token</param>
         public static void Delete(
-            this IWebApiClient client,
+            this IApiClient client,
             Uri uri,
             TimeSpan timeout,
             CancellationToken cancellationToken)
@@ -85,7 +85,7 @@ namespace Abbotware.Core.Net
         /// <param name="uri">uri</param>
         /// <returns>response object</returns>
         public static TResponse Delete<TResponse>(
-            this IWebApiClient client,
+            this IApiClient client,
             Uri uri)
         {
             return client.Delete<TResponse>(uri, Timeout.InfiniteTimeSpan, CancellationToken.None);
@@ -100,7 +100,7 @@ namespace Abbotware.Core.Net
         /// <param name="timeout">call timeout</param>
         /// <returns>response object</returns>
         public static TResponse Delete<TResponse>(
-            this IWebApiClient client,
+            this IApiClient client,
             Uri uri,
             TimeSpan timeout)
         {
@@ -116,7 +116,7 @@ namespace Abbotware.Core.Net
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>response object</returns>
         public static TResponse Delete<TResponse>(
-            this IWebApiClient client,
+            this IApiClient client,
             Uri uri,
             CancellationToken cancellationToken)
         {
@@ -135,7 +135,7 @@ namespace Abbotware.Core.Net
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>response object</returns>
         public static TResponse Delete<TResponse>(
-            this IWebApiClient client,
+            this IApiClient client,
             Uri uri,
             TimeSpan timeout,
             CancellationToken cancellationToken)
@@ -158,7 +158,7 @@ namespace Abbotware.Core.Net
         /// <param name="uri">uri</param>
         /// <returns>response object</returns>
         public static TResponse Get<TResponse>(
-            this IWebApiClient client,
+            this IApiClient client,
             Uri uri)
         {
             Arguments.NotNull(client, nameof(client));
@@ -175,7 +175,7 @@ namespace Abbotware.Core.Net
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>response object</returns>
         public static TResponse Get<TResponse>(
-            this IWebApiClient client,
+            this IApiClient client,
             Uri uri,
             CancellationToken cancellationToken)
         {
@@ -193,7 +193,7 @@ namespace Abbotware.Core.Net
         /// <param name="timeout">call timeout</param>
         /// <returns>response object</returns>
         public static TResponse Get<TResponse>(
-            this IWebApiClient client,
+            this IApiClient client,
             Uri uri,
             TimeSpan timeout)
         {
@@ -212,7 +212,7 @@ namespace Abbotware.Core.Net
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>response object</returns>
         public static TResponse Get<TResponse>(
-            this IWebApiClient client,
+            this IApiClient client,
             Uri uri,
             TimeSpan timeout,
             CancellationToken cancellationToken)
@@ -237,7 +237,7 @@ namespace Abbotware.Core.Net
         /// <param name="request">request date</param>
         /// <returns>response object</returns>
         public static TResponse Post<TRequest, TResponse>(
-            this IWebApiClient client,
+            this IApiClient client,
             Uri uri,
             TRequest request)
         {
@@ -255,7 +255,7 @@ namespace Abbotware.Core.Net
         /// <param name="timeout">call timeout</param>
         /// <returns>response object</returns>
         public static TResponse Post<TRequest, TResponse>(
-            this IWebApiClient client,
+            this IApiClient client,
             Uri uri,
             TRequest request,
             TimeSpan timeout)
@@ -274,7 +274,7 @@ namespace Abbotware.Core.Net
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>response object</returns>
         public static TResponse Post<TRequest, TResponse>(
-            this IWebApiClient client,
+            this IApiClient client,
             Uri uri,
             TRequest request,
             CancellationToken cancellationToken)
@@ -294,7 +294,7 @@ namespace Abbotware.Core.Net
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>response object</returns>
         public static TResponse Post<TRequest, TResponse>(
-            this IWebApiClient client,
+            this IApiClient client,
             Uri uri,
             TRequest request,
             TimeSpan timeout,
@@ -318,7 +318,7 @@ namespace Abbotware.Core.Net
         /// <param name="action">request route action</param>
         /// <param name="id">request route id</param>
         /// <returns>data of type T</returns>
-        public static Task<TResponse> RestGetAsync<TResponse>(this IWebApiClient client, string action, string id)
+        public static Task<TResponse> RestGetAsync<TResponse>(this IApiClient client, string action, string id)
             where TResponse : new()
         {
             client = Arguments.EnsureNotNull(client, nameof(client));
@@ -338,7 +338,7 @@ namespace Abbotware.Core.Net
         /// <param name="action">request route action</param>
         /// <param name="request">request object data</param>
         /// <returns>data of type T</returns>
-        public static Task<TResponse> RestPostAsync<TRequest, TResponse>(this IWebApiClient client, string action, TRequest request)
+        public static Task<TResponse> RestPostAsync<TRequest, TResponse>(this IApiClient client, string action, TRequest request)
             where TResponse : new()
         {
             client = Arguments.EnsureNotNull(client, nameof(client));

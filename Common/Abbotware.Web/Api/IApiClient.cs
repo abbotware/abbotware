@@ -1,26 +1,27 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IWebApiClient.cs" company="Abbotware, LLC">
+// <copyright file="IApiClient.cs" company="Abbotware, LLC">
 // Copyright © Abbotware, LLC 2012-2020. All rights reserved
 // </copyright>
 // -----------------------------------------------------------------------
 // <author>Anthony Abate</author>
 
-namespace Abbotware.Core.Net
+namespace Abbotware.Web.Api
 {
     using System;
     using System.Net.Http;
     using System.Threading;
     using System.Threading.Tasks;
+    using Abbotware.Web.Api.Configuration;
 
     /// <summary>
     /// interface for a generic http client
     /// </summary>
-    public interface IWebApiClient : IDisposable
+    public interface IApiClient : IDisposable
     {
         /// <summary>
         /// Gets the config
         /// </summary>
-        IWebApiClientOptions Configuration { get; }
+        IApiClientOptions Configuration { get; }
 
         /// <summary>
         /// performs an HTTP Delete

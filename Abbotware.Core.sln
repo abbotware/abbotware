@@ -47,6 +47,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abbotware.Core.Reactive", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abbotware.Interop.SharpZipLib", "Interop\Abbotware.Interop.SharpZipLib\Abbotware.Interop.SharpZipLib.csproj", "{30D2DD23-CD24-47DA-AA93-7A5674102739}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abbotware.Web", "Common\Abbotware.Web\Abbotware.Web.csproj", "{0D44E217-B97A-4118-8C81-D5D0A652A3A7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -121,6 +123,10 @@ Global
 		{30D2DD23-CD24-47DA-AA93-7A5674102739}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{30D2DD23-CD24-47DA-AA93-7A5674102739}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{30D2DD23-CD24-47DA-AA93-7A5674102739}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D44E217-B97A-4118-8C81-D5D0A652A3A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D44E217-B97A-4118-8C81-D5D0A652A3A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D44E217-B97A-4118-8C81-D5D0A652A3A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D44E217-B97A-4118-8C81-D5D0A652A3A7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -143,6 +149,7 @@ Global
 		{068C64F4-22A7-48C4-ADB2-B0ADCCCA48A8} = {D2B93B89-97F6-466C-9C72-9FAF871422EF}
 		{79A6C6AD-CFD7-4FA9-9D1A-D29E1EB21DFC} = {B2B83BE9-47D3-4A0E-8172-EF4B6EF5F68C}
 		{30D2DD23-CD24-47DA-AA93-7A5674102739} = {63414C79-BEF0-4A80-834A-4B47ABF9676F}
+		{0D44E217-B97A-4118-8C81-D5D0A652A3A7} = {B2B83BE9-47D3-4A0E-8172-EF4B6EF5F68C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7EE1C721-9604-4A41-B647-816294134415}

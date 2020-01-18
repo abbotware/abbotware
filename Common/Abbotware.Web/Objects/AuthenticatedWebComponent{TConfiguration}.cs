@@ -5,18 +5,19 @@
 // -----------------------------------------------------------------------
 // <author>Anthony Abate</author>
 
-namespace Abbotware.Core.Objects
+namespace Abbotware.Web.Objects
 {
     using Abbotware.Core.Logging;
-    using Abbotware.Core.Net;
-    using Abbotware.Core.Net.Plugins;
+    using Abbotware.Web.Api;
+    using Abbotware.Web.Api.Configuration;
+    using Abbotware.Web.Api.Plugins;
 
     /// <summary>
     ///     Component that uses a web client
     /// </summary>
     /// <typeparam name="TConfiguration">configuration</typeparam>
     public abstract class AuthenticatedWebComponent<TConfiguration> : WebComponent<TConfiguration>
-        where TConfiguration : class, IWebApiClientOptions
+        where TConfiguration : class, IApiClientOptions
     {
         private readonly string secret;
 
@@ -36,9 +37,9 @@ namespace Abbotware.Core.Objects
         ///     Factory method to Create the web client
         /// </summary>
         /// <returns>client</returns>
-        protected override IWebApiClient CreateWebClient()
+        protected override IApiClient CreateWebClient()
         {
-            return new AuthenticatedWebApiClient(this.secret, this.Configuration, this.Logger);
+            return new AuthenticatedApiClient(this.secret, this.Configuration, this.Logger);
         }
     }
 }

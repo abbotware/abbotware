@@ -1,11 +1,11 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="WebApiClient.cs" company="Abbotware, LLC">
+// <copyright file="ApiClient.cs" company="Abbotware, LLC">
 // Copyright © Abbotware, LLC 2012-2020. All rights reserved
 // </copyright>
 // -----------------------------------------------------------------------
 // <author>Anthony Abate</author>
 
-namespace Abbotware.Core.Net.Plugins
+namespace Abbotware.Web.Api.Plugins
 {
     using System;
     using System.Net;
@@ -13,22 +13,24 @@ namespace Abbotware.Core.Net.Plugins
     using System.Security.Authentication;
     using System.Threading;
     using System.Threading.Tasks;
+    using Abbotware.Core;
     using Abbotware.Core.Logging;
     using Abbotware.Core.Objects;
+    using Abbotware.Web.Api.Configuration;
 
     /// <summary>
     ///     Web Api Client
     /// </summary>
-    public class WebApiClient : BaseComponent<IWebApiClientOptions>, IWebApiClient
+    public class ApiClient : BaseComponent<IApiClientOptions>, IApiClient
     {
         private readonly HttpClient httpClient = new HttpClient();
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="WebApiClient" /> class.
+        ///     Initializes a new instance of the <see cref="ApiClient" /> class.
         /// </summary>
         /// <param name="configuration">configuration</param>
         /// <param name="logger">injected logger</param>
-        public WebApiClient(IWebApiClientOptions configuration, ILogger logger)
+        public ApiClient(IApiClientOptions configuration, ILogger logger)
             : base(configuration, logger)
         {
             this.httpClient.Timeout = this.Configuration.RequestTimeout;
@@ -45,7 +47,8 @@ namespace Abbotware.Core.Net.Plugins
         {
             using var request = this.OnCreateRequest(HttpMethod.Get, url);
 
-            return await this.OnExecuteAsync<TResponse>(request, ct).ConfigureAwait(false);
+            return await this.OnExecuteAsync<TResponse>(request, ct)
+                .ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -64,12 +67,15 @@ namespace Abbotware.Core.Net.Plugins
 
                 // Caller is now responsible for disposing
                 var httpRequest = (HttpRequestMessage)(object)request!;
-                return await this.OnExecuteAsync<TResponse>(httpRequest, ct).ConfigureAwait(false);
+
+                return await this.OnExecuteAsync<TResponse>(httpRequest, ct)
+                    .ConfigureAwait(false);
             }
 
             using (var httpRequest = this.OnCreateRequest(HttpMethod.Post, url, request))
             {
-                return await this.OnExecuteAsync<TResponse>(httpRequest, ct).ConfigureAwait(false);
+                return await this.OnExecuteAsync<TResponse>(httpRequest, ct)
+                    .ConfigureAwait(false);
             }
         }
 
@@ -97,7 +103,8 @@ namespace Abbotware.Core.Net.Plugins
         {
             using var request = this.OnCreateRequest(HttpMethod.Delete, url);
 
-            return await this.OnExecuteAsync<TResponse>(request, ct).ConfigureAwait(false);
+            return await this.OnExecuteAsync<TResponse>(request, ct)
+                .ConfigureAwait(false);
         }
 
         /// <inheritdoc />
@@ -125,13 +132,17 @@ namespace Abbotware.Core.Net.Plugins
             if (typeof(TResponse) == typeof(HttpResponseMessage))
             {
                 // Caller is now responsible for disposing
-                var response = await this.OnInnerExecuteAsync(request, ct).ConfigureAwait(false);
+                var response = await this.OnInnerExecuteAsync(request, ct)
+                    .ConfigureAwait(false);
+
                 return (TResponse)(object)response;
             }
 
-            using (var response = await this.OnInnerExecuteAsync(request, ct).ConfigureAwait(false))
+            using (var response = await this.OnInnerExecuteAsync(request, ct)
+                .ConfigureAwait(false))
             {
-                return await this.OnCreateResponseAsync<TResponse>(response).ConfigureAwait(false);
+                return await this.OnCreateResponseAsync<TResponse>(response)
+                    .ConfigureAwait(false);
             }
         }
 
