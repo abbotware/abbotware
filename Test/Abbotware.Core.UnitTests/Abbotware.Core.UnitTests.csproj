@@ -17,9 +17,11 @@
     <ProjectReference Include="..\..\Common\Abbotware.Core.Reactive\Abbotware.Core.Reactive.csproj" />
     <ProjectReference Include="..\..\Common\Abbotware.Core\Abbotware.Core.csproj" />
     <ProjectReference Include="..\..\Common\Abbotware.Data\Abbotware.Data.csproj" />
+    <ProjectReference Include="..\..\Common\Abbotware.Web\Abbotware.Web.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.AutoMapper\Abbotware.Interop.AutoMapper.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Castle\Abbotware.Interop.Castle.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.EntityFramework\Abbotware.Interop.EntityFramework.csproj" />
+    <ProjectReference Include="..\..\Interop\Abbotware.Interop.Ipify\Abbotware.Interop.Ipify.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Log4net\Abbotware.Interop.Log4net.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Microsoft\Abbotware.Interop.Microsoft.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Newtonsoft\Abbotware.Interop.Newtonsoft.csproj" />
