@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
+    <PackageReference Include="StackExchange.Redis.StrongName" Version="1.2.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Abbotware.Core\Abbotware.Core.csproj" />
+    <ProjectReference Include="..\Abbotware.Interop.AutoMapper\Abbotware.Interop.AutoMapper.csproj" />
+    <ProjectReference Include="..\Abbotware.Interop.Microsoft\Abbotware.Interop.Microsoft.csproj" />
+    <ProjectReference Include="..\Abbotware.Interop.Newtonsoft\Abbotware.Interop.Newtonsoft.csproj" />
+  </ItemGroup>
+
+</Project>

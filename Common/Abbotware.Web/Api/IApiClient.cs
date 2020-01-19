@@ -108,6 +108,6 @@ namespace Abbotware.Web.Api
         /// <param name="request">raw request</param>
         /// <param name="ct">cancellation token</param>
         /// <returns>asyc task with response</returns>
-        Task<TResponse> SendAsync<TResponse>(HttpRequestMessage request, CancellationToken ct = default);
+        Task<TResponse> SendAsync<TResponse>(HttpRequestMessage request, CancellationToken ct);
     }
 }

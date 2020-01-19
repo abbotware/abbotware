@@ -28,7 +28,8 @@ namespace Abbotware.IntegrationTests.Interop.Ipify
 
             using IGetInternetAddress client = new IpifyClient(this.Logger);
 
-            var res = await client.GetInternetAddressAsync().ConfigureAwait(false);
+            var res = await client.GetInternetAddressAsync(default)
+                .ConfigureAwait(false);
 
             Assert.IsNotNull(res);
             Assert.AreEqual(ip, res);

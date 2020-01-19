@@ -66,7 +66,18 @@ namespace Abbotware.Core.Math
                 return false;
             }
 
+#if NETSTANDARD2_0
+            if (other.HasValue)
+            {
+                return this.Equals(other);
+            }
+            else
+            {
+                return false;
+            }
+#else
             return this.Equals(other);
+#endif
         }
 
         /// <inheritdoc />

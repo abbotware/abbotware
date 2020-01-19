@@ -54,13 +54,29 @@ namespace Abbotware.Core.Chrono
                 return false;
             }
 
+#if NETSTANDARD2_0
+            if (other.HasValue)
+            {
+                return this.Equals(other);
+            }
+            else
+            {
+                return false;
+            }
+#else
             return this.Equals(other);
+#endif
         }
 
         /// <inheritdoc />
         public bool Equals(TimeSeriesValue<TValue> other)
         {
             if (!other.X.Equals(this.X))
+            {
+                return false;
+            }
+
+            if (other.Y == null)
             {
                 return false;
             }

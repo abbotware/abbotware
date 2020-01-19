@@ -22,6 +22,6 @@ namespace Abbotware.Core.Net
         /// </summary>
         /// <param name="ct">optional cancellation token</param>
         /// <returns>async task</returns>
-        Task<IPAddress> GetInternetAddressAsync(CancellationToken ct = default);
+        Task<IPAddress> GetInternetAddressAsync(CancellationToken ct);
     }
 }

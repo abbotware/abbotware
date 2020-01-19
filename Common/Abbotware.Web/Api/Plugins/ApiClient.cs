@@ -114,7 +114,7 @@ namespace Abbotware.Web.Api.Plugins
         }
 
         /// <inheritdoc />
-        public Task<TResponse> SendAsync<TResponse>(HttpRequestMessage request, CancellationToken ct = default)
+        public Task<TResponse> SendAsync<TResponse>(HttpRequestMessage request, CancellationToken ct)
         {
             return this.OnExecuteAsync<TResponse>(request, ct);
         }
