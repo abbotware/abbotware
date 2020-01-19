@@ -21,13 +21,13 @@ namespace Abbotware.UnitTests.Core
             var a2 = new AbbotwareException("test");
             Assert.IsNotNull(a2);
 
-            var a3 = new AbbotwareException(new Exception(), "test");
+            var a3 = AbbotwareException.Create(new Exception(), "test");
             Assert.IsNotNull(a3);
 
-            var a4 = new AbbotwareException("test {0}", "test");
+            var a4 = AbbotwareException.Create("test {0}", "test");
             Assert.AreEqual("test test", a4.Message);
 
-            var a5 = new AbbotwareException(new Exception(), "test {0}", "test");
+            var a5 = AbbotwareException.Create(new Exception(), "test {0}", "test");
             Assert.AreEqual("test test", a5.Message);
         }
     }

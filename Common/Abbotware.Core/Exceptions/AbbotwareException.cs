@@ -48,30 +48,6 @@ namespace Abbotware.Core.Exceptions
         /// <summary>
         ///     Initializes a new instance of the <see cref="AbbotwareException" /> class.
         /// </summary>
-        /// <param name="format">exception message</param>
-        /// <param name="parameters">parameters for format string</param>
-        public AbbotwareException(string format, params object[] parameters)
-            : base(string.Format(CultureInfo.InvariantCulture, format, parameters))
-        {
-            Arguments.NotNullOrWhitespace(format, nameof(format));
-        }
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="AbbotwareException" /> class.
-        /// </summary>
-        /// <param name="innerException">inner exception</param>
-        /// <param name="format">format string for message</param>
-        /// <param name="parameters">parameters for format string</param>
-        public AbbotwareException(Exception innerException, string format, params object[] parameters)
-            : base(string.Format(CultureInfo.InvariantCulture, format, parameters), innerException)
-        {
-            Arguments.NotNull(innerException, nameof(innerException));
-            Arguments.NotNullOrWhitespace(format, nameof(format));
-        }
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="AbbotwareException" /> class.
-        /// </summary>
         /// <param name="info">serialization info</param>
         /// <param name="context">streaming context</param>
         [ExcludeFromCodeCoverage]
@@ -79,6 +55,36 @@ namespace Abbotware.Core.Exceptions
             : base(info, context)
         {
             Arguments.NotNull(info, nameof(info));
+        }
+
+        /// <summary>
+        ///     create a new <see cref="AbbotwareException" /> and build the string format message
+        /// </summary>
+        /// <param name="format">exception message</param>
+        /// <param name="parameters">parameters for format string</param>
+        /// <returns>exception with message formatted</returns>
+        public static AbbotwareException Create(string format, params object[] parameters)
+        {
+            var message = string.Format(CultureInfo.InvariantCulture, format, parameters);
+
+            return new AbbotwareException(message);
+        }
+
+        /// <summary>
+        ///     create a new <see cref="AbbotwareException" /> and build the string format message
+        /// </summary>
+        /// <param name="innerException">inner exception</param>
+        /// <param name="format">format string for message</param>
+        /// <param name="parameters">parameters for format string</param>
+        /// <returns>exception with message formatted</returns>
+        public static AbbotwareException Create(Exception innerException, string format, params object[] parameters)
+        {
+            Arguments.NotNull(innerException, nameof(innerException));
+            Arguments.NotNullOrWhitespace(format, nameof(format));
+
+            var message = string.Format(CultureInfo.InvariantCulture, format, parameters);
+
+            return new AbbotwareException(message, innerException);
         }
     }
 }
