@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="ApiClient.cs" company="Abbotware, LLC">
+// <copyright file="MacVendorsClient.cs" company="Abbotware, LLC">
 // Copyright © Abbotware, LLC 2012-2020. All rights reserved
 // </copyright>
 // -----------------------------------------------------------------------
@@ -20,13 +20,13 @@ namespace Abbotware.Interop.MacVendors.Plugins
     /// <summary>
     /// MacVendors Client
     /// </summary>
-    public class ApiClient : WebComponent<ApiClientOptions>, IApiClient
+    public class MacVendorsClient : WebComponent<ApiClientOptions>, IMacVendorsClient
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ApiClient"/> class.
+        /// Initializes a new instance of the <see cref="MacVendorsClient"/> class.
         /// </summary>
         /// <param name="logger">injected logger</param>
-        public ApiClient(ILogger logger)
+        public MacVendorsClient(ILogger logger)
             : base(new ApiClientOptions(Defaults.Endpoint), logger)
         {
         }

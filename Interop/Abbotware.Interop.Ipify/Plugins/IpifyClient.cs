@@ -1,17 +1,16 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="Client.cs" company="Abbotware, LLC">
+// <copyright file="IpifyClient.cs" company="Abbotware, LLC">
 // Copyright © Abbotware, LLC 2012-2020. All rights reserved
 // </copyright>
 // -----------------------------------------------------------------------
 // <author>Anthony Abate</author>
 
-namespace Abbotware.Interop.Ipify
+namespace Abbotware.Interop.Ipify.Plugins
 {
     using System.Net;
     using System.Threading;
     using System.Threading.Tasks;
     using Abbotware.Core.Logging;
-    using Abbotware.Core.Net;
     using Abbotware.Interop.Ipify.Configuration;
     using Abbotware.Web.Api.Configuration.Models;
     using Abbotware.Web.Objects;
@@ -19,19 +18,19 @@ namespace Abbotware.Interop.Ipify
     /// <summary>
     /// Ipify Client
     /// </summary>
-    public class Client : WebComponent<ApiClientOptions>, IGetInternetAddress
+    public class IpifyClient : WebComponent<ApiClientOptions>, IIpifyClient
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Client"/> class.
+        /// Initializes a new instance of the <see cref="IpifyClient"/> class.
         /// </summary>
         /// <param name="logger">injected logger</param>
-        public Client(ILogger logger)
+        public IpifyClient(ILogger logger)
             : base(new ApiClientOptions(Defaults.Endpoint), logger)
         {
         }
 
         /// <inheritdoc/>
-        public async Task<IPAddress> GetAsync(CancellationToken ct)
+        public async Task<IPAddress> GetInternetAddressAsync(CancellationToken ct)
         {
             this.InitializeIfRequired();
 

@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="ApiClient.cs" company="Abbotware, LLC">
+// <copyright file="YubicoClient.cs" company="Abbotware, LLC">
 // Copyright © Abbotware, LLC 2012-2020. All rights reserved
 // </copyright>
 // -----------------------------------------------------------------------
@@ -9,45 +9,37 @@ namespace Abbotware.Interop.Yubico.Plugins
 {
     using System;
     using System.Net;
+    using System.Threading;
     using System.Threading.Tasks;
     using Abbotware.Core.Logging;
+    using Abbotware.Core.Objects;
     using Abbotware.Interop.Yubico.ExtensionPoints;
     using YubicoDotNetClient;
 
     /// <summary>
     /// Yubico Client
     /// </summary>
-    public class ApiClient : IApiClient
+    public class YubicoClient : BaseComponent<NetworkCredential>, IYubicoClient
     {
         /// <summary>
-        /// yubic api client
-        /// </summary>
-        private readonly NetworkCredential credential;
-
-        /// <summary>
-        /// injected logger
-        /// </summary>
-        private readonly ILogger logger;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ApiClient"/> class.
+        /// Initializes a new instance of the <see cref="YubicoClient"/> class.
         /// </summary>
         /// <param name="credential">api credential</param>
         /// <param name="logger">injected logger</param>
-        public ApiClient(NetworkCredential credential, ILogger logger)
+        public YubicoClient(NetworkCredential credential, ILogger logger)
+            : base(credential, logger)
         {
-            this.credential = credential;
-            this.logger = logger;
         }
 
         /// <inheritdoc/>
-        public async Task<bool> VerifyAsync(string otp)
+        public async Task<bool> VerifyAsync(string otp, CancellationToken ct)
         {
-            var client = new YubicoClient(this.credential.UserName, this.credential.Password);
+            var client = new YubicoDotNetClient.YubicoClient(this.Configuration.UserName, this.Configuration.Password);
 
             try
             {
-                var response = await client.VerifyAsync(otp).ConfigureAwait(false);
+                var response = await client.VerifyAsync(otp)
+                    .ConfigureAwait(false);
 
                 if (response?.Status == YubicoResponseStatus.Ok)
                 {
@@ -56,7 +48,7 @@ namespace Abbotware.Interop.Yubico.Plugins
             }
             catch (Exception ex)
             {
-                this.logger.Error(ex, "Yubico Exception");
+                this.Logger.Error(ex, "Yubico Exception");
             }
 
             return false;

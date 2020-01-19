@@ -21,8 +21,7 @@ namespace Abbotware.Interop.Yubico
         /// <returns>the id portion of the otp</returns>
         public static string GetOtpId(string otp)
         {
-            Arguments.NotNullOrWhitespace(otp, nameof(otp));
-            otp = Arguments.EnsureNotNull(otp, nameof(otp));
+            otp = Arguments.EnsureNotNullOrWhitespace(otp, nameof(otp));
 
             if (otp.Length < 12)
             {

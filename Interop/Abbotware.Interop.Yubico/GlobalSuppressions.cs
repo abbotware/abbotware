@@ -4,4 +4,4 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "<Reviewed AA>", Scope = "member", Target = "~M:Abbotware.Interop.Yubico.Plugins.ApiClient.VerifyAsync(System.String)~System.Threading.Tasks.Task{System.Boolean}")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "<Reviewed AA>", Scope = "member", Target = "~M:Abbotware.Interop.Yubico.Plugins.YubicoClient.VerifyAsync(System.String,System.Threading.CancellationToken)~System.Threading.Tasks.Task{System.Boolean}")]

@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IApiClient.cs" company="Abbotware, LLC">
+// <copyright file="IMacVendorsClient.cs" company="Abbotware, LLC">
 // Copyright © Abbotware, LLC 2012-2020. All rights reserved
 // </copyright>
 // -----------------------------------------------------------------------
@@ -13,7 +13,7 @@ namespace Abbotware.Interop.MacVendors
     /// <summary>
     /// interface for an api.macvendors.com client
     /// </summary>
-    public interface IApiClient
+    public interface IMacVendorsClient
     {
         /// <summary>
         /// looks up the mac address
