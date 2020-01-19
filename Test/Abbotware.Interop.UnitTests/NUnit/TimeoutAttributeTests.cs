@@ -36,7 +36,7 @@ namespace Abbotware.Interop.UnitTests.NUnit
         [Test]
         [Timeout(10)]
         [ExpectedException(typeof(ArgumentException))]
-        public void ExpectedExceptionAttribute_AfterTimeout()
+        public void ExpectedException_AfterTimeout()
         {
             throw new ArgumentException("test");
         }
@@ -44,7 +44,7 @@ namespace Abbotware.Interop.UnitTests.NUnit
         [Test]
         [ExpectedException(typeof(ArgumentException))]
         [Timeout(10)]
-        public void ExpectedExceptionAttribute_BeforeTimeout()
+        public void ExpectedException_BeforeTimeout()
         {
             throw new ArgumentException("test");
         }

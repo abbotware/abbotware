@@ -10,7 +10,6 @@ namespace Abbotware.IntegrationTests.Interop.Yubico
     using System;
     using System.Net;
     using System.Threading.Tasks;
-    using Abbotware.Interop.Yubico;
     using Abbotware.Interop.Yubico.Plugins;
     using Abbotware.Utility.UnitTest.Using.NUnit;
     using NUnit.Framework;

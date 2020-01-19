@@ -18,6 +18,26 @@ $Projects        = @{"Abbotware.Core.Nugets" = @{
 						Configuration  = "Release"
 						} 
 
+					"Abbotware.Interop.UnitTests" = @{ 
+						Name           = "Abbotware.Interop.UnitTests";
+						Type           = "unittest"; 
+						Action         = "publish";
+						Source         = "Test\Abbotware.Interop.UnitTests\" 
+						Runtime        = "win-x64;linux-x64;linux-arm"
+						Framework      = "netcoreapp3.1";
+						Configuration  = "Release"
+						} 
+
+					"Abbotware.Interop.IntegrationTests" = @{ 
+						Name           = "Abbotware.Interop.IntegrationTests";
+						Type           = "integrationtest"; 
+						Action         = "publish";
+						Source         = "Test\Abbotware.Interop.IntegrationTests\" 
+						Runtime        = "win-x64;linux-x64;linux-arm"
+						Framework      = "netcoreapp3.1";
+						Configuration  = "Release"
+						} 
+
 					}
 
 $CodeCoverageExcludeAssemblies = "-Abbotware.Cleanup;-Abbotware.Contrib.Roslyn;-Abbotware.Unknown"
