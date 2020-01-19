@@ -7,8 +7,6 @@
 
 namespace Abbotware.Core.Objects
 {
-    using System;
-
     /// <summary>
     ///     factory interface for creating typed connections
     /// </summary>

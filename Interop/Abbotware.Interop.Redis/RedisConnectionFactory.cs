@@ -17,24 +17,20 @@ namespace Abbotware.Interop.Redis
     /// <summary>
     /// Redis Connection Factory via StackExchange
     /// </summary>
-    public class RedisConnectionFactory : BaseLoggable, IRedisConnectionFactory
+    public class RedisConnectionFactory : BaseConnectionFactory<IRedisConnection, IConnectionOptions>, IRedisConnectionFactory
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="RedisConnectionFactory"/> class.
         /// </summary>
-        /// <param name="defaultConfiguration">injected default configuration</param>
+        /// <param name="defaultOptions">injected default connection options</param>
         /// <param name="logger">injected logger</param>
-        public RedisConnectionFactory(IConnectionOptions defaultConfiguration, ILogger logger)
-            : base(logger)
+        public RedisConnectionFactory(IConnectionOptions defaultOptions, ILogger logger)
+            : base(defaultOptions, logger)
         {
-            this.DefaultOptions = defaultConfiguration;
         }
 
         /// <inheritdoc/>
-        public IConnectionOptions DefaultOptions { get; }
-
-        /// <inheritdoc/>
-        public IRedisConnection Create()
+        public override IRedisConnection Create()
         {
             var cfg = this.DefaultOptions.ToStackExchange();
 
@@ -42,7 +38,7 @@ namespace Abbotware.Interop.Redis
         }
 
         /// <inheritdoc/>
-        public IRedisConnection Create(IConnectionOptions configuration)
+        public override IRedisConnection Create(IConnectionOptions configuration)
         {
             configuration = Arguments.EnsureNotNull(configuration, nameof(configuration));
 
@@ -52,7 +48,7 @@ namespace Abbotware.Interop.Redis
         }
 
         /// <inheritdoc/>
-        public void Destroy(IRedisConnection connection)
+        public override void Destroy(IRedisConnection connection)
         {
             connection = Arguments.EnsureNotNull(connection, nameof(connection));
 

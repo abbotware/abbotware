@@ -12,7 +12,7 @@ namespace Abbotware.Core.Objects
     /// <summary>
     ///     factory interface for creating connections
     /// </summary>
-    public interface IConnectionFactory : IDisposable
+    public interface IConnectionFactory
     {
         /// <summary>
         ///     creates a connection with the default config
