@@ -20,7 +20,7 @@ namespace Abbotware.Core.Net
         /// <summary>
         /// Gets the ip address
         /// </summary>
-        /// <param name="ct">optional cancellation token</param>
+        /// <param name="ct">cancellation token</param>
         /// <returns>async task</returns>
         Task<IPAddress> GetInternetAddressAsync(CancellationToken ct);
     }
