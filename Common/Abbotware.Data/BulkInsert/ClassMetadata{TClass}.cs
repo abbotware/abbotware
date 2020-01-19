@@ -18,6 +18,7 @@ namespace Abbotware.Data.BulkInsert
     /// </summary>
     /// <typeparam name="TClass">Class Type</typeparam>
     public class ClassMetadata<TClass>
+        where TClass : class
     {
         /// <summary>
         ///     provides property name to ordinal lookups
@@ -71,7 +72,7 @@ namespace Abbotware.Data.BulkInsert
         /// <returns>ordinal id used in other functions</returns>
         public int GetOrdinal(string name)
         {
-            Arguments.NotNullOrWhitespace(name, nameof(name));
+            name = Arguments.EnsureNotNullOrWhitespace(name, nameof(name));
 
             return this.ordinal[name];
         }
@@ -84,8 +85,8 @@ namespace Abbotware.Data.BulkInsert
         /// <returns>property value</returns>
         public object? GetPropertyValue(string propertyName, TClass instance)
         {
-            Arguments.NotNullOrWhitespace(propertyName, nameof(propertyName));
-            Arguments.NotNull(instance, nameof(instance));
+            propertyName = Arguments.EnsureNotNullOrWhitespace(propertyName, nameof(propertyName));
+            instance = Arguments.EnsureNotNull(instance, nameof(instance));
 
             return this.GetPropertyValue(this.GetOrdinal(propertyName), instance);
         }

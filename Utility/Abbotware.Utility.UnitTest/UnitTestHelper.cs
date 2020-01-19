@@ -39,7 +39,7 @@ namespace Abbotware.Utility.UnitTest
         public static void WaitOrThrow(this WaitHandle extendedWaitHandle, TimeSpan timeout, string message)
         {
             extendedWaitHandle = Arguments.EnsureNotNull(extendedWaitHandle, nameof(extendedWaitHandle));
-            Arguments.NotNullOrWhitespace(message, nameof(message));
+            message = Arguments.EnsureNotNullOrWhitespace(message, nameof(message));
 
             if (Debugger.IsAttached)
             {
@@ -60,8 +60,8 @@ namespace Abbotware.Utility.UnitTest
         /// <param name="message">message for exception</param>
         public static void Assert1Sec(this WaitHandle extendedWaitHandle, string message)
         {
-            Arguments.NotNull(extendedWaitHandle, nameof(extendedWaitHandle));
-            Arguments.NotNullOrWhitespace(message, nameof(message));
+            extendedWaitHandle = Arguments.EnsureNotNull(extendedWaitHandle, nameof(extendedWaitHandle));
+            message = Arguments.EnsureNotNullOrWhitespace(message, nameof(message));
 
             extendedWaitHandle.WaitOrThrow(new TimeSpan(0, 0, 1), message);
         }
@@ -74,8 +74,8 @@ namespace Abbotware.Utility.UnitTest
         /// <param name="message">message for exception</param>
         public static void Assert5Sec(this WaitHandle extendedWaitHandle, string message)
         {
-            Arguments.NotNull(extendedWaitHandle, nameof(extendedWaitHandle));
-            Arguments.NotNullOrWhitespace(message, nameof(message));
+            extendedWaitHandle = Arguments.EnsureNotNull(extendedWaitHandle, nameof(extendedWaitHandle));
+            message = Arguments.EnsureNotNullOrWhitespace(message, nameof(message));
 
             extendedWaitHandle.WaitOrThrow(new TimeSpan(0, 0, 5), message);
         }
@@ -87,9 +87,9 @@ namespace Abbotware.Utility.UnitTest
         /// <returns>string with machine/user/object</returns>
         public static string UserSpecificName(string objectName)
         {
-            Arguments.NotNullOrWhitespace(objectName, nameof(objectName));
+            objectName = Arguments.EnsureNotNullOrWhitespace(objectName, nameof(objectName));
 
-            var temp = string.Format(CultureInfo.InvariantCulture, "{0}_{1}_{2}", Environment.MachineName, Environment.UserName, objectName);
+            var temp = $"{Environment.MachineName}_{Environment.UserName}_{objectName}";
 
             return temp;
         }

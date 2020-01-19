@@ -34,20 +34,6 @@ namespace Abbotware.Core
         }
 
         /// <summary>
-        /// Throws InvalidOperationException if type is missing [Serializable] attribute
-        /// </summary>
-        /// <typeparam name="T">Argument type</typeparam>
-        /// <param name="method">name of method</param>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void IsSerializable<T>([CallerMemberName] string? method = null)
-        {
-            if (!typeof(T).IsSerializable)
-            {
-                throw new InvalidOperationException($"can not serialaize/deserialize '{typeof(T).FullName}'  missing [Serializable] attribute.  Method:{method}");
-            }
-        }
-
-        /// <summary>
         /// Throws ArgumentException if string is null or whitespace
         /// </summary>
         /// <param name="argument">argument value</param>
@@ -62,6 +48,20 @@ namespace Abbotware.Core
                 var m = $"string is not valid:{message} Method:{method}";
 
                 throw new ArgumentException(m, name);
+            }
+        }
+
+        /// <summary>
+        /// Throws InvalidOperationException if type is missing [Serializable] attribute
+        /// </summary>
+        /// <typeparam name="T">Argument type</typeparam>
+        /// <param name="method">name of method</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void IsSerializable<T>([CallerMemberName] string? method = null)
+        {
+            if (!typeof(T).IsSerializable)
+            {
+                throw new InvalidOperationException($"can not serialaize/deserialize '{typeof(T).FullName}'  missing [Serializable] attribute.  Method:{method}");
             }
         }
 

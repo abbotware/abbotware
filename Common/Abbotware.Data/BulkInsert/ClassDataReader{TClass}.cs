@@ -20,6 +20,7 @@ namespace Abbotware.Data.BulkInsert
     /// </summary>
     /// <typeparam name="TClass">Class type</typeparam>
     public sealed class ClassDataReader<TClass> : BaseComponent, IDataReader
+        where TClass : class
     {
         /// <summary>
         ///     iterator that keeps track of location in list

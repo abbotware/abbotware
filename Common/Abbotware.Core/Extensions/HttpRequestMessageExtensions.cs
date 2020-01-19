@@ -47,7 +47,7 @@ namespace Abbotware.Core.Extensions
         public static void AddOAuthAuthentication(this HttpRequestMessage message, string token)
         {
             message = Arguments.EnsureNotNull(message, nameof(message));
-            Arguments.NotNullOrWhitespace(token, nameof(token));
+            token = Arguments.EnsureNotNullOrWhitespace(token, nameof(token));
 
             AddAuthenticationHeader(message, HeaderType.Bearer, token);
         }

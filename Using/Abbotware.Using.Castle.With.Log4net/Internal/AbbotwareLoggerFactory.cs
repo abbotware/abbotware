@@ -40,7 +40,6 @@ namespace Abbotware.Using.Castle.Internal
         public AbbotwareLoggerFactory()
             : this(DefaultConfigFileName)
         {
-            Arguments.NotNullOrWhitespace(DefaultConfigFileName, nameof(DefaultConfigFileName));
         }
 
         /// <summary>
@@ -49,7 +48,7 @@ namespace Abbotware.Using.Castle.Internal
         /// <param name="configFile">name of the logger config file</param>
         public AbbotwareLoggerFactory(string configFile)
         {
-            Arguments.NotNullOrWhitespace(configFile, nameof(configFile));
+            configFile = Arguments.EnsureNotNullOrWhitespace(configFile, nameof(configFile));
 
             var file = GetConfigFile(configFile);
 
@@ -68,8 +67,6 @@ namespace Abbotware.Using.Castle.Internal
             {
                 return;
             }
-
-            Arguments.NotNullOrWhitespace(DefaultConfigFileName, nameof(DefaultConfigFileName));
 
             var file = GetConfigFile(DefaultConfigFileName);
 
@@ -166,18 +163,18 @@ namespace Abbotware.Using.Castle.Internal
         /// <summary>
         ///     Gets the FileInfo for the config file
         /// </summary>
-        /// <param name="fileName">file name of the config</param>
+        /// <param name="configFile">file name of the config</param>
         /// <returns>file info object</returns>
-        protected static FileInfo GetConfigFile(string fileName)
+        protected static FileInfo GetConfigFile(string configFile)
         {
-            Arguments.NotNullOrWhitespace(fileName, nameof(fileName));
+            configFile = Arguments.EnsureNotNullOrWhitespace(configFile, nameof(configFile));
 
-            if (Path.IsPathRooted(fileName))
+            if (Path.IsPathRooted(configFile))
             {
-                return new FileInfo(fileName);
+                return new FileInfo(configFile);
             }
 
-            var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName);
+            var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, configFile);
 
             return new FileInfo(filePath);
         }

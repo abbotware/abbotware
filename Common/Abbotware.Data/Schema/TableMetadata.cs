@@ -35,8 +35,8 @@ namespace Abbotware.Data.Schema
         /// <param name="sqlMetadata">sql metadata</param>
         public TableMetadata(string schema, string table, IReadOnlyDictionary<uint, SqlMetaData> sqlMetadata)
         {
-            Arguments.NotNullOrWhitespace(schema, nameof(schema));
-            Arguments.NotNullOrWhitespace(table, nameof(table));
+            schema = Arguments.EnsureNotNullOrWhitespace(schema, nameof(schema));
+            table = Arguments.EnsureNotNullOrWhitespace(table, nameof(table));
             sqlMetadata = Arguments.EnsureNotNull(sqlMetadata, nameof(sqlMetadata));
 
             this.Schema = schema;
@@ -76,7 +76,7 @@ namespace Abbotware.Data.Schema
         /// <returns>sql metadata</returns>
         public SqlMetaData? Column(string columnName)
         {
-            Arguments.NotNullOrWhitespace(columnName, nameof(columnName));
+            columnName = Arguments.EnsureNotNullOrWhitespace(columnName, nameof(columnName));
 
             if (this.nameToMetadata.ContainsKey(columnName))
             {

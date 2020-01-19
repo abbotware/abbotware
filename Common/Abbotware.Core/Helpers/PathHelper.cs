@@ -34,7 +34,7 @@ namespace Abbotware.Core.Helpers
         /// <returns>cleaned name</returns>
         public static string CleanDirectory(string name)
         {
-            Arguments.NotNullOrWhitespace(name, nameof(name));
+            name = Arguments.EnsureNotNullOrWhitespace(name, nameof(name));
 
             var output = CleanDirectoryRegex.Replace(name, string.Empty);
 
@@ -48,7 +48,7 @@ namespace Abbotware.Core.Helpers
         /// <returns>cleaned name</returns>
         public static string CleanFile(string name)
         {
-            Arguments.NotNullOrWhitespace(name, nameof(name));
+            name = Arguments.EnsureNotNullOrWhitespace(name, nameof(name));
 
             var output = CleanFileRegex.Replace(name, string.Empty);
 
@@ -62,7 +62,7 @@ namespace Abbotware.Core.Helpers
         /// <returns>cleaned name</returns>
         public static string CleanPath(string path)
         {
-            Arguments.NotNullOrWhitespace(path, nameof(path));
+            path = Arguments.EnsureNotNullOrWhitespace(path, nameof(path));
 
             var pathWithoutRoot = path;
             var root = string.Empty;

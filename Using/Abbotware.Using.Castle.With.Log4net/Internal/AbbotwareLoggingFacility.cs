@@ -89,7 +89,7 @@ namespace Abbotware.Using.Castle.Internal
         /// <returns>the logging facility</returns>
         public AbbotwareLoggingFacility WithConfig(string configFile)
         {
-            Arguments.NotNullOrWhitespace(configFile, nameof(configFile));
+            configFile = Arguments.EnsureNotNullOrWhitespace(configFile, nameof(configFile));
 
             this.configFileName = configFile;
 

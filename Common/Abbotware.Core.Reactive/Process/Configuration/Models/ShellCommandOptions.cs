@@ -39,7 +39,7 @@ namespace Abbotware.Core.Process.Configuration.Models
         /// <param name="arguments">arguments</param>
         public ShellCommandOptions(string command, string arguments)
         {
-            Abbotware.Core.Arguments.NotNullOrWhitespace(command, nameof(command));
+            command = Abbotware.Core.Arguments.EnsureNotNullOrWhitespace(command, nameof(command));
 
             this.Command = command;
             this.Arguments = arguments;

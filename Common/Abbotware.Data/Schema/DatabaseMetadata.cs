@@ -67,8 +67,8 @@ namespace Abbotware.Data.Schema
         /// <returns>metadata if schema/table is found</returns>
         public TableMetadata Table(string schemaName, string tableName)
         {
-            Arguments.NotNullOrWhitespace(schemaName, nameof(schemaName));
-            Arguments.NotNullOrWhitespace(tableName, nameof(tableName));
+            schemaName = Arguments.EnsureNotNullOrWhitespace(schemaName, nameof(schemaName));
+            tableName = Arguments.EnsureNotNullOrWhitespace(tableName, nameof(tableName));
 
             this.InitializeIfRequired();
 

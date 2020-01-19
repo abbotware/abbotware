@@ -45,5 +45,27 @@ namespace Abbotware.Core
         {
             return argument ?? throw new ArgumentNullException(name, $"Method:{method}");
         }
+
+        /// <summary>
+        /// Throws ArgumentException if string is null or whitespace
+        /// </summary>
+        /// <param name="argument">argument value</param>
+        /// <param name="name">name of argument</param>
+        /// <param name="message">message</param>
+        /// <param name="method">name of method</param>
+        /// <returns>argument unchanged</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [return: NotNull]
+        public static string EnsureNotNullOrWhitespace([NotNull]string argument, string name, string? message = null, [CallerMemberName] string? method = null)
+        {
+            if (string.IsNullOrWhiteSpace(argument))
+            {
+                var m = $"string is not valid:{message} Method:{method}";
+
+                throw new ArgumentException(m, name);
+            }
+
+            return argument;
+        }
     }
 }
