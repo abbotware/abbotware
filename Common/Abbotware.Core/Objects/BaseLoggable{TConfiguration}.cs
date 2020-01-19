@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="BaseComponent{TConfiguration}.cs" company="Abbotware, LLC">
+// <copyright file="BaseLoggable{TConfiguration}.cs" company="Abbotware, LLC">
 // Copyright © Abbotware, LLC 2012-2020. All rights reserved
 // </copyright>
 // -----------------------------------------------------------------------
@@ -7,25 +7,22 @@
 
 namespace Abbotware.Core.Objects
 {
-    using Abbotware.Core.Configuration;
-    using Abbotware.Core.Diagnostics;
-    using Abbotware.Core.Extensions;
     using Abbotware.Core.Logging;
     using Abbotware.Core.Objects.Internal;
 
     /// <summary>
-    /// Base class for a component that has configuration
+    /// base class for classes that contain a logger and configuration
     /// </summary>
     /// <typeparam name="TConfiguration">configuration type</typeparam>
-    public abstract class BaseComponent<TConfiguration> : BaseComponent, IComponent<TConfiguration>
+    public abstract class BaseLoggable<TConfiguration> : BaseLoggable
         where TConfiguration : class
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="BaseComponent{TConfiguration}"/> class.
+        ///     Initializes a new instance of the <see cref="BaseLoggable{TConfiguration}" /> class.
         /// </summary>
         /// <param name="configuration">configuration options</param>
-        /// <param name="logger">injected logger</param>
-        protected BaseComponent(TConfiguration configuration, ILogger logger)
+        /// <param name="logger">Injected logger for the class</param>
+        protected BaseLoggable(TConfiguration configuration, ILogger logger)
             : base(logger)
         {
             this.Configuration = Arguments.EnsureNotNull(configuration, nameof(configuration));

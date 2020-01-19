@@ -23,7 +23,7 @@ namespace Abbotware.IntegrationTests.Interop.Redis
         [Test]
         public async Task JsonCappedList_SaveLoadAsync()
         {
-            using var db = RedisHelper.CreateRedisConnection(UnitTestSettingsFile);
+            using var db = RedisHelper.CreateRedisConnection(this.Logger, UnitTestSettingsFile);
 
             var input = new TimeSeriesValue<string> { Y = "asdf", X = new DateTimeOffset(12, 12, 12, 12, 12, 12, TimeSpan.FromMinutes(30)) };
 

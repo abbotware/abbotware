@@ -24,7 +24,7 @@ namespace Abbotware.IntegrationTests.Interop.Redis
         [Test]
         public async Task LoadKeyDoesNotExist()
         {
-            using var db = RedisHelper.CreateRedisConnection(UnitTestSettingsFile);
+            using var db = RedisHelper.CreateRedisConnection(this.Logger, UnitTestSettingsFile);
 
             ICacheableList<string> l = new StringCappedList(Guid.NewGuid().ToString(), 10, db.GetDatabase().Native);
 
@@ -34,7 +34,7 @@ namespace Abbotware.IntegrationTests.Interop.Redis
         [Test]
         public async Task StringCappedList_Add()
         {
-            using var db = RedisHelper.CreateRedisConnection(UnitTestSettingsFile);
+            using var db = RedisHelper.CreateRedisConnection(this.Logger, UnitTestSettingsFile);
 
             ICacheableList<string> l = new StringCappedList(Guid.NewGuid().ToString(), 10, db.GetDatabase().Native);
 
@@ -48,7 +48,7 @@ namespace Abbotware.IntegrationTests.Interop.Redis
         [Test]
         public async Task StringCappedList_SaveAsync()
         {
-            using var db = RedisHelper.CreateRedisConnection(UnitTestSettingsFile);
+            using var db = RedisHelper.CreateRedisConnection(this.Logger, UnitTestSettingsFile);
 
             var key = Guid.NewGuid().ToString();
             {

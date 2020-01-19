@@ -6,6 +6,7 @@
 
 namespace Abbotware.Interop.Redis
 {
+    using Abbotware.Core.Logging;
     using Abbotware.Core.Objects;
     using Abbotware.Core.Objects.Configuration.Models;
     using Abbotware.Interop.Microsoft;
@@ -34,32 +35,35 @@ namespace Abbotware.Interop.Redis
         /// <summary>
         /// Create a redis connection using default AppSettings.json
         /// </summary>
+        /// <param name="logger">logger to inject</param>
         /// <param name="file">config file to use for settings</param>
         /// <returns>redis connection</returns>
-        public static IRedisConnection CreateRedisConnection(string file = ConfigurationHelper.AppSettingsFileName)
+        public static IRedisConnection CreateRedisConnection(ILogger logger, string file = ConfigurationHelper.AppSettingsFileName)
         {
             var cfg = GetRedisConfiguration(file);
 
-            return CreateRedisUsingConfiguration(cfg);
+            return CreateRedisUsingConfiguration(cfg, logger);
         }
 
         /// <summary>
         /// Create a redis connection for the unit test
         /// </summary>
+        /// <param name="logger">logger to inject</param>
         /// <returns>redis connection</returns>
-        public static IRedisConnection CreateRedisUsingLocalHost()
+        public static IRedisConnection CreateRedisUsingLocalHost(ILogger logger)
         {
-            return CreateRedisUsingConfiguration(Defaults.ConnectionOptions);
+            return CreateRedisUsingConfiguration(Defaults.ConnectionOptions, logger);
         }
 
         /// <summary>
         /// Create a redis connection from a config
         /// </summary>
         /// <param name="cfg">configuration</param>
+        /// <param name="logger">logger to inject</param>
         /// <returns>redis connection</returns>
-        public static IRedisConnection CreateRedisUsingConfiguration(IConnectionOptions cfg)
+        public static IRedisConnection CreateRedisUsingConfiguration(IConnectionOptions cfg, ILogger logger)
         {
-            using var cf = new RedisConnectionFactory(cfg);
+            var cf = new RedisConnectionFactory(cfg, logger);
 
             return cf.Create();
         }

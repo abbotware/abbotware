@@ -26,7 +26,7 @@ namespace Abbotware.IntegrationTests.Interop.Redis
         [Test]
         public async Task LoadKeyDoesNotExist()
         {
-            using var db = RedisHelper.CreateRedisConnection(UnitTestSettingsFile);
+            using var db = RedisHelper.CreateRedisConnection(this.Logger, UnitTestSettingsFile);
 
             ICacheableSortedSet<DateTimeOffset, int> l = new AutoMapperSortedSet<DateTimeOffset, int>(Guid.NewGuid().ToString(), 9, db.GetDatabase().Native, null);
 
@@ -36,7 +36,7 @@ namespace Abbotware.IntegrationTests.Interop.Redis
         [Test]
         public async Task SortedSet_SaveAsync()
         {
-            using var db = RedisHelper.CreateRedisConnection(UnitTestSettingsFile);
+            using var db = RedisHelper.CreateRedisConnection(this.Logger, UnitTestSettingsFile);
 
             var key = Guid.NewGuid().ToString();
 
@@ -314,7 +314,7 @@ namespace Abbotware.IntegrationTests.Interop.Redis
         [Test]
         public async Task SortedSet_Add()
         {
-            using var db = RedisHelper.CreateRedisConnection(UnitTestSettingsFile);
+            using var db = RedisHelper.CreateRedisConnection(this.Logger, UnitTestSettingsFile);
 
             ICacheableSortedSet<DateTimeOffset, int> l = new AutoMapperSortedSet<DateTimeOffset, int>(Guid.NewGuid().ToString(), 9, db.GetDatabase().Native, CreateMapper());
 
@@ -330,7 +330,7 @@ namespace Abbotware.IntegrationTests.Interop.Redis
         public async Task SortedSet_Add_Duplicate_Scores()
         {
             // TODO: verify duplicate scores are set (should overwrite existing score)
-            using var db = RedisHelper.CreateRedisConnection(UnitTestSettingsFile);
+            using var db = RedisHelper.CreateRedisConnection(this.Logger, UnitTestSettingsFile);
 
             ICacheableSortedSet<DateTimeOffset, int> l = new AutoMapperSortedSet<DateTimeOffset, int>(Guid.NewGuid().ToString(), 9, db.GetDatabase().Native, CreateMapper());
 
@@ -342,7 +342,7 @@ namespace Abbotware.IntegrationTests.Interop.Redis
         public async Task SortedSet_Add_Duplicate_Keys()
         {
             // TODO: verify duplicate keys are not allows (should throw exception)
-            using var db = RedisHelper.CreateRedisConnection(UnitTestSettingsFile);
+            using var db = RedisHelper.CreateRedisConnection(this.Logger, UnitTestSettingsFile);
 
             ICacheableSortedSet<DateTimeOffset, int> l = new AutoMapperSortedSet<DateTimeOffset, int>(Guid.NewGuid().ToString(), 9, db.GetDatabase().Native, CreateMapper());
 

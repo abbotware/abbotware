@@ -9,6 +9,7 @@ namespace Abbotware.Interop.Redis
 {
     using Abbotware.Core;
     using Abbotware.Core.Extensions;
+    using Abbotware.Core.Logging;
     using Abbotware.Core.Objects;
     using Abbotware.Interop.Redis.ExtensionPoints;
     using StackExchange.Redis;
@@ -16,13 +17,15 @@ namespace Abbotware.Interop.Redis
     /// <summary>
     /// Redis Connection Factory via StackExchange
     /// </summary>
-    public class RedisConnectionFactory : BaseComponent, IRedisConnectionFactory
+    public class RedisConnectionFactory : BaseLoggable, IRedisConnectionFactory
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="RedisConnectionFactory"/> class.
         /// </summary>
         /// <param name="defaultConfiguration">injected default configuration</param>
-        public RedisConnectionFactory(IConnectionOptions defaultConfiguration)
+        /// <param name="logger">injected logger</param>
+        public RedisConnectionFactory(IConnectionOptions defaultConfiguration, ILogger logger)
+            : base(logger)
         {
             this.DefaultOptions = defaultConfiguration;
         }

@@ -14,7 +14,7 @@ namespace Abbotware.Core.Objects
     /// </summary>
     /// <typeparam name="TConnection">Connection Type</typeparam>
     /// <typeparam name="TOptions">Connection Options Type</typeparam>
-    public interface IConnectionFactory<TConnection, TOptions> : IDisposable
+    public interface IConnectionFactory<TConnection, TOptions>
         where TConnection : IConnection
     {
         /// <summary>

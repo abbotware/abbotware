@@ -26,7 +26,7 @@ namespace Abbotware.IntegrationTests.Interop.Redis
         {
             var keyId = Guid.NewGuid();
 
-            using (var c = RedisHelper.CreateRedisConnection(UnitTestSettingsFile))
+            using (var c = RedisHelper.CreateRedisConnection(this.Logger, UnitTestSettingsFile))
             {
                 var db = c.GetDatabase();
 
@@ -39,7 +39,7 @@ namespace Abbotware.IntegrationTests.Interop.Redis
                 await db.SetFieldsAsync(keyId.ToString(), kvp, default);
             }
 
-            using (var c = RedisHelper.CreateRedisConnection(UnitTestSettingsFile))
+            using (var c = RedisHelper.CreateRedisConnection(this.Logger, UnitTestSettingsFile))
             {
                 var db = c.GetDatabase();
 
@@ -56,7 +56,7 @@ namespace Abbotware.IntegrationTests.Interop.Redis
         {
             var id = Guid.NewGuid().ToString();
 
-            using var c = RedisHelper.CreateRedisConnection(UnitTestSettingsFile);
+            using var c = RedisHelper.CreateRedisConnection(this.Logger, UnitTestSettingsFile);
 
             var db = c.GetDatabase();
 
@@ -82,7 +82,7 @@ namespace Abbotware.IntegrationTests.Interop.Redis
         {
             var id = Guid.NewGuid();
 
-            using (var c = RedisHelper.CreateRedisConnection(UnitTestSettingsFile))
+            using (var c = RedisHelper.CreateRedisConnection(this.Logger, UnitTestSettingsFile))
             {
                 var db = c.GetDatabase();
 
@@ -113,7 +113,7 @@ namespace Abbotware.IntegrationTests.Interop.Redis
                 await hfs.Remote.SaveAsync(default);
             }
 
-            using (var c = RedisHelper.CreateRedisConnection(UnitTestSettingsFile))
+            using (var c = RedisHelper.CreateRedisConnection(this.Logger, UnitTestSettingsFile))
             {
                 var db = c.GetDatabase();
 
@@ -135,7 +135,7 @@ namespace Abbotware.IntegrationTests.Interop.Redis
         {
             var id = Guid.NewGuid();
 
-            using (var c = RedisHelper.CreateRedisConnection(UnitTestSettingsFile))
+            using (var c = RedisHelper.CreateRedisConnection(this.Logger, UnitTestSettingsFile))
             {
                 var db = c.GetDatabase();
 
@@ -146,7 +146,7 @@ namespace Abbotware.IntegrationTests.Interop.Redis
                 await ps.SaveAsync(default);
             }
 
-            using (var c = RedisHelper.CreateRedisConnection(UnitTestSettingsFile))
+            using (var c = RedisHelper.CreateRedisConnection(this.Logger, UnitTestSettingsFile))
             {
                 var db = c.GetDatabase();
 
