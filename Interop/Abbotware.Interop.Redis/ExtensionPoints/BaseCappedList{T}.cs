@@ -70,6 +70,24 @@ namespace Abbotware.Interop.Redis.ExtensionPoints
         }
 
         /// <inheritdoc />
+        public T[] ToArray()
+        {
+            lock (this.snapshot)
+            {
+                return this.snapshot.ToArray();
+            }
+        }
+
+        /// <inheritdoc />
+        public List<T> ToList()
+        {
+            lock (this.snapshot)
+            {
+                return this.snapshot.ToList();
+            }
+        }
+
+        /// <inheritdoc />
         public async Task LoadAsync(CancellationToken ct)
         {
             var keys = await this.database.ListRangeAsync(this.RemoteKey)

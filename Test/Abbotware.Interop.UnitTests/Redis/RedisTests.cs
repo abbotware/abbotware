@@ -76,7 +76,6 @@ namespace Abbotware.UnitTests.Interop.Redis
         }
 
         [Test]
-        [Category("Interop.Redis.UnitTests")]
         [ExpectedException(typeof(KeyNotFoundException))]
         public void HashKeyValueCollection_KeyNotExist()
         {
@@ -85,7 +84,6 @@ namespace Abbotware.UnitTests.Interop.Redis
         }
 
         [Test]
-        [Category("Interop.Redis.UnitTests")]
         [ExpectedException(typeof(InvalidOperationException))]
         public void HashKeyValueCollection_KeyAddTwice()
         {
@@ -95,7 +93,6 @@ namespace Abbotware.UnitTests.Interop.Redis
         }
 
         [Test]
-        [Category("Interop.Redis.UnitTests")]
         public void HashKeyValueCollection_TestCases()
         {
             var encoder = new HashKeyValueCollection();

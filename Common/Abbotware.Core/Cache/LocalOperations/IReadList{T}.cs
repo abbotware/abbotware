@@ -20,5 +20,17 @@ namespace Abbotware.Core.Cache.LocalOperations
         /// </summary>
         /// <returns>list of data</returns>
         IEnumerable<T> AsEnumerable();
+
+        /// <summary>
+        /// Gets the data as a list
+        /// </summary>
+        /// <returns>list of data</returns>
+        List<T> ToList();
+
+        /// <summary>
+        /// Gets the data as an arrary
+        /// </summary>
+        /// <returns>list of data</returns>
+        T[] ToArray();
     }
 }

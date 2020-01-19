@@ -62,10 +62,21 @@ namespace Abbotware.Interop.Redis.Collections
         public IEnumerable<T> AsEnumerable()
         {
             var a = this.storage.AsEnumerable()
-               .Select(x => this.serializer.Decode<T>(x))
-               .ToList();
+               .Select(x => this.serializer.Decode<T>(x));
 
             return a;
+        }
+
+        /// <inheritdoc/>
+        public List<T> ToList()
+        {
+            return this.AsEnumerable().ToList();
+        }
+
+        /// <inheritdoc/>
+        public T[] ToArray()
+        {
+            return this.AsEnumerable().ToArray();
         }
 
         /// <inheritdoc/>
