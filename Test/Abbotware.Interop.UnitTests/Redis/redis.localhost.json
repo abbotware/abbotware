@@ -1,0 +1,9 @@
+﻿{
+  "Redis": {
+    "Endpoint": "redis://127.1.2.3:1234",
+    "Credential": {
+      "UserName": "user",
+      "Password": "pass"
+    }
+  }
+}

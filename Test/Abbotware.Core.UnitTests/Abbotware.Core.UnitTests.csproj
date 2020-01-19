@@ -27,6 +27,7 @@
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Microsoft\Abbotware.Interop.Microsoft.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Newtonsoft\Abbotware.Interop.Newtonsoft.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.NUnit\Abbotware.Interop.NUnit.csproj" />
+    <ProjectReference Include="..\..\Interop\Abbotware.Interop.Redis\Abbotware.Interop.Redis.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.SharpZipLib\Abbotware.Interop.SharpZipLib.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Yubico\Abbotware.Interop.Yubico.csproj" />
     <ProjectReference Include="..\..\Using\Abbotware.Data.Using.Castle\Abbotware.Data.Using.Castle.csproj" />
