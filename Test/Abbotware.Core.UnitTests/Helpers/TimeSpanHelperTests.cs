@@ -6,6 +6,7 @@ namespace Abbotware.UnitTests.Core
 
     [TestFixture]
     [Category("Core")]
+    [Category("Core.Helpers")]
     public class TimeSpanHelperTests
     {
         [Test]

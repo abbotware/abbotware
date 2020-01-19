@@ -6,7 +6,7 @@ namespace Abbotware.UnitTests.Core
     using Abbotware.Interop.NUnit;
     using NUnit.Framework;
 
-    [Category("Core.UniquePairs")]
+    [Category("Core.Collections")]
     [Category("Core")]
     [TestFixture]
     public class UniquePairTests
