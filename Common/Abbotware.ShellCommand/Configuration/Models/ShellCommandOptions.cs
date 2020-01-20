@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------
 // <author>Anthony Abate</author>
 
-namespace Abbotware.Core.Process.Configuration.Models
+namespace Abbotware.ShellCommand.Configuration.Models
 {
     using System;
 

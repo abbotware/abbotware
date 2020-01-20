@@ -1,11 +1,11 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IShellCommandResult.cs" company="Abbotware, LLC">
+// <copyright file="IExitInfo.cs" company="Abbotware, LLC">
 // Copyright © Abbotware, LLC 2012-2020. All rights reserved
 // </copyright>
 // -----------------------------------------------------------------------
 // <author>Anthony Abate</author>
 
-namespace Abbotware.Core.Process
+namespace Abbotware.ShellCommand
 {
     using System;
     using System.Collections.Generic;
@@ -13,12 +13,12 @@ namespace Abbotware.Core.Process
     /// <summary>
     /// Interface for shell command result
     /// </summary>
-    public interface IShellCommandResult
+    public interface IExitInfo
     {
         /// <summary>
         ///     Gets the start info for the command
         /// </summary>
-        IShellCommandStartInfo StartInfo { get; }
+        IStartInfo StartInfo { get; }
 
         /// <summary>
         ///     Gets the exit code of the process

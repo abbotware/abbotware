@@ -1,18 +1,18 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IShellCommandStartInfo.cs" company="Abbotware, LLC">
+// <copyright file="IStartInfo.cs" company="Abbotware, LLC">
 // Copyright © Abbotware, LLC 2012-2020. All rights reserved
 // </copyright>
 // -----------------------------------------------------------------------
 // <author>Anthony Abate</author>
 
-namespace Abbotware.Core.Process
+namespace Abbotware.ShellCommand
 {
     using System;
 
     /// <summary>
     /// Interface for shell command start info
     /// </summary>
-    public interface IShellCommandStartInfo
+    public interface IStartInfo
     {
         /// <summary>
         ///     Gets the process id of the command

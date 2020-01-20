@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------
 // <author>Anthony Abate</author>
 
-namespace Abbotware.Core.Process.Plugins
+namespace Abbotware.ShellCommand
 {
     using System;
     using System.Threading.Tasks;
@@ -14,7 +14,7 @@ namespace Abbotware.Core.Process.Plugins
     /// <summary>
     /// Interface for a shell command
     /// </summary>
-    public interface IShellCommand : ICommand<IShellCommandResult>
+    public interface IShellCommand : ICommand<IExitInfo>
     {
         /// <summary>
         /// Gets the error output
@@ -29,12 +29,12 @@ namespace Abbotware.Core.Process.Plugins
         /// <summary>
         /// Gets the task to signal the shell command started
         /// </summary>
-        Task<IShellCommandStartInfo> Started { get; }
+        Task<IStartInfo> Started { get; }
 
         /// <summary>
         /// Gets the task to signal the shell command exited
         /// </summary>
-        Task<IShellCommandResult> Exited { get; }
+        Task<IExitInfo> Exited { get; }
 
         /// <summary>
         /// Writes input to the shell command (only sent if process is running)

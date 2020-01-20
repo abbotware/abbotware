@@ -7,10 +7,9 @@ namespace Abbotware.UnitTests.Core
     using System;
     using System.Diagnostics;
     using System.Threading.Tasks;
-    using Abbotware.Core.Process;
-    using Abbotware.Core.Process.Configuration.Models;
-    using Abbotware.Core.Process.Plugins;
     using Abbotware.Interop.NUnit;
+    using Abbotware.ShellCommand;
+    using Abbotware.ShellCommand.Configuration.Models;
     using Abbotware.Utility.UnitTest.Using.NUnit;
     using NUnit.Framework;
 
@@ -30,12 +29,12 @@ namespace Abbotware.UnitTests.Core
         [MaxTime(10000)]
         public async Task ShellCommand_Ping_ExecuteAsync()
         {
-            IShellCommandResult result = null;
+            IExitInfo result = null;
 
             // command will exit before kill is issued
             var cfg = CreateCommandConfig(4, TimeSpan.FromSeconds(10));
 
-            using (var child = new ShellCommand(cfg, this.Logger))
+            using (var child = new AbbotwareShellCommand(cfg, this.Logger))
             {
                 result = await child.ExecuteAsync();
 
@@ -71,12 +70,12 @@ namespace Abbotware.UnitTests.Core
         [MaxTime(10000)]
         public async Task ShellCommand_Ping_ExecuteAsync_Kill()
         {
-            IShellCommandResult result = null;
+            IExitInfo result = null;
 
             // timeout is less than number of pings should force a kill
             var cfg = CreateCommandConfig(10, TimeSpan.FromSeconds(4));
 
-            using (var child = new ShellCommand(cfg, this.Logger))
+            using (var child = new AbbotwareShellCommand(cfg, this.Logger))
             {
                 result = await child.ExecuteAsync();
 

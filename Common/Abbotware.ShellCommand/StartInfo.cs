@@ -1,18 +1,18 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="ShellCommandStartInfo.cs" company="Abbotware, LLC">
+// <copyright file="StartInfo.cs" company="Abbotware, LLC">
 // Copyright © Abbotware, LLC 2012-2020. All rights reserved
 // </copyright>
 // -----------------------------------------------------------------------
 // <author>Anthony Abate</author>
 
-namespace Abbotware.Core.Process.Plugins
+namespace Abbotware.ShellCommand
 {
     using System;
 
     /// <summary>
     ///     POCO class for shell command start info
     /// </summary>
-    public sealed class ShellCommandStartInfo : IShellCommandStartInfo
+    public sealed class StartInfo : IStartInfo
     {
         /// <inheritdoc />
         public int? ProcessId { get; set; }

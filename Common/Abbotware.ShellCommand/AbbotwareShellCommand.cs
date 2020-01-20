@@ -1,11 +1,11 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="ShellCommand.cs" company="Abbotware, LLC">
+// <copyright file="AbbotwareShellCommand.cs" company="Abbotware, LLC">
 // Copyright © Abbotware, LLC 2012-2020. All rights reserved
 // </copyright>
 // -----------------------------------------------------------------------
 // <author>Anthony Abate</author>
 
-namespace Abbotware.Core.Process.Plugins
+namespace Abbotware.ShellCommand
 {
     using System;
     using System.Diagnostics;
@@ -15,13 +15,13 @@ namespace Abbotware.Core.Process.Plugins
     using Abbotware.Core.Helpers;
     using Abbotware.Core.Logging;
     using Abbotware.Core.Objects;
-    using Abbotware.Core.Process.Configuration;
-    using Abbotware.Core.Process.Configuration.Models;
+    using Abbotware.ShellCommand.Configuration;
+    using Abbotware.ShellCommand.Configuration.Models;
 
     /// <summary>
     /// class the can run a shell command
     /// </summary>
-    public class ShellCommand : BaseCommand<IShellCommandOptions, IShellCommandResult>, IShellCommand
+    public class AbbotwareShellCommand : BaseCommand<IShellCommandOptions, IExitInfo>, IShellCommand
     {
         private readonly Subject<(DateTimeOffset, string)> standardOutput = new Subject<(DateTimeOffset, string)>();
 
@@ -29,37 +29,37 @@ namespace Abbotware.Core.Process.Plugins
 
         private readonly Subject<string> standardInput = new Subject<string>();
 
-        private readonly TaskCompletionSource<IShellCommandStartInfo> startSignal = new TaskCompletionSource<IShellCommandStartInfo>();
+        private readonly TaskCompletionSource<IStartInfo> startSignal = new TaskCompletionSource<IStartInfo>();
 
-        private readonly TaskCompletionSource<IShellCommandResult> exitSignal = new TaskCompletionSource<IShellCommandResult>();
+        private readonly TaskCompletionSource<IExitInfo> exitSignal = new TaskCompletionSource<IExitInfo>();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ShellCommand"/> class.
+        /// Initializes a new instance of the <see cref="AbbotwareShellCommand"/> class.
         /// </summary>
         /// <param name="command">command</param>
         /// <param name="logger">injected logger</param>
-        public ShellCommand(string command, ILogger logger)
+        public AbbotwareShellCommand(string command, ILogger logger)
             : this(command, string.Empty, logger)
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ShellCommand"/> class.
+        /// Initializes a new instance of the <see cref="AbbotwareShellCommand"/> class.
         /// </summary>
         /// <param name="command">command</param>
         /// <param name="arguments">arguments</param>
         /// <param name="logger">injected logger</param>
-        public ShellCommand(string command, string arguments, ILogger logger)
+        public AbbotwareShellCommand(string command, string arguments, ILogger logger)
             : this(new ShellCommandOptions(command, arguments), logger)
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ShellCommand"/> class.
+        /// Initializes a new instance of the <see cref="AbbotwareShellCommand"/> class.
         /// </summary>
         /// <param name="config">configuration</param>
         /// <param name="logger">injected logger</param>
-        public ShellCommand(IShellCommandOptions config, ILogger logger)
+        public AbbotwareShellCommand(IShellCommandOptions config, ILogger logger)
             : base(config, logger)
         {
         }
@@ -71,10 +71,10 @@ namespace Abbotware.Core.Process.Plugins
         public IObservable<(DateTimeOffset, string)> ErrorOutput => this.standardError;
 
         /// <inheritdoc/>
-        public Task<IShellCommandStartInfo> Started => this.startSignal.Task;
+        public Task<IStartInfo> Started => this.startSignal.Task;
 
         /// <inheritdoc/>
-        public Task<IShellCommandResult> Exited => this.exitSignal.Task;
+        public Task<IExitInfo> Exited => this.exitSignal.Task;
 
         /// <inheritdoc/>
         public void WriteInput(string input)
@@ -83,9 +83,9 @@ namespace Abbotware.Core.Process.Plugins
         }
 
         /// <inheritdoc/>
-        protected override async Task<IShellCommandResult> OnExecuteAsync()
+        protected override async Task<IExitInfo> OnExecuteAsync()
         {
-            var r = new ShellCommandResult();
+            var r = new ExitInfo();
 
             using var outputSubscription = this.StandardOutput.Subscribe(r.AppendOutput);
             using var errortSubscription = this.StandardOutput.Subscribe(r.AppendError);
@@ -203,7 +203,7 @@ namespace Abbotware.Core.Process.Plugins
             return $"Command: '{process.StartInfo.WorkingDirectory}/{process.StartInfo.FileName} {process.StartInfo.Arguments}'";
         }
 
-        private IDisposable ProcessStarted(ShellCommandResult r, Process process)
+        private IDisposable ProcessStarted(ExitInfo r, Process process)
         {
             process.BeginOutputReadLine();
             process.BeginErrorReadLine();
@@ -217,7 +217,7 @@ namespace Abbotware.Core.Process.Plugins
             return sub;
         }
 
-        private async void ProcessCleanup(ShellCommandResult r, Process process)
+        private async void ProcessCleanup(ExitInfo r, Process process)
         {
             process.Refresh();
 

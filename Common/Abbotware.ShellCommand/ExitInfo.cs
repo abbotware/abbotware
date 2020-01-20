@@ -1,11 +1,11 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="ShellCommandResult.cs" company="Abbotware, LLC">
+// <copyright file="ExitInfo.cs" company="Abbotware, LLC">
 // Copyright © Abbotware, LLC 2012-2020. All rights reserved
 // </copyright>
 // -----------------------------------------------------------------------
 // <author>Anthony Abate</author>
 
-namespace Abbotware.Core.Process.Plugins
+namespace Abbotware.ShellCommand
 {
     using System;
     using System.Collections.Concurrent;
@@ -14,7 +14,7 @@ namespace Abbotware.Core.Process.Plugins
     /// <summary>
     ///     result of the shell command
     /// </summary>
-    public class ShellCommandResult : IShellCommandResult
+    public class ExitInfo : IExitInfo
     {
         private readonly ConcurrentBag<(DateTimeOffset, string)> error = new ConcurrentBag<(DateTimeOffset, string)>();
 
@@ -36,12 +36,12 @@ namespace Abbotware.Core.Process.Plugins
         public IEnumerable<(DateTimeOffset, string)> ErrorOutput => this.error;
 
         /// <inheritdoc />
-        IShellCommandStartInfo IShellCommandResult.StartInfo => this.StartInfo;
+        IStartInfo IExitInfo.StartInfo => this.StartInfo;
 
         /// <summary>
         /// Gets the start info
         /// </summary>
-        public ShellCommandStartInfo StartInfo { get; } = new ShellCommandStartInfo();
+        public StartInfo StartInfo { get; } = new StartInfo();
 
         /// <summary>
         ///     Appends error text to result
