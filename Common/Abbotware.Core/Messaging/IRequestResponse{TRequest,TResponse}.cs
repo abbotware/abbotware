@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IMessageHandler{TMessage,TContext}.cs" company="Abbotware, LLC">
+// <copyright file="IRequestResponse{TRequest,TResponse}.cs" company="Abbotware, LLC">
 // Copyright © Abbotware, LLC 2012-2020. All rights reserved
 // </copyright>
 // -----------------------------------------------------------------------
@@ -11,19 +11,18 @@ namespace Abbotware.Core.Messaging
     using System.Threading.Tasks;
 
     /// <summary>
-    /// message handler with a context
+    /// request response based message handler
     /// </summary>
-    /// <typeparam name="TMessage">message type</typeparam>
-    /// <typeparam name="TContext">context type</typeparam>
-    public interface IMessageHandler<TMessage, TContext>
+    /// <typeparam name="TRequest">request type</typeparam>
+    /// <typeparam name="TResponse">response type</typeparam>
+    public interface IRequestResponse<TRequest, TResponse>
     {
         /// <summary>
         /// Handles a message
         /// </summary>
         /// <param name="message">message</param>
-        /// <param name="context">context</param>
         /// <param name="ct">cancellation token</param>
         /// <returns>async task</returns>
-        Task HandleAsync(TMessage message, TContext context, CancellationToken ct);
+        Task<TResponse> HandleAsync(TRequest message, CancellationToken ct);
     }
 }
