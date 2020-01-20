@@ -10,9 +10,10 @@ namespace Abbotware.Core.Objects
     /// <summary>
     ///     factory interface for creating typed connections
     /// </summary>
+    /// <remarks>will use the default options unless the overloaded create method is called</remarks>
     /// <typeparam name="TConnection">Connection Type</typeparam>
     /// <typeparam name="TOptions">Connection Options Type</typeparam>
-    public interface IConnectionFactory<TConnection, TOptions>
+    public interface IConnectionFactory<TConnection, TOptions> : IFactory<TConnection>
         where TConnection : IConnection
     {
         /// <summary>
@@ -21,22 +22,10 @@ namespace Abbotware.Core.Objects
         TOptions DefaultOptions { get; }
 
         /// <summary>
-        ///     creates a typed connection
-        /// </summary>
-        /// <returns>default configured connection</returns>
-        TConnection Create();
-
-        /// <summary>
         ///     creates a typed connection with the supplied config
         /// </summary>
         /// <param name="configuration">connection configuration</param>
         /// <returns>configured connection</returns>
         TConnection Create(TOptions configuration);
-
-        /// <summary>
-        ///     releases a typed connection
-        /// </summary>
-        /// <param name="connection">connection to Release</param>
-        void Destroy(TConnection connection);
     }
 }

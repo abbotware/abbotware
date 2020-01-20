@@ -7,18 +7,16 @@
 
 namespace Abbotware.Core.Objects
 {
-    using System;
-
     /// <summary>
-    ///     factory interface for creating connections
+    ///     factory interface for creating IConnection objects
     /// </summary>
-    public interface IConnectionFactory
+    /// <remarks>will use the default options unless the overloaded create method is called</remarks>
+    public interface IConnectionFactory : IFactory<IConnection>
     {
         /// <summary>
-        ///     creates a connection with the default config
+        /// Gets the default connection options
         /// </summary>
-        /// <returns>default configured connection</returns>
-        IConnection Create();
+        IConnectionOptions DefaultOptions { get; }
 
         /// <summary>
         ///     creates a connection with the supplied config
@@ -26,11 +24,5 @@ namespace Abbotware.Core.Objects
         /// <param name="configuration">connection configuration</param>
         /// <returns>configured connection</returns>
         IConnection Create(IConnectionOptions configuration);
-
-        /// <summary>
-        ///     Releases a connection object
-        /// </summary>
-        /// <param name="connection">connection to Release</param>
-        void Destroy(IConnection connection);
     }
 }
