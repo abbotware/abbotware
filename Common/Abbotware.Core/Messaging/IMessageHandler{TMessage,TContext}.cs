@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IMessageHandler{TMessage}.cs" company="Abbotware, LLC">
+// <copyright file="IMessageHandler{TMessage,TContext}.cs" company="Abbotware, LLC">
 // Copyright © Abbotware, LLC 2012-2020. All rights reserved
 // </copyright>
 // -----------------------------------------------------------------------
@@ -11,17 +11,19 @@ namespace Abbotware.Core.Messaging
     using System.Threading.Tasks;
 
     /// <summary>
-    /// message handler
+    /// context based message handler
     /// </summary>
     /// <typeparam name="TMessage">message type</typeparam>
-    public interface IMessageHandler<TMessage>
+    /// <typeparam name="TContext">context type</typeparam>
+    public interface IMessageHandler<TMessage, TContext>
     {
         /// <summary>
         /// Handles a message
         /// </summary>
         /// <param name="message">message</param>
+        /// <param name="context">context</param>
         /// <param name="ct">cancellation token</param>
         /// <returns>async task</returns>
-        Task HandleAsync(TMessage message, CancellationToken ct);
+        Task HandleAsync(TMessage message, TContext context, CancellationToken ct);
     }
 }
