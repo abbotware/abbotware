@@ -75,8 +75,8 @@ namespace Abbotware.Interop.Windows
                 case ConsoleCtrlType.LogOffEvent:
                 case ConsoleCtrlType.ShutdownEvent:
                     {
-                        this.ShutdownSignal.SetResult(true);
-                        return true;
+                        this.ShutdownSignal.TrySetResult(true);
+                        return false;
                     }
 
                 default:

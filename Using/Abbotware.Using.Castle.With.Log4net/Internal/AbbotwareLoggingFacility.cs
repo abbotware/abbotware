@@ -105,7 +105,7 @@ namespace Abbotware.Using.Castle.Internal
         {
             options = Arguments.EnsureNotNull(options, nameof(options));
 
-            this.containerName = options.Name;
+            this.containerName = options.Component;
 
             return this;
         }

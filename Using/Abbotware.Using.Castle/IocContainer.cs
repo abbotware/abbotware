@@ -6,9 +6,8 @@
 
 namespace Abbotware.Using.Castle
 {
+    using Abbotware.Core;
     using Abbotware.Core.Configuration;
-    using Abbotware.Core.Configuration.Models;
-    using global::Castle.MicroKernel.Registration;
     using global::Castle.Windsor;
 
     /// <summary>
@@ -28,6 +27,18 @@ namespace Abbotware.Using.Castle
         /// <summary>
         /// creates the container
         /// </summary>
+        /// <param name="options">container options</param>
+        /// <returns>new container</returns>
+        public static IWindsorContainer Create(IContainerOptions options)
+        {
+            options = Arguments.EnsureNotNull(options, nameof(options));
+
+            return Create(options.Component, options.DisableStartable);
+        }
+
+        /// <summary>
+        /// creates the container
+        /// </summary>
         /// <param name="component">name of component</param>
         /// <param name="enableStartable">flag to enable / disable the IStartable facility. (set to false for unit tests)</param>
         /// <returns>new container</returns>
@@ -35,10 +46,11 @@ namespace Abbotware.Using.Castle
         {
             var c = new WindsorContainer();
 
-            c.Register(Component.For<IContainerOptions>()
-                .Instance(new ContainerOptions { Name = component }));
-
-            c.AddDefaultFacilities(component, enableStartable);
+            c.AddDefaultFacilities(c =>
+            {
+                c.DisableStartable = enableStartable;
+                c.Component = component;
+            });
 
             return c;
         }

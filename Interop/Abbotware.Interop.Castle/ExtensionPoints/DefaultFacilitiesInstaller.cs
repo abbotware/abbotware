@@ -8,6 +8,7 @@
 namespace Abbotware.Interop.Castle.Plugins.Installers
 {
     using Abbotware.Core;
+    using Abbotware.Core.Configuration;
     using Abbotware.Interop.Castle.ExtensionPoints;
     using global::Castle.Facilities.Startable;
     using global::Castle.Facilities.TypedFactory;
@@ -23,49 +24,20 @@ namespace Abbotware.Interop.Castle.Plugins.Installers
     public class DefaultFacilitiesInstaller : BaseInstaller
     {
         /// <summary>
-        ///     name of the default component
-        /// </summary>
-        public const string DefaultComponent = "Default";
-
-        /// <summary>
-        ///     flag to indicate whether or not IStartable components should be enabled.
-        /// </summary>
-        private readonly bool enableStartable;
-
-        /// <summary>
         ///     Initializes a new instance of the <see cref="DefaultFacilitiesInstaller" /> class.
         /// </summary>
-        public DefaultFacilitiesInstaller()
-            : this(true)
+        /// <param name="options">container options</param>
+        public DefaultFacilitiesInstaller(IContainerOptions options)
         {
+            Arguments.NotNull(options, nameof(options));
+
+            this.Options = options;
         }
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="DefaultFacilitiesInstaller" /> class.
+        ///     Gets the options
         /// </summary>
-        /// <param name="enableStartable">flag to enable / disable the IStartable facility. (set to false for unit tests)</param>
-        public DefaultFacilitiesInstaller(bool enableStartable)
-            : this(DefaultComponent, enableStartable)
-        {
-        }
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="DefaultFacilitiesInstaller" /> class.
-        /// </summary>
-        /// <param name="component">name of component</param>
-        /// <param name="enableStartable">flag to enable / disable the IStartable facility. (set to false for unit tests)</param>
-        public DefaultFacilitiesInstaller(string component, bool enableStartable)
-        {
-            Arguments.NotNull(component, nameof(component));
-
-            this.ComponentName = component;
-            this.enableStartable = enableStartable;
-        }
-
-        /// <summary>
-        ///     Gets the name of the component
-        /// </summary>
-        public string ComponentName { get; }
+        public IContainerOptions Options { get; }
 
         /// <inheritdoc />
         protected override void OnInstall(IWindsorContainer container, IConfigurationStore store)
@@ -81,7 +53,7 @@ namespace Abbotware.Interop.Castle.Plugins.Installers
 
             container.AddFacility<TypedFactoryFacility>();
 
-            if (this.enableStartable)
+            if (this.Options.DisableStartable)
             {
                 container.AddFacility<StartableFacility>(f => f.DeferredStart());
             }

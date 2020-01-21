@@ -14,6 +14,11 @@ namespace Abbotware.Core.Configuration
         /// <summary>
         /// Gets the name of the container
         /// </summary>
-        string Name { get; }
+        string Component { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether to disabled startable components (disable for unit tests)
+        /// </summary>
+        bool DisableStartable { get; }
     }
 }

@@ -6,7 +6,10 @@
 
 namespace Abbotware.Using.Castle
 {
+    using System;
     using Abbotware.Core;
+    using Abbotware.Core.Configuration;
+    using Abbotware.Core.Configuration.Models;
     using Abbotware.Interop.AutoMapper;
     using Abbotware.Interop.Castle.Plugins.Installers;
     using AutoMapper;
@@ -22,13 +25,22 @@ namespace Abbotware.Using.Castle
         /// Adds and configures default facilities for the container
         /// </summary>
         /// <param name="container">container</param>
-        /// <param name="component">name of component</param>
-        /// <param name="enableStartable">flag to enable / disable the IStartable facility. (set to false for unit tests)</param>
-        public static void AddDefaultFacilities(this IWindsorContainer container, string component, bool enableStartable)
+        /// <param name="configure">setup options callback</param>
+        /// <returns>container for builder chaining</returns>
+        public static IWindsorContainer AddDefaultFacilities(this IWindsorContainer container, Action<ContainerOptions> configure)
         {
             container = Arguments.EnsureNotNull(container, nameof(container));
 
-            container.Install(new DefaultFacilitiesInstaller(component, enableStartable));
+            var options = new ContainerOptions();
+
+            configure?.Invoke(options);
+
+            container.Register(Component.For<IContainerOptions>()
+                .Instance(options));
+
+            container.Install(new DefaultFacilitiesInstaller(options));
+
+            return container;
         }
 
         /// <summary>
@@ -54,7 +66,8 @@ namespace Abbotware.Using.Castle
         /// <typeparam name="TProfile">mapping profile</typeparam>
         /// <param name="container">container</param>
         /// <param name="useExpressionMapper">flag to indicate expression mapper support</param>
-        public static void AddAutoMapper<TProfile>(this IWindsorContainer container, bool useExpressionMapper = false)
+        /// <returns>container for builder chaining</returns>
+        public static IWindsorContainer AddAutoMapper<TProfile>(this IWindsorContainer container, bool useExpressionMapper = false)
             where TProfile : Profile, new()
         {
             container = Arguments.EnsureNotNull(container, nameof(container));
@@ -62,6 +75,8 @@ namespace Abbotware.Using.Castle
             var mapper = AutoMapperHelper.Create<TProfile>(useExpressionMapper);
 
             container.Register(Component.For<IMapper>().Instance(mapper));
+
+            return container;
         }
 
         /// <summary>
@@ -70,7 +85,8 @@ namespace Abbotware.Using.Castle
         /// <typeparam name="TProfile">mapping profile</typeparam>
         /// <param name="container">container</param>
         /// <param name="useExpressionMapper">flag to indicate expression mapper support</param>
-        public static void AddAutoMapperUsingResolve<TProfile>(this IWindsorContainer container, bool useExpressionMapper = false)
+        /// <returns>container for builder chaining</returns>
+        public static IWindsorContainer AddAutoMapperUsingResolve<TProfile>(this IWindsorContainer container, bool useExpressionMapper = false)
             where TProfile : Profile
         {
             container = Arguments.EnsureNotNull(container, nameof(container));
@@ -80,6 +96,8 @@ namespace Abbotware.Using.Castle
             var mapper = AutoMapperHelper.Create(useExpressionMapper, profile);
 
             container.Register(Component.For<IMapper>().Instance(mapper));
+
+            return container;
         }
     }
 }

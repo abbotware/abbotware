@@ -16,6 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Abbotware.Core\Abbotware.Core.csproj" />
     <ProjectReference Include="..\..\Common\Abbotware.Data\Abbotware.Data.csproj" />
+    <ProjectReference Include="..\..\Common\Abbotware.Host.Task\Abbotware.Host.Service.csproj" />
     <ProjectReference Include="..\..\Common\Abbotware.Host\Abbotware.Host.csproj" />
     <ProjectReference Include="..\..\Common\Abbotware.ShellCommand\Abbotware.ShellCommand.csproj" />
     <ProjectReference Include="..\..\Common\Abbotware.Web\Abbotware.Web.csproj" />

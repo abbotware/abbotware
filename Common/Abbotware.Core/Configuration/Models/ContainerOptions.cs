@@ -12,6 +12,9 @@ namespace Abbotware.Core.Configuration.Models
     public class ContainerOptions : IContainerOptions
     {
         /// <inheritdoc/>
-        public string Name { get; set; } = string.Empty;
+        public string Component { get; set; } = "Default";
+
+        /// <inheritdoc/>
+        public bool DisableStartable { get; set; }
     }
 }
