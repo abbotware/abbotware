@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IOperatingSystem.cs" company="Abbotware, LLC">
+// <copyright file="IRequestShutdown.cs" company="Abbotware, LLC">
 // Copyright © Abbotware, LLC 2012-2020. All rights reserved
 // </copyright>
 // -----------------------------------------------------------------------
@@ -7,16 +7,14 @@
 
 namespace Abbotware.Core.Runtime
 {
-    using System;
-
     /// <summary>
-    ///     Interface for interacting with the Operating System
+    ///     Interface that can be used to Shutdown the application
     /// </summary>
-    public interface IOperatingSystem : IOperatingSystemInformation
+    public interface IRequestShutdown
     {
         /// <summary>
-        ///     Reboots the Operating System if the required permissions are held
+        ///     signal the application its time to Shutdown
         /// </summary>
-        void Reboot();
+        void Shutdown();
     }
 }

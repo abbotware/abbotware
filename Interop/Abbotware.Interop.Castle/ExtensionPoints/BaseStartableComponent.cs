@@ -22,7 +22,7 @@ namespace Abbotware.Interop.Castle.ExtensionPoints
         /// <summary>
         ///     wait handle used to signify shutdown
         /// </summary>
-        private readonly ManualResetEventSlim cancelNotification = new ManualResetEventSlim(false);
+        private readonly CancellationTokenSource cts = new CancellationTokenSource();
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="BaseStartableComponent" /> class.
@@ -33,6 +33,12 @@ namespace Abbotware.Interop.Castle.ExtensionPoints
         {
             Arguments.NotNull(logger, nameof(logger));
         }
+
+        /// <summary>
+        ///     Gets the cancellation token for shutdown notification
+        /// </summary>
+        /// <returns>cancellation token</returns>
+        protected CancellationToken CancellationToken => this.cts.Token;
 
         /// <inheritdoc />
         public void Start()
@@ -59,7 +65,7 @@ namespace Abbotware.Interop.Castle.ExtensionPoints
             {
                 this.Logger.Info("Stop Requested");
 
-                this.cancelNotification.Set();
+                this.cts.Cancel();
 
                 this.OnStop();
 
@@ -71,16 +77,6 @@ namespace Abbotware.Interop.Castle.ExtensionPoints
 
                 throw;
             }
-        }
-
-        /// <summary>
-        ///     Blocks until stop has been requested, or returns true indicating it ok to continue running
-        /// </summary>
-        /// <param name="pollTimeSpan">timespan to wait for notification</param>
-        /// <returns>false if component should shutdown, else it can still run</returns>
-        protected bool ShouldContinue(TimeSpan pollTimeSpan)
-        {
-            return !this.cancelNotification.WaitHandle.WaitOne(pollTimeSpan);
         }
 
         /// <summary>

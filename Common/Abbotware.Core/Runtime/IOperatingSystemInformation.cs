@@ -1,20 +1,22 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IRequestShutdown.cs" company="Abbotware, LLC">
+// <copyright file="IOperatingSystemInformation.cs" company="Abbotware, LLC">
 // Copyright © Abbotware, LLC 2012-2020. All rights reserved
 // </copyright>
 // -----------------------------------------------------------------------
 // <author>Anthony Abate</author>
 
-namespace Abbotware.Host
+namespace Abbotware.Core.Runtime
 {
+    using System;
+
     /// <summary>
-    ///     Interface that can be used to Shutdown the application
+    ///     Interface for useful operating system information
     /// </summary>
-    public interface IRequestShutdown
+    public interface IOperatingSystemInformation
     {
         /// <summary>
-        ///     signal the application its time to Shutdown
+        ///     Gets the time span the system has been on
         /// </summary>
-        void Shutdown();
+        TimeSpan? SystemUptime { get; }
     }
 }

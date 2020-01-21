@@ -5,7 +5,7 @@
 namespace Abbotware.UnitTests.Core
 {
     using System.Collections.Generic;
-    using Abbotware.Host;
+    using Abbotware.Core;
     using NUnit.Framework;
 
     [TestFixture]

@@ -5,11 +5,10 @@
 // -----------------------------------------------------------------------
 // <author>Anthony Abate</author>
 
-namespace Abbotware.Host
+namespace Abbotware.Core
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
 
     /// <summary>
     ///     Class that contains the command line arguments

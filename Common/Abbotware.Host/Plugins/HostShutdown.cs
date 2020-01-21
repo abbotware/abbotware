@@ -9,6 +9,7 @@ namespace Abbotware.Host.Plugins
 {
     using System;
     using System.Threading;
+    using Abbotware.Core.Runtime;
 
     /// <summary>
     /// wrapper for a CancellationTokenSource that is used to signal shutdown

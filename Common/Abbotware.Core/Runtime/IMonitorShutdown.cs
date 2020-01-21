@@ -1,23 +1,23 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IWaitForShutdown.cs" company="Abbotware, LLC">
+// <copyright file="IMonitorShutdown.cs" company="Abbotware, LLC">
 // Copyright © Abbotware, LLC 2012-2020. All rights reserved
 // </copyright>
 // -----------------------------------------------------------------------
 // <author>Anthony Abate</author>
 
-namespace Abbotware.Host
+namespace Abbotware.Core.Runtime
 {
-    using System.Threading.Tasks;
+    using System.Threading;
 
     /// <summary>
-    ///     Interface that can be used to wait for application shutdown
+    ///     Interface that can be used for components that need to monitor for shutdown events
     /// </summary>
-    public interface IWaitForShutdown
+    public interface IMonitorShutdown
     {
         /// <summary>
-        ///     waits indefinetly for the application to Shutdown
+        ///     Gets the shutdown cancellation token
         /// </summary>
         /// <returns>async task</returns>
-        Task ShutdownComplete();
+        CancellationToken Token { get; }
     }
 }

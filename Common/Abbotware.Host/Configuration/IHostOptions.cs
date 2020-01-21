@@ -6,14 +6,36 @@
 
 namespace Abbotware.Host.Configuration
 {
+    using Abbotware.Core;
     using Abbotware.Core.Configuration;
+    using Abbotware.Core.Runtime;
 
     /// <summary>
-    /// interface for host options
+    /// Read Only Host Configuriation
     /// </summary>
-    public interface IHostOptions : IContainerOptions
+    public interface IHostOptions
     {
-         /// <summary>
+        /// <summary>
+        /// Gets the request shutdown service
+        /// </summary>
+        IRequestShutdown RequestShutdown { get; }
+
+        /// <summary>
+        /// Gets the monitor shutdown service
+        /// </summary>
+        IMonitorShutdown MonitorShutdown { get; }
+
+        /// <summary>
+        /// Gets the console arguments
+        /// </summary>
+        ConsoleArguments ConsoleArguments { get; }
+
+        /// <summary>
+        /// Gets the container options
+        /// </summary>
+        IContainerOptions ContainerOptions { get; }
+
+        /// <summary>
         ///     Gets a value indicating whether SSL verification is disabled
         /// </summary>
         bool DisableSslVerification { get; }

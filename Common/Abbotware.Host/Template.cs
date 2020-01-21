@@ -9,6 +9,9 @@ namespace Abbotware.Host
     using System;
     using System.Threading;
     using System.Threading.Tasks;
+    using Abbotware.Core;
+    using Abbotware.Core.Runtime;
+    using Abbotware.Core.Runtime.Plugins;
     using Abbotware.Host.Configuration;
     using Abbotware.Host.Plugins;
     using CommandLine;
@@ -31,21 +34,23 @@ namespace Abbotware.Host
         public static Task<int> RunAsync<THostService>(string[] args)
             where THostService : AbbotwareHostService
         {
-            return RunAsync<THostService, CommandLineOptions, IHostOptions>(args);
+            return RunAsync<THostService, CommandLineOptions, IHostOptions, Configuration.HostOptions>(args);
         }
 
         /// <summary>
         /// runs the host service
         /// </summary>
         /// <typeparam name="THostService">host service type</typeparam>
-        /// <typeparam name="TOptions">options type</typeparam>
-        /// <typeparam name="TIOptions">read only options type</typeparam>
+        /// <typeparam name="TCmdOptions">options type</typeparam>
+        /// <typeparam name="TIConfiguration">read only configuration type</typeparam>
+        /// <typeparam name="TConfiguration">configurationtype</typeparam>
         /// <param name="args">command line args</param>
         /// <returns>async task</returns>
-        public static async Task<int> RunAsync<THostService, TOptions, TIOptions>(string[] args)
+        public static async Task<int> RunAsync<THostService, TCmdOptions, TIConfiguration, TConfiguration>(string[] args)
             where THostService : AbbotwareHostService
-            where TIOptions : class, IHostOptions
-            where TOptions : CommandLineOptions, TIOptions, new()
+            where TCmdOptions : class, new()
+            where TConfiguration : class, TIConfiguration
+            where TIConfiguration : class
         {
             try
             {
@@ -53,12 +58,16 @@ namespace Abbotware.Host
                 using var cts = new CancellationTokenSource();
 
                 // wrapper around the cts to inject into the running service
-                var shutdown = new HostShutdown(cts);
+                var requestShutdown = new HostShutdown(cts);
 
-                var capture = new TOptions();
+                // wrapper around the cts to to allow monitoring for shutdown
+                var monitorShutdown = new MonitorShutdown(cts.Token);
 
-                var parsed = Parser.Default.ParseArguments<TOptions>(args)
-                    .WithParsed(d => { capture = d; });
+                var cmdOptions = new TCmdOptions();
+
+                var parsed = Parser.Default.ParseArguments<TCmdOptions>(args);
+
+                parsed.WithParsed(d => { cmdOptions = d; });
 
                 var host = new HostBuilder()
                   .ConfigureServices((hostContext, services) =>
@@ -67,8 +76,10 @@ namespace Abbotware.Host
 
                       // register only the minimal amount of dependencies - the service will use its own container
                       services.AddSingleton(new ConsoleArguments(args));
-                      services.AddSingleton<TIOptions>(capture);
-                      services.AddSingleton<IRequestShutdown>(shutdown);
+                      services.AddSingleton(cmdOptions);
+                      services.AddSingleton<TIConfiguration, TConfiguration>();
+                      services.AddSingleton<IRequestShutdown>(requestShutdown);
+                      services.AddSingleton<IMonitorShutdown>(monitorShutdown);
                       services.AddSingleton<IHostedService, THostService>();
                   })
                     .ConfigureLogging((hostingContext, logging) =>

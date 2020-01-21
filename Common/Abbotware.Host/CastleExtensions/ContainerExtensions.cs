@@ -26,7 +26,7 @@ namespace Abbotware.Host.Extensions
         {
             container = Arguments.EnsureNotNull(container, nameof(container));
 
-            container.Register(Component.For<IEnvironment, IOperatingSystem>()
+            container.Register(Component.For<IEnvironmentInformation, IOperatingSystemInformation, IOperatingSystem>()
                 .ImplementedBy(OperatingSystemHelper.GetOperatingSystemType()).LifestyleSingleton());
         }
     }

@@ -38,7 +38,7 @@ namespace Abbotware.Host.Helpers
         /// Creates the Environment for based on the OS
         /// </summary>
         /// <returns>OS specific Implementation for IEnvironment</returns>
-        public static IEnvironment CreateEnvironment()
+        public static IEnvironmentInformation CreateEnvironment()
         {
             if (PlatformHelper.IsUnix)
             {

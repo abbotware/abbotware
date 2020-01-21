@@ -10,7 +10,7 @@ namespace Abbotware.Core.Runtime
     using System;
 
     /// <summary>
-    ///     interface for getting process information
+    ///     Interface for useful process information
     /// </summary>
     public interface IProcessInformation
     {

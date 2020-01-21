@@ -9,18 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="_Legacy\IHost.cs" />
-    <Compile Remove="_Legacy\IRequestShutdown.cs" />
-    <Compile Remove="_Legacy\IWaitForShutdown.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="_Legacy\IHost.cs" />
-    <None Include="IRequestShutdown.cs" />
-    <None Include="_Legacy\IWaitForShutdown.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.7.82" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.1" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.1" />
