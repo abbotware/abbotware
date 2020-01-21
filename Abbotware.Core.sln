@@ -69,7 +69,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abbotware.ShellCommand", "C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abbotware.Interop.Windows", "Interop\Abbotware.Interop.Windows\Abbotware.Interop.Windows.csproj", "{7F614BDB-29F0-4F02-822A-E7F024A3ACBC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Abbotware.Host.Service", "Common\Abbotware.Host.Task\Abbotware.Host.Service.csproj", "{470FEB52-4B9A-4B13-BD0D-F5563BFCB5E1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Abbotware.Host.Service", "Common\Abbotware.Host.Service\Abbotware.Host.Service.csproj", "{470FEB52-4B9A-4B13-BD0D-F5563BFCB5E1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
