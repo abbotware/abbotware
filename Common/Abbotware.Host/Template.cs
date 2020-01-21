@@ -47,10 +47,10 @@ namespace Abbotware.Host
         /// <param name="args">command line args</param>
         /// <returns>async task</returns>
         public static async Task<int> RunAsync<THostService, TCmdOptions, TIConfiguration, TConfiguration>(string[] args)
-            where THostService : AbbotwareHostService
+            where THostService : AbbotwareHostService<TIConfiguration>
             where TCmdOptions : class, new()
+            where TIConfiguration : class, IHostOptions
             where TConfiguration : class, TIConfiguration
-            where TIConfiguration : class
         {
             try
             {
