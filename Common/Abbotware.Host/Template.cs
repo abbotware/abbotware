@@ -28,8 +28,24 @@ namespace Abbotware.Host
         /// <typeparam name="THostService">host service type</typeparam>
         /// <param name="args">command line args</param>
         /// <returns>async task</returns>
-        public static async Task<int> RunAsync<THostService>(string[] args)
+        public static Task<int> RunAsync<THostService>(string[] args)
             where THostService : AbbotwareHostService
+        {
+            return RunAsync<THostService, CommandLineOptions, IHostOptions>(args);
+        }
+
+        /// <summary>
+        /// runs the host service
+        /// </summary>
+        /// <typeparam name="THostService">host service type</typeparam>
+        /// <typeparam name="TOptions">options type</typeparam>
+        /// <typeparam name="TIOptions">read only options type</typeparam>
+        /// <param name="args">command line args</param>
+        /// <returns>async task</returns>
+        public static async Task<int> RunAsync<THostService, TOptions, TIOptions>(string[] args)
+            where THostService : AbbotwareHostService
+            where TIOptions : class, IHostOptions
+            where TOptions : CommandLineOptions, TIOptions, new()
         {
             try
             {
@@ -39,9 +55,9 @@ namespace Abbotware.Host
                 // wrapper around the cts to inject into the running service
                 var shutdown = new HostShutdown(cts);
 
-                var capture = new CommandLineOptions();
+                var capture = new TOptions();
 
-                var parsed = Parser.Default.ParseArguments<CommandLineOptions>(args)
+                var parsed = Parser.Default.ParseArguments<TOptions>(args)
                     .WithParsed(d => { capture = d; });
 
                 var host = new HostBuilder()
@@ -51,7 +67,7 @@ namespace Abbotware.Host
 
                       // register only the minimal amount of dependencies - the service will use its own container
                       services.AddSingleton(new ConsoleArguments(args));
-                      services.AddSingleton<IHostOptions>(capture);
+                      services.AddSingleton<TIOptions>(capture);
                       services.AddSingleton<IRequestShutdown>(shutdown);
                       services.AddSingleton<IHostedService, THostService>();
                   })
