@@ -16,7 +16,7 @@ namespace Abbotware.Host
     public class CommandLineOptions : IHostOptions
     {
         /// <inheritdoc/>
-        [Option('c', "component", Required = true, HelpText = "the component name use when searching for plugins")]
+        [Option('c', "component", Required = false, HelpText = "the component name use when searching for plugins")]
         public string Component { get; set; } = string.Empty;
 
         /// <inheritdoc/>

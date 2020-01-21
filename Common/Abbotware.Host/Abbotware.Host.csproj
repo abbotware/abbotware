@@ -16,7 +16,7 @@
 
   <ItemGroup>
     <None Include="_Legacy\IHost.cs" />
-    <None Include="_Legacy\IRequestShutdown.cs" />
+    <None Include="IRequestShutdown.cs" />
     <None Include="_Legacy\IWaitForShutdown.cs" />
   </ItemGroup>
 
