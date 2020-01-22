@@ -28,6 +28,16 @@ namespace Abbotware.Host
         /// <summary>
         /// runs the host service
         /// </summary>
+        /// <param name="args">command line args</param>
+        /// <returns>async task</returns>
+        public static Task<int> RunAsync(string[] args)
+        {
+            return RunAsync<AbbotwareHostService>(args);
+        }
+
+        /// <summary>
+        /// runs the host service
+        /// </summary>
         /// <typeparam name="THostService">host service type</typeparam>
         /// <param name="args">command line args</param>
         /// <returns>async task</returns>
