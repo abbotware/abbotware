@@ -12,3 +12,4 @@
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1040:Avoid empty interfaces", Justification = "<Reviewed AA>", Scope = "type", Target = "~T:Abbotware.Core.Cache.ICacheableSortedSet`2")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1040:Avoid empty interfaces", Justification = "<Reviewed AA>", Scope = "type", Target = "~T:Abbotware.Core.Cache.ICacheableCategorizedFieldSet")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Naming", "CA1720:Identifier contains type name", Justification = "<Reviewed AA>>", Scope = "member", Target = "~M:Abbotware.Core.Objects.IFactory`1.Destroy(`0)")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "<Reviewed AA>", Scope = "member", Target = "~M:Abbotware.Core.Extensions.IDisposableExtensions.CreateTimeoutScope(System.IDisposable,System.TimeSpan)~System.IDisposable")]
