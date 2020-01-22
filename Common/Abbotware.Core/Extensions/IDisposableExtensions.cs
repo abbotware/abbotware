@@ -22,7 +22,7 @@ namespace Abbotware.Core.Extensions
         /// <param name="disposable">wrapped disposable</param>
         /// <param name="timeSpan">time span to wait before disposing</param>
         /// <returns>disposable handle for using block</returns>
-        public static IDisposable CreateTimeoutScope(this IDisposable disposable, TimeSpan timeSpan)
+        public static IDisposable DisposeAfterTimeout(this IDisposable disposable, TimeSpan timeSpan)
         {
             disposable = Arguments.EnsureNotNull(disposable, nameof(disposable));
 
