@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IDisposableExtensions.cs" company="Abbotware, LLC">
+// <copyright file="DisposableExtensions.cs" company="Abbotware, LLC">
 // Copyright © Abbotware, LLC 2012-2020. All rights reserved
 // </copyright>
 // -----------------------------------------------------------------------
@@ -13,7 +13,7 @@ namespace Abbotware.Core.Extensions
     /// <summary>
     ///     IDisposable Extensions methods
     /// </summary>
-    public static class IDisposableExtensions
+    public static class DisposableExtensions
     {
         /// <summary>
         /// creates a disposable wrapper
