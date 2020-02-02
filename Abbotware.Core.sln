@@ -55,7 +55,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abbotware.Interop.MacVendor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abbotware.Interop.Yubico", "Interop\Abbotware.Interop.Yubico\Abbotware.Interop.Yubico.csproj", "{E6E6CC3C-B395-4437-9A5C-31EE8A3B7FB2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abbotware.Interop.IntegrationtTests", "Test\Abbotware.Interop.IntegrationtTests\Abbotware.Interop.IntegrationtTests.csproj", "{9B0AE512-B0BD-49B8-835A-2D2FA509CECB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abbotware.Interop.IntegrationTests", "Test\Abbotware.Interop.IntegrationTests\Abbotware.Interop.IntegrationTests.csproj", "{9B0AE512-B0BD-49B8-835A-2D2FA509CECB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abbotware.Interop.Redis", "Interop\Abbotware.Interop.Redis\Abbotware.Interop.Redis.csproj", "{90A2B711-D497-418F-8E44-C8A11F122E60}"
 EndProject
