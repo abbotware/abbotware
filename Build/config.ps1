@@ -40,4 +40,3 @@ $Projects        = @{"Abbotware.Core.Nugets" = @{
 
 					}
 
-$CodeCoverageExcludeAssemblies = "-Abbotware.Cleanup;-Abbotware.Contrib.Roslyn;-Abbotware.Unknown"
