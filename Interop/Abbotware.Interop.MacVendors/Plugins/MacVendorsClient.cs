@@ -10,8 +10,10 @@ namespace Abbotware.Interop.MacVendors.Plugins
     using System;
     using System.Collections.Generic;
     using System.Net;
+    using System.Net.Http;
     using System.Threading;
     using System.Threading.Tasks;
+    using Abbotware.Core.Extensions;
     using Abbotware.Core.Logging;
     using Abbotware.Interop.MacVendors.Configuration;
     using Abbotware.Web.Api.Configuration.Models;
@@ -45,17 +47,11 @@ namespace Abbotware.Interop.MacVendors.Plugins
 
                 return data;
             }
-            catch (WebException ex)
+            catch (HttpRequestException ex)
             {
-                if (ex.Status == WebExceptionStatus.ProtocolError)
+                if (ex.StatusCode() == HttpStatusCode.NotFound)
                 {
-                    if (ex.Response is HttpWebResponse response)
-                    {
-                        if (response.StatusCode == HttpStatusCode.NotFound)
-                        {
-                            throw new KeyNotFoundException();
-                        }
-                    }
+                    throw new KeyNotFoundException($"can't find:{mac}", ex);
                 }
 
                 throw;

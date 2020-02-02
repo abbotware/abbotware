@@ -54,5 +54,27 @@ namespace Abbotware.Core.Extensions
 
             return text.IndexOf(value, stringComparison) >= 0;
         }
+
+        /// <summary>
+        /// shortcut for string.IsNullOrEmpty
+        /// </summary>
+        /// <param name="text">string to extend</param>
+        /// <returns>true/false if contains</returns>
+        public static bool IsBlank(this string text)
+        {
+            text = Arguments.EnsureNotNull(text, nameof(text));
+
+            return string.IsNullOrEmpty(text);
+        }
+
+        /// <summary>
+        /// shortcut for !string.IsNullOrEmpty
+        /// </summary>
+        /// <param name="text">string to extend</param>
+        /// <returns>true/false if contains</returns>
+        public static bool IsNotBlank(this string text)
+        {
+            return IsBlank(text);
+        }
     }
 }

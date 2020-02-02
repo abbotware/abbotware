@@ -232,20 +232,14 @@ namespace Abbotware.Web.Api.Plugins
             var response = await this.httpClient.SendAsync(request, ct)
                 .ConfigureAwait(false);
 
-            if (response.StatusCode != HttpStatusCode.OK)
-            {
-                var content = await response.Content.ReadAsStringAsync()
-                    .ConfigureAwait(false);
-
-                this.Logger.Warn("Request:{0} Status:{1} Reason:{2} Content:{3}", request, response.StatusCode, response.ReasonPhrase, content);
-            }
-
             if (response.StatusCode == HttpStatusCode.ProxyAuthenticationRequired)
             {
                 response.Dispose();
 
                 throw new AuthenticationException("Proxy Authentication Required");
             }
+
+            response.EnsureSuccessStatusCode();
 
             return response;
         }
