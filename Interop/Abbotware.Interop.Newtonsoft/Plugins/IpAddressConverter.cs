@@ -34,6 +34,13 @@ namespace Abbotware.Interop.Newtonsoft.Plugins
 
             var token = JToken.Load(reader);
 
+            var s = token.Value<string>();
+
+            if (string.IsNullOrWhiteSpace(s))
+            {
+                return null;
+            }
+
             return IPAddress.Parse(token.Value<string>());
         }
     }

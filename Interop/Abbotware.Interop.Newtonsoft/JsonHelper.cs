@@ -32,6 +32,7 @@ namespace Abbotware.Interop.Newtonsoft
             AddCommonConverters(settings);
             settings.Formatting = Formatting.Indented;
             settings.MissingMemberHandling = MissingMemberHandling.Error;
+            settings.NullValueHandling = NullValueHandling.Ignore;
 
             return settings;
         }
@@ -44,7 +45,7 @@ namespace Abbotware.Interop.Newtonsoft
         /// <returns>JSON text</returns>
         public static string ToString<TObject>(TObject @object)
         {
-            return JsonConvert.SerializeObject(@object, Settings);
+            return ToString(@object, Settings);
         }
 
         /// <summary>
@@ -55,7 +56,31 @@ namespace Abbotware.Interop.Newtonsoft
         /// <returns>object</returns>
         public static TObject FromString<TObject>(string text)
         {
-            return JsonConvert.DeserializeObject<TObject>(text, Settings);
+            return FromString<TObject>(text, Settings);
+        }
+
+        /// <summary>
+        /// converts object to JSON string
+        /// </summary>
+        /// <typeparam name="TObject">object type</typeparam>
+        /// <param name="object">object</param>
+        /// <param name="settings">serializer settings</param>
+        /// <returns>JSON text</returns>
+        public static string ToString<TObject>(TObject @object, JsonSerializerSettings settings)
+        {
+            return JsonConvert.SerializeObject(@object, settings);
+        }
+
+        /// <summary>
+        /// converts JSON string to object
+        /// </summary>
+        /// <typeparam name="TObject">object type</typeparam>
+        /// <param name="text">JSON text</param>
+        /// <param name="settings">serializer settings</param>
+        /// <returns>object</returns>
+        public static TObject FromString<TObject>(string text, JsonSerializerSettings settings)
+        {
+            return JsonConvert.DeserializeObject<TObject>(text, settings);
         }
 
         /// <summary>
@@ -69,6 +94,7 @@ namespace Abbotware.Interop.Newtonsoft
             settings.Converters.Add(new IpAddressConverter());
             settings.Converters.Add(new IPEndPointConverter());
             settings.Converters.Add(new StringEnumConverter());
+            settings.Converters.Add(new TimeSpanConverter());
         }
     }
 }
