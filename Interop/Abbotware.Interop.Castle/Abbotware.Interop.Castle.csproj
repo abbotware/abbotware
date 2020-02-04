@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
+    <Description>Abbotware Interop Library for Castle.Windsor - Contains helper methods, extension methods, and plugins</Description>
+    <PackageTags>Castle.Windsor</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
