@@ -9,6 +9,7 @@ namespace Abbotware.UnitTests.Interop.SystemTextJson
 {
     using System;
     using System.Text.Json;
+    using Abbotware.Interop.SystemTextJson;
     using Abbotware.Utility.UnitTest.Using.NUnit;
     using NUnit.Framework;
 
@@ -26,9 +27,12 @@ namespace Abbotware.UnitTests.Interop.SystemTextJson
                 TimeSpanNullableWithValue = new TimeSpan(7, 6, 5, 4, 3),
             };
 
-            var text = JsonSerializer.Serialize(a);
+            var opts = new JsonSerializerOptions();
+            opts.Converters.Add(new TimeSpanConverter());
 
-            var b = JsonSerializer.Deserialize<TestClass>(text);
+            var text = JsonSerializer.Serialize(a, opts);
+
+            var b = JsonSerializer.Deserialize<TestClass>(text, opts);
 
             Assert.AreEqual(a.TimeSpan, b.TimeSpan);
             Assert.IsNull(b.TimeSpanNullableWithNoValue);
