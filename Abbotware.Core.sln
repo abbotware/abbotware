@@ -61,7 +61,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abbotware.Interop.Redis", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abbotware.Utility.UnitTest.Using.EntityFramework", "Utility\Abbotware.Utility.UnitTest.Using.EntityFramework\Abbotware.Utility.UnitTest.Using.EntityFramework.csproj", "{21BCA02D-A243-4428-9105-CD9DDE3129AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Abbotware.Host", "Common\Abbotware.Host\Abbotware.Host.csproj", "{474DD793-426F-41CE-835A-8C8BBEFF7CBE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abbotware.Host", "Common\Abbotware.Host\Abbotware.Host.csproj", "{474DD793-426F-41CE-835A-8C8BBEFF7CBE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abbotware.Interop.Linux", "Interop\Abbotware.Interop.Linux\Abbotware.Interop.Linux.csproj", "{6EBC336D-B3A1-4E62-8825-047C2596DDB2}"
 EndProject
@@ -69,7 +69,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abbotware.ShellCommand", "C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abbotware.Interop.Windows", "Interop\Abbotware.Interop.Windows\Abbotware.Interop.Windows.csproj", "{7F614BDB-29F0-4F02-822A-E7F024A3ACBC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Abbotware.Host.Service", "Common\Abbotware.Host.Service\Abbotware.Host.Service.csproj", "{470FEB52-4B9A-4B13-BD0D-F5563BFCB5E1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abbotware.Host.Service", "Common\Abbotware.Host.Service\Abbotware.Host.Service.csproj", "{470FEB52-4B9A-4B13-BD0D-F5563BFCB5E1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abbotware.Interop.SystemTextJson", "Interop\Abbotware.Interop.SystemTextJson\Abbotware.Interop.SystemTextJson.csproj", "{9E276677-2476-4929-9F13-712F56B62413}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -193,6 +195,10 @@ Global
 		{470FEB52-4B9A-4B13-BD0D-F5563BFCB5E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{470FEB52-4B9A-4B13-BD0D-F5563BFCB5E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{470FEB52-4B9A-4B13-BD0D-F5563BFCB5E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E276677-2476-4929-9F13-712F56B62413}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E276677-2476-4929-9F13-712F56B62413}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E276677-2476-4929-9F13-712F56B62413}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E276677-2476-4929-9F13-712F56B62413}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -227,6 +233,7 @@ Global
 		{62C2897B-86EA-4A97-A333-BF532947644E} = {B2B83BE9-47D3-4A0E-8172-EF4B6EF5F68C}
 		{7F614BDB-29F0-4F02-822A-E7F024A3ACBC} = {63414C79-BEF0-4A80-834A-4B47ABF9676F}
 		{470FEB52-4B9A-4B13-BD0D-F5563BFCB5E1} = {B2B83BE9-47D3-4A0E-8172-EF4B6EF5F68C}
+		{9E276677-2476-4929-9F13-712F56B62413} = {63414C79-BEF0-4A80-834A-4B47ABF9676F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7EE1C721-9604-4A41-B647-816294134415}
