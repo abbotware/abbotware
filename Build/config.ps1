@@ -37,6 +37,4 @@ $Projects        = @{"Abbotware.Core.Nugets" = @{
 						Framework      = "netcoreapp3.1";
 						Configuration  = "Release"
 						} 
-
 					}
-
