@@ -179,6 +179,25 @@ namespace Abbotware.Core.Objects
         }
 
         /// <summary>
+        /// helper method to use for inline properties that require initialization
+        /// </summary>
+        /// <remarks>
+        ///  private Type property;
+        ///  public Type Property => PropertyInitializeIfRequired(() => this.property);
+        /// </remarks>
+        /// <typeparam name="T">type to return</typeparam>
+        /// <param name="func">callback</param>
+        /// <returns>the </returns>
+        protected T PropertyInitializeIfRequired<T>(Func<T> func)
+        {
+            Arguments.EnsureNotNull(func, nameof(func));
+
+            this.InitializeIfRequired();
+
+            return func();
+        }
+
+        /// <summary>
         ///     Hook to implement custom logic that disposes unmanaged resources
         /// </summary>
         protected virtual void OnDisposeUnmanagedResources()
