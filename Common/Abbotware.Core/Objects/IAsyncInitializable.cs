@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IInitializable.cs" company="Abbotware, LLC">
+// <copyright file="IAsyncInitializable.cs" company="Abbotware, LLC">
 // Copyright © Abbotware, LLC 2012-2020. All rights reserved
 // </copyright>
 // -----------------------------------------------------------------------
@@ -7,10 +7,13 @@
 
 namespace Abbotware.Core.Objects
 {
+    using System.Threading;
+    using System.Threading.Tasks;
+
     /// <summary>
     /// Interface for an initializable object
     /// </summary>
-    public interface IInitializable
+    public interface IAsyncInitializable
     {
         /// <summary>
         ///     Gets a value indicating whether or not object initialization has occurred
@@ -18,9 +21,10 @@ namespace Abbotware.Core.Objects
         bool IsInitialized { get; }
 
         /// <summary>
-        /// Explicitily performs the object initialization
+        /// Perform the intialization asynchronously
         /// </summary>
-        /// <returns>value indicating whether or not initialization took place</returns>
-        bool Initialize();
+        /// <param name="ct">cancellation token</param>
+        /// <returns>async task handle indicating whether or not initialization took place</returns>
+        Task<bool> InitializeAsync(CancellationToken ct);
     }
 }

@@ -21,12 +21,12 @@ namespace Abbotware.UnitTests.Core
         [ExpectedException(typeof(ObjectDisposedException))]
         public void ThrowIfDisposedTest()
         {
-            using var dobject = new DObject();
-            dobject.Foo();
+            using var d = new DObject();
+            d.Foo();
 
-            dobject.Dispose();
+            d.Dispose();
 
-            dobject.Foo();
+            d.Foo();
         }
 
         internal class DObject : BaseComponent

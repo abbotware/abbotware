@@ -83,7 +83,7 @@ namespace Abbotware.Core.Objects
         /// <summary>
         /// Gets a value indicating whether the object has been initialized
         /// </summary>
-        public bool IsInitialized { get; private set; }
+        public bool IsInitialized { get; private protected set; }
 
         /// <summary>
         /// Gets a value indicating whether the object has been disposed
@@ -102,9 +102,9 @@ namespace Abbotware.Core.Objects
         }
 
         /// <inheritdoc/>
-        public void Initialize()
+        public bool Initialize()
         {
-            this.InitializeIfRequired();
+            return this.InitializeIfRequired();
         }
 
         /// <summary>
@@ -144,7 +144,7 @@ namespace Abbotware.Core.Objects
         ///     Guard method to put in all public methods in the derived class
         /// </summary>
         /// <returns>true if initialization was run</returns>
-        protected bool InitializeIfRequired()
+        protected virtual bool InitializeIfRequired()
         {
             this.ThrowIfDisposed();
 

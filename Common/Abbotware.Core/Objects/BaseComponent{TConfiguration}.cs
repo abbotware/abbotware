@@ -7,9 +7,6 @@
 
 namespace Abbotware.Core.Objects
 {
-    using Abbotware.Core.Configuration;
-    using Abbotware.Core.Diagnostics;
-    using Abbotware.Core.Extensions;
     using Abbotware.Core.Logging;
     using Abbotware.Core.Objects.Internal;
 
