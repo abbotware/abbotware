@@ -21,15 +21,6 @@ namespace Abbotware.Core.Compression.Plugins
         /// Initializes a new instance of the <see cref="BinaryToString"/> class.
         /// </summary>
         /// <param name="binary">binary compression plugin</param>
-        public BinaryToString(IBinaryCompression binary)
-            : this(binary, Encoding.UTF8)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BinaryToString"/> class.
-        /// </summary>
-        /// <param name="binary">binary compression plugin</param>
         /// <param name="encoding">text conding</param>
         public BinaryToString(IBinaryCompression binary, Encoding encoding)
         {

@@ -25,21 +25,12 @@ namespace Abbotware.Core.Threading.Counters
         /// <summary>
         ///     Initializes a new instance of the <see cref="TypeCreatedCounter{T}" /> class.
         /// </summary>
-        public TypeCreatedCounter()
-        {
-            this.InstanceId = Sequence.Increment() - 1;
-        }
+        public TypeCreatedCounter() => this.InstanceId = Sequence.Increment() - 1;
 
         /// <summary>
         ///     Gets the global count for this instance type
         /// </summary>
-        public static long Count
-        {
-            get
-            {
-                return Sequence.Value;
-            }
-        }
+        public static long Count => Sequence.Value;
 
         /// <summary>
         ///     Gets the Instance Id
@@ -49,12 +40,6 @@ namespace Abbotware.Core.Threading.Counters
         /// <summary>
         ///     Gets the global count for this instance type
         /// </summary>
-        public long CreatedCount
-        {
-            get
-            {
-                return Count;
-            }
-        }
+        public long CreatedCount => Count;
     }
 }

@@ -10,22 +10,16 @@ namespace Abbotware.Core.Serialization
     ///     Generic interface for encoding / decoding objects into storage
     /// </summary>
     /// <typeparam name="TStorage">protocol storage type</typeparam>
-    public interface IProtocol<TStorage>
+    public interface IProtocol<TStorage> : IProtocol<TStorage, TStorage>
     {
-        /// <summary>
-        /// Encodes an object into the storage type
-        /// </summary>
-        /// <typeparam name="T">object type</typeparam>
-        /// <param name="value">object to encode</param>
-        /// <returns>encoded message</returns>
-        TStorage Encode<T>(T value);
+    }
 
-        /// <summary>
-        ///  Decodes an object from the storage type
-        /// </summary>
-        /// <typeparam name="T">encoded object type</typeparam>
-        /// <param name="storage">encoded object</param>
-        /// <returns>decoded object</returns>
-        T Decode<T>(TStorage storage);
+    /// <summary>
+    ///     Generic interface for encoding / decoding objects into storage
+    /// </summary>
+    /// <typeparam name="TEncoderStorage">encoder storage type</typeparam>
+    /// <typeparam name="TDecoderStorage">decoder storage type</typeparam>
+    public interface IProtocol<TEncoderStorage, TDecoderStorage> : IEncode<TEncoderStorage>, IDecode<TDecoderStorage>
+    {
     }
 }

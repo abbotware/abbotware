@@ -20,5 +20,21 @@ namespace Abbotware.UnitTests.Core
 
             Assert.IsNotNull(a);
         }
+
+        [Test]
+        public void ConsoleArguments_ToString1()
+        {
+            var o = new ConsoleArguments(new List<string> { "test" });
+
+            Assert.AreEqual("[test]", o.ToString());
+        }
+
+        [Test]
+        public void ConsoleArguments_ToString2()
+        {
+            var o = new ConsoleArguments(new List<string> { string.Empty, "first", "second" });
+
+            Assert.AreEqual("[first] [second]", o.ToString());
+        }
     }
 }

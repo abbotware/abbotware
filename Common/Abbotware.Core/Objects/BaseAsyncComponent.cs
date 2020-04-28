@@ -8,6 +8,7 @@
 namespace Abbotware.Core.Objects
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
     using System.Runtime.Serialization;
     using System.Threading;
     using System.Threading.Tasks;
@@ -131,6 +132,7 @@ namespace Abbotware.Core.Objects
         /// <summary>
         /// Disabling Function - should not be called
         /// </summary>
+        [ExcludeFromCodeCoverage]
         protected override sealed void OnInitialize()
         {
             throw new NotSupportedException();

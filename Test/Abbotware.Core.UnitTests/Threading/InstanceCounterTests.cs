@@ -53,6 +53,11 @@ namespace Abbotware.UnitTests.Core
 
             Assert.AreEqual(4, TypeCreatedCounter<AClass>.Count);
             Assert.AreEqual(0, ActiveInstanceCounter<AClass>.GlobalActiveCount);
+
+            var c = new TypeCreatedCounter<AClass>();
+
+            Assert.AreEqual(5, TypeCreatedCounter<AClass>.Count);
+            Assert.AreEqual(TypeCreatedCounter<AClass>.Count, c.CreatedCount);
         }
 
         internal class AClass : BaseComponent

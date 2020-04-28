@@ -73,6 +73,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abbotware.Host.Service", "C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abbotware.Interop.SystemTextJson", "Interop\Abbotware.Interop.SystemTextJson\Abbotware.Interop.SystemTextJson.csproj", "{9E276677-2476-4929-9F13-712F56B62413}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abbotware.Interop.ProtoBufNet", "Interop\Abbotware.Interop.ProtoBufNet\Abbotware.Interop.ProtoBufNet.csproj", "{C6E1411D-AA19-4DD0-8C1E-9A22EC484EAD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -199,6 +201,10 @@ Global
 		{9E276677-2476-4929-9F13-712F56B62413}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E276677-2476-4929-9F13-712F56B62413}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E276677-2476-4929-9F13-712F56B62413}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6E1411D-AA19-4DD0-8C1E-9A22EC484EAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6E1411D-AA19-4DD0-8C1E-9A22EC484EAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6E1411D-AA19-4DD0-8C1E-9A22EC484EAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6E1411D-AA19-4DD0-8C1E-9A22EC484EAD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -234,6 +240,7 @@ Global
 		{7F614BDB-29F0-4F02-822A-E7F024A3ACBC} = {63414C79-BEF0-4A80-834A-4B47ABF9676F}
 		{470FEB52-4B9A-4B13-BD0D-F5563BFCB5E1} = {B2B83BE9-47D3-4A0E-8172-EF4B6EF5F68C}
 		{9E276677-2476-4929-9F13-712F56B62413} = {63414C79-BEF0-4A80-834A-4B47ABF9676F}
+		{C6E1411D-AA19-4DD0-8C1E-9A22EC484EAD} = {63414C79-BEF0-4A80-834A-4B47ABF9676F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7EE1C721-9604-4A41-B647-816294134415}

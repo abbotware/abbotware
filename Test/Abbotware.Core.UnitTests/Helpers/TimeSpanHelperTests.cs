@@ -18,6 +18,7 @@ namespace Abbotware.UnitTests.Core
             Assert.AreEqual("5 Hours", TimeSpanHelper.ToString(new TimeSpan(0, 5, 4, 15)));
             Assert.AreEqual("5.7 Hours", TimeSpanHelper.ToString(new TimeSpan(0, 5, 40, 15)));
             Assert.AreEqual("4 Min", TimeSpanHelper.ToString(new TimeSpan(0, 0, 4, 15)));
+            Assert.AreEqual("n/a", TimeSpanHelper.ToString(null));
         }
     }
 }

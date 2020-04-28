@@ -93,6 +93,7 @@ namespace Abbotware.UnitTests.Core
             Assert.IsFalse(a.IsInitialized);
             a.Foo();
             Assert.IsTrue(a.IsInitialized);
+            a.Foo();
         }
 
         [Test]
@@ -119,6 +120,33 @@ namespace Abbotware.UnitTests.Core
             Assert.IsTrue(a.IsInitialized);
         }
 
+        [Test]
+        public void VerifyInitalizedCalledOnce()
+        {
+            for (int i = 0; i < 10000; ++i)
+            {
+                using var a = new AObject2();
+                var max = Environment.ProcessorCount + 2;
+                using var b = new Barrier(max);
+
+                Assert.IsFalse(a.IsInitialized);
+
+                for (int j = 0; j < Environment.ProcessorCount + 1; ++j)
+                {
+                    Task.Run(() =>
+                    {
+                        b.SignalAndWait();
+                        a.Initialize();
+                    });
+                }
+
+                a.InitializeAsync(default);
+
+                Assert.IsTrue(a.IsInitialized);
+                Assert.AreEqual(1, a.InitCalls);
+            }
+        }
+
         internal class AObject : BaseAsyncComponent
         {
             private readonly TimeSpan wait;
@@ -141,6 +169,22 @@ namespace Abbotware.UnitTests.Core
             protected override Task OnInitializeAsync(CancellationToken ct)
             {
                 return Task.Delay(this.wait, ct);
+            }
+        }
+
+        internal class AObject2 : BaseAsyncComponent
+        {
+            public int InitCalls;
+
+            public Task FooAsync(CancellationToken ct)
+            {
+                return this.InitializeIfRequiredAsync(ct);
+            }
+
+            protected override Task OnInitializeAsync(CancellationToken ct)
+            {
+                Interlocked.Increment(ref this.InitCalls);
+                return Task.CompletedTask;
             }
         }
     }
