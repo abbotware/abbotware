@@ -78,7 +78,7 @@ namespace Abbotware.Interop.Newtonsoft.Plugins
         private IStringSerializaton StringProtocol => this;
 
         /// <inheritdoc/>
-        T IProtocol<byte[]>.Decode<T>(byte[] storage)
+        T IDecode<byte[]>.Decode<T>(byte[] storage)
         {
             return (T)this.BinaryProtocol.Decode(storage, typeof(T));
         }
@@ -92,7 +92,7 @@ namespace Abbotware.Interop.Newtonsoft.Plugins
         }
 
         /// <inheritdoc/>
-        T IProtocol<string>.Decode<T>(string storage)
+        T IDecode<string>.Decode<T>(string storage)
         {
             return (T)this.StringProtocol.Decode(storage, typeof(T));
         }
@@ -106,7 +106,7 @@ namespace Abbotware.Interop.Newtonsoft.Plugins
         }
 
         /// <inheritdoc/>
-        byte[] IProtocol<byte[]>.Encode<T>(T @object)
+        byte[] IEncode<byte[]>.Encode<T>(T @object)
         {
             var s = this.StringProtocol.Encode(@object);
 
@@ -114,7 +114,7 @@ namespace Abbotware.Interop.Newtonsoft.Plugins
         }
 
         /// <inheritdoc/>
-        string IProtocol<string>.Encode<T>(T @object)
+        string IEncode<string>.Encode<T>(T @object)
         {
             var sb = new StringBuilder();
 
