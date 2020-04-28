@@ -5,10 +5,12 @@
 // -----------------------------------------------------------------------
 // <author>Anthony Abate</author>
 
-namespace Abbotware.Core
+namespace Abbotware.Core.Runtime
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using Abbotware.Core.Extensions;
 
     /// <summary>
     ///     Class that contains the command line arguments
@@ -23,7 +25,7 @@ namespace Abbotware.Core
         {
             Abbotware.Core.Arguments.NotNull(arguments, nameof(arguments));
 
-            this.Arguments = arguments;
+            this.Arguments = arguments.Where(x => x.IsNotBlank()).ToList();
         }
 
         /// <summary>

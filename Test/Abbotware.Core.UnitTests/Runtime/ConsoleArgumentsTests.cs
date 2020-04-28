@@ -5,11 +5,12 @@
 namespace Abbotware.UnitTests.Core
 {
     using System.Collections.Generic;
-    using Abbotware.Core;
+    using Abbotware.Core.Runtime;
     using NUnit.Framework;
 
+    [Category("Core")]
+    [Category("Core.Runtime")]
     [TestFixture]
-    [Category("Host")]
     public class ConsoleArgumentsTests
     {
         [Test]
@@ -34,7 +35,7 @@ namespace Abbotware.UnitTests.Core
         {
             var o = new ConsoleArguments(new List<string> { string.Empty, "first", "second" });
 
-            Assert.AreEqual("[first] [second]", o.ToString());
+            Assert.AreEqual("[first second]", o.ToString());
         }
     }
 }

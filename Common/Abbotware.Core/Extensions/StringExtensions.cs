@@ -74,7 +74,7 @@ namespace Abbotware.Core.Extensions
         /// <returns>true/false if contains</returns>
         public static bool IsNotBlank(this string text)
         {
-            return IsBlank(text);
+            return !IsBlank(text);
         }
     }
 }
