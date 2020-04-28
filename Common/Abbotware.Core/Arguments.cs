@@ -61,7 +61,7 @@ namespace Abbotware.Core
         {
             if (!typeof(T).IsSerializable)
             {
-                throw new InvalidOperationException($"can not serialaize/deserialize '{typeof(T).FullName}'  missing [Serializable] attribute.  Method:{method}");
+                throw new ArgumentException($"can not serialaize/deserialize '{typeof(T).FullName}'  missing [Serializable] attribute.  Method:{method}");
             }
         }
 
