@@ -65,14 +65,17 @@ namespace Abbotware.IntegrationTests.Interop.Redis
             Assert.AreEqual($"{id}:123", hfs.Remote.RemoteKey);
             Assert.AreEqual(0, hfs.Local.ValueCount);
             Assert.AreEqual(0, hfs.Local.Categories.Count());
+            Assert.AreEqual(0, hfs.Local.Fields.Count());
 
             await hfs.Remote.LoadAsync(default);
             Assert.AreEqual(0, hfs.Local.ValueCount);
             Assert.AreEqual(0, hfs.Local.Categories.Count());
+            Assert.AreEqual(0, hfs.Local.Fields.Count());
 
             await hfs.Remote.SaveAsync(default);
             Assert.AreEqual(0, hfs.Local.ValueCount);
             Assert.AreEqual(0, hfs.Local.Categories.Count());
+            Assert.AreEqual(0, hfs.Local.Fields.Count());
 
             Assert.IsNull(hfs.Local.GetOrDefault("asdf", "asdf"));
         }
@@ -109,6 +112,10 @@ namespace Abbotware.IntegrationTests.Interop.Redis
                 Assert.AreEqual("v4", hfs.Local.GetOrDefault("c1", "f1"));
                 Assert.AreEqual("v5", hfs.Local.GetOrDefault("c1", "f2"));
                 Assert.AreEqual("v6", hfs.Local.GetOrDefault("c2", "f1"));
+
+                Assert.AreEqual(3, hfs.Local.ValueCount);
+                Assert.AreEqual(2, hfs.Local.Categories.Count());
+                Assert.AreEqual(2, hfs.Local.Fields.Count());
 
                 await hfs.Remote.SaveAsync(default);
             }
