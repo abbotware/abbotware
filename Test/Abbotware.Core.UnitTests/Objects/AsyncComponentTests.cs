@@ -121,17 +121,17 @@ namespace Abbotware.UnitTests.Core
         }
 
         [Test]
-        public void VerifyInitalizedCalledOnce()
+        public void StressTest_VerifyInitalizedCalledOnce([Values(0, 1, 3, 4, 5)] int initDelay)
         {
-            for (int i = 0; i < 10000; ++i)
+            for (int i = 0; i < 2; ++i)
             {
-                using var a = new AObject2();
+                using var a = new AObject(TimeSpan.FromSeconds(initDelay));
                 var max = Environment.ProcessorCount + 2;
                 using var b = new Barrier(max);
 
                 Assert.IsFalse(a.IsInitialized);
 
-                for (int j = 0; j < Environment.ProcessorCount + 1; ++j)
+                for (int j = 0; j < max; ++j)
                 {
                     Task.Run(() =>
                     {
@@ -140,15 +140,17 @@ namespace Abbotware.UnitTests.Core
                     });
                 }
 
-                a.InitializeAsync(default);
+                a.InitializeAsync(default).Wait();
 
                 Assert.IsTrue(a.IsInitialized);
-                Assert.AreEqual(1, a.InitCalls);
+                Assert.AreEqual(1, a.InitCalls, "if this fails, then there is a race condition and initialize is called more than once");
             }
         }
 
         internal class AObject : BaseAsyncComponent
         {
+            public int InitCalls;
+
             private readonly TimeSpan wait;
 
             public AObject(TimeSpan wait)
@@ -168,23 +170,9 @@ namespace Abbotware.UnitTests.Core
 
             protected override Task OnInitializeAsync(CancellationToken ct)
             {
-                return Task.Delay(this.wait, ct);
-            }
-        }
-
-        internal class AObject2 : BaseAsyncComponent
-        {
-            public int InitCalls;
-
-            public Task FooAsync(CancellationToken ct)
-            {
-                return this.InitializeIfRequiredAsync(ct);
-            }
-
-            protected override Task OnInitializeAsync(CancellationToken ct)
-            {
                 Interlocked.Increment(ref this.InitCalls);
-                return Task.CompletedTask;
+
+                return Task.Delay(this.wait, ct);
             }
         }
     }

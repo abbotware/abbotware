@@ -99,24 +99,24 @@ namespace Abbotware.Core.Objects
                 {
                     return this.initializeTask.ContinueWith((x) => false, ct, TaskContinuationOptions.None, TaskScheduler.Default);
                 }
+
+                this.Logger.Debug($"Scheduling Async Initialization:{this.GetType().Name}");
+
+                // asign the task, but don't await it (the caller can)
+                this.initializeTask = this.OnInitializeAsync(ct);
+
+                // this is the only time the init task<bool> ever returns true
+                // that means the caller was the one that triggered the init
+                return this.initializeTask.ContinueWith(
+                    (x) =>
+                    {
+                        this.IsInitialized = true;
+                        return true;
+                    },
+                    ct,
+                    TaskContinuationOptions.None,
+                    TaskScheduler.Default);
             }
-
-            this.Logger.Debug($"Scheduling Async Initialization:{this.GetType().Name}");
-
-            // asign the task, but don't await it (the caller can)
-            this.initializeTask = this.OnInitializeAsync(ct);
-
-            // this is the only time the init task<bool> ever returns true
-            // that means the caller was the one that triggered the init
-            return this.initializeTask.ContinueWith(
-                (x) =>
-                {
-                    this.IsInitialized = true;
-                    return true;
-                },
-                ct,
-                TaskContinuationOptions.None,
-                TaskScheduler.Default);
         }
 
         /// <summary>
