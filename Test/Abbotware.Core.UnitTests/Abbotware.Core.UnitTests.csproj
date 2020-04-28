@@ -29,6 +29,7 @@
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Microsoft\Abbotware.Interop.Microsoft.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Newtonsoft\Abbotware.Interop.Newtonsoft.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.NUnit\Abbotware.Interop.NUnit.csproj" />
+    <ProjectReference Include="..\..\Interop\Abbotware.Interop.ProtoBufNet\Abbotware.Interop.ProtoBufNet.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Redis\Abbotware.Interop.Redis.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.SharpZipLib\Abbotware.Interop.SharpZipLib.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.SystemTextJson\Abbotware.Interop.SystemTextJson.csproj" />
