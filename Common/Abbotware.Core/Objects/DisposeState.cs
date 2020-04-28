@@ -160,7 +160,11 @@ namespace Abbotware.Core.Objects
         /// <inheritdoc/>
         public override int GetHashCode()
         {
+#if NETSTANDARD2_0
             return this.stateValue.GetHashCode();
+#else
+            return HashCode.Combine(this.stateValue);
+#endif
         }
 
         /// <inheritdoc/>

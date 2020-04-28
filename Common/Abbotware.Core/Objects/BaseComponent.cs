@@ -33,6 +33,8 @@ namespace Abbotware.Core.Objects
         /// </summary>
         private readonly object initializeSyncLock = new object();
 
+        private volatile bool isInitialized;
+
         /// <summary>
         ///     current dispose state of the object
         /// </summary>
@@ -83,7 +85,11 @@ namespace Abbotware.Core.Objects
         /// <summary>
         /// Gets a value indicating whether the object has been initialized
         /// </summary>
-        public bool IsInitialized { get; private protected set; }
+        public bool IsInitialized
+        {
+            get => this.isInitialized;
+            private protected set => this.isInitialized = value;
+        }
 
         /// <summary>
         /// Gets a value indicating whether the object has been disposed

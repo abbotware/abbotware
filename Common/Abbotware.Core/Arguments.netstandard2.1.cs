@@ -25,6 +25,7 @@ namespace Abbotware.Core
         /// <param name="method">name of method</param>
         [Conditional("NETSTANDARD2_0")]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [ExcludeFromCodeCoverage]
         public static void NotNull<T>([NotNull]T argument, string name, [CallerMemberName] string? method = null)
         {
             throw new NotImplementedException("this function should not be reached on netstandard 2.1");

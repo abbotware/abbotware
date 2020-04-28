@@ -293,5 +293,32 @@
 
             Assert.DoesNotThrow(Execute);
         }
+
+        [Test]
+        public void IsSerializable_NoThrows()
+        {
+            static void Execute() => Arguments.IsSerializable<WithSerializable>();
+
+            Assert.DoesNotThrow(Execute);
+        }
+
+        [Test]
+        public void IsSerializable_Throws()
+        {
+            static void Execute() => Arguments.IsSerializable<WithoutSerializable>();
+
+            Assert.Throws<ArgumentException>(Execute);
+        }
+
+        [Serializable]
+        private class WithSerializable
+        {
+            public int Id { get; set; }
+        }
+
+        private class WithoutSerializable
+        {
+            public int Id { get; set; }
+        }
     }
 }
