@@ -92,7 +92,11 @@ namespace Abbotware.Core.Chrono
         /// <inheritdoc />
         public override int GetHashCode()
         {
-            return (this.X, this.Y).GetHashCode();
+#if NETSTANDARD2_0
+           return (this.X, this.Y).GetHashCode();
+#else
+            return HashCode.Combine(this.X, this.Y);
+#endif
         }
     }
 }
