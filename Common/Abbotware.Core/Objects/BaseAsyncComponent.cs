@@ -9,7 +9,6 @@ namespace Abbotware.Core.Objects
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
-    using System.Runtime.Serialization;
     using System.Threading;
     using System.Threading.Tasks;
     using Abbotware.Core.Logging;
@@ -20,7 +19,7 @@ namespace Abbotware.Core.Objects
     /// </summary>
     public abstract class BaseAsyncComponent : BaseComponent, IAsyncComponent
     {
-        private readonly object initializeAsyncSyncLock = new object();
+        private readonly object initializeAsyncLock = new object();
 
         private Task? initializeTask;
 
@@ -87,17 +86,22 @@ namespace Abbotware.Core.Objects
                 return Task.FromResult(false);
             }
 
-            lock (this.initializeAsyncSyncLock)
+            lock (this.initializeAsyncLock)
             {
                 if (!this.OnRequiresInitialization())
                 {
                     return Task.FromResult(false);
                 }
 
-                // check if initialization is still 'running'
+                // check if another thread beat us to creating the init task
                 if (this.initializeTask != null)
                 {
-                    return this.initializeTask.ContinueWith((x) => false, ct, TaskContinuationOptions.None, TaskScheduler.Default);
+                    // attach a new task<bool> (returning false) to continue when the init task is complete
+                    return this.initializeTask.ContinueWith(
+                        (x) => false,
+                        ct,
+                        TaskContinuationOptions.None,
+                        TaskScheduler.Default);
                 }
 
                 this.Logger.Debug($"Scheduling Async Initialization:{this.GetType().Name}");
@@ -110,6 +114,7 @@ namespace Abbotware.Core.Objects
                 return this.initializeTask.ContinueWith(
                     (x) =>
                     {
+                        // set the initi flag to true for the above double checked lock optimizations
                         this.IsInitialized = true;
                         return true;
                     },
