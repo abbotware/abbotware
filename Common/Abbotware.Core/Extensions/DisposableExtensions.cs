@@ -16,43 +16,39 @@ namespace Abbotware.Core.Extensions
     public static class DisposableExtensions
     {
         /// <summary>
-        /// creates a disposable wrapper
+        /// creates a disposable wrapper - This has only 1 use case - NonCancellable Async operations
         /// </summary>
         /// <remarks>https://stackoverflow.com/questions/21468137/async-network-operations-never-finish/21468138#21468138</remarks>
-        /// <param name="disposable">wrapped disposable</param>
+        /// <param name="asyncOperation">wrapped asyncOperation / disposable</param>
         /// <param name="timeSpan">time span to wait before disposing</param>
         /// <returns>disposable handle for using block</returns>
-        public static IDisposable DisposeAfterTimeout(this IDisposable disposable, TimeSpan timeSpan)
+        public static IDisposable DisposeAsyncOperationAfterTimeout(this IDisposable asyncOperation, TimeSpan timeSpan)
         {
-            disposable = Arguments.EnsureNotNull(disposable, nameof(disposable));
+            asyncOperation = Arguments.EnsureNotNull(asyncOperation, nameof(asyncOperation));
 
-            var cancellationTokenSource = new CancellationTokenSource(timeSpan);
-
-            var cancellationTokenRegistration = cancellationTokenSource.Token.Register(disposable.Dispose);
-
-            return new DisposableScope(
-                () =>
-                {
-                    cancellationTokenRegistration.Dispose();
-                    cancellationTokenSource.Dispose();
-                    disposable.Dispose();
-                });
+            return new DisposableAsyncOperation(timeSpan, asyncOperation);
         }
 
-        internal sealed class DisposableScope : IDisposable
+        internal sealed class DisposableAsyncOperation : IDisposable
         {
-            private readonly Action action;
+            private readonly IDisposable asyncOperation;
 
-            public DisposableScope(Action closeScopeAction)
+            private readonly CancellationTokenSource cts;
+
+            private readonly CancellationTokenRegistration ctr;
+
+            public DisposableAsyncOperation(TimeSpan timeSpan, IDisposable asyncOperation)
             {
-                Arguments.NotNull(closeScopeAction, nameof(closeScopeAction));
+                this.asyncOperation = Arguments.EnsureNotNull(asyncOperation, nameof(asyncOperation));
 
-                this.action = closeScopeAction;
+                this.cts = new CancellationTokenSource(timeSpan);
+                this.ctr = this.cts.Token.Register(this.asyncOperation.Dispose);
             }
 
             public void Dispose()
             {
-                this.action();
+                this.ctr.Dispose();
+                this.cts.Dispose();
             }
         }
     }

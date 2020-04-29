@@ -43,6 +43,7 @@ namespace Abbotware.Core.Text
         }
 
         /// <inheritdoc/>
+        [ExcludeFromCodeCoverage]
         public override int GetChars(byte[] bytes, int byteIndex, int byteCount, char[] chars, int charIndex)
         {
             throw new NotImplementedException();
