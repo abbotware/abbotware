@@ -41,6 +41,6 @@ namespace Abbotware.Core.Collections
         /// <param name="item">item to to remove (and its pair)</param>
         /// <param name="other">gets the other if it exists</param>
         /// <returns>true if the pair was removed</returns>
-        bool TryRemove(T item, out T other);
+        bool Remove(T item, out T other);
     }
 }

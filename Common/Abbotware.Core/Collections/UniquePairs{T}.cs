@@ -88,23 +88,11 @@ namespace Abbotware.Core.Collections
         /// <inheritdoc/>
         public bool Remove(T item)
         {
-            lock (this.pairs)
-            {
-                if (!this.pairs.TryGetValue(item, out var other))
-                {
-                    return false;
-                }
-
-                var first = this.pairs.Remove(item);
-
-                var second = this.pairs.Remove(other);
-
-                return first && second;
-            }
+            return this.Remove(item, out var _);
         }
 
         /// <inheritdoc/>
-        public bool TryRemove(T item, out T other)
+        public bool Remove(T item, out T other)
         {
             lock (this.pairs)
             {

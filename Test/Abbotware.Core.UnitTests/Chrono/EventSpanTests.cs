@@ -28,6 +28,8 @@ namespace Abbotware.UnitTests.Core
             // first event is always new
             Assert.IsTrue(es.IsNewEvent(startTime));
 
+            Assert.IsFalse(es.IsNowAnEvent());
+
             Assert.AreEqual(es.Last, es.First);
             Assert.AreEqual(startTime, es.First);
 

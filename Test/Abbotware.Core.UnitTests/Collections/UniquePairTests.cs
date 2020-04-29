@@ -92,7 +92,7 @@ namespace Abbotware.UnitTests.Core
             Assert.IsTrue(pairs.Contains(10));
             Assert.IsTrue(pairs.Contains(100));
 
-            pairs.Remove(100);
+            Assert.IsTrue(pairs.Remove(100));
             Assert.IsFalse(pairs.Contains(10));
             Assert.IsFalse(pairs.Contains(100));
         }
@@ -104,6 +104,15 @@ namespace Abbotware.UnitTests.Core
             var pairs = new UniquePairs<long>();
 
             pairs.Add(1, 1);
+        }
+
+        [Test]
+        public void Long_TryAdd_Duplicates()
+        {
+            var pairs = new UniquePairs<long>();
+
+            Assert.IsTrue(pairs.TryAdd(1, 2));
+            Assert.IsFalse(pairs.TryAdd(1, 2));
         }
 
         [Test]
@@ -133,6 +142,19 @@ namespace Abbotware.UnitTests.Core
             var pairs = new UniquePairs<long>();
 
             pairs.Other(1234);
+        }
+
+        [Test]
+        public void Remove_Tests()
+        {
+            var pairs = new UniquePairs<long>();
+
+            Assert.IsFalse(pairs.Remove(1234));
+
+            pairs.Add(1234, 43);
+
+            Assert.IsTrue(pairs.Remove(1234, out var other));
+            Assert.AreEqual(43, other);
         }
     }
 }
