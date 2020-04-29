@@ -7,13 +7,14 @@
 
 namespace Abbotware.Core.Plugins.Serialization
 {
+    using System;
     using System.Text;
     using Abbotware.Core;
 
     /// <summary>
     ///     Encoder that converts a string into a byte[] using the specified character encoding
     /// </summary>
-    public class StringEncoder : IBidirectionalConverter<string, byte[]>
+    public class StringEncoder : IBidirectionalConverter<string, byte[]>, IBidirectionalConverter<string, Memory<byte>>
     {
         /// <summary>
         ///     string encoding type to use
@@ -49,6 +50,18 @@ namespace Abbotware.Core.Plugins.Serialization
         public byte[] Convert(string message)
         {
             return this.textEncoding.GetBytes(message);
+        }
+
+        /// <inheritdoc />
+        public string Convert(Memory<byte> input)
+        {
+            return this.Convert(input.ToArray());
+        }
+
+        /// <inheritdoc />
+        Memory<byte> IBidirectionalConverter<string, Memory<byte>>.Convert(string input)
+        {
+            return new Memory<byte>(this.Convert(input));
         }
     }
 }
