@@ -31,18 +31,16 @@ namespace Abbotware.Core.Extensions
 
         internal sealed class DisposableAsyncOperation : IDisposable
         {
-            private readonly IDisposable asyncOperation;
-
             private readonly CancellationTokenSource cts;
 
             private readonly CancellationTokenRegistration ctr;
 
             public DisposableAsyncOperation(TimeSpan timeSpan, IDisposable asyncOperation)
             {
-                this.asyncOperation = Arguments.EnsureNotNull(asyncOperation, nameof(asyncOperation));
+                asyncOperation = Arguments.EnsureNotNull(asyncOperation, nameof(asyncOperation));
 
                 this.cts = new CancellationTokenSource(timeSpan);
-                this.ctr = this.cts.Token.Register(this.asyncOperation.Dispose);
+                this.ctr = this.cts.Token.Register(asyncOperation.Dispose);
             }
 
             public void Dispose()

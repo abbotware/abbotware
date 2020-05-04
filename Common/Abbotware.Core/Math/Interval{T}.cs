@@ -134,7 +134,11 @@ namespace Abbotware.Core.Math
         /// <inheritdoc/>
         public override int GetHashCode()
         {
+#if NETSTANDARD2_0
             return (this.LowerBound, this.UpperBound, this.IncludeUpper, this.IncludeLower).GetHashCode();
+#else
+            return HashCode.Combine(this.LowerBound, this.UpperBound, this.IncludeUpper, this.IncludeLower);
+#endif
         }
 
         /// <inheritdoc/>

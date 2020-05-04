@@ -25,7 +25,7 @@ namespace Abbotware.Host.Configuration
         /// <param name="requestShutdown">injected request shutdown service</param>
         /// <param name="monitorShutdown">injected monitor shutdown service</param>
         public HostOptions(CommandLineOptions commandLineOptions, ConsoleArguments consoleArguments, IRequestShutdown requestShutdown, IMonitorShutdown monitorShutdown)
-            : this(consoleArguments, new ContainerOptions { Component = commandLineOptions.Component, DisableStartable = commandLineOptions.DisableStartable }, requestShutdown, monitorShutdown)
+            : this(consoleArguments, new ContainerOptions { Component = Arguments.EnsureNotNull(commandLineOptions, nameof(commandLineOptions)).Component, DisableStartable = commandLineOptions.DisableStartable }, requestShutdown, monitorShutdown)
         {
             this.LogFirstChanceExceptions = commandLineOptions.LogFirstChanceExceptions;
             this.DisableSslVerification = commandLineOptions.DisableSslVerification;
