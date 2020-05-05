@@ -21,11 +21,11 @@ namespace Abbotware.UnitTests.Interop.Redis
     using global::NUnit.Framework;
 
     [TestFixture]
+    [Category("Interop")]
+    [Category("Interop.Redis")]
     public class RedisTests : BaseNUnitTest
     {
         [Test]
-        [Category("Interop")]
-        [Category("Interop.Redis")]
         public void Configuration()
         {
             {
