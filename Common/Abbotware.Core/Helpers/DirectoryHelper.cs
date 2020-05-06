@@ -17,24 +17,57 @@ namespace Abbotware.Core.Helpers
     /// </summary>
     public static class DirectoryHelper
     {
+        private static object mutex = new object();
+
+        private static bool workingDirectoryInitialized;
+
         private static Assembly DefaultAnchor => Assembly.GetEntryAssembly();
 
         /// <summary>
         ///     Sets the working directory to the directory containing the executing assembly
         /// </summary>
-        public static void SetWorkingDirectoryToExecutingAssembly()
+        public static void SetWorkingDirectoryToExecutingAssembly() => SetWorkingDirectory(Assembly.GetExecutingAssembly());
+
+        /// <summary>
+        /// Sets the working directory to folder of the anchor type's assembly
+        /// </summary>
+        /// <typeparam name="TAnchorType">type to use for anchor assembly</typeparam>
+        public static void SetWorkingDirectory<TAnchorType>() => SetWorkingDirectory(typeof(TAnchorType).Assembly);
+
+        /// <summary>
+        /// Sets the working directory to folder of the provided anchor assembly
+        /// </summary>
+        /// <param name="anchor">assembly to use as an anchor reference</param>
+        public static void SetWorkingDirectory(Assembly anchor)
         {
-            var codeBase = Assembly.GetExecutingAssembly()
-                .CodeBase;
+            anchor = Arguments.EnsureNotNull(anchor, nameof(anchor));
 
-            var uri = new Uri(codeBase);
-            var path = uri.LocalPath;
+            SetWorkingDirectory(new DirectoryInfo(Path.GetDirectoryName(anchor.CodeBase)));
+        }
 
-            var safePath = Path.GetDirectoryName(path);
+        /// <summary>
+        /// Sets the working directory to the provided Uri
+        /// </summary>
+        /// <param name="directory">directory to use</param>
+        public static void SetWorkingDirectory(DirectoryInfo directory)
+        {
+            directory = Arguments.EnsureNotNull(directory, nameof(directory));
 
-            if (!string.IsNullOrWhiteSpace(safePath))
+            lock (mutex)
             {
-                Environment.CurrentDirectory = safePath;
+                if (workingDirectoryInitialized)
+                {
+                    throw new InvalidOperationException($"SetWorkingDirectory already called - Working Directory is currently: {Environment.CurrentDirectory}, attempted to set: {directory.FullName}");
+                }
+
+                if (!directory.Exists)
+                {
+                    throw new DirectoryNotFoundException($"SetWorkingDirectory:{directory.FullName}");
+                }
+
+                Environment.CurrentDirectory = directory.FullName;
+
+                workingDirectoryInitialized = true;
             }
         }
 
