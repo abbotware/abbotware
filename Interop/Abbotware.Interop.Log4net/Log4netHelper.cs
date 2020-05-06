@@ -9,6 +9,7 @@ namespace Abbotware.Interop.Log4net
 {
     using System;
     using Abbotware.Core.Helpers;
+    using Abbotware.Core.Logging;
     using log4net;
 
     /// <summary>
@@ -16,21 +17,6 @@ namespace Abbotware.Interop.Log4net
     /// </summary>
     public static class Log4netHelper
     {
-        /// <summary>
-        ///     name of the GlobalComponentproperty
-        /// </summary>
-        public const string GlobalComponent = "GlobalComponent";
-
-        /// <summary>
-        ///     name of the AssemblyVersion property
-        /// </summary>
-        public const string AssemblyVersion = "AssemblyVersion";
-
-        /// <summary>
-        ///     name of the CommandLine property
-        /// </summary>
-        public const string CommandLine = "CommandLine";
-
         /// <summary>
         ///     Sets a log4net global context property for %property{Property}
         /// </summary>
@@ -42,12 +28,24 @@ namespace Abbotware.Interop.Log4net
         }
 
         /// <summary>
-        ///     Sets a log4net global context property for %property{GlobalComponent}
+        ///     Sets a log4net global context property for %property{Component}
         /// </summary>
         /// <param name="componentName">Component Name</param>
         public static void SetComponent(string componentName)
         {
-            GlobalContext.Properties[Log4netHelper.GlobalComponent] = componentName;
+            GlobalContext.Properties[nameof(LoggingProperty.Component)] = componentName;
+        }
+
+        /// <summary>
+        /// Sets common global properies
+        /// </summary>
+        /// <param name="componentName">Component Name</param>
+        public static void SetCommonProperties(string componentName)
+        {
+            SetComponent(componentName);
+            SetCommandLine();
+            SetVersion();
+            SetMachineName();
         }
 
         /// <summary>
@@ -55,7 +53,7 @@ namespace Abbotware.Interop.Log4net
         /// </summary>
         public static void SetVersion()
         {
-            GlobalContext.Properties[AssemblyVersion] = AssemblyHelper.GetExecutingAssemblyVersion();
+            GlobalContext.Properties[nameof(LoggingProperty.AssemblyVersion)] = AssemblyHelper.GetExecutingAssemblyVersion();
         }
 
         /// <summary>
@@ -63,7 +61,28 @@ namespace Abbotware.Interop.Log4net
         /// </summary>
         public static void SetCommandLine()
         {
-            GlobalContext.Properties[CommandLine] = Environment.CommandLine;
+            GlobalContext.Properties[nameof(LoggingProperty.CommandLine)] = Environment.CommandLine;
+        }
+
+        /// <summary>
+        ///     Sets a log4net global context property for %property{MachineName}
+        /// </summary>
+        public static void SetMachineName()
+        {
+            GlobalContext.Properties[nameof(LoggingProperty.MachineName)] = Environment.MachineName;
+        }
+
+         /// <summary>
+        /// begins a new scope adding the key values to the context
+        /// </summary>
+        /// <param name="context">contextual string</param>
+        /// <remarks>For a primer on NDC see comment 'Want an example?' on this post:
+        /// https://stackoverflow.com/questions/334367/when-to-use-nested-diagnostic-context-ndc
+        /// </remarks>
+        /// <returns>disposable for using block</returns>
+        public static IDisposable BeginScope(string context)
+        {
+            return ThreadContext.Stacks["NDC"].Push(context);
         }
     }
 }
