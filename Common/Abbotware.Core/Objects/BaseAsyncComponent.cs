@@ -50,6 +50,11 @@ namespace Abbotware.Core.Objects
         {
         }
 
+        /// <summary>
+        /// Gets the Cancellation token linked to object dispose
+        /// </summary>
+        protected CancellationTokenSource DisposeRequested { get; } = new CancellationTokenSource();
+
         /// <inheritdoc/>
         public Task<bool> InitializeAsync(CancellationToken ct)
         {
@@ -69,7 +74,8 @@ namespace Abbotware.Core.Objects
                 return false;
             }
 
-            return this.InitializeIfRequiredAsync(default).GetAwaiter().GetResult();
+            return this.InitializeIfRequiredAsync(this.DisposeRequested.Token)
+                .GetAwaiter().GetResult();
         }
 
         /// <summary>
@@ -135,12 +141,30 @@ namespace Abbotware.Core.Objects
         }
 
         /// <summary>
+        /// Merges the incomming cancellation token to the dispose requested token
+        /// </summary>
+        /// <param name="external">external token</param>
+        /// <returns>merged cancellation token</returns>
+        protected CancellationTokenSource MergeWithDisposeToken(CancellationToken external)
+        {
+            return CancellationTokenSource.CreateLinkedTokenSource(this.DisposeRequested.Token, external);
+        }
+
+        /// <summary>
         /// Disabling Function - should not be called
         /// </summary>
         [ExcludeFromCodeCoverage]
         protected override sealed void OnInitialize()
         {
             throw new NotSupportedException();
+        }
+
+        /// <inheritdoc/>
+        protected override void OnDisposeManagedResources()
+        {
+            this.DisposeRequested.Cancel();
+
+            base.OnDisposeManagedResources();
         }
     }
 }
