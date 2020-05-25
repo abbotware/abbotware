@@ -121,6 +121,40 @@ namespace Abbotware.UnitTests.Core
         }
 
         [Test]
+        [ExpectedException(typeof(TaskCanceledException))]
+        public async Task Verify_InitException_FirstCaller()
+        {
+            using var a = new AObjectInitThrows();
+
+            Assert.IsFalse(a.IsInitialized);
+
+            await a.InitializeAsync(default);
+        }
+
+        [Test]
+        [ExpectedException(typeof(TaskCanceledException))]
+        public async Task Verify_InitException_SecondCaller()
+        {
+            using var a = new AObjectInitThrows();
+
+            Assert.IsFalse(a.IsInitialized);
+
+            try
+            {
+                a.Initialize();
+            }
+            catch (Exception)
+            {
+            }
+
+            Assert.IsFalse(a.IsInitialized);
+
+            Thread.Sleep(200);
+
+            await a.InitializeAsync(default);
+        }
+
+        [Test]
         public void StressTest_VerifyInitalizedCalledOnce([Values(0, 1, 3, 4, 5)] int initDelay)
         {
             for (int i = 0; i < 2; ++i)
@@ -144,6 +178,16 @@ namespace Abbotware.UnitTests.Core
 
                 Assert.IsTrue(a.IsInitialized);
                 Assert.AreEqual(1, a.InitCalls, "if this fails, then there is a race condition and initialize is called more than once");
+            }
+        }
+
+        internal class AObjectInitThrows : BaseAsyncComponent
+        {
+            protected override async Task OnInitializeAsync(CancellationToken ct)
+            {
+                await Task.Delay(TimeSpan.FromMilliseconds(100), ct);
+
+                throw new Exception("something happened");
             }
         }
 

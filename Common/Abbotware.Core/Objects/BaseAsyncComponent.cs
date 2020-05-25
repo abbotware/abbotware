@@ -89,6 +89,11 @@ namespace Abbotware.Core.Objects
 
             if (!this.OnRequiresInitialization())
             {
+                if (this.initializeTask?.Exception != null)
+                {
+                    throw new Exception("Initialization Error", this.initializeTask.Exception);
+                }
+
                 return Task.FromResult(false);
             }
 
@@ -96,6 +101,11 @@ namespace Abbotware.Core.Objects
             {
                 if (!this.OnRequiresInitialization())
                 {
+                    if (this.initializeTask?.Exception != null)
+                    {
+                        throw new Exception("Initialization Error", this.initializeTask.Exception);
+                    }
+
                     return Task.FromResult(false);
                 }
 
@@ -106,7 +116,7 @@ namespace Abbotware.Core.Objects
                     return this.initializeTask.ContinueWith(
                         (x) => false,
                         ct,
-                        TaskContinuationOptions.None,
+                        TaskContinuationOptions.OnlyOnRanToCompletion,
                         TaskScheduler.Default);
                 }
 
@@ -125,7 +135,7 @@ namespace Abbotware.Core.Objects
                         return true;
                     },
                     ct,
-                    TaskContinuationOptions.None,
+                    TaskContinuationOptions.OnlyOnRanToCompletion,
                     TaskScheduler.Default);
             }
         }
