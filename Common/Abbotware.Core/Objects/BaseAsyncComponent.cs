@@ -17,7 +17,7 @@ namespace Abbotware.Core.Objects
     /// <summary>
     ///     Abstract base class for writing component-like objects
     /// </summary>
-    public abstract class BaseAsyncComponent : BaseComponent, IAsyncComponent
+    public abstract partial class BaseAsyncComponent : BaseComponent, IAsyncComponent
     {
         private readonly object initializeAsyncLock = new object();
 
@@ -170,11 +170,9 @@ namespace Abbotware.Core.Objects
         }
 
         /// <inheritdoc/>
-        protected override void OnDisposeManagedResources()
+        protected sealed override void OnDisposeUnmanagedResources()
         {
-            this.DisposeRequested.Cancel();
-
-            base.OnDisposeManagedResources();
+            // do nothing
         }
     }
 }
