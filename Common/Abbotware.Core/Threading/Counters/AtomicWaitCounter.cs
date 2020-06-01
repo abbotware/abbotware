@@ -38,7 +38,7 @@ namespace Abbotware.Core.Threading.Counters
         /// <param name="max">max value for the wait handle</param>
         public AtomicWaitCounter(long max)
         {
-            Arguments.IsPositive(max, nameof(max));
+            Arguments.IsPositiveAndNotZero(max, nameof(max));
 
             this.max = max;
         }

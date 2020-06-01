@@ -34,7 +34,7 @@ namespace Abbotware.Core.Objects
             : base(logger)
         {
             Arguments.NotNull(logger, nameof(logger));
-            Arguments.IsPositive(expirationTimeSpan, nameof(expirationTimeSpan));
+            Arguments.IsPositiveAndNotZero(expirationTimeSpan, nameof(expirationTimeSpan));
 
             this.expirationTimeSpan = expirationTimeSpan;
         }

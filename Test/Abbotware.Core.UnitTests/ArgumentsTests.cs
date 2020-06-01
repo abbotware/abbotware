@@ -132,7 +132,7 @@
             {
                 TimeSpan value = new TimeSpan(0);
 
-                void Execute() => Arguments.IsPositive(value, nameof(value));
+                void Execute() => Arguments.IsPositiveAndNotZero(value, nameof(value));
 
                 Assert.Throws<ArgumentOutOfRangeException>(Execute);
             }
@@ -140,7 +140,7 @@
             {
                 TimeSpan value = new TimeSpan(-123);
 
-                void Execute() => Arguments.IsPositive(value, nameof(value));
+                void Execute() => Arguments.IsPositiveAndNotZero(value, nameof(value));
 
                 Assert.Throws<ArgumentOutOfRangeException>(Execute);
             }
@@ -148,7 +148,7 @@
             {
                 long value = 0;
 
-                void Execute() => Arguments.IsPositive(value, nameof(value));
+                void Execute() => Arguments.IsPositiveAndNotZero(value, nameof(value));
 
                 Assert.Throws<ArgumentOutOfRangeException>(Execute);
             }
@@ -156,7 +156,7 @@
             {
                 long value = -123;
 
-                void Execute() => Arguments.IsPositive(value, nameof(value));
+                void Execute() => Arguments.IsPositiveAndNotZero(value, nameof(value));
 
                 Assert.Throws<ArgumentOutOfRangeException>(Execute);
             }
@@ -168,7 +168,7 @@
             {
                 TimeSpan value = new TimeSpan(123);
 
-                void Execute() => Arguments.IsPositive(value, nameof(value));
+                void Execute() => Arguments.IsPositiveAndNotZero(value, nameof(value));
 
                 Assert.DoesNotThrow(Execute);
             }
@@ -176,7 +176,7 @@
             {
                 long value = 123;
 
-                void Execute() => Arguments.IsPositive(value, nameof(value));
+                void Execute() => Arguments.IsPositiveAndNotZero(value, nameof(value));
 
                 Assert.DoesNotThrow(Execute);
             }
@@ -185,12 +185,23 @@
         [Test]
         public void IsPositiveOrZero_Throws()
         {
+            int value = -1;
+
+            void Execute() => Arguments.IsPositiveOrZero(value, nameof(value));
+
+            Assert.Throws<ArgumentOutOfRangeException>(Execute);
+
+        }
+
+        [Test]
+        public void IsPositiveOrZero_NoThrows()
+        {
             {
                 int value = 0;
 
                 void Execute() => Arguments.IsPositiveOrZero(value, nameof(value));
 
-                Assert.Throws<ArgumentOutOfRangeException>(Execute);
+                Assert.DoesNotThrow(Execute);
             }
 
             {
@@ -198,18 +209,8 @@
 
                 void Execute() => Arguments.IsPositiveOrZero(value, nameof(value));
 
-                Assert.Throws<ArgumentOutOfRangeException>(Execute);
+                Assert.DoesNotThrow(Execute);
             }
-        }
-
-        [Test]
-        public void IsPositiveOrZero_NoThrows()
-        {
-            int value = -1;
-
-            void Execute() => Arguments.IsPositiveOrZero(value, nameof(value));
-
-            Assert.DoesNotThrow(Execute);
         }
 
         [Test]

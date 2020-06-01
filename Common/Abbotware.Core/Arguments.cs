@@ -87,11 +87,11 @@ namespace Abbotware.Core
         /// <param name="name">name of argument</param>
         /// <param name="method">name of method</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void IsPositive(TimeSpan argument, string name, [CallerMemberName] string? method = null)
+        public static void IsPositiveAndNotZero(TimeSpan argument, string name, [CallerMemberName] string? method = null)
         {
             if (argument.Ticks <= 0)
             {
-                throw new ArgumentOutOfRangeException($"timespan is not valid.  Method:{method}", name);
+                throw new ArgumentOutOfRangeException($"argument:{argument} is not greater than zero.  Method:{method}", name);
             }
         }
 
@@ -102,11 +102,11 @@ namespace Abbotware.Core
         /// <param name="name">name of argument</param>
         /// <param name="method">name of method</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void IsPositive(long argument, string name, [CallerMemberName] string? method = null)
+        public static void IsPositiveAndNotZero(long argument, string name, [CallerMemberName] string? method = null)
         {
             if (argument <= 0)
             {
-                throw new ArgumentOutOfRangeException($"timespan is not valid.  Method:{method}", name);
+                throw new ArgumentOutOfRangeException($"argument:{argument} is not greater than zero.  Method:{method}", name);
             }
         }
 
@@ -119,9 +119,9 @@ namespace Abbotware.Core
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void IsPositiveOrZero(long argument, string name, [CallerMemberName] string? method = null)
         {
-            if (argument >= 0)
+            if (argument < 0)
             {
-                throw new ArgumentOutOfRangeException($"timespan is not valid.  Method:{method}", name);
+                throw new ArgumentOutOfRangeException($"argument:{argument} is not zero or positive.  Method:{method}", name);
             }
         }
 
