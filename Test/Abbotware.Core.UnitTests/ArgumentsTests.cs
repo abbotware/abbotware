@@ -190,7 +190,6 @@
             void Execute() => Arguments.IsPositiveOrZero(value, nameof(value));
 
             Assert.Throws<ArgumentOutOfRangeException>(Execute);
-
         }
 
         [Test]

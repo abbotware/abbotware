@@ -33,6 +33,16 @@ namespace Abbotware.Core.Objects
             }
         }
 
+             /// <summary>
+        ///     Hook to implement custom initialization logic
+        /// </summary>
+        /// <param name="ct">cancellation token</param>
+        /// <returns>async task handle</returns>
+        protected virtual ValueTask OnInitializeAsync(CancellationToken ct)
+        {
+            return default;
+        }
+
         /// <summary>
         ///     Hook to implement custom initialization logic
         /// </summary>
@@ -48,6 +58,11 @@ namespace Abbotware.Core.Objects
         {
             // this just wires up a Dispose to DisposeAsync
             this.DisposeAsync().AsTask().GetAwaiter().GetResult();
+        }
+
+        partial void SetInitializeTask(CancellationToken ct)
+        {
+            this.initializeTask = this.OnInitializeAsync(ct).AsTask();
         }
     }
 }

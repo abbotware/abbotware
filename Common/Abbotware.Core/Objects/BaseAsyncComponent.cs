@@ -123,11 +123,11 @@ namespace Abbotware.Core.Objects
                 this.Logger.Debug($"Scheduling Async Initialization:{this.GetType().Name}");
 
                 // asign the task, but don't await it (the caller can)
-                this.initializeTask = this.OnInitializeAsync(ct);
+                this.SetInitializeTask(ct);
 
                 // this is the only time the init task<bool> ever returns true
                 // that means the caller was the one that triggered the init
-                return this.initializeTask.ContinueWith(
+                return this.initializeTask!.ContinueWith(
                     (x) =>
                     {
                         // set the initi flag to true for the above double checked lock optimizations
@@ -138,16 +138,6 @@ namespace Abbotware.Core.Objects
                     TaskContinuationOptions.OnlyOnRanToCompletion,
                     TaskScheduler.Default);
             }
-        }
-
-        /// <summary>
-        ///     Hook to implement custom initialization logic
-        /// </summary>
-        /// <param name="ct">cancellation token</param>
-        /// <returns>async task handle</returns>
-        protected virtual Task OnInitializeAsync(CancellationToken ct)
-        {
-            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -174,5 +164,7 @@ namespace Abbotware.Core.Objects
         {
             // do nothing
         }
+
+        partial void SetInitializeTask(CancellationToken ct);
     }
 }

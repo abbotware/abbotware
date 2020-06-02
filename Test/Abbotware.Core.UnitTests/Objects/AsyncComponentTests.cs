@@ -183,7 +183,7 @@ namespace Abbotware.UnitTests.Core
 
         internal class AObjectInitThrows : BaseAsyncComponent
         {
-            protected override async Task OnInitializeAsync(CancellationToken ct)
+            protected override async ValueTask OnInitializeAsync(CancellationToken ct)
             {
                 await Task.Delay(TimeSpan.FromMilliseconds(100), ct);
 
@@ -212,11 +212,11 @@ namespace Abbotware.UnitTests.Core
                 return this.InitializeIfRequiredAsync(ct);
             }
 
-            protected override Task OnInitializeAsync(CancellationToken ct)
+            protected async override ValueTask OnInitializeAsync(CancellationToken ct)
             {
                 Interlocked.Increment(ref this.InitCalls);
 
-                return Task.Delay(this.wait, ct);
+                await Task.Delay(this.wait, ct);
             }
         }
     }
