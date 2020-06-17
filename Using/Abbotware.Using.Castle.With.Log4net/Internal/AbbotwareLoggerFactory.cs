@@ -52,7 +52,7 @@ namespace Abbotware.Using.Castle.Internal
 
             var file = GetConfigFile(configFile);
 
-            this.repo = this.GetOrCreateRepository();
+            this.repo = GetOrCreateRepository();
 
             XmlConfigurator.ConfigureAndWatch(this.repo, file);
         }
@@ -70,7 +70,7 @@ namespace Abbotware.Using.Castle.Internal
 
             var file = GetConfigFile(DefaultConfigFileName);
 
-            this.repo = this.GetOrCreateRepository();
+            this.repo = GetOrCreateRepository();
 
             XmlConfigurator.ConfigureAndWatch(this.repo, file);
         }
@@ -83,7 +83,7 @@ namespace Abbotware.Using.Castle.Internal
         {
             Arguments.NotNull(configStream, nameof(configStream));
 
-            this.repo = this.GetOrCreateRepository();
+            this.repo = GetOrCreateRepository();
 
             XmlConfigurator.Configure(this.repo, configStream);
         }
@@ -183,7 +183,7 @@ namespace Abbotware.Using.Castle.Internal
         ///     Gets the Log4Net repo
         /// </summary>
         /// <returns>logger repo</returns>
-        private ILoggerRepository GetOrCreateRepository()
+        private static ILoggerRepository GetOrCreateRepository()
         {
             var repos = LogManager.GetAllRepositories();
 
