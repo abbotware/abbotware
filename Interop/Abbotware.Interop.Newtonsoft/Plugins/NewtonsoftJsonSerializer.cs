@@ -70,12 +70,30 @@ namespace Abbotware.Interop.Newtonsoft.Plugins
           /// <summary>
         /// Gets the IBinarySerializaton interface for this object
         /// </summary>
-        private IBinarySerializaton BinaryProtocol => this;
+        private ISerialization<byte[]> BinaryProtocol => this;
 
         /// <summary>
         /// Gets the IStringSerializaton interface for this object
         /// </summary>
         private IStringSerializaton StringProtocol => this;
+
+        /// <inheritdoc />
+        public object Decode(ReadOnlyMemory<byte> storage, Type type)
+        {
+            return this.Decode(storage.ToArray(), type);
+        }
+
+        /// <inheritdoc />
+        ReadOnlyMemory<byte> IEncode<ReadOnlyMemory<byte>>.Encode<T>(T value)
+        {
+            return new ReadOnlyMemory<byte>(this.BinaryProtocol.Encode<T>(value));
+        }
+
+        /// <inheritdoc />
+        public T Decode<T>(ReadOnlyMemory<byte> storage)
+        {
+            return this.Decode<T>(storage.ToArray());
+        }
 
         /// <inheritdoc/>
         T IDecode<byte[]>.Decode<T>(byte[] storage)

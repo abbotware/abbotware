@@ -14,22 +14,22 @@ namespace Abbotware.Core.Serialization.Plugins
     /// <summary>
     ///     Encoder that converts a serializable object into a byte[] using the BinaryFormatter serializer
     /// </summary>
-    public class BinaryFormatterSerializer : IBinarySerializaton, IObjectDeserialization<byte[]>
+    public class BinaryFormatterSerializer : BaseBinarySerialization, IObjectDeserialization<byte[]>
     {
         /// <inheritdoc />
-        public object Decode(byte[] storage, Type type)
+        public override object Decode(byte[] storage, Type type)
         {
             return this.Decode(storage);
         }
 
         /// <inheritdoc />
-        public byte[] Encode<T>(T value)
+        public override byte[] Encode<T>(T value)
         {
             return value.ToXmlByteArrayViaBinaryFormatter();
         }
 
         /// <inheritdoc />
-        public T Decode<T>(byte[] storage)
+        public override T Decode<T>(byte[] storage)
         {
             return storage.DeserializeViaBinaryFormatter<T>();
         }
@@ -38,24 +38,6 @@ namespace Abbotware.Core.Serialization.Plugins
         public object Decode(byte[] storage)
         {
             return storage.DeserializeViaBinaryFormatter();
-        }
-
-        /// <inheritdoc />
-        public object Decode(ReadOnlyMemory<byte> storage, Type type)
-        {
-            return this.Decode(storage.ToArray(), type);
-        }
-
-        /// <inheritdoc />
-        ReadOnlyMemory<byte> IEncode<ReadOnlyMemory<byte>>.Encode<T>(T value)
-        {
-            return new ReadOnlyMemory<byte>(this.Encode(value));
-        }
-
-        /// <inheritdoc />
-        public T Decode<T>(ReadOnlyMemory<byte> storage)
-        {
-            return this.Decode<T>(storage.ToArray());
         }
     }
 }

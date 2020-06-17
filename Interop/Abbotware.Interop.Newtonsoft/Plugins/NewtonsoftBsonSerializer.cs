@@ -15,16 +15,16 @@ namespace Abbotware.Interop.Newtonsoft.Plugins
     /// <summary>
     /// BSON serializer using Newtonsoft JSON
     /// </summary>
-    public class NewtonsoftBsonSerializer : IBinarySerializaton
+    public class NewtonsoftBsonSerializer : BaseBinarySerialization
     {
         /// <inheritdoc/>
-        public T Decode<T>(byte[] storage)
+        public override T Decode<T>(byte[] storage)
         {
             return (T)((IBinarySerializaton)this).Decode(storage, typeof(T));
         }
 
         /// <inheritdoc/>
-        public object Decode(byte[] storage, Type type)
+        public override object Decode(byte[] storage, Type type)
         {
             using MemoryStream ms = new MemoryStream(storage);
             using var reader = new BsonDataReader(ms);
@@ -34,7 +34,7 @@ namespace Abbotware.Interop.Newtonsoft.Plugins
         }
 
         /// <inheritdoc/>
-        public byte[] Encode<T>(T @object)
+        public override byte[] Encode<T>(T @object)
         {
             using var stream = new MemoryStream();
             using var writer = new BsonDataWriter(stream);

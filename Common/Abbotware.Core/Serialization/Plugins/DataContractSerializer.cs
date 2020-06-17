@@ -14,16 +14,16 @@ namespace Abbotware.Core.Serialization.Plugins
     /// <summary>
     ///     Encoder that converts a Serializable object into a byte[] using the DataContractSerializer
     /// </summary>
-    public class DataContractSerializer : IBinarySerializaton
+    public class DataContractSerializer : BaseBinarySerialization
     {
         /// <inheritdoc />
-        public object Decode(byte[] storage, Type type)
+        public override object Decode(byte[] storage, Type type)
         {
             return storage.DeserializeViaDataContract(type);
         }
 
         /// <inheritdoc />
-        public byte[] Encode<T>(T value)
+        public override byte[] Encode<T>(T value)
         {
             Arguments.IsSerializable<T>();
 
@@ -31,29 +31,11 @@ namespace Abbotware.Core.Serialization.Plugins
         }
 
         /// <inheritdoc />
-        public T Decode<T>(byte[] storage)
+        public override T Decode<T>(byte[] storage)
         {
             Arguments.IsSerializable<T>();
 
             return storage.DeserializeViaDataContract<T>();
-        }
-
-        /// <inheritdoc />
-        public object Decode(ReadOnlyMemory<byte> storage, Type type)
-        {
-            return this.Decode(storage.ToArray(), type);
-        }
-
-        /// <inheritdoc />
-        ReadOnlyMemory<byte> IEncode<ReadOnlyMemory<byte>>.Encode<T>(T value)
-        {
-            return new ReadOnlyMemory<byte>(this.Encode(value));
-        }
-
-        /// <inheritdoc />
-        public T Decode<T>(ReadOnlyMemory<byte> storage)
-        {
-            return this.Decode<T>(storage.ToArray());
         }
     }
 }
