@@ -57,7 +57,7 @@ namespace Abbotware.Interop.Windows
         /// <inheritdoc />
         public void Reboot()
         {
-            User32Methods.ExitWindowsEx(ShutdownMethods.Reboot, ForceShutdownMethods.ForceIfHung, ShutdownReasons.MajorApplication | ShutdownReasons.MinorOther);
+            User32Methods.ExitWindowsEx(ShutdownMethods.Reboot, ForceShutdownMethods.ForceIfHung, ShutdownReasons.MajorApplication | ShutdownReasons.Other);
         }
 
         /// <summary>
