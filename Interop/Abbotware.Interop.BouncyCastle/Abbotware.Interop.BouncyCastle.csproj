@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
+    <Description>Abbotware Interop Library for BouncyCastle - Contains helper methods, extension methods, and plugins</Description>
+    <PackageTags>BouncyCastle;Aes;Gcm</PackageTags>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Portable.BouncyCastle" Version="1.8.6.7" />
+  </ItemGroup>
+
+</Project>
