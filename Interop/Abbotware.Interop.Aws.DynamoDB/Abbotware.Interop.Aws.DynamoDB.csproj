@@ -6,12 +6,12 @@
 		<PackageTags>DynamoDB;Aws;Amazon</PackageTags>
 	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="AWSSDK.DynamoDBv2" Version="3.3.106.18" PrivateAssets="all" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="AWSSDK.DynamoDBv2" Version="3.3.106.18" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\Common\Abbotware.Core\Abbotware.Core.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\Common\Abbotware.Core\Abbotware.Core.csproj" />
+	</ItemGroup>
 
 </Project>
