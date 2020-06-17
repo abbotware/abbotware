@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
+		<Description>Abbotware Interop Library for Amazon Lambda - Contains helper methods, extension methods, and plugins</Description>
+		<PackageTags>Lambda;Aws;Amazon</PackageTags>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Amazon.Lambda.Core" Version="1.1.0" />
+		<PackageReference Include="Amazon.Lambda.RuntimeSupport" Version="1.1.1" />
+		<PackageReference Include="Amazon.Lambda.Serialization.Json" Version="1.7.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\Common\Abbotware.Core\Abbotware.Core.csproj" />
+		<ProjectReference Include="..\..\Common\Abbotware.Host\Abbotware.Host.csproj" />
+		<ProjectReference Include="..\Abbotware.Interop.Aws.Sqs\Abbotware.Interop.Aws.Sqs.csproj" />
+	</ItemGroup>
+
+</Project>
