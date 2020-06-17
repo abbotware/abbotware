@@ -20,6 +20,11 @@
     <ProjectReference Include="..\..\Common\Abbotware.ShellCommand\Abbotware.ShellCommand.csproj" />
     <ProjectReference Include="..\..\Common\Abbotware.Web\Abbotware.Web.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.AutoMapper\Abbotware.Interop.AutoMapper.csproj" />
+    <ProjectReference Include="..\..\Interop\Abbotware.Interop.Aws.DynamoDB\Abbotware.Interop.Aws.DynamoDB.csproj" />
+    <ProjectReference Include="..\..\Interop\Abbotware.Interop.Aws.Lambda\Abbotware.Interop.Aws.Lambda.csproj" />
+    <ProjectReference Include="..\..\Interop\Abbotware.Interop.Aws.Sqs\Abbotware.Interop.Aws.Sqs.csproj" />
+    <ProjectReference Include="..\..\Interop\Abbotware.Interop.Aws\Abbotware.Interop.Aws.csproj" />
+    <ProjectReference Include="..\..\Interop\Abbotware.Interop.BouncyCastle\Abbotware.Interop.BouncyCastle.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Castle\Abbotware.Interop.Castle.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.EntityFramework\Abbotware.Interop.EntityFramework.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Ipify\Abbotware.Interop.Ipify.csproj" />
