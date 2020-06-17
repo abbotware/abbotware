@@ -148,7 +148,7 @@ namespace Abbotware.ShellCommand
                     tcs.SetResult(true);
                 };
 
-                var logCommand = this.GenerateLogInfo(process);
+                var logCommand = GenerateLogInfo(process);
 
                 this.Logger.Debug($"Start:'{logCommand}'");
 
@@ -193,7 +193,7 @@ namespace Abbotware.ShellCommand
             return r;
         }
 
-        private string GenerateLogInfo(Process process)
+        private static string GenerateLogInfo(Process process)
         {
             if (string.IsNullOrWhiteSpace(process.StartInfo.WorkingDirectory))
             {

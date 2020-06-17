@@ -25,7 +25,8 @@ namespace Abbotware.Core.Objects
 
             try
             {
-                await this.OnDisposeAsync(cts.Token);
+                await this.OnDisposeAsync(cts.Token)
+                    .ConfigureAwait(true);
             }
             finally
             {
