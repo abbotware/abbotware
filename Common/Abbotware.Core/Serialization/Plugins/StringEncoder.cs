@@ -14,7 +14,7 @@ namespace Abbotware.Core.Plugins.Serialization
     /// <summary>
     ///     Encoder that converts a string into a byte[] using the specified character encoding
     /// </summary>
-    public class StringEncoder : IBidirectionalConverter<string, byte[]>, IBidirectionalConverter<string, Memory<byte>>
+    public class StringEncoder : IBidirectionalConverter<string, byte[]>, IBidirectionalConverter<string, ReadOnlyMemory<byte>>
     {
         /// <summary>
         ///     string encoding type to use
@@ -53,15 +53,15 @@ namespace Abbotware.Core.Plugins.Serialization
         }
 
         /// <inheritdoc />
-        public string Convert(Memory<byte> input)
+        public string Convert(ReadOnlyMemory<byte> input)
         {
             return this.Convert(input.ToArray());
         }
 
         /// <inheritdoc />
-        Memory<byte> IBidirectionalConverter<string, Memory<byte>>.Convert(string input)
+        ReadOnlyMemory<byte> IBidirectionalConverter<string, ReadOnlyMemory<byte>>.Convert(string input)
         {
-            return new Memory<byte>(this.Convert(input));
+            return new ReadOnlyMemory<byte>(this.Convert(input));
         }
     }
 }

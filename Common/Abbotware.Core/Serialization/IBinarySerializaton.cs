@@ -6,10 +6,12 @@
 
 namespace Abbotware.Core.Serialization
 {
+    using System;
+
     /// <summary>
     /// protocol type for serialization of objects into byte arrays
     /// </summary>
-    public interface IBinarySerializaton : ISerialization<byte[]>
+    public interface IBinarySerializaton : ISerialization<byte[]>, ISerialization<ReadOnlyMemory<byte>>
     {
     }
 }
