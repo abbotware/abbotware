@@ -165,5 +165,21 @@ namespace Abbotware.Core
                 throw new ArgumentException($"{argument} is not valid file path.  Method:{method}", name);
             }
         }
+
+        /// <summary>
+        /// Verifies the types are the same
+        /// </summary>
+        /// <typeparam name="TGeneric">generic type</typeparam>
+        /// <typeparam name="TConcrete">concrete type</typeparam>
+        public static void TypesAreSame<TGeneric, TConcrete>()
+        {
+            var generic = typeof(TGeneric);
+            var concrete = typeof(TConcrete);
+
+            if (typeof(TGeneric) != typeof(TConcrete))
+            {
+                throw new NotSupportedException($"generic: {generic.Name} is not compatible with concrete:{concrete.Name}");
+            }
+        }
     }
 }
