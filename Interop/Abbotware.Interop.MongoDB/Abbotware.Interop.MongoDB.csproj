@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
+		<Description>Abbotware Interop Library for MongoDB - Contains helper methods, extension methods, and plugins</Description>
+		<PackageTags>MongoDB</PackageTags>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="MongoDB.Bson" Version="2.10.4" NoWarn="CS8002" />
+		<PackageReference Include="MongoDB.Driver" Version="2.10.4">
+			<NoWarn>CS8002</NoWarn>
+		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\Common\Abbotware.Core\Abbotware.Core.csproj" />
+	</ItemGroup>
+
+</Project>

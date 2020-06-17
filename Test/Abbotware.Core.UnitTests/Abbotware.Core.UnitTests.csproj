@@ -27,6 +27,7 @@
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Log4net\Abbotware.Interop.Log4net.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.MacVendors\Abbotware.Interop.MacVendors.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Microsoft\Abbotware.Interop.Microsoft.csproj" />
+    <ProjectReference Include="..\..\Interop\Abbotware.Interop.MongoDB\Abbotware.Interop.MongoDB.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Newtonsoft\Abbotware.Interop.Newtonsoft.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.NUnit\Abbotware.Interop.NUnit.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.ProtoBufNet\Abbotware.Interop.ProtoBufNet.csproj" />
