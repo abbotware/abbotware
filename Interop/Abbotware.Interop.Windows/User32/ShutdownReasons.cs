@@ -42,11 +42,6 @@ namespace Abbotware.Interop.Windows.User32
         /// <summary>
         ///     From MSDN
         /// </summary>
-        MajorOther = 0x00000000,
-
-        /// <summary>
-        ///     From MSDN
-        /// </summary>
         MajorPower = 0x00060000,
 
         /// <summary>
@@ -124,7 +119,7 @@ namespace Abbotware.Interop.Windows.User32
         /// <summary>
         ///     From MSDN
         /// </summary>
-        MinorOther = 0x00000000,
+        Other = 0x00000000,
 
         /// <summary>
         ///     From MSDN
