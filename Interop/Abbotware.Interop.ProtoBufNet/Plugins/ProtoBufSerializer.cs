@@ -46,5 +46,23 @@ namespace Abbotware.Interop.ProtoBufNet.Plugins
 
             return m;
         }
+
+        /// <inheritdoc />
+        public object Decode(ReadOnlyMemory<byte> storage, Type type)
+        {
+            return this.Decode(storage.ToArray(), type);
+        }
+
+        /// <inheritdoc />
+        ReadOnlyMemory<byte> IEncode<ReadOnlyMemory<byte>>.Encode<T>(T value)
+        {
+            return new ReadOnlyMemory<byte>(this.Encode(value));
+        }
+
+        /// <inheritdoc />
+        public T Decode<T>(ReadOnlyMemory<byte> storage)
+        {
+            return this.Decode<T>(storage.ToArray());
+        }
     }
 }
