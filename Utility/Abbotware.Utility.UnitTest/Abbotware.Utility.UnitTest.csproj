@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="AutoFixture" Version="4.11.0" />
-    <PackageReference Include="Moq" Version="4.14.0" />
+    <PackageReference Include="Moq" Version="4.14.2" />
   </ItemGroup>
 
   <ItemGroup>
