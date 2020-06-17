@@ -38,6 +38,6 @@ namespace Abbotware.Core.Messaging.Integration.Configuration
         /// <summary>
         /// Gets the message body
         /// </summary>
-        Memory<byte> Body { get; }
+        ReadOnlyMemory<byte> Body { get; }
     }
 }

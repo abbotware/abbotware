@@ -71,6 +71,6 @@ namespace Abbotware.Core.Messaging.Integration.Configuration.Models
         IReadOnlyDictionary<string, object> IMessageEnvelope.Headers => this.Headers.ToDictionary(x => x.Key, x => x.Value);
 
         /// <inheritdoc/>
-        public Memory<byte> Body { get; set; }
+        public ReadOnlyMemory<byte> Body { get; set; }
     }
 }

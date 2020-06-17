@@ -29,7 +29,7 @@ namespace Abbotware.Core.Messaging.Integration.Amqp
         ///     Initializes a new instance of the <see cref="BaseAmqpProtocol{TMessage}" /> class.
         /// </summary>
         /// <param name="serializer">binary serializer for converting messages to bytes</param>
-        protected BaseAmqpProtocol(IBidirectionalConverter<TMessage, Memory<byte>> serializer)
+        protected BaseAmqpProtocol(IBidirectionalConverter<TMessage, ReadOnlyMemory<byte>> serializer)
             : this(serializer, new AmqpProtocolDefaults())
         {
         }
@@ -39,7 +39,7 @@ namespace Abbotware.Core.Messaging.Integration.Amqp
         /// </summary>
         /// <param name="serializer">binary serializer for converting messages to bytes</param>
         /// <param name="defaults">override for protocol defaults</param>
-        protected BaseAmqpProtocol(IBidirectionalConverter<TMessage, Memory<byte>> serializer, IAmqpProtocolDefaults defaults)
+        protected BaseAmqpProtocol(IBidirectionalConverter<TMessage, ReadOnlyMemory<byte>> serializer, IAmqpProtocolDefaults defaults)
         {
             Arguments.NotNull(serializer, nameof(serializer));
             Arguments.NotNull(defaults, nameof(defaults));
@@ -51,7 +51,7 @@ namespace Abbotware.Core.Messaging.Integration.Amqp
         /// <summary>
         ///     Gets the serializer
         /// </summary>
-        protected IBidirectionalConverter<TMessage, Memory<byte>> Serializer { get; }
+        protected IBidirectionalConverter<TMessage, ReadOnlyMemory<byte>> Serializer { get; }
 
         /// <inheritdoc />
         public IMessageEnvelope Encode(TMessage message)
