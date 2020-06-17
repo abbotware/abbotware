@@ -82,7 +82,7 @@ namespace Abbotware.Core.Messaging.Integration.Amqp
         /// <summary>
         ///     Gets the serializer
         /// </summary>
-        protected IBinarySerializaton Serializer { get; }
+        protected ISerialization<ReadOnlyMemory<byte>> Serializer { get; }
 
         /// <inheritdoc />
         public virtual IMessageEnvelope Encode<TMessage>(TMessage message)
