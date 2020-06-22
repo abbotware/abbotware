@@ -7,6 +7,7 @@
 namespace Abbotware.Interop.Castle.Plugins.Installers
 {
     using System;
+    using System.Diagnostics.SymbolStore;
     using System.Linq;
     using Abbotware.Core;
     using Abbotware.Core.Extensions;
@@ -64,6 +65,8 @@ namespace Abbotware.Interop.Castle.Plugins.Installers
                 try
                 {
                     var installers = FromAssembly.Named(assembly.LocalPath);
+
+                    installers.Install(container, store);
                 }
                 catch (Exception ex)
                 {
