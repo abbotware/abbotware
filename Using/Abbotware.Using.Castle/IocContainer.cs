@@ -40,15 +40,15 @@ namespace Abbotware.Using.Castle
         /// creates the container
         /// </summary>
         /// <param name="component">name of component</param>
-        /// <param name="enableStartable">flag to enable / disable the IStartable facility. (set to false for unit tests)</param>
+        /// <param name="disableStartable">flag to enable / disable the IStartable facility. (set to false for unit tests)</param>
         /// <returns>new container</returns>
-        public static IWindsorContainer Create(string component, bool enableStartable)
+        public static IWindsorContainer Create(string component, bool disableStartable)
         {
             var c = new WindsorContainer();
 
             c.AddDefaultFacilities(c =>
             {
-                c.DisableStartable = enableStartable;
+                c.DisableStartable = disableStartable;
                 c.Component = component;
             });
 

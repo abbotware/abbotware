@@ -53,7 +53,7 @@ namespace Abbotware.Interop.Castle.Plugins.Installers
 
             container.AddFacility<TypedFactoryFacility>();
 
-            if (this.Options.DisableStartable)
+            if (!this.Options.DisableStartable)
             {
                 container.AddFacility<StartableFacility>(f => f.DeferredStart());
             }
