@@ -8,6 +8,7 @@ namespace Abbotware.Utility.UnitTest.Using.EntityFramework
 {
     using System.Collections.Generic;
     using System.Globalization;
+    using Abbotware.Core;
     using Abbotware.Utility.UnitTest.Using.EntityFramework.Models;
     using Microsoft.EntityFrameworkCore;
 
@@ -44,9 +45,9 @@ namespace Abbotware.Utility.UnitTest.Using.EntityFramework
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-#pragma warning disable CA1062 // Validate arguments of public methods
+            modelBuilder = Arguments.EnsureNotNull(modelBuilder, nameof(modelBuilder));
+
             modelBuilder.Entity<CompositeStringKey>()
-#pragma warning restore CA1062 // Validate arguments of public methods
                 .HasKey(c => new { c.Id, c.Name });
         }
     }
