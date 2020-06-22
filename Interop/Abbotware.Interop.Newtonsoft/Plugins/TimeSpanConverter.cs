@@ -22,6 +22,11 @@ namespace Abbotware.Interop.Newtonsoft.Plugins
         /// </summary>
         public const string TimeSpanFormatString = @"d\.hh\:mm\:ss\:FFF";
 
+        /// <summary>
+        /// Format: Hours:Minutes:Seconds
+        /// </summary>
+        public const string TimeSpanShortFormatString = @"hh\:mm\:ss";
+
         /// <inheritdoc/>
         public override void WriteJson(JsonWriter writer, TimeSpan value, JsonSerializer serializer)
         {
@@ -41,7 +46,10 @@ namespace Abbotware.Interop.Newtonsoft.Plugins
 
             if (!TimeSpan.TryParseExact(text, TimeSpanFormatString, null, out var parsedTimeSpan))
             {
-                throw new FormatException($"unable to parse:{text} into TimeSpan");
+                if (!TimeSpan.TryParseExact(text, TimeSpanShortFormatString, null, out parsedTimeSpan))
+                {
+                    throw new FormatException($"unable to parse:{text} into TimeSpan");
+                }
             }
 
             return parsedTimeSpan;
