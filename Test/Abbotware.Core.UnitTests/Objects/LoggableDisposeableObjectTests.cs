@@ -45,7 +45,7 @@ namespace Abbotware.UnitTests.Core
             {
             }
 
-            public void Foo()
+            public virtual void Foo()
             {
             }
         }

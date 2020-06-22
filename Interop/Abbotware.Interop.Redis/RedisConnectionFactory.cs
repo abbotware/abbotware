@@ -34,7 +34,7 @@ namespace Abbotware.Interop.Redis
         {
             var cfg = this.DefaultOptions.ToStackExchange();
 
-            return this.OnCreate(cfg);
+            return OnCreate(cfg);
         }
 
         /// <inheritdoc/>
@@ -44,7 +44,7 @@ namespace Abbotware.Interop.Redis
 
             var cfg = configuration.ToStackExchange();
 
-            return this.OnCreate(cfg);
+            return OnCreate(cfg);
         }
 
         /// <inheritdoc/>
@@ -60,7 +60,7 @@ namespace Abbotware.Interop.Redis
         /// </summary>
         /// <param name="options">configuration options</param>
         /// <returns>redis connection</returns>
-        private RedisConnection OnCreate(ConfigurationOptions options)
+        private static RedisConnection OnCreate(ConfigurationOptions options)
         {
             var cm = ConnectionMultiplexer.Connect(options);
 
