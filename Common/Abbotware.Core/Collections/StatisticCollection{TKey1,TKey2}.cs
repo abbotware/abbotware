@@ -14,7 +14,7 @@ namespace Abbotware.Core.Collections
     /// </summary>
     /// <typeparam name="TKey1">key type 1</typeparam>
     /// <typeparam name="TKey2">key type 2</typeparam>
-    public class StatisticCollection<TKey1, TKey2> : StatisticCollection<Tuple<TKey1, TKey2>>
+    public class StatisticCollection<TKey1, TKey2> : StatisticCollection<Tuple<TKey1, TKey2>>, IReadOnlyStatisticCollection<TKey1, TKey2>
     {
         /// <summary>
         /// Incrememnts the composite key

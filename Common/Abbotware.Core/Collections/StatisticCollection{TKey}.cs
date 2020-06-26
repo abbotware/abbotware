@@ -15,13 +15,11 @@ namespace Abbotware.Core.Collections
     /// Generalized statistic information
     /// </summary>
     /// <typeparam name="TKey">key type</typeparam>
-    public class StatisticCollection<TKey> : IEnumerable<KeyValuePair<TKey, uint>>
+    public class StatisticCollection<TKey> : IReadOnlyStatisticCollection<TKey>
     {
         private readonly Dictionary<TKey, uint> counts = new Dictionary<TKey, uint>();
 
-        /// <summary>
-        /// Gets the aggregate total of all values
-        /// </summary>
+        /// <inheritdoc/>
         public uint Total
         {
             get
@@ -30,11 +28,7 @@ namespace Abbotware.Core.Collections
             }
         }
 
-        /// <summary>
-        /// Gets the count for a specific key
-        /// </summary>
-        /// <param name="key">key value</param>
-        /// <returns>count</returns>
+        /// <inheritdoc/>
         public uint Count(TKey key)
         {
             if (this.counts.ContainsKey(key))
