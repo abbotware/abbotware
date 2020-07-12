@@ -8,7 +8,7 @@
 namespace Abbotware.Core.Configuration
 {
     /// <summary>
-    ///   base options class for component{TConfiguration} objects
+    ///   base options class
     /// </summary>
     public abstract class BaseOptions
     {
