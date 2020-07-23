@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Automapper" Version="9.0.0" />
-    <PackageReference Include="AutoMapper.Extensions.ExpressionMapping" Version="3.1.1" />
+    <PackageReference Include="Automapper" Version="10.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.ExpressionMapping" Version="4.0.0" />
   </ItemGroup>
 
 </Project>
