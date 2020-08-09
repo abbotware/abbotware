@@ -29,6 +29,11 @@ namespace Abbotware.Core.Runtime
         }
 
         /// <summary>
+        /// Gets a console arguments class with no arguments
+        /// </summary>
+        public static ConsoleArguments None { get; } = new ConsoleArguments(Array.Empty<string>());
+
+        /// <summary>
         ///     Gets the list of arguments
         /// </summary>
         public IReadOnlyCollection<string> Arguments { get; }
