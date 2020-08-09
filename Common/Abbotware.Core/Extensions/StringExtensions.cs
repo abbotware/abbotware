@@ -62,9 +62,7 @@ namespace Abbotware.Core.Extensions
         /// <returns>true/false if contains</returns>
         public static bool IsBlank(this string text)
         {
-            text = Arguments.EnsureNotNull(text, nameof(text));
-
-            return string.IsNullOrEmpty(text);
+            return string.IsNullOrWhiteSpace(text);
         }
 
         /// <summary>
