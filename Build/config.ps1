@@ -38,3 +38,5 @@ $Projects        = @{"Abbotware.Core.Nugets" = @{
 						Configuration  = "Release"
 						} 
 					}
+
+$ReportGeneratorAssemblyFilters="+Abbotware.*"
