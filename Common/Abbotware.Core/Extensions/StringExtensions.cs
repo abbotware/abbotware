@@ -56,7 +56,7 @@ namespace Abbotware.Core.Extensions
         }
 
         /// <summary>
-        /// shortcut for string.IsNullOrEmpty
+        /// shortcut for string.IsNullOrWhiteSpace
         /// </summary>
         /// <param name="text">string to extend</param>
         /// <returns>true/false if contains</returns>
@@ -66,7 +66,7 @@ namespace Abbotware.Core.Extensions
         }
 
         /// <summary>
-        /// shortcut for !string.IsNullOrEmpty
+        /// shortcut for !string.IsNullOrWhiteSpace
         /// </summary>
         /// <param name="text">string to extend</param>
         /// <returns>true/false if contains</returns>
