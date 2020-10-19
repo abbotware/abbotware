@@ -134,7 +134,7 @@ namespace Abbotware.Interop.Castle.Plugins.Aspects
             foreach (var argument in invocation.Arguments)
             {
                 var argumentDescription = argument == null ? "null" : argument.ToString();
-                sb.Append(argumentDescription).Append(",");
+                sb.Append(argumentDescription).Append(',');
             }
 
             if (invocation.Arguments.Any())
@@ -142,7 +142,7 @@ namespace Abbotware.Interop.Castle.Plugins.Aspects
                 sb.Length--;
             }
 
-            sb.Append(")");
+            sb.Append(')');
 
             return sb.ToString();
         }

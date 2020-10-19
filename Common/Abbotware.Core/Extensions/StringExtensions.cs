@@ -12,7 +12,7 @@ namespace Abbotware.Core.Extensions
     /// <summary>
     ///     String Extension methods
     /// </summary>
-    public static class StringExtensions
+    public static partial class StringExtensions
     {
         /// <summary>
         ///     Converts a string to an enum
@@ -39,20 +39,6 @@ namespace Abbotware.Core.Extensions
             Arguments.NotNull(value, nameof(value));
 
             return (T)Enum.Parse(typeof(T), value, ignoreCase);
-        }
-
-        /// <summary>
-        /// Contains with string comparision
-        /// </summary>
-        /// <param name="text">string to extend</param>
-        /// <param name="value">value to serach</param>
-        /// <param name="stringComparison">comparison type</param>
-        /// <returns>true/false if contains</returns>
-        public static bool ContainsCaseInsensitive(this string text, string value, StringComparison stringComparison = StringComparison.CurrentCultureIgnoreCase)
-        {
-            text = Arguments.EnsureNotNull(text, nameof(text));
-
-            return text.IndexOf(value, stringComparison) >= 0;
         }
 
         /// <summary>

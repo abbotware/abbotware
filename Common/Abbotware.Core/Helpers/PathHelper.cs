@@ -92,6 +92,23 @@ namespace Abbotware.Core.Helpers
         /// <returns>first found find</returns>
         public static string FindFirstFile(IEnumerable<string> filePaths, string notFoundMessage)
         {
+            var file = FindFirstFileOrNone(filePaths);
+
+            if (file == null)
+            {
+                throw new FileNotFoundException(notFoundMessage);
+            }
+
+            return file;
+        }
+
+        /// <summary>
+        /// search for file
+        /// </summary>
+        /// <param name="filePaths">list of files</param>
+        /// <returns>first found find</returns>
+        public static string? FindFirstFileOrNone(IEnumerable<string> filePaths)
+        {
             filePaths = Arguments.EnsureNotNull(filePaths, nameof(filePaths));
 
             foreach (var p in filePaths)
@@ -102,7 +119,7 @@ namespace Abbotware.Core.Helpers
                 }
             }
 
-            throw new FileNotFoundException(notFoundMessage);
+            return null;
         }
 
         /// <summary>

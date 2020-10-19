@@ -46,7 +46,7 @@ namespace Abbotware.Core.Math
         /// <summary>
         /// Gets the lower bound
         /// /// </summary>
-        public int LowerBound { get; } = 0;
+        public int LowerBound { get; }
 
         /// <summary>
         /// Gets the upper bound.

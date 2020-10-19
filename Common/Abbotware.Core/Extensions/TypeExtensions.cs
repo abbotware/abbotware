@@ -61,13 +61,13 @@ namespace Abbotware.Core.Extensions
                 {
                     if (subIndex > 0)
                     {
-                        cnb.Append(",");
+                        cnb.Append(',');
                     }
 
                     BuildClassNameRecursively(genericTypeArgument, cnb, subIndex++);
                 }
 
-                cnb.Append("]");
+                cnb.Append(']');
             }
             else
             {
