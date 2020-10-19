@@ -27,7 +27,7 @@ namespace Abbotware.Core.Objects
         /// <summary>
         /// flag indicating if the command was executred
         /// </summary>
-        private bool alreadyRunOrRunning = false;
+        private bool alreadyRunOrRunning;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseCommand{TConfiguration, TResult}"/> class.
