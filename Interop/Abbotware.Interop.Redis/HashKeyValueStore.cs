@@ -19,20 +19,20 @@ namespace Abbotware.Interop.Redis
     /// Key Value collection encoded into a Redis "Hash Key"
     /// </summary>
     /// <remarks>https://redis.io/topics/data-types (see Hashes)</remarks>
-    public class HashKeyValueCollection : BaseKeyValueCollection<HashEntry>
+    public class HashKeyValueStore : BaseKeyValueStore<HashEntry>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="HashKeyValueCollection"/> class.
+        /// Initializes a new instance of the <see cref="HashKeyValueStore"/> class.
         /// </summary>
-        public HashKeyValueCollection()
+        public HashKeyValueStore()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="HashKeyValueCollection"/> class.
+        /// Initializes a new instance of the <see cref="HashKeyValueStore"/> class.
         /// </summary>
         /// <param name="keyvalues">redis HashEntry / key value pairs</param>
-        public HashKeyValueCollection(HashEntry[] keyvalues)
+        public HashKeyValueStore(HashEntry[] keyvalues)
         {
             keyvalues = Arguments.EnsureNotNull(keyvalues, nameof(keyvalues));
 
@@ -139,7 +139,7 @@ namespace Abbotware.Interop.Redis
         }
 
         /// <inheritdoc/>
-        protected override IEncodedKeyValueCollection OnDecodeKeyValueCollection(string name, HashEntry value)
+        protected override IEncodedKeyValueStore OnDecodeKeyValueCollection(string name, HashEntry value)
         {
             throw new NotImplementedException();
         }

@@ -14,14 +14,14 @@ namespace Abbotware.Core.Cache.ExtensionPoints
     /// </summary>
     /// <typeparam name="TModel">poco class type</typeparam>
     /// <typeparam name="TKey">document key type</typeparam>
-    public abstract class BaseDocumentProtocol<TModel, TKey> : IEncodeKeyValueCollection<TModel>, IDecodeKeyValueCollection<TModel, TKey>
+    public abstract class BaseDocumentProtocol<TModel, TKey> : IEncodeKeyValueStore<TModel>, IDecodeKeyValueStore<TModel, TKey>
     {
         /// <summary>
         /// encodes a document into a kv collection
         /// </summary>
         /// <param name="input">input</param>
         /// <param name="keyValues">kv collection</param>
-        public abstract void Encode(TModel input, IEncodedKeyValueCollection keyValues);
+        public abstract void Encode(TModel input, IEncodedKeyValueStore keyValues);
 
         /// <summary>
         /// decodes a kv collection into a document
@@ -29,6 +29,6 @@ namespace Abbotware.Core.Cache.ExtensionPoints
         /// <param name="key">document key</param>
         /// <param name="keyValues">kv collection</param>
         /// <returns>decode document</returns>
-        public abstract TModel Decode(TKey key, IEncodedKeyValueCollection keyValues);
+        public abstract TModel Decode(TKey key, IEncodedKeyValueStore keyValues);
     }
 }

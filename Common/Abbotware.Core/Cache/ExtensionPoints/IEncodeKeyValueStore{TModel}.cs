@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IEncodeKeyValueCollection{TModel}.cs" company="Abbotware, LLC">
+// <copyright file="IEncodeKeyValueStore{TModel}.cs" company="Abbotware, LLC">
 // Copyright © Abbotware, LLC 2012-2020. All rights reserved
 // </copyright>
 // -----------------------------------------------------------------------
@@ -13,13 +13,13 @@ namespace Abbotware.Core.Cache.ExtensionPoints
     /// Interface for encoding a model into a kv collection
     /// </summary>
     /// <typeparam name="TModel">model type</typeparam>
-    public interface IEncodeKeyValueCollection<TModel>
+    public interface IEncodeKeyValueStore<TModel>
     {
         /// <summary>
         /// Encodes the model in the kv collection
         /// </summary>
         /// <param name="input">model</param>
         /// <param name="keyValues">kv collection</param>
-        void Encode(TModel input, IEncodedKeyValueCollection keyValues);
+        void Encode(TModel input, IEncodedKeyValueStore keyValues);
     }
 }

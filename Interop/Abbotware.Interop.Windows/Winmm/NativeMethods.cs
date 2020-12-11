@@ -48,6 +48,7 @@ namespace Abbotware.Interop.Windows.Winmm
         /// <returns>Returns TIMERR_NOERROR if successful or TIMERR_NOCANDO if the resolution specified in uPeriod is out of range.</returns>
         [DllImport(LIB_WINMM, EntryPoint = "timeBeginPeriod", CallingConvention = CallingConvention.StdCall, SetLastError = true, BestFitMapping = false)]
         [return: MarshalAs(UnmanagedType.U4)]
+        [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
         internal static extern uint TimeBeginPeriod(uint period);
 
         /// <summary>
@@ -57,6 +58,7 @@ namespace Abbotware.Interop.Windows.Winmm
         /// <returns>Returns TIMERR_NOERROR if successful or TIMERR_NOCANDO if the resolution specified in uPeriod is out of range.</returns>
         [DllImport(LIB_WINMM, EntryPoint = "timeEndPeriod", CallingConvention = CallingConvention.StdCall, SetLastError = true, BestFitMapping = false)]
         [return: MarshalAs(UnmanagedType.U4)]
+        [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
         internal static extern uint TimeEndPeriod(uint period);
     }
 }

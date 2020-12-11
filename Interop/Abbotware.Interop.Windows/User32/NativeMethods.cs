@@ -27,6 +27,7 @@ namespace Abbotware.Interop.Windows.User32
         /// <returns>true if successful</returns>
         [DllImport(LIB_USER32, CallingConvention = CallingConvention.StdCall, SetLastError = true, CharSet = CharSet.Ansi, BestFitMapping = false, ThrowOnUnmappableChar = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
+        [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
         internal static extern bool ExitWindowsEx(uint shutdownMethod, ShutdownReasons shutdownReasons);
     }
 }

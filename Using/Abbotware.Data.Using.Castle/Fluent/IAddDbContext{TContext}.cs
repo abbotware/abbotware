@@ -46,7 +46,7 @@ namespace Abbotware.Using.Castle.Fluent
         /// <summary>
         /// Adds a context using a connection string value
         /// </summary>
-        /// <param name="name">connection string value</param>
-        void ConnectionStringValue(string name);
+        /// <param name="connectionString">connection string value</param>
+        void ConnectionStringValue(string connectionString);
     }
 }

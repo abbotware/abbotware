@@ -32,29 +32,29 @@ namespace Abbotware.Interop.Redis
         public IDatabase Native { get; }
 
         /// <inheritdoc/>
-        public async Task<string> GetFieldAsync(string hash, string field, CancellationToken ct)
+        public async Task<string> GetFieldAsync(string key, string field, CancellationToken ct)
         {
-            return await this.Native.HashGetAsync(hash, field).
+            return await this.Native.HashGetAsync(key, field).
                 ConfigureAwait(false);
         }
 
         /// <inheritdoc/>
-        public async Task<IReadOnlyDictionary<string, string>> GetFieldsAsync(string hash, CancellationToken ct)
+        public async Task<IReadOnlyDictionary<string, string>> GetFieldsAsync(string key, CancellationToken ct)
         {
-            var keys = await this.Native.HashGetAllAsync(hash)
+            var keys = await this.Native.HashGetAllAsync(key)
                 .ConfigureAwait(false);
 
             return keys.ToStringDictionary();
         }
 
         /// <inheritdoc/>
-        public async Task SetFieldsAsync(string hash, IEnumerable<KeyValuePair<string, string>> fields, CancellationToken ct)
+        public async Task SetFieldsAsync(string key, IEnumerable<KeyValuePair<string, string>> fields, CancellationToken ct)
         {
             var values = fields
                 .Select(x => new HashEntry(x.Key, x.Value))
                 .ToArray();
 
-            await this.Native.HashSetAsync(hash, values)
+            await this.Native.HashSetAsync(key, values)
                 .ConfigureAwait(false);
         }
     }

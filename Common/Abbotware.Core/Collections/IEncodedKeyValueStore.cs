@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IEncodedKeyValueCollection.cs" company="Abbotware, LLC">
+// <copyright file="IEncodedKeyValueStore.cs" company="Abbotware, LLC">
 // Copyright © Abbotware, LLC 2012-2020. All rights reserved
 // </copyright>
 // -----------------------------------------------------------------------
@@ -13,7 +13,7 @@ namespace Abbotware.Core.Collections
     /// <summary>
     /// interface for encoding data into a strongled typed key value collection
     /// </summary>
-    public interface IEncodedKeyValueCollection
+    public interface IEncodedKeyValueStore
     {
         /// <summary>
         /// Gets the list of fields names
@@ -88,7 +88,7 @@ namespace Abbotware.Core.Collections
         /// </summary>
         /// <param name="name">field name</param>
         /// <returns>decoded key value collection</returns>
-        IEncodedKeyValueCollection DecodeKeyValueCollection(string name);
+        IEncodedKeyValueStore DecodeKeyValueCollection(string name);
 
         /// <summary>
         /// Decodes a Guid

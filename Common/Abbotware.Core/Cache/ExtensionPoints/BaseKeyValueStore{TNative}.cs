@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="BaseKeyValueCollection{TNative}.cs" company="Abbotware, LLC">
+// <copyright file="BaseKeyValueStore{TNative}.cs" company="Abbotware, LLC">
 // Copyright © Abbotware, LLC 2012-2020. All rights reserved
 // </copyright>
 // -----------------------------------------------------------------------
@@ -17,7 +17,7 @@ namespace Abbotware.Core.Cache.ExtensionPoints
     /// Base ckass for an encoded key value collection
     /// </summary>
     /// <typeparam name="TNative">native key value</typeparam>
-    public abstract class BaseKeyValueCollection<TNative> : IEncodedKeyValueCollection
+    public abstract class BaseKeyValueStore<TNative> : IEncodedKeyValueStore
     {
         private readonly Dictionary<string, TNative> kv = new Dictionary<string, TNative>();
 
@@ -249,7 +249,7 @@ namespace Abbotware.Core.Cache.ExtensionPoints
         }
 
         /// <inheritdoc/>
-        public IEncodedKeyValueCollection DecodeKeyValueCollection(string name)
+        public IEncodedKeyValueStore DecodeKeyValueCollection(string name)
         {
             this.VerifyKeyExists(name);
 
@@ -262,7 +262,7 @@ namespace Abbotware.Core.Cache.ExtensionPoints
         /// <param name="name">field name</param>
         /// <param name="value">value to decode</param>
         /// <returns>decoded value</returns>
-        protected abstract IEncodedKeyValueCollection OnDecodeKeyValueCollection(string name, TNative value);
+        protected abstract IEncodedKeyValueStore OnDecodeKeyValueCollection(string name, TNative value);
 
         /// <summary>
         /// hook to encode 32 bit int

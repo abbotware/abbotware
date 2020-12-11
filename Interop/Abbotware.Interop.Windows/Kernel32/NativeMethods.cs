@@ -39,6 +39,7 @@ namespace Abbotware.Interop.Windows.Kernel32
         /// </returns>
         [DllImport(LIB_KERNEL32, CallingConvention = CallingConvention.StdCall, SetLastError = true, CharSet = CharSet.Ansi, BestFitMapping = false, ThrowOnUnmappableChar = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
+        [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
         internal static extern bool SetConsoleCtrlHandler(ConsoleCtrlHandler handlerRoutine, [MarshalAs(UnmanagedType.Bool)] bool add);
 
         /// <summary>
@@ -48,6 +49,7 @@ namespace Abbotware.Interop.Windows.Kernel32
         /// <returns>true/false if successful</returns>
         [DllImport(LIB_KERNEL32, CallingConvention = CallingConvention.StdCall, SetLastError = true, CharSet = CharSet.Ansi, BestFitMapping = false, ThrowOnUnmappableChar = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
+        [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
         internal static extern bool CloseHandle(IntPtr handle);
 
         /// <summary>
@@ -57,6 +59,7 @@ namespace Abbotware.Interop.Windows.Kernel32
         /// <returns>true/false if successful</returns>
         [DllImport(LIB_KERNEL32, CallingConvention = CallingConvention.StdCall, SetLastError = true, CharSet = CharSet.Ansi, BestFitMapping = false, ThrowOnUnmappableChar = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
+        [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
         internal static extern bool SetDllDirectory([MarshalAs(UnmanagedType.LPStr)] string path);
 
         /// <summary>
@@ -69,6 +72,7 @@ namespace Abbotware.Interop.Windows.Kernel32
         /// <returns>true/false if the function succeeds</returns>
         [DllImport(LIB_KERNEL32, CallingConvention = CallingConvention.StdCall, SetLastError = true, CharSet = CharSet.Ansi, BestFitMapping = false, ThrowOnUnmappableChar = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
+        [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
         internal static extern bool GlobalMemoryStatusEx([In] [Out] ref MemoryStatusEx lpBuffer);
 
         /// <summary>
@@ -78,6 +82,7 @@ namespace Abbotware.Interop.Windows.Kernel32
         /// <returns>true/false if the function succeeds</returns>
         [DllImport(LIB_KERNEL32, CallingConvention = CallingConvention.StdCall, SetLastError = true, BestFitMapping = false)]
         [return: MarshalAs(UnmanagedType.Bool)]
+        [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
         internal static extern bool SwitchToThread();
 
         /// <summary>
@@ -85,6 +90,7 @@ namespace Abbotware.Interop.Windows.Kernel32
         /// </summary>
         /// <returns>he return value is a pseudo handle to the current process.</returns>
         [DllImport(LIB_KERNEL32, CallingConvention = CallingConvention.StdCall)]
+        [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
         internal static extern IntPtr GetCurrentProcess();
 
         /// <summary>
@@ -96,6 +102,7 @@ namespace Abbotware.Interop.Windows.Kernel32
         /// <returns>true/false if the function succeeds</returns>
         [DllImport(LIB_KERNEL32, EntryPoint = "SetProcessWorkingSetSize", SetLastError = true, CallingConvention = CallingConvention.StdCall)]
         [return: MarshalAs(UnmanagedType.Bool)]
+        [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
         internal static extern bool SetProcessWorkingSetSize64(IntPtr pProcess, long dwMinimumWorkingSetSize, long dwMaximumWorkingSetSize);
     }
 }

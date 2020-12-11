@@ -44,9 +44,9 @@ namespace Abbotware.Interop.ProtoBufNet.Plugins
         }
 
         /// <inheritdoc />
-        public IMessageEnvelope Encode(TMessage message, string exchange)
+        public IMessageEnvelope Encode(TMessage message, string destination)
         {
-            return this.Encode<TMessage>(message, exchange);
+            return this.Encode<TMessage>(message, destination);
         }
 
         /// <inheritdoc />

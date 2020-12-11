@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IDecodeKeyValueCollection{TModel,TKey}.cs" company="Abbotware, LLC">
+// <copyright file="IDecodeKeyValueStore{TModel,TKey}.cs" company="Abbotware, LLC">
 // Copyright © Abbotware, LLC 2012-2020. All rights reserved
 // </copyright>
 // -----------------------------------------------------------------------
@@ -14,7 +14,7 @@ namespace Abbotware.Core.Cache.ExtensionPoints
     /// </summary>
     /// <typeparam name="TModel">model type</typeparam>
     /// <typeparam name="TKey">key type</typeparam>
-    public interface IDecodeKeyValueCollection<TModel, TKey>
+    public interface IDecodeKeyValueStore<TModel, TKey>
     {
         /// <summary>
         /// decodes the model in the kv collection
@@ -22,6 +22,6 @@ namespace Abbotware.Core.Cache.ExtensionPoints
         /// <param name="key">document key for model</param>
         /// <param name="keyValues">kv collection</param>
         /// <returns>model</returns>
-        TModel Decode(TKey key, IEncodedKeyValueCollection keyValues);
+        TModel Decode(TKey key, IEncodedKeyValueStore keyValues);
     }
 }

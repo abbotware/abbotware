@@ -20,7 +20,7 @@ namespace Abbotware.Interop.Aws.DynamoDB.Plugins
     /// <summary>
     /// Key Value collection encoded into a DynamoDb "document"
     /// </summary>
-    public class DynamoDbKeyValueCollection : BaseKeyValueCollection<DynamoDBEntry>
+    public class DynamoDbKeyValueCollection : BaseKeyValueStore<DynamoDBEntry>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DynamoDbKeyValueCollection"/> class.
@@ -166,7 +166,7 @@ namespace Abbotware.Interop.Aws.DynamoDB.Plugins
         }
 
         /// <inheritdoc/>
-        protected override IEncodedKeyValueCollection OnDecodeKeyValueCollection(string name, DynamoDBEntry value)
+        protected override IEncodedKeyValueStore OnDecodeKeyValueCollection(string name, DynamoDBEntry value)
         {
             value = Arguments.EnsureNotNull(value, nameof(value));
 

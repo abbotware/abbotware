@@ -34,13 +34,13 @@ namespace Abbotware.Interop.Newtonsoft.Plugins
         }
 
         /// <inheritdoc/>
-        public override byte[] Encode<T>(T @object)
+        public override byte[] Encode<T>(T value)
         {
             using var stream = new MemoryStream();
             using var writer = new BsonDataWriter(stream);
 
             var serializer = new JsonSerializer();
-            serializer.Serialize(writer, @object);
+            serializer.Serialize(writer, value);
 
             return stream.ToArray();
         }

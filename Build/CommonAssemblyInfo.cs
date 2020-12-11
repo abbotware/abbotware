@@ -2,6 +2,7 @@
 // Copyright © Abbotware, LLC 2012-2020. All rights reserved
 // </copyright>
 
+using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
 
@@ -9,3 +10,5 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyTrademark("Abbotware®")]
 [assembly: AssemblyCulture("")]
+
+[assembly: CLSCompliant(false)]

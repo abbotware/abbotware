@@ -29,6 +29,7 @@ namespace Abbotware.Interop.Windows.Psapi
         /// <returns>true/false if successful</returns>
         [DllImport(LIB_PSAPI, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
+        [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
         internal static extern bool GetProcessMemoryInfo(IntPtr hProcess, out ProcessMemoryCounters counters, uint size);
     }
 }

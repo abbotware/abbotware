@@ -112,7 +112,7 @@ namespace Abbotware.Interop.Castle.Plugins.Aspects
         {
             invocation = Arguments.EnsureNotNull(invocation, nameof(invocation));
 
-            var retValue = invocation.Method.ReturnType.Name.Equals("Void", StringComparison.InvariantCultureIgnoreCase) ? "void" : invocation.ReturnValue;
+            var retValue = invocation.Method.ReturnType.Name.Equals("Void", StringComparison.OrdinalIgnoreCase) ? "void" : invocation.ReturnValue;
 
             var message = string.Format(CultureInfo.InvariantCulture, "EXIT: {0}({1}) ret:({2})", invocation.Method.Name, parameters, retValue);
 

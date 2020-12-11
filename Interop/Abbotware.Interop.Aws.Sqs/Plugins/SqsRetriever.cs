@@ -42,11 +42,11 @@ namespace Abbotware.Interop.Aws.Sqs.Plugins
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<IMessageEnvelope>> Get(string queue, bool noAck)
+        public async Task<IEnumerable<IMessageEnvelope>> Get(string queueName, bool noAck)
         {
             var rmr = new ReceiveMessageRequest
             {
-                QueueUrl = queue,
+                QueueUrl = queueName,
                 MaxNumberOfMessages = 10,
             };
 

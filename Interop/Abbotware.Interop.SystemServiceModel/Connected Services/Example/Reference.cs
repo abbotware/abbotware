@@ -6,7 +6,7 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
+#pragma warning disable 1591
 namespace Example
 {
     
@@ -201,3 +201,4 @@ namespace Example
         }
     }
 }
+#pragma warning restore 1591

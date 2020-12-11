@@ -31,6 +31,7 @@ namespace Abbotware.Interop.Windows.Advapi32
         /// <returns>true/false if successful</returns>
         [DllImport(LIB_ADVAPI32, CallingConvention = CallingConvention.StdCall, SetLastError = true, CharSet = CharSet.Ansi, ThrowOnUnmappableChar = true, BestFitMapping = false)]
         [return: MarshalAs(UnmanagedType.Bool)]
+        [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
         internal static extern bool LogonUser(
             [MarshalAs(UnmanagedType.LPStr)] string username,
             [MarshalAs(UnmanagedType.LPStr)] string domain,

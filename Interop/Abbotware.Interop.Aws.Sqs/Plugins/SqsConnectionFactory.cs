@@ -49,11 +49,11 @@ namespace Abbotware.Interop.Aws.Sqs.Plugins
         }
 
         /// <inheritdoc/>
-        public void Destroy(ISqsConnection connection)
+        public void Destroy(ISqsConnection resource)
         {
-            connection = Arguments.EnsureNotNull(connection, nameof(connection));
+            resource = Arguments.EnsureNotNull(resource, nameof(resource));
 
-            connection.Dispose();
+            resource.Dispose();
         }
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace Abbotware.Interop.Aws.Sqs.Plugins
             }
             finally
             {
-                temp?.Dispose();
+                temp.Dispose();
             }
         }
     }

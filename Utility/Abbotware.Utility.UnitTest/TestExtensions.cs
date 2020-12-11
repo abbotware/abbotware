@@ -20,7 +20,7 @@ namespace Abbotware.Utility.UnitTest
         /// </summary>
         /// <param name="test">unit test classinstance</param>
         /// <param name="encoder">encoder instance</param>
-        public static void KeyValueEncoderTestCases(this IAssert test, IEncodedKeyValueCollection encoder)
+        public static void KeyValueEncoderTestCases(this IAssert test, IEncodedKeyValueStore encoder)
         {
             test = Arguments.EnsureNotNull(test, nameof(test));
             encoder = Arguments.EnsureNotNull(encoder, nameof(encoder));

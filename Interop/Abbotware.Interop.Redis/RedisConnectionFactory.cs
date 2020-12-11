@@ -48,11 +48,11 @@ namespace Abbotware.Interop.Redis
         }
 
         /// <inheritdoc/>
-        public override void Destroy(IRedisConnection connection)
+        public override void Destroy(IRedisConnection resource)
         {
-            connection = Arguments.EnsureNotNull(connection, nameof(connection));
+            resource = Arguments.EnsureNotNull(resource, nameof(resource));
 
-            connection.Dispose();
+            resource.Dispose();
         }
 
         /// <summary>
