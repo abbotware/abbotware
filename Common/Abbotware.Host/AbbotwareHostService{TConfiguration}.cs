@@ -189,8 +189,8 @@ namespace Abbotware.Host
         {
             return sender switch
             {
-                AppDomain ad => $"AppDomain:{ad?.FriendlyName}",
-                _ => sender?.ToString(),
+                AppDomain ad => $"AppDomain:{ad.FriendlyName}",
+                _ => sender.ToString(),
             };
         }
 

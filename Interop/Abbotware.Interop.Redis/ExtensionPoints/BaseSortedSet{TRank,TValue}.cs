@@ -40,7 +40,7 @@ namespace Abbotware.Interop.Redis.ExtensionPoints
         /// <param name="remotekey">remote key name</param>
         /// <param name="capacity">capacity of the set</param>
         /// <param name="database">redis database</param>
-        public BaseSortedSet(string remotekey, int capacity, IDatabase database)
+        protected BaseSortedSet(string remotekey, int capacity, IDatabase database)
         {
             this.RemoteKey = remotekey;
             this.capacity = capacity;

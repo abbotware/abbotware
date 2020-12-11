@@ -20,23 +20,31 @@ namespace Abbotware.Interop.NUnit
     /// A simple timeout attribute
     /// </summary>
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
-    public class TimeoutAttribute : NUnitAttribute, IWrapTestMethod
+    public sealed class TimeoutAttribute : NUnitAttribute, IWrapTestMethod
     {
-        private readonly TimeSpan timeout;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="TimeoutAttribute"/> class.
         /// </summary>
         /// <param name="milliseconds">timeout in milliseconds</param>
         public TimeoutAttribute(int milliseconds)
         {
-            this.timeout = TimeSpan.FromMilliseconds(milliseconds);
+            this.Timeout = TimeSpan.FromMilliseconds(milliseconds);
         }
+
+        /// <summary>
+        /// Gets the timeout
+        /// </summary>
+        public TimeSpan Timeout { get; }
+
+        /// <summary>
+        /// Gets the milliseconds
+        /// </summary>
+        public double Milliseconds => this.Timeout.TotalMilliseconds;
 
         /// <inheritdoc/>
         public TestCommand Wrap(TestCommand command)
         {
-            return new TimeoutCommand(command, this.timeout);
+            return new TimeoutCommand(command, this.Timeout);
         }
 
         private class TimeoutCommand : DelegatingTestCommand

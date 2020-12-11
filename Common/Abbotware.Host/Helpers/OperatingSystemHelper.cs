@@ -19,6 +19,25 @@ namespace Abbotware.Host.Helpers
     public static class OperatingSystemHelper
     {
         /// <summary>
+        /// Gets the System.Type for OS specific Implementation of IOperatingSystem
+        /// </summary>
+        /// <returns>System.Type for OS specific Implementation of IOperatingSystem</returns>
+        public static Type OperatingSystemType
+        {
+            get
+            {
+                if (PlatformHelper.IsUnix)
+                {
+                    return typeof(LinuxOperatingSystem);
+                }
+                else
+                {
+                    return typeof(WindowsOperatingSystem);
+                }
+            }
+        }
+
+        /// <summary>
         /// Creates the OperatingSystem for based on the OS
         /// </summary>
         /// <returns>OS specific Implementation for IOperatingSystem</returns>
@@ -47,22 +66,6 @@ namespace Abbotware.Host.Helpers
             else
             {
                 return new WindowsOperatingSystem();
-            }
-        }
-
-        /// <summary>
-        /// Gets the System.Type for OS specific Implementation of IOperatingSystem
-        /// </summary>
-        /// <returns>System.Type for OS specific Implementation of IOperatingSystem</returns>
-        public static Type GetOperatingSystemType()
-        {
-            if (PlatformHelper.IsUnix)
-            {
-                return typeof(LinuxOperatingSystem);
-            }
-            else
-            {
-                return typeof(WindowsOperatingSystem);
             }
         }
     }

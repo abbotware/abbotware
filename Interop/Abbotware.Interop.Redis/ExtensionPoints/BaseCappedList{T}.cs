@@ -37,7 +37,7 @@ namespace Abbotware.Interop.Redis.ExtensionPoints
         /// <param name="remotekey">remote key name</param>
         /// <param name="capacity">capacity of the list</param>
         /// <param name="database">redis database</param>
-        public BaseCappedList(string remotekey, int capacity, IDatabase database)
+        protected BaseCappedList(string remotekey, int capacity, IDatabase database)
         {
             this.RemoteKey = remotekey;
             this.capacity = capacity;

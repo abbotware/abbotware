@@ -17,25 +17,28 @@ namespace Abbotware.Interop.NUnit
     /// A simple ExpectedExceptionAttribute
     /// </summary>
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
-    public class ExpectedExceptionAttribute : NUnitAttribute, IWrapTestMethod
+    public sealed class ExpectedExceptionAttribute : NUnitAttribute, IWrapTestMethod
     {
         private static readonly Type InconclusiveException = typeof(InconclusiveException);
-
-        private readonly Type expectedExceptionType;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ExpectedExceptionAttribute"/> class.
         /// </summary>
-        /// <param name="type">exception type</param>
-        public ExpectedExceptionAttribute(Type type)
+        /// <param name="expectedExceptionType">exception type</param>
+        public ExpectedExceptionAttribute(Type expectedExceptionType)
         {
-            this.expectedExceptionType = type;
+            this.ExpectedExceptionType = expectedExceptionType;
         }
+
+        /// <summary>
+        /// Gets the expected exception type
+        /// </summary>
+        public Type ExpectedExceptionType { get; }
 
         /// <inheritdoc/>
         public TestCommand Wrap(TestCommand command)
         {
-            return new ExpectedExceptionCommand(command, this.expectedExceptionType);
+            return new ExpectedExceptionCommand(command, this.ExpectedExceptionType);
         }
 
         private class ExpectedExceptionCommand : DelegatingTestCommand

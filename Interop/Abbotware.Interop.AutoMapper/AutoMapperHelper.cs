@@ -7,6 +7,7 @@
 
 namespace Abbotware.Interop.AutoMapper
 {
+    using Abbotware.Core;
     using global::AutoMapper;
     using global::AutoMapper.Extensions.ExpressionMapping;
 
@@ -49,6 +50,8 @@ namespace Abbotware.Interop.AutoMapper
         /// <returns>mapper </returns>
         public static IMapper Create(bool useExpressionMapping, params Profile[] profiles)
         {
+            profiles = Arguments.EnsureNotNull(profiles, nameof(profiles));
+
             var config = new MapperConfiguration(cfg =>
            {
                foreach (var p in profiles)

@@ -12,7 +12,7 @@ namespace Abbotware.Core.Annotations
     /// DisplayName attribute for Enum items.
     /// </summary>
     [AttributeUsage(AttributeTargets.Enum)]
-    public sealed class DisplayNameAttribute : Attribute, IValueAttribute<string>
+    public sealed class DisplayNameAttribute : Attribute, IAttributeValue<string>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DisplayNameAttribute"/> class.
