@@ -30,7 +30,7 @@ namespace Abbotware.Data.Configuration.Models
             Arguments.NotNull(sqlConnectionConfiguration, nameof(sqlConnectionConfiguration));
 
             this.SqlConnection = sqlConnectionConfiguration;
-            this.DestinationSchemaName = tableInfo.Schema;
+            this.DestinationSchemaName = tableInfo.Schema ?? "dbo";
             this.DestinationTableName = tableInfo.Name;
             this.LogOptions = true;
         }
