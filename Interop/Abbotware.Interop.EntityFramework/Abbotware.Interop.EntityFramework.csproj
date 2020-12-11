@@ -1,20 +1,27 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
+		<Description>Abbotware Interop Library for EntityFramework - Contains helper methods, extension methods, and plugins</Description>
+		<PackageTags>EntityFramework</PackageTags>
+	</PropertyGroup>
 
-  <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
-    <Description>Abbotware Interop Library for EntityFramework - Contains helper methods, extension methods, and plugins</Description>
-    <PackageTags>EntityFramework</PackageTags>    
-  </PropertyGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+		<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.1.9" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.9"/>
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.1.9" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.9" />
-    <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
-  </ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.1'">
+		<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.1" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.1"/>
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\Common\Abbotware.Core\Abbotware.Core.csproj" />
-    <ProjectReference Include="..\..\Common\Abbotware.Data\Abbotware.Data.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\Common\Abbotware.Core\Abbotware.Core.csproj" />
+		<ProjectReference Include="..\..\Common\Abbotware.Data\Abbotware.Data.csproj" />
+	</ItemGroup>
 
 </Project>
