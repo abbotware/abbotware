@@ -19,6 +19,8 @@ namespace Abbotware.Core.Objects
         /// <inheritdoc/>
         public async ValueTask DisposeAsync()
         {
+            GC.SuppressFinalize(this);
+
             this.DisposeRequested.Cancel();
 
             using var cts = new CancellationTokenSource();

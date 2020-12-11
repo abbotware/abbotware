@@ -65,7 +65,7 @@ namespace Abbotware.Core.Extensions
         {
             var left = Arguments.EnsureNotNull(extended, nameof(extended));
 
-            output = default;
+            output = null;
 
             if (!PossiblyEquals(left, right))
             {
@@ -96,7 +96,7 @@ namespace Abbotware.Core.Extensions
         {
             var left = Arguments.EnsureNotNull(extended, nameof(extended));
 
-            output = default;
+            output = null;
 
             if (!PossiblyEquals(left, right))
             {
