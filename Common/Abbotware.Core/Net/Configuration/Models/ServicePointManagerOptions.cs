@@ -100,8 +100,13 @@ namespace Abbotware.Core.Net.Configuration.Models
                 Expect100Continue = false,
                 UseNagleAlgorithm = false,
                 CheckCertificateRevocationList = false,
+#if NETSTANDARD2_0
+#pragma warning disable CA5386
                 SecurityProtocol = SecurityProtocolType.Tls12,
-
+#pragma warning disable CA5386
+#else
+                SecurityProtocol = SecurityProtocolType.SystemDefault,
+#endif
                 TcpKeepAlive = new TcpKeepAlive
                 {
                     KeepAliveTime = TimeSpan.FromMilliseconds(100),

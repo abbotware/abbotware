@@ -98,7 +98,7 @@ namespace Abbotware.Core.Collections
 
             if (found == null)
             {
-                throw new IndexOutOfRangeException($"no range found for value:{value}");
+                throw new ArgumentOutOfRangeException($"no range found for value:{value}");
             }
 
             return found.Item;

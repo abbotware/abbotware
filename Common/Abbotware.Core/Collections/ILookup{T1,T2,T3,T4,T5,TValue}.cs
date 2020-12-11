@@ -45,36 +45,36 @@ namespace Abbotware.Core.Collections
         /// <summary>
         ///     Gets all keys stored within a particular key at level 2
         /// </summary>
-        /// <param name="level1">key for level 1</param>
+        /// <param name="key1">key for level 1</param>
         /// <returns>list of keys</returns>
-        IEnumerable<T2> Level2(T1 level1);
+        IEnumerable<T2> Level2(T1 key1);
 
         /// <summary>
         ///     Gets all keys stored within a particular key at level 3
         /// </summary>
-        /// <param name="level1">key for level 1</param>
-        /// <param name="level2">key for level 2</param>
+        /// <param name="key1">key for level 1</param>
+        /// <param name="key2">key for level 2</param>
         /// <returns>list of keys</returns>
-        IEnumerable<T3> Level3(T1 level1, T2 level2);
+        IEnumerable<T3> Level3(T1 key1, T2 key2);
 
         /// <summary>
         ///     Gets all keys stored within a particular key at level 4
         /// </summary>
-        /// <param name="level1">key for level 1</param>
-        /// <param name="level2">key for level 2</param>
-        /// <param name="level3">key for level 3</param>
+        /// <param name="key1">key for level 1</param>
+        /// <param name="key2">key for level 2</param>
+        /// <param name="key3">key for level 3</param>
         /// <returns>list of keys</returns>
-        IEnumerable<T4> Level4(T1 level1, T2 level2, T3 level3);
+        IEnumerable<T4> Level4(T1 key1, T2 key2, T3 key3);
 
         /// <summary>
         ///     Gets all keys stored within a particular key at level 5
         /// </summary>
-        /// <param name="level1">key for level 1</param>
-        /// <param name="level2">key for level 2</param>
-        /// <param name="level3">key for level 3</param>
-        /// <param name="level4">key for level 4</param>
+        /// <param name="key1">key for level 1</param>
+        /// <param name="key2">key for level 2</param>
+        /// <param name="key3">key for level 3</param>
+        /// <param name="key4">key for level 4</param>
         /// <returns>list of keys</returns>
-        IEnumerable<T5> Level5(T1 level1, T2 level2, T3 level3, T4 level4);
+        IEnumerable<T5> Level5(T1 key1, T2 key2, T3 key3, T4 key4);
 
         /// <summary>
         /// lookup function to return the value at the specified key

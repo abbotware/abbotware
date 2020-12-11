@@ -18,12 +18,12 @@ namespace Abbotware.Core.Messaging.Integration.Plugins
     public class NoCSharpType : ICSharpTypeEncoder
     {
         /// <inheritdoc />
-        public void Encode(Type type, MessageEnvelope envelope)
+        public void Encode(Type value, MessageEnvelope storage)
         {
         }
 
         /// <inheritdoc />
-        public Type? Decode(IMessageEnvelope envelope)
+        public Type? Decode(IMessageEnvelope storage)
         {
             return null;
         }

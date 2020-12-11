@@ -25,7 +25,7 @@ namespace Abbotware.Core.Cache.LocalOperations
         /// Gets the data as a list
         /// </summary>
         /// <returns>list of data</returns>
-        List<T> ToList();
+        IReadOnlyCollection<T> ToList();
 
         /// <summary>
         /// Gets the data as an arrary

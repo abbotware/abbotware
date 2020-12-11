@@ -14,15 +14,15 @@ namespace Abbotware.Core.Objects
     public interface IFactory<TObject>
     {
         /// <summary>
-        /// creates an object
+        /// creates a resource
         /// </summary>
-        /// <returns>created object</returns>
+        /// <returns>created resource</returns>
         TObject Create();
 
         /// <summary>
-        /// destroy / release the object
+        /// destroy / release the resource
         /// </summary>
-        /// <param name="object">object to release</param>
-        void Destroy(TObject @object);
+        /// <param name="resource">resource to release</param>
+        void Destroy(TObject resource);
     }
 }

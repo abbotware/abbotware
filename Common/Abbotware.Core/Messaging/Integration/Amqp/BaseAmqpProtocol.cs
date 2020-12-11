@@ -85,15 +85,15 @@ namespace Abbotware.Core.Messaging.Integration.Amqp
         protected ISerialization<ReadOnlyMemory<byte>> Serializer { get; }
 
         /// <inheritdoc />
-        public virtual IMessageEnvelope Encode<TMessage>(TMessage message)
+        public virtual IMessageEnvelope Encode<TMessage>(TMessage value)
         {
-            return this.Encode<TMessage>(message, this.OnComputeExchange(message));
+            return this.Encode<TMessage>(value, this.OnComputeExchange(value));
         }
 
         /// <inheritdoc />
-        public virtual IMessageEnvelope Encode<TMessage>(TMessage message, string exchange)
+        public virtual IMessageEnvelope Encode<TMessage>(TMessage message, string destination)
         {
-            return this.Encode<TMessage>(message, exchange, this.OnComputeTopic(message, exchange));
+            return this.Encode<TMessage>(message, destination, this.OnComputeTopic(message, destination));
         }
 
         /// <inheritdoc />
@@ -133,33 +133,33 @@ namespace Abbotware.Core.Messaging.Integration.Amqp
         }
 
         /// <inheritdoc />
-        public virtual TMessage Decode<TMessage>(IMessageEnvelope envelope)
+        public virtual TMessage Decode<TMessage>(IMessageEnvelope storage)
         {
-            envelope = Arguments.EnsureNotNull(envelope, nameof(envelope));
+            storage = Arguments.EnsureNotNull(storage, nameof(storage));
 
-            var type = this.typeEncoder.Decode(envelope);
+            var type = this.typeEncoder.Decode(storage);
 
             if (type != null && type != typeof(TMessage))
             {
                 throw AbbotwareException.Create("Message type Mismatch! Message Contains:{0}  Caller Expects:{1}  maybe you should call the non generic decode, or use a MessageGetter / Cosumer that supports callback's per message type", type.AssemblyQualifiedName, typeof(TMessage).AssemblyQualifiedName);
             }
 
-            return this.Serializer.Decode<TMessage>(envelope.Body.ToArray());
+            return this.Serializer.Decode<TMessage>(storage.Body.ToArray());
         }
 
         /// <inheritdoc />
-        public virtual object Decode(IMessageEnvelope envelope)
+        public virtual object Decode(IMessageEnvelope storage)
         {
-            envelope = Arguments.EnsureNotNull(envelope, nameof(envelope));
+            storage = Arguments.EnsureNotNull(storage, nameof(storage));
 
-            var type = this.typeEncoder.Decode(envelope);
+            var type = this.typeEncoder.Decode(storage);
 
             if (type == null)
             {
                 throw new InvalidOperationException("Unable to determine type from envelope");
             }
 
-            return this.Serializer.Decode(envelope.Body.ToArray(), type);
+            return this.Serializer.Decode(storage.Body.ToArray(), type);
         }
 
         /// <summary>

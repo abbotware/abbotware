@@ -11,6 +11,7 @@ namespace Abbotware.Core.Objects
     using System.Diagnostics.CodeAnalysis;
     using System.Threading;
     using System.Threading.Tasks;
+    using Abbotware.Core.Exceptions;
     using Abbotware.Core.Logging;
     using Abbotware.Core.Logging.Plugins;
 
@@ -91,7 +92,7 @@ namespace Abbotware.Core.Objects
             {
                 if (this.initializeTask?.Exception != null)
                 {
-                    throw new Exception("Initialization Error", this.initializeTask.Exception);
+                    throw new AbbotwareException("Initialization Error", this.initializeTask.Exception);
                 }
 
                 return Task.FromResult(false);
@@ -103,7 +104,7 @@ namespace Abbotware.Core.Objects
                 {
                     if (this.initializeTask?.Exception != null)
                     {
-                        throw new Exception("Initialization Error", this.initializeTask.Exception);
+                        throw new AbbotwareException("Initialization Error", this.initializeTask.Exception);
                     }
 
                     return Task.FromResult(false);

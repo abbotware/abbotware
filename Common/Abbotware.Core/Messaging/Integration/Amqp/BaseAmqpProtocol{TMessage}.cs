@@ -60,9 +60,9 @@ namespace Abbotware.Core.Messaging.Integration.Amqp
         }
 
         /// <inheritdoc />
-        public IMessageEnvelope Encode(TMessage message, string exchange)
+        public IMessageEnvelope Encode(TMessage message, string destination)
         {
-            return this.Encode(message, exchange, this.OnComputeTopic(message, exchange));
+            return this.Encode(message, destination, this.OnComputeTopic(message, destination));
         }
 
         /// <inheritdoc />

@@ -44,6 +44,6 @@ namespace Abbotware.Core.Objects
         public abstract TConnection Create(TOptions configuration);
 
         /// <inheritdoc/>
-        public abstract void Destroy(TConnection connection);
+        public abstract void Destroy(TConnection resource);
     }
 }

@@ -50,16 +50,16 @@ namespace Abbotware.Core.Collections
         /// <summary>
         ///     Gets all keys stored within a particular key at level 2
         /// </summary>
-        /// <param name="level1">key for level 1</param>
+        /// <param name="key1">key for level 1</param>
         /// <returns>list of keys</returns>
-        IEnumerable<T2> Level2(T1 level1);
+        IEnumerable<T2> Level2(T1 key1);
 
         /// <summary>
         ///     Gets all keys stored within a particular key at level 3
         /// </summary>
-        /// <param name="level1">key for level 1</param>
-        /// <param name="level2">key for level 2</param>
+        /// <param name="key1">key for level 1</param>
+        /// <param name="key2">key for level 2</param>
         /// <returns>list of keys</returns>
-        IEnumerable<T3> Level3(T1 level1, T2 level2);
+        IEnumerable<T3> Level3(T1 key1, T2 key2);
     }
 }

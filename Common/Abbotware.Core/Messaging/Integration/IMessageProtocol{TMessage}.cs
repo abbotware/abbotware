@@ -27,7 +27,7 @@ namespace Abbotware.Core.Messaging.Integration
         /// </summary>
         /// <param name="message">message object to encode</param>
         /// <param name="destination">destination for message</param>
-        /// <returns>message publishing configuration</returns>
+        /// <returns>message envelope</returns>
         IMessageEnvelope Encode(TMessage message, string destination);
 
         /// <summary>
@@ -35,14 +35,14 @@ namespace Abbotware.Core.Messaging.Integration
         /// </summary>
         /// <param name="message">message object to encode</param>
         /// <param name="properties">publish properties</param>
-        /// <returns>message publishing configuration</returns>
+        /// <returns>message envelope</returns>
         IMessageEnvelope Encode(TMessage message, IPublishProperties properties);
 
         /// <summary>
         ///     Decodes a message into an object
         /// </summary>
-        /// <param name="properties">message properties</param>
+        /// <param name="envelope">message envelope</param>
         /// <returns>decoded message</returns>
-        TMessage Decode(IMessageEnvelope properties);
+        TMessage Decode(IMessageEnvelope envelope);
     }
 }

@@ -41,15 +41,15 @@ namespace Abbotware.Core.Plugins.Serialization
         }
 
         /// <inheritdoc />
-        public string Convert(byte[] message)
+        public string Convert(byte[] input)
         {
-            return this.textEncoding.GetString(message);
+            return this.textEncoding.GetString(input);
         }
 
         /// <inheritdoc />
-        public byte[] Convert(string message)
+        public byte[] Convert(string input)
         {
-            return this.textEncoding.GetBytes(message);
+            return this.textEncoding.GetBytes(input);
         }
 
         /// <inheritdoc />
