@@ -79,7 +79,7 @@ namespace Abbotware.Interop.Redis.ExtensionPoints
         }
 
         /// <inheritdoc />
-        public List<T> ToList()
+        public IReadOnlyCollection<T> ToList()
         {
             lock (this.snapshot)
             {

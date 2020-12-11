@@ -68,7 +68,7 @@ namespace Abbotware.Interop.Redis.Collections
         }
 
         /// <inheritdoc/>
-        public List<T> ToList()
+        public IReadOnlyCollection<T> ToList()
         {
             return this.AsEnumerable().ToList();
         }

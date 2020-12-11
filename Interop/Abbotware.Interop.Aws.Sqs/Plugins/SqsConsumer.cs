@@ -13,7 +13,6 @@ namespace Abbotware.Interop.Aws.Sqs.Plugins
     using Abbotware.Core;
     using Abbotware.Core.Logging;
     using Abbotware.Core.Messaging.Integration;
-    using Abbotware.Core.Messaging.Integration.Configuration;
     using Abbotware.Interop.Castle.ExtensionPoints;
 
     /// <summary>
@@ -39,7 +38,7 @@ namespace Abbotware.Interop.Aws.Sqs.Plugins
         }
 
         /// <inheritdoc/>
-        public event Action<IMessageEnvelope> OnDelivery;
+        public event EventHandler<DeliveryEventArgs> OnDelivery;
 
         /// <summary>
         ///     Gets the current state of the Consumer
@@ -63,7 +62,7 @@ namespace Abbotware.Interop.Aws.Sqs.Plugins
 
                 foreach (var m in msgs)
                 {
-                    this.OnDelivery(m);
+                    this.OnDelivery(this, new DeliveryEventArgs(m));
 
                     ++this.Delivered;
                 }
