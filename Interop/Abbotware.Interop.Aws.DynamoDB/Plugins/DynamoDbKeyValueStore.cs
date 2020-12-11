@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="DynamoDbKeyValueCollection.cs" company="Abbotware, LLC">
+// <copyright file="DynamoDbKeyValueStore.cs" company="Abbotware, LLC">
 // Copyright © Abbotware, LLC 2012-2020. All rights reserved
 // </copyright>
 // -----------------------------------------------------------------------
@@ -20,29 +20,29 @@ namespace Abbotware.Interop.Aws.DynamoDB.Plugins
     /// <summary>
     /// Key Value collection encoded into a DynamoDb "document"
     /// </summary>
-    public class DynamoDbKeyValueCollection : BaseKeyValueStore<DynamoDBEntry>
+    public class DynamoDbKeyValueStore : BaseKeyValueStore<DynamoDBEntry>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="DynamoDbKeyValueCollection"/> class.
+        /// Initializes a new instance of the <see cref="DynamoDbKeyValueStore"/> class.
         /// </summary>
-        public DynamoDbKeyValueCollection()
+        public DynamoDbKeyValueStore()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DynamoDbKeyValueCollection"/> class.
+        /// Initializes a new instance of the <see cref="DynamoDbKeyValueStore"/> class.
         /// </summary>
         /// <param name="document">DynamoDB Document</param>
-        public DynamoDbKeyValueCollection(Document document)
+        public DynamoDbKeyValueStore(Document document)
             : this(document.ToArray())
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DynamoDbKeyValueCollection"/> class.
+        /// Initializes a new instance of the <see cref="DynamoDbKeyValueStore"/> class.
         /// </summary>
         /// <param name="keyValues">DynamoDBEntry / key value pairs</param>
-        public DynamoDbKeyValueCollection(KeyValuePair<string, DynamoDBEntry>[] keyValues)
+        public DynamoDbKeyValueStore(KeyValuePair<string, DynamoDBEntry>[] keyValues)
         {
             keyValues = Arguments.EnsureNotNull(keyValues, nameof(keyValues));
 
@@ -172,7 +172,7 @@ namespace Abbotware.Interop.Aws.DynamoDB.Plugins
 
             var doc = value.AsDocument();
 
-            return new DynamoDbKeyValueCollection(doc);
+            return new DynamoDbKeyValueStore(doc);
         }
     }
 }

@@ -8,6 +8,6 @@ namespace Abbotware.Utility.UnitTest.Using.EntityFramework.Models
 {
     public class ModelIntKey : BaseIntKey
     {
-        public override SomeEnum Setting { get; set; } = SomeEnum.Basic;
+        public override SomeEnumType Setting { get; set; } = SomeEnumType.Basic;
     }
 }

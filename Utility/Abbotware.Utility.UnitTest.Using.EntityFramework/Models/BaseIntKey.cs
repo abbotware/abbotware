@@ -15,6 +15,6 @@ namespace Abbotware.Utility.UnitTest.Using.EntityFramework.Models
 
         public string Name { get; set; }
 
-        public abstract SomeEnum Setting { get; set; }
+        public abstract SomeEnumType Setting { get; set; }
     }
 }
