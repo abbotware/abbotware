@@ -31,7 +31,7 @@ namespace Abbotware.Utility.UnitTest.Using.EntityFramework
 
         public virtual DbSet<CompositeStringKey> CompositeStringKeys { get; set; }
 
-        public static List<ModelIntKey> CreateData()
+        public static ICollection<ModelIntKey> CreateData()
         {
             var l = new List<ModelIntKey>();
 
