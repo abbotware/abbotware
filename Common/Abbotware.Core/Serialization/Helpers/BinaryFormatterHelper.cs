@@ -6,6 +6,7 @@
 
 namespace Abbotware.Core.Serialization.Helpers
 {
+    using System;
     using System.IO;
     using System.Runtime.Serialization.Formatters.Binary;
 
@@ -45,20 +46,25 @@ namespace Abbotware.Core.Serialization.Helpers
         {
             Arguments.NotNull(extended, nameof(extended));
 
-            return (TObject)extended.DeserializeViaBinaryFormatter();
+            return (TObject)extended.DeserializeViaBinaryFormatter(typeof(TObject));
         }
 
         /// <summary>
         ///     deserializes a byte[] using BinaryFormatter
         /// </summary>
         /// <param name="extended">object being extended</param>
+        /// <param name="expectedType">expected type</param>
         /// <returns>Instance of deserialized TObject</returns>
-        public static object DeserializeViaBinaryFormatter(this byte[] extended)
+        public static object DeserializeViaBinaryFormatter(this byte[] extended, Type expectedType)
         {
             Arguments.NotNull(extended, nameof(extended));
 
             using var memstream = new MemoryStream(extended);
-            var serializer = new BinaryFormatter();
+
+            var serializer = new BinaryFormatter
+            {
+                Binder = new TypeBinder(expectedType),
+            };
 
             var retVal = serializer.Deserialize(memstream);
 

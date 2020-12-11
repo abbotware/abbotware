@@ -6,10 +6,13 @@
 
 namespace Abbotware.Core.Serialization
 {
+    using System;
+
     /// <summary>
     /// interface for deserialization that can determine the object type automatically
     /// </summary>
     /// <typeparam name="TStorage">protocol storage type</typeparam>
+    [Obsolete("unsafe to deserialize without the expected type")]
     public interface IObjectDeserialization<TStorage>
     {
         /// <summary>

@@ -56,7 +56,7 @@ namespace Abbotware.Interop.ProtoBufNet.Plugins
         }
 
         /// <inheritdoc />
-        public new TMessage Decode(IMessageEnvelope envelope)
+        public TMessage Decode(IMessageEnvelope envelope)
         {
             return this.Decode<TMessage>(envelope);
         }

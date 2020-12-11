@@ -14,12 +14,12 @@ namespace Abbotware.Core.Serialization.Plugins
     /// <summary>
     ///     Encoder that converts a serializable object into a byte[] using the BinaryFormatter serializer
     /// </summary>
-    public class BinaryFormatterSerializer : BaseBinarySerialization, IObjectDeserialization<byte[]>
+    public class BinaryFormatterSerializer : BaseBinarySerialization
     {
         /// <inheritdoc />
         public override object Decode(byte[] storage, Type type)
         {
-            return this.Decode(storage);
+            return storage.DeserializeViaBinaryFormatter(type);
         }
 
         /// <inheritdoc />
@@ -32,12 +32,6 @@ namespace Abbotware.Core.Serialization.Plugins
         public override T Decode<T>(byte[] storage)
         {
             return storage.DeserializeViaBinaryFormatter<T>();
-        }
-
-        /// <inheritdoc />
-        public object Decode(byte[] storage)
-        {
-            return storage.DeserializeViaBinaryFormatter();
         }
     }
 }

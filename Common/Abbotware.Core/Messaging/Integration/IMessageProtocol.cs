@@ -13,7 +13,7 @@ namespace Abbotware.Core.Messaging.Integration
     /// <summary>
     ///     Interface that represents a Generic Type / POCO binary encoder
     /// </summary>
-    public interface IMessageProtocol : IProtocol<IMessageEnvelope>, IObjectDeserialization<IMessageEnvelope>
+    public interface IMessageProtocol : IProtocol<IMessageEnvelope>
     {
         /// <summary>
         ///     Encodes an object into a configuration for publishing

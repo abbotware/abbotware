@@ -147,21 +147,6 @@ namespace Abbotware.Core.Messaging.Integration.Amqp
             return this.Serializer.Decode<TMessage>(storage.Body.ToArray());
         }
 
-        /// <inheritdoc />
-        public virtual object Decode(IMessageEnvelope storage)
-        {
-            storage = Arguments.EnsureNotNull(storage, nameof(storage));
-
-            var type = this.typeEncoder.Decode(storage);
-
-            if (type == null)
-            {
-                throw new InvalidOperationException("Unable to determine type from envelope");
-            }
-
-            return this.Serializer.Decode(storage.Body.ToArray(), type);
-        }
-
         /// <summary>
         /// Callback for computing the exchange
         /// </summary>
