@@ -26,14 +26,14 @@ namespace Abbotware.Interop.SystemTextJson
         {
             if (reader.TokenType == JsonTokenType.Null)
             {
-                return default;
+                return null;
             }
 
             var s = reader.GetString();
 
             if (s.IsBlank())
             {
-                return default;
+                return null;
             }
 
             return TimeSpan.Parse(s, CultureInfo.InvariantCulture);
