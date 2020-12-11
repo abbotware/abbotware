@@ -51,9 +51,11 @@ namespace Abbotware.Core.Messaging.Integration.Base
 
         /// <inheritdoc />
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "bu")]
-        protected sealed override void OnDelivery(IMessageEnvelope envelope)
+        protected sealed override void OnDelivery(object sender, DeliveryEventArgs args)
         {
-            envelope = Arguments.EnsureNotNull(envelope, nameof(envelope));
+            args = Arguments.EnsureNotNull(args, nameof(args));
+
+            var envelope = args.Envelope;
 
             try
             {
@@ -65,7 +67,7 @@ namespace Abbotware.Core.Messaging.Integration.Base
             }
             catch (Exception ex)
             {
-                this.Logger.Error(ex, $"Message:{envelope?.DeliveryProperties?.DeliveryTag} redelivered:{envelope?.DeliveryProperties?.Redelivered}");
+                this.Logger.Error(ex, $"Message:{envelope.DeliveryProperties?.DeliveryTag} redelivered:{envelope?.DeliveryProperties?.Redelivered}");
 
                 if (envelope!.DeliveryProperties!.Redelivered.HasValue)
                 {

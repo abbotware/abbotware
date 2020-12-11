@@ -44,8 +44,9 @@ namespace Abbotware.Core.Messaging.Integration.Base
         /// <summary>
         /// Callback hook for message envelope delivery
         /// </summary>
-        /// <param name="envelope">message envelope</param>
-        protected abstract void OnDelivery(IMessageEnvelope envelope);
+        /// <param name="sender">sender</param>
+        /// <param name="args">delivery args</param>
+        protected abstract void OnDelivery(object sender, DeliveryEventArgs args);
 
         /// <inheritdoc/>
         protected override void OnInitialize()

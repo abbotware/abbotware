@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IBasicConsumer.cs" company="Abbotware, LLC">
+// <copyright file="DeliveryEventArgs.cs" company="Abbotware, LLC">
 // Copyright © Abbotware, LLC 2012-2020. All rights reserved
 // </copyright>
 // -----------------------------------------------------------------------
@@ -9,26 +9,24 @@ namespace Abbotware.Core.Messaging.Integration
 {
     using System;
     using Abbotware.Core.Messaging.Integration.Configuration;
-    using Abbotware.Core.Objects;
 
     /// <summary>
-    /// Interface for a basic message consumer
+    /// Delivery Args
     /// </summary>
-    public interface IBasicConsumer : IInitializable, IDisposable
+    public class DeliveryEventArgs : EventArgs
     {
         /// <summary>
-        /// Event for message delivery
+        /// Initializes a new instance of the <see cref="DeliveryEventArgs"/> class.
         /// </summary>
-        event EventHandler<DeliveryEventArgs> OnDelivery;
+        /// <param name="envelope">message envelope</param>
+        public DeliveryEventArgs(IMessageEnvelope envelope)
+        {
+            this.Envelope = envelope;
+        }
 
         /// <summary>
-        /// Gets the consumer status
+        /// Gets the envelope
         /// </summary>
-        ConsumerStatus Status { get; }
-
-        /// <summary>
-        /// Gets the number of delievered messages
-        /// </summary>
-        uint Delivered { get; }
+        public IMessageEnvelope Envelope { get; }
     }
 }
