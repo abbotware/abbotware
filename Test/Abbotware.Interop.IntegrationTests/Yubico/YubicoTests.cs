@@ -12,7 +12,7 @@ namespace Abbotware.IntegrationTests.Interop.Yubico
     using System.Threading.Tasks;
     using Abbotware.Interop.Yubico.Plugins;
     using Abbotware.Utility.UnitTest.Using.NUnit;
-    using NUnit.Framework;
+    using global::NUnit.Framework;
 
     [TestFixture]
     [Category("Interop")]

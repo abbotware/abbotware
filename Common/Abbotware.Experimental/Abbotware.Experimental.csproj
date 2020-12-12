@@ -1,0 +1,120 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.1;netstandard2.0</TargetFrameworks>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Nullable>enable</Nullable>
+	<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <Compile Remove="**/*.netstandard2.1.cs" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.1'">
+    <Compile Remove="**/*.netstandard2.0.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Cleanup\ExtensionPoints\IAddOrUpdateRepository{TEntity,TKey}.cs" />
+    <Compile Remove="Messaging\Plugins\MessageProcessor{TM,TP,TC,TConnection,TConfig}.cs" />
+    <Compile Remove="Messaging\_Legacy\IMessagePublisher.cs" />
+    <Compile Remove="Messaging\_Legacy\IMessageSubscription.cs" />
+    <Compile Remove="Messaging\_Legacy\IObjectPublisher.cs" />
+    <Compile Remove="Messaging\_Refactor\Generic\CallbackConsumer.cs" />
+    <Compile Remove="Messaging\_Refactor\Generic\ExchangePublisher.cs" />
+    <Compile Remove="Messaging\_Refactor\Generic\ExchangePublisher{TProtocol}.cs" />
+    <Compile Remove="Messaging\_Refactor\Generic\QueueRetriever.cs" />
+    <Compile Remove="Messaging\_Refactor\Generic\QueueRetriever{TProtocol}.cs" />
+    <Compile Remove="Messaging\_Refactor\Specific\PocoPublisher{TMessage,TProtocol}.cs" />
+    <Compile Remove="Messaging\_Refactor\Specific\PocoRetriever{TMessage,TProtocol}.cs" />
+    <Compile Remove="Messaging\_Refactor\Specific\StringPublisher.cs" />
+    <Compile Remove="Messaging\_Refactor\Specific\StringRetriever.cs" />
+    <Compile Remove="Messaging\_Refactor\_CleanUp\ExchangeObserver.cs" />
+    <Compile Remove="Messaging\_Refactor\_CleanUp\HandleBasicDelivery.cs" />
+    <Compile Remove="Messaging\_Refactor\_CleanUp\IPatternFactory.cs" />
+    <Compile Remove="Messaging\_Refactor\_CleanUp\PatternFactory.cs" />
+    <Compile Remove="UnitTests\Interop.Graphviz\GraphvizUnitTests.cs" />
+    <Compile Remove="UnitTests\Interop.RabbitMQ\AssumptionTests.cs" />
+    <Compile Remove="UnitTests\Interop.RabbitMQ\BaseRabbitUnitTest.cs" />
+    <Compile Remove="UnitTests\Interop.RabbitMQ\BinaryPublisherUnitTests.cs" />
+    <Compile Remove="UnitTests\Interop.RabbitMQ\ConfigTemplateUnitTests.cs" />
+    <Compile Remove="UnitTests\Interop.RabbitMQ\ConnectionManagerUnitTests.cs" />
+    <Compile Remove="UnitTests\Interop.RabbitMQ\ExchangeManagerUnitTests.cs" />
+    <Compile Remove="UnitTests\Interop.RabbitMQ\ProtocolUnitTests.cs" />
+    <Compile Remove="UnitTests\Interop.RabbitMQ\PublishManagerUnitTests.cs" />
+    <Compile Remove="UnitTests\Interop.RabbitMQ\QueueManagerUnitTests.cs" />
+    <Compile Remove="UnitTests\Interop.RabbitMQ\StringPublisherUnitTests.cs" />
+    <Compile Remove="UnitTests\Messaging\ConsumerManagerUnitTests.cs" />
+    <Compile Remove="UnitTests\Messaging\ExchangePublisherUnitTests.cs" />
+    <Compile Remove="Web\Extensions\InfoButtonExtensions.cs" />
+    <Compile Remove="Web\Extensions\PrivateEyeExtensions.cs" />
+    <Compile Remove="Web\Extensions\StringExtensions.cs" />
+    <Compile Remove="Web\Helpers\HtmlExtensions.cs" />
+    <Compile Remove="Web\Helpers\IncludeHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Core\" />
+    <Folder Include="Data\" />
+    <Folder Include="Interop.Graphviz\" />
+    <Folder Include="Interop.NLog\" />
+    <Folder Include="Interop.RabbitMQ\" />
+    <Folder Include="Workflow\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Cleanup\ExtensionPoints\IAddOrUpdateRepository{TEntity,TKey}.cs" />
+    <None Include="Messaging\Plugins\MessageProcessor{TM,TP,TC,TConnection,TConfig}.cs" />
+    <None Include="Messaging\_Legacy\IMessagePublisher.cs" />
+    <None Include="Messaging\_Legacy\IMessageSubscription.cs" />
+    <None Include="Messaging\_Legacy\IObjectPublisher.cs" />
+    <None Include="Messaging\_Refactor\Generic\CallbackConsumer.cs" />
+    <None Include="Messaging\_Refactor\Generic\ExchangePublisher.cs" />
+    <None Include="Messaging\_Refactor\Generic\ExchangePublisher{TProtocol}.cs" />
+    <None Include="Messaging\_Refactor\Generic\QueueRetriever.cs" />
+    <None Include="Messaging\_Refactor\Generic\QueueRetriever{TProtocol}.cs" />
+    <None Include="Messaging\_Refactor\Specific\PocoPublisher{TMessage,TProtocol}.cs" />
+    <None Include="Messaging\_Refactor\Specific\PocoRetriever{TMessage,TProtocol}.cs" />
+    <None Include="Messaging\_Refactor\Specific\StringPublisher.cs" />
+    <None Include="Messaging\_Refactor\Specific\StringRetriever.cs" />
+    <None Include="Messaging\_Refactor\_CleanUp\ExchangeObserver.cs" />
+    <None Include="Messaging\_Refactor\_CleanUp\HandleBasicDelivery.cs" />
+    <None Include="Messaging\_Refactor\_CleanUp\IPatternFactory.cs" />
+    <None Include="Messaging\_Refactor\_CleanUp\PatternFactory.cs" />
+    <None Include="UnitTests\Interop.Graphviz\GraphvizUnitTests.cs" />
+    <None Include="UnitTests\Interop.RabbitMQ\AssumptionTests.cs" />
+    <None Include="UnitTests\Interop.RabbitMQ\BaseRabbitUnitTest.cs" />
+    <None Include="UnitTests\Interop.RabbitMQ\BinaryPublisherUnitTests.cs" />
+    <None Include="UnitTests\Interop.RabbitMQ\ConfigTemplateUnitTests.cs" />
+    <None Include="UnitTests\Interop.RabbitMQ\ConnectionManagerUnitTests.cs" />
+    <None Include="UnitTests\Interop.RabbitMQ\ExchangeManagerUnitTests.cs" />
+    <None Include="UnitTests\Interop.RabbitMQ\ProtocolUnitTests.cs" />
+    <None Include="UnitTests\Interop.RabbitMQ\PublishManagerUnitTests.cs" />
+    <None Include="UnitTests\Interop.RabbitMQ\QueueManagerUnitTests.cs" />
+    <None Include="UnitTests\Interop.RabbitMQ\StringPublisherUnitTests.cs" />
+    <None Include="UnitTests\Messaging\ConsumerManagerUnitTests.cs" />
+    <None Include="UnitTests\Messaging\ExchangePublisherUnitTests.cs" />
+    <None Include="Web\Extensions\InfoButtonExtensions.cs" />
+    <None Include="Web\Extensions\PrivateEyeExtensions.cs" />
+    <None Include="Web\Extensions\StringExtensions.cs" />
+    <None Include="Web\Helpers\HtmlExtensions.cs" />
+    <None Include="Web\Helpers\IncludeHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+	  <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
+	  <PackageReference Include="Microsoft.AspNetCore.Rewrite" Version="2.2.0" />
+	  <PackageReference Include="QuickGraph.All" Version="3.6.61119.8" />
+	  <PackageReference Include="LumenWorks.Framework.IO.Core" Version="1.0.1" />
+	  <PackageReference Include="CsvHelper" Version="15.0.5" />
+	  <PackageReference Include="NLog" Version="4.7.2" />
+	  <PackageReference Include="RabbitMQ.Client" Version="6.1.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Interop\Abbotware.Interop.AutoMapper\Abbotware.Interop.AutoMapper.csproj" />
+    <ProjectReference Include="..\..\Interop\Abbotware.Interop.EntityFramework\Abbotware.Interop.EntityFramework.csproj" />
+    <ProjectReference Include="..\..\Interop\Abbotware.Interop.Log4net\Abbotware.Interop.Log4net.csproj" />
+    <ProjectReference Include="..\..\Using\Abbotware.Using.Castle\Abbotware.Using.Castle.csproj" />
+    <ProjectReference Include="..\Abbotware.Core\Abbotware.Core.csproj" />
+    <ProjectReference Include="..\Abbotware.ShellCommand\Abbotware.ShellCommand.csproj" />
+  </ItemGroup>
+
+</Project>

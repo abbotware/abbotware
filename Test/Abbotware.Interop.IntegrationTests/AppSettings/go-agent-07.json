@@ -1,0 +1,12 @@
+﻿{
+  "Redis": {
+    "Endpoint": "redis://10.10.10.70:6379"
+  },
+
+  "SQS": {
+    "Region": "us-east-2",
+    "Username": "USE_ENV",
+    "Password": "USE_ENV",
+    "Queue": "https://sqs.us-east-2.amazonaws.com/235837667727/dev-ci-agent-07"
+  }
+}

@@ -6,6 +6,7 @@
 
 namespace Abbotware.Interop.Aws.Sqs
 {
+    using System;
     using Abbotware.Core.Logging;
     using Abbotware.Interop.Aws.Sqs.Configuration;
     using Abbotware.Interop.Aws.Sqs.Configuration.Models;
@@ -27,6 +28,17 @@ namespace Abbotware.Interop.Aws.Sqs
         {
             var settings = ConfigurationHelper.AppSettingsJson(file);
             var cfg = settings.BindSection<SqsSettings>(section);
+
+            if (cfg.Username == "USE_ENV")
+            {
+                cfg.Username = Environment.GetEnvironmentVariable("SQS_USERNAME");
+            }
+
+            if (cfg.Password == "USE_ENV")
+            {
+                cfg.Password = Environment.GetEnvironmentVariable("SQS_PASSWORD");
+            }
+
             return cfg;
         }
 

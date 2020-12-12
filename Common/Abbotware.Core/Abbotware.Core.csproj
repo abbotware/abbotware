@@ -18,5 +18,15 @@
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
     <PackageReference Include="System.Memory" Version="4.5.4" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <Compile Remove="Messaging\Integration\Amqp\Plugins\NetDataContract.cs" />
+    <Compile Remove="Messaging\Integration\Amqp\Plugins\NetDataContract{TMessage}.cs" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Include="Messaging\Integration\Amqp\Plugins\NetDataContract.cs" />
+    <None Include="Messaging\Integration\Amqp\Plugins\NetDataContract{TMessage}.cs" />
+  </ItemGroup>
 
 </Project>
