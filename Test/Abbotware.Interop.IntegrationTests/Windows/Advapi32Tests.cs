@@ -2,7 +2,7 @@
 // Copyright (c) PlaceholderCompany. All rights reserved.
 // </copyright>
 
-namespace Abbotware.UnitTests.Interop.Win32
+namespace Abbotware.IntegrationTests.Interop.Windows
 {
     using Abbotware.Interop.NUnit;
     using Abbotware.Interop.Windows.Advapi32;

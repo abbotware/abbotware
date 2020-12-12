@@ -2,7 +2,7 @@
 // Copyright © Abbotware, LLC 2012-2020. All rights reserved
 // </copyright>
 
-namespace Abbotware.UnitTests.Interop.Win32
+namespace Abbotware.IntegrationTests.Interop.Windows
 {
     using Abbotware.Interop.Windows.Kernel32;
     using Abbotware.Utility.UnitTest.Using.NUnit;
