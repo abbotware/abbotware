@@ -85,7 +85,7 @@ namespace Abbotware.Interop.Aws.Sqs.Plugins
             }
             finally
             {
-                temp.Dispose();
+                temp?.Dispose();
             }
         }
     }

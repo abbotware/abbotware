@@ -7,6 +7,6 @@
     "Region": "us-east-2",
     "Username": "USE_ENV",
     "Password": "USE_ENV",
-    "Queue": "https://sqs.us-east-2.amazonaws.com/202810038399/dev-scans"
+    "Queue": "https://sqs.us-east-2.amazonaws.com/235837667727/Dev-Scans"
   }
 }
