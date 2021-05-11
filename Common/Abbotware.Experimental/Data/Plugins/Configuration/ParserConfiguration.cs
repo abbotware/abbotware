@@ -79,12 +79,12 @@ namespace Abbotware.Core.Data.Plugins.Configuration
         /// <summary>
         ///     Gets or sets a value indicating whether its ok for the file to have extra fields
         /// </summary>
-        public bool AllowFileToHaveExtraProperties { get; set; } = false;
+        public bool AllowFileToHaveExtraProperties { get; set; }
 
         /// <summary>
         ///     Gets or sets a value indicating whether its ok for the class to have extra properties
         /// </summary>
-        public bool AllowClassToHaveExtraProperties { get; set; } = false;
+        public bool AllowClassToHaveExtraProperties { get; set; }
 
         /// <summary>
         ///     Gets the custom property conversion functors
