@@ -72,7 +72,7 @@ namespace Abbotware.Interop.Log4net
             GlobalContext.Properties[nameof(LoggingProperty.MachineName)] = Environment.MachineName;
         }
 
-         /// <summary>
+        /// <summary>
         /// begins a new scope adding the key values to the context
         /// </summary>
         /// <param name="context">contextual string</param>
