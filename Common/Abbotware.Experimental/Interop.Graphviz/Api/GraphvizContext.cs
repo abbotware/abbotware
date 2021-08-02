@@ -36,7 +36,6 @@ namespace Abbotware.Interop.Graphviz.Api
         ///     Initializes a new instance of the <see cref="GraphvizContext" /> class.
         /// </summary>
         /// <param name="logger">injected logger for class</param>
-        [SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "Abbotware.Core.Contract.Requires<System.ArgumentNullException>(System.Boolean,System.String)", Justification = "Code Contracts")]
         public GraphvizContext(ILogger logger)
             : base(logger)
         {
@@ -83,7 +82,6 @@ namespace Abbotware.Interop.Graphviz.Api
         /// </summary>
         /// <param name="graphObject">graph object to render</param>
         /// <param name="layoutEngine">layout engine to render with</param>
-        [SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "Abbotware.Core.Contract.Requires<System.ArgumentNullException>(System.Boolean,System.String)", Justification = "Code Contracts Method")]
         [SuppressMessage("Microsoft.Globalization", "CA1308:NormalizeStringsToUppercase", Justification = "matching Graphviz Api definitions")]
         public void AddLayout(Graph graphObject, LayoutEngine layoutEngine)
         {
@@ -91,9 +89,7 @@ namespace Abbotware.Interop.Graphviz.Api
 
             this.ThrowIfDisposed();
 
-#pragma warning disable CA1062 // Validate arguments of public methods
             var funcRet = NativeMethods.gvLayout(this.graphvizContextPtr, graphObject.SafeHandle, layoutEngine.ToString().ToLowerInvariant());
-#pragma warning restore CA1062 // Validate arguments of public methods
 
             var errorCode = Marshal.GetLastWin32Error();
 

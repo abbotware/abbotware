@@ -7,8 +7,25 @@
 
 namespace Abbotware.Core.Workflow
 {
+    /// <summary>
+    /// interface for a workflow journal
+    /// </summary>
     public interface IJournal
     {
+        /// <summary>
+        /// Adds to the journal
+        /// </summary>
         void Add();
+    }
+
+    /// <summary>
+    /// Workflow journal
+    /// </summary>
+    public class Journal : IJournal
+    {
+        /// <inheritdoc/>
+        public void Add()
+        {
+        }
     }
 }

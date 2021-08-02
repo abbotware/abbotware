@@ -31,9 +31,7 @@ namespace Abbotware.Core
         /// </summary>
         /// <param name="factory">object factory</param>
         public AutoFactory(Func<TDisposable> factory)
-#pragma warning disable CA1062 // Validate arguments of public methods
             : this(factory())
-#pragma warning restore CA1062 // Validate arguments of public methods
         {
             Arguments.NotNull(factory, nameof(factory));
         }

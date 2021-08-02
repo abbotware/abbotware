@@ -17,7 +17,7 @@ namespace Abbotware.Core.Workflow.Plugins
         /// <summary>
         /// global Null state instance
         /// </summary>
-        public static readonly State NullState = new State(string.Empty, 0, false);
+        public static readonly State NullState = new (string.Empty, 0, false);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="State"/> class.

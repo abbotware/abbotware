@@ -101,7 +101,7 @@ namespace Abbotware.Interop.LumenWorks
         {
             using var parser = new LumenWorksCsvParser<TDataRow>(cfg, logger);
 
-            var context = new ParserContext { Path = new Uri(filePath) };
+            var context = new ParserContext(new Uri(filePath));
 
             var result = parser.Retrieve(context);
 

@@ -6,6 +6,7 @@
 
 namespace Abbotware.Interop.NLog.Plugins
 {
+    using System;
     using Abbotware.Core.Logging;
 
     /// <summary>
@@ -46,12 +47,17 @@ namespace Abbotware.Interop.NLog.Plugins
         internal virtual TLogger Create<TLogger>(string name)
             where TLogger : Logger
         {
-            var l = global::NLog.LogManager.GetLogger(name, typeof(TLogger)) as TLogger;
+            var l = global::NLog.LogManager.GetLogger(name, typeof(TLogger));
+
+            if (l is not TLogger logger)
+            {
+                throw new InvalidOperationException("logger is null");
+            }
 
             // this is set after construction as a work around to LogManager.GetLogger requiring parameterless constructors
-            l.LoggerFactory = this;
+            logger.LoggerFactory = this;
 
-            return l;
+            return logger;
         }
     }
 }

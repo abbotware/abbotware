@@ -24,9 +24,7 @@ namespace Abbotware.Core.Web.Extensions
         {
             Arguments.NotNull(options, nameof(options));
 
-#pragma warning disable CA1062 // Validate arguments of public methods
             options.Rules.Add(new RedirectToProxiedHttpsRule());
-#pragma warning restore CA1062 // Validate arguments of public methods
 
             return options;
         }

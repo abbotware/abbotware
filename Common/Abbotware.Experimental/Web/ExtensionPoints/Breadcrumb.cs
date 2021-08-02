@@ -84,9 +84,7 @@ namespace Abbotware.Core.Web.ExtensionPoints
         {
             Arguments.NotNull(routeData, nameof(routeData));
 
-#pragma warning disable CA1062 // Validate arguments of public methods
             var actionName = routeData.Values["action"].ToString();
-#pragma warning restore CA1062 // Validate arguments of public methods
             var controllerName = routeData.Values["controller"].ToString();
 
             return $"{controllerName}.{actionName}";

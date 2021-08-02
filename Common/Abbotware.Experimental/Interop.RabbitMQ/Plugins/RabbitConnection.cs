@@ -50,9 +50,7 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
 
             this.rabbitMQConnection = connection;
 
-#pragma warning disable CA1062 // Validate arguments of public methods
             this.rabbitMQConnection.ConnectionShutdown += this.OnConnectionShutdown;
-#pragma warning restore CA1062 // Validate arguments of public methods
             this.rabbitMQConnection.CallbackException += this.OnCallbackException;
             this.rabbitMQConnection.ConnectionBlocked += this.OnConnectionBlocked;
             this.rabbitMQConnection.ConnectionUnblocked += this.OnConnectionUnblocked;
@@ -185,7 +183,6 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
         }
 
         /// <inheritdoc />
-        [SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object,System.Object)", Justification = "ignored")]
         [SuppressMessage("Microsoft.Maintainability", "CA1506:AvoidExcessiveClassCoupling", Justification = "reviewed")]
         protected override void OnInitialize()
         {

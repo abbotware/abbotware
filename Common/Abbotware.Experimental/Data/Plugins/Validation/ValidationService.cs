@@ -47,9 +47,7 @@ namespace Abbotware.Core.Data.Plugins.Validation
 
             var results = new List<ValidationResult>();
 
-#pragma warning disable CA1062 // Validate arguments of public methods
             foreach (var entity in entities)
-#pragma warning restore CA1062 // Validate arguments of public methods
             {
                 results.AddRange(validator.Validate(entity));
             }

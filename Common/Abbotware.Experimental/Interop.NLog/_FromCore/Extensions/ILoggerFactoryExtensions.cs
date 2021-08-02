@@ -39,9 +39,7 @@ namespace Abbotware.Core.Extensions
             Arguments.NotNull(factory, nameof(factory));
             Arguments.NotNull(type, nameof(type));
 
-#pragma warning disable CA1062 // Validate arguments of public methods
             return factory.Create(type.Name);
-#pragma warning restore CA1062 // Validate arguments of public methods
         }
     }
 }

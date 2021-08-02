@@ -22,7 +22,7 @@ namespace Abbotware.Core.Helpers
         /// <summary>
         /// internal dictionary of module names mapped to assemblies
         /// </summary>
-        private static readonly Dictionary<string, Assembly> Modules = new Dictionary<string, Assembly>();
+        private static readonly Dictionary<string, Assembly> Modules = new ();
 
         /// <summary>
         /// Retrieves a module containing resources, first looking for it in the modules cache,
@@ -34,9 +34,7 @@ namespace Abbotware.Core.Helpers
         {
             Arguments.NotNull(moduleName, nameof(moduleName));
 
-#pragma warning disable CA1062 // Validate arguments of public methods
             var uppercase = moduleName.ToUpperInvariant();
-#pragma warning restore CA1062 // Validate arguments of public methods
 
             lock (EmbeddedResourceHelper.Modules)
             {
@@ -59,9 +57,7 @@ namespace Abbotware.Core.Helpers
         {
             Arguments.NotNull(moduleName, nameof(moduleName));
 
-#pragma warning disable CA1062 // Validate arguments of public methods
             var uppercase = moduleName.ToUpperInvariant();
-#pragma warning restore CA1062 // Validate arguments of public methods
 
             lock (EmbeddedResourceHelper.Modules)
             {
@@ -117,14 +113,13 @@ namespace Abbotware.Core.Helpers
         /// <param name="assemblyName">The name of the assembly module</param>
         /// <param name="resourcePath">The full path of the embedded resource (excluding the module part)</param>
         /// <returns>The text file's contents as a string</returns>
-        [SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times", Justification = "reviewed")]
         public static string GetTextFile(string assemblyName, string resourcePath)
         {
             Arguments.NotNullOrWhitespace(assemblyName, nameof(assemblyName));
             Arguments.NotNullOrWhitespace(resourcePath, nameof(resourcePath));
 
             using var stream = EmbeddedResourceHelper.GetResourceStream(assemblyName, resourcePath);
-            using StreamReader reader = new StreamReader(stream);
+            using StreamReader reader = new (stream);
 
             string result = reader.ReadToEnd();
             return result;
@@ -137,7 +132,6 @@ namespace Abbotware.Core.Helpers
         /// <param name="assemblyName">The name of the assembly module</param>
         /// <param name="resourcePath">The full path of the embedded resource (excluding the module part)</param>
         /// <returns>The text file's contents as a string</returns>
-        [SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times", Justification = "reviewed")]
         public static string GetTextFile(Assembly assembly, string assemblyName, string resourcePath)
         {
             Arguments.NotNull(assembly, nameof(assembly));
@@ -145,7 +139,7 @@ namespace Abbotware.Core.Helpers
             Arguments.NotNullOrWhitespace(resourcePath, nameof(resourcePath));
 
             using var stream = EmbeddedResourceHelper.GetResourceStream(assembly, assemblyName, resourcePath);
-            using StreamReader reader = new StreamReader(stream);
+            using StreamReader reader = new (stream);
 
             string result = reader.ReadToEnd();
             return result;
@@ -182,9 +176,7 @@ namespace Abbotware.Core.Helpers
 
             var resource = EmbeddedResourceHelper.NormalizeFullPath(FormattableString.Invariant($"{assemblyName}/{resourcePath}"));
 
-#pragma warning disable CA1062 // Validate arguments of public methods
             Stream stream = assembly.GetManifestResourceStream(resource);
-#pragma warning restore CA1062 // Validate arguments of public methods
 
             if (stream == null)
             {
@@ -204,9 +196,7 @@ namespace Abbotware.Core.Helpers
             name = name.Trim(' ', '.', '/', '\\');
             name = name.Replace('-', '_');
 
-#pragma warning disable CA1307 // Specify StringComparison
             if (name.Contains("."))
-#pragma warning restore CA1307 // Specify StringComparison
             {
                 // if a segment starts with a digit, then inject an underscore character before it
                 var segments = name.Split('.').Select(s => char.IsDigit(s, 0) ? ("_" + s) : s).ToArray();

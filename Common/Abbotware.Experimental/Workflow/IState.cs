@@ -15,7 +15,7 @@ namespace Abbotware.Core.Workflow
     public interface IState : IWorkflowComponent
     {
         /// <summary>
-        /// Gets a flag indicating whether or not this is the start state
+        /// Gets a value indicating whether not this is the start state
         /// </summary>
         bool IsStart
         {

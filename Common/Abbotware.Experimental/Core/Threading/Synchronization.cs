@@ -26,9 +26,7 @@ namespace Abbotware.Core.Threading
             Arguments.NotNull(waitFor, nameof(waitFor));
             Arguments.NotNull(cancelNotification, nameof(cancelNotification));
 
-#pragma warning disable CA1062 // Validate arguments of public methods
             return WaitAndShouldContinue(waitFor.WaitHandle, cancelNotification.WaitHandle);
-#pragma warning restore CA1062 // Validate arguments of public methods
         }
 
         /// <summary>

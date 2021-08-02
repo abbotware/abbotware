@@ -11,6 +11,7 @@ namespace Abbotware.Core.Collections
     using System.Collections.ObjectModel;
     using System.Collections.Specialized;
     using System.ComponentModel;
+    using System.Linq;
     using System.Threading;
 
     /// <summary>
@@ -33,7 +34,7 @@ namespace Abbotware.Core.Collections
         ///     Initializes a new instance of the <see cref="AsyncObservableCollection{T}" /> class.
         /// </summary>
         public AsyncObservableCollection()
-            : this(null)
+            : this(Enumerable.Empty<T>())
         {
         }
 
@@ -71,9 +72,7 @@ namespace Abbotware.Core.Collections
 
                 this.Clear();
 
-#pragma warning disable CA1062 // Validate arguments of public methods
                 foreach (var item in replacementList)
-#pragma warning restore CA1062 // Validate arguments of public methods
                 {
                     this.Add(item);
                 }

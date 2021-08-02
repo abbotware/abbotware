@@ -32,9 +32,7 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
         {
             Arguments.NotNull(result, nameof(result));
 
-#pragma warning disable CA1062 // Validate arguments of public methods
             var e = Create(result.DeliveryTag.ToString(CultureInfo.InvariantCulture), result.Redelivered, result.Exchange, result.RoutingKey, result.Body);
-#pragma warning restore CA1062 // Validate arguments of public methods
 
             e.DeliveryProperties.MessageCount = result.MessageCount;
 
@@ -62,9 +60,7 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
 
             e.DeliveryProperties.ConsumerTag = consumerTag;
 
-#pragma warning disable CA1062 // Validate arguments of public methods
             UpdateEnvelope(e, properties);
-#pragma warning restore CA1062 // Validate arguments of public methods
 
             return e;
         }
@@ -79,15 +75,11 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
             Arguments.NotNull(target, nameof(target));
             Arguments.NotNull(source, nameof(source));
 
-#pragma warning disable CA1062 // Validate arguments of public methods
             if (source.PublishProperties.Persistent.HasValue)
-#pragma warning restore CA1062 // Validate arguments of public methods
             {
                 if (source.PublishProperties.Persistent.Value)
                 {
-#pragma warning disable CA1062 // Validate arguments of public methods
                     target.DeliveryMode = (byte)DeliveryMode.Persistent;
-#pragma warning restore CA1062 // Validate arguments of public methods
                 }
                 else
                 {

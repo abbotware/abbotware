@@ -55,9 +55,7 @@ namespace Abbotware.Core.Cryptography
             Arguments.NotNull(cryptoServiceProvider, nameof(cryptoServiceProvider));
             Arguments.NotNull(originalData, nameof(originalData));
 
-#pragma warning disable CA1062 // Validate arguments of public methods
             return cryptoServiceProvider.Encrypt(originalData, paddingIsOaep);
-#pragma warning restore CA1062 // Validate arguments of public methods
         }
 
         /// <summary>
@@ -72,9 +70,7 @@ namespace Abbotware.Core.Cryptography
             Arguments.NotNull(cryptoServiceProvider, nameof(cryptoServiceProvider));
             Arguments.NotNull(cypherData, nameof(cypherData));
 
-#pragma warning disable CA1062 // Validate arguments of public methods
             return cryptoServiceProvider.Decrypt(cypherData, paddingIsOaep);
-#pragma warning restore CA1062 // Validate arguments of public methods
         }
 
         // [ TODO ]
@@ -95,9 +91,7 @@ namespace Abbotware.Core.Cryptography
             Arguments.NotNull(rsa, nameof(rsa));
             Arguments.NotNull(originalData, nameof(originalData));
 
-#pragma warning disable CA1062 // Validate arguments of public methods
             if (originalData.Length > ((rsa.KeySize / 8) - 1))
-#pragma warning restore CA1062 // Validate arguments of public methods
             {
                 throw new ArgumentException("The input buffer is too large");
             }
@@ -123,9 +117,7 @@ namespace Abbotware.Core.Cryptography
             Arguments.NotNull(rsa, nameof(rsa));
             Arguments.NotNull(cypherData, nameof(cypherData));
 
-#pragma warning disable CA1062 // Validate arguments of public methods
             if (cypherData.Length > ((rsa.KeySize / 8) + 1))
-#pragma warning restore CA1062 // Validate arguments of public methods
             {
                 throw new ArgumentException("The input buffer is too large");
             }
@@ -156,13 +148,13 @@ namespace Abbotware.Core.Cryptography
         /// <returns>RSA container</returns>
         public static RSACryptoServiceProvider GetRsaServiceProvider(string containerName)
         {
-            CspParameters cspParams = new CspParameters()
+            CspParameters cspParams = new ()
             {
                 KeyContainerName = containerName,
                 Flags = CspProviderFlags.UseExistingKey | CspProviderFlags.UseMachineKeyStore,
             };
 
-            RSACryptoServiceProvider rsa = new RSACryptoServiceProvider(cspParams);
+            RSACryptoServiceProvider rsa = new (cspParams);
             return rsa;
         }
 

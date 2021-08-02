@@ -60,9 +60,7 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
         {
             Arguments.NotNull(envelope, nameof(envelope));
 
-#pragma warning disable CA1062 // Validate arguments of public methods
             this.Ack(envelope.DeliveryProperties.DeliveryTag, multiple);
-#pragma warning restore CA1062 // Validate arguments of public methods
         }
 
         /// <inheritdoc />

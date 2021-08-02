@@ -55,7 +55,7 @@ namespace Abbotware.Core.Collections
         /// <summary>
         ///    Gets the exception that caused the active-worker-thread to terminate
         /// </summary>
-        public Exception Exception { get; private set; }
+        public Exception? Exception { get; private set; }
 
         /// <summary>
         ///     This method will activate all of the worker threads that were created in the constructor
@@ -197,9 +197,9 @@ namespace Abbotware.Core.Collections
                 {
                     try
                     {
-                        var dequeue_succeeded = base.Dequeue(out TItem item);
+                        var dequeue_succeeded = base.Dequeue(out TItem? item);
 
-                        if (dequeue_succeeded)
+                        if (dequeue_succeeded && item != null)
                         {
                             this.OnProcessItem(worker_id, item);
                         }

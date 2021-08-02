@@ -74,7 +74,6 @@ namespace Abbotware.Interop.LumenWorks
         }
 
         /// <inheritdoc />
-        [SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times", Justification = "Reviewed")]
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed")]
         protected override IRetrievalResult<IEnumerable<TRecord>, IRetrievalMetadata, ParserContext> OnRetrieve(ParserContext context)
         {
@@ -82,9 +81,7 @@ namespace Abbotware.Interop.LumenWorks
 
             var metadata = new RetrievalMetadata
             {
-#pragma warning disable CA1062 // Validate arguments of public methods
                 Endpoint = context.Path.ToString(),
-#pragma warning restore CA1062 // Validate arguments of public methods
             };
 
             try
@@ -129,9 +126,7 @@ namespace Abbotware.Interop.LumenWorks
                 // in this case we have to intercept the stream, and replace all "||" with '|' on the fly
                 if (this.Configuration.DelimiterChar == '|')
                 {
-#pragma warning disable CA1062 // Validate arguments of public methods
                     streamReader = new TransformationReader(context.Path.LocalPath);
-#pragma warning restore CA1062 // Validate arguments of public methods
                 }
                 else
                 {
@@ -186,9 +181,7 @@ namespace Abbotware.Interop.LumenWorks
                 var columnName = header;
                 var columnIdx = this.headersCache.FindIndex(m => m == header);
 
-#pragma warning disable CA1062 // Validate arguments of public methods
                 var cellValue = dataCells[columnIdx].Trim('|');
-#pragma warning restore CA1062 // Validate arguments of public methods
 
                 // get if white space
                 var isWhiteSpace = string.IsNullOrWhiteSpace(cellValue) || cellValue == "*";

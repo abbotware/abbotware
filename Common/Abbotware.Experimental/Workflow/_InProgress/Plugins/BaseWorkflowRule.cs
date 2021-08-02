@@ -7,6 +7,9 @@
 
 namespace Abbotware.Core.Workflow.ExtensionPoints
 {
+    /// <summary>
+    /// Workflow rule
+    /// </summary>
     public class BaseWorkflowRule : BaseWorkflowPart
     {
     }

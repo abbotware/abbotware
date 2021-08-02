@@ -93,9 +93,7 @@ namespace Abbotware.Core.Plugins
             var headerLine = string.Join(",", propertyNames);
             sb.AppendLine(headerLine);
 
-#pragma warning disable CA1062 // Validate arguments of public methods
             foreach (var row in data)
-#pragma warning restore CA1062 // Validate arguments of public methods
             {
                 var propertyValues = propertyInfos
                     .Where(p => p.GetIndexParameters().Length == 0)

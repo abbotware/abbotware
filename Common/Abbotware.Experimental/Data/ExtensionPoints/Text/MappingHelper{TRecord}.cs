@@ -89,9 +89,7 @@ namespace Abbotware.Core.Data.ExtensionPoints.Text
             // save  header -> propertyInfo  in dictionary
             var classProperties = typeof(TRecord).GetProperties();
 
-#pragma warning disable CA1062 // Validate arguments of public methods
             var fileHeaders = parser.FieldHeaders().Select(m => m.Trim('|').ToUpperInvariant());
-#pragma warning restore CA1062 // Validate arguments of public methods
 
             var extraProperties = new List<string>();
 

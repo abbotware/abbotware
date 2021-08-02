@@ -62,17 +62,13 @@ namespace Abbotware.Core.Cryptography
             Arguments.NotNull(rsa, nameof(rsa));
             Arguments.NotNull(text, nameof(text));
 
-            byte[] input = Encoding.UTF8.GetBytes(text);
+            var input = Encoding.UTF8.GetBytes(text);
 
-#pragma warning disable CA1062 // Validate arguments of public methods
-            List<byte> output = new List<byte>(text.Length * 3);
-#pragma warning restore CA1062 // Validate arguments of public methods
+            var output = new List<byte>(text.Length * 3);
 
             while (input.Length > 0)
             {
-#pragma warning disable CA1062 // Validate arguments of public methods
                 int length = Math.Min(input.Length, (rsa.KeySize / 8) - 1 - NoiseLength);
-#pragma warning restore CA1062 // Validate arguments of public methods
 
                 byte[] head = input.Take(length).ToArray();
                 byte[] cipher = RsaExtensions.EncryptUsingPrivateKey(rsa, Noise.Concat(head).ToArray());
@@ -98,9 +94,7 @@ namespace Abbotware.Core.Cryptography
             Arguments.NotNull(rsa, nameof(rsa));
             Arguments.NotNull(cipher, nameof(cipher));
 
-#pragma warning disable CA1062 // Validate arguments of public methods
-            List<byte> output = new List<byte>(cipher.Length * 2);
-#pragma warning restore CA1062 // Validate arguments of public methods
+            var output = new List<byte>(cipher.Length * 2);
 
             while (cipher.Length > 0)
             {

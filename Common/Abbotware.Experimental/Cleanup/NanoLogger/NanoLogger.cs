@@ -254,11 +254,14 @@ namespace Abbotware.Core.Diagnostics.Plugins
                             correlationTypeName = this.configuration.CorrelationType[row.CorrelationTypeId];
                         }
 
-                        var checkpointName = FormattableString.Invariant($"Unknown:{row.CheckpointId.Value}");
+                        var checkpointName = FormattableString.Invariant($"Unknown:{row.CheckpointId}");
 
-                        this.configuration.Checkpoint.ContainsKey(row.CheckpointId.Value);
+                        if (row.CheckpointId.HasValue)
                         {
-                            checkpointName = this.configuration.Checkpoint[row.CheckpointId.Value];
+                            this.configuration.Checkpoint.ContainsKey(row.CheckpointId.Value);
+                            {
+                                checkpointName = this.configuration.Checkpoint[row.CheckpointId.Value];
+                            }
                         }
 
                         sw.WriteLine(FormattableString.Invariant($"{correlationTypeName},{row.InstanceId},{row.Ticks},{row.ThreadId},{checkpointName},{row.IsEnd},{row.CheckpointDetailId},{row.CheckpointProgress},{msFromFirst}, {msFromPrev} "));

@@ -51,9 +51,7 @@ namespace Abbotware.Interop.CsvHelper
 
             var cfg = new ParserConfiguration();
 
-#pragma warning disable CA1062 // Validate arguments of public methods
             return ParseFle<TDataRow>(reader, cfg, logger);
-#pragma warning restore CA1062 // Validate arguments of public methods
         }
 
         /// <summary>
@@ -75,9 +73,7 @@ namespace Abbotware.Interop.CsvHelper
                 AllowFileToHaveExtraProperties = false,
             };
 
-#pragma warning disable CA1062 // Validate arguments of public methods
             return ParseFle<TDataRow>(reader, cfg, logger);
-#pragma warning restore CA1062 // Validate arguments of public methods
         }
 
         /// <summary>

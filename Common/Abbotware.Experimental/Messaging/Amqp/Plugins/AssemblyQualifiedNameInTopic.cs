@@ -24,9 +24,7 @@ namespace Abbotware.Core.Messaging.Amqp.Plugins
         {
             Arguments.NotNull(envelope, nameof(envelope));
 
-#pragma warning disable CA1062 // Validate arguments of public methods
             if (string.IsNullOrWhiteSpace(envelope.PublishProperties.RoutingKey))
-#pragma warning restore CA1062 // Validate arguments of public methods
             {
                 throw new AbbotwareException("Topic is empty, can't resolve type info");
             }
@@ -44,14 +42,12 @@ namespace Abbotware.Core.Messaging.Amqp.Plugins
         }
 
         /// <inheritdoc />
-        public void Encode(Type type, MessageEnvelope envelope)
+        public void Encode(Type value, MessageEnvelope storage)
         {
-            Arguments.NotNull(type, nameof(type));
-            Arguments.NotNull(envelope, nameof(envelope));
+            Arguments.NotNull(value, nameof(value));
+            Arguments.NotNull(storage, nameof(storage));
 
-#pragma warning disable CA1062 // Validate arguments of public methods
-            envelope.PublishProperties.RoutingKey = type.AssemblyQualifiedName;
-#pragma warning restore CA1062 // Validate arguments of public methods
+            storage.PublishProperties.RoutingKey = value.AssemblyQualifiedName;
         }
     }
 }

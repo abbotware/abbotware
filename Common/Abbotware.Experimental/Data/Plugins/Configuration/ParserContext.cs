@@ -15,8 +15,14 @@ namespace Abbotware.Core.Data.Plugins.Configuration
     public class ParserContext
     {
         /// <summary>
-        /// Gets or sets the file path
+        /// Initializes a new instance of the <see cref="ParserContext"/> class.
         /// </summary>
-        public Uri Path { get; set; }
+        /// <param name="uri">file path uri</param>
+        public ParserContext(Uri uri) => this.Path = uri;
+
+        /// <summary>
+        /// Gets the file path uri
+        /// </summary>
+        public Uri Path { get; }
     }
 }

@@ -75,7 +75,7 @@ namespace Abbotware.Core.Data.ExtensionPoints.Text
         /// <summary>
         ///     list of parsed records
         /// </summary>
-        private readonly List<TRecord> records = new List<TRecord>();
+        private readonly List<TRecord> records = new ();
 
         /// <summary>
         ///     internal converter object for short
@@ -120,9 +120,7 @@ namespace Abbotware.Core.Data.ExtensionPoints.Text
             this.dateTimeConverter = TypeDescriptor.GetConverter(typeof(DateTime));
             this.guidConverter = TypeDescriptor.GetConverter(typeof(Guid));
 
-#pragma warning disable CA1062 // Validate arguments of public methods
             this.customConvertors = configuration.CustomPropertyConvertors;
-#pragma warning restore CA1062 // Validate arguments of public methods
 
             this.Mapper = new MappingHelper<TRecord>(configuration.AllowFileToHaveExtraProperties, configuration.AllowClassToHaveExtraProperties);
         }
@@ -162,7 +160,6 @@ namespace Abbotware.Core.Data.ExtensionPoints.Text
         /// </summary>
         /// <param name="context">retrival context</param>
         /// <returns>retrieval result</returns>
-        [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "reviewed")]
         protected abstract IRetrievalResult<IEnumerable<TRecord>, IRetrievalMetadata, TRetrievalContext> OnRetrieve(TRetrievalContext context);
 
         /// <summary>

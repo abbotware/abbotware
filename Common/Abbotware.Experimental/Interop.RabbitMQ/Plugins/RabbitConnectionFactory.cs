@@ -22,7 +22,7 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
         /// <summary>
         ///     RabbitMQ ConnectionFactory to create the initial connection
         /// </summary>
-        private readonly ConnectionFactory factory = new ConnectionFactory();
+        private readonly ConnectionFactory factory = new ();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RabbitConnectionFactory"/> class.
@@ -47,19 +47,15 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
         {
             Arguments.NotNull(configuration, nameof(configuration));
 
-#pragma warning disable CA1062 // Validate arguments of public methods
             return this.OnCreate(configuration);
-#pragma warning restore CA1062 // Validate arguments of public methods
         }
 
         /// <inheritdoc/>
-        public void Destroy(IRabbitConnection connection)
+        public void Destroy(IRabbitConnection resource)
         {
-            Arguments.NotNull(connection, nameof(connection));
+            Arguments.NotNull(resource, nameof(resource));
 
-#pragma warning disable CA1062 // Validate arguments of public methods
-            connection.Dispose();
-#pragma warning restore CA1062 // Validate arguments of public methods
+            resource.Dispose();
         }
 
         /// <inheritdoc />

@@ -41,9 +41,7 @@ namespace Abbotware.Core.Helpers
         {
             Arguments.NotNull(fileUri, nameof(fileUri));
 
-#pragma warning disable CA1062 // Validate arguments of public methods
             return XElement.Load(fileUri.AbsoluteUri);
-#pragma warning restore CA1062 // Validate arguments of public methods
         }
 
         /// <summary>

@@ -38,9 +38,7 @@ namespace Abbotware.Interop.LumenWorks
             {
                 if (!delemeter)
                 {
-#pragma warning disable CA1062 // Validate arguments of public methods
                     if (buffer[i] == '|')
-#pragma warning restore CA1062 // Validate arguments of public methods
                     {
                         delemeter = true;
                     }

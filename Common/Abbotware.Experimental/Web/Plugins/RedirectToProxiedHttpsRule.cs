@@ -20,9 +20,7 @@ namespace Abbotware.Core.Web.Plugins
         {
             Arguments.NotNull(context, nameof(context));
 
-#pragma warning disable CA1062 // Validate arguments of public methods
             var request = context.HttpContext.Request;
-#pragma warning restore CA1062 // Validate arguments of public methods
 
             // #1) Did this request start off as HTTP?
             string reqProtocol;

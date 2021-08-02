@@ -95,9 +95,7 @@ namespace Abbotware.Core.Security
                     {
                         byte val = 0xff;
 
-#pragma warning disable CA1062 // Validate arguments of public methods
                         foreach (var b in data)
-#pragma warning restore CA1062 // Validate arguments of public methods
                         {
                             val = (byte)(val ^ b);
                         }
@@ -144,16 +142,12 @@ namespace Abbotware.Core.Security
                     {
                         byte val = 0;
 
-#pragma warning disable CA1062 // Validate arguments of public methods
                         foreach (var b in key)
-#pragma warning restore CA1062 // Validate arguments of public methods
                         {
                             val = (byte)(val ^ b);
                         }
 
-#pragma warning disable CA1062 // Validate arguments of public methods
                         foreach (var b in data)
-#pragma warning restore CA1062 // Validate arguments of public methods
                         {
                             val = (byte)(val ^ b);
                         }

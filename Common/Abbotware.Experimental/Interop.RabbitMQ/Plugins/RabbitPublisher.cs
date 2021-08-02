@@ -37,37 +37,37 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
         /// <summary>
         ///     counter of last confirmed sequence number
         /// </summary>
-        private readonly AtomicCounter lastConfirmedSequenceNumber = new AtomicCounter();
+        private readonly AtomicCounter lastConfirmedSequenceNumber = new ();
 
         /// <summary>
         ///     counter for the next confirmation sequence number
         /// </summary>
-        private readonly AtomicCounter nextConfirmationSequenceNumber = new AtomicCounter();
+        private readonly AtomicCounter nextConfirmationSequenceNumber = new ();
 
         /// <summary>
         ///     collection of outstanding publishes
         /// </summary>
-        private readonly ConcurrentDictionary<ulong, TaskCompletionSource<PublishStatus>> outstandingConfirmations = new ConcurrentDictionary<ulong, TaskCompletionSource<PublishStatus>>();
+        private readonly ConcurrentDictionary<ulong, TaskCompletionSource<PublishStatus>> outstandingConfirmations = new ();
 
         /// <summary>
         ///     Counter for messages published
         /// </summary>
-        private readonly AtomicCounter published = new AtomicCounter();
+        private readonly AtomicCounter published = new ();
 
         /// <summary>
         ///     Counter for returned messages
         /// </summary>
-        private readonly AtomicCounter returnedMessages = new AtomicCounter();
+        private readonly AtomicCounter returnedMessages = new ();
 
         /// <summary>
         ///     Counter for messages returned because no matching consumer
         /// </summary>
-        private readonly AtomicCounter returnedNoConsummers = new AtomicCounter();
+        private readonly AtomicCounter returnedNoConsummers = new ();
 
         /// <summary>
         ///     Counter for messages returned because no matching route
         /// </summary>
-        private readonly AtomicCounter returnedNoRoute = new AtomicCounter();
+        private readonly AtomicCounter returnedNoRoute = new ();
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="RabbitPublisher" /> class.
@@ -123,9 +123,7 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
 
             var envelope = new MessageEnvelope();
 
-#pragma warning disable CA1062 // Validate arguments of public methods
             envelope.PublishProperties.Exchange = properties.Exchange;
-#pragma warning restore CA1062 // Validate arguments of public methods
             envelope.PublishProperties.RoutingKey = properties.RoutingKey;
             envelope.PublishProperties.Mandatory = properties.Mandatory;
             envelope.PublishProperties.Persistent = properties.Persistent;
@@ -135,7 +133,6 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
         }
 
         /// <inheritdoc />
-        [SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope", Justification = "reviewed")]
         public Task<PublishStatus> Publish(IMessageEnvelope envelope)
         {
             Arguments.NotNull(envelope, nameof(envelope));
@@ -166,7 +163,7 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
 
                 properties.MessageId = sequenceNumber.ToString(CultureInfo.InvariantCulture);
 
-                TaskCompletionSource<PublishStatus> tcs = new TaskCompletionSource<PublishStatus>();
+                var tcs = new TaskCompletionSource<PublishStatus>();
 
                 if (this.Configuration.Mode == ChannelMode.ConfirmationMode)
                 {

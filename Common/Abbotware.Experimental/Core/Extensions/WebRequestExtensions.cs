@@ -24,15 +24,12 @@ namespace Abbotware.Core.Extensions
         /// </summary>
         /// <param name="request">http web request object</param>
         /// <returns>contents of response</returns>
-        [SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times", Justification = "Seems like a false positive")]
         [Obsolete("use async variant")]
         public static string ReadToEnd(this WebRequest request)
         {
             Arguments.NotNull(request, nameof(request));
 
-#pragma warning disable CA1062 // Validate arguments of public methods
             using var response = request.GetResponse();
-#pragma warning restore CA1062 // Validate arguments of public methods
 
             using var responseStream = response.GetResponseStream();
             using var bufferedStream = new BufferedStream(responseStream, 1024 * 16);
@@ -47,7 +44,6 @@ namespace Abbotware.Core.Extensions
         /// <param name="request">http web request object</param>
         /// <param name="ct">cancellation token</param>
         /// <returns>contents of response</returns>
-        [SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times", Justification = "Seems like a false positive")]
         public static async Task<string> ReadToEndAsync(this WebRequest request, CancellationToken ct)
         {
             Arguments.NotNull(request, nameof(request));
@@ -74,10 +70,9 @@ namespace Abbotware.Core.Extensions
             {
                 try
                 {
-#pragma warning disable CA1062 // Validate arguments of public methods
                     var response = await request.GetResponseAsync()
                         .ConfigureAwait(false);
-#pragma warning restore CA1062 // Validate arguments of public methods
+
                     return response;
                 }
                 catch (WebException ex)

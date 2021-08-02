@@ -36,9 +36,7 @@ namespace Abbotware.Core.Threading
 
             this.eventHandle = eventHandle;
 
-#pragma warning disable CA1062 // Validate arguments of public methods
             var result = this.eventHandle.Reset();
-#pragma warning restore CA1062 // Validate arguments of public methods
 
             if (!result)
             {

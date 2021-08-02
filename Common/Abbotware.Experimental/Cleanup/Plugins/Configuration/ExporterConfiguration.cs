@@ -45,9 +45,7 @@ namespace Abbotware.Core.Plugins.Configuration
             Arguments.NotNull(basePath, nameof(basePath));
 
             var folder = timestamp.ToString("yyyy-MM-dd-HH-mm-ss", CultureInfo.InvariantCulture);
-#pragma warning disable CA1062 // Validate arguments of public methods
             var folderPath = Path.Combine(basePath.LocalPath, folder);
-#pragma warning restore CA1062 // Validate arguments of public methods
             return new Uri(folderPath);
         }
     }

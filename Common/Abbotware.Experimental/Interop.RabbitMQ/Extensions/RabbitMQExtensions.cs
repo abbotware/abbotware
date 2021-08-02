@@ -30,9 +30,7 @@ namespace Abbotware.Interop.RabbitMQ.Extensions
 
             var sb = new StringBuilder();
 
-#pragma warning disable CA1062 // Validate arguments of public methods
             if (extendedObject.IsAppIdPresent())
-#pragma warning restore CA1062 // Validate arguments of public methods
             {
                 sb.AppendFormat(CultureInfo.InvariantCulture, "AppID:{0} ", extendedObject.AppId);
             }
