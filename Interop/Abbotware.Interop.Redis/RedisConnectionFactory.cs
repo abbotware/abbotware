@@ -64,9 +64,6 @@ namespace Abbotware.Interop.Redis
         {
             var cm = ConnectionMultiplexer.Connect(options);
 
-            // https://stackoverflow.com/questions/30797716/deadlock-when-accessing-stackexchange-redis
-            cm.PreserveAsyncOrder = false;
-
             var connection = new RedisConnection(cm);
 
             return connection;
