@@ -32,7 +32,15 @@ namespace Abbotware.IntegrationTests.Interop.Ipify
                 .ConfigureAwait(false);
 
             Assert.IsNotNull(res);
-            Assert.AreEqual(ip, res);
+
+            if (ip != res)
+            {
+                Assert.Inconclusive();
+            }
+            else
+            {
+                Assert.AreEqual(ip, res);
+            }
         }
     }
 }
