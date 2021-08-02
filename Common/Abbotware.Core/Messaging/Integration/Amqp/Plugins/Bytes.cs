@@ -10,6 +10,7 @@ namespace Abbotware.Core.Messaging.Integration.Amqp.Plugins
     using Abbotware.Core.Messaging.Integration.Amqp;
     using Abbotware.Core.Messaging.Integration.Configuration;
     using Abbotware.Core.Messaging.Integration.Configuration.Models;
+    using Abbotware.Core.Plugins.Serialization;
 
     /// <summary>
     ///     Binary protocol that performs no data alterations
@@ -20,7 +21,7 @@ namespace Abbotware.Core.Messaging.Integration.Amqp.Plugins
         /// Initializes a new instance of the <see cref="Bytes"/> class.
         /// </summary>
         public Bytes()
-            : base(null)
+            : base(new NoEncoder())
         {
         }
 

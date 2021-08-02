@@ -12,7 +12,7 @@ namespace Abbotware.UnitTests.Core
         [Test]
         public void MacAddress()
         {
-            if (!string.Equals(Dns.GetHostName(), "Abbotware", StringComparison.InvariantCultureIgnoreCase))
+            if (!string.Equals(Dns.GetHostName(), "Abbotware", StringComparison.OrdinalIgnoreCase))
             {
                 Assert.Inconclusive();
                 return;

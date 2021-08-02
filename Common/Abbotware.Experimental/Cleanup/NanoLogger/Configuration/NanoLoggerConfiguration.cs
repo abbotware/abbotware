@@ -20,24 +20,23 @@ namespace Abbotware.Core.Diagnostics.Plugins.Configuration
         /// <summary>
         ///     internal dictionary for checkpoint names
         /// </summary>
-        private readonly Dictionary<ushort, string> checkpointNames;
+        private readonly Dictionary<ushort, string> checkpointNames = new Dictionary<ushort, string>();
 
         /// <summary>
         ///     internal dictionary for correlation counts to preallocate buffers
         /// </summary>
-        private readonly Dictionary<byte, int> correlationTypeLogCounts;
+        private readonly Dictionary<byte, int> correlationTypeLogCounts = new Dictionary<byte, int>();
 
         /// <summary>
         ///     internal dictionary for correlation type names
         /// </summary>
-        private readonly Dictionary<byte, string> correlationTypeNames;
+        private readonly Dictionary<byte, string> correlationTypeNames = new Dictionary<byte, string>();
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="NanoLoggerConfiguration" /> class.
         /// </summary>
         public NanoLoggerConfiguration()
         {
-            this.correlationTypeLogCounts = new Dictionary<byte, int>();
         }
 
         /// <summary>

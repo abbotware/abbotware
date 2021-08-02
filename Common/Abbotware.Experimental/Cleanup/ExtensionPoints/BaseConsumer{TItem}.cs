@@ -95,16 +95,15 @@ namespace Abbotware.Core.ExtensionPoints
 
             this.InitializeIfRequired();
 
-#pragma warning disable CA1062 // Validate arguments of public methods
             foreach (var item in items)
-#pragma warning restore CA1062 // Validate arguments of public methods
             {
-                if (item != null)
+                if (item == null)
                 {
-                    this.OnPreEnqueue(item);
+                    continue;
                 }
 
-                this.workQueue.Enqueue(item); // We must pulse because we're
+                this.OnPreEnqueue(item);
+                this.workQueue.Enqueue(item);
             }
         }
 

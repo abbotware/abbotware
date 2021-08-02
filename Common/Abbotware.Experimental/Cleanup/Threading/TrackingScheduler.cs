@@ -17,16 +17,19 @@ namespace Abbotware.Core.Threading
             return this.GetScheduledTasks();
         }
 
+        /// <inheritdoc/>
         protected override void QueueTask(Task task)
         {
             this.QueueTask(task);
         }
 
+        /// <inheritdoc/>
         protected override bool TryExecuteTaskInline(Task task, bool taskWasPreviouslyQueued)
         {
             return this.TryExecuteTaskInline(task, taskWasPreviouslyQueued);
         }
 
+        /// <inheritdoc/>
         protected override bool TryDequeue(Task task)
         {
             return base.TryDequeue(task);

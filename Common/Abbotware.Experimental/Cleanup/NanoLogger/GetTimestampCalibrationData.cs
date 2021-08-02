@@ -22,7 +22,7 @@ namespace Abbotware.Core.Diagnostics.Plugins
         /// <summary>
         /// Gets or sets the delta between GetTimestamp calls
         /// </summary>
-        public IReadOnlyDictionary<long, int> DeltaHistogram { get; set; }
+        public IReadOnlyDictionary<long, int> DeltaHistogram { get; set; } = new Dictionary<long, int>();
 
         /// <summary>
         /// Gets or sets the Min delta

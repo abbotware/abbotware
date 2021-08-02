@@ -11,12 +11,12 @@ namespace Abbotware.Core.Workflow
 
     public abstract class ConfigurationException : WorkflowException
     {
-        public ConfigurationException(string message, Exception inner)
+        protected ConfigurationException(string message, Exception inner)
             : base(message, inner)
         {
         }
 
-        public ConfigurationException(string message)
+        protected ConfigurationException(string message)
             : this(message, null)
         {
         }

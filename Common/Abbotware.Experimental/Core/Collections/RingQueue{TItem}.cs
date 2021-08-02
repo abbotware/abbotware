@@ -260,7 +260,6 @@ namespace Abbotware.Core.Collections
         /// </summary>
         /// <param name="element">A large-sized value-type passed by reference that's expensive to pass directly by value</param>
         /// <returns>If enqueueing succeeds, the call returns true, otherwise false</returns>
-        [SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "reviewed")]
         public bool Enqueue(ref TItem element)
         {
             const long TEN_SECOND_TIMEOUT = 10 * TimeSpan.TicksPerSecond; // 10-second default expiration timer
@@ -278,7 +277,6 @@ namespace Abbotware.Core.Collections
         ///     If no timeout value is supplied, a default of 10-seconds will be used
         /// </param>
         /// <returns>If enqueueing succeeds, the call returns true, otherwise false</returns>
-        [SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "reviewed")]
         public bool Enqueue(ref TItem element, TimeSpan timeout)
         {
             Arguments.NotNull(element, nameof(element));
@@ -302,7 +300,6 @@ namespace Abbotware.Core.Collections
         /// </param>
         /// <returns>If enqueueing succeeds, the call returns true, otherwise false</returns>
         [SuppressMessage("Microsoft.Usage", "CA2219:DoNotRaiseExceptionsInExceptionClauses", Justification = "reviewed")]
-        [SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "reviewed")]
         public virtual bool Enqueue(ref TItem element, HighResolutionTimeSpan timer)
         {
             Arguments.NotNull(element, nameof(element));
@@ -406,7 +403,6 @@ namespace Abbotware.Core.Collections
         ///     item, otherwise the method returns a boolean false
         /// </returns>
         [SuppressMessage("Microsoft.Usage", "CA2219:DoNotRaiseExceptionsInExceptionClauses", Justification = "reviewed")]
-        [SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "0#", Justification = "reviewed")]
         public virtual bool Dequeue(out TItem item)
         {
             item = default;

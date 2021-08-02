@@ -20,7 +20,7 @@ namespace Abbotware.Core.Messaging.ExtensionPoints
     /// <summary>
     ///     base class for encoding messages with type information
     /// </summary>
-    public abstract class BaseMessageProtocol : IMessageProtocol
+    public abstract class BaseMessageProtocol : IMessageProtocol, IObjectDeserialization<IMessageEnvelope>
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="BaseMessageProtocol" /> class.
@@ -67,17 +67,21 @@ namespace Abbotware.Core.Messaging.ExtensionPoints
         protected ICSharpTypeEncoder TypeEncoder { get; }
 
         /// <inheritdoc />
-        public virtual IMessageEnvelope Encode<TMessage>(TMessage message)
+        public virtual IMessageEnvelope Encode<TMessage>(TMessage value)
         {
-            return this.Encode<TMessage>(message, default(IPublishProperties));
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
+#pragma warning disable RS0038 // Prefer null literal
+            return this.Encode<TMessage>(value, default(IPublishProperties));
+#pragma warning restore RS0038 // Prefer null literal
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
         }
 
         /// <inheritdoc />
-        public virtual IMessageEnvelope Encode<TMessage>(TMessage message, string desintation)
+        public virtual IMessageEnvelope Encode<TMessage>(TMessage message, string destination)
         {
             var p = new PublishProperties
             {
-                Exchange = desintation,
+                Exchange = destination,
             };
 
             return this.Encode<TMessage>(message, p);
@@ -101,18 +105,18 @@ namespace Abbotware.Core.Messaging.ExtensionPoints
         }
 
         /// <inheritdoc />
-        public virtual TMessage Decode<TMessage>(IMessageEnvelope envelope)
+        public virtual TMessage Decode<TMessage>(IMessageEnvelope storage)
         {
-            envelope = Arguments.EnsureNotNull(envelope, nameof(envelope));
+            storage = Arguments.EnsureNotNull(storage, nameof(storage));
 
-            var type = this.TypeEncoder.Decode(envelope);
+            var type = this.TypeEncoder.Decode(storage);
 
             if (type != null && type != typeof(TMessage))
             {
                 throw AbbotwareException.Create("Message type Mismatch! Message Contains:{0}  Caller Expects:{1}  maybe you should call the non generic decode, or use a MessageGetter / Cosumer that supports callback's per message type", type.AssemblyQualifiedName, typeof(TMessage).AssemblyQualifiedName);
             }
 
-            return this.BinaryEncoder.Decode<TMessage>(envelope.Body.ToArray());
+            return this.BinaryEncoder.Decode<TMessage>(storage.Body.ToArray());
         }
 
         /// <inheritdoc />
