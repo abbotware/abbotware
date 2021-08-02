@@ -13,7 +13,7 @@ namespace Abbotware.Core.Messaging.Configuration.Models
     public class ConsumerConfiguration : IConsumerConfiguration
     {
         /// <inheritdoc/>
-        public string Queue { get; set; }
+        public string Queue { get; set; } = string.Empty;
 
         /// <inheritdoc/>
         public bool RequiresAcks { get; set; }

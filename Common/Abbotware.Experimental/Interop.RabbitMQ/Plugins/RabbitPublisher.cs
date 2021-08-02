@@ -223,6 +223,8 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
         /// <inheritdoc />
         protected override void OnBasicReturn(object sender, BasicReturnEventArgs eventArgs)
         {
+            eventArgs = Arguments.EnsureNotNull(eventArgs, nameof(eventArgs));
+
             this.Logger.Warn($"OnBasicReturn Exchange:{eventArgs?.Exchange} RoutingKey:{eventArgs?.RoutingKey}, ReplyCode:{eventArgs?.ReplyCode} ReplyText:{eventArgs?.ReplyText} BasicProps:[{eventArgs?.BasicProperties?.ToFormatString()}]");
 
             switch (eventArgs.ReplyCode)

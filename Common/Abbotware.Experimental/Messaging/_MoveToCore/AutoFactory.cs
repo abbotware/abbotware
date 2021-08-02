@@ -24,7 +24,7 @@ namespace Abbotware.Core
         /// <summary>
         ///     internal reference used to detect if the value was ever returned;
         /// </summary>
-        private TDisposable returned;
+        private TDisposable? returned;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="AutoFactory{TDisposable}" /> class.

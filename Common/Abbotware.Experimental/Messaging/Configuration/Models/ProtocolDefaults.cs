@@ -13,6 +13,6 @@ namespace Abbotware.Core.Messaging.Configuration.Models
     public class ProtocolDefaults : IProtocolDefaults
     {
         /// <inheritdoc/>
-        public string DefaultExchange { get; set; }
+        public string DefaultExchange { get; set; } = string.Empty;
     }
 }

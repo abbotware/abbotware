@@ -22,7 +22,7 @@ namespace Abbotware.Core.Collections
         /// <summary>
         ///     internal list of children
         /// </summary>
-        private readonly List<TreeCollection<T>> children = new List<TreeCollection<T>>();
+        private readonly List<TreeCollection<T>> children = new ();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TreeCollection{T}"/> class.
@@ -43,12 +43,11 @@ namespace Abbotware.Core.Collections
         /// <summary>
         ///     Gets or sets the of the tree
         /// </summary>
-        public TreeCollection<T> Parent { get; set; }
+        public TreeCollection<T>? Parent { get; set; }
 
         /// <summary>
         ///     Gets the children of the tree
         /// </summary>
-        [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "reviewed")]
         public ICollection<TreeCollection<T>> Children => this.children;
 
         /// <summary>
@@ -64,7 +63,7 @@ namespace Abbotware.Core.Collections
         /// <summary>
         ///     Gets the level of the tree node
         /// </summary>
-        public int Level => this.IsRoot ? 0 : this.Parent.Level + 1;
+        public int Level => this.IsRoot ? 0 : this.Parent!.Level + 1;
 
         /// <summary>
         /// Gets the List of all tree nodes

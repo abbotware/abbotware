@@ -38,7 +38,6 @@ namespace Abbotware.Core.Web.Plugins
         /// Initializes a new instance of the <see cref="BreadcrumbManager"/> class.
         /// </summary>
         /// <param name="serviceProvider">injected service provider</param>
-        [SuppressMessage("Microsoft.Design", "CA1065:DoNotRaiseExceptionsInUnexpectedLocations", Justification = "Fail Early")]
         public BreadcrumbManager(IServiceProvider serviceProvider)
         {
             this.serviceProvider = serviceProvider;

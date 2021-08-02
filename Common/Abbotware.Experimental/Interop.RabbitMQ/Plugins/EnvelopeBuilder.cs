@@ -30,7 +30,7 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
         /// <returns>message envelope</returns>
         public static MessageEnvelope Create(BasicGetResult result)
         {
-            Arguments.NotNull(result, nameof(result));
+            result = Arguments.EnsureNotNull(result, nameof(result));
 
             var e = Create(result.DeliveryTag.ToString(CultureInfo.InvariantCulture), result.Redelivered, result.Exchange, result.RoutingKey, result.Body);
 
@@ -54,7 +54,7 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
         /// <returns>message envelope</returns>
         public static MessageEnvelope Create(string deliveryTag, bool redelivered, string exchange, string routingKey, IBasicProperties properties, ReadOnlyMemory<byte> body, string consumerTag)
         {
-            Arguments.NotNull(properties, nameof(properties));
+            properties = Arguments.EnsureNotNull(properties, nameof(properties));
 
             var e = Create(deliveryTag, redelivered, exchange, routingKey, body);
 
@@ -72,8 +72,8 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
         /// <param name="source">source message envelope</param>
         public static void UpdateBasicProperties(IBasicProperties target, IMessageEnvelope source)
         {
-            Arguments.NotNull(target, nameof(target));
-            Arguments.NotNull(source, nameof(source));
+            target = Arguments.EnsureNotNull(target, nameof(target));
+            source = Arguments.EnsureNotNull(source, nameof(source));
 
             if (source.PublishProperties.Persistent.HasValue)
             {

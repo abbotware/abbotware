@@ -45,9 +45,9 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
         }
 
         /// <inheritdoc />
-        public bool ExchangeExists(string exchangeName)
+        public bool ExchangeExists(string exchange)
         {
-            return this.exchangeManager.ExchangeExists(exchangeName);
+            return this.exchangeManager.ExchangeExists(exchange);
         }
 
         /// <inheritdoc />
@@ -63,9 +63,9 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
         }
 
         /// <inheritdoc />
-        public void Delete(string exchangeName, bool ifUnused)
+        public void Delete(string exchange, bool ifUnused)
         {
-            this.exchangeManager.Delete(exchangeName, ifUnused);
+            this.exchangeManager.Delete(exchange, ifUnused);
         }
 
         /// <inheritdoc />

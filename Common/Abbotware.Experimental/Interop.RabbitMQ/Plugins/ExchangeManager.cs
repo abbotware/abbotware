@@ -39,6 +39,8 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
         /// <inheritdoc />
         public bool ExchangeExists(string exchangeName)
         {
+            exchangeName = Arguments.EnsureNotNullOrWhitespace(exchangeName, nameof(exchangeName));
+
             this.InitializeIfRequired();
 
             lock (this.Mutex)
@@ -65,7 +67,7 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
         [SuppressMessage("Microsoft.Globalization", "CA1308:NormalizeStringsToUppercase", Justification = "Matching RabbitMQ Docs")]
         public void Create(ExchangeConfiguration exchangeConfiguration)
         {
-            Arguments.NotNull(exchangeConfiguration, nameof(exchangeConfiguration));
+            exchangeConfiguration = Arguments.EnsureNotNull(exchangeConfiguration, nameof(exchangeConfiguration));
 
             this.InitializeIfRequired();
 
@@ -82,7 +84,7 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
         /// <inheritdoc />
         public void Bind(ExchangeBindingConfiguration exchangeBindingConfiguration)
         {
-            Arguments.NotNull(exchangeBindingConfiguration, nameof(exchangeBindingConfiguration));
+            exchangeBindingConfiguration = Arguments.EnsureNotNull(exchangeBindingConfiguration, nameof(exchangeBindingConfiguration));
 
             this.InitializeIfRequired();
 
@@ -106,6 +108,8 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
         /// <inheritdoc />
         public void Delete(string exchangeName, bool ifUnused)
         {
+            exchangeName = Arguments.EnsureNotNullOrWhitespace(exchangeName, nameof(exchangeName));
+
             this.InitializeIfRequired();
 
             lock (this.Mutex)

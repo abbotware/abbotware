@@ -77,7 +77,7 @@ namespace Abbotware.Interop.LumenWorks
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Reviewed")]
         protected override IRetrievalResult<IEnumerable<TRecord>, IRetrievalMetadata, ParserContext> OnRetrieve(ParserContext context)
         {
-            Arguments.NotNull(context, nameof(context));
+            context = Arguments.EnsureNotNull(context, nameof(context));
 
             var metadata = new RetrievalMetadata
             {
@@ -118,7 +118,7 @@ namespace Abbotware.Interop.LumenWorks
         {
             Arguments.NotNull(context, nameof(context));
 
-            StreamReader streamReader = null;
+            StreamReader? streamReader = null;
 
             try
             {

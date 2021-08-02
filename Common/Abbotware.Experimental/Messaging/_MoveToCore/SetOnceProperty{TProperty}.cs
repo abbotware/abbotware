@@ -20,7 +20,7 @@ namespace Abbotware.Core
         /// <summary>
         ///     mutex for synchronizing the set method
         /// </summary>
-        private readonly object setMutex = new object();
+        private readonly object setMutex = new ();
 
         /// <summary>
         ///     name of the property
@@ -30,12 +30,12 @@ namespace Abbotware.Core
         /// <summary>
         ///     callback after property is set
         /// </summary>
-        private readonly Action<TProperty> setAction;
+        private readonly Action<TProperty>? setAction;
 
         /// <summary>
         ///     holds the actual value of this property
         /// </summary>
-        private TProperty propertyValue;
+        private TProperty? propertyValue;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SetOnceProperty{TProperty}"/> class.
@@ -54,7 +54,7 @@ namespace Abbotware.Core
         /// </summary>
         /// <param name="name">name of the property</param>
         /// <param name="setAction">action invoked after the set</param>
-        public SetOnceProperty(string name, Action<TProperty> setAction)
+        public SetOnceProperty(string name, Action<TProperty>? setAction)
         {
             Arguments.NotNullOrWhitespace(name, nameof(name));
 
@@ -85,7 +85,7 @@ namespace Abbotware.Core
         /// <summary>
         ///     Gets or sets the Value of the property
         /// </summary>
-        public TProperty Value
+        public TProperty? Value
         {
             get
             {

@@ -13,7 +13,6 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
     using Abbotware.Core.Logging;
     using Abbotware.Core.Messaging.Configuration;
     using Abbotware.Core.Messaging.Integration;
-    using Abbotware.Core.Messaging.Integration.Configuration;
     using Abbotware.Core.Objects;
     using Abbotware.Interop.RabbitMQ.ExtensionPoints.Services;
     using global::RabbitMQ.Client;
@@ -22,13 +21,11 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
     /// <summary>
     ///     Base class for consuming messages from a RabbitMQ Channel
     /// </summary>
-    public class RabbitConsumer : BaseComponent, Core.Messaging.Integration.IBasicConsumer, global::RabbitMQ.Client.IBasicConsumer
+    public class RabbitConsumer : BaseComponent<IConsumerConfiguration>, Core.Messaging.Integration.IBasicConsumer, global::RabbitMQ.Client.IBasicConsumer
     {
         private readonly IAmqpConsumerManager<global::RabbitMQ.Client.IBasicConsumer> consumerManager;
 
-        private readonly IConsumerConfiguration configuration;
-
-        private string consumerTag;
+        private string? consumerTag;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="RabbitConsumer" /> class.
@@ -37,14 +34,13 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
         /// <param name="configuration">configuratiom</param>
         /// <param name="logger">injected logger</param>
         protected RabbitConsumer(IAmqpConsumerManager<global::RabbitMQ.Client.IBasicConsumer> consumerManager, IConsumerConfiguration configuration, ILogger logger)
-            : base(logger)
+            : base(configuration, logger)
         {
             Arguments.NotNull(consumerManager, nameof(consumerManager));
             Arguments.NotNull(configuration, nameof(configuration));
             Arguments.NotNull(logger, nameof(logger));
 
             this.Status = ConsumerStatus.Unknown;
-            this.configuration = configuration;
             this.consumerManager = consumerManager;
         }
 
@@ -129,7 +125,7 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
         {
             base.OnInitialize();
 
-            this.consumerTag = this.consumerManager.Start(this.configuration.Queue, this.configuration.RequiresAcks, this);
+            this.consumerTag = this.consumerManager.Start(this.Configuration.Queue, this.Configuration.RequiresAcks, this);
         }
 
         /// <inheritdoc />

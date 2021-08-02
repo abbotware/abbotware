@@ -55,7 +55,7 @@ namespace Abbotware.Core.Messaging.Plugins
         protected sealed override void OnDelivery(object sender, DeliveryEventArgs args)
         {
             args = Arguments.EnsureNotNull(args, nameof(args));
-            var envelope = args.Envelope;
+            var envelope = Arguments.EnsureNotNull(args.Envelope, nameof(args.Envelope));
 
             try
             {
@@ -67,7 +67,7 @@ namespace Abbotware.Core.Messaging.Plugins
             }
             catch (Exception ex)
             {
-                this.Logger.Error(ex, "Message:{0} redelivered:{1}", envelope.DeliveryProperties.DeliveryTag, envelope.DeliveryProperties.Redelivered);
+                this.Logger.Error(ex, "Message:{0} redelivered:{1}", envelope.DeliveryProperties?.DeliveryTag, envelope.DeliveryProperties?.Redelivered);
 
                 if (envelope.DeliveryProperties.Redelivered.HasValue)
                 {

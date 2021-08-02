@@ -71,6 +71,8 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
         /// <returns>redis connection</returns>
         private RabbitConnection OnCreate(IRabbitConnectionConfiguration options)
         {
+            options = Arguments.EnsureNotNull(options, nameof(options));
+
             ////this.factory.SocketFactory = (x) =>
             ////{
             ////    using var socket = new AutoFactory<Socket>(() => new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp));

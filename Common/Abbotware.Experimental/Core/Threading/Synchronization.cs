@@ -7,7 +7,6 @@
 
 namespace Abbotware.Core.Threading
 {
-    using System;
     using System.Threading;
 
     /// <summary>
@@ -23,8 +22,8 @@ namespace Abbotware.Core.Threading
         /// <returns>true if the event fired, false if it was canceled </returns>
         public static bool WaitAndShouldContinue(ManualResetEventSlim waitFor, ManualResetEventSlim cancelNotification)
         {
-            Arguments.NotNull(waitFor, nameof(waitFor));
-            Arguments.NotNull(cancelNotification, nameof(cancelNotification));
+            waitFor = Arguments.EnsureNotNull(waitFor, nameof(waitFor));
+            cancelNotification = Arguments.EnsureNotNull(cancelNotification, nameof(cancelNotification));
 
             return WaitAndShouldContinue(waitFor.WaitHandle, cancelNotification.WaitHandle);
         }
@@ -37,8 +36,8 @@ namespace Abbotware.Core.Threading
         /// <returns>true if the event fired, false if it was canceled </returns>
         public static bool WaitAndShouldContinue(WaitHandle waitFor, WaitHandle cancelNotification)
         {
-            Arguments.NotNull(waitFor, nameof(waitFor));
-            Arguments.NotNull(cancelNotification, nameof(cancelNotification));
+            waitFor = Arguments.EnsureNotNull(waitFor, nameof(waitFor));
+            cancelNotification = Arguments.EnsureNotNull(cancelNotification, nameof(cancelNotification));
 
             var handles = new[]
             {

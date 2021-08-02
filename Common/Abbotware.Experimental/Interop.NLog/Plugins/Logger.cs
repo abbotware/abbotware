@@ -18,7 +18,7 @@ namespace Abbotware.Interop.NLog.Plugins
         /// Gets or sets the logger factory for creating child loggers
         /// </summary>
         /// <remarks>set to internal as a workaround for NLog.LogManager.GetLogger requiring parameterless constructors</remarks>
-        internal LoggerFactory LoggerFactory { get; set; }
+        internal LoggerFactory? LoggerFactory { get; set; }
 
         /// <inheritdoc/>
         public IDisposable BeginScope(string context)

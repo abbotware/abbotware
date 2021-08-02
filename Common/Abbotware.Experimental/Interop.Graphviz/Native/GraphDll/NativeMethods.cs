@@ -43,6 +43,7 @@ namespace Abbotware.Interop.Graphviz.GraphDll
         /// <param name="nodeSize">size of the unmanaged node structure</param>
         /// <param name="edgeSize">size of the unmanaged edge structure</param>
         [DllImport(LIB_GRAPH, CallingConvention = CallingConvention.Cdecl, SetLastError = true, CharSet = CharSet.Ansi, ThrowOnUnmappableChar = true, BestFitMapping = false)]
+        [DefaultDllImportSearchPaths(DllImportSearchPath.UserDirectories)]
         public static extern void aginitlib(int graphSize, int nodeSize, int edgeSize);
 
         /// <summary>
@@ -51,6 +52,7 @@ namespace Abbotware.Interop.Graphviz.GraphDll
         /// <param name="graphData">graph data</param>
         /// <returns>pointer to the unmanaged graph object</returns>
         [DllImport(LIB_GRAPH, CallingConvention = CallingConvention.Cdecl, SetLastError = true, CharSet = CharSet.Ansi, ThrowOnUnmappableChar = true, BestFitMapping = false)]
+        [DefaultDllImportSearchPaths(DllImportSearchPath.UserDirectories)]
         public static extern GraphSafeHandle agmemread([MarshalAs(UnmanagedType.LPStr)] string graphData);
 
         ////TODO: change IntPtr to a GraphvizContextHandle : SafeHandle
@@ -60,6 +62,7 @@ namespace Abbotware.Interop.Graphviz.GraphDll
         /// </summary>
         /// <param name="graphPtr">pointer to the unmanaged graph object</param>
         [DllImport(LIB_GRAPH, CallingConvention = CallingConvention.Cdecl, SetLastError = true, CharSet = CharSet.Ansi, ThrowOnUnmappableChar = true, BestFitMapping = false)]
+        [DefaultDllImportSearchPaths(DllImportSearchPath.UserDirectories)]
         public static extern void agclose(IntPtr graphPtr);
     }
 }

@@ -23,7 +23,7 @@ namespace Abbotware.Core.Extensions
         public static ILogger Create<T>(this ILoggerFactory factory)
             where T : class
         {
-            Arguments.NotNull(factory, nameof(factory));
+            factory = Arguments.EnsureNotNull(factory, nameof(factory));
 
             return factory.Create(typeof(T));
         }
@@ -36,8 +36,8 @@ namespace Abbotware.Core.Extensions
         /// <returns>logger</returns>
         public static ILogger Create(this ILoggerFactory factory, Type type)
         {
-            Arguments.NotNull(factory, nameof(factory));
-            Arguments.NotNull(type, nameof(type));
+            factory = Arguments.EnsureNotNull(factory, nameof(factory));
+            type = Arguments.EnsureNotNull(type, nameof(type));
 
             return factory.Create(type.Name);
         }

@@ -64,7 +64,7 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
         /// <inheritdoc />
         public QueueCreationConfiguration Create(QueueConfiguration queueConfiguration)
         {
-            Arguments.NotNull(queueConfiguration, nameof(queueConfiguration));
+            queueConfiguration = Arguments.EnsureNotNull(queueConfiguration, nameof(queueConfiguration));
 
             this.InitializeIfRequired();
 
@@ -85,7 +85,7 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
         /// <inheritdoc />
         public void Bind(QueueBindingConfiguration queueBindingConfiguration)
         {
-            Arguments.NotNull(queueBindingConfiguration, nameof(queueBindingConfiguration));
+            queueBindingConfiguration = Arguments.EnsureNotNull(queueBindingConfiguration, nameof(queueBindingConfiguration));
 
             this.InitializeIfRequired();
 
