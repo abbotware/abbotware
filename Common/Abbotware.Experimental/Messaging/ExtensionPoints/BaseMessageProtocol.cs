@@ -120,13 +120,18 @@ namespace Abbotware.Core.Messaging.ExtensionPoints
         }
 
         /// <inheritdoc />
-        public virtual object Decode(IMessageEnvelope envelope)
+        public virtual object Decode(IMessageEnvelope storage)
         {
-            envelope = Arguments.EnsureNotNull(envelope, nameof(envelope));
+            storage = Arguments.EnsureNotNull(storage, nameof(storage));
 
-            var type = this.TypeEncoder.Decode(envelope);
+            var type = this.TypeEncoder.Decode(storage);
 
-            return this.BinaryEncoder.Decode(envelope.Body.ToArray(), type);
+            if (type == null)
+            {
+                throw new ArgumentException("unable to determine object type from message envelope");
+            }
+
+            return this.BinaryEncoder.Decode(storage.Body.ToArray(), type);
         }
 
         /// <summary>

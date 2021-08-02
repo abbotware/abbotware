@@ -10,10 +10,14 @@ namespace Abbotware.Core.Threading
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
+    /// <summary>
+    /// Experimental Task Scheduler that will have logging capabilities
+    /// </summary>
     public class TrackingScheduler : TaskScheduler
     {
+        /// <inheritdoc/>
         protected override IEnumerable<Task> GetScheduledTasks()
-        { 
+        {
             return this.GetScheduledTasks();
         }
 

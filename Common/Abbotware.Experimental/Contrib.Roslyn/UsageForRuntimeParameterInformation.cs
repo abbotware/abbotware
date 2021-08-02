@@ -16,7 +16,7 @@ namespace Abbotware.Contrib.Roslyn
         /// <summary>
         /// Gets or sets the string
         /// </summary>
-        public string SomeProperty { get; set; }
+        public string SomeProperty { get; set; } = string.Empty;
 
         /// <summary>
         /// a

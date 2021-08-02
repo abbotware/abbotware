@@ -34,7 +34,7 @@ namespace Abbotware.Interop.RabbitMQ.ExtensionPoints
         /// <param name="configuration">connection configuration</param>
         /// <param name="rabbitMQChannel">wrapped RabbitMQ Channel</param>
         /// <param name="logger">injected logger</param>
-        internal BaseChannelManager(ChannelConfiguration configuration, IModel rabbitMQChannel, ILogger logger)
+        protected BaseChannelManager(ChannelConfiguration configuration, IModel rabbitMQChannel, ILogger logger)
             : base(configuration, logger)
         {
             Arguments.NotNull(configuration, nameof(configuration));
@@ -95,10 +95,10 @@ namespace Abbotware.Interop.RabbitMQ.ExtensionPoints
                     }
             }
 
-            if (this.Configuration.QualityOfService != null)
-            {
-                var qos = this.Configuration.QualityOfService;
+            var qos = this.Configuration.QualityOfService;
 
+            if (qos != null)
+            {
                 this.Logger.Info("Setting up QOS: PreFetchSize:{0} PreFetchCount:{1} PreFetchGlobal{2}", qos.PreFetchSize, qos.PreFetchCount, qos.PreFetchGlobal);
                 this.rabbitMQChannel.BasicQos(qos.PreFetchSize.Value, qos.PreFetchCount.Value, qos.PreFetchGlobal.Value);
             }

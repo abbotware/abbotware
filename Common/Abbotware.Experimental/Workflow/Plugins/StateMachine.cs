@@ -14,6 +14,9 @@ namespace Abbotware.Core.Workflow.Plugins
     using Abbotware.Core.Workflow.ExtensionPoints;
     using QuickGraph;
 
+    /// <summary>
+    /// State Machine
+    /// </summary>
     public class StateMachine : BaseWorkflowComponent, IStateMachine, IStateMachineManager
     {
         private static readonly IEnumerable<IAction> NoActions = new List<IAction>();
@@ -24,11 +27,17 @@ namespace Abbotware.Core.Workflow.Plugins
 
         private int edgeCounter;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="StateMachine"/> class.
+        /// </summary>
+        /// <param name="name">state machine name</param>
+        /// <param name="id">state machine id</param>
         public StateMachine(string name, long id)
             : base(name, id)
         {
         }
 
+        /// <inheritdoc/>
         IAction IStateMachineManager.AddAction(string action, string source, string target)
         {
             Arguments.NotNull(action, nameof(action));
@@ -42,19 +51,21 @@ namespace Abbotware.Core.Workflow.Plugins
             return fsm.AddAction(action, s, t);
         }
 
-        public IAction AddAction(string action, IState source, IState target)
+        /// <inheritdoc/>
+        public IAction AddAction(string actionName, IState source, IState target)
         {
-            Arguments.NotNull(action, nameof(action));
+            Arguments.NotNull(actionName, nameof(actionName));
 
             var fsm = this as IStateMachineManager;
 
-            var newAction = new ActionEdge(action, Interlocked.Increment(ref this.edgeCounter), source, target);
+            var newAction = new ActionEdge(actionName, Interlocked.Increment(ref this.edgeCounter), source, target);
 
             fsm.AddAction(newAction);
 
             return newAction;
         }
 
+        /// <inheritdoc/>
         public void AddAction(IAction action)
         {
             Arguments.NotNull(action, nameof(action));
@@ -64,6 +75,7 @@ namespace Abbotware.Core.Workflow.Plugins
             this.graph.AddVerticesAndEdge(action);
         }
 
+        /// <inheritdoc/>
         public IState AddState(string state)
         {
             this.VerifyStateDoesNotExist(state);
@@ -71,6 +83,7 @@ namespace Abbotware.Core.Workflow.Plugins
             return this.OnCreateWorkflowState(state);
         }
 
+        /// <inheritdoc/>
         public void AddState(IState state)
         {
             Arguments.NotNull(state, nameof(state));
@@ -80,6 +93,7 @@ namespace Abbotware.Core.Workflow.Plugins
             this.graph.AddVertex(state);
         }
 
+        /// <inheritdoc/>
         public IAction GetAction(long id)
         {
             var action = this.FindWorkflowAction(id);
@@ -92,6 +106,7 @@ namespace Abbotware.Core.Workflow.Plugins
             return action;
         }
 
+        /// <inheritdoc/>
         public IState GetState(long id)
         {
             var state = this.FindWorkflowState(id);
@@ -104,6 +119,7 @@ namespace Abbotware.Core.Workflow.Plugins
             return state;
         }
 
+        /// <inheritdoc/>
         public IState GetState(string stateName)
         {
             var state = this.FindWorkflowState(stateName);
@@ -116,11 +132,13 @@ namespace Abbotware.Core.Workflow.Plugins
             return state;
         }
 
+        /// <inheritdoc/>
         public IEnumerable<IState> GetStates()
         {
             return this.graph.Vertices.ToList();
         }
 
+        /// <inheritdoc/>
         public IEnumerable<IAction> GetActions(string stateName)
         {
             var state = this.FindWorkflowState(stateName);
@@ -133,6 +151,7 @@ namespace Abbotware.Core.Workflow.Plugins
             return this.GetActions(state);
         }
 
+        /// <inheritdoc/>
         public IEnumerable<IAction> GetActions(IState state)
         {
             Arguments.NotNull(state, nameof(state));
@@ -145,6 +164,7 @@ namespace Abbotware.Core.Workflow.Plugins
             return edges;
         }
 
+        /// <inheritdoc/>
         public IAction ApplyAction(string stateName, string actionName)
         {
             var s = this.GetState(stateName);
@@ -152,14 +172,15 @@ namespace Abbotware.Core.Workflow.Plugins
             return this.ApplyAction(s, actionName);
         }
 
+        /// <inheritdoc/>
         public IAction ApplyAction(IState state, string actionName)
         {
-            Arguments.NotNull(state, nameof(state));
-            Arguments.NotNull(actionName, nameof(actionName));
+            state = Arguments.EnsureNotNull(state, nameof(state));
+            actionName = Arguments.EnsureNotNull(actionName, nameof(actionName));
 
             var a = this.GetActions(state);
 
-            var action = a.Where(x => string.Equals(x.Name, actionName, StringComparison.InvariantCultureIgnoreCase));
+            var action = a.Where(x => string.Equals(x.Name, actionName, StringComparison.OrdinalIgnoreCase));
 
             if (!action.Any())
             {
@@ -181,11 +202,38 @@ namespace Abbotware.Core.Workflow.Plugins
             return action.Single();
         }
 
+        /// <summary>
+        /// Callback hook for custom logic when creating a workflow state
+        /// </summary>
+        /// <param name="stateName">state name</param>
+        /// <returns>state</returns>
+        protected virtual State OnCreateWorkflowState(string stateName)
+        {
+            State newState;
+
+            if (string.IsNullOrWhiteSpace(stateName))
+            {
+                newState = State.NullState;
+            }
+            else
+            {
+                newState = new State(stateName, Interlocked.Increment(ref this.stateCounter), false);
+            }
+
+            this.graph.AddVertex(newState);
+
+            return newState;
+        }
+
+        /// <summary>
+        /// Helper method to verify action does not exist
+        /// </summary>
+        /// <param name="action">action</param>
         protected void VerifyActionDoesNotExist(IAction action)
         {
-#pragma warning disable CA1062 // Validate arguments of public methods
+            action = Arguments.EnsureNotNull(action, nameof(action));
+
             if (this.FindWorkflowAction(action.Id) != null)
-#pragma warning restore CA1062 // Validate arguments of public methods
             {
                 throw new DuplicateActionException(action);
             }
@@ -197,39 +245,66 @@ namespace Abbotware.Core.Workflow.Plugins
                 return;
             }
 
-            if (edges.Any(x => x.Name.Equals(action.Name, StringComparison.InvariantCultureIgnoreCase)))
+            if (edges.Any(x => x.Name.Equals(action.Name, StringComparison.OrdinalIgnoreCase)))
             {
                 throw new DuplicateActionException(action.Name, action.Source, action.Target);
             }
         }
 
-        protected void VerifyStateDoesNotExist(IState v)
+        /// <summary>
+        /// Helper method to verify state does not exist
+        /// </summary>
+        /// <param name="state">state</param>
+        protected void VerifyStateDoesNotExist(IState state)
         {
-#pragma warning disable CA1062 // Validate arguments of public methods
-            if (this.FindWorkflowState(v.Name) != null)
-#pragma warning restore CA1062 // Validate arguments of public methods
+            state = Arguments.EnsureNotNull(state, nameof(state));
+
+            if (this.FindWorkflowState(state.Name) != null)
             {
-                throw new DuplicateStateException(v);
+                throw new DuplicateStateException(state);
             }
 
-            if (this.FindWorkflowState(v.Id) != null)
+            if (this.FindWorkflowState(state.Id) != null)
             {
-                throw new DuplicateStateException(v);
+                throw new DuplicateStateException(state);
             }
         }
 
-        protected State VerifyStateExistsDuringConfigChange(string name)
+        /// <summary>
+        /// Helper method to verify state does not exists
+        /// </summary>
+        /// <param name="stateName">state name</param>
+        protected void VerifyStateDoesNotExist(string stateName)
         {
-            var v = this.FindWorkflowState(name);
+            var v = this.FindWorkflowState(stateName);
+
+            if (v != null)
+            {
+                throw new DuplicateStateException(stateName);
+            }
+        }
+
+        /// <summary>
+        /// Config Change Helper - Verify state does not exist
+        /// </summary>
+        /// <param name="stateName">state name</param>
+        /// <returns>state</returns>
+        protected State VerifyStateExistsDuringConfigChange(string stateName)
+        {
+            var v = this.FindWorkflowState(stateName);
 
             if (v == null)
             {
-                throw new StateNotFoundException(name);
+                throw new StateNotFoundException(stateName);
             }
 
             return v;
         }
 
+        /// <summary>
+        /// Config Change Helper - Verify state exists
+        /// </summary>
+        /// <param name="state">state</param>
         protected void VerifyContainsStateDuringConfigChange(State state)
         {
             if (!this.graph.ContainsVertex(state))
@@ -238,24 +313,25 @@ namespace Abbotware.Core.Workflow.Plugins
             }
         }
 
-        protected void VerifyStateDoesNotExist(string name)
+        /// <summary>
+        /// Config Change Helper - Verify action exists
+        /// </summary>
+        /// <param name="actionName">action name</param>
+        /// <param name="sourceStateName">source state name</param>
+        /// <param name="targetStateName">target state name</param>
+        /// <returns>action</returns>
+        protected ActionEdge VerifyActionExistsDuringConfigChange(string actionName, string sourceStateName, string targetStateName)
         {
-            var v = this.FindWorkflowState(name);
+            var source = this.VerifyStateExistsDuringConfigChange(sourceStateName);
+            var target = this.VerifyStateExistsDuringConfigChange(targetStateName);
 
-            if (v != null)
-            {
-                throw new DuplicateStateException(name);
-            }
+            return this.VerifyActionExistsDuringConfigChange(actionName, source, target);
         }
 
-        protected ActionEdge VerifyActionExistsDuringConfigChange(string action, string s, string t)
-        {
-            var source = this.VerifyStateExistsDuringConfigChange(s);
-            var target = this.VerifyStateExistsDuringConfigChange(t);
-
-            return this.VerifyActionExistsDuringConfigChange(action, source, target);
-        }
-
+        /// <summary>
+        /// Config Change Helper - Verify action exists
+        /// </summary>
+        /// <param name="action">action</param>
         protected void VerifyActionExistsDuringConfigChange(ActionEdge action)
         {
             if (!this.graph.ContainsEdge(action))
@@ -264,73 +340,82 @@ namespace Abbotware.Core.Workflow.Plugins
             }
         }
 
-        protected ActionEdge VerifyActionExistsDuringConfigChange(string action, State s, State t)
+        /// <summary>
+        /// Config Change Helper - Verify action exists
+        /// </summary>
+        /// <param name="actionName">action name</param>
+        /// <param name="s">source state</param>
+        /// <param name="t">target state</param>
+        /// <returns>action</returns>
+        protected ActionEdge VerifyActionExistsDuringConfigChange(string actionName, State s, State t)
         {
             this.graph.TryGetEdges(s, t, out var edges);
 
             if (edges == null)
             {
-                throw new ActionNotFoundException(action, s, t);
+                throw new ActionNotFoundException(actionName, s, t);
             }
 
-            var edge = edges.SingleOrDefault(x => x.Name == action);
+            var edge = edges.SingleOrDefault(x => x.Name == actionName);
 
             if (edge == null)
             {
-                throw new ActionNotFoundException(action, s, t);
+                throw new ActionNotFoundException(actionName, s, t);
             }
 
             return (ActionEdge)edge;
         }
 
-        protected virtual State OnCreateWorkflowState(string name)
+        /// <summary>
+        /// Finds a state by name
+        /// </summary>
+        /// <param name="stateName">state name</param>
+        /// <returns>state if found</returns>
+        protected State? FindWorkflowState(string stateName)
         {
-            State newState;
-
-            if (string.IsNullOrWhiteSpace(name))
+            if (stateName == null)
             {
-                newState = State.NullState;
-            }
-            else
-            {
-                newState = new State(name, Interlocked.Increment(ref this.stateCounter), false);
+                stateName = string.Empty;
             }
 
-            this.graph.AddVertex(newState);
-
-            return newState;
+            return (State)this.graph.Vertices.SingleOrDefault(v => string.Equals(v.Name, stateName, StringComparison.OrdinalIgnoreCase));
         }
 
-        protected State FindWorkflowState(string name)
+        /// <summary>
+        /// Finds or creates a state by name
+        /// </summary>
+        /// <param name="stateName">state name</param>
+        /// <returns>state if found or created</returns>
+        protected State FindOrCreateWorkflowState(string stateName)
         {
-            if (name == null)
-            {
-                name = string.Empty;
-            }
-
-            return (State)this.graph.Vertices.SingleOrDefault(v => string.Equals(v.Name, name, StringComparison.InvariantCultureIgnoreCase));
-        }
-
-        protected State FindOrCreateWorkflowState(string name)
-        {
-            var state = this.FindWorkflowState(name);
+            var state = this.FindWorkflowState(stateName);
 
             if (state == null)
             {
-                state = this.OnCreateWorkflowState(name);
+                state = this.OnCreateWorkflowState(stateName);
             }
 
             return state;
         }
 
-        protected State FindWorkflowState(long id)
+        /// <summary>
+        /// Finds or creates a state by id
+        /// </summary>
+        /// <param name="stateId">state id</param>
+        /// <returns>state if found</returns>
+        protected State? FindWorkflowState(long stateId)
         {
-            return this.graph.Vertices.SingleOrDefault(v => v.Id == id) as State;
+            return this.graph.Vertices.SingleOrDefault(v => v.Id == stateId) as State;
         }
 
-        protected ActionEdge FindWorkflowAction(long id)
+        /// <summary>
+        /// Finds an action by id
+        /// </summary>
+        /// <param name="actionId">action id</param>
+        /// <returns>action if found</returns>
+        protected ActionEdge? FindWorkflowAction(long actionId)
         {
-            return this.graph.Edges.SingleOrDefault(e => e.Id == id) as ActionEdge;
+            return this.graph.Edges.SingleOrDefault(e => e.Id == actionId) as ActionEdge;
         }
     }
 }

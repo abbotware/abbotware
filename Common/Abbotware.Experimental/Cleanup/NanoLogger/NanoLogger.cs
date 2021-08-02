@@ -55,9 +55,7 @@ namespace Abbotware.Core.Diagnostics.Plugins
 
             this.configuration = configuration;
 
-#pragma warning disable CA1062 // Validate arguments of public methods
             var max = configuration.MaxCorrelationType + 1;
-#pragma warning restore CA1062 // Validate arguments of public methods
 
             this.data = new NanoLogRow[max][];
             this.correlationTypeIndex = new int[max];
@@ -226,9 +224,7 @@ namespace Abbotware.Core.Diagnostics.Plugins
         {
             Arguments.NotNull(path, nameof(path));
 
-#pragma warning disable CA1062 // Validate arguments of public methods
             using var sw = File.CreateText(path.LocalPath);
-#pragma warning restore CA1062 // Validate arguments of public methods
 
             sw.WriteLine("correlation_type_id,instance_id,ticks,thread_id,checkpoint_id,is_end,checkpoint_detail_id,checkpoint_progress,delta_first,delta_prev");
 
@@ -236,9 +232,9 @@ namespace Abbotware.Core.Diagnostics.Plugins
             {
                 foreach (var instanceGroup in ctype.GroupBy(x => x.InstanceId, x => x))
                 {
-                    NanoLogRow first = null;
+                    NanoLogRow? first = null;
 
-                    NanoLogRow prev = null;
+                    NanoLogRow? prev = null;
 
                     foreach (var row in instanceGroup.Where(x => x.CheckpointId.HasValue).OrderBy(x => x.Ticks))
                     {
@@ -249,7 +245,7 @@ namespace Abbotware.Core.Diagnostics.Plugins
                         }
 
                         var msFromFirst = ConvertTicksToMilliseconds(row.Ticks - first.Ticks);
-                        var msFromPrev = ConvertTicksToMilliseconds(row.Ticks - prev.Ticks);
+                        var msFromPrev = ConvertTicksToMilliseconds(row.Ticks - prev!.Ticks);
 
                         var correlationTypeName = FormattableString.Invariant($"Unknown:{row.CorrelationTypeId}");
 
@@ -414,9 +410,7 @@ namespace Abbotware.Core.Diagnostics.Plugins
         {
             Arguments.NotNull(timestamps, nameof(timestamps));
 
-#pragma warning disable CA1062 // Validate arguments of public methods
             for (var i = 0; i < timestamps.Length; ++i)
-#pragma warning restore CA1062 // Validate arguments of public methods
             {
                 var index = Interlocked.Increment(ref this.correlationTypeIndex[correlationTypeId]);
                 var row = this.data[correlationTypeId][index];
@@ -436,9 +430,7 @@ namespace Abbotware.Core.Diagnostics.Plugins
         {
             Arguments.NotNull(bucket, nameof(bucket));
 
-#pragma warning disable CA1062 // Validate arguments of public methods
             var rows = bucket.GetRows();
-#pragma warning restore CA1062 // Validate arguments of public methods
 
             for (var i = 0; i < rows.Length; ++i)
             {

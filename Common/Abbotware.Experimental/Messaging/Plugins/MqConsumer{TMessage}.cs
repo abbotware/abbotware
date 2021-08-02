@@ -54,7 +54,7 @@ namespace Abbotware.Core.Messaging.Plugins
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "bu")]
         protected sealed override void OnDelivery(object sender, DeliveryEventArgs args)
         {
-            Arguments.NotNull(args, nameof(args));
+            args = Arguments.EnsureNotNull(args, nameof(args));
             var envelope = args.Envelope;
 
             try
@@ -67,9 +67,7 @@ namespace Abbotware.Core.Messaging.Plugins
             }
             catch (Exception ex)
             {
-#pragma warning disable CA1062 // Validate arguments of public methods
                 this.Logger.Error(ex, "Message:{0} redelivered:{1}", envelope.DeliveryProperties.DeliveryTag, envelope.DeliveryProperties.Redelivered);
-#pragma warning restore CA1062 // Validate arguments of public methods
 
                 if (envelope.DeliveryProperties.Redelivered.HasValue)
                 {

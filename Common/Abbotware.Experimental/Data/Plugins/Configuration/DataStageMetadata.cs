@@ -11,7 +11,7 @@ namespace Abbotware.Core.Data.Plugins.Configuration
     using Abbotware.Core.Data.ExtensionPoints;
 
     /// <summary>
-    ///     class  for common  fields for DataChannel events
+    ///     class for common fields for DataChannel events
     /// </summary>
     public class DataStageMetadata : IDataStageMetadata
     {
@@ -22,6 +22,6 @@ namespace Abbotware.Core.Data.Plugins.Configuration
         public DateTimeOffset? EndTime { get; set; }
 
         /// <inheritdoc/>
-        public Exception Exception { get; set; }
+        public Exception? Exception { get; set; }
     }
 }

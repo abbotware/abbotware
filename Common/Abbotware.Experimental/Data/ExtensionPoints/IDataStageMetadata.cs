@@ -27,6 +27,6 @@ namespace Abbotware.Core.Data.ExtensionPoints
         /// <summary>
         ///     Gets the Exception (if there was one) during the stage
         /// </summary>
-        Exception Exception { get; }
+        Exception? Exception { get; }
     }
 }

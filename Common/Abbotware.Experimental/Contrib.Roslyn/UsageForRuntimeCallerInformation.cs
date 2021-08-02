@@ -19,7 +19,7 @@ namespace Abbotware.Contrib.Roslyn
         /// </summary>
         /// <param name="parameter">parameter</param>
         /// <param name="callerInfo">caller info</param>
-        public virtual void UserMethod(string parameter, RuntimeCallerInformation callerInfo = null)
+        public virtual void UserMethod(string parameter, RuntimeCallerInformation? callerInfo = null)
         {
             Console.WriteLine($"{parameter} {callerInfo}");
         }

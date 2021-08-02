@@ -97,7 +97,7 @@ namespace Abbotware.Core.IO
                     throw AbbotwareException.Create("Parse Error:buffer[{0}]={1}", j, buffer[j]);
                 }
 
-                output += (ushort)(digit * UInt16MultiplicationTable[basePos]);
+                output += (ushort?)(digit * UInt16MultiplicationTable[basePos]);
                 ++basePos;
             }
 

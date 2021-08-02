@@ -10,6 +10,9 @@ namespace Abbotware.Core.Workflow
     using Abbotware.Core.Workflow.ExtensionPoints;
     using QuickGraph;
 
+    /// <summary>
+    /// Interface for an action
+    /// </summary>
     public interface IAction : IWorkflowComponent, IEdge<IState>
     {
     }

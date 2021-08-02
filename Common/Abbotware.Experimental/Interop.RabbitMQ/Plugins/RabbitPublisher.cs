@@ -166,20 +166,16 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
 
                 properties.MessageId = sequenceNumber.ToString(CultureInfo.InvariantCulture);
 
-                TaskCompletionSource<PublishStatus> tcs = null;
+                TaskCompletionSource<PublishStatus> tcs = new TaskCompletionSource<PublishStatus>();
 
                 if (this.Configuration.Mode == ChannelMode.ConfirmationMode)
                 {
-                    tcs = new TaskCompletionSource<PublishStatus>();
-
                     var tryAddResult = this.outstandingConfirmations.TryAdd(sequenceNumber, tcs);
 
                     Debug.Assert(tryAddResult, "TryAdd for outstandingConfirmations failed");
                 }
 
-#pragma warning disable CA1062 // Validate arguments of public methods
                 this.RabbitMQChannel.BasicPublish(envelope.PublishProperties.Exchange, envelope.PublishProperties.RoutingKey, envelope.PublishProperties.Mandatory.Value, properties, envelope.Body.ToArray());
-#pragma warning restore CA1062 // Validate arguments of public methods
 
                 switch (this.Configuration.Mode)
                 {

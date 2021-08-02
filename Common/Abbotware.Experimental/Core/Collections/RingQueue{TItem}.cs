@@ -74,7 +74,7 @@ namespace Abbotware.Core.Collections
         ///     item queue
         /// </summary>
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private ItemWrapper[] queue;
+        private ItemWrapper[]? queue;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RingQueue{TItem}"/> class.
@@ -403,7 +403,7 @@ namespace Abbotware.Core.Collections
         ///     item, otherwise the method returns a boolean false
         /// </returns>
         [SuppressMessage("Microsoft.Usage", "CA2219:DoNotRaiseExceptionsInExceptionClauses", Justification = "reviewed")]
-        public virtual bool Dequeue(out TItem item)
+        public virtual bool Dequeue(out TItem? item)
         {
             item = default;
             var queueCopy = this.Queue; // cache this reference so that it can't change on us

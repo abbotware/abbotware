@@ -37,7 +37,7 @@ namespace Abbotware.Core.Diagnostics
         /// Gets the Class name
         /// </summary>
         [Obsolete("reserved for future use")]
-        public string ClassName { get; }
+        public string ClassName { get; } = string.Empty;
 
         /// <summary>
         /// Gets the Source code file path

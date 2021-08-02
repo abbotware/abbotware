@@ -80,7 +80,7 @@ namespace Abbotware.Core.ExtensionPoints
         /// <param name="items">items to enqueue</param>
         public void EnqueueAll(TItem[] items)
         {
-            Arguments.NotNull(items, nameof(items));
+            items = Arguments.EnsureNotNull(items, nameof(items));
 
             this.EnqueueAll((IEnumerable<TItem>)items);
         }
@@ -91,7 +91,7 @@ namespace Abbotware.Core.ExtensionPoints
         /// <param name="items">items to enqueue</param>
         public void EnqueueAll(IEnumerable<TItem> items)
         {
-            Arguments.NotNull(items, nameof(items));
+            items = Arguments.EnsureNotNull(items, nameof(items));
 
             this.InitializeIfRequired();
 

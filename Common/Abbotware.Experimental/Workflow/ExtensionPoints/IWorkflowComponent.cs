@@ -7,10 +7,19 @@
 
 namespace Abbotware.Core.Workflow.ExtensionPoints
 {
+    /// <summary>
+    /// Interface for a workflow component
+    /// </summary>
     public interface IWorkflowComponent
     {
+        /// <summary>
+        /// Gets the Id of the component
+        /// </summary>
         long Id { get; }
 
+        /// <summary>
+        /// Gets the name of the component
+        /// </summary>
         string Name { get; }
     }
 }
