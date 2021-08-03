@@ -58,7 +58,6 @@
     <Folder Include="Data\" />
     <Folder Include="Interop.Graphviz\" />
     <Folder Include="Interop.NLog\" />
-    <Folder Include="Interop.RabbitMQ\" />
     <Folder Include="Workflow\" />
   </ItemGroup>
   <ItemGroup>
