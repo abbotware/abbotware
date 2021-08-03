@@ -201,7 +201,7 @@
         public void ApplyAction_NullState1()
         {
             var fsm = this.EmptyStateMachine();
-            fsm.ApplyAction(default(IState), "action");
+            fsm.ApplyAction((IState)null, "action");
         }
 
         [Test]
@@ -209,7 +209,7 @@
         public void ApplyAction_NullState2()
         {
             var fsm = this.EmptyStateMachine();
-            fsm.ApplyAction(default(string), "action");
+            fsm.ApplyAction((string)null, "action");
         }
 
         [Test]

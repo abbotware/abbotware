@@ -21,7 +21,7 @@ namespace Abbotware.UnitTests.Interop.CsvHelper
     [Ignore("3rd Party Library seems broken")]
     public class InteropCsvHelperTests : BaseNUnitTest
     {
-        public enum TestEnum
+        public enum TestEnumeration
         {
             Enum2,
             Enum1,
@@ -33,7 +33,7 @@ namespace Abbotware.UnitTests.Interop.CsvHelper
             var row = ParserHelper.CsvFile<DataRow>(Path.Combine("Samples", "data.csv"), this.Logger).Single();
 
             Assert.AreEqual(new DateTime(11, 11, 11), row.DateTime);
-            Assert.AreEqual(TestEnum.Enum1, row.Enum);
+            Assert.AreEqual(TestEnumeration.Enum1, row.Enum);
             Assert.AreEqual(123, row.Int);
             Assert.AreEqual("data", row.String);
         }
@@ -57,7 +57,7 @@ namespace Abbotware.UnitTests.Interop.CsvHelper
 
             public DateTime DateTime { get; set; }
 
-            public TestEnum Enum { get; set; }
+            public TestEnumeration Enum { get; set; }
         }
 
         public class Foo
