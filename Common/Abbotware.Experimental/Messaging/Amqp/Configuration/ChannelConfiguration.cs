@@ -16,12 +16,12 @@ namespace Abbotware.Core.Messaging.Amqp.Configuration
         /// <summary>
         ///     internal set once property for channel mode
         /// </summary>
-        private readonly SetOnceProperty<ChannelMode> channelMode = new SetOnceProperty<ChannelMode>("ChannelMode");
+        private readonly SetOnceProperty<ChannelMode> channelMode = new ("ChannelMode");
 
         /// <summary>
         ///     internal set once property for use quality of service
         /// </summary>
-        private readonly SetOnceProperty<QualityOfService> qualityOfService = new SetOnceProperty<QualityOfService>("QualityOfService");
+        private readonly SetOnceProperty<QualityOfService> qualityOfService = new ("QualityOfService");
 
         /// <summary>
         ///     Gets or sets the channel mode
@@ -40,20 +40,20 @@ namespace Abbotware.Core.Messaging.Amqp.Configuration
 
             set
             {
-                this.channelMode.Value = value.Value;
+                this.channelMode.Value = value!.Value;
             }
         }
 
         /// <summary>
         ///     Gets or sets a value indicating whether not to use quality of service
         /// </summary>
-        public QualityOfService QualityOfService
+        public QualityOfService? QualityOfService
         {
             get
             {
                 if (this.qualityOfService.HasValue)
                 {
-                    return this.qualityOfService.Value;
+                    return this.qualityOfService.Value!;
                 }
 
                 return null;

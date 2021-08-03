@@ -59,7 +59,7 @@ namespace Abbotware.Core.Workflow.Plugins
                 this.Config.StoreStateFunctor(current, a.Target.Name);
             }
 
-            return null;
+            return new Journal();
         }
 
         /// <inheritdoc/>

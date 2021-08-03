@@ -114,9 +114,9 @@ namespace Abbotware.Core.Messaging.Amqp.Plugins
         /// <inheritdoc />
         public void Ack(IMessageEnvelope envelope, bool multiple)
         {
-            Arguments.NotNull(envelope, nameof(envelope));
+            envelope = Arguments.EnsureNotNull(envelope, nameof(envelope));
 
-            this.Ack(envelope.DeliveryProperties.DeliveryTag, multiple);
+            this.Ack(envelope.DeliveryProperties.DeliveryTag!, multiple);
         }
 
         /// <inheritdoc />

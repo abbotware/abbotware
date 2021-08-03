@@ -17,7 +17,7 @@ namespace Abbotware.Core.Web.Models
         /// <summary>
         /// Gets or sets the text label for the breadcrumb
         /// </summary>
-        public string Text { get; set; }
+        public string Text { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets a value indicating whether this is the last breadcrumb
@@ -28,6 +28,6 @@ namespace Abbotware.Core.Web.Models
         /// Gets or sets Uri fragment for breadcrumb link
         /// </summary>
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "reviewed")]
-        public string UriFragment { get; set; }
+        public string UriFragment { get; set; } = string.Empty;
     }
 }

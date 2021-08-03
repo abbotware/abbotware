@@ -74,7 +74,9 @@ namespace Abbotware.Core.Collections
         ///     item queue
         /// </summary>
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+#pragma warning disable SA1011 // Closing square brackets should be spaced correctly
         private ItemWrapper[]? queue;
+#pragma warning restore SA1011 // Closing square brackets should be spaced correctly
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RingQueue{TItem}"/> class.
@@ -212,7 +214,9 @@ namespace Abbotware.Core.Collections
         /// <summary>
         ///     Gets the available item holders collection in a thread-safe manner
         /// </summary>
-        private ItemWrapper[] Queue
+#pragma warning disable SA1011 // Closing square brackets should be spaced correctly
+        private ItemWrapper[]? Queue
+#pragma warning restore SA1011 // Closing square brackets should be spaced correctly
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get { return Interlocked.CompareExchange(ref this.queue, null, null); }
@@ -342,7 +346,7 @@ namespace Abbotware.Core.Collections
                         {
                             try
                             {
-                                queueCopy[queue_index].Index = tail_index; // set the index for sanity checks
+                                queueCopy![queue_index].Index = tail_index; // set the index for sanity checks
                                 queueCopy[queue_index].Value = element;
                                 return true;
                             }
@@ -382,7 +386,7 @@ namespace Abbotware.Core.Collections
         ///     method instead, otherwise an InvalidOperationException will be thrown.
         /// </summary>
         /// <returns>Retrieves the oldest entry in the queue if one exists, otherwise the method returns a null</returns>
-        public virtual TItem Dequeue()
+        public virtual TItem? Dequeue()
         {
             if (this.containsValueTypes)
             {
@@ -390,7 +394,7 @@ namespace Abbotware.Core.Collections
             }
 
             // at this point, it's always a reference type
-            return this.Dequeue(out TItem reference_type) ? reference_type : default;
+            return this.Dequeue(out TItem? reference_type) ? reference_type : default;
         }
 
         /// <summary>
@@ -440,7 +444,7 @@ namespace Abbotware.Core.Collections
                         try
                         {
                             Interlocked.MemoryBarrier();
-                            var wrapped_item = queueCopy[queue_index];
+                            var wrapped_item = queueCopy![queue_index];
 
                             item = wrapped_item.Value;
                             return true;

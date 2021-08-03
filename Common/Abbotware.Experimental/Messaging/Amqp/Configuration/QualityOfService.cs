@@ -17,23 +17,23 @@ namespace Abbotware.Core.Messaging.Amqp.Configuration
         /// <summary>
         ///     internal set once property for pre fetch count
         /// </summary>
-        private readonly SetOnceProperty<ushort> preFetchCount = new SetOnceProperty<ushort>("PreFetchCount");
+        private readonly SetOnceProperty<ushort> preFetchCount = new ("PreFetchCount");
 
         /// <summary>
         ///     internal set once property for pre fetch global
         /// </summary>
-        private readonly SetOnceProperty<bool> preFetchGlobal = new SetOnceProperty<bool>("PreFetchGlobal");
+        private readonly SetOnceProperty<bool> preFetchGlobal = new ("PreFetchGlobal");
 
         /// <summary>
         ///     internal set once property for pre fetch size
         /// </summary>
-        private readonly SetOnceProperty<uint> preFetchSize = new SetOnceProperty<uint>("PreFetchSize");
+        private readonly SetOnceProperty<uint> preFetchSize = new ("PreFetchSize");
 
         /// <summary>
         ///     Gets or sets the pre fetch size (maximum amount of content (measured in octets) that the server will deliver, 0 if
         ///     unlimited)
         /// </summary>
-        public uint? PreFetchSize
+        public uint PreFetchSize
         {
             get
             {
@@ -42,21 +42,21 @@ namespace Abbotware.Core.Messaging.Amqp.Configuration
                     return this.preFetchSize.Value;
                 }
 
-                return null;
+                return 0;
             }
 
             set
             {
                 Arguments.NotNull(value, nameof(this.PreFetchSize), "PreFetchSize set value requires non-null");
 
-                this.preFetchSize.Value = value.Value;
+                this.preFetchSize.Value = value;
             }
         }
 
         /// <summary>
         ///     Gets or sets the pre fetch count (maximum number of messages that the server will deliver, 0 if unlimited)
         /// </summary>
-        public ushort? PreFetchCount
+        public ushort PreFetchCount
         {
             get
             {
@@ -65,14 +65,14 @@ namespace Abbotware.Core.Messaging.Amqp.Configuration
                     return this.preFetchCount.Value;
                 }
 
-                return null;
+                return 0;
             }
 
             set
             {
                 Arguments.NotNull(value, nameof(this.PreFetchCount), "PreFetchCount set value requires non-null");
 
-                this.preFetchCount.Value = value.Value;
+                this.preFetchCount.Value = value;
             }
         }
 
@@ -83,7 +83,7 @@ namespace Abbotware.Core.Messaging.Amqp.Configuration
         ///     By default the 'quality of service' settings apply to the current channel only. If this field is set, they are
         ///     applied to the entire connection.
         /// </remarks>
-        public bool? PreFetchGlobal
+        public bool PreFetchGlobal
         {
             get
             {
@@ -92,14 +92,14 @@ namespace Abbotware.Core.Messaging.Amqp.Configuration
                     return this.preFetchGlobal.Value;
                 }
 
-                return null;
+                return false;
             }
 
             set
             {
                 Arguments.NotNull(value, nameof(this.PreFetchGlobal), "PreFetchGlobal set value requires non-null");
 
-                this.preFetchGlobal.Value = value.Value;
+                this.preFetchGlobal.Value = value;
             }
         }
     }

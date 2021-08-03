@@ -20,12 +20,12 @@ namespace Abbotware.Core.Messaging.Amqp.Configuration
         /// <summary>
         ///     internal set once field for binding action
         /// </summary>
-        private readonly SetOnceProperty<BindingAction> action = new SetOnceProperty<BindingAction>("action");
+        private readonly SetOnceProperty<BindingAction> action = new ("action");
 
         /// <summary>
         ///     internal set once field for binding topic / routing key
         /// </summary>
-        private readonly SetOnceProperty<string> topic = new SetOnceProperty<string>("topic");
+        private readonly SetOnceProperty<string> topic = new ("topic");
 
         /// <summary>
         ///     dictionary of additional arguments for this configuration object
@@ -51,7 +51,7 @@ namespace Abbotware.Core.Messaging.Amqp.Configuration
             {
                 if (this.topic.HasValue)
                 {
-                    return this.topic.Value;
+                    return this.topic.Value!;
                 }
 
                 throw new InvalidOperationException("Topic is not set");

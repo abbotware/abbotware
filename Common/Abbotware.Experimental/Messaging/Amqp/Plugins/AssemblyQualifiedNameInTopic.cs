@@ -20,16 +20,16 @@ namespace Abbotware.Core.Messaging.Amqp.Plugins
     public class AssemblyQualifiedNameInTopic : ICSharpTypeEncoder
     {
         /// <inheritdoc />
-        public Type Decode(IMessageEnvelope envelope)
+        public Type Decode(IMessageEnvelope storage)
         {
-            Arguments.NotNull(envelope, nameof(envelope));
+            Arguments.NotNull(storage, nameof(storage));
 
-            if (string.IsNullOrWhiteSpace(envelope.PublishProperties.RoutingKey))
+            if (string.IsNullOrWhiteSpace(storage.PublishProperties.RoutingKey))
             {
                 throw new AbbotwareException("Topic is empty, can't resolve type info");
             }
 
-            var typeName = envelope.PublishProperties.RoutingKey;
+            var typeName = storage.PublishProperties.RoutingKey;
 
             var type = Type.GetType(typeName, false);
 

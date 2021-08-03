@@ -85,7 +85,7 @@ namespace Abbotware.Core.IO
                 return null;
             }
 
-            ushort? output = 0;
+            ushort output = 0;
             var basePos = 0;
 
             for (var j = end; j >= start; --j)
@@ -97,7 +97,8 @@ namespace Abbotware.Core.IO
                     throw AbbotwareException.Create("Parse Error:buffer[{0}]={1}", j, buffer[j]);
                 }
 
-                output += (ushort?)(digit * UInt16MultiplicationTable[basePos]);
+                output += (ushort)(digit * UInt16MultiplicationTable[basePos]);
+
                 ++basePos;
             }
 

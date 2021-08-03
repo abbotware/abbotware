@@ -30,7 +30,7 @@ namespace Abbotware.Interop.LumenWorks
         /// <summary>
         ///     internal cache of headers
         /// </summary>
-        private List<string> headersCache;
+        private List<string>? headersCache;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="LumenWorksCsvParser{TRecord}" /> class.
@@ -47,7 +47,12 @@ namespace Abbotware.Interop.LumenWorks
         /// <inheritdoc />
         public override IEnumerable<string> FieldHeaders()
         {
-            return this.headersCache;
+            if (!this.IsInitialized)
+            {
+                throw new InvalidOperationException("Parser is not initalized yet");
+            }
+
+            return this.headersCache!;
         }
 
         /// <summary>
@@ -59,13 +64,19 @@ namespace Abbotware.Interop.LumenWorks
         {
             using var reader = new CsvReader(stream, this.Configuration.HasHeaders, this.Configuration.DelimiterChar, this.Configuration.QuoteChar, this.Configuration.EscapeChar, this.Configuration.CommentChar, ValueTrimmingOptions.All, this.Configuration.BufferSize);
 
-            this.headersCache = reader.GetFieldHeaders().Select(m => m.Trim('|')).ToList();
+            this.headersCache = reader.GetFieldHeaders()
+                .Select(m => m.Trim('|'))
+                .ToList();
+
+            var lookup = this.headersCache
+               .Select((h, idx) => (h, idx))
+               .ToDictionary(k => k.h, v => v.idx);
 
             this.Mapper.VerifyHeaders(this);
 
             foreach (var dataRow in reader)
             {
-                var row = this.OnCreateRow(dataRow);
+                var row = this.OnCreateRow(dataRow, lookup);
 
                 this.AddRecord(row);
             }
@@ -152,36 +163,37 @@ namespace Abbotware.Interop.LumenWorks
         ///     logic for creating a record class from the data cells
         /// </summary>
         /// <param name="dataCells">parsed cells</param>
+        /// <param name="headers">headers</param>
         /// <returns>class created from cells</returns>
         [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "reviewed")]
-        protected virtual TRecord OnCreateRow(string[] dataCells)
+        protected virtual TRecord OnCreateRow(string[] dataCells, IReadOnlyDictionary<string, int> headers)
         {
-            Arguments.NotNull(dataCells, nameof(dataCells));
+            dataCells = Arguments.EnsureNotNull(dataCells, nameof(dataCells));
+            headers = Arguments.EnsureNotNull(headers, nameof(headers));
 
             var row = new TRecord();
 
-            foreach (var header in this.headersCache)
+            foreach (var header in headers)
             {
-                if (!this.Mapper.ContainsHeader(header))
+                if (!this.Mapper.ContainsHeader(header.Key))
                 {
                     if (this.Configuration.AllowFileToHaveExtraProperties)
                     {
                         continue;
                     }
 
-                    throw new KeyNotFoundException("Header:" + header + "not found on class");
+                    throw new KeyNotFoundException("Header:" + header.Key + "not found on class");
                 }
 
-                var property = this.Mapper[header];
+                var property = this.Mapper[header.Key];
 
                 // get underlying type
                 var columnType = ReflectionHelper.GetPropertyDataType(property);
 
                 // get column value in csv (in string)
                 var columnName = header;
-                var columnIdx = this.headersCache.FindIndex(m => m == header);
 
-                var cellValue = dataCells[columnIdx].Trim('|');
+                var cellValue = dataCells[header.Value].Trim('|');
 
                 // get if white space
                 var isWhiteSpace = string.IsNullOrWhiteSpace(cellValue) || cellValue == "*";
@@ -221,14 +233,14 @@ namespace Abbotware.Interop.LumenWorks
 
                     case "Int16":
                         {
-                            var parsed = this.ParseInt16(cellValue, columnName);
+                            var parsed = this.ParseInt16(cellValue, header.Key);
                             property.SetValue(row, parsed);
                             break;
                         }
 
                     case "Int32":
                         {
-                            var parsed = this.ParseInt32(cellValue, columnName);
+                            var parsed = this.ParseInt32(cellValue, header.Key);
                             property.SetValue(row, parsed);
 
                             break;
@@ -236,63 +248,63 @@ namespace Abbotware.Interop.LumenWorks
 
                     case "Int64":
                         {
-                            var parsed = this.ParseInt64(cellValue, columnName);
+                            var parsed = this.ParseInt64(cellValue, header.Key);
                             property.SetValue(row, parsed);
                             break;
                         }
 
                     case "Double":
                         {
-                            var parsed = this.ParseDouble(cellValue, columnName);
+                            var parsed = this.ParseDouble(cellValue, header.Key);
                             property.SetValue(row, parsed);
                             break;
                         }
 
                     case "Decimal":
                         {
-                            var parsed = this.ParseDecimal(cellValue, columnName);
+                            var parsed = this.ParseDecimal(cellValue, header.Key);
                             property.SetValue(row, parsed);
                             break;
                         }
 
                     case "DateTime":
                         {
-                            var parsed = this.ParseDateTime(cellValue, columnName);
+                            var parsed = this.ParseDateTime(cellValue, header.Key);
                             property.SetValue(row, parsed);
                             break;
                         }
 
                     case "DateTimeOffset":
                         {
-                            var parsed = this.ParseDateTimeOffset(cellValue, columnName);
+                            var parsed = this.ParseDateTimeOffset(cellValue, header.Key);
                             property.SetValue(row, parsed);
                             break;
                         }
 
                     case "Boolean":
                         {
-                            var parsed = this.ParseBoolean(cellValue, columnName);
+                            var parsed = this.ParseBoolean(cellValue, header.Key);
                             property.SetValue(row, parsed);
                             break;
                         }
 
                     case "Guid":
                         {
-                            var parsed = this.ParseGuid(cellValue, columnName);
+                            var parsed = this.ParseGuid(cellValue, header.Key);
                             property.SetValue(row, parsed);
                             break;
                         }
 
                     case "IPAddress":
                         {
-                            var parsed = this.ParseIpAddress(cellValue, columnName);
+                            var parsed = this.ParseIpAddress(cellValue, header.Key);
                             property.SetValue(row, parsed);
                             break;
                         }
 
                     case "Enum":
                         {
-                            var parsed = this.ParseEnum(cellValue, columnName, propertyType);
+                            var parsed = this.ParseEnum(cellValue, header.Key, propertyType);
                             property.SetValue(row, parsed);
                             break;
                         }

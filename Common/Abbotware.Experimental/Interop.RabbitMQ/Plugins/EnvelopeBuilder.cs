@@ -75,16 +75,13 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
             target = Arguments.EnsureNotNull(target, nameof(target));
             source = Arguments.EnsureNotNull(source, nameof(source));
 
-            if (source.PublishProperties.Persistent.HasValue)
+            if (source.PublishProperties.Persistent)
             {
-                if (source.PublishProperties.Persistent.Value)
-                {
-                    target.DeliveryMode = (byte)DeliveryMode.Persistent;
-                }
-                else
-                {
-                    target.DeliveryMode = (byte)DeliveryMode.Transient;
-                }
+                target.DeliveryMode = (byte)DeliveryMode.Persistent;
+            }
+            else
+            {
+                target.DeliveryMode = (byte)DeliveryMode.Transient;
             }
 
             if (!string.IsNullOrWhiteSpace(source.CommonHeaders.AppId))

@@ -20,32 +20,32 @@ namespace Abbotware.Core.Messaging.Amqp.Configuration
         /// <summary>
         ///     internal set once property for name
         /// </summary>
-        private readonly SetOnceProperty<string> name = new SetOnceProperty<string>("Name");
+        private readonly SetOnceProperty<string> name = new ("Name");
 
         /// <summary>
         ///     internal set once field for queue's exclusive flag
         /// </summary>
-        private readonly SetOnceProperty<bool> isExclusive = new SetOnceProperty<bool>("exclusive");
+        private readonly SetOnceProperty<bool> isExclusive = new ("exclusive");
 
         /// <summary>
         ///     internal set once field for queue message time to live
         /// </summary>
-        private readonly SetOnceProperty<TimeSpan> messageTimeToLive = new SetOnceProperty<TimeSpan>("messageTTL");
+        private readonly SetOnceProperty<TimeSpan> messageTimeToLive = new ("messageTTL");
 
         /// <summary>
         ///     internal set once field for queue expiration
         /// </summary>
-        private readonly SetOnceProperty<TimeSpan> expires = new SetOnceProperty<TimeSpan>("expires");
+        private readonly SetOnceProperty<TimeSpan> expires = new ("expires");
 
         /// <summary>
         ///     internal set once field for queue's dead letter exchange
         /// </summary>
-        private readonly SetOnceProperty<string> deadLetterExchange = new SetOnceProperty<string>("deadLetterExchange");
+        private readonly SetOnceProperty<string> deadLetterExchange = new ("deadLetterExchange");
 
         /// <summary>
         ///     internal set once field for queue's dead letter routing key
         /// </summary>
-        private readonly SetOnceProperty<string> deadLetterRoutingKey = new SetOnceProperty<string>("deadLetterRoutingKey");
+        private readonly SetOnceProperty<string> deadLetterRoutingKey = new ("deadLetterRoutingKey");
 
         /// <summary>
         ///     internal set once field for queue's HA Policy
@@ -96,7 +96,7 @@ namespace Abbotware.Core.Messaging.Amqp.Configuration
             {
                 if (this.name.HasValue)
                 {
-                    return this.name.Value;
+                    return this.name.Value!;
                 }
 
                 throw new InvalidOperationException("Queue name is not set");
@@ -146,13 +146,13 @@ namespace Abbotware.Core.Messaging.Amqp.Configuration
         /// <summary>
         ///     Gets or sets the dead letter exchange for the queue
         /// </summary>
-        public string DeadLetterExchange
+        public string? DeadLetterExchange
         {
             get
             {
                 if (this.deadLetterExchange.HasValue)
                 {
-                    return this.deadLetterExchange.Value;
+                    return this.deadLetterExchange.Value!;
                 }
 
                 return null;
@@ -160,22 +160,22 @@ namespace Abbotware.Core.Messaging.Amqp.Configuration
 
             set
             {
-                Core.Arguments.NotNullOrWhitespace(value, nameof(this.DeadLetterExchange), "Non-empty name required for an exchange name");
+                var v = Core.Arguments.EnsureNotNullOrWhitespace(value!, nameof(this.DeadLetterExchange), "Non-empty name required for DeadLetterExchange");
 
-                this.deadLetterExchange.Value = value;
+                this.deadLetterExchange.Value = v;
             }
         }
 
         /// <summary>
         ///     Gets or sets the dead letter exchange routing key for the queue
         /// </summary>
-        public string DeadLetterRoutingKey
+        public string? DeadLetterRoutingKey
         {
             get
             {
                 if (this.deadLetterRoutingKey.HasValue)
                 {
-                    return this.deadLetterRoutingKey.Value;
+                    return this.deadLetterRoutingKey.Value!;
                 }
 
                 return null;
@@ -183,9 +183,9 @@ namespace Abbotware.Core.Messaging.Amqp.Configuration
 
             set
             {
-                Core.Arguments.NotNullOrWhitespace(value, nameof(this.DeadLetterRoutingKey), "Non-empty name required for alternate exchange name");
+                var v = Core.Arguments.EnsureNotNullOrWhitespace(value!, nameof(this.DeadLetterRoutingKey), "Non-empty name required for DeadLetterRoutingKey");
 
-                this.deadLetterRoutingKey.Value = value;
+                this.deadLetterRoutingKey.Value = v;
             }
         }
 
@@ -215,13 +215,13 @@ namespace Abbotware.Core.Messaging.Amqp.Configuration
         /// <summary>
         ///     Gets or sets the high availability configuration for the queue
         /// </summary>
-        public HighAvailabilityPolicyConfiguration HighAvailabilityPolicy
+        public HighAvailabilityPolicyConfiguration? HighAvailabilityPolicy
         {
             get
             {
                 if (this.highAvailabilityPolicy.HasValue)
                 {
-                    return this.highAvailabilityPolicy.Value;
+                    return this.highAvailabilityPolicy.Value!;
                 }
 
                 return null;

@@ -108,17 +108,17 @@ namespace Abbotware.Data.BulkInsert
 
             var temp = this.propertyFunctors[ordinalId]?.Invoke(instance);
 
-            if (temp is DateTimeOffset)
+            if (temp is DateTimeOffset offset)
             {
-                if ((DateTimeOffset)temp == DateTimeOffset.MinValue)
+                if (offset == DateTimeOffset.MinValue)
                 {
                     return null;
                 }
             }
 
-            if (temp is DateTime)
+            if (temp is DateTime time)
             {
-                if ((DateTime)temp == DateTime.MinValue)
+                if (time == DateTime.MinValue)
                 {
                     return null;
                 }

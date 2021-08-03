@@ -42,17 +42,13 @@ namespace Abbotware.Core.Messaging.Plugins
         /// <param name="protocol">protocol to decode the messages</param>
         /// <param name="consumerImpl">injected consumer implementation</param>
         /// <param name="logger">injected logger</param>
-        protected MqConsumer(IMessagePublisher<TResponse> publisher, IBasicAcknowledger acknowledger, IMessageProtocol<TRequest> protocol, IBasicConsumer consumerImpl, ILogger logger)
+        protected MqConsumer(IMessagePublisher<TResponse> publisher, IAmqpAcknowledger acknowledger, IMessageProtocol<TRequest> protocol, IBasicConsumer consumerImpl, ILogger logger)
             : base(acknowledger, consumerImpl, logger)
         {
-            Arguments.NotNull(publisher, nameof(publisher));
-            Arguments.NotNull(acknowledger, nameof(acknowledger));
-            Arguments.NotNull(protocol, nameof(protocol));
+            this.publisher = Arguments.EnsureNotNull(publisher, nameof(publisher));
+            this.AcknowledgementManager = Arguments.EnsureNotNull(acknowledger, nameof(acknowledger));
+            this.protocol = Arguments.EnsureNotNull(protocol, nameof(protocol));
             Arguments.NotNull(consumerImpl, nameof(protocol));
-            Arguments.NotNull(logger, nameof(logger));
-
-            this.publisher = publisher;
-            this.protocol = protocol;
         }
 
         /// <summary>
@@ -81,6 +77,7 @@ namespace Abbotware.Core.Messaging.Plugins
         {
             args = Arguments.EnsureNotNull(args, nameof(args));
             var envelope = Arguments.EnsureNotNull(args.Envelope, nameof(args.Envelope));
+            var tag = envelope.DeliveryProperties.DeliveryTag!;
 
             try
             {
@@ -92,15 +89,15 @@ namespace Abbotware.Core.Messaging.Plugins
 
                 p.Wait(1000);
 
-                this.AcknowledgementManager.Ack(envelope.DeliveryProperties.DeliveryTag, false);
+                this.AcknowledgementManager.Ack(tag, false);
             }
             catch (Exception ex)
             {
-                this.Logger.Error(ex, "Message:{0} redelivered:{1}", envelope.DeliveryProperties.DeliveryTag, envelope.DeliveryProperties.Redelivered);
+                this.Logger.Error(ex, "Message:{0} redelivered:{1}", tag, envelope.DeliveryProperties.Redelivered);
 
-                if (envelope.DeliveryProperties.Redelivered.Value)
+                if (envelope.DeliveryProperties!.Redelivered)
                 {
-                    this.AcknowledgementManager.Nack(envelope.DeliveryProperties.DeliveryTag, false, false);
+                    this.AcknowledgementManager.Nack(tag, false, false);
                 }
             }
         }

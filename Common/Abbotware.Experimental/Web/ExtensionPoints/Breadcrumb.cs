@@ -19,17 +19,17 @@ namespace Abbotware.Core.Web.ExtensionPoints
         /// <summary>
         /// Gets or sets the text of the bread crumb
         /// </summary>
-        public virtual string Text { get; set; }
+        public virtual string Text { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the controller for the the bread crumb
         /// </summary>
-        public string Controller { get; set; }
+        public string Controller { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the action for the bread crumb
         /// </summary>
-        public string Action { get; set; }
+        public string Action { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the uri fragment of the bread crumb

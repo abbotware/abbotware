@@ -23,9 +23,9 @@ namespace Abbotware.Core.Messaging.Integration.Configuration
         string? ConsumerTag { get; }
 
         /// <summary>
-        /// Gets the redilevered flag
+        /// Gets a value indicating whether the message was redilevered
         /// </summary>
-        bool? Redelivered { get; }
+        bool Redelivered { get; }
 
         /// <summary>
         /// Gets the message count

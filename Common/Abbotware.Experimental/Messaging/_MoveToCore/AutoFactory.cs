@@ -31,9 +31,8 @@ namespace Abbotware.Core
         /// </summary>
         /// <param name="factory">object factory</param>
         public AutoFactory(Func<TDisposable> factory)
-            : this(factory())
+            : this(Arguments.EnsureNotNull(factory, nameof(factory)).Invoke())
         {
-            Arguments.NotNull(factory, nameof(factory));
         }
 
         /// <summary>

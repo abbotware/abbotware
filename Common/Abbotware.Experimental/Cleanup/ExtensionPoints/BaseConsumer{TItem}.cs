@@ -69,9 +69,8 @@ namespace Abbotware.Core.ExtensionPoints
             if (item != null)
             {
                 this.OnPreEnqueue(item);
+                this.workQueue.Enqueue(item);
             }
-
-            this.workQueue.Enqueue(item);
         }
 
         /// <summary>

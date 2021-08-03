@@ -100,7 +100,7 @@ namespace Abbotware.Interop.RabbitMQ.ExtensionPoints
             if (qos != null)
             {
                 this.Logger.Info("Setting up QOS: PreFetchSize:{0} PreFetchCount:{1} PreFetchGlobal{2}", qos.PreFetchSize, qos.PreFetchCount, qos.PreFetchGlobal);
-                this.rabbitMQChannel.BasicQos(qos.PreFetchSize.Value, qos.PreFetchCount.Value, qos.PreFetchGlobal.Value);
+                this.rabbitMQChannel.BasicQos(qos.PreFetchSize, qos.PreFetchCount, qos.PreFetchGlobal);
             }
 
             this.rabbitMQChannel.BasicAcks += this.OnBasicAck;

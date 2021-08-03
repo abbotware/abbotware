@@ -35,11 +35,8 @@ namespace Abbotware.Core.Messaging.Amqp.Plugins
         public AdvancedPublisher(IAmqpPublisher channel, IAmqpMessageProtocol<TMessage> protocol, ILogger logger)
             : base(logger)
         {
-            Arguments.NotNull(channel, nameof(channel));
-            Arguments.NotNull(protocol, nameof(protocol));
-            Arguments.NotNull(logger, nameof(logger));
-
-            this.protocol = protocol;
+            this.Channel = Arguments.EnsureNotNull(channel, nameof(channel));
+            this.protocol = Arguments.EnsureNotNull(protocol, nameof(protocol));
         }
 
         /// <summary>

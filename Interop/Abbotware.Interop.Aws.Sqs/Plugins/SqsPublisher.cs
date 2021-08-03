@@ -68,7 +68,6 @@ namespace Abbotware.Interop.Aws.Sqs.Plugins
         }
 
         /// <inheritdoc />
-        [SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope", Justification = "reviewed")]
         public async Task<PublishStatus> Publish(IMessageEnvelope envelope)
         {
             envelope = Arguments.EnsureNotNull(envelope, nameof(envelope));

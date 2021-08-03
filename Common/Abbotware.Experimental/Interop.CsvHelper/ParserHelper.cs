@@ -106,7 +106,9 @@ namespace Abbotware.Interop.CsvHelper
         private static IEnumerable<TDataRow> ParseFle<TDataRow>(string filePath, ParserConfiguration cfg, ILogger logger)
             where TDataRow : new()
         {
-            logger?.Info($"Csv File:{filePath}");
+            logger = Arguments.EnsureNotNull(logger, nameof(logger));
+
+            logger.Info($"Csv File:{filePath}");
 
             using var reader = new StreamReader(filePath);
 

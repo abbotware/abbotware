@@ -16,9 +16,9 @@ namespace Abbotware.ShellCommand
     /// </summary>
     public class ExitInfo : IExitInfo
     {
-        private readonly ConcurrentBag<(DateTimeOffset, string)> error = new ConcurrentBag<(DateTimeOffset, string)>();
+        private readonly ConcurrentBag<(DateTimeOffset, string)> error = new ();
 
-        private readonly ConcurrentBag<(DateTimeOffset, string)> output = new ConcurrentBag<(DateTimeOffset, string)>();
+        private readonly ConcurrentBag<(DateTimeOffset, string)> output = new ();
 
         /// <inheritdoc />
         public int? ExitCode { get; set; }

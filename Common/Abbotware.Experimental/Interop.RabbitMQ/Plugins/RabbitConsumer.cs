@@ -25,8 +25,6 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
     {
         private readonly IAmqpConsumerManager<global::RabbitMQ.Client.IBasicConsumer> consumerManager;
 
-        private string? consumerTag;
-
         /// <summary>
         ///     Initializes a new instance of the <see cref="RabbitConsumer" /> class.
         /// </summary>
@@ -47,12 +45,12 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
         /// <summary>
         ///     Event signaling consumer was cancelled
         /// </summary>
-        public event EventHandler<ConsumerEventArgs> ConsumerCancelled;
+        public event EventHandler<ConsumerEventArgs>? ConsumerCancelled;
 
         /// <summary>
         ///     Event signaling message is delievered
         /// </summary>
-        public event EventHandler<DeliveryEventArgs> OnDelivery;
+        public event EventHandler<DeliveryEventArgs>? OnDelivery;
 
         /// <summary>
         ///     Gets the current state of the Consumer
@@ -62,12 +60,12 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
         /// <summary>
         ///     Gets the AMQP ConsumerTag for this Consumer
         /// </summary>
-        public string ConsumerTag { get; private set; }
+        public string? ConsumerTag { get; private set; }
 
         /// <summary>
         ///     Gets the shutdown reason if the Consumer was stopped
         /// </summary>
-        public ShutdownEventArgs ShutdownReason { get; private set; }
+        public ShutdownEventArgs? ShutdownReason { get; private set; }
 
         /// <inheritdoc />
         public IModel Model
@@ -84,7 +82,7 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
             this.Status = ConsumerStatus.CancelRequested;
             this.LogStatus();
 
-            this.ConsumerCancelled?.Invoke(null, null);
+            this.ConsumerCancelled?.Invoke(null, new ConsumerEventArgs(new string[] { consumerTag }));
         }
 
         /// <inheritdoc />
@@ -115,7 +113,7 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
         {
             var e = EnvelopeBuilder.Create(deliveryTag.ToString(CultureInfo.InvariantCulture), redelivered, exchange, routingKey, properties, body.ToArray(), consumerTag);
 
-            this.OnDelivery(this, new DeliveryEventArgs(e));
+            this.OnDelivery?.Invoke(this, new DeliveryEventArgs(e));
 
             ++this.Delivered;
         }
@@ -125,13 +123,13 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
         {
             base.OnInitialize();
 
-            this.consumerTag = this.consumerManager.Start(this.Configuration.Queue, this.Configuration.RequiresAcks, this);
+            this.ConsumerTag = this.consumerManager.Start(this.Configuration.Queue, this.Configuration.RequiresAcks, this);
         }
 
         /// <inheritdoc />
         protected override void OnDisposeManagedResources()
         {
-            this.consumerManager.Cancel(this.consumerTag);
+            this.consumerManager.Cancel(this.ConsumerTag!);
         }
 
         /// <summary>

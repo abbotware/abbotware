@@ -69,7 +69,7 @@ namespace Abbotware.Core.Messaging.Integration.Base
             {
                 this.Logger.Error(ex, $"Message:{envelope.DeliveryProperties?.DeliveryTag} redelivered:{envelope?.DeliveryProperties?.Redelivered}");
 
-                if (envelope!.DeliveryProperties!.Redelivered.HasValue)
+                if (envelope!.DeliveryProperties!.Redelivered)
                 {
                     this.OnRedelileveredAndException(envelope);
                 }

@@ -30,7 +30,7 @@ namespace Abbotware.Data.BulkInsert
         /// <summary>
         ///     meta data for the class
         /// </summary>
-        private readonly ClassMetadata<TClass> meta = new ClassMetadata<TClass>();
+        private readonly ClassMetadata<TClass> meta = new ();
 
         /// <summary>
         ///     list of records

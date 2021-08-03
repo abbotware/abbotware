@@ -40,7 +40,7 @@ namespace Abbotware.Core.Data.Plugins.Configuration
         public int? Rows { get; set; }
 
         /// <inheritdoc/>
-        public string Endpoint { get; set; }
+        public string Endpoint { get; set; } = string.Empty;
 
         /// <inheritdoc />
         public void AddField(string field)

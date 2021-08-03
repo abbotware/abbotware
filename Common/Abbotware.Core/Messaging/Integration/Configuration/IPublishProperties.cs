@@ -23,13 +23,13 @@ namespace Abbotware.Core.Messaging.Integration.Configuration
         string RoutingKey { get; }
 
         /// <summary>
-        /// Gets a value indicating the message is persistent
+        /// Gets a value indicating whether the message is persistent
         /// </summary>
-        bool? Persistent { get; }
+        bool Persistent { get; }
 
         /// <summary>
-        /// Gets a value indicating the message has a mandatory flag
+        /// Gets a value indicating whether message has a mandatory flag
         /// </summary>
-        bool? Mandatory { get; }
+        bool Mandatory { get; }
     }
 }

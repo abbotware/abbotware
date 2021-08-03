@@ -74,11 +74,11 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
 
                 this.Logger.Debug($"QUEUE DECLARE:[{queueConfiguration?.Name}] durable:{queueConfiguration?.IsDurable} exclusive:{queueConfiguration?.IsExclusive} auto delete:{queueConfiguration?.IsAutoDelete} arguments:[{queueConfiguration?.Arguments?.StringFormat()}]");
 
-                var queueDeclareResult = this.RabbitMQChannel.QueueDeclare(queueConfiguration.Name, queueConfiguration.IsDurable, queueConfiguration.IsExclusive, queueConfiguration.IsAutoDelete, queueConfiguration.Arguments);
+                var queueDeclareResult = this.RabbitMQChannel.QueueDeclare((string)queueConfiguration!.Name, (bool)queueConfiguration.IsDurable, (bool)queueConfiguration.IsExclusive, (bool)queueConfiguration.IsAutoDelete, (System.Collections.Generic.IDictionary<string, object>?)queueConfiguration.Arguments);
 
                 this.Logger.Debug($"QUEUE DECLARED:[{queueDeclareResult?.QueueName}] messages:{queueDeclareResult?.MessageCount} consumers:{queueDeclareResult?.ConsumerCount}");
 
-                return new QueueCreationConfiguration(queueDeclareResult.QueueName, queueDeclareResult.MessageCount, queueDeclareResult.ConsumerCount);
+                return new QueueCreationConfiguration(queueDeclareResult!.QueueName, queueDeclareResult.MessageCount, queueDeclareResult.ConsumerCount);
             }
         }
 
@@ -95,7 +95,7 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
 
                 this.Logger.Debug($"QUEUE {queueBindingConfiguration?.Action}:[{queueBindingConfiguration?.DestinationQueue}] exchange:{queueBindingConfiguration?.SourceExchange} topic:{queueBindingConfiguration?.Topic} arguments:[{queueBindingConfiguration?.Arguments?.StringFormat()}]");
 
-                if (queueBindingConfiguration.Action == BindingAction.Bind)
+                if (queueBindingConfiguration!.Action == BindingAction.Bind)
                 {
                     this.RabbitMQChannel.QueueBind(queueBindingConfiguration.DestinationQueue, queueBindingConfiguration.SourceExchange, queueBindingConfiguration.Topic, queueBindingConfiguration.Arguments);
                 }

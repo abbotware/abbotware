@@ -141,7 +141,7 @@ namespace Abbotware.Core.Data.ExtensionPoints.Text
         /// <inheritdoc />
         public IEnumerable<TRecord> Parse()
         {
-            return this.Retrieve(default).Data;
+            throw new NotImplementedException();
         }
 
         /// <inheritdoc />

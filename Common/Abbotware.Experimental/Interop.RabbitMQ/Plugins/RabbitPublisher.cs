@@ -172,7 +172,7 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
                     Debug.Assert(tryAddResult, "TryAdd for outstandingConfirmations failed");
                 }
 
-                this.RabbitMQChannel.BasicPublish(envelope.PublishProperties.Exchange, envelope.PublishProperties.RoutingKey, envelope.PublishProperties.Mandatory.Value, properties, envelope.Body.ToArray());
+                this.RabbitMQChannel.BasicPublish(envelope.PublishProperties.Exchange, envelope.PublishProperties.RoutingKey, envelope.PublishProperties.Mandatory, properties, envelope.Body.ToArray());
 
                 switch (this.Configuration.Mode)
                 {
@@ -227,7 +227,7 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
 
             this.Logger.Warn($"OnBasicReturn Exchange:{eventArgs?.Exchange} RoutingKey:{eventArgs?.RoutingKey}, ReplyCode:{eventArgs?.ReplyCode} ReplyText:{eventArgs?.ReplyText} BasicProps:[{eventArgs?.BasicProperties?.ToFormatString()}]");
 
-            switch (eventArgs.ReplyCode)
+            switch (eventArgs!.ReplyCode)
             {
                 case 312:
                     {
@@ -281,6 +281,8 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
         /// <inheritdoc />
         protected override void OnBasicAck(object sender, BasicAckEventArgs eventArgs)
         {
+            eventArgs = Arguments.EnsureNotNull(eventArgs, nameof(eventArgs));
+
             this.Logger.Info($"OnBasicAcks: DeliveryTag:{eventArgs?.DeliveryTag} Multiple:{eventArgs?.Multiple} Outstanding:{this.outstandingConfirmations.Count}");
 
             switch (this.Configuration.Mode)
@@ -289,7 +291,7 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
                     {
                         var confirmedSeqNo = (ulong)this.lastConfirmedSequenceNumber.Value;
 
-                        while (confirmedSeqNo < eventArgs.DeliveryTag)
+                        while (confirmedSeqNo < eventArgs!.DeliveryTag)
                         {
                             confirmedSeqNo = (ulong)this.lastConfirmedSequenceNumber.Increment();
 

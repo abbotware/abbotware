@@ -30,7 +30,7 @@ namespace Abbotware.Interop.Graphviz.Api
         /// <summary>
         ///     tracks the graph object used for the most recent AddLayout / FreeLayout calls
         /// </summary>
-        private Graph graph;
+        private Graph? graph;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="GraphvizContext" /> class.

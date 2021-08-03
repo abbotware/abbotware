@@ -15,11 +15,11 @@ namespace Abbotware.Core.Web.Models
         /// <summary>
         /// Gets or sets the page title
         /// </summary>
-        public string Title { get; set; }
+        public string Title { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the page message
         /// </summary>
-        public string Message { get; set; }
+        public string Message { get; set; } = string.Empty;
     }
 }

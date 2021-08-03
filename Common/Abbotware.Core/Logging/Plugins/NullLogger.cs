@@ -53,12 +53,12 @@ namespace Abbotware.Core.Logging.Plugins
         }
 
         /// <inheritdoc/>
-        public void Debug([Localizable(false)] string message, params object[] args)
+        public void Debug([Localizable(false)] string message, params object?[] args)
         {
         }
 
         /// <inheritdoc/>
-        public void Debug(Exception exception, [Localizable(false)] string message, params object[] args)
+        public void Debug(Exception exception, [Localizable(false)] string message, params object?[] args)
         {
         }
 
@@ -68,12 +68,12 @@ namespace Abbotware.Core.Logging.Plugins
         }
 
         /// <inheritdoc/>
-        public void Error([Localizable(false)] string message, params object[] args)
+        public void Error([Localizable(false)] string message, params object?[] args)
         {
         }
 
         /// <inheritdoc/>
-        public void Error(Exception exception, [Localizable(false)] string message, params object[] args)
+        public void Error(Exception exception, [Localizable(false)] string message, params object?[] args)
         {
         }
 
@@ -83,12 +83,12 @@ namespace Abbotware.Core.Logging.Plugins
         }
 
         /// <inheritdoc/>
-        public void Fatal([Localizable(false)] string message, params object[] args)
+        public void Fatal([Localizable(false)] string message, params object?[] args)
         {
         }
 
         /// <inheritdoc/>
-        public void Fatal(Exception exception, [Localizable(false)] string message, params object[] args)
+        public void Fatal(Exception exception, [Localizable(false)] string message, params object?[] args)
         {
         }
 
@@ -98,12 +98,12 @@ namespace Abbotware.Core.Logging.Plugins
         }
 
         /// <inheritdoc/>
-        public void Info([Localizable(false)] string message, params object[] args)
+        public void Info([Localizable(false)] string message, params object?[] args)
         {
         }
 
         /// <inheritdoc/>
-        public void Info(Exception exception, [Localizable(false)] string message, params object[] args)
+        public void Info(Exception exception, [Localizable(false)] string message, params object?[] args)
         {
         }
 
@@ -113,12 +113,12 @@ namespace Abbotware.Core.Logging.Plugins
         }
 
         /// <inheritdoc/>
-        public void Trace([Localizable(false)] string message, params object[] args)
+        public void Trace([Localizable(false)] string message, params object?[] args)
         {
         }
 
         /// <inheritdoc/>
-        public void Trace(Exception exception, [Localizable(false)] string message, params object[] args)
+        public void Trace(Exception exception, [Localizable(false)] string message, params object?[] args)
         {
         }
 
@@ -128,12 +128,12 @@ namespace Abbotware.Core.Logging.Plugins
         }
 
         /// <inheritdoc/>
-        public void Warn([Localizable(false)] string message, params object[] args)
+        public void Warn([Localizable(false)] string message, params object?[] args)
         {
         }
 
         /// <inheritdoc/>
-        public void Warn(Exception exception, [Localizable(false)] string message, params object[] args)
+        public void Warn(Exception exception, [Localizable(false)] string message, params object?[] args)
         {
         }
 

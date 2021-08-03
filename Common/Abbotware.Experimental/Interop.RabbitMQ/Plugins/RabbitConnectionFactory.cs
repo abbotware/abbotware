@@ -132,7 +132,7 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
 
                 this.factory.Port = options.AmqpTcpEndpoint.Port;
 
-                this.factory.UserName = options.Credential.UserName ?? ConnectionFactory.DefaultUser;
+                this.factory.UserName = options.Credential!.UserName ?? ConnectionFactory.DefaultUser;
 
                 this.factory.Password = options.Credential.Password ?? ConnectionFactory.DefaultPass;
             }

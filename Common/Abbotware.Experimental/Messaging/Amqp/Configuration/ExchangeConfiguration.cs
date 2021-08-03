@@ -49,7 +49,7 @@ namespace Abbotware.Core.Messaging.Amqp.Configuration
             {
                 if (this.name.HasValue)
                 {
-                    return this.name.Value;
+                    return this.name.Value!;
                 }
 
                 throw new InvalidOperationException("Exchange name is not set");
@@ -76,13 +76,13 @@ namespace Abbotware.Core.Messaging.Amqp.Configuration
         /// <summary>
         ///     Gets or sets the alternate-exchange for the exchange
         /// </summary>
-        public string AlternateExchange
+        public string? AlternateExchange
         {
             get
             {
                 if (this.alternateExchange.HasValue)
                 {
-                    return this.alternateExchange.Value;
+                    return this.alternateExchange.Value!;
                 }
 
                 return null;
@@ -90,7 +90,7 @@ namespace Abbotware.Core.Messaging.Amqp.Configuration
 
             set
             {
-                Core.Arguments.NotNullOrWhitespace(value, nameof(this.AlternateExchange), "Non-empty name required for alternate exchange name");
+                Core.Arguments.NotNullOrWhitespace(value!, nameof(this.AlternateExchange), "Non-empty name required for alternate exchange name");
 
                 this.alternateExchange.Value = value;
             }

@@ -19,9 +19,9 @@ namespace Abbotware.Core.Messaging.Integration.Configuration.Models
         public string RoutingKey { get; set; } = string.Empty;
 
         /// <inheritdoc/>
-        public bool? Persistent { get; set; }
+        public bool Persistent { get; set; }
 
         /// <inheritdoc/>
-        public bool? Mandatory { get; set; }
+        public bool Mandatory { get; set; }
     }
 }

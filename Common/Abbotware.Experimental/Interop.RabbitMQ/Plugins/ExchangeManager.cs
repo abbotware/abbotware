@@ -37,9 +37,9 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
         }
 
         /// <inheritdoc />
-        public bool ExchangeExists(string exchangeName)
+        public bool ExchangeExists(string exchange)
         {
-            exchangeName = Arguments.EnsureNotNullOrWhitespace(exchangeName, nameof(exchangeName));
+            exchange = Arguments.EnsureNotNullOrWhitespace(exchange, nameof(exchange));
 
             this.InitializeIfRequired();
 
@@ -49,13 +49,13 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
 
                 try
                 {
-                    this.RabbitMQChannel.ExchangeDeclarePassive(exchangeName);
-                    this.Logger.Debug("EXCHANGE EXISTS:{0} ", exchangeName);
+                    this.RabbitMQChannel.ExchangeDeclarePassive(exchange);
+                    this.Logger.Debug("EXCHANGE EXISTS:{0} ", exchange);
                 }
                 catch (OperationInterruptedException)
                 {
                     // TODO: this seems like a hack
-                    this.Logger.Debug("EXCHANGE EXISTS:{0} - false", exchangeName);
+                    this.Logger.Debug("EXCHANGE EXISTS:{0} - false", exchange);
                     return false;
                 }
 
@@ -77,7 +77,7 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
 
                 this.Logger.Debug($"EXCHANGE DECLARE:{exchangeConfiguration?.Name} type:{exchangeConfiguration?.ExchangeType} durable:{exchangeConfiguration?.IsDurable} auto delete:{exchangeConfiguration?.IsAutoDelete} arguments:[{exchangeConfiguration?.Arguments?.StringFormat()}]");
 
-                this.RabbitMQChannel.ExchangeDeclare(exchangeConfiguration.Name, exchangeConfiguration.ExchangeType.ToString().ToLower(CultureInfo.InvariantCulture), exchangeConfiguration.IsDurable, exchangeConfiguration.IsAutoDelete, exchangeConfiguration.Arguments);
+                this.RabbitMQChannel.ExchangeDeclare(exchangeConfiguration!.Name, exchangeConfiguration.ExchangeType.ToString().ToLower(CultureInfo.InvariantCulture), exchangeConfiguration.IsDurable, exchangeConfiguration.IsAutoDelete, exchangeConfiguration.Arguments);
             }
         }
 
@@ -94,7 +94,7 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
 
                 this.Logger.Debug($"EXHANGE {exchangeBindingConfiguration?.Action}: source-exchange:{exchangeBindingConfiguration?.SourceExchange} destination-exchange:{exchangeBindingConfiguration?.DestinationExchange} topic:{exchangeBindingConfiguration?.Topic} arguments:[{exchangeBindingConfiguration?.Arguments?.StringFormat()}]");
 
-                if (exchangeBindingConfiguration.Action == BindingAction.Bind)
+                if (exchangeBindingConfiguration!.Action == BindingAction.Bind)
                 {
                     this.RabbitMQChannel.ExchangeBind(exchangeBindingConfiguration.DestinationExchange, exchangeBindingConfiguration.SourceExchange, exchangeBindingConfiguration.Topic, exchangeBindingConfiguration.Arguments);
                 }
@@ -106,9 +106,9 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
         }
 
         /// <inheritdoc />
-        public void Delete(string exchangeName, bool ifUnused)
+        public void Delete(string exchange, bool ifUnused)
         {
-            exchangeName = Arguments.EnsureNotNullOrWhitespace(exchangeName, nameof(exchangeName));
+            exchange = Arguments.EnsureNotNullOrWhitespace(exchange, nameof(exchange));
 
             this.InitializeIfRequired();
 
@@ -116,8 +116,8 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
             {
                 this.ThrowIfDisposed();
 
-                this.Logger.Debug("EXHANGE DELETE:{0} IfUnused:{1}", exchangeName, ifUnused);
-                this.RabbitMQChannel.ExchangeDelete(exchangeName, ifUnused);
+                this.Logger.Debug("EXHANGE DELETE:{0} IfUnused:{1}", exchange, ifUnused);
+                this.RabbitMQChannel.ExchangeDelete(exchange, ifUnused);
             }
         }
     }

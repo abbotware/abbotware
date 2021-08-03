@@ -92,7 +92,7 @@ namespace Abbotware.Core.Web.Plugins
         /// </summary>
         /// <param name="child">xml child node</param>
         /// <param name="tree">collection of breadcrumbs</param>
-        private void ProcessChild(XmlNode child, TreeCollection<Breadcrumb> tree)
+        private void ProcessChild(XmlNode child, TreeCollection<Breadcrumb>? tree)
         {
             if (child.NodeType != XmlNodeType.Element)
             {
@@ -124,7 +124,7 @@ namespace Abbotware.Core.Web.Plugins
             node.Action = a.Value;
             node.Controller = c.Value;
             node.Text = t.Value;
-            node.Fragment = f?.Value;
+            node.Fragment = f?.Value ?? string.Empty;
 
             tree = tree == null ? (this.root = new TreeCollection<Breadcrumb>(node)) : tree.AddChild(node);
 

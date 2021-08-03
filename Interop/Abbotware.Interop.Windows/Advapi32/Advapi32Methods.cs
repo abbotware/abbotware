@@ -28,7 +28,6 @@ namespace Abbotware.Interop.Windows.Advapi32
         /// <param name="logOnType">Win32 Logon Type to use</param>
         /// <param name="logOnProvider">Win32 Logon Provider to use</param>
         /// <returns>LogonToken wrapped in a SafeHandle</returns>
-        [SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly", MessageId = "Logon", Justification = "Following MSDN for win32 Api call")]
         public static AccessControlToken LogonUser(
             string userName,
             string domain,

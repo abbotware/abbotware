@@ -22,7 +22,7 @@ namespace Abbotware.Core.Messaging.Integration.Configuration.Models
         public string? ConsumerTag { get; set; }
 
         /// <inheritdoc/>
-        public bool? Redelivered { get; set; }
+        public bool Redelivered { get; set; }
 
         /// <inheritdoc/>
         public uint? MessageCount { get; set; }

@@ -19,11 +19,11 @@ namespace Abbotware.Core.Web.Models
         /// <summary>
         ///     Gets or sets the name of the list item
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
 
         /// <summary>
         ///     Gets or sets the description of the list item
         /// </summary>
-        public string Description { get; set; }
+        public string Description { get; set; } = string.Empty;
     }
 }

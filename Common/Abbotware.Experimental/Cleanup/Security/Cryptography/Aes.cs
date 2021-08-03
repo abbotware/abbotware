@@ -59,29 +59,6 @@ namespace Abbotware.Core.Security.Cryptography
             };
 
         /// <summary>
-        ///     default initialization vector
-        /// </summary>
-        private static readonly byte[] DefaultInitializationVector =
-            {
-                146,
-                64,
-                191,
-                111,
-                23,
-                3,
-                113,
-                119,
-                231,
-                121,
-                221,
-                112,
-                79,
-                32,
-                114,
-                156,
-            };
-
-        /// <summary>
         ///     decrypter object
         /// </summary>
         private readonly ICryptoTransform decryptor;
@@ -100,7 +77,7 @@ namespace Abbotware.Core.Security.Cryptography
         ///     Initializes a new instance of the <see cref="Aes" /> class.
         /// </summary>
         public Aes()
-            : this(Aes.DefaultKey, Aes.DefaultInitializationVector)
+            : this(Aes.DefaultKey)
         {
         }
 
@@ -108,13 +85,14 @@ namespace Abbotware.Core.Security.Cryptography
         ///     Initializes a new instance of the <see cref="Aes" /> class.
         /// </summary>
         /// <param name="key">encryption key</param>
-        /// <param name="iv">initialization vector</param>
-        public Aes(byte[] key, byte[] iv)
+        public Aes(byte[] key)
         {
             using (var rm = new RijndaelManaged())
             {
-                this.encryptor = rm.CreateEncryptor(key, iv);
-                this.decryptor = rm.CreateDecryptor(key, iv);
+                rm.Key = key;
+
+                this.encryptor = rm.CreateEncryptor();
+                this.decryptor = rm.CreateDecryptor();
             }
 
             this.encoder = new UTF8Encoding();

@@ -69,9 +69,9 @@ namespace Abbotware.Core.Messaging.Plugins
             {
                 this.Logger.Error(ex, "Message:{0} redelivered:{1}", envelope.DeliveryProperties?.DeliveryTag, envelope.DeliveryProperties?.Redelivered);
 
-                if (envelope.DeliveryProperties.Redelivered.HasValue)
+                if (envelope.DeliveryProperties!.Redelivered)
                 {
-                    this.OnRedelileveredAndExcepption(envelope);
+                    this.OnRedelileveredAndException(envelope);
                 }
             }
         }
@@ -80,7 +80,7 @@ namespace Abbotware.Core.Messaging.Plugins
         ///     hook to for handled redelieved messages that have an exception
         /// </summary>
         /// <param name="envelope">message envelope</param>
-        protected virtual void OnRedelileveredAndExcepption(IMessageEnvelope envelope)
+        protected virtual void OnRedelileveredAndException(IMessageEnvelope envelope)
         {
             // in AMQP we would NACK the message
             // this.Acknowledger.Nack(envelope.DeliveryProperties.DeliveryTag, false, false);

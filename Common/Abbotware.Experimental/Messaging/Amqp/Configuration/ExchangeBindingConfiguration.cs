@@ -19,12 +19,12 @@ namespace Abbotware.Core.Messaging.Amqp.Configuration
         /// <summary>
         ///     internal set once field for source exchange
         /// </summary>
-        private readonly SetOnceProperty<string> sourceExchange = new SetOnceProperty<string>("SourceExchange");
+        private readonly SetOnceProperty<string> sourceExchange = new ("SourceExchange");
 
         /// <summary>
         ///     internal set once field for destination exchange
         /// </summary>
-        private readonly SetOnceProperty<string> destinationExchange = new SetOnceProperty<string>("DestinationExchange");
+        private readonly SetOnceProperty<string> destinationExchange = new ("DestinationExchange");
 
         /// <summary>
         ///     Gets or sets the source exchange
@@ -36,7 +36,7 @@ namespace Abbotware.Core.Messaging.Amqp.Configuration
             {
                 if (this.sourceExchange.HasValue)
                 {
-                    return this.sourceExchange.Value;
+                    return this.sourceExchange.Value!;
                 }
 
                 throw new InvalidOperationException("Source Exchange is not set");
@@ -60,7 +60,7 @@ namespace Abbotware.Core.Messaging.Amqp.Configuration
             {
                 if (this.destinationExchange.HasValue)
                 {
-                    return this.destinationExchange.Value;
+                    return this.destinationExchange.Value!;
                 }
 
                 throw new InvalidOperationException("Destination Exchange is not set");
