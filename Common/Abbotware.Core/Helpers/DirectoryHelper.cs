@@ -17,7 +17,7 @@ namespace Abbotware.Core.Helpers
     /// </summary>
     public static class DirectoryHelper
     {
-        private static object mutex = new object();
+        private static readonly object Mutex = new object();
 
         private static bool workingDirectoryInitialized;
 
@@ -53,7 +53,7 @@ namespace Abbotware.Core.Helpers
         {
             directory = Arguments.EnsureNotNull(directory, nameof(directory));
 
-            lock (mutex)
+            lock (Mutex)
             {
                 if (workingDirectoryInitialized)
                 {
