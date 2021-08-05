@@ -27,7 +27,7 @@ namespace Abbotware.UnitTests.Interop.CsvHelper
         [Test]
         public void SimpleData()
         {
-            var row1 = ParserHelper.CsvFile<DataRow>(DirectoryHelper.FindFilePath("data.csv", "Samples"), this.Logger).First();
+            var row1 = ParserHelper.CsvFile<DataRow>(DirectoryHelper.FindFilePath("data.csv", "Sample"), this.Logger).First();
 
             Assert.AreEqual(new DateTime(2011, 11, 11), row1.DateTime);
             Assert.AreEqual(TestEnumType.Enum1, row1.Enum);
@@ -35,7 +35,7 @@ namespace Abbotware.UnitTests.Interop.CsvHelper
             Assert.AreEqual(123, row1.Int);
             Assert.AreEqual("data", row1.String);
 
-            var row2 = ParserHelper.CsvFile<DataRow>(DirectoryHelper.FindFilePath("data.csv", "Samples"), this.Logger).Last();
+            var row2 = ParserHelper.CsvFile<DataRow>(DirectoryHelper.FindFilePath("data.csv", "Sample"), this.Logger).Last();
             Assert.AreEqual(TestEnumType.Enum2, row2.Enum2);
         }
 

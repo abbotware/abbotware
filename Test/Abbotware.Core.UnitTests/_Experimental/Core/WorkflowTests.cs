@@ -213,7 +213,7 @@
         }
 
         [Test]
-        [ExpectedException(typeof(ActionNotFoundException))]
+        [ExpectedException(typeof(ArgumentNullException))]
         public void ApplyAction_NullAction1()
         {
             var fsm = this.EmptyStateMachine();
@@ -222,7 +222,7 @@
         }
 
         [Test]
-        [ExpectedException(typeof(ActionNotFoundException))]
+        [ExpectedException(typeof(ArgumentNullException))]
         public void ApplyAction_NullAction2()
         {
             var fsm = this.EmptyStateMachine();

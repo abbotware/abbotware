@@ -147,6 +147,8 @@ namespace Abbotware.Core.Data.ExtensionPoints.Text
         /// <inheritdoc />
         public IRetrievalResult<IEnumerable<TRecord>, IRetrievalMetadata, TRetrievalContext> Retrieve(TRetrievalContext context)
         {
+            this.InitializeIfRequired();
+
             if (Interlocked.Increment(ref this.runCounter) > 1)
             {
                 throw new InvalidOperationException(FormattableString.Invariant($"already run{this.GetType().Name}"));

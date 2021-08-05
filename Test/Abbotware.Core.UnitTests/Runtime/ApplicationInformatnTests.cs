@@ -32,8 +32,8 @@ namespace Abbotware.UnitTests.Core
                 Assert.AreEqual(new Version("4.6.28008.2"), e.RuntimeVersion);
             }
 #elif NETCOREAPP3_1
-            Assert.AreEqual("3.1.4", e.RuntimeName);
-            Assert.AreEqual(new Version("3.1.4"), e.RuntimeVersion);
+            Assert.AreEqual("3.1.17", e.RuntimeName);
+            Assert.AreEqual(new Version("3.1.17"), e.RuntimeVersion);
 #else
             Assert.Fail("Unexpected");
 #endif
