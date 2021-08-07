@@ -74,17 +74,17 @@ namespace Abbotware.Interop.Linux
             // didn't work because we are not executing as root
             if (!result.StartInfo.Started)
             {
-                throw AbbotwareException.Create("Error during shell command {0}", result.ErrorOutput.FirstOrDefault().Item2);
+                throw AbbotwareException.Create("Error during shell command {0}", result.ErrorOutput.FirstOrDefault().Message);
             }
 
             if (!result.Exited)
             {
-                throw AbbotwareException.Create("Error during shell command {0}", result.ErrorOutput.FirstOrDefault().Item2);
+                throw AbbotwareException.Create("Error during shell command {0}", result.ErrorOutput.FirstOrDefault().Message);
             }
 
             if (result.ExitCode != 0)
             {
-                throw AbbotwareException.Create("Error during shell command {0}", result.ErrorOutput.FirstOrDefault().Item2);
+                throw AbbotwareException.Create("Error during shell command {0}", result.ErrorOutput.FirstOrDefault().Message);
             }
         }
     }
