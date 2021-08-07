@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.1</TargetFrameworks>
+    <Description>Abbotware Interop Library for TD Ameritrade Rest API - Contains helper methods, extension methods, and plugins</Description>
+    <PackageTags>TD Ameritrade;Rest</PackageTags>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="RestSharp" Version="106.12.0" />
+    <PackageReference Include="RestSharp.Serializers.NewtonsoftJson" Version="106.12.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Abbotware.Core\Abbotware.Core.csproj" />
+    <ProjectReference Include="..\Abbotware.Interop.Newtonsoft\Abbotware.Interop.Newtonsoft.csproj" />
+  </ItemGroup>
+
+</Project>
