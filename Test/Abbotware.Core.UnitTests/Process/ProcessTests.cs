@@ -14,8 +14,7 @@ namespace Abbotware.UnitTests.Core
     using NUnit.Framework;
 
     [TestFixture]
-    [Category("Core")]
-    [Category("Core.Process")]
+    [Category("ShellCommand")]
     public class ProcessTests : BaseNUnitTest
     {
         [Test]
@@ -51,6 +50,7 @@ namespace Abbotware.UnitTests.Core
             }
 
             Assert.That(result.ErrorOutput, Has.Count.GreaterThan(1));
+            Assert.That(result.StandardOutput, Has.Count.GreaterThan(1));
 
             try
             {

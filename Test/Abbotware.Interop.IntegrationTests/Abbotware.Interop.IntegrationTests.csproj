@@ -14,11 +14,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Common\Abbotware.ShellCommand\Abbotware.ShellCommand.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Aws.Sqs\Abbotware.Interop.Aws.Sqs.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Ipify\Abbotware.Interop.Ipify.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.MacVendors\Abbotware.Interop.MacVendors.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.ProtoBufNet\Abbotware.Interop.ProtoBufNet.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Redis\Abbotware.Interop.Redis.csproj" />
+    <ProjectReference Include="..\..\Interop\Abbotware.Interop.TDAmeritrade\Abbotware.Interop.TDAmeritrade.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Windows\Abbotware.Interop.Windows.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Yubico\Abbotware.Interop.Yubico.csproj" />
     <ProjectReference Include="..\..\Utility\Abbotware.Utility.UnitTest.Using.NUnit\Abbotware.Utility.UnitTest.Using.NUnit.csproj" />
