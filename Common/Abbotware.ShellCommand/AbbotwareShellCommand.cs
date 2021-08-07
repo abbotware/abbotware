@@ -24,15 +24,15 @@ namespace Abbotware.ShellCommand
     /// </summary>
     public partial class AbbotwareShellCommand : BaseCommand<IShellCommandOptions, IExitInfo>, IShellCommand
     {
-        private readonly Subject<(DateTimeOffset Time, string Message)> standardOutput = new Subject<(DateTimeOffset Time, string Message)>();
+        private readonly Subject<(DateTimeOffset Time, string Message)> standardOutput = new();
 
-        private readonly Subject<(DateTimeOffset Time, string Message)> standardError = new Subject<(DateTimeOffset Time, string Message)>();
+        private readonly Subject<(DateTimeOffset Time, string Message)> standardError = new();
 
-        private readonly Subject<string> standardInput = new Subject<string>();
+        private readonly Subject<string> standardInput = new();
 
-        private readonly TaskCompletionSource<IStartInfo> startSignal = new TaskCompletionSource<IStartInfo>();
+        private readonly TaskCompletionSource<IStartInfo> startSignal = new();
 
-        private readonly TaskCompletionSource<IExitInfo> exitSignal = new TaskCompletionSource<IExitInfo>();
+        private readonly TaskCompletionSource<IExitInfo> exitSignal = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AbbotwareShellCommand"/> class.

@@ -62,7 +62,7 @@ namespace Abbotware.Core.Helpers
 
             var attribute = ReflectionHelper.SingleOrDefaultAttribute<EnumMemberAttribute>(member);
 
-            return attribute.Value ?? valueString;
+            return attribute?.Value ?? valueString;
         }
 
         /// <summary>
