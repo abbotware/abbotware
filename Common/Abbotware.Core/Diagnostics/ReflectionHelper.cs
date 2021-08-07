@@ -83,7 +83,7 @@ namespace Abbotware.Core.Diagnostics
         /// <typeparam name="TAttribute">attribute type</typeparam>
         /// <param name="propertyInfo">Property type info </param>
         /// <returns>list of attributes if any found</returns>
-        public static IEnumerable<TAttribute> Attributes<TAttribute>(PropertyInfo propertyInfo)
+        public static IEnumerable<TAttribute> Attributes<TAttribute>(MemberInfo propertyInfo)
         {
             propertyInfo = Arguments.EnsureNotNull(propertyInfo, nameof(propertyInfo));
 
@@ -97,7 +97,7 @@ namespace Abbotware.Core.Diagnostics
         /// <typeparam name="TAttribute">attribute type</typeparam>
         /// <param name="propertyInfo">Property type info </param>
         /// <returns>attribute if found</returns>
-        public static TAttribute SingleOrDefaultAttribute<TAttribute>(PropertyInfo propertyInfo)
+        public static TAttribute SingleOrDefaultAttribute<TAttribute>(MemberInfo propertyInfo)
         {
             propertyInfo = Arguments.EnsureNotNull(propertyInfo, nameof(propertyInfo));
 

@@ -8,6 +8,7 @@
 namespace Abbotware.ShellCommand.Configuration
 {
     using System;
+    using System.Collections.Generic;
 
     /// <summary>
     ///     interface for a shell command options
@@ -38,5 +39,10 @@ namespace Abbotware.ShellCommand.Configuration
         ///     Gets a timeout value to wait after a process exits. This to capture data from the callback events
         /// </summary>
         TimeSpan ExitDelay { get; }
+
+        /// <summary>
+        ///     Gets sensitve a list of sensitive log fragments
+        /// </summary>
+        public IEnumerable<string> SensitiveFragments { get; }
     }
 }

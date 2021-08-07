@@ -19,12 +19,12 @@ namespace Abbotware.ShellCommand
         /// <summary>
         /// Gets the error output
         /// </summary>
-        IObservable<(DateTimeOffset, string)> ErrorOutput { get; }
+        IObservable<(DateTimeOffset Time, string Message)> ErrorOutput { get; }
 
         /// <summary>
         /// Gets the standard output
         /// </summary>
-        IObservable<(DateTimeOffset, string)> StandardOutput { get; }
+        IObservable<(DateTimeOffset Time, string Message)> StandardOutput { get; }
 
         /// <summary>
         /// Gets the task to signal the shell command started

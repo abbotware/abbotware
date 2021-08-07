@@ -22,7 +22,7 @@ namespace Abbotware.Core.Objects
         /// <summary>
         /// internal lock object
         /// </summary>
-        private readonly object mutex = new object();
+        private readonly object mutex = new();
 
         /// <summary>
         /// flag indicating if the command was executred

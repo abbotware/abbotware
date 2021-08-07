@@ -26,23 +26,23 @@ namespace Abbotware.ShellCommand
         int? ExitCode { get; }
 
         /// <summary>
-        ///     Gets a value indicating whether if the process it exited (if false, it means it timeout)
+        ///     Gets a value indicating whether if the process it exited (if false, it means a timeout)
         /// </summary>
         bool Exited { get; }
 
         /// <summary>
-        ///     Gets the end time of the shell command
+        ///     Gets the end time of the shell command (if null, it means a timeout)
         /// </summary>
         DateTimeOffset? End { get; }
 
        /// <summary>
        /// Gets the standard output written by the shell command
        /// </summary>
-        public IEnumerable<(DateTimeOffset, string)> StandardOutput { get; }
+        public IEnumerable<(DateTimeOffset Time, string Message)> StandardOutput { get; }
 
         /// <summary>
         /// Gets the error output written by the shell command
         /// </summary>
-        public IEnumerable<(DateTimeOffset, string)> ErrorOutput { get; }
+        public IEnumerable<(DateTimeOffset Time, string Message)> ErrorOutput { get; }
     }
 }

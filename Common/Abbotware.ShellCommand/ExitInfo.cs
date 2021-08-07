@@ -16,9 +16,9 @@ namespace Abbotware.ShellCommand
     /// </summary>
     public class ExitInfo : IExitInfo
     {
-        private readonly ConcurrentBag<(DateTimeOffset, string)> error = new ();
+        private readonly ConcurrentBag<(DateTimeOffset Time, string)> error = new();
 
-        private readonly ConcurrentBag<(DateTimeOffset, string)> output = new ();
+        private readonly ConcurrentBag<(DateTimeOffset Time, string)> output = new();
 
         /// <inheritdoc />
         public int? ExitCode { get; set; }
@@ -30,10 +30,10 @@ namespace Abbotware.ShellCommand
         public DateTimeOffset? End { get; set; }
 
         /// <inheritdoc />
-        public IEnumerable<(DateTimeOffset, string)> StandardOutput => this.output;
+        public IEnumerable<(DateTimeOffset Time, string Message)> StandardOutput => this.output;
 
         /// <inheritdoc />
-        public IEnumerable<(DateTimeOffset, string)> ErrorOutput => this.error;
+        public IEnumerable<(DateTimeOffset Time, string Message)> ErrorOutput => this.error;
 
         /// <inheritdoc />
         IStartInfo IExitInfo.StartInfo => this.StartInfo;
@@ -47,7 +47,7 @@ namespace Abbotware.ShellCommand
         ///     Appends error text to result
         /// </summary>
         /// <param name="error">error text</param>
-        public void AppendError((DateTimeOffset, string) error)
+        public void AppendError((DateTimeOffset Time, string Message) error)
         {
             this.error.Add(error);
         }
@@ -56,7 +56,7 @@ namespace Abbotware.ShellCommand
         ///     Appends output text to result
         /// </summary>
         /// <param name="output">output text</param>
-        public void AppendOutput((DateTimeOffset, string) output)
+        public void AppendOutput((DateTimeOffset Time, string Message) output)
         {
             this.output.Add(output);
         }

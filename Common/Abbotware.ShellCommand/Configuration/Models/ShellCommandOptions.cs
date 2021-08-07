@@ -8,6 +8,7 @@
 namespace Abbotware.ShellCommand.Configuration.Models
 {
     using System;
+    using System.Collections.Generic;
 
     /// <summary>
     /// configuration for the shell command
@@ -59,5 +60,13 @@ namespace Abbotware.ShellCommand.Configuration.Models
 
         /// <inheritdoc/>
         public TimeSpan ExitDelay { get; set; } = TimeSpan.FromMilliseconds(250);
+
+        /// <inheritdoc/>
+        IEnumerable<string> IShellCommandOptions.SensitiveFragments => this.SensitiveFragments;
+
+        /// <summary>
+        /// Gets a list of sensitive log fragments
+        /// </summary>
+        public ICollection<string> SensitiveFragments { get; } = new List<string>();
     }
 }

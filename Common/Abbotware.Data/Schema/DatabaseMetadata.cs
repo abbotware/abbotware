@@ -27,7 +27,7 @@ namespace Abbotware.Data.Schema
         /// <summary>
         /// list of table meta data
         /// </summary>
-        private readonly List<TableMetadata> tables = new ();
+        private readonly List<TableMetadata> tables = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DatabaseMetadata"/> class.

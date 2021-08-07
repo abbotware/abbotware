@@ -17,7 +17,7 @@ namespace Abbotware.Core.Helpers
     /// </summary>
     public static class DirectoryHelper
     {
-        private static readonly object Mutex = new object();
+        private static readonly object Mutex = new();
 
         private static bool workingDirectoryInitialized;
 

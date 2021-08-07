@@ -9,6 +9,7 @@ namespace Abbotware.ShellCommand
 {
     using System;
     using System.Diagnostics;
+    using System.Linq;
     using System.Reactive.Subjects;
     using System.Threading.Tasks;
     using Abbotware.Core.Extensions;
@@ -21,11 +22,11 @@ namespace Abbotware.ShellCommand
     /// <summary>
     /// class the can run a shell command
     /// </summary>
-    public class AbbotwareShellCommand : BaseCommand<IShellCommandOptions, IExitInfo>, IShellCommand
+    public partial class AbbotwareShellCommand : BaseCommand<IShellCommandOptions, IExitInfo>, IShellCommand
     {
-        private readonly Subject<(DateTimeOffset, string)> standardOutput = new Subject<(DateTimeOffset, string)>();
+        private readonly Subject<(DateTimeOffset Time, string Message)> standardOutput = new Subject<(DateTimeOffset Time, string Message)>();
 
-        private readonly Subject<(DateTimeOffset, string)> standardError = new Subject<(DateTimeOffset, string)>();
+        private readonly Subject<(DateTimeOffset Time, string Message)> standardError = new Subject<(DateTimeOffset Time, string Message)>();
 
         private readonly Subject<string> standardInput = new Subject<string>();
 
@@ -65,10 +66,10 @@ namespace Abbotware.ShellCommand
         }
 
         /// <inheritdoc/>
-        public IObservable<(DateTimeOffset, string)> StandardOutput => this.standardOutput;
+        public IObservable<(DateTimeOffset Time, string Message)> StandardOutput => this.standardOutput;
 
         /// <inheritdoc/>
-        public IObservable<(DateTimeOffset, string)> ErrorOutput => this.standardError;
+        public IObservable<(DateTimeOffset Time, string Message)> ErrorOutput => this.standardError;
 
         /// <inheritdoc/>
         public Task<IStartInfo> Started => this.startSignal.Task;
@@ -127,7 +128,7 @@ namespace Abbotware.ShellCommand
                         return;
                     }
 
-                    this.standardOutput.OnNext((DateTimeOffset.Now, e.Data));
+                    this.standardOutput.OnNext((DateTimeOffset.Now, this.MaskData(e.Data)));
                 };
 
                 process.ErrorDataReceived += (s, e) =>
@@ -137,7 +138,7 @@ namespace Abbotware.ShellCommand
                         return;
                     }
 
-                    this.standardError.OnNext((DateTimeOffset.Now, e.Data));
+                    this.standardError.OnNext((DateTimeOffset.Now, this.MaskData(e.Data)));
                 };
 
                 var tcs = new TaskCompletionSource<bool>();
@@ -167,13 +168,10 @@ namespace Abbotware.ShellCommand
                     await tcs.Task.TimeoutAfter(this.Configuration.CommandTimeout)
                         .ConfigureAwait(false);
 
-                    // minor delay to ensure OutputDataReceived / ErrorDataReceived callback events are finished
-                    await Task.Delay(this.Configuration.ExitDelay)
-                        .ConfigureAwait(false);
-
                     process.Refresh();
 
-                    r.Exited = true;
+                    // minor delay to ensure OutputDataReceived / ErrorDataReceived callback events are finished
+                    r.Exited = process.WaitForExit((int)this.Configuration.ExitDelay.TotalMilliseconds);
                     r.ExitCode = process.ExitCode;
                 }
                 catch (TimeoutException)

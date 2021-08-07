@@ -25,20 +25,20 @@ namespace Abbotware.Core.Objects
         /// <summary>
         ///     call stack when this object was initialized.  Useful for debugging
         /// </summary>
-        private readonly StackTrace debugCallStack = new StackTrace();
+        private readonly StackTrace debugCallStack = new();
 #endif
 
         /// <summary>
         ///     Sync object for thread synchronization
         /// </summary>
-        private readonly object initializeSyncLock = new object();
+        private readonly object initializeSyncLock = new();
 
         private volatile bool isInitialized;
 
         /// <summary>
         ///     current dispose state of the object
         /// </summary>
-        private DisposeState disposeState = new DisposeState(DisposeState.State.Initial);
+        private DisposeState disposeState = new(DisposeState.State.Initial);
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="BaseComponent" /> class.
