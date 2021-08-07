@@ -22,7 +22,7 @@ namespace Abbotware.Core.Helpers
         /// <summary>
         /// internal dictionary of module names mapped to assemblies
         /// </summary>
-        private static readonly Dictionary<string, Assembly> Modules = new ();
+        private static readonly Dictionary<string, Assembly> Modules = new();
 
         /// <summary>
         /// Retrieves a module containing resources, first looking for it in the modules cache,
@@ -119,7 +119,7 @@ namespace Abbotware.Core.Helpers
             Arguments.NotNullOrWhitespace(resourcePath, nameof(resourcePath));
 
             using var stream = EmbeddedResourceHelper.GetResourceStream(assemblyName, resourcePath);
-            using StreamReader reader = new (stream);
+            using StreamReader reader = new(stream);
 
             string result = reader.ReadToEnd();
             return result;
@@ -139,7 +139,7 @@ namespace Abbotware.Core.Helpers
             Arguments.NotNullOrWhitespace(resourcePath, nameof(resourcePath));
 
             using var stream = EmbeddedResourceHelper.GetResourceStream(assembly, assemblyName, resourcePath);
-            using StreamReader reader = new (stream);
+            using StreamReader reader = new(stream);
 
             string result = reader.ReadToEnd();
             return result;

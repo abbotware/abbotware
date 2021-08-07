@@ -40,9 +40,9 @@ namespace Abbotware.Contrib.Roslyn
         /// careate RuntimeParameterInformation
         /// </summary>
         /// <param name="runtime">runtime data</param>
-        public static implicit operator RuntimeParameterInformation<TParameter>((TParameter value, string name) runtime)
+        public static implicit operator RuntimeParameterInformation<TParameter>((TParameter Value, string Name) runtime)
         {
-            return new RuntimeParameterInformation<TParameter>(runtime.value, runtime.name);
+            return new RuntimeParameterInformation<TParameter>(runtime.Value, runtime.Name);
         }
 
         /// <summary>

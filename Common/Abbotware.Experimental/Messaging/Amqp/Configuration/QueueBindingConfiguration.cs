@@ -19,12 +19,12 @@ namespace Abbotware.Core.Messaging.Amqp.Configuration
         /// <summary>
         ///     internal set once field for source exchange
         /// </summary>
-        private readonly SetOnceProperty<string> sourceExchange = new ("SourceExchange");
+        private readonly SetOnceProperty<string> sourceExchange = new("SourceExchange");
 
         /// <summary>
         ///     internal set once field for destination queue
         /// </summary>
-        private readonly SetOnceProperty<string> destinationQueue = new ("DestinationQueue");
+        private readonly SetOnceProperty<string> destinationQueue = new("DestinationQueue");
 
         /// <summary>
         ///     Gets or sets the name of the destination queue

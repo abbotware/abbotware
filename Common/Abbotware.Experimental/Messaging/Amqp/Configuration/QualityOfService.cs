@@ -17,17 +17,17 @@ namespace Abbotware.Core.Messaging.Amqp.Configuration
         /// <summary>
         ///     internal set once property for pre fetch count
         /// </summary>
-        private readonly SetOnceProperty<ushort> preFetchCount = new ("PreFetchCount");
+        private readonly SetOnceProperty<ushort> preFetchCount = new("PreFetchCount");
 
         /// <summary>
         ///     internal set once property for pre fetch global
         /// </summary>
-        private readonly SetOnceProperty<bool> preFetchGlobal = new ("PreFetchGlobal");
+        private readonly SetOnceProperty<bool> preFetchGlobal = new("PreFetchGlobal");
 
         /// <summary>
         ///     internal set once property for pre fetch size
         /// </summary>
-        private readonly SetOnceProperty<uint> preFetchSize = new ("PreFetchSize");
+        private readonly SetOnceProperty<uint> preFetchSize = new("PreFetchSize");
 
         /// <summary>
         ///     Gets or sets the pre fetch size (maximum amount of content (measured in octets) that the server will deliver, 0 if

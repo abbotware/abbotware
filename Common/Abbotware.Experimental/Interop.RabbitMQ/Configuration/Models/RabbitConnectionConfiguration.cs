@@ -20,7 +20,7 @@ namespace Abbotware.Interop.RabbitMQ.Conifguration.Models
         /// <summary>
         ///     Default user/pass for RabbitMQ Server
         /// </summary>
-        public static readonly NetworkCredential DefaultCredentials = new (ConnectionFactory.DefaultUser, ConnectionFactory.DefaultPass);
+        public static readonly NetworkCredential DefaultCredentials = new(ConnectionFactory.DefaultUser, ConnectionFactory.DefaultPass);
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="RabbitConnectionConfiguration" /> class.
@@ -59,7 +59,7 @@ namespace Abbotware.Interop.RabbitMQ.Conifguration.Models
         /// <summary>
         /// Gets the connection  endpoint
         /// </summary>
-        public Uri Endpoint => new (this.AmqpTcpEndpoint.ToString());
+        public Uri Endpoint => new(this.AmqpTcpEndpoint.ToString());
 
         /// <summary>
         ///     Gets the AMQP endpoint

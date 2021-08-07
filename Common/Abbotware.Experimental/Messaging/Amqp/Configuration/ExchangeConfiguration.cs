@@ -18,7 +18,7 @@ namespace Abbotware.Core.Messaging.Amqp.Configuration
         /// <summary>
         ///     internal set once property for type
         /// </summary>
-        private readonly SetOnceProperty<ExchangeType> exchangeType = new ("ExchangeType");
+        private readonly SetOnceProperty<ExchangeType> exchangeType = new("ExchangeType");
 
         /// <summary>
         ///     internal set once property for alternateExchange
@@ -28,7 +28,7 @@ namespace Abbotware.Core.Messaging.Amqp.Configuration
         /// <summary>
         ///     internal set once property for name
         /// </summary>
-        private readonly SetOnceProperty<string> name = new ("Name");
+        private readonly SetOnceProperty<string> name = new("Name");
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ExchangeConfiguration"/> class.

@@ -75,7 +75,7 @@ namespace Abbotware.Core.Data.ExtensionPoints.Text
         /// <summary>
         ///     list of parsed records
         /// </summary>
-        private readonly List<TRecord> records = new ();
+        private readonly List<TRecord> records = new();
 
         /// <summary>
         ///     internal converter object for short

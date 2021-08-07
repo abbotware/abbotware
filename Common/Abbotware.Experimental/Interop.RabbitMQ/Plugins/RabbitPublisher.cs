@@ -37,37 +37,37 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
         /// <summary>
         ///     counter of last confirmed sequence number
         /// </summary>
-        private readonly AtomicCounter lastConfirmedSequenceNumber = new ();
+        private readonly AtomicCounter lastConfirmedSequenceNumber = new();
 
         /// <summary>
         ///     counter for the next confirmation sequence number
         /// </summary>
-        private readonly AtomicCounter nextConfirmationSequenceNumber = new ();
+        private readonly AtomicCounter nextConfirmationSequenceNumber = new();
 
         /// <summary>
         ///     collection of outstanding publishes
         /// </summary>
-        private readonly ConcurrentDictionary<ulong, TaskCompletionSource<PublishStatus>> outstandingConfirmations = new ();
+        private readonly ConcurrentDictionary<ulong, TaskCompletionSource<PublishStatus>> outstandingConfirmations = new();
 
         /// <summary>
         ///     Counter for messages published
         /// </summary>
-        private readonly AtomicCounter published = new ();
+        private readonly AtomicCounter published = new();
 
         /// <summary>
         ///     Counter for returned messages
         /// </summary>
-        private readonly AtomicCounter returnedMessages = new ();
+        private readonly AtomicCounter returnedMessages = new();
 
         /// <summary>
         ///     Counter for messages returned because no matching consumer
         /// </summary>
-        private readonly AtomicCounter returnedNoConsummers = new ();
+        private readonly AtomicCounter returnedNoConsummers = new();
 
         /// <summary>
         ///     Counter for messages returned because no matching route
         /// </summary>
-        private readonly AtomicCounter returnedNoRoute = new ();
+        private readonly AtomicCounter returnedNoRoute = new();
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="RabbitPublisher" /> class.

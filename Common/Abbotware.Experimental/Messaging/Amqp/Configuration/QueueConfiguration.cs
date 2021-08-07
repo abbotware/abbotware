@@ -20,32 +20,32 @@ namespace Abbotware.Core.Messaging.Amqp.Configuration
         /// <summary>
         ///     internal set once property for name
         /// </summary>
-        private readonly SetOnceProperty<string> name = new ("Name");
+        private readonly SetOnceProperty<string> name = new("Name");
 
         /// <summary>
         ///     internal set once field for queue's exclusive flag
         /// </summary>
-        private readonly SetOnceProperty<bool> isExclusive = new ("exclusive");
+        private readonly SetOnceProperty<bool> isExclusive = new("exclusive");
 
         /// <summary>
         ///     internal set once field for queue message time to live
         /// </summary>
-        private readonly SetOnceProperty<TimeSpan> messageTimeToLive = new ("messageTTL");
+        private readonly SetOnceProperty<TimeSpan> messageTimeToLive = new("messageTTL");
 
         /// <summary>
         ///     internal set once field for queue expiration
         /// </summary>
-        private readonly SetOnceProperty<TimeSpan> expires = new ("expires");
+        private readonly SetOnceProperty<TimeSpan> expires = new("expires");
 
         /// <summary>
         ///     internal set once field for queue's dead letter exchange
         /// </summary>
-        private readonly SetOnceProperty<string> deadLetterExchange = new ("deadLetterExchange");
+        private readonly SetOnceProperty<string> deadLetterExchange = new("deadLetterExchange");
 
         /// <summary>
         ///     internal set once field for queue's dead letter routing key
         /// </summary>
-        private readonly SetOnceProperty<string> deadLetterRoutingKey = new ("deadLetterRoutingKey");
+        private readonly SetOnceProperty<string> deadLetterRoutingKey = new("deadLetterRoutingKey");
 
         /// <summary>
         ///     internal set once field for queue's HA Policy

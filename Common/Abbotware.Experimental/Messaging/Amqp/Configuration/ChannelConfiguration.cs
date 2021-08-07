@@ -16,12 +16,12 @@ namespace Abbotware.Core.Messaging.Amqp.Configuration
         /// <summary>
         ///     internal set once property for channel mode
         /// </summary>
-        private readonly SetOnceProperty<ChannelMode> channelMode = new ("ChannelMode");
+        private readonly SetOnceProperty<ChannelMode> channelMode = new("ChannelMode");
 
         /// <summary>
         ///     internal set once property for use quality of service
         /// </summary>
-        private readonly SetOnceProperty<QualityOfService> qualityOfService = new ("QualityOfService");
+        private readonly SetOnceProperty<QualityOfService> qualityOfService = new("QualityOfService");
 
         /// <summary>
         ///     Gets or sets the channel mode

@@ -20,7 +20,7 @@ namespace Abbotware.Core
         /// <summary>
         ///     mutex for synchronizing the set method
         /// </summary>
-        private readonly object setMutex = new ();
+        private readonly object setMutex = new();
 
         /// <summary>
         ///     name of the property

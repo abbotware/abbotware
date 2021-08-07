@@ -21,7 +21,7 @@ namespace Abbotware.Core.Workflow.Plugins
     {
         private static readonly IEnumerable<IAction> NoActions = new List<IAction>();
 
-        private readonly BidirectionalGraph<IState, IAction> graph = new ();
+        private readonly BidirectionalGraph<IState, IAction> graph = new();
 
         private int stateCounter;
 

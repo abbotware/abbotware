@@ -20,12 +20,12 @@ namespace Abbotware.Core.Messaging.Amqp.Configuration
         /// <summary>
         ///     internal set once field for binding action
         /// </summary>
-        private readonly SetOnceProperty<BindingAction> action = new ("action");
+        private readonly SetOnceProperty<BindingAction> action = new("action");
 
         /// <summary>
         ///     internal set once field for binding topic / routing key
         /// </summary>
-        private readonly SetOnceProperty<string> topic = new ("topic");
+        private readonly SetOnceProperty<string> topic = new("topic");
 
         /// <summary>
         ///     dictionary of additional arguments for this configuration object

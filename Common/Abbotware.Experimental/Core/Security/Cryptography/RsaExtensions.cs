@@ -148,13 +148,13 @@ namespace Abbotware.Core.Cryptography
         /// <returns>RSA container</returns>
         public static RSACryptoServiceProvider GetRsaServiceProvider(string containerName)
         {
-            CspParameters cspParams = new ()
+            CspParameters cspParams = new()
             {
                 KeyContainerName = containerName,
                 Flags = CspProviderFlags.UseExistingKey | CspProviderFlags.UseMachineKeyStore,
             };
 
-            RSACryptoServiceProvider rsa = new (cspParams);
+            RSACryptoServiceProvider rsa = new(cspParams);
             return rsa;
         }
 

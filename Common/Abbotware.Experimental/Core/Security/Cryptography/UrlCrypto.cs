@@ -28,7 +28,7 @@ namespace Abbotware.Core.Cryptography
         /// <summary>
         /// buffer of noise data
         /// </summary>
-        private static readonly List<byte> NoiseBuffer = new ();
+        private static readonly List<byte> NoiseBuffer = new();
 
         /// <summary>
         /// Gets a block of 'noise' data

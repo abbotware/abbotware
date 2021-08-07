@@ -22,7 +22,7 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
         /// <summary>
         ///     RabbitMQ ConnectionFactory to create the initial connection
         /// </summary>
-        private readonly ConnectionFactory factory = new ();
+        private readonly ConnectionFactory factory = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RabbitConnectionFactory"/> class.

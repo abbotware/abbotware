@@ -22,7 +22,7 @@ namespace Abbotware.Core.Collections
         /// <summary>
         ///     internal list of children
         /// </summary>
-        private readonly List<TreeCollection<T>> children = new ();
+        private readonly List<TreeCollection<T>> children = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TreeCollection{T}"/> class.
