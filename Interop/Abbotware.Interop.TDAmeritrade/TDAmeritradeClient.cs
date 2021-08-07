@@ -57,6 +57,22 @@ namespace Abbotware.Interop.TDAmeritrade
         }
 
         /// <summary>
+        /// Get an instrument by CUSIP
+        /// </summary>
+        /// <param name="cusip">cusip</param>
+        /// <param name="ct">cancellation token</param>
+        /// <returns>search result</returns>
+        public Task<RestResponse<Instrument, ErrorResponse>> GetInstrumentAsync(string cusip, CancellationToken ct)
+        {
+            this.InitializeIfRequired();
+
+            var request = new RestRequest("instruments/{cusip}", Method.GET, DataFormat.None);
+            request.AddUrlSegment("cusip", cusip, false);
+
+            return this.OnExecuteAsync<Instrument, ErrorResponse>(request, ct);
+        }
+
+        /// <summary>
         /// Search or retrieve instrument data, including fundamental data
         /// </summary>
         /// <param name="symbol">Value to pass to the search.</param>
