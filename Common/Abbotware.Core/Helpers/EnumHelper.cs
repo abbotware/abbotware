@@ -8,6 +8,9 @@
 namespace Abbotware.Core.Helpers
 {
     using System;
+    using System.Linq;
+    using System.Runtime.Serialization;
+    using Abbotware.Core.Diagnostics;
 
     /// <summary>
     ///     Helper methods related to enums
@@ -29,6 +32,49 @@ namespace Abbotware.Core.Helpers
             }
 
             return parsed;
+        }
+
+        /// <summary>
+        /// Gets the EnumMemberAttribute value of the enum
+        /// </summary>
+        /// <typeparam name="TEnum">Enum type</typeparam>
+        /// <param name="value">value of enum</param>
+        /// <returns>enum as string, or EnumMemberAttribute value</returns>
+        public static string GetEnumMemberValue<TEnum>(TEnum? value)
+            where TEnum : struct, Enum
+        {
+            if (value == null)
+            {
+                return string.Empty;
+            }
+
+            var valueString = value.ToString();
+
+            var t = value.GetType();
+
+            var member = t.GetMember(valueString).
+                FirstOrDefault();
+
+            if (member == null)
+            {
+                throw new InvalidOperationException($"{value} not part of enum");
+            }
+
+            var attribute = ReflectionHelper.SingleOrDefaultAttribute<EnumMemberAttribute>(member);
+
+            return attribute.Value ?? valueString;
+        }
+
+        /// <summary>
+        /// Gets the display name value of the enum
+        /// </summary>
+        /// <typeparam name="TEnum">Enum type</typeparam>
+        /// <param name="value">value of enum</param>
+        /// <returns>enum as string, or display name value</returns>
+        public static string GetEnumMemberValue<TEnum>(TEnum value)
+            where TEnum : struct, Enum
+        {
+            return GetEnumMemberValue((TEnum?)value);
         }
     }
 }
