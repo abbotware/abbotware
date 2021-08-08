@@ -19,7 +19,7 @@ namespace Abbotware.Core.Data.Plugins.Configuration
         /// <summary>
         /// fields present in the retrieval process
         /// </summary>
-        private readonly HashSet<string> fields = new HashSet<string>();
+        private readonly HashSet<string> fields = new();
 
         /// <summary>
         /// list of raw files

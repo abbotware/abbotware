@@ -30,7 +30,7 @@ namespace Abbotware.Interop.Aws.Sqs.Plugins
         /// <summary>
         ///     Counter for messages published
         /// </summary>
-        private readonly AtomicCounter published = new AtomicCounter();
+        private readonly AtomicCounter published = new();
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="SqsPublisher" /> class.

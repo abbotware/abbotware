@@ -73,7 +73,7 @@ namespace Abbotware.Core.Messaging.Plugins
 
         /// <inheritdoc />
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "reviewed, bottom of call stack")]
-        protected sealed override void OnDelivery(object sender, DeliveryEventArgs args)
+        protected sealed override void OnDelivery(object? sender, DeliveryEventArgs args)
         {
             args = Arguments.EnsureNotNull(args, nameof(args));
             var envelope = Arguments.EnsureNotNull(args.Envelope, nameof(args.Envelope));
