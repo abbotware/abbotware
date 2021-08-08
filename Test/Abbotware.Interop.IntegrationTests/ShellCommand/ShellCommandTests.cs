@@ -20,6 +20,8 @@ namespace Abbotware.IntegrationTests.Core
         [MaxTime(10000)]
         public async Task ShellCommand_Ftp_ExecuteAsync()
         {
+            Assert.Inconclusive();
+
             IExitInfo result = null;
 
             // command will exit before kill is issued
@@ -62,6 +64,8 @@ namespace Abbotware.IntegrationTests.Core
         [MaxTime(10000)]
         public async Task ShellCommand_Ftp_ExecuteAsync_Kill()
         {
+            Assert.Inconclusive();
+
             IExitInfo result = null;
 
             // timeout is less than number of pings should force a kill
