@@ -249,7 +249,7 @@ namespace Abbotware.Core.Diagnostics
                 .ToList();
 
             nullablePropertyInfos = nullablePropertyInfos
-                .Where(x => Nullable.GetUnderlyingType(x.PropertyType).IsPrimitive
+                .Where(x => Nullable.GetUnderlyingType(x.PropertyType)!.IsPrimitive
                         || (Nullable.GetUnderlyingType(x.PropertyType) == typeof(decimal))
                         || (Nullable.GetUnderlyingType(x.PropertyType) == typeof(DateTime))
                         || (Nullable.GetUnderlyingType(x.PropertyType) == typeof(DateTimeOffset)))

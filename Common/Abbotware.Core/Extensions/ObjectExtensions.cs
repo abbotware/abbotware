@@ -103,7 +103,7 @@ namespace Abbotware.Core.Extensions
                 return false;
             }
 
-            output = (TObject)right;
+            output = (TObject)right!;
 
             return true;
         }

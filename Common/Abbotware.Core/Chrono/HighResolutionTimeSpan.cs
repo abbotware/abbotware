@@ -90,17 +90,12 @@ namespace Abbotware.Core.Chrono
             }
 
 #if NETSTANDARD2_0
-            if (other.HasValue)
-            {
-                return this.Equals(other);
-            }
-            else
+            if (other == null)
             {
                 return false;
             }
-#else
-            return this.Equals(other);
 #endif
+            return this.Equals(other);
         }
 
         /// <inheritdoc />

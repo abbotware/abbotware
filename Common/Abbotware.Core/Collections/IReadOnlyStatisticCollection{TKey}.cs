@@ -15,6 +15,7 @@ namespace Abbotware.Core.Collections
     /// </summary>
     /// <typeparam name="TKey">key type</typeparam>
     public interface IReadOnlyStatisticCollection<TKey> : IEnumerable<KeyValuePair<TKey, uint>>
+        where TKey : notnull
     {
         /// <summary>
         /// Gets the aggregate total of all values

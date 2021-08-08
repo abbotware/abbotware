@@ -15,6 +15,7 @@ namespace Abbotware.Core.Cache
     /// <typeparam name="TRank">Rank Type</typeparam>
     /// <typeparam name="TValue">Value Type</typeparam>
     public interface ICacheableSortedSet<TRank, TValue> : ICacheable<IWriteSortedSet<TRank, TValue>>
+        where TRank : notnull
     {
     }
 }

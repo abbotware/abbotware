@@ -15,6 +15,7 @@ namespace Abbotware.Core.Cache.LocalOperations
     /// <typeparam name="TRank">Rank Type</typeparam>
     /// <typeparam name="TValue">Value Type</typeparam>
     public interface IReadSortedSet<TRank, TValue>
+        where TRank : notnull
     {
         /// <summary>
         /// Gets the data as a SortedList

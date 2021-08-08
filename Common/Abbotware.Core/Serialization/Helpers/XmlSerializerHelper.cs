@@ -86,7 +86,7 @@ namespace Abbotware.Core.Serialization.Helpers
         /// <typeparam name="TObject">Object Type</typeparam>
         /// <param name="extended">string being extended</param>
         /// <returns>Instance of deserialized TObject</returns>
-        public static TObject DeserializeViaXmlSerializer<TObject>(this string extended)
+        public static TObject? DeserializeViaXmlSerializer<TObject>(this string extended)
         {
             Arguments.NotNull(extended, nameof(extended));
 
@@ -101,11 +101,11 @@ namespace Abbotware.Core.Serialization.Helpers
         /// <typeparam name="TObject">Object Type</typeparam>
         /// <param name="extended">object being extended</param>
         /// <returns>Instance of deserialized TObject</returns>
-        public static TObject DeserializeViaXmlSerializer<TObject>(this byte[] extended)
+        public static TObject? DeserializeViaXmlSerializer<TObject>(this byte[] extended)
         {
             extended = Arguments.EnsureNotNull(extended, nameof(extended));
 
-            return (TObject)extended.DeserializeViaXmlSerializer(typeof(TObject), Array.Empty<Type>());
+            return (TObject?)extended.DeserializeViaXmlSerializer(typeof(TObject), Array.Empty<Type>());
         }
 
         /// <summary>
@@ -115,7 +115,7 @@ namespace Abbotware.Core.Serialization.Helpers
         /// <param name="expectedType">type information for deserialization</param>
         /// <param name="additionalTypeInfo">additional types for deserialization</param>
         /// <returns>Instance of deserialized TObject</returns>
-        public static object DeserializeViaXmlSerializer(this byte[] extended, Type expectedType, params Type[] additionalTypeInfo)
+        public static object? DeserializeViaXmlSerializer(this byte[] extended, Type expectedType, params Type[] additionalTypeInfo)
         {
             Arguments.NotNull(extended, nameof(extended));
 

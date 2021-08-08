@@ -28,7 +28,7 @@ namespace Abbotware.Core.Helpers
                 .GetAllNetworkInterfaces()
                 .FirstOrDefault(n => n.OperationalStatus == OperationalStatus.Up && n.NetworkInterfaceType != NetworkInterfaceType.Loopback);
 
-            return nic.GetPhysicalAddress().ToString();
+            return nic?.GetPhysicalAddress().ToString() ?? string.Empty;
         }
 
         /// <summary>
@@ -120,7 +120,7 @@ namespace Abbotware.Core.Helpers
 
             socket.Connect("8.8.8.8", 65530);
 
-            if (!(socket.LocalEndPoint is IPEndPoint endPoint))
+            if (socket.LocalEndPoint is not IPEndPoint endPoint)
             {
                 return Array.Empty<IPAddress>();
             }

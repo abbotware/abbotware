@@ -13,6 +13,7 @@ namespace Abbotware.Core.Cache.LocalOperations
     /// <typeparam name="TRank">Rank Type</typeparam>
     /// <typeparam name="TValue">Value Type</typeparam>
     public interface IWriteSortedSet<TRank, TValue> : IReadSortedSet<TRank, TValue>
+        where TRank : notnull
     {
         /// <summary>
         /// Adds a ranked value to the local snapshot

@@ -16,8 +16,9 @@ namespace Abbotware.Core.Collections
     /// </summary>
     /// <typeparam name="TKey">key type</typeparam>
     public class StatisticCollection<TKey> : IReadOnlyStatisticCollection<TKey>
+        where TKey : notnull
     {
-        private readonly Dictionary<TKey, uint> counts = new Dictionary<TKey, uint>();
+        private readonly Dictionary<TKey, uint> counts = new();
 
         /// <inheritdoc/>
         public uint Total

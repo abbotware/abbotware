@@ -93,7 +93,7 @@ namespace Abbotware.Core.Collections
         }
 
         /// <inheritdoc/>
-        public bool Remove(T item, out T other)
+        public bool Remove(T item, out T? other)
         {
             lock (this.pairs)
             {
