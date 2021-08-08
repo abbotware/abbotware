@@ -46,7 +46,7 @@ namespace Abbotware.Core.Extensions
         /// </summary>
         /// <param name="text">string to extend</param>
         /// <returns>true/false if contains</returns>
-        public static bool IsBlank(this string text)
+        public static bool IsBlank(this string? text)
         {
             return string.IsNullOrWhiteSpace(text);
         }
@@ -56,7 +56,7 @@ namespace Abbotware.Core.Extensions
         /// </summary>
         /// <param name="text">string to extend</param>
         /// <returns>true/false if contains</returns>
-        public static bool IsNotBlank(this string text)
+        public static bool IsNotBlank(this string? text)
         {
             return !IsBlank(text);
         }

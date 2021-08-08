@@ -68,7 +68,7 @@ namespace Abbotware.Core.Diagnostics
         /// <typeparam name="TAttribute">attribute type</typeparam>
         /// <param name="type">class type </param>
         /// <returns>attribute if found</returns>
-        public static TAttribute SingleOrDefaultAttribute<TAttribute>(Type type)
+        public static TAttribute? SingleOrDefaultAttribute<TAttribute>(Type type)
         {
             type = Arguments.EnsureNotNull(type, nameof(type));
 
@@ -97,7 +97,7 @@ namespace Abbotware.Core.Diagnostics
         /// <typeparam name="TAttribute">attribute type</typeparam>
         /// <param name="propertyInfo">Property type info </param>
         /// <returns>attribute if found</returns>
-        public static TAttribute SingleOrDefaultAttribute<TAttribute>(MemberInfo propertyInfo)
+        public static TAttribute? SingleOrDefaultAttribute<TAttribute>(MemberInfo propertyInfo)
         {
             propertyInfo = Arguments.EnsureNotNull(propertyInfo, nameof(propertyInfo));
 
@@ -353,8 +353,8 @@ namespace Abbotware.Core.Diagnostics
                         }
                         else
                         {
-                            var collectionItems1 = ((IEnumerable?)valueA).Cast<object>();
-                            var collectionItems2 = ((IEnumerable?)valueB).Cast<object>();
+                            var collectionItems1 = ((IEnumerable?)valueA!).Cast<object>();
+                            var collectionItems2 = ((IEnumerable?)valueB!).Cast<object>();
                             var collectionItemsCount1 = collectionItems1.Count();
                             var collectionItemsCount2 = collectionItems2.Count();
 
@@ -414,7 +414,7 @@ namespace Abbotware.Core.Diagnostics
             return result;
         }
 
-        private static void DebugMessage(bool useException, string message, params object[] args)
+        private static void DebugMessage(bool useException, string message, params object?[] args)
         {
             var msg = string.Format(CultureInfo.InvariantCulture, message, args);
 
@@ -454,7 +454,7 @@ namespace Abbotware.Core.Diagnostics
         /// <param name="valueA">The first value to compare.</param>
         /// <param name="valueB">The second value to compare.</param>
         /// <returns><c>true</c> if both values match, otherwise <c>false</c>.</returns>
-        private static bool AreValuesEqual(object valueA, object valueB)
+        private static bool AreValuesEqual(object? valueA, object? valueB)
         {
             bool result;
 

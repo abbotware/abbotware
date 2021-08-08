@@ -99,7 +99,11 @@ namespace Abbotware.Core.Math
         /// <inheritdoc />
         public override int GetHashCode()
         {
+#if NETCOREAPP2_1_OR_GREATER
+            return HashCode.Combine(this.X, this.Y);
+#else
             return (this.X, this.Y).GetHashCode();
+#endif
         }
     }
 }

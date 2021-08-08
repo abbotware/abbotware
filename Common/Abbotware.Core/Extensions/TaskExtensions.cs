@@ -40,7 +40,7 @@ namespace Abbotware.Core.Extensions
             taskScheduler ??= TaskScheduler.Default;
 
             task.ContinueWith(
-                t => { logger.Error(t.Exception, "task"); },
+                t => { logger.Error(t.Exception!, "task"); },
                 CancellationToken.None,
                 TaskContinuationOptions.OnlyOnFaulted,
                 taskScheduler);

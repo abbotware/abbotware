@@ -7,6 +7,7 @@
 
 namespace Abbotware.Core.Extensions
 {
+    using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Globalization;
@@ -59,7 +60,7 @@ namespace Abbotware.Core.Extensions
                     {
                         if (kvp.Value is byte[])
                         {
-                            sb.AppendFormat(CultureInfo.InvariantCulture, format, kvp.Key, Encoding.ASCII.GetString(kvp.Value as byte[]));
+                            sb.AppendFormat(CultureInfo.InvariantCulture, format, kvp.Key, Encoding.ASCII.GetString(kvp.Value as byte[] ?? Array.Empty<byte>()));
                         }
                         else if (kvp.Value is IDictionary)
                         {

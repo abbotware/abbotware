@@ -105,9 +105,9 @@ namespace Abbotware.Core.Diagnostics
             {
                 context.Append("null");
             }
-            else if (element is DateTime)
+            else if (element is DateTime time)
             {
-                context.Append(((DateTime)element).ToShortDateString());
+                context.Append(time.ToShortDateString());
             }
             else if (element is char charElement)
             {

@@ -69,11 +69,11 @@ namespace Abbotware.Core.Helpers
 
             if (Path.IsPathRooted(path))
             {
-                root = Path.GetPathRoot(path);
+                root = Path.GetPathRoot(path)!;
                 pathWithoutRoot = path.Substring(root.Length);
             }
 
-            var dir = Path.GetDirectoryName(pathWithoutRoot);
+            var dir = Path.GetDirectoryName(pathWithoutRoot)!;
             var file = Path.GetFileName(pathWithoutRoot);
 
             var newDir = CleanDirectory(dir);

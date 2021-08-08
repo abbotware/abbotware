@@ -15,6 +15,7 @@ namespace Abbotware.Core.Collections
     /// </summary>
     /// <typeparam name="T">item type</typeparam>
     public class UniquePairs<T> : IUniquePairs<T>
+        where T : notnull
     {
         private readonly Dictionary<T, T> pairs = new();
 

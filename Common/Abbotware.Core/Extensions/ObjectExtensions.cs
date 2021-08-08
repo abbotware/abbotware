@@ -57,7 +57,7 @@ namespace Abbotware.Core.Extensions
         /// <returns>false if the trival equal cases, true if need to perform an</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #if NETSTANDARD2_0
-        public static bool StructPossiblyEquals<TObject>(this object extended, object right, out TObject? output)
+        public static bool StructPossiblyEquals<TObject>(this object extended, object? right, out TObject? output)
 #else
         public static bool StructPossiblyEquals<TObject>(this object extended, object? right, [NotNullWhen(true)] out TObject? output)
 #endif
@@ -72,7 +72,7 @@ namespace Abbotware.Core.Extensions
                 return false;
             }
 
-            output = (TObject)right;
+            output = (TObject?)right;
 
             return true;
         }
@@ -87,9 +87,9 @@ namespace Abbotware.Core.Extensions
         /// <returns>false if the trival equal cases, true if need to perform an</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #if NETSTANDARD2_0
-        public static bool ClassPossiblyEquals<TObject>(this object extended, object right, out TObject? output)
+        public static bool ClassPossiblyEquals<TObject>(this object extended, object? right, out TObject? output)
 #else
-        public static bool ClassPossiblyEquals<TObject>(this object extended, object right, [NotNullWhen(true)] out TObject? output)
+        public static bool ClassPossiblyEquals<TObject>(this object extended, object? right, [NotNullWhen(true)] out TObject? output)
 #endif
 
             where TObject : class

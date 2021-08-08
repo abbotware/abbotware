@@ -124,15 +124,11 @@ namespace Abbotware.Core.Objects
         /// <inheritdoc/>
         public override string ToString()
         {
-            switch ((State)this.stateValue)
+            return (State)this.stateValue switch
             {
-                case State.Initial:
-                case State.Disposing:
-                case State.Disposed:
-                    return this.stateValue.ToString(CultureInfo.InvariantCulture);
-                default:
-                    return "DisposeState.Unknown";
-            }
+                State.Initial or State.Disposing or State.Disposed => this.stateValue.ToString(CultureInfo.InvariantCulture),
+                _ => "DisposeState.Unknown",
+            };
         }
 
         /// <inheritdoc/>

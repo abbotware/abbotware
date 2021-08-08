@@ -52,7 +52,7 @@ namespace Abbotware.Core.Entity
                 ++i;
             }
 
-            var block = Expression.Lambda<Func<TEntity, object[], bool>>(expression, entity, keyValues);
+            var block = Expression.Lambda<Func<TEntity, object[], bool>>(expression!, entity, keyValues);
 
             return block.Compile();
         }
@@ -93,7 +93,7 @@ namespace Abbotware.Core.Entity
                 ++i;
             }
 
-            var block = Expression.Lambda<Func<TEntity, bool>>(expression, entity);
+            var block = Expression.Lambda<Func<TEntity, bool>>(expression!, entity);
 
             return block;
         }
