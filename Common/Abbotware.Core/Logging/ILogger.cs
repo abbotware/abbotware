@@ -13,6 +13,9 @@ namespace Abbotware.Core.Logging
     /// Generic Interface for logging
     /// </summary>
     public interface ILogger
+#if NET5_0_OR_GREATER
+        : Microsoft.Extensions.Logging.ILogger
+#endif
     {
         /// <summary>
         /// Gets the logger name

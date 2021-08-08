@@ -70,7 +70,11 @@ namespace Abbotware.Core.Helpers
             if (Path.IsPathRooted(path))
             {
                 root = Path.GetPathRoot(path)!;
+#if NETSTANDARD2_0
                 pathWithoutRoot = path.Substring(root.Length);
+#else
+                pathWithoutRoot = path[root.Length..];
+#endif
             }
 
             var dir = Path.GetDirectoryName(pathWithoutRoot)!;

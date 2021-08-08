@@ -19,7 +19,7 @@ namespace Abbotware.Core.Logging.Plugins
         /// <summary>
         ///     static singleton instance of the Null Logger
         /// </summary>
-        private static readonly NullLogger InternalInstance = new NullLogger();
+        private static readonly NullLogger InternalInstance = new();
 
         /// <summary>
         ///     Gets the Null Logger static singleton instance
@@ -40,6 +40,14 @@ namespace Abbotware.Core.Logging.Plugins
         {
             return new NoOp();
         }
+#if NET5_0_OR_GREATER
+
+        /// <inheritdoc/>
+        public IDisposable BeginScope<TState>(TState state)
+        {
+            throw new NotImplementedException();
+        }
+#endif
 
         /// <inheritdoc/>
         public ILogger Create(string name)
@@ -106,6 +114,20 @@ namespace Abbotware.Core.Logging.Plugins
         public void Info(Exception exception, [Localizable(false)] string message, params object?[] args)
         {
         }
+
+#if NET5_0_OR_GREATER
+        /// <inheritdoc/>
+        public bool IsEnabled(Microsoft.Extensions.Logging.LogLevel logLevel)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc/>
+        public void Log<TState>(Microsoft.Extensions.Logging.LogLevel logLevel, Microsoft.Extensions.Logging.EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
+        {
+            throw new NotImplementedException();
+        }
+#endif
 
         /// <inheritdoc/>
         public void Trace<T>(Func<T, string> function, T parameter)
