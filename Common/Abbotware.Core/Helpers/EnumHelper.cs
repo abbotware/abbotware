@@ -48,7 +48,7 @@ namespace Abbotware.Core.Helpers
                 return string.Empty;
             }
 
-            var valueString = value.ToString();
+            var valueString = value.ToString()!;
 
             var t = value.GetType();
 

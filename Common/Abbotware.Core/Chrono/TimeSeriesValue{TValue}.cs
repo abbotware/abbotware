@@ -47,7 +47,7 @@ namespace Abbotware.Core.Chrono
         }
 
         /// <inheritdoc/>
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (!this.StructPossiblyEquals<TimeSeriesValue<TValue>>(obj, out var other))
             {

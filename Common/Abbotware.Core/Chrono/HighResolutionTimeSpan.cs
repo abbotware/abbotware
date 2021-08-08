@@ -82,7 +82,7 @@ namespace Abbotware.Core.Chrono
         }
 
         /// <inheritdoc/>
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (!this.StructPossiblyEquals<HighResolutionTimeSpan>(obj, out var other))
             {

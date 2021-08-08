@@ -16,7 +16,7 @@ namespace Abbotware.Core.Collections
     /// <typeparam name="T">item type</typeparam>
     public class UniquePairs<T> : IUniquePairs<T>
     {
-        private readonly Dictionary<T, T> pairs = new Dictionary<T, T>();
+        private readonly Dictionary<T, T> pairs = new();
 
         /// <inheritdoc/>
         public T Other(T item)

@@ -21,7 +21,7 @@ namespace Abbotware.Core.Helpers
 
         private static bool workingDirectoryInitialized;
 
-        private static Assembly DefaultAnchor => Assembly.GetEntryAssembly();
+        private static Assembly DefaultAnchor => Assembly.GetEntryAssembly()!;
 
         /// <summary>
         ///     Sets the working directory to the directory containing the executing assembly
@@ -42,7 +42,11 @@ namespace Abbotware.Core.Helpers
         {
             anchor = Arguments.EnsureNotNull(anchor, nameof(anchor));
 
-            SetWorkingDirectory(new DirectoryInfo(Path.GetDirectoryName(anchor.CodeBase)));
+            var path = Path.GetDirectoryName(anchor.Location);
+
+            path = Arguments.EnsureNotNull(path!, nameof(path));
+
+            SetWorkingDirectory(new DirectoryInfo(path));
         }
 
         /// <summary>
@@ -112,7 +116,7 @@ namespace Abbotware.Core.Helpers
                     var assemmblyLocation = anchor.Location;
                     var directory = Path.GetDirectoryName(assemmblyLocation);
 
-                    paths.AddRange(GenerateRecursivePaths(new PathGenerationInfo { Root = directory, File = fileName, Folder = folderName }));
+                    paths.AddRange(GenerateRecursivePaths(new PathGenerationInfo { Root = directory!, File = fileName, Folder = folderName }));
                 }
             }
 

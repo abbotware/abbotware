@@ -9,7 +9,6 @@ namespace Abbotware.Core.Collections
 {
     using System;
     using System.Collections.Generic;
-    using System.Globalization;
     using System.Linq;
     using System.Threading;
 
@@ -20,11 +19,13 @@ namespace Abbotware.Core.Collections
     /// <typeparam name="T2">level 2 key type</typeparam>
     /// <typeparam name="TValue">value type</typeparam>
     public class VLookup<T1, T2, TValue> : IEditableLookup<T1, T2, TValue>
+        where T1 : notnull
+        where T2 : notnull
     {
         /// <summary>
         ///     internal dictionaries of keys / value
         /// </summary>
-        private readonly Dictionary<T1, Dictionary<T2, TValue>> values = new Dictionary<T1, Dictionary<T2, TValue>>();
+        private readonly Dictionary<T1, Dictionary<T2, TValue>> values = new();
 
         /// <summary>
         ///     internal counter

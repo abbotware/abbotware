@@ -14,7 +14,7 @@ namespace Abbotware.Core.Serialization
     public abstract class BaseBinarySerialization : IBinarySerializaton
     {
         /// <inheritdoc />
-        public abstract object Decode(byte[] storage, Type type);
+        public abstract object? Decode(byte[] storage, Type type);
 
         /// <inheritdoc />
         public abstract byte[] Encode<T>(T value);
@@ -23,7 +23,7 @@ namespace Abbotware.Core.Serialization
         public abstract T Decode<T>(byte[] storage);
 
         /// <inheritdoc />
-        public object Decode(ReadOnlyMemory<byte> storage, Type type)
+        public object? Decode(ReadOnlyMemory<byte> storage, Type type)
         {
             return this.Decode(storage.ToArray(), type);
         }

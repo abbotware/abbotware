@@ -59,7 +59,7 @@ namespace Abbotware.Core.Math
         }
 
         /// <inheritdoc />
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (!this.StructPossiblyEquals<Point<TValueX, TValueY>>(obj, out var other))
             {

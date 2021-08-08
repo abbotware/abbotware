@@ -142,7 +142,7 @@ namespace Abbotware.Core.Math
         }
 
         /// <inheritdoc/>
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (!this.StructPossiblyEquals<Interval<T>>(obj, out var other))
             {

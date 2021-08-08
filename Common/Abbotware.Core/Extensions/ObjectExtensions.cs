@@ -59,7 +59,7 @@ namespace Abbotware.Core.Extensions
 #if NETSTANDARD2_0
         public static bool StructPossiblyEquals<TObject>(this object extended, object right, out TObject? output)
 #else
-        public static bool StructPossiblyEquals<TObject>(this object extended, object right, [NotNullWhen(true)] out TObject? output)
+        public static bool StructPossiblyEquals<TObject>(this object extended, object? right, [NotNullWhen(true)] out TObject? output)
 #endif
             where TObject : struct
         {

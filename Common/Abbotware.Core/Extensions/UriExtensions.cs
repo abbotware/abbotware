@@ -53,7 +53,7 @@ namespace Abbotware.Core.Extensions
 
             var keyValuePairs = new List<string>();
 
-            foreach (string key in urlParameters.AllKeys)
+            foreach (string key in urlParameters.AllKeys.Where(x => x != null))
             {
                 keyValuePairs.Add($"{Uri.EscapeDataString(key)}={Uri.EscapeDataString(urlParameters[key])}");
             }

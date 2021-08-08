@@ -41,11 +41,11 @@ namespace Abbotware.Core.Serialization.Helpers
         /// <typeparam name="TObject">Object Type</typeparam>
         /// <param name="extended">object being extended</param>
         /// <returns>Instance of deserialized TObject</returns>
-        public static TObject DeserializeViaDataContract<TObject>(this byte[] extended)
+        public static TObject? DeserializeViaDataContract<TObject>(this byte[] extended)
         {
             Arguments.NotNull(extended, nameof(extended));
 
-            return (TObject)extended.DeserializeViaDataContract(typeof(TObject), Array.Empty<Type>());
+            return (TObject?)extended.DeserializeViaDataContract(typeof(TObject), Array.Empty<Type>());
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace Abbotware.Core.Serialization.Helpers
         /// <param name="expectedType">type information for deserialization</param>
         /// <param name="additionalTypeInfo">additional types for deserialization</param>
         /// <returns>Instance of deserialized TObject</returns>
-        public static object DeserializeViaDataContract(this byte[] extended, Type expectedType, params Type[] additionalTypeInfo)
+        public static object? DeserializeViaDataContract(this byte[] extended, Type expectedType, params Type[] additionalTypeInfo)
         {
             Arguments.NotNull(extended, nameof(extended));
 

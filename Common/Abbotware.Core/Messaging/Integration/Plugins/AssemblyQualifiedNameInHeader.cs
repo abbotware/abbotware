@@ -26,7 +26,7 @@ namespace Abbotware.Core.Messaging.Integration.Plugins
             storage = Arguments.EnsureNotNull(storage, nameof(storage));
             value = Arguments.EnsureNotNull(value, nameof(value));
 
-            storage.Headers["AssemblyQualifiedName"] = value.AssemblyQualifiedName;
+            storage.Headers["AssemblyQualifiedName"] = value.AssemblyQualifiedName!;
         }
 
         /// <inheritdoc />

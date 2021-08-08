@@ -14,6 +14,8 @@ namespace Abbotware.Core.Collections
     /// <typeparam name="T2">key for level 2</typeparam>
     /// <typeparam name="TValue">value</typeparam>
     public interface IEditableLookup<T1, T2, TValue> : ILookup<T1, T2, TValue>
+        where T1 : notnull
+        where T2 : notnull
     {
         /// <summary>
         ///     Adds a value to the lookup

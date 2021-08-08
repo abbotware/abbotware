@@ -22,11 +22,16 @@ namespace Abbotware.Core.Collections
     /// <typeparam name="T5">level 5 key type</typeparam>
     /// <typeparam name="TValue">value type</typeparam>
     public class VLookup<T1, T2, T3, T4, T5, TValue> : IEditableLookup<T1, T2, T3, T4, T5, TValue>
+        where T1 : notnull
+        where T2 : notnull
+        where T3 : notnull
+        where T4 : notnull
+        where T5 : notnull
     {
         /// <summary>
         ///     internal dictionaries of keys / value
         /// </summary>
-        private readonly Dictionary<T1, Dictionary<T2, Dictionary<T3, Dictionary<T4, Dictionary<T5, TValue>>>>> values = new Dictionary<T1, Dictionary<T2, Dictionary<T3, Dictionary<T4, Dictionary<T5, TValue>>>>>();
+        private readonly Dictionary<T1, Dictionary<T2, Dictionary<T3, Dictionary<T4, Dictionary<T5, TValue>>>>> values = new();
 
         /// <summary>
         ///     internal counter

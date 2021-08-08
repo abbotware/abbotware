@@ -23,7 +23,7 @@ namespace Abbotware.Core.Diagnostics
         /// </summary>
         /// <param name="element">element to write/walk</param>
         /// <param name="context">current dump context</param>
-        public static void Write(object element, DumperContext context)
+        public static void Write(object? element, DumperContext context)
         {
             context = Arguments.EnsureNotNull(context, nameof(context));
 
@@ -37,7 +37,7 @@ namespace Abbotware.Core.Diagnostics
             if (context.CurrentDepth == context.MaxDepth)
             {
                 DumpHelper.WriteHeader(context);
-                DumpHelper.WriteValue(element.ToString(), context);
+                DumpHelper.WriteValue(element.ToString()!, context);
                 return;
             }
 
@@ -122,7 +122,7 @@ namespace Abbotware.Core.Diagnostics
             }
             else if (element is ValueType || element is string)
             {
-                context.Append(element.ToString());
+                context.Append(element.ToString()!);
             }
             else if (element is IEnumerable)
             {

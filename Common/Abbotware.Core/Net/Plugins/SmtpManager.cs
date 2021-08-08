@@ -139,11 +139,15 @@ namespace Abbotware.Core.Net.Plugins
                 message.Attachments.Add(new Attachment(file.LocalPath));
             }
 
-            // TODO: wire up cancellation token to trigger client.SendAsyncCancel?
+#if NET5_0_OR_GREATER
+            await client.SendMailAsync(message, ct)
+                .ConfigureAwait(false);
+#else
             GC.KeepAlive(ct);
 
             await client.SendMailAsync(message)
                 .ConfigureAwait(false);
+#endif
         }
     }
 }

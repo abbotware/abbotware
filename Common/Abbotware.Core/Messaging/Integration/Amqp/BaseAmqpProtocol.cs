@@ -141,7 +141,7 @@ namespace Abbotware.Core.Messaging.Integration.Amqp
 
             if (type != null && type != typeof(TMessage))
             {
-                throw AbbotwareException.Create("Message type Mismatch! Message Contains:{0}  Caller Expects:{1}  maybe you should call the non generic decode, or use a MessageGetter / Cosumer that supports callback's per message type", type.AssemblyQualifiedName, typeof(TMessage).AssemblyQualifiedName);
+                throw AbbotwareException.Create("Message type Mismatch! Message Contains:{0}  Caller Expects:{1}  maybe you should call the non generic decode, or use a MessageGetter / Cosumer that supports callback's per message type", type.AssemblyQualifiedName!, typeof(TMessage).AssemblyQualifiedName!);
             }
 
             return this.Serializer.Decode<TMessage>(storage.Body.ToArray());

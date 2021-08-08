@@ -46,7 +46,7 @@ namespace Abbotware.Core.Messaging.Integration.Base
         /// </summary>
         /// <param name="sender">sender</param>
         /// <param name="args">delivery args</param>
-        protected abstract void OnDelivery(object sender, DeliveryEventArgs args);
+        protected abstract void OnDelivery(object? sender, DeliveryEventArgs args);
 
         /// <inheritdoc/>
         protected override void OnInitialize()

@@ -72,12 +72,12 @@ namespace Abbotware.Core.Serialization.Helpers
         /// <returns>XElement containing the object data</returns>
         public static XElement ToXElement(this object extended)
         {
-            Arguments.NotNull(extended, nameof(extended));
+            extended = Arguments.EnsureNotNull(extended, nameof(extended));
 
             var retVal = extended.ToXDocument()
                 .Root;
 
-            return retVal;
+            return retVal!;
         }
 
         /// <summary>

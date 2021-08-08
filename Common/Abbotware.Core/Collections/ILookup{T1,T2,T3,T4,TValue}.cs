@@ -18,6 +18,10 @@ namespace Abbotware.Core.Collections
     /// <typeparam name="T4">key for level 4</typeparam>
     /// <typeparam name="TValue">value</typeparam>
     public interface ILookup<T1, T2, T3, T4, out TValue>
+        where T1 : notnull
+        where T2 : notnull
+        where T3 : notnull
+        where T4 : notnull
     {
         /// <summary>
         ///     Gets the count of all values stored in lookup

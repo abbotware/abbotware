@@ -13,6 +13,7 @@ namespace Abbotware.Core.Serialization.Helpers
     /// <summary>
     /// BinaryFormatter Helper methods
     /// </summary>
+    [Obsolete("BinaryFormatter serialization is obsolete")]
     public static class BinaryFormatterHelper
     {
         /// <summary>

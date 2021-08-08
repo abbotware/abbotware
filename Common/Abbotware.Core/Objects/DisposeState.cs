@@ -136,7 +136,7 @@ namespace Abbotware.Core.Objects
         }
 
         /// <inheritdoc/>
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (!this.StructPossiblyEquals<DisposeState>(obj, out var other))
             {

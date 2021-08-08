@@ -17,7 +17,7 @@ namespace Abbotware.Core.Serialization.Plugins
     public class DataContractSerializer : BaseBinarySerialization
     {
         /// <inheritdoc />
-        public override object Decode(byte[] storage, Type type)
+        public override object? Decode(byte[] storage, Type type)
         {
             return storage.DeserializeViaDataContract(type);
         }
