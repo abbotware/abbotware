@@ -7,6 +7,7 @@
 namespace Abbotware.Interop.TDAmeritrade
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
 
     /// <summary>
     /// Fundamental POCO
@@ -58,7 +59,7 @@ namespace Abbotware.Interop.TDAmeritrade
     /// <param name="Vol10DayAvg">Average Trading Volume - 10 Day Average</param>
     /// <param name="Vol3MonthAvg">Average Trading Volume - 3 Month Average</param>
     public record Fundamental(
-        string Symbol,
+        [property: Key] string Symbol,
         decimal? High52,
         decimal? Low52,
         decimal? DividendAmount,

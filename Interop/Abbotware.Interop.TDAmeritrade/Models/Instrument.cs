@@ -6,6 +6,8 @@
 
 namespace Abbotware.Interop.TDAmeritrade
 {
+    using System.ComponentModel.DataAnnotations;
+
     /// <summary>
     /// Instrument Poco
     /// </summary>
@@ -15,7 +17,7 @@ namespace Abbotware.Interop.TDAmeritrade
     /// <param name="Exchange">exchange</param>
     /// <param name="AssetType">asset type</param>
     /// <param name="Fundamental">Fundamental Data</param>
-    public record Instrument(string? Cusip, string Symbol, string? Description, string Exchange, AssetType AssetType, Fundamental? Fundamental)
+    public record Instrument(string? Cusip, [property:Key] string Symbol, string? Description, string Exchange, AssetType AssetType, Fundamental? Fundamental)
     {
     }
 }
