@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.1</TargetFrameworks>
-    <Description>Abbotware Interop Library for TD Ameritrade Rest API - Contains helper methods, extension methods, and plugins</Description>
-    <PackageTags>TD Ameritrade;Rest</PackageTags>
+    <Description>Abbotware Interop Library for TD Ameritrade Rest API - Contains helper methods, extension methods, plugins, and models</Description>
+    <PackageTags>TD Ameritrade;Rest;</PackageTags>
   </PropertyGroup>
 
   <PropertyGroup>

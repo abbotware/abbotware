@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Abbotware.Interop.TDAmeritrade
+namespace Abbotware.Core.Web.Rest
 {
     using System.Net;
 

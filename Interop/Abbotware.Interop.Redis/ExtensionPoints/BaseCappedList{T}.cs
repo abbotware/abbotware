@@ -27,9 +27,9 @@ namespace Abbotware.Interop.Redis.ExtensionPoints
 
         private readonly IDatabase database;
 
-        private readonly List<T> snapshot = new ();
+        private readonly List<T> snapshot = new();
 
-        private readonly BagOfWork<T> work = new ();
+        private readonly BagOfWork<T> work = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseCappedList{T}"/> class.
