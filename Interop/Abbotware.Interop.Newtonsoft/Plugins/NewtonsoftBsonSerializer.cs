@@ -26,10 +26,10 @@ namespace Abbotware.Interop.Newtonsoft.Plugins
         /// <inheritdoc/>
         public override object Decode(byte[] storage, Type type)
         {
-            using MemoryStream ms = new MemoryStream(storage);
+            using MemoryStream ms = new(storage);
             using var reader = new BsonDataReader(ms);
 
-            JsonSerializer serializer = new JsonSerializer();
+            var serializer = new JsonSerializer();
             return serializer.Deserialize(reader, type);
         }
 

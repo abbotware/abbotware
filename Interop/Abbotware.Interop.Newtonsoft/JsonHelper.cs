@@ -33,6 +33,7 @@ namespace Abbotware.Interop.Newtonsoft
             settings.Formatting = Formatting.Indented;
             settings.MissingMemberHandling = MissingMemberHandling.Error;
             settings.NullValueHandling = NullValueHandling.Ignore;
+            settings.DateParseHandling = DateParseHandling.DateTime;
 
             return settings;
         }
@@ -95,6 +96,7 @@ namespace Abbotware.Interop.Newtonsoft
             settings.Converters.Add(new IPEndPointConverter());
             settings.Converters.Add(new StringEnumConverter());
             settings.Converters.Add(new TimeSpanConverter());
+            settings.Converters.Add(new NullableConverter());
         }
     }
 }
