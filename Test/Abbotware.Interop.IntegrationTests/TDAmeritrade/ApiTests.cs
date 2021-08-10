@@ -57,6 +57,25 @@ namespace Abbotware.IntegrationTests.Interop.TDAmeritrade
         }
 
         [Test]
+        public async Task FundamentalDataAsync_AA()
+        {
+            var settings = InitSettings();
+
+            using var client = new TDAmeritradeClient(settings, this.Logger);
+
+            var res = await client.FundamentalDataAsync("AA", default)
+                .ConfigureAwait(false);
+
+            Assert.IsNotNull(res);
+            Assert.IsNotNull(res.Response);
+            Assert.IsNull(res.Error);
+            Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
+
+            Assert.AreEqual("AA", res.Response.Symbol);
+            Assert.IsNotNull(res.Response.Fundamental);
+        }
+
+        [Test]
         public async Task FundamentalDataAsync_DoesNotExist()
         {
             var settings = InitSettings();
