@@ -8,6 +8,7 @@
 namespace Abbotware.Core.Objects
 {
     using System;
+    using System.Threading;
     using System.Threading.Tasks;
     using Abbotware.Core.Logging;
 
@@ -45,14 +46,11 @@ namespace Abbotware.Core.Objects
         /// <returns>result of the command</returns>
         public TResult Execute()
         {
-            return this.ExecuteAsync().Result;
+            return this.ExecuteAsync(default).Result;
         }
 
-        /// <summary>
-        /// executes the command asynchronous
-        /// </summary>
-        /// <returns>async task</returns>
-        public async Task<TResult> ExecuteAsync()
+        /// <inheritdoc/>
+        public async Task<TResult> ExecuteAsync(CancellationToken ct)
         {
             this.InitializeIfRequired();
 
@@ -66,7 +64,8 @@ namespace Abbotware.Core.Objects
                 this.alreadyRunOrRunning = true;
             }
 
-            var result = await this.OnExecuteAsync().ConfigureAwait(false);
+            var result = await this.OnExecuteAsync(ct)
+                .ConfigureAwait(false);
 
             return result;
         }
@@ -74,7 +73,8 @@ namespace Abbotware.Core.Objects
         /// <summary>
         /// logic Hook for base classes to implement custom execute logic
         /// </summary>
+        /// <param name="ct">cancellation token</param>
         /// <returns>result of the command</returns>
-        protected abstract Task<TResult> OnExecuteAsync();
+        protected abstract Task<TResult> OnExecuteAsync(CancellationToken ct);
     }
 }

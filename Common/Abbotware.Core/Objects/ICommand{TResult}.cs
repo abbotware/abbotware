@@ -7,6 +7,7 @@
 
 namespace Abbotware.Core.Objects
 {
+    using System.Threading;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -18,7 +19,8 @@ namespace Abbotware.Core.Objects
         /// <summary>
         /// executes the command asynchronous
         /// </summary>
+        /// <param name="ct">cancellation token</param>
         /// <returns>async task</returns>
-        Task<TResult> ExecuteAsync();
+        Task<TResult> ExecuteAsync(CancellationToken ct);
     }
 }

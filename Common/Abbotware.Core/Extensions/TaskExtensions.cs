@@ -85,12 +85,13 @@ namespace Abbotware.Core.Extensions
         /// <remarks>https://blogs.msdn.microsoft.com/pfxteam/2011/11/10/crafting-a-task-timeoutafter-method/</remarks>
         /// <param name="task">wrapped task</param>
         /// <param name="timeout">timeout value</param>
+        /// <param name="ct">Cancellation Token</param>
         /// <returns>awaitable task</returns>
-        public static async Task TimeoutAfter(this Task task, TimeSpan timeout)
+        public static async Task TimeoutAfter(this Task task, TimeSpan timeout, CancellationToken ct)
         {
             Arguments.NotNull(task, nameof(task));
 
-            var timeoutTask = Task.Delay(timeout);
+            var timeoutTask = Task.Delay(timeout, ct);
             var completedTask = await Task.WhenAny(task, timeoutTask)
                 .ConfigureAwait(false);
 
