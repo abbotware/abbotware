@@ -29,7 +29,7 @@ namespace Abbotware.IntegrationTests.Core
 
             using (var child = new AbbotwareShellCommand(cfg, this.Logger))
             {
-                result = await child.ExecuteAsync();
+                result = await child.ExecuteAsync(default);
 
                 Assert.IsTrue(result.StartInfo.Started);
                 Assert.IsTrue(result.StartInfo.ProcessId > 0);
@@ -73,7 +73,7 @@ namespace Abbotware.IntegrationTests.Core
 
             using (var child = new AbbotwareShellCommand(cfg, this.Logger))
             {
-                result = await child.ExecuteAsync();
+                result = await child.ExecuteAsync(default);
 
                 Assert.IsTrue(result.StartInfo.Started);
                 Assert.IsTrue(result.StartInfo.ProcessId > 0);
@@ -109,8 +109,8 @@ namespace Abbotware.IntegrationTests.Core
             }
 
             var host = Environment.GetEnvironmentVariable("UNITTEST_FTP_HOST");
-            var user = Environment.GetEnvironmentVariable("UNITTEST_FTP_USERNAME");
-            var pass = Environment.GetEnvironmentVariable("UNITTEST_FTP_PASSWORD");
+            ////var user = Environment.GetEnvironmentVariable("UNITTEST_FTP_USERNAME");
+            ////var pass = Environment.GetEnvironmentVariable("UNITTEST_FTP_PASSWORD");
 
             var args = $" -i -s test.txt {host}";
 

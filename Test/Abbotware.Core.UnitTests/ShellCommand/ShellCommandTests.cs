@@ -35,7 +35,7 @@ namespace Abbotware.UnitTests.Core
 
             using (var child = new AbbotwareShellCommand(cfg, this.Logger))
             {
-                result = await child.ExecuteAsync();
+                result = await child.ExecuteAsync(default);
 
                 Assert.IsTrue(result.StartInfo.Started);
                 Assert.IsTrue(result.StartInfo.ProcessId > 0);
@@ -77,7 +77,7 @@ namespace Abbotware.UnitTests.Core
 
             using (var child = new AbbotwareShellCommand(cfg, this.Logger))
             {
-                result = await child.ExecuteAsync();
+                result = await child.ExecuteAsync(default);
 
                 Assert.IsTrue(result.StartInfo.Started);
                 Assert.IsTrue(result.StartInfo.ProcessId > 0);
