@@ -19,7 +19,7 @@ namespace Abbotware.Core.Serialization.Plugins
         /// <inheritdoc />
         public override object Decode(byte[] storage, Type type)
         {
-            return storage.DeserializeViaXmlSerializer(type);
+            return storage.DeserializeViaXmlSerializer(type)!;
         }
 
         /// <inheritdoc />
@@ -35,7 +35,7 @@ namespace Abbotware.Core.Serialization.Plugins
         {
             Arguments.IsSerializable<T>();
 
-            return storage.DeserializeViaXmlSerializer<T>();
+            return storage.DeserializeViaXmlSerializer<T>()!;
         }
     }
 }

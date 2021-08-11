@@ -19,6 +19,9 @@ namespace Abbotware.Core.Serialization.Plugins
         /// <inheritdoc />
         public override object? Decode(byte[] storage, Type type)
         {
+            storage = Arguments.EnsureNotNull(storage, nameof(storage));
+            type = Arguments.EnsureNotNull(type, nameof(type));
+
             return storage.DeserializeViaDataContract(type);
         }
 
@@ -33,9 +36,10 @@ namespace Abbotware.Core.Serialization.Plugins
         /// <inheritdoc />
         public override T Decode<T>(byte[] storage)
         {
+            storage = Arguments.EnsureNotNull(storage, nameof(storage));
             Arguments.IsSerializable<T>();
 
-            return storage.DeserializeViaDataContract<T>();
+            return storage.DeserializeViaDataContract<T>()!;
         }
     }
 }
