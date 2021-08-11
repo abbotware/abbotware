@@ -11,6 +11,7 @@ namespace Abbotware.ShellCommand
     using System.Diagnostics;
     using System.Linq;
     using System.Reactive.Subjects;
+    using System.Threading;
     using System.Threading.Tasks;
     using Abbotware.Core.Extensions;
     using Abbotware.Core.Helpers;
@@ -84,7 +85,7 @@ namespace Abbotware.ShellCommand
         }
 
         /// <inheritdoc/>
-        protected override async Task<IExitInfo> OnExecuteAsync()
+        protected override async Task<IExitInfo> OnExecuteAsync(CancellationToken ct)
         {
             var r = new ExitInfo();
 
@@ -141,12 +142,12 @@ namespace Abbotware.ShellCommand
                     this.standardError.OnNext((DateTimeOffset.Now, this.MaskData(e.Data)));
                 };
 
-                var tcs = new TaskCompletionSource<bool>();
+                var shellCommandTcs = new TaskCompletionSource<bool>();
 
                 process.Exited += (s, e) =>
                 {
                     this.Logger.Debug("exited");
-                    tcs.SetResult(true);
+                    shellCommandTcs.SetResult(true);
                 };
 
                 var logCommand = GenerateLogInfo(process);
@@ -161,17 +162,26 @@ namespace Abbotware.ShellCommand
                     return r;
                 }
 
-                this.ProcessStarted(r, process);
+                using var stdInSub = this.ProcessStarted(r, process);
 
                 try
                 {
-                    await tcs.Task.TimeoutAfter(this.Configuration.CommandTimeout)
+                    await shellCommandTcs.Task.TimeoutAfter(this.Configuration.CommandTimeout, ct)
                         .ConfigureAwait(false);
 
                     process.Refresh();
 
                     // minor delay to ensure OutputDataReceived / ErrorDataReceived callback events are finished
+#if NET5_0_OR_GREATER
+                    using var waitForExitCt = new CancellationTokenSource(this.Configuration.ExitDelay);
+
+                    await process.WaitForExitAsync(waitForExitCt.Token)
+                        .ConfigureAwait(false);
+
+                    r.Exited = true;
+#else
                     r.Exited = process.WaitForExit((int)this.Configuration.ExitDelay.TotalMilliseconds);
+#endif
                     r.ExitCode = process.ExitCode;
                 }
                 catch (TimeoutException)
