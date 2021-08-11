@@ -19,11 +19,15 @@ namespace Abbotware.Interop.Newtonsoft.Plugins
     public class IPEndPointConverter : JsonConverter<IPEndPoint>
     {
         /// <inheritdoc />
-        public override void WriteJson(JsonWriter writer, IPEndPoint value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, IPEndPoint? value, JsonSerializer serializer)
         {
             writer = Arguments.EnsureNotNull(writer, nameof(writer));
-            value = Arguments.EnsureNotNull(value, nameof(value));
             serializer = Arguments.EnsureNotNull(serializer, nameof(serializer));
+
+            if (value == null)
+            {
+                return;
+            }
 
             writer.WriteStartObject();
             writer.WritePropertyName("Address");
@@ -36,11 +40,17 @@ namespace Abbotware.Interop.Newtonsoft.Plugins
         }
 
         /// <inheritdoc />
-        public override IPEndPoint ReadJson(JsonReader reader, Type objectType, IPEndPoint existingValue, bool hasExistingValue, JsonSerializer serializer)
+        public override IPEndPoint? ReadJson(JsonReader reader, Type objectType, IPEndPoint? existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
             var jo = JObject.Load(reader);
-            var address = jo["Address"].ToObject<IPAddress>(serializer);
-            var port = jo["Port"].Value<int>();
+
+            if (jo == null)
+            {
+                return null;
+            }
+
+            var address = jo["Address"]!.ToObject<IPAddress>(serializer);
+            var port = jo["Port"]!.Value<int>();
             return new IPEndPoint(address, port);
         }
     }

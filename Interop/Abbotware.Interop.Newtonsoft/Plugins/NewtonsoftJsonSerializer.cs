@@ -33,7 +33,7 @@ namespace Abbotware.Interop.Newtonsoft.Plugins
         /// </summary>
         /// <param name="stringEncoder">string encoder</param>
         /// <param name="settings">serializer settings</param>
-        public NewtonsoftJsonSerializer(Encoding stringEncoder, JsonSerializerSettings settings)
+        public NewtonsoftJsonSerializer(Encoding stringEncoder, JsonSerializerSettings? settings)
         {
             this.Encoding = stringEncoder;
 
@@ -98,7 +98,7 @@ namespace Abbotware.Interop.Newtonsoft.Plugins
         /// <inheritdoc/>
         T IDecode<byte[]>.Decode<T>(byte[] storage)
         {
-            return (T)this.BinaryProtocol.Decode(storage, typeof(T));
+            return (T)this.BinaryProtocol.Decode(storage, typeof(T))!;
         }
 
         /// <inheritdoc/>
@@ -106,13 +106,13 @@ namespace Abbotware.Interop.Newtonsoft.Plugins
         {
             var s = this.Encoding.GetString(storage);
 
-            return this.StringProtocol.Decode(s, t);
+            return this.StringProtocol.Decode(s, t)!;
         }
 
         /// <inheritdoc/>
         T IDecode<string>.Decode<T>(string storage)
         {
-            return (T)this.StringProtocol.Decode(storage, typeof(T));
+            return (T)this.StringProtocol.Decode(storage, typeof(T))!;
         }
 
         /// <inheritdoc/>
@@ -120,7 +120,7 @@ namespace Abbotware.Interop.Newtonsoft.Plugins
         {
             using var sw = new StringReader(storage);
 
-            return this.serializer.Deserialize(sw, type);
+            return this.serializer.Deserialize(sw, type)!;
         }
 
         /// <inheritdoc/>

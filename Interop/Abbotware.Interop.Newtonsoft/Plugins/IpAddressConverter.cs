@@ -19,16 +19,15 @@ namespace Abbotware.Interop.Newtonsoft.Plugins
     public class IpAddressConverter : JsonConverter<IPAddress>
     {
         /// <inheritdoc />
-        public override void WriteJson(JsonWriter writer, IPAddress value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, IPAddress? value, JsonSerializer serializer)
         {
             writer = Arguments.EnsureNotNull(writer, nameof(writer));
-            value = Arguments.EnsureNotNull(value, nameof(value));
 
-            writer.WriteValue(value.ToString());
+            writer.WriteValue(value?.ToString());
         }
 
         /// <inheritdoc />
-        public override IPAddress ReadJson(JsonReader reader, Type objectType, IPAddress existingValue, bool hasExistingValue, JsonSerializer serializer)
+        public override IPAddress? ReadJson(JsonReader reader, Type objectType, IPAddress? existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
             Arguments.NotNull(reader, nameof(reader));
 

@@ -42,6 +42,11 @@ namespace Abbotware.Interop.Newtonsoft.Plugins
         {
             reader = Arguments.EnsureNotNull(reader, nameof(reader));
 
+            if (reader.Value == null)
+            {
+                return default;
+            }
+
             var text = (string)reader.Value;
 
             if (!TimeSpan.TryParseExact(text, TimeSpanFormatString, null, out var parsedTimeSpan))

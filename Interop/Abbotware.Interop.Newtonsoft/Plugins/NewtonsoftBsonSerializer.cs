@@ -20,7 +20,7 @@ namespace Abbotware.Interop.Newtonsoft.Plugins
         /// <inheritdoc/>
         public override T Decode<T>(byte[] storage)
         {
-            return (T)((IBinarySerializaton)this).Decode(storage, typeof(T));
+            return (T)((IBinarySerializaton)this).Decode(storage, typeof(T))!;
         }
 
         /// <inheritdoc/>
@@ -30,7 +30,7 @@ namespace Abbotware.Interop.Newtonsoft.Plugins
             using var reader = new BsonDataReader(ms);
 
             var serializer = new JsonSerializer();
-            return serializer.Deserialize(reader, type);
+            return serializer.Deserialize(reader, type)!;
         }
 
         /// <inheritdoc/>

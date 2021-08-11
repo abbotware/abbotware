@@ -81,7 +81,7 @@ namespace Abbotware.Interop.Newtonsoft
         /// <returns>object</returns>
         public static TObject FromString<TObject>(string text, JsonSerializerSettings settings)
         {
-            return JsonConvert.DeserializeObject<TObject>(text, settings);
+            return JsonConvert.DeserializeObject<TObject>(text, settings)!;
         }
 
         /// <summary>
