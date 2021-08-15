@@ -8,6 +8,7 @@
 namespace Abbotware.Core.Logging
 {
     using System;
+    using System.ComponentModel;
     using System.Diagnostics;
     using System.Diagnostics.CodeAnalysis;
     using System.Runtime.CompilerServices;
@@ -27,7 +28,7 @@ namespace Abbotware.Core.Logging
         /// <param name="line">compiler injected line number</param>
         /// <param name="member">compiler injected class member</param>
         /// <param name="file">compiler injected file</param>
-        public static void Critical([NotNull] this ILogger2 logger, string message, [CallerLineNumber] int? line = null, [CallerMemberName] string? member = null, [CallerFilePath] string? file = null)
+        public static void Critical([NotNull] this ILogger2 logger, [Localizable(false)] string message, [CallerLineNumber] int? line = null, [CallerMemberName] string? member = null, [CallerFilePath] string? file = null)
         {
             logger.Critical(null, () => message, line, member, file);
         }
@@ -54,7 +55,7 @@ namespace Abbotware.Core.Logging
         /// <param name="line">compiler injected line number</param>
         /// <param name="member">compiler injected class member</param>
         /// <param name="file">compiler injected file</param>
-        public static void Critical([NotNull] this ILogger2 logger, Exception? exception, string message, [CallerLineNumber] int? line = null, [CallerMemberName] string? member = null, [CallerFilePath] string? file = null)
+        public static void Critical([NotNull] this ILogger2 logger, Exception? exception, [Localizable(false)] string message, [CallerLineNumber] int? line = null, [CallerMemberName] string? member = null, [CallerFilePath] string? file = null)
         {
             Critical(logger!, exception, () => message, line, member, file);
         }
@@ -81,7 +82,7 @@ namespace Abbotware.Core.Logging
         /// <param name="line">compiler injected line number</param>
         /// <param name="member">compiler injected class member</param>
         /// <param name="file">compiler injected file</param>
-        public static void Error([NotNull] this ILogger2 logger, string message, [CallerLineNumber] int? line = null, [CallerMemberName] string? member = null, [CallerFilePath] string? file = null)
+        public static void Error([NotNull] this ILogger2 logger, [Localizable(false)] string message, [CallerLineNumber] int? line = null, [CallerMemberName] string? member = null, [CallerFilePath] string? file = null)
         {
             logger.Error(null, () => message, line, member, file);
         }
@@ -108,7 +109,7 @@ namespace Abbotware.Core.Logging
         /// <param name="line">compiler injected line number</param>
         /// <param name="member">compiler injected class member</param>
         /// <param name="file">compiler injected file</param>
-        public static void Error([NotNull] this ILogger2 logger, Exception? exception, string message, [CallerLineNumber] int? line = null, [CallerMemberName] string? member = null, [CallerFilePath] string? file = null)
+        public static void Error([NotNull] this ILogger2 logger, Exception? exception, [Localizable(false)] string message, [CallerLineNumber] int? line = null, [CallerMemberName] string? member = null, [CallerFilePath] string? file = null)
         {
             logger.Error(exception, () => message, line, member, file);
         }
@@ -135,7 +136,7 @@ namespace Abbotware.Core.Logging
         /// <param name="line">compiler injected line number</param>
         /// <param name="member">compiler injected class member</param>
         /// <param name="file">compiler injected file</param>
-        public static void Warn([NotNull] this ILogger2 logger, string message, [CallerLineNumber] int? line = null, [CallerMemberName] string? member = null, [CallerFilePath] string? file = null)
+        public static void Warn([NotNull] this ILogger2 logger, [Localizable(false)] string message, [CallerLineNumber] int? line = null, [CallerMemberName] string? member = null, [CallerFilePath] string? file = null)
         {
             logger.Warn(null, () => message, line, member, file);
         }
@@ -162,7 +163,7 @@ namespace Abbotware.Core.Logging
         /// <param name="line">compiler injected line number</param>
         /// <param name="member">compiler injected class member</param>
         /// <param name="file">compiler injected file</param>
-        public static void Warn([NotNull] this ILogger2 logger, Exception? exception, string message, [CallerLineNumber] int? line = null, [CallerMemberName] string? member = null, [CallerFilePath] string? file = null)
+        public static void Warn([NotNull] this ILogger2 logger, Exception? exception, [Localizable(false)] string message, [CallerLineNumber] int? line = null, [CallerMemberName] string? member = null, [CallerFilePath] string? file = null)
         {
             logger.Warn(exception, () => message, line, member, file);
         }
@@ -189,7 +190,7 @@ namespace Abbotware.Core.Logging
         /// <param name="line">compiler injected line number</param>
         /// <param name="member">compiler injected class member</param>
         /// <param name="file">compiler injected file</param>
-        public static void Info([NotNull] this ILogger2 logger, string message, [CallerLineNumber] int? line = null, [CallerMemberName] string? member = null, [CallerFilePath] string? file = null)
+        public static void Info([NotNull] this ILogger2 logger, [Localizable(false)] string message, [CallerLineNumber] int? line = null, [CallerMemberName] string? member = null, [CallerFilePath] string? file = null)
         {
             logger.Error(null, () => message, line, member, file);
         }
@@ -216,7 +217,7 @@ namespace Abbotware.Core.Logging
         /// <param name="line">compiler injected line number</param>
         /// <param name="member">compiler injected class member</param>
         /// <param name="file">compiler injected file</param>
-        public static void Info([NotNull] this ILogger2 logger, Exception? exception, string message, [CallerLineNumber] int? line = null, [CallerMemberName] string? member = null, [CallerFilePath] string? file = null)
+        public static void Info([NotNull] this ILogger2 logger, Exception? exception, [Localizable(false)] string message, [CallerLineNumber] int? line = null, [CallerMemberName] string? member = null, [CallerFilePath] string? file = null)
         {
             Log(logger, LogLevel.Information, exception, () => message, line, member, file);
         }
@@ -243,7 +244,7 @@ namespace Abbotware.Core.Logging
         /// <param name="line">compiler injected line number</param>
         /// <param name="member">compiler injected class member</param>
         /// <param name="file">compiler injected file</param>
-        public static void Debug([NotNull] this ILogger2 logger, string message, [CallerLineNumber] int? line = null, [CallerMemberName] string? member = null, [CallerFilePath] string? file = null)
+        public static void Debug([NotNull] this ILogger2 logger, [Localizable(false)] string message, [CallerLineNumber] int? line = null, [CallerMemberName] string? member = null, [CallerFilePath] string? file = null)
         {
             logger.Debug(null, () => message, line, member, file);
         }
@@ -270,7 +271,7 @@ namespace Abbotware.Core.Logging
         /// <param name="line">compiler injected line number</param>
         /// <param name="member">compiler injected class member</param>
         /// <param name="file">compiler injected file</param>
-        public static void Debug([NotNull] this ILogger2 logger, Exception? exception, string message, [CallerLineNumber] int? line = null, [CallerMemberName] string? member = null, [CallerFilePath] string? file = null)
+        public static void Debug([NotNull] this ILogger2 logger, Exception? exception, [Localizable(false)] string message, [CallerLineNumber] int? line = null, [CallerMemberName] string? member = null, [CallerFilePath] string? file = null)
         {
             Log(logger, LogLevel.Debug, exception, () => message, line, member, file);
         }
@@ -298,7 +299,7 @@ namespace Abbotware.Core.Logging
         /// <param name="member">compiler injected class member</param>
         /// <param name="file">compiler injected file</param>
         [Conditional("TRACE")]
-        public static void Trace([NotNull] this ILogger2 logger, string message, [CallerLineNumber] int? line = null, [CallerMemberName] string? member = null, [CallerFilePath] string? file = null)
+        public static void Trace([NotNull] this ILogger2 logger, [Localizable(false)] string message, [CallerLineNumber] int? line = null, [CallerMemberName] string? member = null, [CallerFilePath] string? file = null)
         {
             logger.Trace(null, () => message, line, member, file);
         }
@@ -327,7 +328,7 @@ namespace Abbotware.Core.Logging
         /// <param name="member">compiler injected class member</param>
         /// <param name="file">compiler injected file</param>
         [Conditional("TRACE")]
-        public static void Trace([NotNull] this ILogger2 logger, Exception? exception, string message, [CallerLineNumber] int? line = null, [CallerMemberName] string? member = null, [CallerFilePath] string? file = null)
+        public static void Trace([NotNull] this ILogger2 logger, Exception? exception, [Localizable(false)] string message, [CallerLineNumber] int? line = null, [CallerMemberName] string? member = null, [CallerFilePath] string? file = null)
         {
             logger.Trace(exception, () => message, line, member, file);
         }

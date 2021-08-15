@@ -13,9 +13,6 @@ namespace Abbotware.Core.Logging
     /// Generic Interface for logging
     /// </summary>
     public interface ILogger
-#if NET5_0_OR_GREATER
-        : Microsoft.Extensions.Logging.ILogger
-#endif
     {
         /// <summary>
         /// Gets the logger name
@@ -165,6 +162,7 @@ namespace Abbotware.Core.Logging
         /// </summary>
         /// <param name="context">context to push to logger stack</param>
         /// <returns>disposable handle</returns>
+        [Obsolete("Not Used")]
         IDisposable BeginScope(string context);
 
         /// <summary>
