@@ -63,7 +63,7 @@ namespace Abbotware.Interop.NUnit
 
                 if (!Debugger.IsAttached)
                 {
-                    t.TimeoutAfter(this.timeout).GetAwaiter().GetResult();
+                    t.TimeoutAfter(this.timeout, default).GetAwaiter().GetResult();
                 }
 
                 return t.GetAwaiter().GetResult();
