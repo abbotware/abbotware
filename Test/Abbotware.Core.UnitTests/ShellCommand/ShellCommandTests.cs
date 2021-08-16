@@ -30,7 +30,10 @@ namespace Abbotware.UnitTests.Core
         [ExpectedException(typeof(FileNotFoundException))]
         public async Task ShellCommand_FileNotFound()
         {
-            using var child = new AbbotwareShellCommand("notfound.exe", this.Logger);
+            var cfg = new ShellCommandOptions("notfound.exe");
+            cfg.WorkingDirectory = Environment.CurrentDirectory;
+
+            using var child = new AbbotwareShellCommand(cfg, this.Logger);
 
             var r = await child.ExecuteAsync(default);
         }
