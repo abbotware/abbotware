@@ -6,6 +6,7 @@ namespace Abbotware.UnitTests.Core
 {
     using System;
     using System.Diagnostics;
+    using System.IO;
     using System.Threading.Tasks;
     using Abbotware.Interop.NUnit;
     using Abbotware.ShellCommand;
@@ -22,6 +23,16 @@ namespace Abbotware.UnitTests.Core
         public void CreateChildProcessContractFailure()
         {
             _ = new ShellCommandOptions(string.Empty, string.Empty);
+        }
+
+        [Test]
+        [MaxTime(10000)]
+        [ExpectedException(typeof(FileNotFoundException))]
+        public async Task ShellCommand_FileNotFound()
+        {
+            using var child = new AbbotwareShellCommand("notfound.exe", this.Logger);
+
+            var r = await child.ExecuteAsync(default);
         }
 
         [Test]

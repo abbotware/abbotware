@@ -32,7 +32,7 @@ namespace Abbotware.Core.IO
                   Arguments.EnsureNotNull(filePath, nameof(filePath)).LocalPath,
                   FileMode.OpenOrCreate,
                   FileAccess.ReadWrite,
-                  FileShare.ReadWrite,
+                  FileShare.Read,
                   1024,
                   FileOptions.DeleteOnClose)
         {
