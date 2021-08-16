@@ -83,7 +83,7 @@ namespace Abbotware.ShellCommand
                     process.StartInfo.Arguments = this.Configuration.Arguments;
                 }
 
-                if (this.Configuration.WorkingDirectory != null)
+                if (this.Configuration.WorkingDirectory.IsNotBlank())
                 {
                     process.StartInfo.WorkingDirectory = this.Configuration.WorkingDirectory;
 

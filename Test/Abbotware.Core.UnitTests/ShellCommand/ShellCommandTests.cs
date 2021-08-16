@@ -60,7 +60,7 @@ namespace Abbotware.UnitTests.Core
                 Assert.AreSame(result, child.Exited.Result);
             }
 
-            Assert.That(result.ErrorOutput, Has.Count.GreaterThan(1));
+            Assert.That(result.ErrorOutput, Has.Count.EqualTo(0));
             Assert.That(result.StandardOutput, Has.Count.GreaterThan(1));
 
             try
