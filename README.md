@@ -8,7 +8,7 @@ Collection of many utility classes, interfaces, extension methods that have been
 * Coverage Report aggreagation via ReportGenerator
 
 ### Abbotware.Core
-This assembly has no dependencies on any other nugets other than the .Net Standard
+This assembly has no major dependencies on any other nugets. Starting with Net5, there will be a dependency on **Microsoft.Extensions.Logging.Abstractions** to use the Microsoft.Extensions.Logging.ILogger interface.  All internal logging will be routed via an adapter (and eventually replaced completely)
 
 ### Abbotware.Interop.{Library} 
 These assemblies contain interop/wrapper classes around various thirdparty libraries to encapsulate initialization and logic.  Somtimes the are abstracted away as via interfaces  
@@ -42,3 +42,7 @@ An example is: `IBinarySerializaton` - there are plugins such as `DataContractSe
 
 General interfaces are defined in `Abbotware.Core` and plugins maybe be in secondary assemblies to allow consumption of only the minimal number of thirdparty nugets in the end project.
 
+
+# Specific Libraries
+
+Abbotware.ShellCommand - A wrapper library for executing shell commands. Captures standard output/error with timestamsp as well as auto-kills processed after a specified timeout.
