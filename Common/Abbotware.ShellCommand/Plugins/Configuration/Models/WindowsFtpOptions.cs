@@ -25,81 +25,55 @@ namespace Abbotware.ShellCommand.Plugins.Configuration.Models
             this.Host = host;
         }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether -v Suppresses display of remote server responses.
-        /// </summary>
+        /// <inheritdoc/>
         [ShellCommandOption('v')]
         public bool SuppressRemoteServerResponses { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether to -n Suppresses auto-login upon initial connection.
-        /// </summary>
+        /// <inheritdoc/>
         [ShellCommandOption('n')]
         public bool SuppressAutoLogin { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether to -i Turns off interactive prompting during multiple file transfers.
-        /// </summary>
+        /// <inheritdoc/>
         [ShellCommandOption('i')]
         public bool DisableInteractiveMode { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether to -d Enables debugging.
-        /// </summary>
+        /// <inheritdoc/>
         [ShellCommandOption('d')]
         public bool EnableDebugging { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether to  -g Disables filename globbing (see GLOB command).
-        /// </summary>
+        /// <inheritdoc/>
         [ShellCommandOption('g')]
         public bool DisableFileNameGlobbing { get; set; }
 
-        /// <summary>
-        /// Gets or sets -s:filename Specifies a text file containing FTP commands; the commands will automatically run after FTP starts.
-        /// </summary>
+        /// <inheritdoc/>
         [ShellCommandOption('s', Format = "-{option}:{value}")]
         public string? ScriptFileName { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether to -a Use any local interface when binding data connection.
-        /// </summary>
+        /// <inheritdoc/>
         [ShellCommandOption('a')]
         public bool UseAnyLocalInterface { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether to -A login as anonymous.
-        /// </summary>
+        /// <inheritdoc/>
         [ShellCommandOption('A')]
         public bool LoginAsAnonymous { get; set; }
 
-        /// <summary>
-        /// Gets or sets -x:send sockbuf Overrides the default SO_SNDBUF size of 8192.
-        /// </summary>
+        /// <inheritdoc/>
         [ShellCommandOption('x', Format = "-{option}:{value}")]
         public int? SendBufferSize { get; set; }
 
-        /// <summary>
-        /// Gets or sets -r:recv sockbuf Overrides the default SO_RCVBUF size of 8192.
-        /// </summary>
+        /// <inheritdoc/>
         [ShellCommandOption('r', Format = "-{option}:{value}")]
         public int? RecieveBufferSize { get; set; }
 
-        /// <summary>
-        /// Gets or sets -b:async count Overrides the default async count of 3
-        /// </summary>
+        /// <inheritdoc/>
         [ShellCommandOption('b', Format = "-{option}:{value}")]
         public char? AsyncCount { get; set; }
 
-        /// <summary>
-        /// Gets or sets -w:windowsize Overrides the default transfer buffer size of 65535.
-        /// </summary>
+        /// <inheritdoc/>
         [ShellCommandOption('w', Format = "-{option}:{value}")]
         public int? WindowSize { get; set; }
 
-        /// <summary>
-        ///  Gets or sets host Specifies the host name or IP address of the remote host to connect to.
-        /// </summary>
+        /// <inheritdoc/>
         [ShellCommandOption(Position = 1)]
         public string Host { get; set; }
 

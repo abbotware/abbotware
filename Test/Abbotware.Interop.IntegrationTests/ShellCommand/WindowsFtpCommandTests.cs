@@ -22,7 +22,6 @@ namespace Abbotware.IntegrationTests.Core
         [Test]
         public void WindowsFtpCommand_ArgumentsRender()
         {
-            // command will exit before kill is issued
             var cfg = CreateCommandConfig(TimeSpan.FromSeconds(10), "10.10.10.70");
 
             Assert.AreEqual("-v -i 10.10.10.70", cfg.Arguments);

@@ -15,67 +15,67 @@ namespace Abbotware.ShellCommand.Plugins.Configuration
     public interface IWindowsFtpOptions : IShellCommandOptions
     {
         /// <summary>
-        /// Gets a value indicating whether -v Suppresses display of remote server responses.
+        /// Gets a value indicating whether to use the -v option: Suppress display of remote server responses.
         /// </summary>
         public bool SuppressRemoteServerResponses { get; }
 
         /// <summary>
-        /// Gets a value indicating whether to -n Suppresses auto-login upon initial connection.
+        /// Gets a value indicating whether to use the -n option: Suppress auto-login upon initial connection.
         /// </summary>
         public bool SuppressAutoLogin { get; }
 
         /// <summary>
-        /// Gets a value indicating whether to -i Turns off interactive prompting during multiple file transfers.
+        /// Gets a value indicating whether to use the -i option: Turn off interactive prompting during multiple file transfers.
         /// </summary>
         public bool DisableInteractiveMode { get; }
 
         /// <summary>
-        /// Gets a value indicating whether to -d Enables debugging.
+        /// Gets a value indicating whether to use the -d option: Enable debugging.
         /// </summary>
         public bool EnableDebugging { get; }
 
         /// <summary>
-        /// Gets a value indicating whether to  -g Disables filename globbing (see GLOB command).
+        /// Gets a value indicating whether to use the -g option: Disable filename globbing.
         /// </summary>
         public bool DisableFileNameGlobbing { get; }
 
         /// <summary>
-        /// Gets -s:filename Specifies a text file containing FTP commands; the commands will automatically run after FTP starts.
+        /// Gets the -s:filename option: a text file containing FTP commands; the commands will automatically run after FTP starts.
         /// </summary>
         public string? ScriptFileName { get; }
 
         /// <summary>
-        /// Gets a value indicating whether to -a Use any local interface when binding data connection.
+        /// Gets a value indicating whether to use the -a option: Use any local interface when binding data connection.
         /// </summary>
         public bool UseAnyLocalInterface { get; }
 
         /// <summary>
-        /// Gets a value indicating whether to -A login as anonymous.
+        /// Gets a value indicating whether to use the -A option: login as anonymous.
         /// </summary>
         public bool LoginAsAnonymous { get; }
 
         /// <summary>
-        /// Gets -x:send sockbuf Overrides the default SO_SNDBUF size of 8192.
+        /// Gets the -x:send sockbuf option: Override the default SO_SNDBUF size of 8192.
         /// </summary>
         public int? SendBufferSize { get; }
 
         /// <summary>
-        /// Gets -r:recv sockbuf Overrides the default SO_RCVBUF size of 8192.
+        /// Gets the -r:recv sockbuf option: Override the default SO_RCVBUF size of 8192.
         /// </summary>
         public int? RecieveBufferSize { get; }
 
         /// <summary>
-        /// Gets -b:async count Overrides the default async count of 3
+        /// Gets the -b:async count option: Override the default async count of 3
         /// </summary>
         public char? AsyncCount { get; }
 
         /// <summary>
-        /// Gets -w:windowsize Overrides the default transfer buffer size of 65535.
+        /// Gets the -w:windowsize option: Override the default transfer buffer size of 65535.
         /// </summary>
         public int? WindowSize { get; }
 
         /// <summary>
-        ///  Gets host Specifies the host name or IP address of the remote host to connect to.
+        ///  Gets the host name or IP address of the remote host to connect to.
         /// </summary>
         public string Host { get; }
 
