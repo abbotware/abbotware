@@ -23,9 +23,9 @@ namespace Abbotware.IntegrationTests.Core
         public void WindowsFtpCommand_ArgumentsRender()
         {
             // command will exit before kill is issued
-            var cfg = CreateCommandConfig(TimeSpan.FromSeconds(10));
+            var cfg = CreateCommandConfig(TimeSpan.FromSeconds(10), "10.10.10.70");
 
-            Assert.AreEqual("-i 10.10.10.70", cfg.Arguments);
+            Assert.AreEqual("-v -i 10.10.10.70", cfg.Arguments);
         }
 
         [Test]
@@ -148,9 +148,11 @@ namespace Abbotware.IntegrationTests.Core
             }
 
             Assert.That(result.ErrorOutput, Has.Count.EqualTo(1));
-            Assert.That(result.StandardOutput, Has.Count.EqualTo(10));
+            Assert.That(result.StandardOutput, Has.Count.EqualTo(6));
 
             Assert.That(result.ErrorOutput.First().Message.StartsWith("Anonymous login succeeded for", StringComparison.InvariantCultureIgnoreCase));
+            Assert.AreEqual("Connected to ftp.ubuntu.com.", result.StandardOutput.OrderBy(x => x.Time).First().Message);
+            Assert.AreEqual("221 Goodbye.", result.StandardOutput.OrderBy(x => x.Time).Last().Message);
 
             try
             {
@@ -181,7 +183,7 @@ namespace Abbotware.IntegrationTests.Core
             var cfg = new WindowsFtpOptions(host)
             {
                 DisableInteractiveMode = true,
-                EnableDebugging = true,
+                EnableDebugging = false,
                 SuppressRemoteServerResponses = true,
                 CommandTimeout = timeout,
                 Credential = new NetworkCredential(user, pass),
