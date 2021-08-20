@@ -25,14 +25,14 @@ namespace Abbotware.Core.Extensions
         /// <summary>
         ///     Value used for UNIX time conversions
         /// </summary>
-        private static readonly DateTime UnixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, 0);
+        private static readonly DateTime UnixEpoch = new(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
 
         /// <summary>
         ///     Converts a DateTime to UNIX time
         /// </summary>
         /// <param name="extendedObject">DateTime object</param>
         /// <returns>converted UNIX time</returns>
-        public static long ToUnixTime(this DateTime extendedObject)
+        public static long ToUnixTimeSeconds(this DateTime extendedObject)
         {
             var span = extendedObject - DateTimeExtensions.UnixEpoch;
             return (long)span.TotalSeconds;
@@ -43,10 +43,10 @@ namespace Abbotware.Core.Extensions
         /// </summary>
         /// <param name="extendedObject">UNIX time value</param>
         /// <returns>converted DateTime</returns>
-        public static DateTime FromUnixTime(this long extendedObject)
+        public static DateTime FromUnixTimeSeconds(this long extendedObject)
         {
             return DateTimeExtensions.UnixEpoch.AddSeconds(extendedObject)
-                .ToLocalTime();
+                .ToUniversalTime();
         }
 
         /// <summary>

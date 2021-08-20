@@ -29,11 +29,19 @@ namespace Abbotware.Core.Diagnostics
         {
             propertyInfo = Arguments.EnsureNotNull(propertyInfo, nameof(propertyInfo));
 
-            var propertyType = propertyInfo.PropertyType;
+            return IsNullableType(propertyInfo.PropertyType);
+        }
 
-            var nullable = propertyType.IsGenericType && propertyType.GetGenericTypeDefinition() == typeof(Nullable<>);
+        /// <summary>
+        /// Checks if the type is Nullable
+        /// </summary>
+        /// <param name="type">type</param>
+        /// <returns>true if the type is nullable</returns>
+        public static bool IsNullableType(Type type)
+        {
+            type = Arguments.EnsureNotNull(type, nameof(type));
 
-            return nullable;
+            return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>);
         }
 
         /// <summary>

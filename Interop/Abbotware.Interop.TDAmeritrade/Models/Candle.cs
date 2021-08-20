@@ -6,6 +6,10 @@
 
 namespace Abbotware.Interop.TDAmeritrade.Models
 {
+    using System;
+    using Abbotware.Interop.Newtonsoft.Plugins;
+    using global::Newtonsoft.Json;
+
     /// <summary>
     /// Candle Poco
     /// </summary>
@@ -16,7 +20,8 @@ namespace Abbotware.Interop.TDAmeritrade.Models
     /// <param name="Low">period low</param>
     /// <param name="Volume">volume</param>
     public record Candle(
-        string? DateTime,
+        [property:JsonConverter(typeof(UnixMillisecondsDateTimeConverter))]
+        DateTime? DateTime,
         decimal? Open,
         decimal? Close,
         decimal? High,

@@ -12,6 +12,7 @@ namespace Abbotware.IntegrationTests.Interop.TDAmeritrade
     using System.Threading.Tasks;
     using Abbotware.Interop.TDAmeritrade;
     using Abbotware.Interop.TDAmeritrade.Configuration.Models;
+    using Abbotware.Interop.TDAmeritrade.Models;
     using Abbotware.Utility.UnitTest.Using.NUnit;
     using NUnit.Framework;
 
@@ -20,6 +21,43 @@ namespace Abbotware.IntegrationTests.Interop.TDAmeritrade
     [Category("Interop.TDAmeritrade")]
     public class ApiTests : BaseNUnitTest
     {
+        [Test]
+        public async Task PriceHistoryAsync_BadSymbol()
+        {
+            var settings = InitSettings();
+
+            using var client = new TDAmeritradeClient(settings, this.Logger);
+
+            var res = await client.PriceHistoryAsync("DoesNotExist", default)
+                .ConfigureAwait(false);
+
+            Assert.IsNotNull(res);
+            Assert.IsNotNull(res.Response);
+            Assert.IsNull(res.Error);
+            Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
+            Assert.AreEqual("DoesNotExist", res.Response.Symbol);
+            Assert.IsTrue(res.Response.Empty);
+        }
+
+        [Test]
+        public async Task PriceHistoryAsync_IBM()
+        {
+            var settings = InitSettings();
+
+            using var client = new TDAmeritradeClient(settings, this.Logger);
+
+            var res = await client.PriceHistoryAsync("IBM", default)
+                .ConfigureAwait(false);
+
+            Assert.IsNotNull(res);
+            Assert.IsNotNull(res.Response);
+            Assert.IsNull(res.Error);
+            Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
+            Assert.AreEqual("IBM", res.Response.Symbol);
+            Assert.IsFalse(res.Response.Empty);
+            Assert.Less(10, res.Response.Candles.Count);
+        }
+
         [Test]
         public async Task SearchAsync_SymbolRegex()
         {
@@ -136,7 +174,7 @@ namespace Abbotware.IntegrationTests.Interop.TDAmeritrade
 
             var settings = new ApiSettings
             {
-                ApiKey = apiKey,
+                ApiKey = "TESTAPPABC123",
             };
 
             return settings;

@@ -14,6 +14,7 @@ namespace Abbotware.Interop.TDAmeritrade
     using System.Threading;
     using System.Threading.Tasks;
     using Abbotware.Core;
+    using Abbotware.Core.Extensions;
     using Abbotware.Core.Helpers;
     using Abbotware.Core.Logging;
     using Abbotware.Core.Web.Rest;
@@ -101,6 +102,17 @@ namespace Abbotware.Interop.TDAmeritrade
         /// Get Price History
         /// </summary>
         /// <param name="symbol">symbol</param>
+        /// <param name="ct">cancellation token</param>
+        /// <returns>search result</returns>
+        public Task<RestResponse<CandleList, ErrorResponse>> PriceHistoryAsync(string symbol, CancellationToken ct)
+        {
+            return this.PriceHistoryAsync(symbol, null, null, null, null, false, ct);
+        }
+
+        /// <summary>
+        /// Get Price History
+        /// </summary>
+        /// <param name="symbol">symbol</param>
         /// <param name="period">period options</param>
         /// <param name="frequencyType">frequency type</param>
         /// <param name="frequency">frequency count</param>
@@ -174,11 +186,11 @@ namespace Abbotware.Interop.TDAmeritrade
 
             var request = CreateBasePriceHistoryRequest(symbol, frequencyType, frequency, extendedHoursData);
 
-            request.AddQueryParameter("startDate", startDate.ToString(CultureInfo.InvariantCulture));
+            request.AddQueryParameter("startDate", startDate.ToUnixTimeSeconds().ToString(CultureInfo.InvariantCulture));
 
             if (endDate != null)
             {
-                request.AddQueryParameter("endDate", endDate.ToString());
+                request.AddQueryParameter("endDate", endDate.Value.ToUnixTimeSeconds().ToString(CultureInfo.InvariantCulture));
             }
 
             return this.OnExecuteAsync<CandleList, ErrorResponse>(request, ct);
