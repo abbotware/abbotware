@@ -174,7 +174,7 @@ namespace Abbotware.IntegrationTests.Interop.TDAmeritrade
 
             var settings = new ApiSettings
             {
-                ApiKey = "TESTAPPABC123",
+                ApiKey = apiKey,
             };
 
             return settings;
