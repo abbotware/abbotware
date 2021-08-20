@@ -6,5 +6,8 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-[assembly: SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1633:The file header XML is invalid.", Justification = "Reviews AA", Scope = "namespace", Target = "~N:System.Runtime.CompilerServices")]
+[assembly: SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1633:The file header XML is invalid.", Justification = "Reviewed AA", Scope = "namespace", Target = "~N:System.Runtime.CompilerServices")]
 [assembly: SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1633:File should have header", Justification = "Reviews AA", Scope = "namespace", Target = "~N:System.Runtime.CompilerServices")]
+[assembly: SuppressMessage("Design", "CA1008:Enums should have zero value", Justification = "Reviewed AA", Scope = "type", Target = "~T:Abbotware.Interop.TDAmeritrade.Models.PeriodsForDay")]
+[assembly: SuppressMessage("Design", "CA1008:Enums should have zero value", Justification = "Reviewed AA", Scope = "type", Target = "~T:Abbotware.Interop.TDAmeritrade.Models.PeriodsForMonth")]
+[assembly: SuppressMessage("Design", "CA1008:Enums should have zero value", Justification = "Reviewed AA", Scope = "type", Target = "~T:Abbotware.Interop.TDAmeritrade.Models.PeriodsForYear")]

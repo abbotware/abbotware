@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Abbotware.Interop.TDAmeritrade
+namespace Abbotware.Interop.TDAmeritrade.Models
 {
     using System.ComponentModel.DataAnnotations;
 

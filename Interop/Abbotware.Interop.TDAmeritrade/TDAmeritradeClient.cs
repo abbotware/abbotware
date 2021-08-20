@@ -6,7 +6,9 @@
 
 namespace Abbotware.Interop.TDAmeritrade
 {
+    using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
     using System.Net;
     using System.Threading;
@@ -17,6 +19,7 @@ namespace Abbotware.Interop.TDAmeritrade
     using Abbotware.Core.Web.Rest;
     using Abbotware.Interop.RestSharp;
     using Abbotware.Interop.TDAmeritrade.Configuration;
+    using Abbotware.Interop.TDAmeritrade.Models;
     using global::RestSharp;
 
     /// <summary>
@@ -58,7 +61,7 @@ namespace Abbotware.Interop.TDAmeritrade
         /// <param name="cusip">cusip</param>
         /// <param name="ct">cancellation token</param>
         /// <returns>search result</returns>
-        public Task<RestResponse<Instrument, ErrorResponse>> GetInstrumentAsync(string cusip, CancellationToken ct)
+        public Task<RestResponse<Instrument, ErrorResponse>> InstrumentAsync(string cusip, CancellationToken ct)
         {
             this.InitializeIfRequired();
 
@@ -94,6 +97,93 @@ namespace Abbotware.Interop.TDAmeritrade
             return new(data, error, code);
         }
 
+        /// <summary>
+        /// Get Price History
+        /// </summary>
+        /// <param name="symbol">symbol</param>
+        /// <param name="period">period options</param>
+        /// <param name="frequencyType">frequency type</param>
+        /// <param name="frequency">frequency count</param>
+        /// <param name="extendedHoursData">extended market hours data</param>
+        /// <param name="ct">cancellation token</param>
+        /// <returns>search result</returns>
+        public Task<RestResponse<CandleList, ErrorResponse>> PriceHistoryAsync(string symbol, Period period, FrequencyType? frequencyType, ushort? frequency, bool extendedHoursData, CancellationToken ct)
+        {
+            period = Arguments.EnsureNotNull(period, nameof(period));
+
+            return this.PriceHistoryAsync(symbol, period.Type, period.Count, frequencyType, frequency, extendedHoursData, ct);
+        }
+
+        /// <summary>
+        /// Get Price History
+        /// </summary>
+        /// <param name="symbol">symbol</param>
+        /// <param name="periodType">period type</param>
+        /// <param name="periods">period count</param>
+        /// <param name="frequencyType">frequency type</param>
+        /// <param name="frequency">frequency count</param>
+        /// <param name="extendedHoursData">extended market hours data</param>
+        /// <param name="ct">cancellation token</param>
+        /// <returns>search result</returns>
+        public Task<RestResponse<CandleList, ErrorResponse>> PriceHistoryAsync(string symbol, PeriodType? periodType, ushort? periods, FrequencyType? frequencyType, ushort? frequency, bool extendedHoursData, CancellationToken ct)
+        {
+            this.InitializeIfRequired();
+
+            var request = CreateBasePriceHistoryRequest(symbol, frequencyType, frequency, extendedHoursData);
+
+            if (periodType != null)
+            {
+                request.AddQueryParameter("periodType", periodType.ToString());
+
+                if (periods != null)
+                {
+                    request.AddQueryParameter("period", periods.ToString());
+                }
+            }
+
+            return this.OnExecuteAsync<CandleList, ErrorResponse>(request, ct);
+        }
+
+        /// <summary>
+        /// Get Price History
+        /// </summary>
+        /// <param name="symbol">symbol</param>
+        /// <param name="startDate">start date</param>
+        /// <param name="endDate">end date</param>
+        /// <param name="ct">cancellation token</param>
+        /// <returns>search result</returns>
+        public Task<RestResponse<CandleList, ErrorResponse>> PriceHistoryAsync(string symbol, DateTimeOffset startDate, DateTimeOffset? endDate, CancellationToken ct)
+        {
+            return this.PriceHistoryAsync(symbol, startDate, endDate, null, null, false, ct);
+        }
+
+        /// <summary>
+        /// Get Price History
+        /// </summary>
+        /// <param name="symbol">symbol</param>
+        /// <param name="startDate">start date</param>
+        /// <param name="endDate">end date</param>
+        /// <param name="frequencyType">frequency type</param>
+        /// <param name="frequency">frequency count</param>
+        /// <param name="extendedHoursData">extended market hours data</param>
+        /// <param name="ct">cancellation token</param>
+        /// <returns>search result</returns>
+        public Task<RestResponse<CandleList, ErrorResponse>> PriceHistoryAsync(string symbol, DateTimeOffset startDate, DateTimeOffset? endDate, FrequencyType? frequencyType, ushort? frequency,  bool extendedHoursData, CancellationToken ct)
+        {
+            this.InitializeIfRequired();
+
+            var request = CreateBasePriceHistoryRequest(symbol, frequencyType, frequency, extendedHoursData);
+
+            request.AddQueryParameter("startDate", startDate.ToString(CultureInfo.InvariantCulture));
+
+            if (endDate != null)
+            {
+                request.AddQueryParameter("endDate", endDate.ToString());
+            }
+
+            return this.OnExecuteAsync<CandleList, ErrorResponse>(request, ct);
+        }
+
         /// <inheritdoc/>
         protected override void OnApplyAuthentication(RestRequest request)
         {
@@ -107,6 +197,29 @@ namespace Abbotware.Interop.TDAmeritrade
             {
                 request.AddHeader("Authorization", "Bearer " + this.Configuration.BearerToken);
             }
+        }
+
+        private static RestRequest CreateBasePriceHistoryRequest(string symbol, FrequencyType? frequencyType, ushort? frequency, bool extendedHoursData)
+        {
+            var request = new RestRequest("marketdata/{symbol}/pricehistory", Method.GET, DataFormat.None);
+            request.AddUrlSegment("symbol", symbol, false);
+
+            if (frequencyType != null)
+            {
+                request.AddQueryParameter("frequencyType", frequencyType.ToString());
+
+                if (frequency != null)
+                {
+                    request.AddQueryParameter("frequency", frequency.ToString());
+                }
+            }
+
+            if (!extendedHoursData)
+            {
+                request.AddQueryParameter("needExtendedHoursData", extendedHoursData.ToString());
+            }
+
+            return request;
         }
     }
 }
