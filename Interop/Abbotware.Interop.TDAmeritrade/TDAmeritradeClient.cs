@@ -113,17 +113,15 @@ namespace Abbotware.Interop.TDAmeritrade
         /// Get Price History
         /// </summary>
         /// <param name="symbol">symbol</param>
-        /// <param name="period">period options</param>
-        /// <param name="frequencyType">frequency type</param>
-        /// <param name="frequency">frequency count</param>
+        /// <param name="range">History range</param>
         /// <param name="extendedHoursData">extended market hours data</param>
         /// <param name="ct">cancellation token</param>
         /// <returns>search result</returns>
-        public Task<RestResponse<CandleList, ErrorResponse>> PriceHistoryAsync(string symbol, Period period, FrequencyType? frequencyType, ushort? frequency, bool extendedHoursData, CancellationToken ct)
+        public Task<RestResponse<CandleList, ErrorResponse>> PriceHistoryAsync(string symbol, History range, bool extendedHoursData, CancellationToken ct)
         {
-            period = Arguments.EnsureNotNull(period, nameof(period));
+            range = Arguments.EnsureNotNull(range, nameof(range));
 
-            return this.PriceHistoryAsync(symbol, period.Type, period.Count, frequencyType, frequency, extendedHoursData, ct);
+            return this.PriceHistoryAsync(symbol, range.PeriodType, range.Period, range.FrequencyType, range.Frequency, extendedHoursData, ct);
         }
 
         /// <summary>
@@ -145,7 +143,7 @@ namespace Abbotware.Interop.TDAmeritrade
 
             if (periodType != null)
             {
-                request.AddQueryParameter("periodType", periodType.ToString());
+                request.AddQueryParameter("periodType", EnumHelper.GetEnumMemberValue(periodType));
 
                 if (periods != null)
                 {
@@ -218,7 +216,7 @@ namespace Abbotware.Interop.TDAmeritrade
 
             if (frequencyType != null)
             {
-                request.AddQueryParameter("frequencyType", frequencyType.ToString());
+                request.AddQueryParameter("frequencyType", EnumHelper.GetEnumMemberValue(frequencyType));
 
                 if (frequency != null)
                 {

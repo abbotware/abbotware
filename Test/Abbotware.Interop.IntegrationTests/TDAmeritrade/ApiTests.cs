@@ -59,6 +59,25 @@ namespace Abbotware.IntegrationTests.Interop.TDAmeritrade
         }
 
         [Test]
+        public async Task PriceHistoryAsync_IBM_Period()
+        {
+            var settings = InitSettings();
+
+            using var client = new TDAmeritradeClient(settings, this.Logger);
+
+            var res = await client.PriceHistoryAsync("IBM", History.Days(HowManyDays.One, Minutes.One), false, default)
+                .ConfigureAwait(false);
+
+            Assert.IsNotNull(res);
+            Assert.IsNotNull(res.Response);
+            Assert.IsNull(res.Error);
+            Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
+            Assert.AreEqual("IBM", res.Response.Symbol);
+            Assert.IsFalse(res.Response.Empty);
+            Assert.AreEqual(390, res.Response.Candles.Count);
+        }
+
+        [Test]
         public async Task SearchAsync_SymbolRegex()
         {
             var settings = InitSettings();

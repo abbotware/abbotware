@@ -6,9 +6,6 @@
 
 namespace Abbotware.Interop.TDAmeritrade.Models
 {
-    using System;
-    using System.Runtime.Serialization;
-
     /// <summary>
     /// Base Period Configuration
     /// </summary>
@@ -24,7 +21,8 @@ namespace Abbotware.Interop.TDAmeritrade.Models
     /// <typeparam name="TCount">period count type</typeparam>
     /// <param name="Type">period type</param>
     /// <param name="Periods">period count</param>
-    public abstract record Period<TCount>(PeriodType Type, TCount Periods) : Period(Type, (ushort)(object)Periods!)
+    public abstract record Period<TCount>(PeriodType Type, TCount Periods)
+        : Period(Type, (ushort)(object)Periods!)
     {
     }
 
@@ -32,7 +30,8 @@ namespace Abbotware.Interop.TDAmeritrade.Models
     /// Daily Period
     /// </summary>
     /// <param name="Periods">period count</param>
-    public record Day(PeriodsForDay Periods) : Period<PeriodsForDay>(PeriodType.Day, Periods)
+    public record Day(HowManyDays Periods)
+        : Period<HowManyDays>(PeriodType.Day, Periods)
     {
     }
 
@@ -40,7 +39,8 @@ namespace Abbotware.Interop.TDAmeritrade.Models
     /// Monthly Period
     /// </summary>
     /// <param name="Periods">period count</param>
-    public record Month(PeriodsForMonth Periods) : Period<PeriodsForMonth>(PeriodType.Month, Periods)
+    public record Month(HowManyMonths Periods)
+        : Period<HowManyMonths>(PeriodType.Month, Periods)
     {
     }
 
@@ -48,14 +48,16 @@ namespace Abbotware.Interop.TDAmeritrade.Models
     /// Yearly Period
     /// </summary>
     /// <param name="Periods">period count</param>
-    public record Year(PeriodsForYear Periods) : Period<PeriodsForYear>(PeriodType.Year, Periods)
+    public record Year(HowManyYears Periods)
+        : Period<HowManyYears>(PeriodType.Year, Periods)
     {
     }
 
     /// <summary>
     /// Yearly Period
     /// </summary>
-    public record YearToDate() : Period<int>(PeriodType.YearToDate, 1)
+    public record YearToDate()
+        : Period<int>(PeriodType.YearToDate, 1)
     {
     }
 }

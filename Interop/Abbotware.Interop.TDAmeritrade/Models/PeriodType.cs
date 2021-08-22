@@ -41,7 +41,7 @@ namespace Abbotware.Interop.TDAmeritrade.Models
     /// <summary>
     /// Valid Periods for Day
     /// </summary>
-    public enum PeriodsForDay
+    public enum HowManyDays : int
     {
         /// <summary>
         /// 1
@@ -77,7 +77,7 @@ namespace Abbotware.Interop.TDAmeritrade.Models
     /// <summary>
     /// Valid Periods for Month
     /// </summary>
-    public enum PeriodsForMonth
+    public enum HowManyMonths : int
     {
         /// <summary>
         /// 1
@@ -103,7 +103,7 @@ namespace Abbotware.Interop.TDAmeritrade.Models
     /// <summary>
     /// Valid Periods for Year
     /// </summary>
-    public enum PeriodsForYear
+    public enum HowManyYears : int
     {
         /// <summary>
         /// 1
