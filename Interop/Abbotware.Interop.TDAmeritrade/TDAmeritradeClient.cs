@@ -39,6 +39,41 @@ namespace Abbotware.Interop.TDAmeritrade
         }
 
         /// <summary>
+        /// Gets market hours for the specified markets for the current date
+        /// </summary>
+        /// <param name="markets">market types</param>
+        /// <param name="ct">cancellation token</param>
+        /// <returns>search result</returns>
+        public Task<RestResponse<IReadOnlyDictionary<string, IReadOnlyDictionary<string, MarketHours>>, ErrorResponse>> MarketHours(MarketType[] markets, CancellationToken ct)
+        {
+            return this.MarketHours(markets, null, ct);
+        }
+
+        /// <summary>
+        /// Gets market hours for the specified markets
+        /// </summary>
+        /// <param name="markets">market types</param>
+        /// <param name="date">date for hours</param>
+        /// <param name="ct">cancellation token</param>
+        /// <returns>search result</returns>
+        public Task<RestResponse<IReadOnlyDictionary<string, IReadOnlyDictionary<string, MarketHours>>, ErrorResponse>> MarketHours(MarketType[] markets, DateTime? date, CancellationToken ct)
+        {
+            this.InitializeIfRequired();
+
+            var request = new RestRequest("marketdata/hours", Method.GET, DataFormat.None);
+
+            var m = string.Join(",", markets.Distinct().Select(x => EnumHelper.GetEnumMemberValue(x)));
+            request.AddQueryParameter("markets", m, false);
+
+            if (date != null)
+            {
+                request.AddQueryParameter("date", date.Value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture), false);
+            }
+
+            return this.OnExecuteAsync<IReadOnlyDictionary<string, IReadOnlyDictionary<string, MarketHours>>, ErrorResponse > (request, ct);
+        }
+
+        /// <summary>
         /// Search or retrieve instrument data, including fundamental data
         /// </summary>
         /// <param name="symbol">Value to pass to the search.</param>

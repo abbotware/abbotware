@@ -8,6 +8,7 @@
 namespace Abbotware.IntegrationTests.Interop.TDAmeritrade
 {
     using System;
+    using System.Linq;
     using System.Net;
     using System.Threading.Tasks;
     using Abbotware.Interop.TDAmeritrade;
@@ -21,6 +22,41 @@ namespace Abbotware.IntegrationTests.Interop.TDAmeritrade
     [Category("Interop.TDAmeritrade")]
     public class ApiTests : BaseNUnitTest
     {
+
+        [Test]
+        public async Task MarketHoursAsync_Weekend()
+        {
+            var settings = InitSettings();
+
+            using var client = new TDAmeritradeClient(settings, this.Logger);
+
+            var res = await client.MarketHours(new MarketType[] { MarketType.Bond }, new DateTime(2021, 8, 22), default)
+                .ConfigureAwait(false);
+
+            Assert.IsNotNull(res);
+            Assert.IsNotNull(res.Response);
+            Assert.IsNull(res.Error);
+            Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
+        }
+
+        [Test]
+        public async Task MarketHoursAsync_Weekday_AllMarkets()
+        {
+            var settings = InitSettings();
+
+            using var client = new TDAmeritradeClient(settings, this.Logger);
+
+            var res = await client.MarketHours(new MarketType[] { MarketType.Bond, MarketType.Equity, MarketType.Option, MarketType.Future, MarketType.Forex }, new DateTime(2021, 8, 23), default)
+                .ConfigureAwait(false);
+
+            Assert.IsNotNull(res);
+            Assert.IsNotNull(res.Response);
+            Assert.IsNull(res.Error);
+            Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
+            Assert.AreEqual(5, res.Response.Keys.Count());
+
+        }
+
         [Test]
         public async Task PriceHistoryAsync_BadSymbol()
         {
@@ -59,13 +95,32 @@ namespace Abbotware.IntegrationTests.Interop.TDAmeritrade
         }
 
         [Test]
-        public async Task PriceHistoryAsync_IBM_Period()
+        public async Task PriceHistoryAsync_IBM_1Day_EveryMinute()
         {
             var settings = InitSettings();
 
             using var client = new TDAmeritradeClient(settings, this.Logger);
 
             var res = await client.PriceHistoryAsync("IBM", History.Days(HowManyDays.One, Minutes.One), false, default)
+                .ConfigureAwait(false);
+
+            Assert.IsNotNull(res);
+            Assert.IsNotNull(res.Response);
+            Assert.IsNull(res.Error);
+            Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
+            Assert.AreEqual("IBM", res.Response.Symbol);
+            Assert.IsFalse(res.Response.Empty);
+            Assert.AreEqual(390, res.Response.Candles.Count);
+        }
+
+        [Test]
+        public async Task PriceHistoryAsync_IBM_20Years_Weekly()
+        {
+            var settings = InitSettings();
+
+            using var client = new TDAmeritradeClient(settings, this.Logger);
+
+            var res = await client.PriceHistoryAsync("IBM", History.Years(HowManyYears.Twenty, Yearly.ByWeek), false, default)
                 .ConfigureAwait(false);
 
             Assert.IsNotNull(res);
