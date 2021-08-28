@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Abbotware.Interop.TDAmeritrade.Configuration.Models
+namespace Abbotware.Interop.RestSharp.Configuration.Models
 {
     /// <summary>
     /// Editable API Settings
@@ -15,6 +15,6 @@ namespace Abbotware.Interop.TDAmeritrade.Configuration.Models
         public string? ApiKey { get; set; }
 
         /// <inheritdoc/>
-        public string? BearerToken { get; set; }
+        public string? ApiKeyQueryParameterName { get; protected set; } = "ApiKey";
     }
 }

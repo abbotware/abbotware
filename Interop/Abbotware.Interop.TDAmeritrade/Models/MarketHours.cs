@@ -1,4 +1,10 @@
-﻿namespace Abbotware.Interop.TDAmeritrade.Models
+﻿// -----------------------------------------------------------------------
+// <copyright file="MarketHours.cs" company="Abbotware, LLC">
+// Copyright © Abbotware, LLC 2012-2020. All rights reserved
+// </copyright>
+// -----------------------------------------------------------------------
+
+namespace Abbotware.Interop.TDAmeritrade.Models
 {
     using System;
     using System.Collections.Generic;
@@ -32,7 +38,6 @@
     /// Session Hours
     /// </summary>
     /// <param name="Start">session start time</param>
-    /// <param name="Emd">session end time</param>
+    /// <param name="End">session end time</param>
     public record Hours(DateTimeOffset? Start, DateTimeOffset? End);
-
 }

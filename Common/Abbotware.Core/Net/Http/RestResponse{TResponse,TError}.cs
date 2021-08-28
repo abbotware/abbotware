@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Abbotware.Core.Web.Rest
+namespace Abbotware.Core.Net.Http
 {
     using System.Net;
 
@@ -20,8 +20,9 @@ namespace Abbotware.Core.Web.Rest
         /// </summary>
         /// <param name="response">response object</param>
         /// <param name="code">HTTP Status code</param>
-        public RestResponse(TResponse response, HttpStatusCode code)
-            : this(response, default, code)
+        /// <param name="raw">raw result</param>
+        public RestResponse(TResponse response, HttpStatusCode code, string raw)
+            : this(response, default, code, raw)
         {
         }
 
@@ -30,8 +31,9 @@ namespace Abbotware.Core.Web.Rest
         /// </summary>
         /// <param name="error">error object</param>
         /// <param name="code">HTTP Status code</param>
-        public RestResponse(TError error, HttpStatusCode code)
-            : this(default, error, code)
+        /// <param name="raw">raw result</param>
+        public RestResponse(TError error, HttpStatusCode code, string raw)
+            : this(default, error, code, raw)
         {
         }
 
@@ -41,11 +43,13 @@ namespace Abbotware.Core.Web.Rest
         /// <param name="response">response object</param>
         /// <param name="error">error object</param>
         /// <param name="code">HTTP Status code</param>
-        public RestResponse(TResponse? response, TError? error, HttpStatusCode code)
+        /// <param name="raw">raw result</param>
+        public RestResponse(TResponse? response, TError? error, HttpStatusCode code, string raw)
         {
             this.Response = response;
             this.Error = error;
             this.StatusCode = code;
+            this.Raw = raw;
         }
 
         /// <summary>
@@ -62,5 +66,10 @@ namespace Abbotware.Core.Web.Rest
         /// Gets the Http Status Code
         /// </summary>
         public HttpStatusCode StatusCode { get; }
+
+        /// <summary>
+        /// Gets raw result
+        /// </summary>
+        public string Raw { get; }
     }
 }

@@ -22,7 +22,6 @@ namespace Abbotware.IntegrationTests.Interop.TDAmeritrade
     [Category("Interop.TDAmeritrade")]
     public class ApiTests : BaseNUnitTest
     {
-
         [Test]
         public async Task MarketHoursAsync_Weekend()
         {
@@ -54,7 +53,6 @@ namespace Abbotware.IntegrationTests.Interop.TDAmeritrade
             Assert.IsNull(res.Error);
             Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
             Assert.AreEqual(5, res.Response.Keys.Count());
-
         }
 
         [Test]
@@ -242,11 +240,11 @@ namespace Abbotware.IntegrationTests.Interop.TDAmeritrade
             Assert.AreEqual("Not Found", res.Error.Error);
         }
 
-        private static ApiSettings InitSettings()
+        private static TDAmeritradeSettings InitSettings()
         {
             var apiKey = Environment.GetEnvironmentVariable("UNITTEST_TDAMERITRADE_APIKEY");
 
-            var settings = new ApiSettings
+            var settings = new TDAmeritradeSettings
             {
                 ApiKey = apiKey,
             };

@@ -39,7 +39,7 @@ namespace Abbotware.Core.Data.Plugins.Storage
         /// <param name="sqlConnectionConfiguration">sql connection information</param>
         /// <param name="logger">injected logger</param>
         public SqlBulkCopyStorage(ISqlConnectionOptions sqlConnectionConfiguration, ILogger logger)
-            : this(new BulkInsertOptions(ReflectionHelper.SingleOrDefaultAttribute<TableAttribute>(typeof(TRecord)), sqlConnectionConfiguration), logger)
+            : this(new BulkInsertOptions(ReflectionHelper.SingleOrDefaultAttribute<TableAttribute>(typeof(TRecord))!, sqlConnectionConfiguration), logger)
         {
             Arguments.NotNull(sqlConnectionConfiguration, nameof(sqlConnectionConfiguration));
             Arguments.NotNull(logger, nameof(logger));

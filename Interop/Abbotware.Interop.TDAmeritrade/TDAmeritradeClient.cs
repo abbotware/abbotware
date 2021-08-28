@@ -14,10 +14,9 @@ namespace Abbotware.Interop.TDAmeritrade
     using System.Threading;
     using System.Threading.Tasks;
     using Abbotware.Core;
-    using Abbotware.Core.Extensions;
     using Abbotware.Core.Helpers;
     using Abbotware.Core.Logging;
-    using Abbotware.Core.Web.Rest;
+    using Abbotware.Core.Net.Http;
     using Abbotware.Interop.RestSharp;
     using Abbotware.Interop.TDAmeritrade.Configuration;
     using Abbotware.Interop.TDAmeritrade.Models;
@@ -26,14 +25,14 @@ namespace Abbotware.Interop.TDAmeritrade
     /// <summary>
     /// TD Ameritrade API Client
     /// </summary>
-    public class TDAmeritradeClient : BaseRestClient<IApiSettings>
+    public class TDAmeritradeClient : BaseRestClient<ITDAmeritradeSettings>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="TDAmeritradeClient"/> class.
         /// </summary>
         /// <param name="settings">api settings</param>
         /// <param name="logger">injectted logger</param>
-        public TDAmeritradeClient(IApiSettings settings, ILogger logger)
+        public TDAmeritradeClient(ITDAmeritradeSettings settings, ILogger logger)
             : base(new("https://api.tdameritrade.com/v1/"), settings, logger)
         {
         }
@@ -70,7 +69,7 @@ namespace Abbotware.Interop.TDAmeritrade
                 request.AddQueryParameter("date", date.Value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture), false);
             }
 
-            return this.OnExecuteAsync<IReadOnlyDictionary<string, IReadOnlyDictionary<string, MarketHours>>, ErrorResponse > (request, ct);
+            return this.OnExecuteAsync<IReadOnlyDictionary<string, IReadOnlyDictionary<string, MarketHours>>, ErrorResponse>(request, ct);
         }
 
         /// <summary>
@@ -130,7 +129,7 @@ namespace Abbotware.Interop.TDAmeritrade
                 error = new ErrorResponse { Error = "Not Found" };
             }
 
-            return new(data, error, code);
+            return new(data, error, code, result.Raw);
         }
 
         /// <summary>
@@ -182,7 +181,7 @@ namespace Abbotware.Interop.TDAmeritrade
 
                 if (periods != null)
                 {
-                    request.AddQueryParameter("period", periods.ToString());
+                    request.AddQueryParameter("period", periods!.ToString()!);
                 }
             }
 
@@ -213,7 +212,7 @@ namespace Abbotware.Interop.TDAmeritrade
         /// <param name="extendedHoursData">extended market hours data</param>
         /// <param name="ct">cancellation token</param>
         /// <returns>search result</returns>
-        public Task<RestResponse<CandleList, ErrorResponse>> PriceHistoryAsync(string symbol, DateTimeOffset startDate, DateTimeOffset? endDate, FrequencyType? frequencyType, ushort? frequency,  bool extendedHoursData, CancellationToken ct)
+        public Task<RestResponse<CandleList, ErrorResponse>> PriceHistoryAsync(string symbol, DateTimeOffset startDate, DateTimeOffset? endDate, FrequencyType? frequencyType, ushort? frequency, bool extendedHoursData, CancellationToken ct)
         {
             this.InitializeIfRequired();
 
@@ -234,14 +233,15 @@ namespace Abbotware.Interop.TDAmeritrade
         {
             request = Arguments.EnsureNotNull(request, nameof(request));
 
-            if (this.Configuration.ApiKey != null)
-            {
-                request.AddQueryParameter("apikey", this.Configuration.ApiKey);
-            }
-            else
+            // Use Bearer Token
+            if (this.Configuration.BearerToken != null)
             {
                 request.AddHeader("Authorization", "Bearer " + this.Configuration.BearerToken);
+                return;
             }
+
+            // else use query parameter
+            base.OnApplyAuthentication(request);
         }
 
         private static RestRequest CreateBasePriceHistoryRequest(string symbol, FrequencyType? frequencyType, ushort? frequency, bool extendedHoursData)
@@ -255,7 +255,7 @@ namespace Abbotware.Interop.TDAmeritrade
 
                 if (frequency != null)
                 {
-                    request.AddQueryParameter("frequency", frequency.ToString());
+                    request.AddQueryParameter("frequency", frequency.ToString()!);
                 }
             }
 

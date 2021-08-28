@@ -37,6 +37,6 @@ namespace Abbotware.Interop.TDAmeritrade.Models
         /// <summary>
         /// Gets or sets the time stamp
         /// </summary>
-        public DateTimeOffset? Timestamp { get; set; } 
+        public DateTimeOffset? Timestamp { get; set; }
     }
 }

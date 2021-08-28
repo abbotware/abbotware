@@ -28,6 +28,7 @@
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.BouncyCastle\Abbotware.Interop.BouncyCastle.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Castle\Abbotware.Interop.Castle.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.EntityFramework\Abbotware.Interop.EntityFramework.csproj" />
+    <ProjectReference Include="..\..\Interop\Abbotware.Interop.EodHistoricalData\Abbotware.Interop.EodHistoricalData.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Ipify\Abbotware.Interop.Ipify.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Linux\Abbotware.Interop.Linux.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Log4net\Abbotware.Interop.Log4net.csproj" />
@@ -38,8 +39,10 @@
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.NUnit\Abbotware.Interop.NUnit.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.ProtoBufNet\Abbotware.Interop.ProtoBufNet.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Redis\Abbotware.Interop.Redis.csproj" />
+    <ProjectReference Include="..\..\Interop\Abbotware.Interop.RestSharp\Abbotware.Interop.RestSharp.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.SharpZipLib\Abbotware.Interop.SharpZipLib.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.SystemTextJson\Abbotware.Interop.SystemTextJson.csproj" />
+    <ProjectReference Include="..\..\Interop\Abbotware.Interop.TDAmeritrade\Abbotware.Interop.TDAmeritrade.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Windows\Abbotware.Interop.Windows.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Yubico\Abbotware.Interop.Yubico.csproj" />
     <ProjectReference Include="..\..\Using\Abbotware.Data.Using.Castle\Abbotware.Data.Using.Castle.csproj" />

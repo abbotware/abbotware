@@ -19,6 +19,6 @@ namespace Abbotware.Core.Serialization
         /// </summary>
         /// <param name="storage">encoded object</param>
         /// <returns>decoded object</returns>
-        object Decode(TStorage storage);
+        object? Decode(TStorage storage);
     }
 }
