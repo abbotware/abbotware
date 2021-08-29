@@ -247,7 +247,7 @@ namespace Abbotware.IntegrationTests.Interop.TDAmeritrade
 
             var settings = new TDAmeritradeSettings
             {
-                ApiKey = "OEFJYUKNFVSKCRTE3GZBZTODMGPW4TTT",
+                ApiKey = apiKey,
             };
 
             return settings;
