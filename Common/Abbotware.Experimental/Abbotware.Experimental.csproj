@@ -6,7 +6,7 @@
 
   <PropertyGroup>
     <Nullable>enable</Nullable>
-	<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+	  <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">

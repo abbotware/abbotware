@@ -18,7 +18,7 @@ namespace Abbotware.Interop.TDAmeritrade.Configuration.Models
         /// </summary>
         public TDAmeritradeSettings()
         {
-            this.ApiKey = "apikey";
+            this.ApiKeyQueryParameterName = "apikey";
         }
 
         /// <inheritdoc/>

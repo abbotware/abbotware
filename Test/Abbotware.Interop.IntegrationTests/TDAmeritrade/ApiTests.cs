@@ -23,19 +23,20 @@ namespace Abbotware.IntegrationTests.Interop.TDAmeritrade
     public class ApiTests : BaseNUnitTest
     {
         [Test]
-        public async Task MarketHoursAsync_Weekend()
+        public async Task MarketHoursAsync_BadDate()
         {
             var settings = InitSettings();
 
             using var client = new TDAmeritradeClient(settings, this.Logger);
 
-            var res = await client.MarketHours(new MarketType[] { MarketType.Bond }, new DateTime(2021, 8, 22), default)
+            var res = await client.MarketHours(new MarketType[] { MarketType.Bond }, DateTime.UtcNow.AddDays(-5), default)
                 .ConfigureAwait(false);
 
             Assert.IsNotNull(res);
-            Assert.IsNotNull(res.Response);
-            Assert.IsNull(res.Error);
-            Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
+            Assert.IsNull(res.Response);
+            Assert.IsNotNull(res.Error);
+            Assert.AreEqual(HttpStatusCode.BadRequest, res.StatusCode);
+            Assert.AreEqual("Input date is not acceptable.", res.Error.Message);
         }
 
         [Test]
@@ -45,7 +46,7 @@ namespace Abbotware.IntegrationTests.Interop.TDAmeritrade
 
             using var client = new TDAmeritradeClient(settings, this.Logger);
 
-            var res = await client.MarketHours(new MarketType[] { MarketType.Bond, MarketType.Equity, MarketType.Option, MarketType.Future, MarketType.Forex }, new DateTime(2021, 8, 23), default)
+            var res = await client.MarketHours(new MarketType[] { MarketType.Bond, MarketType.Equity, MarketType.Option, MarketType.Future, MarketType.Forex }, DateTime.UtcNow, default)
                 .ConfigureAwait(false);
 
             Assert.IsNotNull(res);
@@ -108,7 +109,7 @@ namespace Abbotware.IntegrationTests.Interop.TDAmeritrade
             Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
             Assert.AreEqual("IBM", res.Response.Symbol);
             Assert.IsFalse(res.Response.Empty);
-            Assert.AreEqual(390, res.Response.Candles.Count);
+            Assert.GreaterOrEqual(389, res.Response.Candles.Count);
         }
 
         [Test]
@@ -127,7 +128,7 @@ namespace Abbotware.IntegrationTests.Interop.TDAmeritrade
             Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
             Assert.AreEqual("IBM", res.Response.Symbol);
             Assert.IsFalse(res.Response.Empty);
-            Assert.AreEqual(390, res.Response.Candles.Count);
+            Assert.AreEqual(1043, res.Response.Candles.Count);
         }
 
         [Test]
@@ -246,7 +247,7 @@ namespace Abbotware.IntegrationTests.Interop.TDAmeritrade
 
             var settings = new TDAmeritradeSettings
             {
-                ApiKey = apiKey,
+                ApiKey = "OEFJYUKNFVSKCRTE3GZBZTODMGPW4TTT",
             };
 
             return settings;

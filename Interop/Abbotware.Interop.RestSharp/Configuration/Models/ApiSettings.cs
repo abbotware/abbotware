@@ -15,6 +15,6 @@ namespace Abbotware.Interop.RestSharp.Configuration.Models
         public string? ApiKey { get; set; }
 
         /// <inheritdoc/>
-        public string? ApiKeyQueryParameterName { get; protected set; } = "ApiKey";
+        public string? ApiKeyQueryParameterName { get; protected set; } = "apikey";
     }
 }
