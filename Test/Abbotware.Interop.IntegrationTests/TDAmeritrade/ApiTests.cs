@@ -243,6 +243,8 @@ namespace Abbotware.IntegrationTests.Interop.TDAmeritrade
 
         private static TDAmeritradeSettings InitSettings()
         {
+
+
             var apiKey = Environment.GetEnvironmentVariable("UNITTEST_TDAMERITRADE_APIKEY");
 
             var settings = new TDAmeritradeSettings
