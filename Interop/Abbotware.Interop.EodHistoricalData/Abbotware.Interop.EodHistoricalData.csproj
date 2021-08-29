@@ -19,8 +19,4 @@
     <ProjectReference Include="..\Abbotware.Interop.RestSharp\Abbotware.Interop.RestSharp.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
-
 </Project>
