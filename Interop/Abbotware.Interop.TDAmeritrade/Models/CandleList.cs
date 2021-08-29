@@ -7,15 +7,16 @@
 namespace Abbotware.Interop.TDAmeritrade.Models
 {
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
 
     /// <summary>
     /// Candle List Poco
     /// </summary>
-    /// <param name="Empty">value indicating the list is empty</param>
     /// <param name="Symbol">symbol</param>
+    /// <param name="Empty">value indicating the list is empty</param>
     public record CandleList(
-        bool Empty,
-        string Symbol)
+        [property: Key][property: MaxLength(10)] string Symbol,
+        bool Empty)
     {
         /// <summary>
         /// Gets the list of candles
