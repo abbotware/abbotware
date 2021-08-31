@@ -132,6 +132,25 @@ namespace Abbotware.IntegrationTests.Interop.TDAmeritrade
         }
 
         [Test]
+        public async Task PriceHistoryAsync_AGFXF_20Years_Weekly()
+        {
+            var settings = InitSettings();
+
+            using var client = new TDAmeritradeClient(settings, this.Logger);
+
+            var res = await client.PriceHistoryAsync("AGFXF", History.Years(HowManyYears.Twenty, Yearly.ByWeek), false, default)
+                .ConfigureAwait(false);
+
+            Assert.IsNotNull(res);
+            Assert.IsNotNull(res.Response);
+            Assert.IsNull(res.Error);
+            Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
+            Assert.AreEqual("IBM", res.Response.Symbol);
+            Assert.IsFalse(res.Response.Empty);
+            Assert.AreEqual(1043, res.Response.Candles.Count);
+        }
+
+        [Test]
         public async Task SearchAsync_SymbolRegex()
         {
             var settings = InitSettings();
@@ -243,8 +262,6 @@ namespace Abbotware.IntegrationTests.Interop.TDAmeritrade
 
         private static TDAmeritradeSettings InitSettings()
         {
-
-
             var apiKey = Environment.GetEnvironmentVariable("UNITTEST_TDAMERITRADE_APIKEY");
 
             var settings = new TDAmeritradeSettings
