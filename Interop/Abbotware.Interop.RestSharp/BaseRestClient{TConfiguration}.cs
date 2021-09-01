@@ -61,7 +61,21 @@ namespace Abbotware.Interop.RestSharp
 
             if (!response.IsSuccessful)
             {
-                var error = JsonHelper.FromString<TError>(response.Content);
+                TError? error = default;
+
+                switch (error)
+                {
+                    case string:
+                        {
+                            error = (TError)(object)response.Content;
+                            break;
+                        }
+
+                    default:
+                        error = JsonHelper.FromString<TError>(response.Content);
+                        break;
+                }
+
                 return new(error, response.StatusCode, response.Content);
             }
 
