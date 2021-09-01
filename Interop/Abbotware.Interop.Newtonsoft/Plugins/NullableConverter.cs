@@ -8,6 +8,7 @@ namespace Abbotware.Interop.Newtonsoft.Plugins
 {
     using System;
     using Abbotware.Core;
+    using Abbotware.Core.Diagnostics;
     using global::Newtonsoft.Json;
 
     /// <summary>
@@ -35,6 +36,18 @@ namespace Abbotware.Interop.Newtonsoft.Plugins
                         return null;
                     }
                 }
+            }
+
+            bool nullable = ReflectionHelper.IsNullableType(objectType);
+
+            if (reader.TokenType == JsonToken.Null)
+            {
+                if (!nullable)
+                {
+                    throw new JsonSerializationException($"Cannot convert null value to {objectType}");
+                }
+
+                return null;
             }
 
             var underlyingType = Nullable.GetUnderlyingType(objectType);

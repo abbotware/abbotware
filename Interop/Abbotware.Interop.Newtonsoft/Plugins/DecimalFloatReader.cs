@@ -43,18 +43,6 @@ namespace Abbotware.Interop.Newtonsoft.Plugins
         {
             reader = Arguments.EnsureNotNull(reader, nameof(reader));
 
-            bool nullable = ReflectionHelper.IsNullableType(objectType);
-
-            if (reader.TokenType == JsonToken.Null)
-            {
-                if (!nullable)
-                {
-                    throw new JsonSerializationException($"Cannot convert null value to {objectType}");
-                }
-
-                return null;
-            }
-
             if (reader.TokenType == JsonToken.Float)
             {
                 return (decimal)(double)reader.Value!;
