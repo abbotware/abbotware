@@ -54,6 +54,8 @@ namespace Abbotware.Interop.RestSharp
         /// <returns>A <see cref="Task{TResult}"/> representing the result of the asynchronous operation.</returns>
         protected async Task<RestResponse<TResponse, TError>> OnExecuteAsync<TResponse, TError>(RestRequest request, CancellationToken ct)
         {
+            request = Arguments.EnsureNotNull(request, nameof(request));
+
             this.OnApplyAuthentication(request);
 
             var response = await this.Client.ExecuteAsync<TResponse>(request, ct)
@@ -89,10 +91,10 @@ namespace Abbotware.Interop.RestSharp
                         break;
                 }
 
-                return new(error, response.StatusCode, response.Content);
+                return new(error, response.StatusCode, response.ResponseUri.ToString(), response.Content);
             }
 
-            return new(response.Data, response.StatusCode, response.Content);
+            return new(response.Data, response.StatusCode, response.ResponseUri.ToString(), response.Content);
         }
 
         /// <summary>

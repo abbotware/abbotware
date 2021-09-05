@@ -13,16 +13,17 @@ namespace Abbotware.Core.Net.Http
     /// </summary>
     /// <typeparam name="TResponse">response object type</typeparam>
     /// <typeparam name="TError">error object type</typeparam>
-    public class RestResponse<TResponse, TError>
+    public class RestResponse<TResponse, TError> : RestResponse
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="RestResponse{TResponse, TError}"/> class.
         /// </summary>
         /// <param name="response">response object</param>
         /// <param name="code">HTTP Status code</param>
-        /// <param name="raw">raw result</param>
-        public RestResponse(TResponse response, HttpStatusCode code, string raw)
-            : this(response, default, code, raw)
+        /// <param name="rawRequest">raw request</param>
+        /// <param name="rawResponse">raw response</param>
+        public RestResponse(TResponse response, HttpStatusCode code, string rawRequest, string rawResponse)
+            : this(response, default, code, rawRequest, rawResponse)
         {
         }
 
@@ -31,9 +32,10 @@ namespace Abbotware.Core.Net.Http
         /// </summary>
         /// <param name="error">error object</param>
         /// <param name="code">HTTP Status code</param>
-        /// <param name="raw">raw result</param>
-        public RestResponse(TError error, HttpStatusCode code, string raw)
-            : this(default, error, code, raw)
+        /// <param name="rawRequest">raw request</param>
+        /// <param name="rawResponse">raw response</param>
+        public RestResponse(TError error, HttpStatusCode code, string rawRequest, string rawResponse)
+            : this(default, error, code, rawRequest, rawResponse)
         {
         }
 
@@ -43,13 +45,13 @@ namespace Abbotware.Core.Net.Http
         /// <param name="response">response object</param>
         /// <param name="error">error object</param>
         /// <param name="code">HTTP Status code</param>
-        /// <param name="raw">raw result</param>
-        public RestResponse(TResponse? response, TError? error, HttpStatusCode code, string raw)
+        /// <param name="rawRequest">raw request</param>
+        /// <param name="rawResponse">raw response</param>
+        public RestResponse(TResponse? response, TError? error, HttpStatusCode code, string rawRequest, string rawResponse)
+            : base(code, rawRequest, rawResponse)
         {
             this.Response = response;
             this.Error = error;
-            this.StatusCode = code;
-            this.Raw = raw;
         }
 
         /// <summary>
@@ -61,15 +63,5 @@ namespace Abbotware.Core.Net.Http
         /// Gets the error
         /// </summary>
         public TError? Error { get; }
-
-        /// <summary>
-        /// Gets the Http Status Code
-        /// </summary>
-        public HttpStatusCode StatusCode { get; }
-
-        /// <summary>
-        /// Gets raw result
-        /// </summary>
-        public string Raw { get; }
     }
 }
