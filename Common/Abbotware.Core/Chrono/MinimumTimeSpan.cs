@@ -8,6 +8,8 @@
 namespace Abbotware.Core.Chrono
 {
     using System;
+    using System.Threading;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// edge based time check to ensure events occur between a minumum time span
@@ -31,7 +33,7 @@ namespace Abbotware.Core.Chrono
         public MinimumTimeSpan(TimeSpan minimumWait)
         {
             this.minimumWait = minimumWait;
-            this.expirationTime = DateTime.Now + this.minimumWait;
+            this.SetExpiration();
         }
 
         /// <summary>
@@ -41,17 +43,45 @@ namespace Abbotware.Core.Chrono
         {
             get
             {
-                var nextTime = DateTime.Now;
+                var currentTime = DateTime.Now;
 
-                if (nextTime < this.expirationTime)
+                if (currentTime < this.expirationTime)
                 {
                     return false;
                 }
 
-                this.expirationTime = nextTime + this.minimumWait;
+                this.SetExpired(currentTime);
 
                 return true;
             }
+        }
+
+        /// <summary>
+        /// Waits for the timespan to expire - this can act as a throttle
+        /// </summary>
+        /// <param name="ct">cancellation token</param>
+        /// <returns>async handle</returns>
+        public async Task ThrottleAsync(CancellationToken ct)
+        {
+            var delay = this.expirationTime - DateTime.Now;
+
+            if (delay > TimeSpan.Zero)
+            {
+                await Task.Delay(delay, ct)
+                    .ConfigureAwait(false);
+            }
+
+            this.SetExpiration();
+        }
+
+        private void SetExpiration()
+        {
+            this.SetExpired(DateTime.Now);
+        }
+
+        private void SetExpired(DateTime time)
+        {
+            this.expirationTime = time + this.minimumWait;
         }
     }
 }
