@@ -72,7 +72,20 @@ namespace Abbotware.Interop.RestSharp
                         }
 
                     default:
-                        error = JsonHelper.FromString<TError>(response.Content);
+                        try
+                        {
+                            error = JsonHelper.FromString<TError>(response.Content);
+                        }
+                        catch (Exception)
+                        {
+                            if (response.ErrorException != null)
+                            {
+                                throw response.ErrorException;
+                            }
+
+                            throw;
+                        }
+
                         break;
                 }
 
