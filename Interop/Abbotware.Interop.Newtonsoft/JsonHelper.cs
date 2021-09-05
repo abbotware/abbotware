@@ -10,6 +10,8 @@ namespace Abbotware.Interop.Newtonsoft
     using Abbotware.Interop.Newtonsoft.Plugins;
     using global::Newtonsoft.Json;
     using global::Newtonsoft.Json.Converters;
+    using NodaTime;
+    using NodaTime.Serialization.JsonNet;
 
     /// <summary>
     /// Newtonsoft Json Helper class
@@ -98,6 +100,8 @@ namespace Abbotware.Interop.Newtonsoft
             settings.Converters.Add(new TimeSpanConverter());
             settings.Converters.Add(new NullableConverter());
             settings.Converters.Add(new DecimalFloatReader());
+
+            settings.ConfigureForNodaTime(DateTimeZoneProviders.Tzdb);
         }
     }
 }
