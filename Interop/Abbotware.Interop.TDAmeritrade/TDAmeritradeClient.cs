@@ -27,6 +27,18 @@ namespace Abbotware.Interop.TDAmeritrade
     /// </summary>
     public class TDAmeritradeClient : BaseRestClient<ITDAmeritradeSettings>
     {
+#if NET5_0_OR_GREATER
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TDAmeritradeClient"/> class.
+        /// </summary>
+        /// <param name="settings">api settings</param>
+        /// <param name="logger">injected logger</param>
+        public TDAmeritradeClient(ITDAmeritradeSettings settings, Microsoft.Extensions.Logging.ILogger<TDAmeritradeClient> logger)
+            : this(settings, new LoggingAdapter(logger))
+        {
+        }
+#endif
+
         /// <summary>
         /// Initializes a new instance of the <see cref="TDAmeritradeClient"/> class.
         /// </summary>

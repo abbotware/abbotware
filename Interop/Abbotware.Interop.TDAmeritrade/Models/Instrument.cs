@@ -16,7 +16,7 @@ namespace Abbotware.Interop.TDAmeritrade.Models
     /// <param name="Description">description</param>
     /// <param name="Exchange">exchange</param>
     /// <param name="AssetType">asset type</param>
-    public record Instrument([property: MaxLength(10)] string? Cusip, [property:Key][property: MaxLength(10)] string Symbol, [property: MaxLength(250)] string? Description, [property: MaxLength(10)] string Exchange, AssetType AssetType)
+    public record Instrument([property: MaxLength(10)] string? Cusip, [property:Key][property: MaxLength(10)] string Symbol, [property: MaxLength(250)] string? Description, ExchangeType Exchange, AssetType AssetType)
     {
         /// <summary>
         /// Gets the Fundamental data for the instrument
