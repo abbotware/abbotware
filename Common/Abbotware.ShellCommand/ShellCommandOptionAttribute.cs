@@ -9,7 +9,7 @@ namespace Abbotware.ShellCommand.Plugins
     using System;
 
     /// <summary>
-    /// Attribute for command lind argument options classes
+    /// Attribute for command line argument options classes
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
     public sealed class ShellCommandOptionAttribute : Attribute
