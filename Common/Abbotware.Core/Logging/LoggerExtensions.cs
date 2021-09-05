@@ -192,7 +192,7 @@ namespace Abbotware.Core.Logging
         /// <param name="file">compiler injected file</param>
         public static void Info([NotNull] this ILogger2 logger, [Localizable(false)] string message, [CallerLineNumber] int? line = null, [CallerMemberName] string? member = null, [CallerFilePath] string? file = null)
         {
-            logger.Error(null, () => message, line, member, file);
+            logger.Info(null, () => message, line, member, file);
         }
 
         /// <summary>
@@ -205,7 +205,7 @@ namespace Abbotware.Core.Logging
         /// <param name="file">compiler injected file</param>
         public static void Info([NotNull] this ILogger2 logger, Func<string> message, [CallerLineNumber] int? line = null, [CallerMemberName] string? member = null, [CallerFilePath] string? file = null)
         {
-            logger.Error(null, message, line, member, file);
+            logger.Info(null, message, line, member, file);
         }
 
         /// <summary>
@@ -219,7 +219,7 @@ namespace Abbotware.Core.Logging
         /// <param name="file">compiler injected file</param>
         public static void Info([NotNull] this ILogger2 logger, Exception? exception, [Localizable(false)] string message, [CallerLineNumber] int? line = null, [CallerMemberName] string? member = null, [CallerFilePath] string? file = null)
         {
-            Log(logger, LogLevel.Information, exception, () => message, line, member, file);
+            logger.Info(exception, () => message, line, member, file);
         }
 
         /// <summary>
@@ -233,7 +233,7 @@ namespace Abbotware.Core.Logging
         /// <param name="file">compiler injected file</param>
         public static void Info([NotNull] this ILogger2 logger, Exception? exception, Func<string> message, [CallerLineNumber] int? line = null, [CallerMemberName] string? member = null, [CallerFilePath] string? file = null)
         {
-            logger.Info(exception, message, line, member, file);
+            Log(logger, LogLevel.Information, exception, message, line, member, file);
         }
 
         /// <summary>
@@ -273,7 +273,7 @@ namespace Abbotware.Core.Logging
         /// <param name="file">compiler injected file</param>
         public static void Debug([NotNull] this ILogger2 logger, Exception? exception, [Localizable(false)] string message, [CallerLineNumber] int? line = null, [CallerMemberName] string? member = null, [CallerFilePath] string? file = null)
         {
-            Log(logger, LogLevel.Debug, exception, () => message, line, member, file);
+            logger.Debug(exception, () => message, line, member, file);
         }
 
         /// <summary>
@@ -287,7 +287,7 @@ namespace Abbotware.Core.Logging
         /// <param name="file">compiler injected file</param>
         public static void Debug([NotNull] this ILogger2 logger, Exception? exception, Func<string> message, [CallerLineNumber] int? line = null, [CallerMemberName] string? member = null, [CallerFilePath] string? file = null)
         {
-            logger.Debug(exception, message, line, member, file);
+            Log(logger, LogLevel.Debug, exception, message, line, member, file);
         }
 
         /// <summary>
