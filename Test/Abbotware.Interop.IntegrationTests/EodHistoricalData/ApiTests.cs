@@ -43,7 +43,7 @@ namespace Abbotware.IntegrationTests.Interop.EodHistoricalData
 
             using var client = new EodHistoricalDataClient(settings, this.Logger);
 
-            var res = await client.FundamentalGeneralAsync("AAPL", "US", default)
+            var res = await client.Fundamentals.GeneralAsync("AAPL", "US", default)
                 .ConfigureAwait(false);
 
             Assert.IsNotNull(res);
@@ -59,7 +59,7 @@ namespace Abbotware.IntegrationTests.Interop.EodHistoricalData
 
             using var client = new EodHistoricalDataClient(settings, this.Logger);
 
-            var res = await client.FundamentalHighlightsAsync("AAPL", "US", default)
+            var res = await client.Fundamentals.HighlightsAsync("AAPL", "US", default)
                 .ConfigureAwait(false);
 
             Assert.IsNotNull(res);
@@ -75,7 +75,7 @@ namespace Abbotware.IntegrationTests.Interop.EodHistoricalData
 
             using var client = new EodHistoricalDataClient(settings, this.Logger);
 
-            var res = await client.FundamentalEarningsAsync("AAPL", "US", default)
+            var res = await client.Fundamentals.EarningsAsync("AAPL", "US", default)
                 .ConfigureAwait(false);
 
             Assert.IsNotNull(res);
@@ -91,7 +91,151 @@ namespace Abbotware.IntegrationTests.Interop.EodHistoricalData
 
             using var client = new EodHistoricalDataClient(settings, this.Logger);
 
-            var res = await client.FundamentalFinancialsAsync("AAPL", "US", default)
+            var res = await client.Fundamentals.FinancialsAsync("AAPL", "US", default)
+                .ConfigureAwait(false);
+
+            Assert.IsNotNull(res);
+            Assert.IsNotNull(res.Response);
+            Assert.IsNull(res.Error);
+            Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
+        }
+
+        [Test]
+        public async Task Fundamental_Valuation_AAPL_US()
+        {
+            var settings = InitSettings("OeAFFmMliFG5orCUuwAKQ8l4WWFQ67YX");
+
+            using var client = new EodHistoricalDataClient(settings, this.Logger);
+
+            var res = await client.Fundamentals.ValuationAsync("AAPL", "US", default)
+                .ConfigureAwait(false);
+
+            Assert.IsNotNull(res);
+            Assert.IsNotNull(res.Response);
+            Assert.IsNull(res.Error);
+            Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
+        }
+
+        [Test]
+        public async Task Fundamental_SharesStats_AAPL_US()
+        {
+            var settings = InitSettings("OeAFFmMliFG5orCUuwAKQ8l4WWFQ67YX");
+
+            using var client = new EodHistoricalDataClient(settings, this.Logger);
+
+            var res = await client.Fundamentals.SharesStatsAsync("AAPL", "US", default)
+                .ConfigureAwait(false);
+
+            Assert.IsNotNull(res);
+            Assert.IsNotNull(res.Response);
+            Assert.IsNull(res.Error);
+            Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
+        }
+
+        [Test]
+        public async Task Fundamental_Technicals_AAPL_US()
+        {
+            var settings = InitSettings("OeAFFmMliFG5orCUuwAKQ8l4WWFQ67YX");
+
+            using var client = new EodHistoricalDataClient(settings, this.Logger);
+
+            var res = await client.Fundamentals.TechnicalsAsync("AAPL", "US", default)
+                .ConfigureAwait(false);
+
+            Assert.IsNotNull(res);
+            Assert.IsNotNull(res.Response);
+            Assert.IsNull(res.Error);
+            Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
+        }
+
+        [Test]
+        public async Task Fundamental_SplitsDividends_AAPL_US()
+        {
+            var settings = InitSettings("OeAFFmMliFG5orCUuwAKQ8l4WWFQ67YX");
+
+            using var client = new EodHistoricalDataClient(settings, this.Logger);
+
+            var res = await client.Fundamentals.SplitsDividendsAsync("AAPL", "US", default)
+                .ConfigureAwait(false);
+
+            Assert.IsNotNull(res);
+            Assert.IsNotNull(res.Response);
+            Assert.IsNull(res.Error);
+            Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
+        }
+
+        [Test]
+        public async Task Fundamental_AnalystRatings_AAPL_US()
+        {
+            var settings = InitSettings("OeAFFmMliFG5orCUuwAKQ8l4WWFQ67YX");
+
+            using var client = new EodHistoricalDataClient(settings, this.Logger);
+
+            var res = await client.Fundamentals.AnalystRatingsAsync("AAPL", "US", default)
+                .ConfigureAwait(false);
+
+            Assert.IsNotNull(res);
+            Assert.IsNotNull(res.Response);
+            Assert.IsNull(res.Error);
+            Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
+        }
+
+        [Test]
+        public async Task Fundamental_InsiderTransactions_AAPL_US()
+        {
+            var settings = InitSettings("OeAFFmMliFG5orCUuwAKQ8l4WWFQ67YX");
+
+            using var client = new EodHistoricalDataClient(settings, this.Logger);
+
+            var res = await client.Fundamentals.InsiderTransactionsAsync("AAPL", "US", default)
+                .ConfigureAwait(false);
+
+            Assert.IsNotNull(res);
+            Assert.IsNotNull(res.Response);
+            Assert.IsNull(res.Error);
+            Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
+        }
+
+        [Test]
+        public async Task Fundamental_Holders_AAPL_US()
+        {
+            var settings = InitSettings("OeAFFmMliFG5orCUuwAKQ8l4WWFQ67YX");
+
+            using var client = new EodHistoricalDataClient(settings, this.Logger);
+
+            var res = await client.Fundamentals.HoldersAsync("AAPL", "US", default)
+                .ConfigureAwait(false);
+
+            Assert.IsNotNull(res);
+            Assert.IsNotNull(res.Response);
+            Assert.IsNull(res.Error);
+            Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
+        }
+
+        [Test]
+        public async Task Fundamental_EsgScores_AAPL_US()
+        {
+            var settings = InitSettings("OeAFFmMliFG5orCUuwAKQ8l4WWFQ67YX");
+
+            using var client = new EodHistoricalDataClient(settings, this.Logger);
+
+            var res = await client.Fundamentals.EsgScoresAsync("AAPL", "US", default)
+                .ConfigureAwait(false);
+
+            Assert.IsNotNull(res);
+            Assert.IsNotNull(res.Response);
+            Assert.IsNull(res.Error);
+            Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
+        }
+
+        [Test]
+        public async Task Fundamental_OutstandingShares_AAPL_US()
+        {
+            var settings = InitSettings("OeAFFmMliFG5orCUuwAKQ8l4WWFQ67YX");
+
+            using var client = new EodHistoricalDataClient(settings, this.Logger);
+
+            var res = await client.Fundamentals.OutstandingSharesAsync("AAPL", "US", default)
                 .ConfigureAwait(false);
 
             Assert.IsNotNull(res);
