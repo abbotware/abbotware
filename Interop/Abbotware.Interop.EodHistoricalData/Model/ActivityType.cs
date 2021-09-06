@@ -6,6 +6,7 @@
 
 namespace Abbotware.Interop.EodHistoricalData.Models
 {
+
     /// <summary>
     /// Activity Type
     /// </summary>

@@ -9,6 +9,7 @@ namespace Abbotware.Core.Helpers
 {
     using System;
     using System.Linq;
+    using System.Reflection;
     using System.Runtime.Serialization;
     using Abbotware.Core.Diagnostics;
 
@@ -48,21 +49,32 @@ namespace Abbotware.Core.Helpers
                 return string.Empty;
             }
 
-            var valueString = value.ToString()!;
+            var (s, m) = GetEnumMemberInfo(value);
 
-            var t = value.GetType();
+            var attribute = ReflectionHelper.SingleOrDefaultAttribute<EnumMemberAttribute>(m);
 
-            var member = t.GetMember(valueString).
-                FirstOrDefault();
+            return attribute?.Value ?? s;
+        }
 
-            if (member == null)
+        /// <summary>
+        /// Gets a value indicating whether or not the enum is marked obsolete
+        /// </summary>
+        /// <typeparam name="TEnum">Enum type</typeparam>
+        /// <param name="value">value of enum</param>
+        /// <returns>true if obsolete</returns>
+        public static bool IsEnumObsolete<TEnum>(TEnum? value)
+            where TEnum : struct, Enum
+        {
+            if (value == null)
             {
-                throw new InvalidOperationException($"{value} not part of enum");
+                return false;
             }
 
-            var attribute = ReflectionHelper.SingleOrDefaultAttribute<EnumMemberAttribute>(member);
+            var (_, m) = GetEnumMemberInfo(value);
 
-            return attribute?.Value ?? valueString;
+            var a = ReflectionHelper.SingleOrDefaultAttribute<ObsoleteAttribute>(m);
+
+            return a != null;
         }
 
         /// <summary>
@@ -75,6 +87,24 @@ namespace Abbotware.Core.Helpers
             where TEnum : struct, Enum
         {
             return GetEnumMemberValue((TEnum?)value);
+        }
+
+        private static (string Value, MemberInfo MemberInfo) GetEnumMemberInfo<TEnum>(TEnum? value)
+            where TEnum : struct, Enum
+        {
+            var valueString = value.ToString()!;
+
+            var t = value!.GetType();
+
+            var memberInfo = t.GetMember(valueString).
+                FirstOrDefault();
+
+            if (memberInfo == null)
+            {
+                throw new InvalidOperationException($"{value} not part of enum");
+            }
+
+            return (valueString, memberInfo);
         }
     }
 }

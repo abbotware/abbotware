@@ -7,6 +7,7 @@
 namespace Abbotware.Interop.EodHistoricalData.Models
 {
     using System.ComponentModel.DataAnnotations;
+    using global::Newtonsoft.Json;
 
     /// <summary>
     /// Ticker POCO
@@ -17,13 +18,15 @@ namespace Abbotware.Interop.EodHistoricalData.Models
     /// <param name="Exchange">Exchange Code</param>
     /// <param name="Currency">Currency</param>
     /// <param name="Type">Type</param>
+    /// <param name="Isin">ISIN code</param>
     public record Ticker(
-        [property: MaxLength(5)] string Code,
-        [property: MaxLength(50)] string Name,
+        [property: MaxLength(50)] string Code,
+        [property: MaxLength(500)] string Name,
         [property: MaxLength(25)] string Country,
-        [property: MaxLength(5)] string Exchange,
-        [property: MaxLength(3)] string Currency,
-        [property: MaxLength(50)] string Type)
+        [property: MaxLength(10)] string Exchange,
+        [property: MaxLength(10)] string Currency,
+        [JsonConverter(typeof(TickerTypeTypoFixer))] TickerType Type,
+        [property: MaxLength(12)] string? Isin)
     {
     }
 }

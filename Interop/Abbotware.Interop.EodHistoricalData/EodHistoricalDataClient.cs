@@ -21,6 +21,18 @@ namespace Abbotware.Interop.EodHistoricalData
     /// </summary>
     public sealed class EodHistoricalDataClient : BaseRestClient<IEodHistoricalDataSettings>, IFundamentalClient, IExchangeClient
     {
+#if NET5_0_OR_GREATER
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EodHistoricalDataClient"/> class.
+        /// </summary>
+        /// <param name="settings">api settings</param>
+        /// <param name="logger">injected logger</param>
+        public EodHistoricalDataClient(IEodHistoricalDataSettings settings, Microsoft.Extensions.Logging.ILogger<EodHistoricalDataClient> logger)
+            : this(settings, new LoggingAdapter(logger))
+        {
+        }
+#endif
+
         /// <summary>
         /// Initializes a new instance of the <see cref="EodHistoricalDataClient"/> class.
         /// </summary>
@@ -57,7 +69,8 @@ namespace Abbotware.Interop.EodHistoricalData
             this.InitializeIfRequired();
 
             var request = new RestRequest("exchange-symbol-list/{EXCHANGE_CODE}", Method.GET, DataFormat.Json);
-            request.AddParameter("EXCHANGE_CODE", exchange);
+            request.AddUrlSegment("EXCHANGE_CODE", exchange);
+            request.AddParameter("fmt", "json");
 
             return this.OnExecuteAsync<List<Ticker>, string>(request, ct);
         }

@@ -17,11 +17,11 @@ namespace Abbotware.Interop.EodHistoricalData.Models
     /// <param name="Country">Country</param>
     /// <param name="Currency">Currency</param>
     public record Exchange(
-        [property: MaxLength(10)] string Name,
-        [property: MaxLength(5)] string Code,
+        [property: MaxLength(50)] string Name,
+        [property: Key, MaxLength(10)] string Code,
         [property: MaxLength(10)] string? OperatingMIC,
         [property: MaxLength(25)] string Country,
-        [property: MaxLength(3)] string Currency)
+        [property: MaxLength(10)] string Currency)
     {
     }
 }
