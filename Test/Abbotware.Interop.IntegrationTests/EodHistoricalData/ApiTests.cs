@@ -21,13 +21,29 @@ namespace Abbotware.IntegrationTests.Interop.EodHistoricalData
     public class ApiTests : BaseNUnitTest
     {
         [Test]
+        public async Task Fundamental_VTI_US()
+        {
+            var settings = InitSettings("OeAFFmMliFG5orCUuwAKQ8l4WWFQ67YX");
+
+            using var client = new EodHistoricalDataClient(settings, this.Logger);
+
+            var res = await client.Fundamentals.GetAsync("VTI", "US", default)
+                .ConfigureAwait(false);
+
+            Assert.IsNotNull(res);
+            Assert.IsNotNull(res.Response);
+            Assert.IsNull(res.Error);
+            Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
+        }
+
+        [Test]
         public async Task Fundamental_AAPL_US()
         {
             var settings = InitSettings("OeAFFmMliFG5orCUuwAKQ8l4WWFQ67YX");
 
             using var client = new EodHistoricalDataClient(settings, this.Logger);
 
-            var res = await client.FundamentalAsync("AAPL", "US", default)
+            var res = await client.Fundamentals.GetAsync("AAPL", "US", default)
                 .ConfigureAwait(false);
 
             Assert.IsNotNull(res);
