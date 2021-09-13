@@ -7,6 +7,9 @@
 namespace Abbotware.Interop.EodHistoricalData.Models
 {
     using System.ComponentModel.DataAnnotations;
+    using Abbotware.Core.Metadata;
+    using Abbotware.Interop.EodHistoricalData.Serialization;
+    using global::Newtonsoft.Json;
 
     /// <summary>
     /// Exchange POCO
@@ -20,8 +23,8 @@ namespace Abbotware.Interop.EodHistoricalData.Models
         [property: MaxLength(50)] string Name,
         [property: Key, MaxLength(10)] string Code,
         [property: MaxLength(10)] string? OperatingMIC,
-        [property: MaxLength(25)] string Country,
-        [property: MaxLength(10)] string Currency)
+        [property: MaxLength(Length.Country)] string Country,
+        [property: JsonConverter(typeof(CurrencyTypeConverter))] CurrencyType Currency)
     {
     }
 }

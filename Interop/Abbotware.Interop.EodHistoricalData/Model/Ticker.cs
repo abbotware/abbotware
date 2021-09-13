@@ -7,6 +7,8 @@
 namespace Abbotware.Interop.EodHistoricalData.Models
 {
     using System.ComponentModel.DataAnnotations;
+    using Abbotware.Core.Metadata;
+    using Abbotware.Interop.EodHistoricalData.Serialization;
     using global::Newtonsoft.Json;
 
     /// <summary>
@@ -22,11 +24,16 @@ namespace Abbotware.Interop.EodHistoricalData.Models
     public record Ticker(
         [property: MaxLength(50)] string Code,
         [property: MaxLength(500)] string Name,
-        [property: MaxLength(25)] string Country,
+        [property: MaxLength(Length.Country)] string Country,
         [property: MaxLength(10)] string Exchange,
-        [property: MaxLength(10)] string Currency,
-        [JsonConverter(typeof(TickerTypeTypoFixer))] TickerType Type,
-        [property: MaxLength(12)] string? Isin)
+        [property: JsonConverter(typeof(CurrencyTypeConverter))] CurrencyType Currency,
+        [property: JsonConverter(typeof(TickerTypeTypoFixer))] TickerType Type,
+        [property: MaxLength(Length.Isin)] string? Isin)
     {
+        /// <summary>
+        /// Gets the source exchange
+        /// </summary>
+        [MaxLength(10)]
+        public string? SourceExchange { get; init; }
     }
 }

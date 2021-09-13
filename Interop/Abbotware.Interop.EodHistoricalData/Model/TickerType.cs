@@ -54,12 +54,6 @@ namespace Abbotware.Interop.EodHistoricalData.Models
         Index,
 
         /// <summary>
-        /// Fund?
-        /// </summary>
-        [EnumMember(Value = "FUND")]
-        Fund,
-
-        /// <summary>
         /// Mutual Fund
         /// </summary>
         [EnumMember(Value = "Mutual Fund")]
@@ -72,9 +66,9 @@ namespace Abbotware.Interop.EodHistoricalData.Models
         ExchangeTradedFund,
 
         /// <summary>
-        /// Exchange-Traded Node
+        /// Exchange-Traded Note
         /// </summary>
         [EnumMember(Value = "ETN")]
-        ExchangeTradedNode,
+        ExchangeTradedNote,
     }
 }

@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="TickerTypeTypoFixer.cs" company="Abbotware, LLC">
+// <copyright file="CurrencyTypeConverter.cs" company="Abbotware, LLC">
 // Copyright © Abbotware, LLC 2012-2020. All rights reserved
 // </copyright>
 // -----------------------------------------------------------------------
@@ -13,14 +13,14 @@ namespace Abbotware.Interop.EodHistoricalData.Serialization
     using global::Newtonsoft.Json;
 
     /// <summary>
-    /// Fix for Typeo in TickerType
+    /// CurrencyType Json Converter
     /// </summary>
-    public class TickerTypeTypoFixer : JsonConverter
+    public class CurrencyTypeConverter : JsonConverter
     {
         /// <inheritdoc/>
         public override bool CanConvert(Type objectType)
         {
-            return objectType == typeof(TickerType);
+            return objectType == typeof(CurrencyType);
         }
 
         /// <inheritdoc/>
@@ -28,9 +28,9 @@ namespace Abbotware.Interop.EodHistoricalData.Serialization
         {
             reader = Arguments.EnsureNotNull(reader, nameof(reader));
 
-            if (reader.TokenType == JsonToken.None || reader.TokenType == JsonToken.Null)
+            if (reader.TokenType == JsonToken.Null)
             {
-                return TickerType.Unknown;
+                return CurrencyType.Unknown;
             }
 
             if (reader.TokenType == JsonToken.String)
@@ -41,30 +41,19 @@ namespace Abbotware.Interop.EodHistoricalData.Serialization
 
                     if (v.IsBlank())
                     {
-                        return TickerType.Unknown;
+                        return CurrencyType.Unknown;
                     }
 
                     switch (v)
                     {
-                        case "Commmon Stock":
-                        case "Common Stock":
-                            return TickerType.CommonShare;
-                        case "ETF":
-                            return TickerType.ExchangeTradedFund;
-                        case "ETN":
-                            return TickerType.ExchangeTradedNote;
-                        case "Preferred Share":
-                        case "Preferred Stock":
-                            return TickerType.PreferredShare;
-                        case "Mutual Fund":
-                        case "FUND":
-                        case "Fund":
-                            return TickerType.MutualFund;
+                        case "NA":
+                        case "Unknown":
+                            return CurrencyType.Unknown;
                     }
 
-                    if (!Enum.TryParse<TickerType>(v, true, out var r))
+                    if (!Enum.TryParse<CurrencyType>(v, true, out var r))
                     {
-                        throw new NotSupportedException($"ticker type:{v} unexpected");
+                        throw new NotSupportedException($"currency type:{v} unexpected");
                     }
 
                     return r;

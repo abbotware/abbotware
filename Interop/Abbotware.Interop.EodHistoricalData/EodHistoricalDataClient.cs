@@ -7,6 +7,8 @@
 namespace Abbotware.Interop.EodHistoricalData
 {
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Net;
     using System.Threading;
     using System.Threading.Tasks;
     using Abbotware.Core.Logging;
@@ -64,7 +66,7 @@ namespace Abbotware.Interop.EodHistoricalData
         }
 
         /// <inheritdoc/>
-        Task<RestResponse<List<Ticker>, string>> IExchangeClient.TickersAsync(string exchange, CancellationToken ct)
+        async Task<RestResponse<List<Ticker>, string>> IExchangeClient.TickersAsync(string exchange, CancellationToken ct)
         {
             this.InitializeIfRequired();
 
@@ -72,23 +74,39 @@ namespace Abbotware.Interop.EodHistoricalData
             request.AddUrlSegment("EXCHANGE_CODE", exchange);
             request.AddParameter("fmt", "json");
 
-            return this.OnExecuteAsync<List<Ticker>, string>(request, ct);
+            var r = await this.OnExecuteAsync<List<Ticker>, string>(request, ct)
+                .ConfigureAwait(false);
+
+            if (r.StatusCode == HttpStatusCode.OK)
+            {
+                var altered = r!.Response!.Select(x => x with { SourceExchange = exchange })
+                    .ToList();
+
+                r = r with { Response = altered };
+            }
+
+            return r;
         }
 
-        /// <summary>
-        /// retrieve all fundamental data for the supplied symbol
-        /// </summary>
-        /// <param name="symbol">symbol</param>
-        /// <param name="exchange">exchange</param>
-        /// <param name="ct">cancellation token</param>
-        /// <returns>search result</returns>
-        public Task<RestResponse<Fundamental, string>> FundamentalAsync(string symbol, string exchange, CancellationToken ct)
+        /// <inheritdoc/>
+        async Task<RestResponse<Fundamental, string>> IFundamentalClient.GetAsync(string symbol, string exchange, CancellationToken ct)
         {
             this.InitializeIfRequired();
 
             var request = CreateFundamentalRequest(symbol, exchange);
 
-            return this.OnExecuteAsync<Fundamental, string>(request, ct);
+            var result = await this.OnExecuteAsync<Fundamental, string>(request, ct)
+                .ConfigureAwait(false);
+
+            if (result.StatusCode == HttpStatusCode.OK)
+            {
+                if (result!.Response!.General!.Exchange == null)
+                {
+                    result = result with { Response = result.Response with { General = result.Response.General with { Exchange = string.Empty } } };
+                }
+            }
+
+            return result;
         }
 
         /// <inheritdoc/>
