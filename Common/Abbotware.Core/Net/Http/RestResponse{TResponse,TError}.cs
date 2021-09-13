@@ -13,55 +13,20 @@ namespace Abbotware.Core.Net.Http
     /// </summary>
     /// <typeparam name="TResponse">response object type</typeparam>
     /// <typeparam name="TError">error object type</typeparam>
-    public class RestResponse<TResponse, TError> : RestResponse
+    /// <param name="StatusCode">HTTP Status code</param>
+    /// <param name="RawRequest">raw request</param>
+    /// <param name="RawResponse">raw response</param>
+    public record RestResponse<TResponse, TError>(HttpStatusCode StatusCode, string RawRequest, string RawResponse)
+        : RestResponse(StatusCode, RawRequest, RawResponse)
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RestResponse{TResponse, TError}"/> class.
-        /// </summary>
-        /// <param name="response">response object</param>
-        /// <param name="code">HTTP Status code</param>
-        /// <param name="rawRequest">raw request</param>
-        /// <param name="rawResponse">raw response</param>
-        public RestResponse(TResponse response, HttpStatusCode code, string rawRequest, string rawResponse)
-            : this(response, default, code, rawRequest, rawResponse)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RestResponse{TResponse, TError}"/> class.
-        /// </summary>
-        /// <param name="error">error object</param>
-        /// <param name="code">HTTP Status code</param>
-        /// <param name="rawRequest">raw request</param>
-        /// <param name="rawResponse">raw response</param>
-        public RestResponse(TError error, HttpStatusCode code, string rawRequest, string rawResponse)
-            : this(default, error, code, rawRequest, rawResponse)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RestResponse{TResponse, TError}"/> class.
-        /// </summary>
-        /// <param name="response">response object</param>
-        /// <param name="error">error object</param>
-        /// <param name="code">HTTP Status code</param>
-        /// <param name="rawRequest">raw request</param>
-        /// <param name="rawResponse">raw response</param>
-        public RestResponse(TResponse? response, TError? error, HttpStatusCode code, string rawRequest, string rawResponse)
-            : base(code, rawRequest, rawResponse)
-        {
-            this.Response = response;
-            this.Error = error;
-        }
-
         /// <summary>
         /// Gets the response
         /// </summary>
-        public TResponse? Response { get; }
+        public TResponse? Response { get; init; }
 
         /// <summary>
         /// Gets the error
         /// </summary>
-        public TError? Error { get; }
+        public TError? Error { get; init; }
     }
 }

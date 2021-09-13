@@ -61,7 +61,7 @@ namespace Abbotware.Core.Chrono
         /// </summary>
         /// <param name="ct">cancellation token</param>
         /// <returns>async handle</returns>
-        public async Task ThrottleAsync(CancellationToken ct)
+        public async Task<TimeSpan> ThrottleAsync(CancellationToken ct)
         {
             var delay = this.expirationTime - DateTime.Now;
 
@@ -70,8 +70,14 @@ namespace Abbotware.Core.Chrono
                 await Task.Delay(delay, ct)
                     .ConfigureAwait(false);
             }
+            else
+            {
+                delay = TimeSpan.Zero;
+            }
 
             this.SetExpiration();
+
+            return delay;
         }
 
         private void SetExpiration()
