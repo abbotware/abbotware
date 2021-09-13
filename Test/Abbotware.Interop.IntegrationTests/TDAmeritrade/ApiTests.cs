@@ -145,7 +145,7 @@ namespace Abbotware.IntegrationTests.Interop.TDAmeritrade
             Assert.IsNotNull(res.Response);
             Assert.IsNull(res.Error);
             Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
-            Assert.AreEqual("IBM", res.Response.Symbol);
+            Assert.AreEqual("AGFXF", res.Response.Symbol);
             Assert.IsFalse(res.Response.Empty);
             Assert.AreEqual(1043, res.Response.Candles.Count);
         }
