@@ -63,38 +63,26 @@ namespace Abbotware.Interop.RestSharp
 
             if (!response.IsSuccessful)
             {
-                TError? error = default;
+                TError? error;
 
-                switch (error)
+                if (typeof(TError) == typeof(string))
                 {
-                    case string:
-                        {
-                            error = (TError)(object)response.Content;
-                            break;
-                        }
-
-                    default:
-                        try
-                        {
-                            error = JsonHelper.FromString<TError>(response.Content);
-                        }
-                        catch (Exception)
-                        {
-                            if (response.ErrorException != null)
-                            {
-                                throw response.ErrorException;
-                            }
-
-                            throw;
-                        }
-
-                        break;
+                    error = (TError)(object)response.Content;
+                }
+                else
+                {
+                    error = JsonHelper.FromString<TError>(response.Content);
                 }
 
-                return new(error, response.StatusCode, response.ResponseUri.ToString(), response.Content);
+                if (response.ErrorException != null)
+                {
+                    throw response.ErrorException;
+                }
+
+                return new RestResponse<TResponse, TError>(response.StatusCode, response.ResponseUri.ToString(), response.Content) with { Error = error };
             }
 
-            return new(response.Data, response.StatusCode, response.ResponseUri.ToString(), response.Content);
+            return new RestResponse<TResponse, TError>(response.StatusCode, response.ResponseUri.ToString(), response.Content) with { Response = response.Data };
         }
 
         /// <summary>
