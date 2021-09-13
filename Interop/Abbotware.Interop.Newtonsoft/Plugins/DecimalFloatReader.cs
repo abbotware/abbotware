@@ -64,6 +64,8 @@ namespace Abbotware.Interop.Newtonsoft.Plugins
                     {
                         return null;
                     }
+
+                    return (decimal)parsedDouble;
                 }
 
                 throw new JsonSerializationException($"Cannot convert invalid value to {objectType}.");
