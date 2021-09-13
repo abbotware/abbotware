@@ -141,7 +141,9 @@ namespace Abbotware.Interop.TDAmeritrade
                 error = new ErrorResponse { Error = "Not Found" };
             }
 
-            return new(data, error, code, result.RawRequest, result.RawResponse);
+            return new RestResponse<Instrument, ErrorResponse>(code, result.RawRequest, result.RawResponse)
+                with
+            { Response = data, Error = error };
         }
 
         /// <summary>
