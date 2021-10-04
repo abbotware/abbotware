@@ -53,7 +53,7 @@ namespace Abbotware.Interop.Newtonsoft.Plugins
             {
                 if (!TimeSpan.TryParseExact(text, TimeSpanShortFormatString, null, out parsedTimeSpan))
                 {
-                    throw new FormatException($"unable to parse:{text} into TimeSpan");
+                    throw new JsonSerializationException($"unable to parse:{text} into {objectType} at path:{reader.Path}");
                 }
             }
 

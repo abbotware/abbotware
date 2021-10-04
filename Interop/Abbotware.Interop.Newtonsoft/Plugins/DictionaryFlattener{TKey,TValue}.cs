@@ -19,7 +19,9 @@ namespace Abbotware.Interop.Newtonsoft.Plugins
     /// <typeparam name="TValue">value type</typeparam>
     public class DictionaryFlattener<TKey, TValue> : JsonConverter
     {
-        private readonly KeyValueConverter<TKey, TValue>? converter;
+        private readonly KeyValueConverter<TKey, TValue>? kvConverter;
+
+        private readonly KeyListConverter<TValue>? klConverter;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DictionaryFlattener{TKey, TValue}"/> class.
@@ -37,7 +39,15 @@ namespace Abbotware.Interop.Newtonsoft.Plugins
         {
             if (converterType != null)
             {
-                this.converter = (KeyValueConverter<TKey, TValue>)Activator.CreateInstance(converterType);
+                if (typeof(KeyListConverter<TValue>).IsAssignableFrom(converterType))
+                {
+                    this.klConverter = (KeyListConverter<TValue>)Activator.CreateInstance(converterType);
+                }
+
+                if (typeof(KeyValueConverter<TKey, TValue>).IsAssignableFrom(converterType))
+                {
+                    this.kvConverter = (KeyValueConverter<TKey, TValue>)Activator.CreateInstance(converterType);
+                }
             }
         }
 
@@ -58,14 +68,23 @@ namespace Abbotware.Interop.Newtonsoft.Plugins
         {
             serializer = Arguments.EnsureNotNull(serializer, nameof(serializer));
 
-            var val = serializer!.Deserialize<Dictionary<TKey, TValue>>(reader);
-
-            if (this.converter != null)
+            if (this.klConverter != null)
             {
-                return val.Select(x => this.converter.Convert(x)).ToList();
-            }
+                var val = serializer!.Deserialize<Dictionary<string, Dictionary<string, TValue>>>(reader);
 
-            return val!.Values.ToList();
+                return this.klConverter.Convert(val!);
+            }
+            else
+            {
+                var val = serializer!.Deserialize<Dictionary<TKey, TValue>>(reader);
+
+                if (this.kvConverter != null)
+                {
+                    return val.Select(x => this.kvConverter.Convert(x)).ToList();
+                }
+
+                return val!.Values.ToList();
+            }
         }
     }
 }

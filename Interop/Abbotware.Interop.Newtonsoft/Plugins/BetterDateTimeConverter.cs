@@ -57,7 +57,7 @@ namespace Abbotware.Interop.Newtonsoft.Plugins
             {
                 if (!nullable)
                 {
-                    throw new JsonSerializationException($"Cannot convert null value to {objectType}");
+                    throw new JsonSerializationException($"Cannot convert null value to {objectType}:{reader.Path}");
                 }
 
                 return null;
@@ -71,7 +71,7 @@ namespace Abbotware.Interop.Newtonsoft.Plugins
                 {
                     if (!nullable)
                     {
-                        throw new JsonSerializationException($"Cannot convert null value to {objectType}");
+                        throw new JsonSerializationException($"Cannot convert null value to {objectType}:{reader.Path}");
                     }
 
                     return null;
@@ -79,14 +79,14 @@ namespace Abbotware.Interop.Newtonsoft.Plugins
 
                 if (!DateTimeOffset.TryParseExact(value, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out var parsed))
                 {
-                    throw new JsonSerializationException($"Cannot convert invalid value:{value} to {objectType}.");
+                    throw new JsonSerializationException($"Cannot convert invalid value:{value} to {objectType}:{reader.Path}");
                 }
 
                 return parsed;
             }
             else
             {
-                throw new JsonSerializationException($"Unexpected token parsing date. Expected String, got {reader.TokenType}.");
+                throw new JsonSerializationException($"Unexpected token parsing date. Expected String, got {reader.TokenType} for {reader.Path}");
             }
         }
     }
