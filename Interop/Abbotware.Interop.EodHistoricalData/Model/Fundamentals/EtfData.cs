@@ -19,7 +19,7 @@ namespace Abbotware.Interop.EodHistoricalData.Models
     /// Fundamental\ETF Data POCO
     /// </summary>
     public record EtfData(
-          [property: MaxLength(Length.Isin)] string? Isin,
+          [property: MaxLength(50)] string? Isin,
           [property: MaxLength(Length.CompanyName), JsonProperty("Company_Name")] string? CompanyName,
           [property: MaxLength(Length.Url), JsonProperty("Company_URL")] string? CompanyUrl,
           [property: MaxLength(Length.Url), JsonProperty("ETF_URL")] string? EtfUrl,
@@ -32,8 +32,9 @@ namespace Abbotware.Interop.EodHistoricalData.Models
           double? NetExpenseRatio,
           decimal? AnnualHoldingsTurnover,
           decimal? TotalAssets,
-          [property: JsonProperty("Average_Mkt_Cap_Mil")] decimal? AverageMktCapMil,
-          [property: JsonProperty("Holdings_Count")] int? HoldingsCount)
+          [property: MaxLength(20), JsonProperty("Average_Mkt_Cap_Mil")] string? AverageMktCapMil,
+          [property: JsonProperty("Holdings_Count")] int? HoldingsCount,
+          [property: JsonConverter(typeof(BetterDateTimeConverter))] DateTimeOffset? UpdatedAt)
     {
         /// <summary>
         /// Gets the Market Capitalisation data
@@ -104,11 +105,11 @@ namespace Abbotware.Interop.EodHistoricalData.Models
     /// Fundamentals\ETF_Data\Market_Capitalisation
     /// </summary>
     public record MarketCapitalisation(
-     double? Mega,
-     double? Big,
-     double? Medium,
-     double? Small,
-     double? Micro)
+     [property: MaxLength(25)] string? Mega,
+     [property: MaxLength(25)] string? Big,
+     [property: MaxLength(25)] string? Medium,
+     [property: MaxLength(25)] string? Small,
+     [property: MaxLength(25)] string? Micro)
     {
     }
 
@@ -118,7 +119,7 @@ namespace Abbotware.Interop.EodHistoricalData.Models
     public record MorningStar(
      double? Ratio,
      [property: MaxLength(50), JsonProperty("Category_Benchmark")] string? CategoryBenchmark,
-     [property: JsonProperty("Sustainability_Ratio")] double? SustainabilityRatio)
+     [property: MaxLength(50), JsonProperty("Sustainability_Ratio")] string? SustainabilityRatio)
     {
     }
 
@@ -155,7 +156,8 @@ namespace Abbotware.Interop.EodHistoricalData.Models
     public record WorldRegion(
       [property: MaxLength(50)] string Type,
       [property: JsonProperty("Equity_%")] double? EquityPercentage,
-      [property: JsonProperty("Relative_to_Category")] double? RelativeToCategory)
+      string? RelativeToCategory)
+        : EtfRelativeToCategory(RelativeToCategory)
     {
     }
 
@@ -165,7 +167,8 @@ namespace Abbotware.Interop.EodHistoricalData.Models
     public record SectorWeight(
       [property: MaxLength(50)] string Type,
       [property: JsonProperty("Equity_%")] double? EquityPercentage,
-      [property: JsonProperty("Relative_to_Category")] double? RelativeToCategory)
+      string? RelativeToCategory)
+        : EtfRelativeToCategory(RelativeToCategory)
     {
     }
 
@@ -173,13 +176,13 @@ namespace Abbotware.Interop.EodHistoricalData.Models
     /// Fundamentals\ETF_Data\Holding
     /// </summary>
     public record Holding(
-      [property: MaxLength(50)] string Code,
-      [property: MaxLength(50)] string Exchange,
-      [property: MaxLength(Length.CompanyName)] string Name,
-      [property: MaxLength(50)] string Sector,
-      [property: MaxLength(50)] string Industry,
-      [property: MaxLength(Length.Country)] string Country,
-      [property: MaxLength(50)] string Region,
+      [property: MaxLength(50)] string? Code,
+      [property: MaxLength(50)] string? Exchange,
+      [property: MaxLength(Length.CompanyName)] string? Name,
+      [property: MaxLength(50)] string? Sector,
+      [property: MaxLength(50)] string? Industry,
+      [property: MaxLength(Length.Country)] string? Country,
+      [property: MaxLength(50)] string? Region,
       [property: JsonProperty("Assets_%")] double? Assets)
     {
     }
@@ -190,7 +193,16 @@ namespace Abbotware.Interop.EodHistoricalData.Models
     public record FixedIncome(
       [property: MaxLength(50)] string Type,
       [property: JsonProperty("Fund_%")] double? FundPercentage,
-      [property: JsonProperty("Relative_to_Category")] double? RelativeToCategory)
+      string? RelativeToCategory)
+        : EtfRelativeToCategory(RelativeToCategory)
+    {
+    }
+
+    /// <summary>
+    /// Fundamentals\ETF_Data\Fixed_Income
+    /// </summary>
+    public record EtfRelativeToCategory(
+        [property: MaxLength(50), JsonProperty("Relative_to_Category")] string? RelativeToCategory)
     {
     }
 
@@ -222,7 +234,6 @@ namespace Abbotware.Interop.EodHistoricalData.Models
         /// </summary>
         [JsonProperty("Growth_Rates_To_Category")]
         public GrowthRates? GrowthRatesCategory { get; init; }
-
     }
 
     /// <summary>

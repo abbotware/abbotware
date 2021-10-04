@@ -6,10 +6,7 @@
 
 namespace Abbotware.Interop.EodHistoricalData.Models
 {
-    using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using Abbotware.Core.Metadata;
     using Abbotware.Interop.Newtonsoft.Plugins;
     using global::Newtonsoft.Json;
 
@@ -90,5 +87,16 @@ namespace Abbotware.Interop.EodHistoricalData.Models
         /// </summary>
         [property: JsonProperty(PropertyName = "ETF_Data")]
         public EtfData? EtfData { get; init; }
+
+        /// <summary>
+        /// Gets the Statistics Data for the instrument
+        /// </summary>
+        public Statistics? Statistics { get; init; }
+
+        /// <summary>
+        /// Gets the Mutual Fund Data for the instrument
+        /// </summary>
+        [property: JsonProperty(PropertyName = "MutualFund_Data")]
+        public MutualFundData? MutualFundData { get; init; }
     }
 }

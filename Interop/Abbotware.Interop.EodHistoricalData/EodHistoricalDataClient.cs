@@ -6,6 +6,7 @@
 
 namespace Abbotware.Interop.EodHistoricalData
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Net;
@@ -21,7 +22,7 @@ namespace Abbotware.Interop.EodHistoricalData
     /// <summary>
     /// EOD Historical Data API Client
     /// </summary>
-    public sealed class EodHistoricalDataClient : BaseRestClient<IEodHistoricalDataSettings>, IFundamentalClient, IExchangeClient
+    public sealed class EodHistoricalDataClient : BaseRestClient<IEodHistoricalDataSettings>, IEodHistoricalDataClient
     {
 #if NET5_0_OR_GREATER
         /// <summary>
@@ -107,6 +108,21 @@ namespace Abbotware.Interop.EodHistoricalData
             }
 
             return result;
+        }
+
+        /// <inheritdoc/>
+        async Task<RestResponse<Fundamental, string>> IFundamentalClient.GetRawAsync(string symbol, string exchange, CancellationToken ct)
+        {
+            this.InitializeIfRequired();
+
+            var request = CreateFundamentalRequest(symbol, exchange);
+
+            this.OnApplyAuthentication(request);
+
+            var response = await this.Client.ExecuteAsync(request, ct)
+              .ConfigureAwait(false);
+
+            return new(response.StatusCode, response!.ResponseUri.ToString(), response.Content) { Response = new Fundamental() };
         }
 
         /// <inheritdoc/>

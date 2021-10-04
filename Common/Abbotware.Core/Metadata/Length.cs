@@ -49,7 +49,7 @@ namespace Abbotware.Core.Metadata
         /// <summary>
         /// Job Title
         /// </summary>
-        public const int JobTitle = 200;
+        public const int JobTitle = 300;
 
         /// <summary>
         /// Name

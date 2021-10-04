@@ -15,7 +15,7 @@ namespace Abbotware.Interop.EodHistoricalData.Models
     public record Officer(
         [property: MaxLength(Length.CombinedName)] string Name,
         [property: MaxLength(Length.JobTitle)] string Title,
-        [property: MaxLength(Length.Year)] string? YearBorn)
+        [property: MaxLength(Length.Year + 150)] string? YearBorn)
     {
     }
 }

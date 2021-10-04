@@ -19,7 +19,10 @@ namespace Abbotware.Interop.EodHistoricalData.Serialization
         /// <inheritdoc/>
         public override Holding Convert(KeyValuePair<string, Holding> kvp)
         {
-            Debug.Assert(kvp.Key == kvp.Value.Name, "Key does not match property value");
+            var key = kvp.Key ?? string.Empty;
+            var value = kvp.Value.Name ?? string.Empty;
+
+            Debug.Assert(key == value, "Key does not match property value");
 
             return kvp.Value;
         }

@@ -17,15 +17,16 @@ namespace Abbotware.Interop.EodHistoricalData.Models
     /// Fundamental\General POCO
     /// </summary>
     public record General(
-        [property: MaxLength(10)] string Code,
-        [property: MaxLength(20)] string Type,
+        [property: MaxLength(50)] string Code,
+        [property: MaxLength(25)] string Type,
         [property: MaxLength(200)] string Name,
         [property: MaxLength(25)] string Exchange,
-        [property: MaxLength(5)] string CurrencyCode,
-        [property: MaxLength(10)] string CurrencyName,
-        [property: MaxLength(2)] string CurrencySymbol,
-        [property: MaxLength(Length.Country)] string CountryName,
-        [property: MaxLength(5)] string CountryISO,
+        [property: MaxLength(25)] string? ExchangeMarket,
+        [property: MaxLength(5)] string? CurrencyCode,
+        [property: MaxLength(25)] string? CurrencyName,
+        [property: MaxLength(5)] string? CurrencySymbol,
+        [property: MaxLength(Length.Country)] string? CountryName,
+        [property: MaxLength(5)] string? CountryISO,
         [property: MaxLength(Length.Isin)] string? Isin,
         [property: MaxLength(Length.Cusip)] string? Cusip,
         [property: MaxLength(10)] string? Cik,
@@ -48,7 +49,13 @@ namespace Abbotware.Interop.EodHistoricalData.Models
         [property: MaxLength(Length.Url)] string? WebUrl,
         [property: MaxLength(Length.Url)] string? LogoUrl,
         int? FullTimeEmployees,
-        [property: JsonConverter(typeof(BetterDateTimeConverter))] DateTimeOffset? UpdatedAt)
+        [property: JsonConverter(typeof(BetterDateTimeConverter))] DateTimeOffset? UpdatedAt,
+        [property: JsonProperty("Fund_Summary")] string? FundSummary,
+        [property: JsonProperty("Fund_Family"), MaxLength(50)] string? FundFamily,
+        [property: JsonProperty("Fund_Category"), MaxLength(50)] string? FundCategory,
+        [property: JsonProperty("Fund_Style"), MaxLength(50)] string? FundStyle,
+        [property: JsonProperty("Fiscal_Year_End"), MaxLength(50)] string? FundFiscalYearEnd,
+        [property: JsonProperty("MarketCapitalization")] double? FundMarketCapitalization)
     {
         /// <summary>
         /// Gets the Address data

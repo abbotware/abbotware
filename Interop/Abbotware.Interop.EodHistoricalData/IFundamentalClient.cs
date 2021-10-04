@@ -27,6 +27,15 @@ namespace Abbotware.Interop.EodHistoricalData
         Task<RestResponse<Fundamental, string>> GetAsync(string symbol, string exchange, CancellationToken ct);
 
         /// <summary>
+        /// retrieve all fundamental data for the supplied symbol
+        /// </summary>
+        /// <param name="symbol">symbol</param>
+        /// <param name="exchange">exchange</param>
+        /// <param name="ct">cancellation token</param>
+        /// <returns>search result</returns>
+        Task<RestResponse<Fundamental, string>> GetRawAsync(string symbol, string exchange, CancellationToken ct);
+
+        /// <summary>
         /// retrieve fundamental earnings data for the supplied symbol
         /// </summary>
         /// <param name="symbol">symbol</param>
