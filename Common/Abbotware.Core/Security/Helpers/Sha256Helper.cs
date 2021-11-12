@@ -23,7 +23,7 @@ namespace Abbotware.Core.Security
         {
             data = Arguments.EnsureNotNull(data, nameof(data));
 
-            using var algorithm = new SHA256Managed();
+            using var algorithm = SHA256.Create();
 
             return Common.Hash(data, algorithm, format);
         }

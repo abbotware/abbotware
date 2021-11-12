@@ -20,10 +20,10 @@ namespace Abbotware.Core.Security
         /// <returns>guid created by via RNGCryptoServiceProvider</returns>
         public static Guid NewRandomGuid()
         {
-            using RNGCryptoServiceProvider cryptoService = new RNGCryptoServiceProvider();
+            using var rng = RandomNumberGenerator.Create();
 
             var bytes = new byte[16];
-            cryptoService.GetBytes(bytes);
+            rng.GetBytes(bytes);
 
             // Alter bytes to inciate a version 4 GUID based on random generation
             // https://www.ietf.org/rfc/rfc4122.txt
