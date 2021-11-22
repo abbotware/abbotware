@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: Build
 
 # Controls when the workflow will run
 on:
@@ -27,6 +27,4 @@ jobs:
 
       - name: build
         run: .\Build\Common\Powershell\build.ps1
-        shell:pwsh
-
- 
+        shell: pwsh
