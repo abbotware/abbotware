@@ -28,5 +28,5 @@ jobs:
             submodules: 'true'
 
       - name: build
-        run: Build\Common\Powershell\build.ps1
+        run: .\Build\Common\Powershell\build.ps1
         shell: pwsh
