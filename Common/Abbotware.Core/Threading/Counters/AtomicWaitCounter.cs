@@ -30,7 +30,7 @@ namespace Abbotware.Core.Threading.Counters
         /// <summary>
         ///     wait handle for signaling threads that are waiting for this counter
         /// </summary>
-        private readonly TaskCompletionSource<bool> signal = new TaskCompletionSource<bool>();
+        private readonly TaskCompletionSource<bool> signal = new();
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="AtomicWaitCounter" /> class.

@@ -20,7 +20,7 @@ namespace Abbotware.Core.Chrono
         /// <summary>
         ///     internal data set cache
         /// </summary>
-        private readonly SortedList<DateTimeOffset, ITimeSeriesValue<TValue>> data = new SortedList<DateTimeOffset, ITimeSeriesValue<TValue>>();
+        private readonly SortedList<DateTimeOffset, ITimeSeriesValue<TValue>> data = new();
 
         /// <inheritdoc />
         public IEnumerator<ITimeSeriesValue<TValue>> GetEnumerator()

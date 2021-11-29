@@ -17,7 +17,7 @@ namespace Abbotware.Core.Collections
     /// <typeparam name="T">type of interval item</typeparam>
     public class IntervalLookup<T> : IReadOnlyIntervalLookup<T>
     {
-        private readonly List<IntervalBucket<T>> ranges = new List<IntervalBucket<T>>();
+        private readonly List<IntervalBucket<T>> ranges = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="IntervalLookup{T}"/> class.

@@ -23,12 +23,12 @@ namespace Abbotware.Core.Threading.Counters
         /// <summary>
         ///     global static counter for tracking 'active' objects
         /// </summary>
-        private static readonly AtomicCounter ActiveCounter = new AtomicCounter();
+        private static readonly AtomicCounter ActiveCounter = new();
 
         /// <summary>
         ///     global static counter
         /// </summary>
-        private readonly TypeCreatedCounter<TObjectType> globalCounter = new TypeCreatedCounter<TObjectType>();
+        private readonly TypeCreatedCounter<TObjectType> globalCounter = new();
 
         /// <summary>
         ///     flag to indicate whether or not to use default log statement

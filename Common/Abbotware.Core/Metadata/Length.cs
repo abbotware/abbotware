@@ -59,7 +59,7 @@ namespace Abbotware.Core.Metadata
         /// <summary>
         /// Address
         /// </summary>
-        public const int CombinedAddress = 250;
+        public const int CombinedAddress = 300;
 
         /// <summary>
         /// Company Name

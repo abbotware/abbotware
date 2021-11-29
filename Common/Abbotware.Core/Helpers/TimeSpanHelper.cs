@@ -90,7 +90,7 @@ namespace Abbotware.Core.Helpers
 
                         if (remainder > .1)
                         {
-                            return FormattableString.Invariant($"{timeSpan.TotalHours.ToString("F1", CultureInfo.InvariantCulture)}{suffix}");
+                            return FormattableString.Invariant($"{timeSpan.TotalHours:F1}{suffix}");
                         }
 
                         break;
@@ -105,7 +105,7 @@ namespace Abbotware.Core.Helpers
 
                         if (remainder > .1)
                         {
-                            return FormattableString.Invariant($"{timeSpan.TotalDays.ToString("F1", CultureInfo.InvariantCulture)}{suffix}");
+                            return FormattableString.Invariant($"{timeSpan.TotalDays:F1}{suffix}");
                         }
 
                         break;

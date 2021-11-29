@@ -26,7 +26,7 @@ namespace Abbotware.Core.Runtime.Plugins
         /// <summary>
         ///     refresh time span for polling the process object
         /// </summary>
-        private readonly MinimumTimeSpan refreshFrequency = new MinimumTimeSpan(TimeSpan.FromSeconds(1));
+        private readonly MinimumTimeSpan refreshFrequency = new(TimeSpan.FromSeconds(1));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProcessInformation"/> class.

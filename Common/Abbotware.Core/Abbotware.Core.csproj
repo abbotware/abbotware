@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.1;netstandard2.0;net5</TargetFrameworks>
+    <TargetFrameworks>netstandard2.1;netstandard2.0;net6</TargetFrameworks>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -16,7 +16,7 @@
     <Compile Remove="**/*.netstandard2.0.cs" />
     <Compile Remove="**/*.net5.cs" />
   </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'net5'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'net6'">
     <Compile Remove="**/*.netstandard2.0.cs" />
   </ItemGroup>
   
@@ -24,8 +24,8 @@
     <PackageReference Include="System.Memory" Version="4.5.4" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net5'">
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
+  <ItemGroup Condition="'$(TargetFramework)' == 'net6'">
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup>

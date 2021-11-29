@@ -20,7 +20,7 @@ namespace Abbotware.Core.Cache.Internal
         /// <summary>
         /// list of fields that have changed that will be saved
         /// </summary>
-        private ConcurrentQueue<T> changed = new ConcurrentQueue<T>();
+        private ConcurrentQueue<T> changed = new();
 
         /// <summary>
         /// Gets the current work items in the bag

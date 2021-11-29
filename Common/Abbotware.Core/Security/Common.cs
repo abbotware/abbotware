@@ -31,16 +31,12 @@ namespace Abbotware.Core.Security
             // create new instance of StringBuilder to save hashed data
             var returnValue = new StringBuilder();
 
-            var stringFormat = string.Empty;
-
-            switch (format)
+            string? stringFormat = format switch
             {
-                case HashStringFormat.Hex:
-                    stringFormat = "x2";
-                    break;
-                default:
-                    throw new InvalidOperationException($"unexpected hash format:{format}");
-            }
+                HashStringFormat.Hex => "x2",
+                HashStringFormat.Base64 => throw new NotImplementedException(),
+                _ => throw new InvalidOperationException($"unexpected hash format:{format}"),
+            };
 
             // loop for each byte and add it to StringBuilder
             for (int i = 0; i < hashData.Length; i++)

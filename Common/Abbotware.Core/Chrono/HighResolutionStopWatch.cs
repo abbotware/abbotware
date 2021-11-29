@@ -24,7 +24,7 @@ namespace Abbotware.Core.Chrono
         public HighResolutionTimeSpan Elapsed
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => new HighResolutionTimeSpan(this.StartTicks, StopwatchHelper.CurrentTimeStamp);
+            get => new(this.StartTicks, StopwatchHelper.CurrentTimeStamp);
         }
 
         /// <summary>

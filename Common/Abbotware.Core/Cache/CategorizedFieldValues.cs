@@ -32,17 +32,17 @@ namespace Abbotware.Core.Cache
         ///     set of property categories
         /// </summary>
         // TODO: remove this and use VLookup<T1,T2,TValue> ?
-        private readonly ConcurrentDictionary<string, string> categories = new ConcurrentDictionary<string, string>();
+        private readonly ConcurrentDictionary<string, string> categories = new();
 
         /// <summary>
         ///     collection of changes that need to be committed
         /// </summary>
-        private readonly BagOfWork<Tuple<string?, string>> changed = new BagOfWork<Tuple<string?, string>>();
+        private readonly BagOfWork<Tuple<string?, string>> changed = new();
 
         /// <summary>
         ///     inprocess cache of values
         /// </summary>
-        private readonly Dictionary<string, ConcurrentDictionary<string, string>> values = new Dictionary<string, ConcurrentDictionary<string, string>>();
+        private readonly Dictionary<string, ConcurrentDictionary<string, string>> values = new();
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="CategorizedFieldValues" /> class.

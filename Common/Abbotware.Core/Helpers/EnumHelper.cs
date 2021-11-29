@@ -8,6 +8,7 @@
 namespace Abbotware.Core.Helpers
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
     using System.Runtime.Serialization;
@@ -18,6 +19,17 @@ namespace Abbotware.Core.Helpers
     /// </summary>
     public static class EnumHelper
     {
+        /// <summary>
+        /// Gets all the values of the enum
+        /// </summary>
+        /// <typeparam name="TEnum">Enum type</typeparam>
+        /// <returns>all values of the enum</returns>
+        public static IEnumerable<TEnum> GetValues<TEnum>()
+            where TEnum : struct, Enum
+        {
+            return (TEnum[])Enum.GetValues(typeof(TEnum));
+        }
+
         /// <summary>
         /// Parses a string into an enum value
         /// </summary>

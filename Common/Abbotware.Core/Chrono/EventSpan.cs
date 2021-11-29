@@ -18,7 +18,7 @@ namespace Abbotware.Core.Chrono
         /// <summary>
         ///     internal lock object
         /// </summary>
-        private readonly object syncObject = new object();
+        private readonly object syncObject = new();
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="EventSpan" /> class.

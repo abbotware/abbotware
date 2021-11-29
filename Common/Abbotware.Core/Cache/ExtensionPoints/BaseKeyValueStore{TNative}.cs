@@ -19,7 +19,7 @@ namespace Abbotware.Core.Cache.ExtensionPoints
     /// <typeparam name="TNative">native key value</typeparam>
     public abstract class BaseKeyValueStore<TNative> : IEncodedKeyValueStore
     {
-        private readonly Dictionary<string, TNative> kv = new Dictionary<string, TNative>();
+        private readonly Dictionary<string, TNative> kv = new();
 
         /// <summary>
         /// Gets the key names
