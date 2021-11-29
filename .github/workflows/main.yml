@@ -28,6 +28,8 @@ jobs:
             submodules: 'true'
 
       - uses: actions/setup-dotnet@v1
+        with:
+            dotnet-version: '6.0.100' 
 
       - name: build
         run: .\Build\Common\Powershell\build.ps1
