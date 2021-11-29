@@ -68,15 +68,19 @@ namespace Abbotware.Interop.Newtonsoft.Plugins
             }
             else if (reader.TokenType == JsonToken.String)
             {
+                var strValue = (string)reader.Value!;
+
                 if (isDecimal)
                 {
-                    if (decimal.TryParse((string)reader.Value!, out var parsedDecimal))
+                    if (decimal.TryParse(strValue, out var parsedDecimal))
                     {
                         return parsedDecimal;
                     }
                 }
 
-                if (double.TryParse((string)reader.Value!, out var parsedDouble))
+                strValue = strValue.Replace("%", string.Empty);
+
+                if (double.TryParse(strValue, out var parsedDouble))
                 {
                     if (double.IsNaN(parsedDouble) || double.IsInfinity(parsedDouble))
                     {
@@ -93,23 +97,19 @@ namespace Abbotware.Interop.Newtonsoft.Plugins
                     }
                 }
 
-                if ((string)reader.Value! == "No Data")
+                switch (strValue)
                 {
-                    return null;
+                    case "No Data":
+                        return null;
+                    case "-":
+                        return null;
+                    case "&mdash;":
+                    case "R":
+                        Console.WriteLine($"Bad {objectType} Data: {strValue} at path:{reader.Path}");
+                        return null;
+                    default:
+                        throw new JsonSerializationException($"Cannot convert invalid value:{strValue} to {objectType} at path:{reader.Path}.");
                 }
-
-                if ((string)reader.Value! == "-")
-                {
-                    return null;
-                }
-
-                if ((string)reader.Value! == "R")
-                {
-                    Console.WriteLine($"Bad {objectType} Data: {(string)reader.Value!} at path:{reader.Path}");
-                    return null;
-                }
-
-                throw new JsonSerializationException($"Cannot convert invalid value:{(string)reader.Value!} to {objectType} at path:{reader.Path}.");
             }
 
             throw new JsonSerializationException($"Unexpected token parsing decimal. Expected Float or String, got {reader.TokenType}.");
