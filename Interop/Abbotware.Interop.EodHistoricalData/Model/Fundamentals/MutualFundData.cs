@@ -30,7 +30,7 @@ namespace Abbotware.Interop.EodHistoricalData.Models
           [property: JsonProperty("Morning_Star_Risk_Rating"), MaxLength(50)] string? MorningStarRiskRating,
           [property: JsonProperty("Morning_Star_Category"), MaxLength(50)] string? MorningStarCategory,
           [property: JsonProperty("Inception_Date"), JsonConverter(typeof(BetterDateTimeConverter))] DateTimeOffset? InceptionDate,
-          CurrencyType Currency,
+          CurrencyType? Currency,
           [property: JsonProperty("Domicile"), MaxLength(100)] string? Domicile,
           [property: JsonProperty("Yield")] double? Yield,
           [property: JsonProperty("Yield_YTD")] double? YieldYtd,
@@ -114,7 +114,7 @@ namespace Abbotware.Interop.EodHistoricalData.Models
     /// Fundamentals\MutualFund_Data\Value_Growth
     /// </summary>
     public record MfValueGrowth(
-      [property: MaxLength(25)] string Name,
+      [property: MaxLength(100)] string Name,
       [property: JsonProperty("Category_Average")] double? CategoryAverage,
       double? Benchmark,
       [property: JsonProperty("Stock_Portfolio")] double? StockPortfolio)
@@ -174,7 +174,7 @@ namespace Abbotware.Interop.EodHistoricalData.Models
       [property: MaxLength(Length.Country)] string Country,
       [property: JsonProperty("Category_Average")] double? CategoryAverage,
       double? Benchmark,
-      [property: JsonProperty("Portfolio_%")] double? PortfolioPercentage)
+      [property: JsonProperty("Amount_%")] double? PortfolioPercentage)
     {
     }
 }

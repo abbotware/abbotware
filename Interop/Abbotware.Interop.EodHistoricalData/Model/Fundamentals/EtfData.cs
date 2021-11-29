@@ -74,14 +74,14 @@ namespace Abbotware.Interop.EodHistoricalData.Models
         /// Gets the Top10Holdings data
         /// </summary>
         [JsonProperty("Top_10_Holdings")]
-        [JsonConverter(typeof(DictionaryFlattener<string, Holding>), typeof(HoldingKeyValue))]
+        [JsonConverter(typeof(DictionaryFlattener<string, Holding>))]
         [NotMapped]
         public IReadOnlyCollection<Holding>? Top10Holdings { get; init; }
 
         /// <summary>
         /// Gets the Holdings data
         /// </summary>
-        [JsonConverter(typeof(DictionaryFlattener<string, Holding>), typeof(HoldingKeyValue))]
+        [JsonConverter(typeof(DictionaryFlattener<string, Holding>))]
         public IReadOnlyCollection<Holding>? Holdings { get; init; }
 
         /// <summary>

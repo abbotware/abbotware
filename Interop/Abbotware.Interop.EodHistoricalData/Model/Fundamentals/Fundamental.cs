@@ -98,5 +98,14 @@ namespace Abbotware.Interop.EodHistoricalData.Models
         /// </summary>
         [property: JsonProperty(PropertyName = "MutualFund_Data")]
         public MutualFundData? MutualFundData { get; init; }
+
+        /// <summary>
+        /// Gets the Components Data for the instrument
+        /// </summary>
+        public Components? Components { get; init; }
+    }
+
+    public class Components
+    {
     }
 }

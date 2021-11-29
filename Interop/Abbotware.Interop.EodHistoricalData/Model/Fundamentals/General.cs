@@ -21,7 +21,7 @@ namespace Abbotware.Interop.EodHistoricalData.Models
         [property: MaxLength(25)] string Type,
         [property: MaxLength(200)] string Name,
         [property: MaxLength(25)] string Exchange,
-        [property: MaxLength(25)] string? ExchangeMarket,
+        [property: MaxLength(100)] string? ExchangeMarket,
         [property: MaxLength(5)] string? CurrencyCode,
         [property: MaxLength(25)] string? CurrencyName,
         [property: MaxLength(5)] string? CurrencySymbol,
