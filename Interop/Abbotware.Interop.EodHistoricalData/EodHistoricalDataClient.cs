@@ -24,7 +24,7 @@ namespace Abbotware.Interop.EodHistoricalData
     /// </summary>
     public sealed class EodHistoricalDataClient : BaseRestClient<IEodHistoricalDataSettings>, IEodHistoricalDataClient
     {
-#if NET5_0_OR_GREATER
+#if NET6_0_OR_GREATER
         /// <summary>
         /// Initializes a new instance of the <see cref="EodHistoricalDataClient"/> class.
         /// </summary>

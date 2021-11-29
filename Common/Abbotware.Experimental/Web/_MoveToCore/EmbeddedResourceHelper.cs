@@ -196,7 +196,7 @@ namespace Abbotware.Core.Helpers
             name = name.Trim(' ', '.', '/', '\\');
             name = name.Replace('-', '_');
 
-            if (name.Contains(".", StringComparison.OrdinalIgnoreCase))
+            if (name.Contains('.', StringComparison.OrdinalIgnoreCase))
             {
                 // if a segment starts with a digit, then inject an underscore character before it
                 var segments = name.Split('.').Select(s => char.IsDigit(s, 0) ? ("_" + s) : s).ToArray();

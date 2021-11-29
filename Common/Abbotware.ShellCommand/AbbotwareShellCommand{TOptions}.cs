@@ -162,7 +162,7 @@ namespace Abbotware.ShellCommand
                     process.Refresh();
 
                     // minor delay to ensure OutputDataReceived / ErrorDataReceived callback events are finished
-#if NET5_0_OR_GREATER
+#if NET6_0_OR_GREATER
                     using var waitForExitCt = new CancellationTokenSource(this.Configuration.ExitDelay);
 
                     await process.WaitForExitAsync(waitForExitCt.Token)

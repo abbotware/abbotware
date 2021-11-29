@@ -18,7 +18,7 @@ namespace Abbotware.ShellCommand.Plugins
     /// </summary>
     public class WindowsFtpCommand : AbbotwareShellCommand<IWindowsFtpOptions>
     {
-#if NET5_0_OR_GREATER
+#if NET6_0_OR_GREATER
         /// <summary>
         /// Initializes a new instance of the <see cref="WindowsFtpCommand"/> class.
         /// </summary>

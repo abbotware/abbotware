@@ -57,8 +57,8 @@ namespace Abbotware.UnitTests.Core
 
             await init2;
 
-            Assert.IsTrue(init1.Result); // this was first, so it triggered init
-            Assert.IsFalse(init2.Result);
+            Assert.IsTrue(await init1.ConfigureAwait(false)); // this was first, so it triggered init
+            Assert.IsFalse(await init2.ConfigureAwait(false));
             Assert.IsTrue(a.IsInitialized);
         }
 
@@ -76,12 +76,12 @@ namespace Abbotware.UnitTests.Core
 
             await init1;
 
-            Assert.IsTrue(init1.Result); // this was first, so it triggered init
+            Assert.IsTrue(await init1.ConfigureAwait(false)); // this was first, so it triggered init
             Assert.IsTrue(a.IsInitialized);
 
             var init2 = a.InitializeAsync(default);
             Assert.IsTrue(init2.IsCompleted);
-            Assert.IsFalse(init2.Result);
+            Assert.IsFalse(await init2.ConfigureAwait(false));
             Assert.IsTrue(a.IsInitialized);
         }
 

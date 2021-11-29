@@ -44,7 +44,7 @@ namespace Abbotware.Core.Diagnostics.Plugins
                 {
                     InstanceId = j,
                     CorrelationTypeId = correlationTypeId,
-                    ThreadId = Thread.CurrentThread.ManagedThreadId,
+                    ThreadId = Environment.CurrentManagedThreadId,
                 };
             }
         }
@@ -60,7 +60,7 @@ namespace Abbotware.Core.Diagnostics.Plugins
             var row = this.data[++this.index];
 
             Debug.Assert(row.Ticks == 0, "can only set ticks value once");
-            Debug.Assert(row.ThreadId == Thread.CurrentThread.ManagedThreadId, "bucket used by wrong thread");
+            Debug.Assert(row.ThreadId == Environment.CurrentManagedThreadId, "bucket used by wrong thread");
 
             row.Ticks = ticks;
             row.InstanceId = instanceId;
@@ -77,7 +77,7 @@ namespace Abbotware.Core.Diagnostics.Plugins
             var row = this.data[++this.index];
 
             Debug.Assert(row.Ticks == 0, "can only set ticks value once");
-            Debug.Assert(row.ThreadId == Thread.CurrentThread.ManagedThreadId, "bucket used by wrong thread");
+            Debug.Assert(row.ThreadId == Environment.CurrentManagedThreadId, "bucket used by wrong thread");
 
             row.Ticks = ticks;
             row.InstanceId = instanceId;
@@ -173,7 +173,7 @@ namespace Abbotware.Core.Diagnostics.Plugins
             var row = this.data[++this.index];
 
             Debug.Assert(row.Ticks == 0, "can only set ticks value once");
-            Debug.Assert(row.ThreadId == Thread.CurrentThread.ManagedThreadId, "bucket used by wrong thread");
+            Debug.Assert(row.ThreadId == Environment.CurrentManagedThreadId, "bucket used by wrong thread");
 
             row.Ticks = Stopwatch.GetTimestamp();
             row.InstanceId = instanceId;
@@ -189,7 +189,7 @@ namespace Abbotware.Core.Diagnostics.Plugins
             var row = this.data[++this.index];
 
             Debug.Assert(row.Ticks == 0, "can only set ticks value once");
-            Debug.Assert(row.ThreadId == Thread.CurrentThread.ManagedThreadId, "bucket used by wrong thread");
+            Debug.Assert(row.ThreadId == Environment.CurrentManagedThreadId, "bucket used by wrong thread");
 
             row.Ticks = Stopwatch.GetTimestamp();
             row.InstanceId = instanceId;
@@ -208,7 +208,7 @@ namespace Abbotware.Core.Diagnostics.Plugins
             var row = this.data[++this.index];
 
             Debug.Assert(row.Ticks == 0, "can only set ticks value once");
-            Debug.Assert(row.ThreadId == Thread.CurrentThread.ManagedThreadId, "bucket used by wrong thread");
+            Debug.Assert(row.ThreadId == Environment.CurrentManagedThreadId, "bucket used by wrong thread");
 
             row.Ticks = Stopwatch.GetTimestamp();
             row.InstanceId = instanceId;
@@ -226,7 +226,7 @@ namespace Abbotware.Core.Diagnostics.Plugins
             var row = this.data[++this.index];
 
             Debug.Assert(row.Ticks == 0, "can only set ticks value once");
-            Debug.Assert(row.ThreadId == Thread.CurrentThread.ManagedThreadId, "bucket used by wrong thread");
+            Debug.Assert(row.ThreadId == Environment.CurrentManagedThreadId, "bucket used by wrong thread");
 
             row.Ticks = Stopwatch.GetTimestamp();
             row.InstanceId = instanceId;
@@ -247,7 +247,7 @@ namespace Abbotware.Core.Diagnostics.Plugins
             var row = this.data[++this.index];
 
             Debug.Assert(row.Ticks == 0, "can only set ticks value once");
-            Debug.Assert(row.ThreadId == Thread.CurrentThread.ManagedThreadId, "bucket used by wrong thread");
+            Debug.Assert(row.ThreadId == Environment.CurrentManagedThreadId, "bucket used by wrong thread");
 
             row.Ticks = Stopwatch.GetTimestamp();
             row.InstanceId = instanceId;
@@ -268,7 +268,7 @@ namespace Abbotware.Core.Diagnostics.Plugins
             var row = this.data[++this.index];
 
             Debug.Assert(row.Ticks == 0, "can only set ticks value once");
-            Debug.Assert(row.ThreadId == Thread.CurrentThread.ManagedThreadId, "bucket used by wrong thread");
+            Debug.Assert(row.ThreadId == Environment.CurrentManagedThreadId, "bucket used by wrong thread");
 
             row.Ticks = Stopwatch.GetTimestamp();
             row.InstanceId = instanceId;

@@ -286,7 +286,7 @@ namespace Abbotware.Core.Diagnostics.Plugins
 
             row.Ticks = CurrentTimestamp;
             row.InstanceId = instanceId;
-            row.ThreadId = Thread.CurrentThread.ManagedThreadId;
+            row.ThreadId = Environment.CurrentManagedThreadId;
 
             return row.Ticks;
         }
@@ -305,7 +305,7 @@ namespace Abbotware.Core.Diagnostics.Plugins
 
             row.Ticks = CurrentTimestamp;
             row.InstanceId = instanceId;
-            row.ThreadId = Thread.CurrentThread.ManagedThreadId;
+            row.ThreadId = Environment.CurrentManagedThreadId;
 
             row.IsEnd = true;
 
@@ -327,7 +327,7 @@ namespace Abbotware.Core.Diagnostics.Plugins
 
             row.Ticks = CurrentTimestamp;
             row.InstanceId = instanceId;
-            row.ThreadId = Thread.CurrentThread.ManagedThreadId;
+            row.ThreadId = Environment.CurrentManagedThreadId;
             row.CheckpointId = checkpointId;
 
             return row.Ticks;
@@ -348,7 +348,7 @@ namespace Abbotware.Core.Diagnostics.Plugins
 
             row.Ticks = CurrentTimestamp;
             row.InstanceId = instanceId;
-            row.ThreadId = Thread.CurrentThread.ManagedThreadId;
+            row.ThreadId = Environment.CurrentManagedThreadId;
             row.CheckpointId = checkpointId;
 
             row.IsEnd = true;
@@ -372,7 +372,7 @@ namespace Abbotware.Core.Diagnostics.Plugins
 
             row.Ticks = CurrentTimestamp;
             row.InstanceId = instanceId;
-            row.ThreadId = Thread.CurrentThread.ManagedThreadId;
+            row.ThreadId = Environment.CurrentManagedThreadId;
             row.CheckpointId = checkpointId;
             row.CheckpointProgress = checkpointProgress;
 
@@ -395,7 +395,7 @@ namespace Abbotware.Core.Diagnostics.Plugins
 
             row.Ticks = CurrentTimestamp;
             row.InstanceId = instanceId;
-            row.ThreadId = Thread.CurrentThread.ManagedThreadId;
+            row.ThreadId = Environment.CurrentManagedThreadId;
             row.CheckpointId = checkpointId;
             row.CheckpointProgress = checkpointProgress;
 
@@ -420,7 +420,7 @@ namespace Abbotware.Core.Diagnostics.Plugins
 
                 row.Ticks = CurrentTimestamp;
                 row.InstanceId = (uint)i;
-                row.ThreadId = Thread.CurrentThread.ManagedThreadId;
+                row.ThreadId = Environment.CurrentManagedThreadId;
                 row.CheckpointId = (ushort)i;
             }
         }

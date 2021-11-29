@@ -173,12 +173,12 @@ namespace Abbotware.Core.Plugins
                 output = '"' + output + '"';
             }
 #elif NETSTANDARD2_1
-            if (output.Contains("\"", StringComparison.InvariantCultureIgnoreCase))
+            if (output.Contains('"', StringComparison.InvariantCultureIgnoreCase))
             {
                 output = output.Replace("\"", "\"\"", StringComparison.InvariantCultureIgnoreCase);
             }
 
-            if (output.Contains(",", StringComparison.InvariantCultureIgnoreCase))
+            if (output.Contains(',', StringComparison.InvariantCultureIgnoreCase))
             {
                 output = '"' + output + '"';
             }

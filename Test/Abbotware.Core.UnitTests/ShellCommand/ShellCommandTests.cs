@@ -62,7 +62,7 @@ namespace Abbotware.UnitTests.Core
                 Assert.IsTrue(child.Started.IsCompleted);
                 Assert.IsTrue(child.Exited.IsCompleted);
 
-                Assert.AreSame(result, child.Exited.Result);
+                Assert.AreSame(result, await child.Exited.ConfigureAwait(false));
             }
 
             Assert.That(result.ErrorOutput, Has.Count.EqualTo(0));

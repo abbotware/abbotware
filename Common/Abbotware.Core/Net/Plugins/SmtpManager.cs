@@ -139,7 +139,7 @@ namespace Abbotware.Core.Net.Plugins
                 message.Attachments.Add(new Attachment(file.LocalPath));
             }
 
-#if NET5_0_OR_GREATER
+#if NET6_0_OR_GREATER
             await client.SendMailAsync(message, ct)
                 .ConfigureAwait(false);
 #else

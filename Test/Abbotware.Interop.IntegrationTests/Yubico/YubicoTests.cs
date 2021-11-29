@@ -31,13 +31,13 @@ namespace Abbotware.IntegrationTests.Interop.Yubico
             var res = await client.VerifyAsync("ccscccggkthbfkghciijdkvvldebnevilllbufrrftek", default);
             Assert.IsFalse(res);
 
-            res = client.VerifyAsync(null, default).Result;
+            res = await client.VerifyAsync(null, default).ConfigureAwait(false);
             Assert.IsFalse(res);
 
-            res = client.VerifyAsync(string.Empty, default).Result;
+            res = await client.VerifyAsync(string.Empty, default).ConfigureAwait(false);
             Assert.IsFalse(res);
 
-            res = client.VerifyAsync("asdf", default).Result;
+            res = await client.VerifyAsync("asdf", default).ConfigureAwait(false);
             Assert.IsFalse(res);
         }
     }

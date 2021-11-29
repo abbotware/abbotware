@@ -3,7 +3,7 @@
 // Copyright © Abbotware, LLC 2012-2020. All rights reserved
 // </copyright>
 // -----------------------------------------------------------------------
-#if NET5_0_OR_GREATER
+#if NET6_0_OR_GREATER
 
 namespace Abbotware.Core.Logging
 {

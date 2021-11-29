@@ -64,7 +64,7 @@ namespace Abbotware.ShellCommand.Plugins
         /// <returns>rendered option</returns>
         public string Render(object? value)
         {
-#if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER
+#if NETSTANDARD2_1_OR_GREATER || NET6_0_OR_GREATER
             var output = this.Format.Replace("{option}", this.Option ?? string.Empty, StringComparison.InvariantCultureIgnoreCase);
             output = output.Replace("{value}", value?.ToString(), StringComparison.InvariantCultureIgnoreCase);
 #else
