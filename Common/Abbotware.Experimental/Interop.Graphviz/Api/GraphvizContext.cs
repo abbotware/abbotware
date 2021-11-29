@@ -89,7 +89,7 @@ namespace Abbotware.Interop.Graphviz.Api
 
             this.ThrowIfDisposed();
 
-            var funcRet = NativeMethods.gvLayout(this.graphvizContextPtr, graphObject.SafeHandle, layoutEngine.ToString().ToLowerInvariant());
+            var funcRet = NativeMethods.gvLayout(this.graphvizContextPtr, graphObject.SafeHandle, layoutEngine.ToString().ToLowerInvariant().ToCharArray());
 
             var errorCode = Marshal.GetLastWin32Error();
 
@@ -121,7 +121,7 @@ namespace Abbotware.Interop.Graphviz.Api
 
             ////CREATE COPY OF SAFEHANDLE WITH OWNS + FALSE
 
-            var funcRet = NativeMethods.gvRenderData(this.graphvizContextPtr, this.graph.SafeHandle, imageFormat.ToString().ToLowerInvariant(), out IntPtr buffer, out uint bufferLength);
+            var funcRet = NativeMethods.gvRenderData(this.graphvizContextPtr, this.graph.SafeHandle, imageFormat.ToString().ToLowerInvariant().ToCharArray(), out IntPtr buffer, out uint bufferLength);
 
             if (funcRet != NativeMethods.SUCCESS)
             {
@@ -149,7 +149,7 @@ namespace Abbotware.Interop.Graphviz.Api
         [SuppressMessage("Microsoft.Globalization", "CA1308:NormalizeStringsToUppercase", Justification = "matching Graphviz Api definitions")]
         public void Save(ImageFormat imageFormat, string outputFilePath)
         {
-            Arguments.NotNullOrWhitespace(outputFilePath, nameof(outputFilePath));
+            outputFilePath = Arguments.EnsureNotNullOrWhitespace(outputFilePath, nameof(outputFilePath));
 
             this.ThrowIfDisposed();
 
@@ -158,7 +158,7 @@ namespace Abbotware.Interop.Graphviz.Api
                 throw new GraphvizApiException("invalid use, must call add layout first");
             }
 
-            var funcRet = NativeMethods.gvRenderFilename(this.graphvizContextPtr, this.graph.SafeHandle, imageFormat.ToString().ToLowerInvariant(), outputFilePath);
+            var funcRet = NativeMethods.gvRenderFilename(this.graphvizContextPtr, this.graph.SafeHandle, imageFormat.ToString().ToLowerInvariant().ToCharArray(), outputFilePath.ToCharArray());
 
             if (funcRet != NativeMethods.SUCCESS)
             {

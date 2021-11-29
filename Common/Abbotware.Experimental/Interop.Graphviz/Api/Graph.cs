@@ -30,8 +30,7 @@ namespace Abbotware.Interop.Graphviz.Api
         public Graph(string graphData, ILogger logger)
             : base(logger)
         {
-            Arguments.NotNullOrWhitespace(graphData, nameof(graphData));
-            Arguments.NotNull(logger, nameof(logger));
+            graphData = Arguments.EnsureNotNullOrWhitespace(graphData, nameof(graphData));
 
             var sublogger = this.Logger.Create("GraphManagedApi");
 

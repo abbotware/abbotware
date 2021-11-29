@@ -72,7 +72,7 @@ namespace Abbotware.Interop.Graphviz.Native.GvcDll
         /// <returns>value indicating success or failure</returns>
         [DllImport(NativeMethods.LIB_GVC, CallingConvention = CallingConvention.Cdecl, SetLastError = true, CharSet = CharSet.Ansi, ThrowOnUnmappableChar = true, BestFitMapping = false)]
         [DefaultDllImportSearchPaths(DllImportSearchPath.UserDirectories)]
-        public static extern int gvLayout(GraphvizContextSafeHandle graphVizContextPtr, GraphSafeHandle graphPtr, [MarshalAs(UnmanagedType.LPStr)] string layoutEngine);
+        public static extern int gvLayout(GraphvizContextSafeHandle graphVizContextPtr, GraphSafeHandle graphPtr, [MarshalAs(UnmanagedType.LPStr)] char[] layoutEngine);
 
         /// <summary>
         ///     Releases the resources used by a layout.
@@ -94,7 +94,7 @@ namespace Abbotware.Interop.Graphviz.Native.GvcDll
         /// <returns>value indicating success or failure</returns>
         [DllImport(NativeMethods.LIB_GVC, CallingConvention = CallingConvention.Cdecl, SetLastError = true, CharSet = CharSet.Ansi, ThrowOnUnmappableChar = true, BestFitMapping = false)]
         [DefaultDllImportSearchPaths(DllImportSearchPath.UserDirectories)]
-        public static extern int gvRenderFilename(GraphvizContextSafeHandle graphVizContextPtr, GraphSafeHandle graphPtr, [MarshalAs(UnmanagedType.LPStr)] string imageFormat, string outputFilePath);
+        public static extern int gvRenderFilename(GraphvizContextSafeHandle graphVizContextPtr, GraphSafeHandle graphPtr, [MarshalAs(UnmanagedType.LPStr)] char[] imageFormat, [MarshalAs(UnmanagedType.LPStr)] char[] outputFilePath);
 
         /// <summary>
         ///     Renders a graph in memory.
@@ -107,6 +107,6 @@ namespace Abbotware.Interop.Graphviz.Native.GvcDll
         /// <returns>value indicating success or failure</returns>
         [DllImport(NativeMethods.LIB_GVC, CallingConvention = CallingConvention.Cdecl, SetLastError = true, CharSet = CharSet.Ansi, ThrowOnUnmappableChar = true, BestFitMapping = false)]
         [DefaultDllImportSearchPaths(DllImportSearchPath.UserDirectories)]
-        public static extern int gvRenderData(GraphvizContextSafeHandle graphVizContextPtr, GraphSafeHandle graphPtr, [MarshalAs(UnmanagedType.LPStr)] string imageFormat, out IntPtr renderDataResultPtr, out uint renderDataLength);
+        public static extern int gvRenderData(GraphvizContextSafeHandle graphVizContextPtr, GraphSafeHandle graphPtr, [MarshalAs(UnmanagedType.LPStr)] char[] imageFormat, out IntPtr renderDataResultPtr, out uint renderDataLength);
     }
 }

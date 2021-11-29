@@ -39,7 +39,7 @@ namespace Abbotware.Interop.Graphviz.Api
 
             this.InitializeIfRequired();
 
-            var graphHandle = NativeMethods.agmemread(graphData);
+            var graphHandle = NativeMethods.agmemread(graphData.ToCharArray());
 
             this.Logger.Debug("agmemread('{0:20}'...):{1}", graphData, graphHandle);
 

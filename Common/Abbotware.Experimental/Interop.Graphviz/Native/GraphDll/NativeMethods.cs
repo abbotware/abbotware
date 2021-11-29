@@ -53,7 +53,7 @@ namespace Abbotware.Interop.Graphviz.GraphDll
         /// <returns>pointer to the unmanaged graph object</returns>
         [DllImport(LIB_GRAPH, CallingConvention = CallingConvention.Cdecl, SetLastError = true, CharSet = CharSet.Ansi, ThrowOnUnmappableChar = true, BestFitMapping = false)]
         [DefaultDllImportSearchPaths(DllImportSearchPath.UserDirectories)]
-        public static extern GraphSafeHandle agmemread([MarshalAs(UnmanagedType.LPStr)] string graphData);
+        public static extern GraphSafeHandle agmemread([MarshalAs(UnmanagedType.LPStr)] char[] graphData);
 
         ////TODO: change IntPtr to a GraphvizContextHandle : SafeHandle
 
