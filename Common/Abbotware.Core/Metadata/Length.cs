@@ -37,9 +37,14 @@ namespace Abbotware.Core.Metadata
         public const int Country = 50;
 
         /// <summary>
+        /// Domain Name Length
+        /// </summary>
+        public const int DomainName = 255;
+
+        /// <summary>
         /// Url Length
         /// </summary>
-        public const int Url = 150;
+        public const int Url = 2000;
 
         /// <summary>
         /// Phone Length

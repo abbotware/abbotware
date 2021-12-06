@@ -21,7 +21,7 @@ namespace Abbotware.Interop.EodHistoricalData.Models
     public record EtfData(
           [property: MaxLength(50)] string? Isin,
           [property: MaxLength(Length.CompanyName), JsonProperty("Company_Name")] string? CompanyName,
-          [property: MaxLength(Length.Website), JsonProperty("Company_URL")] string? CompanyUrl,
+          [property: MaxLength(Length.DomainName), JsonProperty("Company_URL")] string? CompanyUrl,
           [property: MaxLength(Length.Url), JsonProperty("ETF_URL")] string? EtfUrl,
           double? Yield,
           [property: JsonProperty("Dividend_Paying_Frequency")] string? DividendPayingFrequency,
