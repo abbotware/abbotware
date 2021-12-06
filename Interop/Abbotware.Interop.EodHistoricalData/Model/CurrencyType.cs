@@ -60,6 +60,10 @@ namespace Abbotware.Interop.EodHistoricalData.Models
         MOP,
         GEL,
         BDT,
+        MAD,
+        PGK,
+        NGN,
+        KZT,
 #pragma warning restore SA1602 // Enumeration items should be documented
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     }

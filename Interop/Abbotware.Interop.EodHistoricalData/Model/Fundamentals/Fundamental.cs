@@ -7,6 +7,7 @@
 namespace Abbotware.Interop.EodHistoricalData.Models
 {
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using Abbotware.Interop.Newtonsoft.Plugins;
     using global::Newtonsoft.Json;
 
@@ -102,10 +103,7 @@ namespace Abbotware.Interop.EodHistoricalData.Models
         /// <summary>
         /// Gets the Components Data for the instrument
         /// </summary>
-        public Components? Components { get; init; }
-    }
-
-    public class Components
-    {
+        [JsonConverter(typeof(DictionaryFlattener<int, Component>))]
+        public IReadOnlyCollection<Component>? Components { get; init; }
     }
 }

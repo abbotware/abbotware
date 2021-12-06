@@ -105,6 +105,11 @@ namespace Abbotware.Interop.EodHistoricalData
                 {
                     result = result with { Response = result.Response with { General = result.Response.General with { Exchange = string.Empty } } };
                 }
+
+                if (result!.Response!.General!.Name == null)
+                {
+                    result = result with { Response = result.Response with { General = result.Response.General with { Name = string.Empty } } };
+                }
             }
 
             return result;

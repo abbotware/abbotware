@@ -21,7 +21,7 @@ namespace Abbotware.Interop.EodHistoricalData.Models
     public record EtfData(
           [property: MaxLength(50)] string? Isin,
           [property: MaxLength(Length.CompanyName), JsonProperty("Company_Name")] string? CompanyName,
-          [property: MaxLength(Length.Url), JsonProperty("Company_URL")] string? CompanyUrl,
+          [property: MaxLength(Length.Website), JsonProperty("Company_URL")] string? CompanyUrl,
           [property: MaxLength(Length.Url), JsonProperty("ETF_URL")] string? EtfUrl,
           double? Yield,
           [property: JsonProperty("Dividend_Paying_Frequency")] string? DividendPayingFrequency,
@@ -34,7 +34,9 @@ namespace Abbotware.Interop.EodHistoricalData.Models
           decimal? TotalAssets,
           [property: MaxLength(20), JsonProperty("Average_Mkt_Cap_Mil")] string? AverageMktCapMil,
           [property: JsonProperty("Holdings_Count")] int? HoldingsCount,
-          [property: JsonConverter(typeof(BetterDateTimeConverter))] DateTimeOffset? UpdatedAt)
+          [property: JsonConverter(typeof(BetterDateTimeConverter))] DateTimeOffset? UpdatedAt,
+          [property: MaxLength(200)] string? Domicile,
+          [property: MaxLength(200), JsonProperty("Index_Name")] string? IndexName)
     {
         /// <summary>
         /// Gets the Market Capitalisation data
@@ -111,6 +113,34 @@ namespace Abbotware.Interop.EodHistoricalData.Models
      [property: MaxLength(25)] string? Small,
      [property: MaxLength(25)] string? Micro)
     {
+        /// <summary>
+        /// Gets the Alias for Mega
+        /// </summary>
+        [JsonProperty("Géantes")]
+        [NotMapped]
+        [Obsolete("Do not use, only exists for alias mapping")]
+        public string? Giantes { get => this.Mega; init => this.Mega = value; }
+
+        /// <summary>
+        /// Gets the Alias for Big
+        /// </summary>
+        [NotMapped]
+        [Obsolete("Do not use, only exists for alias mapping")]
+        public string? Grandes { get => this.Big; init => this.Big = value; }
+
+        /// <summary>
+        /// Gets the Alias for Medium
+        /// </summary>
+        [NotMapped]
+        [Obsolete("Do not use, only exists for alias mapping")]
+        public string? Moyennes { get => this.Medium; init => this.Medium = value; }
+
+        /// <summary>
+        /// Gets the Alias for Mega
+        /// </summary>
+        [NotMapped]
+        [Obsolete("Do not use, only exists for alias mapping")]
+        public string? Petites { get => this.Small; init => this.Small = value; }
     }
 
     /// <summary>

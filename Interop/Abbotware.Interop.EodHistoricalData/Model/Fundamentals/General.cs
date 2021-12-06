@@ -55,7 +55,8 @@ namespace Abbotware.Interop.EodHistoricalData.Models
         [property: JsonProperty("Fund_Category"), MaxLength(50)] string? FundCategory,
         [property: JsonProperty("Fund_Style"), MaxLength(50)] string? FundStyle,
         [property: JsonProperty("Fiscal_Year_End"), MaxLength(50)] string? FundFiscalYearEnd,
-        [property: JsonProperty("MarketCapitalization")] double? FundMarketCapitalization)
+        [property: JsonProperty("MarketCapitalization")] double? FundMarketCapitalization,
+        [property: JsonConverter(typeof(BetterDateTimeConverter))] DateTimeOffset? DelistedDate)
     {
         /// <summary>
         /// Gets the Address data
