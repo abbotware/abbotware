@@ -3,7 +3,11 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
     <Description>Abbotware Interop Library for the Windows Operating System - Contains helper methods, extension methods, and plugins</Description>
-    <PackageTags>Linux</PackageTags>
+    <PackageTags>Win32 API</PackageTags>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>

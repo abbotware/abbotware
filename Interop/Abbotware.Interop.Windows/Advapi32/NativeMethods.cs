@@ -33,9 +33,9 @@ namespace Abbotware.Interop.Windows.Advapi32
         [return: MarshalAs(UnmanagedType.Bool)]
         [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
         internal static extern bool LogonUser(
-            [MarshalAs(UnmanagedType.LPStr)] string username,
-            [MarshalAs(UnmanagedType.LPStr)] string domain,
-            [MarshalAs(UnmanagedType.LPStr)] string password,
+            [MarshalAs(UnmanagedType.LPStr)] char[] username,
+            [MarshalAs(UnmanagedType.LPStr)] char[]? domain,
+            [MarshalAs(UnmanagedType.LPStr)] char[] password,
             LogOnType logonType,
             LogOnProviderType logonProvider,
             out AccessControlToken token);

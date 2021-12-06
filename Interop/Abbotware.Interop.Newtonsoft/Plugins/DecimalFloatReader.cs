@@ -78,8 +78,11 @@ namespace Abbotware.Interop.Newtonsoft.Plugins
                     }
                 }
 
+#if NETSTANDARD2_0
                 strValue = strValue.Replace("%", string.Empty);
-
+#else
+                strValue = strValue.Replace("%", string.Empty, StringComparison.InvariantCultureIgnoreCase);
+#endif
                 if (double.TryParse(strValue, out var parsedDouble))
                 {
                     if (double.IsNaN(parsedDouble) || double.IsInfinity(parsedDouble))

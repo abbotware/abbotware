@@ -22,23 +22,23 @@ namespace Abbotware.Interop.Windows.Advapi32
         /// <summary>
         ///     C# Wrapper for Win32 LogonUser call.  Can be used to impersonate a local or remote user.  This is safe to call
         /// </summary>
-        /// <param name="userName">username to authenticate with</param>
+        /// <param name="user">username to authenticate with</param>
         /// <param name="domain">domain to authenticate with</param>
         /// <param name="password">plaintext password to authenticate with</param>
         /// <param name="logOnType">Win32 Logon Type to use</param>
         /// <param name="logOnProvider">Win32 Logon Provider to use</param>
         /// <returns>LogonToken wrapped in a SafeHandle</returns>
         public static AccessControlToken LogonUser(
-            string userName,
-            string domain,
+            string user,
+            string? domain,
             string password,
             LogOnType logOnType,
             LogOnProviderType logOnProvider)
         {
-            Arguments.NotNullOrWhitespace(userName, nameof(userName));
-            Arguments.NotNullOrWhitespace(password, nameof(password));
+            user = Arguments.EnsureNotNullOrWhitespace(user, nameof(user));
+            password = Arguments.EnsureNotNullOrWhitespace(password, nameof(password));
 
-            if (!NativeMethods.LogonUser(userName, domain, password, logOnType, logOnProvider, out var token))
+            if (!NativeMethods.LogonUser(user.ToCharArray(), domain?.ToCharArray(), password.ToCharArray(), logOnType, logOnProvider, out var token))
             {
                 var errorInfo = Marshal.GetLastWin32Error();
 

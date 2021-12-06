@@ -22,7 +22,6 @@ namespace Abbotware.ShellCommand
     /// <summary>
     /// class the can run a shell command
     /// </summary>
-    /// <typeparam name="TOptions">options type</typeparam>
     public partial class AbbotwareShellCommand<TOptions> : BaseCommand<TOptions, IExitInfo>, IShellCommand
         where TOptions : class, IShellCommandOptions
     {

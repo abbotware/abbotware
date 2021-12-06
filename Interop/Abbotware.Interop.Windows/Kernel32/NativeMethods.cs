@@ -60,7 +60,7 @@ namespace Abbotware.Interop.Windows.Kernel32
         [DllImport(LIB_KERNEL32, CallingConvention = CallingConvention.StdCall, SetLastError = true, CharSet = CharSet.Ansi, BestFitMapping = false, ThrowOnUnmappableChar = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
-        internal static extern bool SetDllDirectory([MarshalAs(UnmanagedType.LPStr)] string path);
+        internal static extern bool SetDllDirectory([MarshalAs(UnmanagedType.LPStr)] char[]? path);
 
         /// <summary>
         ///     Retrieves information about the system's current usage of both physical and virtual memory.

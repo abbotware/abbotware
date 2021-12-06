@@ -65,9 +65,9 @@ namespace Abbotware.Interop.Windows.Kernel32
         /// <param name="path">path to add to dll search Directory</param>
         public static void SetDllDirectory(string path)
         {
-            Arguments.NotNullOrWhitespace(path, nameof(path));
+            path = Arguments.EnsureNotNullOrWhitespace(path, nameof(path));
 
-            if (!NativeMethods.SetDllDirectory(path))
+            if (!NativeMethods.SetDllDirectory(path.ToCharArray()))
             {
                 throw new Win32Exception(Marshal.GetLastWin32Error(), "unable to Set Dll Directory");
             }
@@ -77,7 +77,6 @@ namespace Abbotware.Interop.Windows.Kernel32
         ///     Retrieves information about the system's current usage of both physical and virtual memory.
         /// </summary>
         /// <returns>memory status ex object</returns>
-        [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "GlobalMemoryStatusEx", Justification = "Matching Win32 Name Specificiation")]
         [SuppressMessage("Microsoft.Naming", "CA1711:IdentifiersShouldNotHaveIncorrectSuffix", Justification = "Matching Win32 Name Specificiation")]
         public static MemoryStatusEx GlobalMemoryStatusEx()
         {
@@ -97,7 +96,6 @@ namespace Abbotware.Interop.Windows.Kernel32
         ///     Causes the calling thread to yield execution to another thread that is ready to run on the current processor. The
         ///     operating system selects the next thread to be executed.
         /// </summary>
-        [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "SwitchToThread", Justification = "This is name of the Windows Native API")]
         public static void SwitchToThread()
         {
             if (!NativeMethods.SwitchToThread())
