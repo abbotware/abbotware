@@ -118,7 +118,7 @@ namespace Abbotware.Core.Plugins
         /// </summary>
         /// <param name="value">object to convert to string</param>
         /// <returns>string representation of object value</returns>
-        private static string MakeValueCsvFriendly(object value)
+        private static string MakeValueCsvFriendly(object? value)
         {
             if (value == null)
             {

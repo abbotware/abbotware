@@ -237,7 +237,9 @@ namespace Abbotware.Core.ExtensionPoints
             {
                 if (Volatile.Read(ref this.shuttingDown))
                 {
+#if NETSTANDARD2_1
                     Thread.CurrentThread.Abort();
+#endif
                 }
                 else
                 {

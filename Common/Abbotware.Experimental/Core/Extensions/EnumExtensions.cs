@@ -38,7 +38,7 @@ namespace Abbotware.Core.Extensions
                 return enumeration.ToString();
             }
 
-            return a.Value;
+            return a.Value ?? string.Empty;
         }
 
         /// <summary>

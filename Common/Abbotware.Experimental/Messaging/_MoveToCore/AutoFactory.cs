@@ -55,7 +55,7 @@ namespace Abbotware.Core
             {
                 this.ThrowIfReturned();
 
-                this.value.TryGetTarget(out TDisposable target);
+                this.value.TryGetTarget(out TDisposable? target);
 
                 if (target == null)
                 {

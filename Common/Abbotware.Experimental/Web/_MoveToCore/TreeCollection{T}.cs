@@ -109,7 +109,7 @@ namespace Abbotware.Core.Collections
         /// <inheritdoc cref="object" />
         public override string ToString()
         {
-            return this.Data != null ? this.Data.ToString() : "[data null]";
+            return this.Data?.ToString() ?? "[data null]";
         }
 
         /// <summary>

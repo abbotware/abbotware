@@ -22,7 +22,7 @@ namespace Abbotware.Core.Messaging.Amqp.Plugins
         /// <inheritdoc />
         public Type Decode(IMessageEnvelope storage)
         {
-            Arguments.NotNull(storage, nameof(storage));
+            storage = Arguments.EnsureNotNull(storage, nameof(storage));
 
             if (string.IsNullOrWhiteSpace(storage.PublishProperties.RoutingKey))
             {
@@ -44,10 +44,10 @@ namespace Abbotware.Core.Messaging.Amqp.Plugins
         /// <inheritdoc />
         public void Encode(Type value, MessageEnvelope storage)
         {
-            Arguments.NotNull(value, nameof(value));
-            Arguments.NotNull(storage, nameof(storage));
+            value = Arguments.EnsureNotNull(value, nameof(value));
+            storage = Arguments.EnsureNotNull(storage, nameof(storage));
 
-            storage.PublishProperties.RoutingKey = value.AssemblyQualifiedName;
+            storage.PublishProperties.RoutingKey = value.AssemblyQualifiedName ?? string.Empty;
         }
     }
 }

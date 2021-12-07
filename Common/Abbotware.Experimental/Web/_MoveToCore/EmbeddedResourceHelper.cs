@@ -38,7 +38,7 @@ namespace Abbotware.Core.Helpers
 
             lock (EmbeddedResourceHelper.Modules)
             {
-                if (!EmbeddedResourceHelper.Modules.TryGetValue(uppercase, out Assembly module))
+                if (!EmbeddedResourceHelper.Modules.TryGetValue(uppercase, out Assembly? module))
                 {
                     module = Assembly.Load(moduleName);
                     EmbeddedResourceHelper.Modules[uppercase] = module;
@@ -61,7 +61,10 @@ namespace Abbotware.Core.Helpers
 
             lock (EmbeddedResourceHelper.Modules)
             {
-                EmbeddedResourceHelper.Modules.TryGetValue(uppercase, out Assembly module);
+                if (!EmbeddedResourceHelper.Modules.TryGetValue(uppercase, out Assembly? module))
+                {
+                    throw new KeyNotFoundException("uppercase");
+                }
 
                 return module;
             }
@@ -176,7 +179,7 @@ namespace Abbotware.Core.Helpers
 
             var resource = EmbeddedResourceHelper.NormalizeFullPath(FormattableString.Invariant($"{assemblyName}/{resourcePath}"));
 
-            Stream stream = assembly.GetManifestResourceStream(resource);
+            Stream? stream = assembly.GetManifestResourceStream(resource);
 
             if (stream == null)
             {

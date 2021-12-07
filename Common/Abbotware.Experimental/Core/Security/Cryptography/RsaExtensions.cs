@@ -168,8 +168,10 @@ namespace Abbotware.Core.Cryptography
         /// <param name="original">The buffer of data that will be turned into an integer</param>
         /// <param name="addMarker">If true, a marker will get added as the high-order digit of the resulting value</param>
         /// <returns>A structure that represents a very large integer value</returns>
-        private static BigInteger ToBigInteger(this byte[] original, bool addMarker = false)
+        private static BigInteger ToBigInteger(this byte[]? original, bool addMarker = false)
         {
+            original = Arguments.EnsureNotNull(original, nameof(original));
+
             // We reverse the byte array to make the data little-endian based due to
             // the requirements of the System.Numerics.BigInteger structure. Then we
             // insert a positive-value marker at the high-order position of the data

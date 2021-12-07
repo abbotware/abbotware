@@ -185,6 +185,8 @@ namespace Abbotware.Core.Data.ExtensionPoints.Text
             {
                 var parsed = this.boolConverter.ConvertFrom(text);
 
+                parsed = Arguments.EnsureNotNull(parsed, nameof(parsed));
+
                 return (bool)parsed;
             }
             catch
@@ -205,6 +207,8 @@ namespace Abbotware.Core.Data.ExtensionPoints.Text
             try
             {
                 var parsed = this.guidConverter.ConvertFrom(text);
+
+                parsed = Arguments.EnsureNotNull(parsed, nameof(parsed));
 
                 return (Guid)parsed;
             }
@@ -227,6 +231,8 @@ namespace Abbotware.Core.Data.ExtensionPoints.Text
             try
             {
                 var parsed = Enum.Parse(enumType, text, true);
+
+                parsed = Arguments.EnsureNotNull(parsed, nameof(parsed));
 
                 return parsed;
             }
@@ -269,6 +275,9 @@ namespace Abbotware.Core.Data.ExtensionPoints.Text
             try
             {
                 var parsed = this.ushortConverter.ConvertFrom(text);
+
+                parsed = Arguments.EnsureNotNull(parsed, nameof(parsed));
+
                 return (ushort)parsed;
             }
             catch
@@ -294,6 +303,9 @@ namespace Abbotware.Core.Data.ExtensionPoints.Text
                 }
 
                 var parsed = this.shortConverter.ConvertFrom(text);
+
+                parsed = Arguments.EnsureNotNull(parsed, nameof(parsed));
+
                 return (short)parsed;
             }
             catch (Exception ex)
@@ -314,6 +326,9 @@ namespace Abbotware.Core.Data.ExtensionPoints.Text
             try
             {
                 var parsed = this.intConverter.ConvertFrom(text);
+
+                parsed = Arguments.EnsureNotNull(parsed, nameof(parsed));
+
                 return (int)parsed;
             }
             catch
@@ -334,6 +349,9 @@ namespace Abbotware.Core.Data.ExtensionPoints.Text
             try
             {
                 var parsed = this.uintConverter.ConvertFrom(text);
+
+                parsed = Arguments.EnsureNotNull(parsed, nameof(parsed));
+
                 return (uint)parsed;
             }
             catch
@@ -354,6 +372,9 @@ namespace Abbotware.Core.Data.ExtensionPoints.Text
             try
             {
                 var parsed = this.longConverter.ConvertFrom(text);
+
+                parsed = Arguments.EnsureNotNull(parsed, nameof(parsed));
+
                 return (long)parsed;
             }
             catch
@@ -374,6 +395,9 @@ namespace Abbotware.Core.Data.ExtensionPoints.Text
             try
             {
                 var parsed = this.decimalConverter.ConvertFrom(text);
+
+                parsed = Arguments.EnsureNotNull(parsed, nameof(parsed));
+
                 return (decimal)parsed;
             }
             catch
@@ -394,6 +418,9 @@ namespace Abbotware.Core.Data.ExtensionPoints.Text
             try
             {
                 var parsed = this.dateTimeConverter.ConvertFrom(text);
+
+                parsed = Arguments.EnsureNotNull(parsed, nameof(parsed));
+
                 return (DateTime)parsed;
             }
             catch
@@ -414,6 +441,9 @@ namespace Abbotware.Core.Data.ExtensionPoints.Text
             try
             {
                 var parsed = this.dateTimeOffsetConverter.ConvertFrom(text);
+
+                parsed = Arguments.EnsureNotNull(parsed, nameof(parsed));
+
                 return (DateTimeOffset)parsed;
             }
             catch
@@ -434,6 +464,9 @@ namespace Abbotware.Core.Data.ExtensionPoints.Text
             try
             {
                 var parsed = this.doubleConverter.ConvertFrom(text);
+
+                parsed = Arguments.EnsureNotNull(parsed, nameof(parsed));
+
                 return (double)parsed;
             }
             catch
