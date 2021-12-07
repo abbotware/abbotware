@@ -23,7 +23,7 @@ namespace Abbotware.Core.Collections
         /// <summary>
         ///     Holds synchronization context for callbacks / notification
         /// </summary>
-        private readonly SynchronizationContext localCachedSynchronizationContext;
+        private readonly SynchronizationContext? localCachedSynchronizationContext;
 
         /// <summary>
         ///     Flag used in AddRange to disable batch notification
@@ -129,7 +129,7 @@ namespace Abbotware.Core.Collections
             else
             {
                 // Post the CollectionChanged event on the creator thread
-                this.localCachedSynchronizationContext.Post(this.RaiseCollectionChanged, e);
+                this.localCachedSynchronizationContext?.Post(this.RaiseCollectionChanged, e);
             }
         }
 
@@ -149,7 +149,7 @@ namespace Abbotware.Core.Collections
             else
             {
                 // Post the PropertyChanged event on the creator thread
-                this.localCachedSynchronizationContext.Post(this.RaisePropertyChanged, e);
+                this.localCachedSynchronizationContext?.Post(this.RaisePropertyChanged, e);
             }
         }
 
@@ -157,9 +157,9 @@ namespace Abbotware.Core.Collections
         ///     Internal callback for Posting OnPropertyChanged
         /// </summary>
         /// <param name="param">object parameter</param>
-        private void RaisePropertyChanged(object param)
+        private void RaisePropertyChanged(object? param)
         {
-            Arguments.NotNull(param, nameof(param));
+            param = Arguments.EnsureNotNull(param, nameof(param));
 
             // We are in the creator thread, call the base implementation directly
             base.OnPropertyChanged((PropertyChangedEventArgs)param);
@@ -169,9 +169,9 @@ namespace Abbotware.Core.Collections
         ///     Internal callback for Posting OnCollectionChanged
         /// </summary>
         /// <param name="param">object parameter</param>
-        private void RaiseCollectionChanged(object param)
+        private void RaiseCollectionChanged(object? param)
         {
-            Arguments.NotNull(param, nameof(param));
+            param = Arguments.EnsureNotNull(param, nameof(param));
 
             // We are in the creator thread, call the base implementation directly
             base.OnCollectionChanged((NotifyCollectionChangedEventArgs)param);

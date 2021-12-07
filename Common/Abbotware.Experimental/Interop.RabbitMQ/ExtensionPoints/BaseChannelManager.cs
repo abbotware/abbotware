@@ -148,7 +148,7 @@ namespace Abbotware.Interop.RabbitMQ.ExtensionPoints
         /// </summary>
         /// <param name="sender">source IModel</param>
         /// <param name="eventArgs">event arguments</param>
-        protected virtual void OnBasicAck(object sender, BasicAckEventArgs eventArgs)
+        protected virtual void OnBasicAck(object? sender, BasicAckEventArgs? eventArgs)
         {
             this.Logger.Info($"OnBasicAcks: DeliveryTag:{eventArgs?.DeliveryTag} Multiple:{eventArgs?.Multiple}");
 
@@ -160,7 +160,7 @@ namespace Abbotware.Interop.RabbitMQ.ExtensionPoints
         /// </summary>
         /// <param name="sender">source IModel</param>
         /// <param name="eventArgs">event arguments</param>
-        protected virtual void OnBasicReturn(object sender, BasicReturnEventArgs eventArgs)
+        protected virtual void OnBasicReturn(object? sender, BasicReturnEventArgs? eventArgs)
         {
             this.Logger.Warn($"OnBasicReturn Exchange:{eventArgs?.Exchange} RoutingKey:{eventArgs?.RoutingKey}, ReplyCode:{eventArgs?.ReplyCode} ReplyText:{eventArgs?.ReplyText} BasicProps:[{eventArgs?.BasicProperties?.ToFormatString()}]");
 
@@ -172,7 +172,7 @@ namespace Abbotware.Interop.RabbitMQ.ExtensionPoints
         /// </summary>
         /// <param name="sender">source IModel</param>
         /// <param name="eventArgs">event arguments</param>
-        protected virtual void OnModelShutdown(object sender, ShutdownEventArgs eventArgs)
+        protected virtual void OnModelShutdown(object? sender, ShutdownEventArgs? eventArgs)
         {
             this.Logger.Info("channel_ModelShutdown:{0}", eventArgs);
         }
@@ -182,9 +182,9 @@ namespace Abbotware.Interop.RabbitMQ.ExtensionPoints
         /// </summary>
         /// <param name="sender">source IModel</param>
         /// <param name="eventArgs">event arguments</param>
-        private void OnFlowControl(object sender, FlowControlEventArgs eventArgs)
+        private void OnFlowControl(object? sender, FlowControlEventArgs? eventArgs)
         {
-            this.Logger.Info("OnFlowControl Active:{0}", eventArgs.Active);
+            this.Logger.Info("OnFlowControl Active:{0}", eventArgs?.Active);
         }
 
         /// <summary>
@@ -192,9 +192,9 @@ namespace Abbotware.Interop.RabbitMQ.ExtensionPoints
         /// </summary>
         /// <param name="sender">sender object</param>
         /// <param name="eventArgs">event arguments</param>
-        private void OnCallbackException(object sender, CallbackExceptionEventArgs eventArgs)
+        private void OnCallbackException(object? sender, CallbackExceptionEventArgs? eventArgs)
         {
-            this.Logger.Error("OnCallbackException Detail:{0} Exception:{1}", eventArgs.Detail.StringFormat(), eventArgs.Exception);
+            this.Logger.Error("OnCallbackException Detail:{0} Exception:{1}", eventArgs?.Detail?.StringFormat(), eventArgs?.Exception);
         }
 
         /// <summary>
@@ -202,7 +202,7 @@ namespace Abbotware.Interop.RabbitMQ.ExtensionPoints
         /// </summary>
         /// <param name="sender">sender IModel</param>
         /// <param name="eventArgs">event arguments</param>
-        private void OnBasicRecoverOk(object sender, EventArgs eventArgs)
+        private void OnBasicRecoverOk(object? sender, EventArgs? eventArgs)
         {
             this.Logger.Info("OnBasicRecoverOk");
         }
@@ -212,9 +212,9 @@ namespace Abbotware.Interop.RabbitMQ.ExtensionPoints
         /// </summary>
         /// <param name="sender">source IModel</param>
         /// <param name="eventArgs">event arguments</param>
-        private void OnBasicNack(object sender, BasicNackEventArgs eventArgs)
+        private void OnBasicNack(object? sender, BasicNackEventArgs? eventArgs)
         {
-            this.Logger.Warn("OnBasicNacks: DeliveryTag:{0} Multiple:{1} Requeue:{2}", eventArgs.DeliveryTag, eventArgs.Multiple, eventArgs.Requeue);
+            this.Logger.Warn("OnBasicNacks: DeliveryTag:{0} Multiple:{1} Requeue:{2}", eventArgs?.DeliveryTag, eventArgs?.Multiple, eventArgs?.Requeue);
         }
     }
 }

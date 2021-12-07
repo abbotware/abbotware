@@ -209,7 +209,7 @@ namespace Abbotware.Interop.LumenWorks
                     propertyType = Nullable.GetUnderlyingType(property.PropertyType);
                 }
 
-                if (propertyType.IsEnum)
+                if (propertyType!.IsEnum)
                 {
                     columnType = "Enum";
                 }

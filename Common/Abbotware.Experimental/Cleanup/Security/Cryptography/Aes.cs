@@ -17,6 +17,7 @@ namespace Abbotware.Core.Security.Cryptography
     /// <summary>
     ///     Class that can Aes encrype/decrypt data
     /// </summary>
+    [Obsolete("uses RijndaelManaged which is obsolete")]
     public class Aes : BaseComponent
     {
         /// <summary>

@@ -117,7 +117,7 @@ namespace Abbotware.Core.Collections
         /// </summary>
         /// <param name="predicate">search predicate</param>
         /// <returns>tree node (if any)</returns>
-        public TreeCollection<T> FirstOrDefault(Func<T, bool> predicate)
+        public TreeCollection<T>? FirstOrDefault(Func<T, bool> predicate)
         {
             return this.NodeIndex.FirstOrDefault(x => predicate(x.Data));
         }

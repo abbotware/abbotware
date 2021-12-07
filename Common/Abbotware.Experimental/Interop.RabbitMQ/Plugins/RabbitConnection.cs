@@ -223,7 +223,7 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
         /// </summary>
         /// <param name="sender">sender object</param>
         /// <param name="eventArgs">event arguments</param>
-        private void OnConnectionUnblocked(object sender, EventArgs eventArgs)
+        private void OnConnectionUnblocked(object? sender, EventArgs? eventArgs)
         {
             this.Logger.Info("OnConnectionBlocked Sender:{0} Args:{1} ", sender, eventArgs);
         }
@@ -233,9 +233,9 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
         /// </summary>
         /// <param name="sender">sender object</param>
         /// <param name="eventArgs">event arguments</param>
-        private void OnConnectionBlocked(object sender, ConnectionBlockedEventArgs eventArgs)
+        private void OnConnectionBlocked(object? sender, ConnectionBlockedEventArgs? eventArgs)
         {
-            this.Logger.Info("OnConnectionBlocked Sender:{0} Reason:{1} ", sender, eventArgs.Reason);
+            this.Logger.Info("OnConnectionBlocked Sender:{0} Reason:{1} ", sender, eventArgs?.Reason);
         }
 
         /// <summary>
@@ -243,9 +243,9 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
         /// </summary>
         /// <param name="sender">sender object</param>
         /// <param name="eventArgs">event arguments</param>
-        private void OnConnectionShutdown(object sender, ShutdownEventArgs eventArgs)
+        private void OnConnectionShutdown(object? sender, ShutdownEventArgs? eventArgs)
         {
-            this.Logger.Info("OnConnectionShutdown Sender:{0} Cause:{1} ClassId:{2}, Initiator:{3} Method Id:{4} Reply Code:{5}, Reply Text:{6}", sender, eventArgs.Cause, eventArgs.ClassId, eventArgs.Initiator, eventArgs.MethodId, eventArgs.ReplyCode, eventArgs.ReplyText);
+            this.Logger.Info("OnConnectionShutdown Sender:{0} Cause:{1} ClassId:{2}, Initiator:{3} Method Id:{4} Reply Code:{5}, Reply Text:{6}", sender, eventArgs?.Cause, eventArgs?.ClassId, eventArgs?.Initiator, eventArgs?.MethodId, eventArgs?.ReplyCode, eventArgs?.ReplyText);
         }
 
         /// <summary>
@@ -253,9 +253,9 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
         /// </summary>
         /// <param name="sender">sender object</param>
         /// <param name="eventArgs">event arguments</param>
-        private void OnCallbackException(object sender, CallbackExceptionEventArgs eventArgs)
+        private void OnCallbackException(object? sender, CallbackExceptionEventArgs? eventArgs)
         {
-            this.Logger.Error("OnCallbackException Sender:{0} Detail:{1} Exception:{2}", sender, eventArgs.Detail.StringFormat(), eventArgs.Exception);
+            this.Logger.Error("OnCallbackException Sender:{0} Detail:{1} Exception:{2}", sender, eventArgs?.Detail?.StringFormat(), eventArgs?.Exception);
         }
     }
 }

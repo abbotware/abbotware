@@ -25,13 +25,13 @@ namespace Abbotware.Core.Extensions
         /// <param name="enumeration">enum value</param>
         /// <returns>value or enum</returns>
         public static string GetEnumMemberValue<T>(this T enumeration)
-            where T : struct
+            where T : notnull, Enum
         {
             var t = GetEnumTypeOrThrow<T>();
 
             var fi = t.GetField(enumeration.ToString());
 
-            var a = fi.GetCustomAttribute<EnumMemberAttribute>(false);
+            var a = fi?.GetCustomAttribute<EnumMemberAttribute>(false);
 
             if (a == null)
             {
@@ -48,7 +48,7 @@ namespace Abbotware.Core.Extensions
         /// <param name="enumeration">enum value</param>
         /// <returns>description or enum</returns>
         public static string GetDescription<T>(this T enumeration)
-            where T : struct
+            where T : notnull, Enum
         {
             var t = GetEnumTypeOrThrow<T>();
 
@@ -71,7 +71,7 @@ namespace Abbotware.Core.Extensions
         }
 
         private static Type GetEnumTypeOrThrow<T>()
-            where T : struct
+            where T : notnull, Enum
         {
             var t = typeof(T);
 

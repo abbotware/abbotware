@@ -160,7 +160,7 @@ namespace Abbotware.Core.Plugins
                 return result;
             }
 
-            var output = value.ToString();
+            var output = value.ToString() ?? string.Empty;
 
 #if NETSTANDARD2_0
             if (output.Contains("\""))

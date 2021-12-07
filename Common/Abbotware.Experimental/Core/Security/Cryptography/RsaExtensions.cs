@@ -10,6 +10,7 @@ namespace Abbotware.Core.Cryptography
     using System;
     using System.Linq;
     using System.Numerics;
+    using System.Runtime.Versioning;
     using System.Security.Cryptography;
 
     /// <summary>
@@ -114,8 +115,8 @@ namespace Abbotware.Core.Cryptography
         /// <returns>original data</returns>
         public static byte[] DecryptUsingPublicKey(RSA rsa, byte[] cypherData)
         {
-            Arguments.NotNull(rsa, nameof(rsa));
-            Arguments.NotNull(cypherData, nameof(cypherData));
+            rsa = Arguments.EnsureNotNull(rsa, nameof(rsa));
+            cypherData = Arguments.EnsureNotNull(cypherData, nameof(cypherData));
 
             if (cypherData.Length > ((rsa.KeySize / 8) + 1))
             {
@@ -146,7 +147,10 @@ namespace Abbotware.Core.Cryptography
         /// </summary>
         /// <param name="containerName">RSA key container name</param>
         /// <returns>RSA container</returns>
-        public static RSACryptoServiceProvider GetRsaServiceProvider(string containerName)
+#if NET5_0_OR_GREATER
+        [SupportedOSPlatform("windows")]
+#endif
+        public static RSACryptoServiceProvider GetRsaServiceProvider(string? containerName)
         {
             CspParameters cspParams = new()
             {

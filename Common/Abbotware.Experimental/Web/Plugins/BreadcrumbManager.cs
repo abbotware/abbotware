@@ -100,31 +100,29 @@ namespace Abbotware.Core.Web.Plugins
                 return;
             }
 
-            var a = child.Attributes.GetNamedItem("Action");
-            var c = child.Attributes.GetNamedItem("Controller");
-            var f = child.Attributes.GetNamedItem("Fragment");
-            var t = child.Attributes.GetNamedItem("Text");
-            var type = child.Attributes.GetNamedItem("Type")?.Value;
+            var a = child.Attributes?.GetNamedItem("Action");
+            var c = child.Attributes?.GetNamedItem("Controller");
+            var f = child.Attributes?.GetNamedItem("Fragment");
+            var t = child.Attributes?.GetNamedItem("Text");
+            var type = child.Attributes?.GetNamedItem("Type")?.Value;
 
             if (a == null || c == null || t == null)
             {
                 throw new XmlException("BreadCrumb node must contain 'Controller', 'Action', and 'Text' attributes");
             }
 
-            Breadcrumb node;
+            Breadcrumb node = new Breadcrumb();
 
-            if (type.IsBlank())
+            if (type.IsNotBlank())
             {
-                node = new Breadcrumb();
-            }
-            else
-            {
-                node = (Breadcrumb)this.serviceProvider.GetService(Type.GetType(type));
+                var actualType = Type.GetType(type);
+
+                node = (Breadcrumb)this.serviceProvider.GetService(actualType!)!;
             }
 
-            node.Action = a.Value;
-            node.Controller = c.Value;
-            node.Text = t.Value;
+            node.Action = a.Value ?? string.Empty;
+            node.Controller = c.Value ?? string.Empty;
+            node.Text = t.Value ?? string.Empty;
             node.Fragment = f?.Value ?? string.Empty;
 
             tree = tree == null ? (this.root = new TreeCollection<Breadcrumb>(node)) : tree.AddChild(node);

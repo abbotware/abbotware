@@ -162,6 +162,7 @@ namespace Abbotware.Core.Collections
                 //-------------------------------------------------------------
                 //  The active workers are not allowed to dispose themselves
                 //-------------------------------------------------------------
+#if NETSTANDARD2_1
                 if (!this.activeWorkers.Any(worker => worker == Thread.CurrentThread))
                 {
                     foreach (var worker in this.activeWorkers)
@@ -172,6 +173,7 @@ namespace Abbotware.Core.Collections
                         }
                     }
                 }
+#endif
             }
 
             base.Dispose(disposing);
@@ -182,9 +184,9 @@ namespace Abbotware.Core.Collections
         /// </summary>
         /// <param name="argument">worker thread argument </param>
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "review, bottom of stack")]
-        private void ThreadStart(object argument)
+        private void ThreadStart(object? argument)
         {
-            Arguments.NotNull(argument, nameof(argument));
+            argument = Arguments.EnsureNotNull(argument, nameof(argument));
 
             var worker_id = (int)argument;
 

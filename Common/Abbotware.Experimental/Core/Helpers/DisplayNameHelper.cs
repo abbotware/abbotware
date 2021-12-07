@@ -24,7 +24,7 @@ namespace Abbotware.Core.Helpers
         /// <param name="value">value of enum</param>
         /// <returns>enum as string, or display name valule</returns>
         public static string GetDisplayName<TEnum>(TEnum? value)
-            where TEnum : struct
+            where TEnum : notnull, Enum
         {
             if (value == null)
             {
@@ -44,18 +44,6 @@ namespace Abbotware.Core.Helpers
                 .First()
                 .GetCustomAttribute<DisplayAttribute>()
                 ?.GetName() ?? valueString;
-        }
-
-        /// <summary>
-        /// Gets the display name value of the enum
-        /// </summary>
-        /// <typeparam name="TEnum">Enum type</typeparam>
-        /// <param name="value">value of enum</param>
-        /// <returns>enum as string, or display name value</returns>
-        public static string GetDisplayName<TEnum>(TEnum value)
-            where TEnum : struct
-        {
-            return GetDisplayName((TEnum?)value);
         }
     }
 }

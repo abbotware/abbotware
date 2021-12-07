@@ -32,7 +32,7 @@ namespace Abbotware.Core.Helpers
         /// <returns>The retrieved module containing resources</returns>
         public static Assembly GetResourceModule(string moduleName)
         {
-            Arguments.NotNull(moduleName, nameof(moduleName));
+            moduleName = Arguments.EnsureNotNull(moduleName, nameof(moduleName));
 
             var uppercase = moduleName.ToUpperInvariant();
 
@@ -55,7 +55,7 @@ namespace Abbotware.Core.Helpers
         /// <returns>The retrieved module containing resources</returns>
         public static Assembly GetCachedResourceModule(string moduleName)
         {
-            Arguments.NotNull(moduleName, nameof(moduleName));
+            moduleName = Arguments.EnsureNotNull(moduleName, nameof(moduleName));
 
             var uppercase = moduleName.ToUpperInvariant();
 
@@ -170,9 +170,9 @@ namespace Abbotware.Core.Helpers
         /// <returns>byte stream</returns>
         public static Stream GetResourceStream(Assembly assembly, string assemblyName, string resourcePath)
         {
-            Arguments.NotNull(assembly, nameof(assembly));
-            Arguments.NotNullOrWhitespace(assemblyName, nameof(assemblyName));
-            Arguments.NotNullOrWhitespace(resourcePath, nameof(resourcePath));
+            assembly = Arguments.EnsureNotNull(assembly, nameof(assembly));
+            assemblyName = Arguments.EnsureNotNullOrWhitespace(assemblyName, nameof(assemblyName));
+            resourcePath = Arguments.EnsureNotNullOrWhitespace(resourcePath, nameof(resourcePath));
 
             var resource = EmbeddedResourceHelper.NormalizeFullPath(FormattableString.Invariant($"{assemblyName}/{resourcePath}"));
 

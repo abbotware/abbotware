@@ -221,7 +221,7 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
         }
 
         /// <inheritdoc />
-        protected override void OnBasicReturn(object sender, BasicReturnEventArgs eventArgs)
+        protected override void OnBasicReturn(object? sender, BasicReturnEventArgs? eventArgs)
         {
             eventArgs = Arguments.EnsureNotNull(eventArgs, nameof(eventArgs));
 
@@ -279,7 +279,7 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
         }
 
         /// <inheritdoc />
-        protected override void OnBasicAck(object sender, BasicAckEventArgs eventArgs)
+        protected override void OnBasicAck(object? sender, BasicAckEventArgs? eventArgs)
         {
             eventArgs = Arguments.EnsureNotNull(eventArgs, nameof(eventArgs));
 
@@ -328,7 +328,7 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
         }
 
         /// <inheritdoc />
-        protected override void OnModelShutdown(object sender, ShutdownEventArgs eventArgs)
+        protected override void OnModelShutdown(object? sender, ShutdownEventArgs? eventArgs)
         {
             this.Logger.Info("channel_ModelShutdown:{0}", eventArgs);
 

@@ -379,7 +379,7 @@ namespace Abbotware.Core.Workflow.Plugins
                 stateName = string.Empty;
             }
 
-            return (State)this.graph.Vertices.SingleOrDefault(v => string.Equals(v.Name, stateName, StringComparison.OrdinalIgnoreCase));
+            return (State?)this.graph.Vertices.SingleOrDefault(v => string.Equals(v.Name, stateName, StringComparison.OrdinalIgnoreCase));
         }
 
         /// <summary>
