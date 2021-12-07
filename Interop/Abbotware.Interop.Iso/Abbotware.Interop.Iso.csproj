@@ -1,7 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
+    <Nullable>enable</Nullable>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;net6</TargetFrameworks>
     <Description>Abbotware Interop Library for the ISO Codes - Contains helper methods, extension methods, and plugins</Description>
     <PackageTags>ISO;Currency;Country</PackageTags>
   </PropertyGroup>

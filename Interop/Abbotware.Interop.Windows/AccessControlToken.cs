@@ -39,7 +39,6 @@ namespace Abbotware.Interop.Windows
         ///     Method to release the handle
         /// </summary>
         /// <returns>true/false on handle release success</returns>
-        [ReliabilityContract(Consistency.WillNotCorruptState, Cer.MayFail)]
         protected override bool ReleaseHandle()
         {
             return NativeMethods.CloseHandle(this.handle);

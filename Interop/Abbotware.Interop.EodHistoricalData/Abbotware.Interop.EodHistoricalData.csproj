@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <Nullable>enable</Nullable>
     <TargetFrameworks>netstandard2.0;netstandard2.1;net6</TargetFrameworks>
     <Description>Abbotware Interop Library for EOD Historical Data Rest API - Contains helper methods, extension methods, plugins, and models</Description>
     <PackageTags>EOD Historical Data;Rest;</PackageTags>
   </PropertyGroup>
 
   <PropertyGroup>
-    <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
 
