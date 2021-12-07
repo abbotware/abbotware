@@ -348,10 +348,12 @@ namespace Abbotware.Interop.BouncyCastle
         /// </remarks>
         public static byte[]? SimpleDecryptWithPassword(byte[] encryptedMessage, string password, int nonSecretPayloadLength = 0)
         {
+            password = Arguments.EnsureNotNullOrWhitespace(password, nameof(password));
+
             // User Error Checks
-            if (password.IsBlank() || password?.Length < MinPasswordLength)
+            if (password.Length < MinPasswordLength)
             {
-                throw new ArgumentException("Must have a password of at least {MinPasswordLength} characters!", nameof(password));
+                throw new ArgumentException($"Must have a password of at least {MinPasswordLength} characters!", nameof(password));
             }
 
             if (encryptedMessage == null || encryptedMessage.Length == 0)
