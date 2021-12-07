@@ -76,7 +76,8 @@ namespace Abbotware.Interop.EodHistoricalData.Models
            decimal? AccumulatedDepreciation,
            decimal? NetWorkingCapital,
            decimal? NetInvestedCapital,
-           decimal? CommonStockSharesOutstanding)
+           decimal? CommonStockSharesOutstanding,
+           decimal? PropertyPlantAndEquipmentNet)
     {
     }
 }

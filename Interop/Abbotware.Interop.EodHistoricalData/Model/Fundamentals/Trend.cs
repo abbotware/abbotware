@@ -36,7 +36,8 @@ namespace Abbotware.Interop.EodHistoricalData.Models
         double? EpsRevisionsUpLast7days,
         double? EpsRevisionsUpLast30days,
         double? EpsRevisionsDownLast30days,
-        double? EpsRevisionsDownLast90days)
+        double? EpsRevisionsDownLast90days,
+        double? EpsRevisionsDownLast7days)
     {
     }
 }
