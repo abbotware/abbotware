@@ -212,7 +212,7 @@ namespace Abbotware.Core.Collections
                     {
                         done = true;
 
-                        if (!(exception is ThreadAbortException))
+                        if (exception is not ThreadAbortException)
                         {
                             var exception_got_handled = this.OnUnhandledException(worker_id, exception);
                             done = !exception_got_handled;

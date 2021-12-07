@@ -84,7 +84,7 @@ namespace Abbotware.Interop.Aws.Lambda
         /// <param name="context">lambda context</param>
         /// <param name="ct">cancellation token</param>
         /// <returns>return message</returns>
-        protected virtual Task<string> OnSpoolAsync(string input, ILambdaContext context, CancellationToken ct)
+        protected virtual Task<string> OnSpoolAsync(string? input, ILambdaContext? context, CancellationToken ct)
         {
             return Task.FromResult("Spooling up FTL...");
         }
@@ -96,7 +96,7 @@ namespace Abbotware.Interop.Aws.Lambda
         /// <param name="context">lambda context</param>
         /// <param name="ct">cancellation token</param>
         /// <returns>output</returns>
-        protected virtual Task<string> OnLambdaAsync(string input, ILambdaContext context, CancellationToken ct)
+        protected virtual Task<string> OnLambdaAsync(string? input, ILambdaContext? context, CancellationToken ct)
         {
             if (this.Configuration.RunAsConsole)
             {

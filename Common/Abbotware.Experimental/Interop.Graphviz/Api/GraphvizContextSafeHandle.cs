@@ -36,7 +36,6 @@ namespace Abbotware.Interop.Graphviz.Api
         }
 
         /// <inheritdoc />
-        [ReliabilityContract(Consistency.WillNotCorruptState, Cer.MayFail)]
         protected override bool ReleaseHandle()
         {
             var result = NativeMethods.gvFreeContext(this.handle);

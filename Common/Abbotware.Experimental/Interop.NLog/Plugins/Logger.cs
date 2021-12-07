@@ -7,6 +7,7 @@
 namespace Abbotware.Interop.NLog.Plugins
 {
     using System;
+    using System.ComponentModel;
     using Abbotware.Core.Logging;
 
     /// <summary>
@@ -115,35 +116,5 @@ namespace Abbotware.Interop.NLog.Plugins
                 this.Warn(function(parameter));
             }
         }
-
-#if !NETSTANDARD2_0 && !NETSTANDARD2_1
-        /// <inheritdoc/>
-        public void Debug(Exception exception, [Localizable(false)] string message, params object[] args)
-        {
-            this.DebugException(string.Empty, exception);
-            this.Debug(message, args);
-        }
-
-        /// <inheritdoc/>
-        public void Error(Exception exception, [Localizable(false)] string message, params object[] args)
-        {
-            this.ErrorException(string.Empty, exception);
-            this.Error(message, args);
-        }
-
-        /// <inheritdoc/>
-        public void Info(Exception exception, [Localizable(false)] string message, params object[] args)
-        {
-            this.InfoException(string.Empty, exception);
-            this.Info(message, args);
-        }
-
-        /// <inheritdoc/>
-        public void Warn(Exception exception, [Localizable(false)] string message, params object[] args)
-        {
-            this.WarnException(string.Empty, exception);
-            this.Warn(message, args);
-        }
-#endif
     }
 }

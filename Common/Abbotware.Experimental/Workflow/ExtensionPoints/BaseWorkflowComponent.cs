@@ -39,7 +39,7 @@ namespace Abbotware.Core.Workflow.ExtensionPoints
         }
 
         /// <inheritdoc/>
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (!this.ClassPossiblyEquals<BaseWorkflowComponent>(obj, out var other))
             {
@@ -50,7 +50,7 @@ namespace Abbotware.Core.Workflow.ExtensionPoints
         }
 
         /// <inheritdoc />
-        public virtual bool Equals(BaseWorkflowComponent other)
+        public virtual bool Equals(BaseWorkflowComponent? other)
         {
             if (other == null)
             {
