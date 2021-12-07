@@ -84,7 +84,6 @@ namespace Abbotware.Interop.RestSharp
                 }
             }
 
-
             return new RestResponse<TResponse, TError>(response.StatusCode, response.ResponseUri.ToString(), response.Content) with { Response = response.Data };
         }
 
