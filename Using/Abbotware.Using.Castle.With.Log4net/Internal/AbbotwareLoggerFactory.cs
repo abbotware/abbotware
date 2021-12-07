@@ -91,7 +91,7 @@ namespace Abbotware.Using.Castle.Internal
         /// <inheritdoc />
         CastleILogger ILoggerFactory.Create(string name, LoggerLevel level)
         {
-            return (CastleILogger)this.Create(name, level) ;
+            return (CastleILogger)this.Create(name, level);
         }
 
         /// <inheritdoc />

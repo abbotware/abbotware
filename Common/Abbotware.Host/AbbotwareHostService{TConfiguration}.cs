@@ -186,12 +186,12 @@ namespace Abbotware.Host
             return installer;
         }
 
-        private static string? LogSender(object sender)
+        private static string? LogSender(object? sender)
         {
             return sender switch
             {
                 AppDomain ad => $"AppDomain:{ad.FriendlyName}",
-                _ => sender.ToString(),
+                _ => sender!.ToString(),
             };
         }
 
@@ -225,11 +225,11 @@ namespace Abbotware.Host
         /// </summary>
         /// <param name="sender">sender of the exception</param>
         /// <param name="args">exception arguments</param>
-        private void OnFirstChanceException(object sender, FirstChanceExceptionEventArgs args)
+        private void OnFirstChanceException(object? sender, FirstChanceExceptionEventArgs? args)
         {
             try
             {
-                this.Logger.Error(args.Exception, $"FirstChanceException Sender:[{LogSender(sender)}]");
+                this.Logger.Error(args?.Exception!, $"FirstChanceException Sender:[{LogSender(sender)}]");
             }
             catch (Exception ex)
             {
@@ -243,11 +243,11 @@ namespace Abbotware.Host
         /// </summary>
         /// <param name="sender">sender of the exception</param>
         /// <param name="args">exception arguments</param>
-        private void OnUnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs args)
+        private void OnUnobservedTaskException(object? sender, UnobservedTaskExceptionEventArgs? args)
         {
             try
             {
-                this.Logger.Error(args.Exception, $"FirstChanceException Sender:[{LogSender(sender)}] Observered:{args.Observed}");
+                this.Logger.Error(args?.Exception!, $"FirstChanceException Sender:[{LogSender(sender)}] Observered:{args?.Observed}");
             }
             catch (Exception ex)
             {

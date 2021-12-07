@@ -161,7 +161,7 @@ namespace Abbotware.Interop.EntityFramework
 
                     var columnAttribute = ReflectionHelper.SingleOrDefaultAttribute<ColumnAttribute>(property);
 
-                    if (columnAttribute?.Name?.IsNotBlank())
+                    if (columnAttribute != null && columnAttribute.Name.IsNotBlank())
                     {
                         columnName = columnAttribute!.Name;
                     }
