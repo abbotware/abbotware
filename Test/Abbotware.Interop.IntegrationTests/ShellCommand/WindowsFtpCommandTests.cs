@@ -29,6 +29,7 @@ namespace Abbotware.IntegrationTests.Core
 
         [Test]
         [MaxTime(10000)]
+        [Ignore("Disabled for now")]
         public async Task WindowsFtpCommand_ExecuteAsync()
         {
             this.SkipTestOnLinux();
