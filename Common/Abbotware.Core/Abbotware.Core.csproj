@@ -8,25 +8,27 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-    <Compile Remove="**/*.netstandard2.1.cs" />
-    <Compile Remove="**/*.net5.cs" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.1'">
-    <Compile Remove="**/*.netstandard2.0.cs" />
-    <Compile Remove="**/*.net5.cs" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'net6'">
-    <Compile Remove="**/*.netstandard2.0.cs" />
-  </ItemGroup>
-  
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-    <PackageReference Include="System.Memory" Version="4.5.4" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'net6'">
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.0" />
-  </ItemGroup>
+  <Choose>
+    <When Condition="'$(TargetFramework)' == 'netstandard2.0'">
+      <ItemGroup>
+        <Compile Remove="**/*.netstandard2.1.cs" />
+        <Compile Remove="**/*.net5.cs" />
+        <PackageReference Include="System.Memory" Version="4.5.4" />
+      </ItemGroup>
+    </When>
+    <When Condition="'$(TargetFramework)' == 'netstandard2.1'">
+      <ItemGroup>
+        <Compile Remove="**/*.netstandard2.0.cs" />
+        <Compile Remove="**/*.net5.cs" />
+      </ItemGroup>
+    </When>
+    <When Condition="'$(TargetFramework)' == 'net6'">
+      <ItemGroup>
+        <Compile Remove="**/*.netstandard2.0.cs" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.0" />
+      </ItemGroup>
+    </When>
+  </Choose>
 
   <ItemGroup>
     <Compile Remove="Messaging\Integration\Amqp\Plugins\NetDataContract.cs" />

@@ -8,6 +8,7 @@
 namespace Abbotware.Core.Extensions
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
     ///     String Extension methods
@@ -26,6 +27,26 @@ namespace Abbotware.Core.Extensions
             text = Arguments.EnsureNotNull(text, nameof(text));
 
             return text.Contains(value, stringComparison);
+        }
+
+        /// <summary>
+        /// shortcut for string.IsNullOrWhiteSpace
+        /// </summary>
+        /// <param name="text">string to extend</param>
+        /// <returns>true/false if contains</returns>
+        public static bool IsBlank([NotNullWhen(false)] this string? text)
+        {
+            return string.IsNullOrWhiteSpace(text);
+        }
+
+        /// <summary>
+        /// shortcut for !string.IsNullOrWhiteSpace
+        /// </summary>
+        /// <param name="text">string to extend</param>
+        /// <returns>true/false if contains</returns>
+        public static bool IsNotBlank([NotNullWhen(true)] this string? text)
+        {
+            return !IsBlank(text);
         }
     }
 }
