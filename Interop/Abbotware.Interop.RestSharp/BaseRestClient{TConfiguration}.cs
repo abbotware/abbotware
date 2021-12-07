@@ -63,24 +63,27 @@ namespace Abbotware.Interop.RestSharp
 
             if (!response.IsSuccessful)
             {
-                TError? error;
-
+                // for string, just pass along the content
                 if (typeof(TError) == typeof(string))
                 {
-                    error = (TError)(object)response.Content;
-                }
-                else
-                {
-                    error = JsonHelper.FromString<TError>(response.Content);
+                    var error = (TError)(object)response.Content;
+                    return new RestResponse<TResponse, TError>(response.StatusCode, response.ResponseUri.ToString(), response.Content) with { Error = error };
                 }
 
-                if (response.ErrorException != null)
+                try
                 {
-                    throw response.ErrorException;
+                    var error = JsonHelper.FromString<TError>(response.Content);
+                    return new RestResponse<TResponse, TError>(response.StatusCode, response.ResponseUri.ToString(), response.Content) with { Error = error };
                 }
-
-                return new RestResponse<TResponse, TError>(response.StatusCode, response.ResponseUri.ToString(), response.Content) with { Error = error };
+                catch (Exception)
+                {
+                    if (response.ErrorException != null)
+                    {
+                        throw response.ErrorException;
+                    }
+                }
             }
+
 
             return new RestResponse<TResponse, TError>(response.StatusCode, response.ResponseUri.ToString(), response.Content) with { Response = response.Data };
         }

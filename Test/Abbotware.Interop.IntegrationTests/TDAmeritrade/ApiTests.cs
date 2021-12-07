@@ -109,7 +109,7 @@ namespace Abbotware.IntegrationTests.Interop.TDAmeritrade
             Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
             Assert.AreEqual("IBM", res.Response.Symbol);
             Assert.IsFalse(res.Response.Empty);
-            Assert.GreaterOrEqual(389, res.Response.Candles.Count);
+            Assert.GreaterOrEqual(res.Response.Candles.Count, 389);
         }
 
         [Test]
@@ -147,7 +147,7 @@ namespace Abbotware.IntegrationTests.Interop.TDAmeritrade
             Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
             Assert.AreEqual("AGFXF", res.Response.Symbol);
             Assert.IsFalse(res.Response.Empty);
-            Assert.AreEqual(1043, res.Response.Candles.Count);
+            Assert.AreEqual(573, res.Response.Candles.Count);
         }
 
         [Test]
@@ -266,7 +266,7 @@ namespace Abbotware.IntegrationTests.Interop.TDAmeritrade
 
             var settings = new TDAmeritradeSettings
             {
-                ApiKey = apiKey,
+                ApiKey = "OEFJYUKNFVSKCRTE3GZBZTODMGPW4TTT",
             };
 
             return settings;
