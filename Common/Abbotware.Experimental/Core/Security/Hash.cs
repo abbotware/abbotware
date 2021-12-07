@@ -153,10 +153,7 @@ namespace Abbotware.Core.Security
                             val = (byte)(val ^ b);
                         }
 
-                        this.data = new byte[1]
-                        {
-                        val,
-                        };
+                        this.data = new byte[1] { val };
 
                         break;
                     }
