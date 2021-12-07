@@ -72,7 +72,7 @@ namespace Abbotware.Interop.Aws.Sqs.Plugins
 
             var awsCreds = new BasicAWSCredentials(config.Username, config.Password);
 
-            AmazonSQSClient temp = null;
+            AmazonSQSClient? temp = null;
 
             try
             {

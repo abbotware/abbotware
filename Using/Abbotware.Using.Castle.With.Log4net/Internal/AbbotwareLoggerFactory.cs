@@ -91,25 +91,25 @@ namespace Abbotware.Using.Castle.Internal
         /// <inheritdoc />
         CastleILogger ILoggerFactory.Create(string name, LoggerLevel level)
         {
-            return this.Create(name, level) as CastleILogger;
+            return (CastleILogger)this.Create(name, level) ;
         }
 
         /// <inheritdoc />
         CastleILogger ILoggerFactory.Create(Type type, LoggerLevel level)
         {
-            return this.Create(type, level) as CastleILogger;
+            return (CastleILogger)this.Create(type, level);
         }
 
         /// <inheritdoc />
         CastleILogger ILoggerFactory.Create(string name)
         {
-            return this.Create(name) as CastleILogger;
+            return (CastleILogger)this.Create(name);
         }
 
         /// <inheritdoc />
         CastleILogger ILoggerFactory.Create(Type type)
         {
-            return this.Create(type) as CastleILogger;
+            return (CastleILogger)this.Create(type);
         }
 
         /// <summary>

@@ -7,6 +7,7 @@
 namespace Abbotware.Interop.Aws.Sqs
 {
     using System;
+    using Abbotware.Core;
     using Abbotware.Core.Logging;
     using Abbotware.Interop.Aws.Sqs.Configuration;
     using Abbotware.Interop.Aws.Sqs.Configuration.Models;
@@ -31,12 +32,12 @@ namespace Abbotware.Interop.Aws.Sqs
 
             if (cfg.Username == "USE_ENV")
             {
-                cfg.Username = Environment.GetEnvironmentVariable("SQS_USERNAME");
+                cfg.Username = Arguments.EnsureNotNullOrWhitespace(Environment.GetEnvironmentVariable("SQS_USERNAME"), "SQS_USERNAME");
             }
 
             if (cfg.Password == "USE_ENV")
             {
-                cfg.Password = Environment.GetEnvironmentVariable("SQS_PASSWORD");
+                cfg.Password = Arguments.EnsureNotNullOrWhitespace(Environment.GetEnvironmentVariable("SQS_PASSWORD"), "SQS_PASSWORD");
             }
 
             return cfg;

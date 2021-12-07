@@ -30,7 +30,7 @@ namespace Abbotware.Interop.Castle.ExtensionPoints
         /// <summary>
         ///     the handle to the the polling subscription
         /// </summary>
-        private IDisposable subscriptionHandle;
+        private IDisposable? subscriptionHandle;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="StartablePollingComponent" /> class.
@@ -40,7 +40,6 @@ namespace Abbotware.Interop.Castle.ExtensionPoints
         protected StartablePollingComponent(TimeSpan pollingTimeSpan, ILogger logger)
             : base(logger)
         {
-            Arguments.NotNull(logger, nameof(logger));
             Arguments.NotValue(pollingTimeSpan, TimeSpan.Zero, nameof(pollingTimeSpan));
 
             this.pollingTimeSpan = pollingTimeSpan;

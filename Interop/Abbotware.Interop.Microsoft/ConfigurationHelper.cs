@@ -73,7 +73,7 @@ namespace Abbotware.Interop.Microsoft
         /// <param name="config">IConfiguration being extended</param>
         /// <param name="section">name of section</param>
         /// <returns>poco class with config values</returns>
-        public static TConfig BindSectionOrDefault<TConfig>(this IConfiguration config, string section)
+        public static TConfig? BindSectionOrDefault<TConfig>(this IConfiguration config, string section)
             where TConfig : new()
         {
             config = Arguments.EnsureNotNull(config, nameof(config));
@@ -92,9 +92,19 @@ namespace Abbotware.Interop.Microsoft
         /// Loads an IConfiguration from an appsettings file
         /// </summary>
         /// <param name="file">name of file</param>
+        /// <returns>IConfiguration loaded from file</returns>
+        public static IConfiguration AppSettingsJson(string file = AppSettingsFileName)
+        {
+            return AppSettingsJson(file, string.Empty);
+        }
+
+        /// <summary>
+        /// Loads an IConfiguration from an appsettings file
+        /// </summary>
+        /// <param name="file">name of file</param>
         /// <param name="environment">current environment</param>
         /// <returns>IConfiguration loaded from file</returns>
-        public static IConfiguration AppSettingsJson(string file = AppSettingsFileName, string environment = null)
+        public static IConfiguration AppSettingsJson(string file, string environment)
         {
             var builder = new ConfigurationBuilder()
                 .AddJsonFile(file);

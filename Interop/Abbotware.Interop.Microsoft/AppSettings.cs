@@ -19,9 +19,18 @@ namespace Abbotware.Interop.Microsoft
         /// <summary>
         /// locates and loads the settings file
         /// </summary>
+        /// <returns>loaded configuration</returns>
+        public static IConfiguration LocateAndLoad()
+        {
+            return LocateAndLoad(string.Empty);
+        }
+
+        /// <summary>
+        /// locates and loads the settings file
+        /// </summary>
         /// <param name="environment">current environment</param>
         /// <returns>loaded configuration</returns>
-        public static IConfiguration LocateAndLoad(string environment = null)
+        public static IConfiguration LocateAndLoad(string environment)
         {
             return ConfigurationHelper.AppSettingsJson(Locate(), environment);
         }

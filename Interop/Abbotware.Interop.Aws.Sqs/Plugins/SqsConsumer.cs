@@ -35,6 +35,7 @@ namespace Abbotware.Interop.Aws.Sqs.Plugins
 
             this.Status = ConsumerStatus.Unknown;
             this.retriever = retriever;
+            this.OnDelivery += (s, e) => { };
         }
 
         /// <inheritdoc/>

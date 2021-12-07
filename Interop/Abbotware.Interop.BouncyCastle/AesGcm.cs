@@ -86,7 +86,7 @@ namespace Abbotware.Interop.BouncyCastle
         /// <remarks>
         /// Adds overhead of (Optional-Payload + BlockSize(16) + Message +  HMac-Tag(16)) * 1.33 Base64
         /// </remarks>
-        public static string SimpleEncrypt(string secretMessage, byte[] key, byte[] nonSecretPayload = null)
+        public static string SimpleEncrypt(string secretMessage, byte[] key, byte[]? nonSecretPayload = null)
         {
             if (string.IsNullOrEmpty(secretMessage))
             {
@@ -105,7 +105,7 @@ namespace Abbotware.Interop.BouncyCastle
         /// <param name="key">The key.</param>
         /// <param name="nonSecretPayloadLength">Length of the optional non-secret payload.</param>
         /// <returns>Decrypted Message</returns>
-        public static string SimpleDecrypt(string encryptedMessage, byte[] key, int nonSecretPayloadLength = 0)
+        public static string? SimpleDecrypt(string encryptedMessage, byte[] key, int nonSecretPayloadLength = 0)
         {
             if (string.IsNullOrEmpty(encryptedMessage))
             {
@@ -131,7 +131,7 @@ namespace Abbotware.Interop.BouncyCastle
         /// Significantly less secure than using random binary keys.
         /// Adds additional non secret payload for key generation parameters.
         /// </remarks>
-        public static string SimpleEncryptWithPassword(string secretMessage, string password, byte[] nonSecretPayload = null)
+        public static string SimpleEncryptWithPassword(string secretMessage, string password, byte[]? nonSecretPayload = null)
         {
             if (string.IsNullOrEmpty(secretMessage))
             {
@@ -157,7 +157,7 @@ namespace Abbotware.Interop.BouncyCastle
         /// <remarks>
         /// Significantly less secure than using random binary keys.
         /// </remarks>
-        public static string SimpleDecryptWithPassword(string encryptedMessage, string password, int nonSecretPayloadLength = 0)
+        public static string? SimpleDecryptWithPassword(string encryptedMessage, string password, int nonSecretPayloadLength = 0)
         {
             if (string.IsNullOrWhiteSpace(encryptedMessage))
             {
@@ -179,7 +179,7 @@ namespace Abbotware.Interop.BouncyCastle
         /// <remarks>
         /// Adds overhead of (Optional-Payload + BlockSize(16) + Message +  HMac-Tag(16)) * 1.33 Base64
         /// </remarks>
-        public static byte[] SimpleEncrypt(byte[] secretMessage, byte[] key, byte[] nonSecretPayload = null)
+        public static byte[] SimpleEncrypt(byte[] secretMessage, byte[] key, byte[]? nonSecretPayload = null)
         {
             // User Error Checks
             if (key == null || key.Length != KeyBitSize / 8)
@@ -232,7 +232,7 @@ namespace Abbotware.Interop.BouncyCastle
         /// <param name="key">The key.</param>
         /// <param name="nonSecretPayloadLength">Length of the optional non-secret payload.</param>
         /// <returns>Decrypted Message</returns>
-        public static byte[] SimpleDecrypt(byte[] encryptedMessage, byte[] key, int nonSecretPayloadLength = 0)
+        public static byte[]? SimpleDecrypt(byte[] encryptedMessage, byte[] key, int nonSecretPayloadLength = 0)
         {
             // User Error Checks
             if (key == null || key.Length != KeyBitSize / 8)
@@ -291,7 +291,7 @@ namespace Abbotware.Interop.BouncyCastle
         /// Significantly less secure than using random binary keys.
         /// Adds additional non secret payload for key generation parameters.
         /// </remarks>
-        public static byte[] SimpleEncryptWithPassword(byte[] secretMessage, string password, byte[] nonSecretPayload = null)
+        public static byte[] SimpleEncryptWithPassword(byte[] secretMessage, string password, byte[]? nonSecretPayload = null)
         {
             nonSecretPayload ??= Array.Empty<byte>();
 
@@ -342,7 +342,7 @@ namespace Abbotware.Interop.BouncyCastle
         /// <remarks>
         /// Significantly less secure than using random binary keys.
         /// </remarks>
-        public static byte[] SimpleDecryptWithPassword(byte[] encryptedMessage, string password, int nonSecretPayloadLength = 0)
+        public static byte[]? SimpleDecryptWithPassword(byte[] encryptedMessage, string password, int nonSecretPayloadLength = 0)
         {
             // User Error Checks
             if (string.IsNullOrWhiteSpace(password) || password.Length < MinPasswordLength)

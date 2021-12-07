@@ -57,7 +57,7 @@ namespace Abbotware.Core
         /// <returns>argument unchanged</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [return: NotNull]
-        public static string EnsureNotNullOrWhitespace([NotNull]string argument, string name, string? message = null, [CallerMemberName] string? method = null)
+        public static string EnsureNotNullOrWhitespace(string? argument, string name, string? message = null, [CallerMemberName] string? method = null)
         {
             if (string.IsNullOrWhiteSpace(argument))
             {

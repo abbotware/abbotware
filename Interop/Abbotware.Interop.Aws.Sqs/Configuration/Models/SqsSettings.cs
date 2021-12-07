@@ -18,15 +18,15 @@ namespace Abbotware.Interop.Aws.Sqs.Configuration.Models
         public const string DefaultSection = "SQS";
 
         /// <inheritdoc/>
-        public string Region { get; set; }
+        public string Region { get; set; } = string.Empty;
 
         /// <inheritdoc/>
-        public string Username { get; set; }
+        public string Username { get; set; } = string.Empty;
 
         /// <inheritdoc/>
-        public string Password { get; set; }
+        public string Password { get; set; } = string.Empty;
 
         /// <inheritdoc/>
-        public string Queue { get; set; }
+        public string Queue { get; set; } = string.Empty;
     }
 }

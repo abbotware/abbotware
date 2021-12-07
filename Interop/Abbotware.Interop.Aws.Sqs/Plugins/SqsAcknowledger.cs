@@ -6,10 +6,12 @@
 
 namespace Abbotware.Interop.Aws.Sqs.Plugins
 {
+    using System;
     using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
     using Abbotware.Core;
+    using Abbotware.Core.Extensions;
     using Abbotware.Core.Logging;
     using Abbotware.Core.Messaging.Integration;
     using Abbotware.Core.Messaging.Integration.Configuration;
@@ -50,7 +52,13 @@ namespace Abbotware.Interop.Aws.Sqs.Plugins
             this.InitializeIfRequired();
 
             var q = envelope.PublishProperties.Exchange;
-            var r = envelope.DeliveryProperties.DeliveryTag.ToString(CultureInfo.InvariantCulture);
+
+            if (envelope.DeliveryProperties.DeliveryTag.IsBlank())
+            {
+                throw new ArgumentException("missing delievery tag");
+            }
+
+            var r = envelope.DeliveryProperties.DeliveryTag!.ToString(CultureInfo.InvariantCulture);
 
             this.Delete(q, r);
         }
