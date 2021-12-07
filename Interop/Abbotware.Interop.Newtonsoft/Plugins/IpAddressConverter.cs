@@ -9,6 +9,7 @@ namespace Abbotware.Interop.Newtonsoft.Plugins
     using System;
     using System.Net;
     using Abbotware.Core;
+    using Abbotware.Core.Extensions;
     using global::Newtonsoft.Json;
     using global::Newtonsoft.Json.Linq;
 
@@ -35,12 +36,12 @@ namespace Abbotware.Interop.Newtonsoft.Plugins
 
             var s = token.Value<string>();
 
-            if (string.IsNullOrWhiteSpace(s))
+            if (s.IsBlank())
             {
                 return null;
             }
 
-            return IPAddress.Parse(token.Value<string>());
+            return IPAddress.Parse(s);
         }
     }
 }

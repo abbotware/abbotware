@@ -22,7 +22,7 @@ namespace Abbotware.Interop.Castle.ExtensionPoints
         /// <summary>
         /// cancellation source
         /// </summary>
-        private readonly CancellationTokenSource cts = new CancellationTokenSource();
+        private readonly CancellationTokenSource cts = new();
 
         /// <summary>
         ///     timespan between polling intervals
@@ -32,7 +32,7 @@ namespace Abbotware.Interop.Castle.ExtensionPoints
         /// <summary>
         ///     the handle to the loop task
         /// </summary>
-        private Task loopTask;
+        private Task? loopTask;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="PollingComponent" /> class.

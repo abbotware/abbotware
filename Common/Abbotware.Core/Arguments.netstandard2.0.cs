@@ -8,6 +8,7 @@ namespace Abbotware.Core
 {
     using System;
     using System.Diagnostics;
+    using System.Diagnostics.CodeAnalysis;
     using System.Runtime.CompilerServices;
 
     /// <summary>
@@ -41,8 +42,8 @@ namespace Abbotware.Core
         /// <param name="method">name of method</param>
         /// <returns>argument unchanged</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [return: NotNull]
         public static T EnsureNotNull<T>(T argument, string name, [CallerMemberName] string? method = null)
-                where T : class
         {
             return argument ?? throw new ArgumentNullException(name, $"Method:{method}");
         }

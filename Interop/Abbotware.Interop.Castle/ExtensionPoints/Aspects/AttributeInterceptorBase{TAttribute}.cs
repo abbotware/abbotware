@@ -36,7 +36,7 @@ namespace Abbotware.Interop.Castle.ExtensionPoints.Aspects
 
             var attributes = invocation.Method.GetCustomAttributes(typeof(TAttribute), true) as TAttribute[];
 
-            if (attributes.Length > 0)
+            if (attributes?.Length > 0)
             {
                 this.OnIntercepted(invocation, attributes);
             }

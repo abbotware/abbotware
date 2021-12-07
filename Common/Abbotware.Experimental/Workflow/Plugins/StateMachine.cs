@@ -11,6 +11,7 @@ namespace Abbotware.Core.Workflow.Plugins
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading;
+    using Abbotware.Core.Extensions;
     using Abbotware.Core.Workflow.ExtensionPoints;
     using QuickGraph;
 
@@ -211,7 +212,7 @@ namespace Abbotware.Core.Workflow.Plugins
         {
             State newState;
 
-            if (string.IsNullOrWhiteSpace(stateName))
+            if (stateName.IsBlank())
             {
                 newState = State.NullState;
             }

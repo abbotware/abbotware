@@ -15,6 +15,7 @@ namespace Abbotware.Host
     using System.Threading;
     using System.Threading.Tasks;
     using Abbotware.Core;
+    using Abbotware.Core.Extensions;
     using Abbotware.Core.Logging;
     using Abbotware.Core.Runtime;
     using Abbotware.Core.Runtime.Plugins;
@@ -40,7 +41,7 @@ namespace Abbotware.Host
         /// <summary>
         ///  registration override actions
         /// </summary>
-        private readonly Queue<Action<IWindsorContainer>> registrationOverrides = new Queue<Action<IWindsorContainer>>();
+        private readonly Queue<Action<IWindsorContainer>> registrationOverrides = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AbbotwareHostService{TConfiguration}"/> class.
@@ -168,7 +169,7 @@ namespace Abbotware.Host
         /// <returns>installer</returns>
         protected virtual IWindsorInstaller OnFindComponentAssemblyInstallers()
         {
-            if (string.IsNullOrWhiteSpace(this.Configuration.ContainerOptions.Component))
+            if (this.Configuration.ContainerOptions.Component.IsBlank())
             {
                 return NullInstaller.Instance;
             }

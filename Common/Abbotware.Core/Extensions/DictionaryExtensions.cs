@@ -76,7 +76,7 @@ namespace Abbotware.Core.Extensions
 
             var retVal = aggregate.ToString();
 
-            if (string.IsNullOrWhiteSpace(retVal))
+            if (retVal.IsBlank())
             {
                 return "Dictionary Is Empty";
             }
@@ -140,7 +140,7 @@ namespace Abbotware.Core.Extensions
 
             var retVal = aggregate.ToString();
 
-            if (string.IsNullOrWhiteSpace(retVal))
+            if (retVal.IsBlank())
             {
                 return "Dictionary Is Empty";
             }

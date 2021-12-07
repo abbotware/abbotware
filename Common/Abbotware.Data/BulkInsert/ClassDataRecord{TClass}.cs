@@ -80,7 +80,7 @@ namespace Abbotware.Data.BulkInsert
         }
 
         /// <inheritdoc />
-        public long GetBytes(int i, long fieldOffset, byte[] buffer, int bufferoffset, int length)
+        public long GetBytes(int i, long fieldOffset, byte[]? buffer, int bufferoffset, int length)
         {
             throw new NotImplementedException();
         }
@@ -92,7 +92,7 @@ namespace Abbotware.Data.BulkInsert
         }
 
         /// <inheritdoc />
-        public long GetChars(int i, long fieldoffset, char[] buffer, int bufferoffset, int length)
+        public long GetChars(int i, long fieldoffset, char[]? buffer, int bufferoffset, int length)
         {
             throw new NotImplementedException();
         }

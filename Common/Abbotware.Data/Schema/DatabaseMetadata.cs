@@ -65,7 +65,7 @@ namespace Abbotware.Data.Schema
         /// <param name="schemaName">sql schema name</param>
         /// <param name="tableName">name of table</param>
         /// <returns>metadata if schema/table is found</returns>
-        public TableMetadata Table(string schemaName, string tableName)
+        public TableMetadata? Table(string schemaName, string tableName)
         {
             schemaName = Arguments.EnsureNotNullOrWhitespace(schemaName, nameof(schemaName));
             tableName = Arguments.EnsureNotNullOrWhitespace(tableName, nameof(tableName));

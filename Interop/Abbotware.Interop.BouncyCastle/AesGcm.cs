@@ -9,6 +9,8 @@ namespace Abbotware.Interop.BouncyCastle
     using System;
     using System.IO;
     using System.Text;
+    using Abbotware.Core;
+    using Abbotware.Core.Extensions;
     using global::Org.BouncyCastle.Crypto;
     using global::Org.BouncyCastle.Crypto.Engines;
     using global::Org.BouncyCastle.Crypto.Generators;
@@ -60,7 +62,7 @@ namespace Abbotware.Interop.BouncyCastle
         /// <summary>
         /// Random number generator
         /// </summary>
-        private static readonly SecureRandom Random = new SecureRandom();
+        private static readonly SecureRandom Random = new();
 
         /// <summary>
         /// Helper that generates a random new key on each call.
@@ -159,7 +161,7 @@ namespace Abbotware.Interop.BouncyCastle
         /// </remarks>
         public static string? SimpleDecryptWithPassword(string encryptedMessage, string password, int nonSecretPayloadLength = 0)
         {
-            if (string.IsNullOrWhiteSpace(encryptedMessage))
+            if (encryptedMessage.IsBlank())
             {
                 throw new ArgumentException("Encrypted Message Required!", nameof(encryptedMessage));
             }
@@ -295,8 +297,10 @@ namespace Abbotware.Interop.BouncyCastle
         {
             nonSecretPayload ??= Array.Empty<byte>();
 
+            password = Arguments.EnsureNotNull(password, nameof(password));
+
             // User Error Checks
-            if (string.IsNullOrWhiteSpace(password) || password.Length < MinPasswordLength)
+            if (password.Length < MinPasswordLength)
             {
                 throw new ArgumentException($"Must have a password of at least {MinPasswordLength} characters!", nameof(password));
             }
@@ -345,7 +349,7 @@ namespace Abbotware.Interop.BouncyCastle
         public static byte[]? SimpleDecryptWithPassword(byte[] encryptedMessage, string password, int nonSecretPayloadLength = 0)
         {
             // User Error Checks
-            if (string.IsNullOrWhiteSpace(password) || password.Length < MinPasswordLength)
+            if (password.IsBlank() || password?.Length < MinPasswordLength)
             {
                 throw new ArgumentException("Must have a password of at least {MinPasswordLength} characters!", nameof(password));
             }

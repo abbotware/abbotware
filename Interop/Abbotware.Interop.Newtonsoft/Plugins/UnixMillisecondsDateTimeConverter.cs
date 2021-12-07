@@ -111,8 +111,9 @@ namespace Abbotware.Interop.Newtonsoft.Plugins
                 DateTime d = UnixEpoch.AddMilliseconds(milliseconds);
 
                 Type t = nullable
-                    ? Nullable.GetUnderlyingType(objectType)
+                    ? Nullable.GetUnderlyingType(objectType)!
                     : objectType;
+
                 if (t == typeof(DateTimeOffset))
                 {
                     return new DateTimeOffset(d, TimeSpan.Zero);

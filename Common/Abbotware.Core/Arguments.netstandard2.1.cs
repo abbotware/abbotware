@@ -41,8 +41,7 @@ namespace Abbotware.Core
         /// <returns>argument unchanged</returns>
         [return: NotNull]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static T EnsureNotNull<T>([NotNull]T argument, string name, [CallerMemberName] string? method = null)
-                where T : class
+        public static T EnsureNotNull<T>(T? argument, string name, [CallerMemberName] string? method = null)
         {
             return argument ?? throw new ArgumentNullException(name, $"Method:{method}");
         }

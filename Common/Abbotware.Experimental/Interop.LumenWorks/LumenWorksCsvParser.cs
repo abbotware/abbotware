@@ -17,6 +17,7 @@ namespace Abbotware.Interop.LumenWorks
     using Abbotware.Core.Data.ExtensionPoints.Text;
     using Abbotware.Core.Data.Plugins.Configuration;
     using Abbotware.Core.Diagnostics;
+    using Abbotware.Core.Extensions;
     using Abbotware.Core.Logging;
     using global::LumenWorks.Framework.IO.Csv;
 
@@ -196,7 +197,7 @@ namespace Abbotware.Interop.LumenWorks
                 var cellValue = dataCells[header.Value].Trim('|');
 
                 // get if white space
-                var isWhiteSpace = string.IsNullOrWhiteSpace(cellValue) || cellValue == "*";
+                var isWhiteSpace = cellValue.IsBlank() || cellValue == "*";
 
                 // get if nullable
                 var isNullableType = ReflectionHelper.IsNullableValueType(property);

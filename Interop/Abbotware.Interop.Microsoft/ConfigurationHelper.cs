@@ -10,6 +10,7 @@ namespace Abbotware.Interop.Microsoft
     using System.Collections.Generic;
     using System.IO;
     using Abbotware.Core;
+    using Abbotware.Core.Extensions;
     using global::Microsoft.Extensions.Configuration;
 
     /// <summary>
@@ -112,7 +113,7 @@ namespace Abbotware.Interop.Microsoft
             // TODO: add option for env variables?
             ////.AddEnvironmentVariables()
 
-            if (!string.IsNullOrWhiteSpace(environment))
+            if (environment.IsNotBlank())
             {
                 var fileName = Path.GetFileName(file);
                 builder = builder.AddJsonFile($"{fileName}.{environment}.json", optional: true);

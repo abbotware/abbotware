@@ -110,7 +110,7 @@ namespace Abbotware.ShellCommand
 
                 process.OutputDataReceived += (s, e) =>
                 {
-                    if (string.IsNullOrWhiteSpace(e.Data))
+                    if (e.Data.IsBlank())
                     {
                         return;
                     }
@@ -120,7 +120,7 @@ namespace Abbotware.ShellCommand
 
                 process.ErrorDataReceived += (s, e) =>
                 {
-                    if (string.IsNullOrWhiteSpace(e.Data))
+                    if (e.Data.IsBlank())
                     {
                         return;
                     }
@@ -201,7 +201,7 @@ namespace Abbotware.ShellCommand
 
         private static string GenerateLogInfo(Process process)
         {
-            if (string.IsNullOrWhiteSpace(process.StartInfo.WorkingDirectory))
+            if (process.StartInfo.WorkingDirectory.IsBlank())
             {
                 return $"Command: '{process.StartInfo.FileName} {process.StartInfo.Arguments}'";
             }

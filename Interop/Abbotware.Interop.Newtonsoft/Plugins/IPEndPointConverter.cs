@@ -51,7 +51,7 @@ namespace Abbotware.Interop.Newtonsoft.Plugins
 
             var address = jo["Address"]!.ToObject<IPAddress>(serializer);
             var port = jo["Port"]!.Value<int>();
-            return new IPEndPoint(address, port);
+            return new IPEndPoint(address!, port);
         }
     }
 }

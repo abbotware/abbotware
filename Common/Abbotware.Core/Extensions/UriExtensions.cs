@@ -73,7 +73,7 @@ namespace Abbotware.Core.Extensions
         {
             uri = Arguments.EnsureNotNull(uri, nameof(uri));
 
-            if (string.IsNullOrWhiteSpace(parameters))
+            if (parameters.IsBlank())
             {
                 return uri;
             }

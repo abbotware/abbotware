@@ -130,7 +130,7 @@ namespace Abbotware.Data.BulkInsert
         }
 
         /// <inheritdoc />
-        public object? GetValue(int i)
+        public object GetValue(int i)
         {
             this.ThrowIfDisposed();
 
@@ -175,7 +175,7 @@ namespace Abbotware.Data.BulkInsert
         }
 
         /// <inheritdoc />
-        public long GetBytes(int i, long fieldOffset, byte[] buffer, int bufferoffset, int length)
+        public long GetBytes(int i, long fieldOffset, byte[]? buffer, int bufferoffset, int length)
         {
             this.ThrowIfDisposed();
 
@@ -191,7 +191,7 @@ namespace Abbotware.Data.BulkInsert
         }
 
         /// <inheritdoc />
-        public long GetChars(int i, long fieldoffset, char[] buffer, int bufferoffset, int length)
+        public long GetChars(int i, long fieldoffset, char[]? buffer, int bufferoffset, int length)
         {
             this.ThrowIfDisposed();
 

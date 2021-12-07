@@ -18,6 +18,7 @@ namespace Abbotware.Interop.Newtonsoft.Plugins
     /// <typeparam name="TKey">key type</typeparam>
     /// <typeparam name="TValue">value type</typeparam>
     public class DictionaryFlattener<TKey, TValue> : JsonConverter
+        where TKey : notnull
     {
         private readonly KeyValueConverter<TKey, TValue>? kvConverter;
 
@@ -41,12 +42,12 @@ namespace Abbotware.Interop.Newtonsoft.Plugins
             {
                 if (typeof(KeyListConverter<TValue>).IsAssignableFrom(converterType))
                 {
-                    this.klConverter = (KeyListConverter<TValue>)Activator.CreateInstance(converterType);
+                    this.klConverter = (KeyListConverter<TValue>)Activator.CreateInstance(converterType)!;
                 }
 
                 if (typeof(KeyValueConverter<TKey, TValue>).IsAssignableFrom(converterType))
                 {
-                    this.kvConverter = (KeyValueConverter<TKey, TValue>)Activator.CreateInstance(converterType);
+                    this.kvConverter = (KeyValueConverter<TKey, TValue>)Activator.CreateInstance(converterType)!;
                 }
             }
         }
@@ -80,7 +81,7 @@ namespace Abbotware.Interop.Newtonsoft.Plugins
 
                 if (this.kvConverter != null)
                 {
-                    return val.Select(x => this.kvConverter.Convert(x)).ToList();
+                    return val!.Select(x => this.kvConverter.Convert(x)).ToList();
                 }
 
                 return val!.Values.ToList();

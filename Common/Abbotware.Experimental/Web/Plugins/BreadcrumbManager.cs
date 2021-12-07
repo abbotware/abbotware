@@ -13,6 +13,7 @@ namespace Abbotware.Core.Web.Plugins
     using System.Linq;
     using System.Xml;
     using Abbotware.Core.Collections;
+    using Abbotware.Core.Extensions;
     using Abbotware.Core.Helpers;
     using Abbotware.Core.Web.ExtensionPoints;
     using Abbotware.Core.Web.Models;
@@ -112,7 +113,7 @@ namespace Abbotware.Core.Web.Plugins
 
             Breadcrumb node;
 
-            if (string.IsNullOrWhiteSpace(type))
+            if (type.IsBlank())
             {
                 node = new Breadcrumb();
             }

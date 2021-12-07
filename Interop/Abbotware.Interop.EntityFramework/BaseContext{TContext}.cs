@@ -14,6 +14,7 @@ namespace Abbotware.Interop.EntityFramework
     using System.Reflection;
     using Abbotware.Core;
     using Abbotware.Core.Diagnostics;
+    using Abbotware.Core.Extensions;
     using Abbotware.Core.Logging;
     using Abbotware.Data.Configuration;
     using Abbotware.Data.Schema;
@@ -130,7 +131,7 @@ namespace Abbotware.Interop.EntityFramework
 
                 if (tableAttribute != null)
                 {
-                    if (!string.IsNullOrWhiteSpace(tableAttribute.Schema))
+                    if (tableAttribute.Schema.IsNotBlank())
                     {
                         tableSchema = tableAttribute.Schema;
                     }
@@ -160,9 +161,9 @@ namespace Abbotware.Interop.EntityFramework
 
                     var columnAttribute = ReflectionHelper.SingleOrDefaultAttribute<ColumnAttribute>(property);
 
-                    if (!string.IsNullOrWhiteSpace(columnAttribute?.Name))
+                    if (columnAttribute?.Name?.IsNotBlank())
                     {
-                        columnName = columnAttribute.Name;
+                        columnName = columnAttribute!.Name;
                     }
 
                     var columnMeta = tableMeta.Column(columnName);

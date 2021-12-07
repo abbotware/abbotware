@@ -11,6 +11,7 @@ namespace Abbotware.Core.Helpers
     using System.Collections.Generic;
     using System.IO;
     using System.Reflection;
+    using Abbotware.Core.Extensions;
 
     /// <summary>
     ///     Directory Helper functions
@@ -107,7 +108,7 @@ namespace Abbotware.Core.Helpers
         {
             var paths = new List<string>();
 
-            if (!string.IsNullOrWhiteSpace(folderName))
+            if (folderName.IsNotBlank())
             {
                 paths.AddRange(GenerateRecursivePaths(new PathGenerationInfo { File = fileName, Folder = folderName }));
 
@@ -205,12 +206,12 @@ namespace Abbotware.Core.Helpers
         {
             var paths = new List<string>();
 
-            if (string.IsNullOrWhiteSpace(pathInfo.Root))
+            if (pathInfo.Root.IsBlank())
             {
                 pathInfo.Root = Environment.CurrentDirectory;
             }
 
-            if (string.IsNullOrWhiteSpace(pathInfo.Folder))
+            if (pathInfo.Folder.IsBlank())
             {
                 pathInfo.Folder = string.Empty;
             }

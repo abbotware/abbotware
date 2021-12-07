@@ -32,7 +32,7 @@ namespace Abbotware.Interop.Redis.ExtensionPoints
 
         private readonly SortedList<TRank, TValue> snapshot;
 
-        private readonly BagOfWork<Tuple<TRank, TValue>> work = new BagOfWork<Tuple<TRank, TValue>>();
+        private readonly BagOfWork<Tuple<TRank, TValue>> work = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseSortedSet{TRank, TValue}"/> class.

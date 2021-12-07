@@ -53,20 +53,20 @@ namespace Abbotware.Interop.NUnit
 
             public override TestResult Execute(TestExecutionContext context)
             {
-                Type caughtType = null;
+                Type? caughtType = null;
 
                 try
                 {
                     this.innerCommand.Execute(context);
                 }
-                catch (Exception ex)
+                catch (Exception? ex)
                 {
                     if (ex is NUnitException)
                     {
                         ex = ex.InnerException;
                     }
 
-                    caughtType = ex.GetType();
+                    caughtType = ex?.GetType();
                 }
 
                 if (caughtType == this.expectedType)

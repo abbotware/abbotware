@@ -33,7 +33,7 @@ namespace Abbotware.Data.BulkInsert
         /// <summary>
         ///     list of all PropertyInfo in ordinal order
         /// </summary>
-        private readonly List<PropertyInfo> propertyInfo = new List<PropertyInfo>();
+        private readonly List<PropertyInfo> propertyInfo = new();
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="ClassMetadata{TClass}" /> class.
@@ -46,7 +46,7 @@ namespace Abbotware.Data.BulkInsert
 
             foreach (var propertyInfo in properties)
             {
-                this.propertyFunctors.Add(x => propertyInfo.GetValue(x));
+                this.propertyFunctors.Add(x => propertyInfo.GetValue(x)!);
 
                 this.propertyInfo.Add(propertyInfo);
 
@@ -97,9 +97,9 @@ namespace Abbotware.Data.BulkInsert
         /// <param name="ordinalId">ordinal id of property</param>
         /// <param name="instance">instance of class</param>
         /// <returns>property value</returns>
-        public object? GetPropertyValue(int ordinalId, TClass instance)
+        public object GetPropertyValue(int ordinalId, TClass instance)
         {
-            Arguments.NotNull(instance, nameof(instance));
+            instance = Arguments.EnsureNotNull(instance, nameof(instance));
 
             if (this.propertyFunctors.Count < ordinalId)
             {
@@ -112,7 +112,7 @@ namespace Abbotware.Data.BulkInsert
             {
                 if (offset == DateTimeOffset.MinValue)
                 {
-                    return null;
+                    throw new NotSupportedException("Check if DBNull before getting value");
                 }
             }
 
@@ -120,11 +120,11 @@ namespace Abbotware.Data.BulkInsert
             {
                 if (time == DateTime.MinValue)
                 {
-                    return null;
+                    throw new NotSupportedException("Check if DBNull before getting value");
                 }
             }
 
-            return temp;
+            return temp!;
         }
     }
 }
