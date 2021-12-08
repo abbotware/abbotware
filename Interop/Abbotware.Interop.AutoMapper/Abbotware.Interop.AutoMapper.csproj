@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Automapper" Version="10.1.1" />
-    <PackageReference Include="AutoMapper.Extensions.ExpressionMapping" Version="4.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.ExpressionMapping" Version="4.1.3" />
   </ItemGroup>
 
   <ItemGroup>
