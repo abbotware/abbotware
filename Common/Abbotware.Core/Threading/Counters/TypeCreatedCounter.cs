@@ -20,7 +20,7 @@ namespace Abbotware.Core.Threading.Counters
         /// <summary>
         ///     global static counter
         /// </summary>
-        private static readonly AtomicCounter Sequence = new AtomicCounter();
+        private static readonly AtomicCounter Sequence = new();
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="TypeCreatedCounter{T}" /> class.

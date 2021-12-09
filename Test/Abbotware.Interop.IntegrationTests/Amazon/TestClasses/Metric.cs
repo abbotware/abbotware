@@ -7,7 +7,6 @@
 
 namespace Abbotware.IntegrationTests.Interop.Amazon
 {
-    using System.Diagnostics.CodeAnalysis;
     using ProtoBuf;
 
     /// <summary>
@@ -43,7 +42,6 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
         /// <summary>
         /// Gets or sets the binary value
         /// </summary>
-        [SuppressMessage("Microsoft.Performance", "CA1819:PropertiesShouldNotReturnArrays", Justification = "Reviewed")]
         [ProtoMember(5)]
         public byte[] Binary { get; set; }
 

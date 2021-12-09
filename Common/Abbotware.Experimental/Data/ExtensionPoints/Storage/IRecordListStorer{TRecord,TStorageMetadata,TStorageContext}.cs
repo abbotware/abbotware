@@ -16,8 +16,6 @@ namespace Abbotware.Core.Data.ExtensionPoints.Storage
     /// <typeparam name="TRecord">type of data</typeparam>
     /// <typeparam name="TStorageMetadata">type of metadata</typeparam>
     /// <typeparam name="TStorageContext">type of context</typeparam>
-    [SuppressMessage("Microsoft.Design", "CA1005:AvoidExcessiveParametersOnGenericTypes", Justification = "Used to enforce type inheritance")]
-    [SuppressMessage("Microsoft.Design", "CA1040:AvoidEmptyInterfaces", Justification = "Used to enforce type inheritance")]
     public interface IRecordListStorer<TRecord, TStorageMetadata, TStorageContext> : IRecordStorer<IEnumerable<TRecord>, TStorageMetadata, TStorageContext>
         where TStorageMetadata : IStorageMetadata
     {

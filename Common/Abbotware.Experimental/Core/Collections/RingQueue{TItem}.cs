@@ -74,9 +74,7 @@ namespace Abbotware.Core.Collections
         ///     item queue
         /// </summary>
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-#pragma warning disable SA1011 // Closing square brackets should be spaced correctly
         private ItemWrapper[]? queue;
-#pragma warning restore SA1011 // Closing square brackets should be spaced correctly
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RingQueue{TItem}"/> class.
@@ -214,9 +212,7 @@ namespace Abbotware.Core.Collections
         /// <summary>
         ///     Gets the available item holders collection in a thread-safe manner
         /// </summary>
-#pragma warning disable SA1011 // Closing square brackets should be spaced correctly
         private ItemWrapper[]? Queue
-#pragma warning restore SA1011 // Closing square brackets should be spaced correctly
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get { return Interlocked.CompareExchange(ref this.queue, null, null); }

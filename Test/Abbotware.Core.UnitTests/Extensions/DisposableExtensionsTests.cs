@@ -45,12 +45,13 @@ namespace Abbotware.UnitTests.Core
         public async Task CreateTimeoutScope_WithTimeout()
         {
             TestObject peekObject = null;
-            using (var t = new TestObject())
             {
-                peekObject = t;
+                using var t = new TestObject();
 
-                using (var s = t.DisposeAsyncOperationAfterTimeout(TimeSpan.FromMilliseconds(100)))
+                peekObject = t;
                 {
+                    using var s = t.DisposeAsyncOperationAfterTimeout(TimeSpan.FromMilliseconds(100));
+
                     Assert.IsFalse(t.IsDisposed);
 
                     await Task.Delay(TimeSpan.FromMilliseconds(250));

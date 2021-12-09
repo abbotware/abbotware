@@ -107,47 +107,23 @@ namespace Abbotware.Data.Schema
 
             // Based off the following document
             // https://msdn.microsoft.com/en-us/library/cc716729(v=vs.110).aspx
-            switch (sqlType.SqlDbType)
+            return sqlType.SqlDbType switch
             {
-                case SqlDbType.BigInt:
-                    return typeof(long);
-                case SqlDbType.DateTimeOffset:
-                    return typeof(DateTimeOffset);
-                case SqlDbType.DateTime:
-                case SqlDbType.Date:
-                    return typeof(DateTime);
-                case SqlDbType.Decimal:
-                case SqlDbType.Money:
-                case SqlDbType.SmallMoney:
-                    return typeof(decimal);
-                case SqlDbType.Int:
-                    return typeof(int);
-                case SqlDbType.TinyInt:
-                    return typeof(byte);
-                case SqlDbType.SmallInt:
-                    return typeof(short);
-                case SqlDbType.Float:
-                    return typeof(double);
-                case SqlDbType.VarChar:
-                case SqlDbType.NVarChar:
-                case SqlDbType.NChar:
-                case SqlDbType.Char:
-                case SqlDbType.Xml:
-                    return typeof(string);
-                case SqlDbType.UniqueIdentifier:
-                    return typeof(Guid);
-                case SqlDbType.Bit:
-                    return typeof(bool);
-                case SqlDbType.Binary:
-                case SqlDbType.Image:
-                case SqlDbType.VarBinary:
-                    return typeof(byte[]);
-                case SqlDbType.Timestamp:
-                    return typeof(byte[]);
-
-                default:
-                    throw new InvalidOperationException(FormattableString.Invariant($"unexpected type:{sqlType.SqlDbType}"));
-            }
+                SqlDbType.BigInt => typeof(long),
+                SqlDbType.DateTimeOffset => typeof(DateTimeOffset),
+                SqlDbType.DateTime or SqlDbType.Date => typeof(DateTime),
+                SqlDbType.Decimal or SqlDbType.Money or SqlDbType.SmallMoney => typeof(decimal),
+                SqlDbType.Int => typeof(int),
+                SqlDbType.TinyInt => typeof(byte),
+                SqlDbType.SmallInt => typeof(short),
+                SqlDbType.Float => typeof(double),
+                SqlDbType.VarChar or SqlDbType.NVarChar or SqlDbType.NChar or SqlDbType.Char or SqlDbType.Xml => typeof(string),
+                SqlDbType.UniqueIdentifier => typeof(Guid),
+                SqlDbType.Bit => typeof(bool),
+                SqlDbType.Binary or SqlDbType.Image or SqlDbType.VarBinary => typeof(byte[]),
+                SqlDbType.Timestamp => typeof(byte[]),
+                _ => throw new InvalidOperationException(FormattableString.Invariant($"unexpected type:{sqlType.SqlDbType}")),
+            };
         }
     }
 }

@@ -28,7 +28,11 @@ namespace Abbotware.Interop.Yubico
                 return string.Empty;
             }
 
+#if NETSTANDARD2_0
             return otp.Substring(0, 12);
+#else
+            return otp[..12];
+#endif
         }
     }
 }

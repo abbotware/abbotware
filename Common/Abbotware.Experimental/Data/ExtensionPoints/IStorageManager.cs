@@ -8,7 +8,6 @@
 namespace Abbotware.Core.Data
 {
     using System;
-    using System.Diagnostics.CodeAnalysis;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -28,7 +27,6 @@ namespace Abbotware.Core.Data
         /// </summary>
         /// <param name="block">storage block to write. Will be set to null after operation is complete</param>
         /// <returns>a task object bound to this write operation</returns>
-        [SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "0#", Justification = "Will pass ownership of object into manager")]
         Task Write(ref IStorageBlock block);
 
         /// <summary>

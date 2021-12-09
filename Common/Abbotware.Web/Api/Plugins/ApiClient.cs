@@ -23,7 +23,7 @@ namespace Abbotware.Web.Api.Plugins
     /// </summary>
     public class ApiClient : BaseComponent<IApiClientOptions>, IApiClient
     {
-        private readonly HttpClient httpClient = new HttpClient();
+        private readonly HttpClient httpClient = new();
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="ApiClient" /> class.

@@ -22,7 +22,7 @@ namespace Abbotware.Interop.Castle.ExtensionPoints
         /// <summary>
         ///     wait handle used to signify shutdown
         /// </summary>
-        private readonly CancellationTokenSource cts = new CancellationTokenSource();
+        private readonly CancellationTokenSource cts = new();
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="BaseStartableComponent" /> class.

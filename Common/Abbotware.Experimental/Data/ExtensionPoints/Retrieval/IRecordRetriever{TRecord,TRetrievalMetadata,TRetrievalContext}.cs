@@ -15,7 +15,6 @@ namespace Abbotware.Core.Data.ExtensionPoints.Retrieval
     /// <typeparam name="TRecord">type of data to retrieve</typeparam>
     /// <typeparam name="TRetrievalMetadata">type of retrevial metadata</typeparam>
     /// <typeparam name="TRetrievalContext">type of retrevial context</typeparam>
-    [SuppressMessage("Microsoft.Design", "CA1005:AvoidExcessiveParametersOnGenericTypes", Justification = "Used to enforce type inheritance")]
     public interface IRecordRetriever<TRecord, out TRetrievalMetadata, TRetrievalContext>
         where TRetrievalMetadata : IRetrievalMetadata
     {

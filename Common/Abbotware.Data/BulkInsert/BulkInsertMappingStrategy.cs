@@ -19,7 +19,7 @@ namespace Abbotware.Data.BulkInsert
         /// <summary>
         ///     internal list of mappings
         /// </summary>
-        private readonly List<SqlBulkCopyColumnMapping> columns = new List<SqlBulkCopyColumnMapping>();
+        private readonly List<SqlBulkCopyColumnMapping> columns = new();
 
         /// <summary>
         ///     Gets the SqlBulkCopyColumnMappings

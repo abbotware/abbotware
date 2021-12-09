@@ -18,12 +18,12 @@ namespace Abbotware.Core.Messaging.Amqp.Configuration
         /// <summary>
         ///     internal set once property for durable
         /// </summary>
-        private readonly SetOnceProperty<bool> isDurable = new SetOnceProperty<bool>("IsDurable");
+        private readonly SetOnceProperty<bool> isDurable = new("IsDurable");
 
         /// <summary>
         ///     internal set once property for autoDelete
         /// </summary>
-        private readonly SetOnceProperty<bool> isAutoDelete = new SetOnceProperty<bool>("IsAutoDelete");
+        private readonly SetOnceProperty<bool> isAutoDelete = new("IsAutoDelete");
 
         /// <summary>
         ///     internal set once property for arguments

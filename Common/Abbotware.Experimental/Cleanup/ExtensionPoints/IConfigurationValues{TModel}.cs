@@ -22,7 +22,6 @@ namespace Abbotware.Core.ExtensionPoints
         /// <param name="attribute">attribute name</param>
         /// <param name="model">model instance</param>
         /// <returns>value of the attribute</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1720:IdentifiersShouldNotContainTypeNames", MessageId = "bool", Justification = "this is intended")]
         bool Bool(string attribute, TModel model);
 
         /// <summary>
@@ -31,7 +30,6 @@ namespace Abbotware.Core.ExtensionPoints
         /// <param name="attributeId">attribute id</param>
         /// <param name="model">model instance</param>
         /// <returns>value of the attribute</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1720:IdentifiersShouldNotContainTypeNames", MessageId = "bool", Justification = "this is intended")]
         bool Bool(long attributeId, TModel model);
 
         /// <summary>
@@ -88,7 +86,6 @@ namespace Abbotware.Core.ExtensionPoints
         /// <param name="attribute">attribute name</param>
         /// <param name="model">model instance</param>
         /// <returns>value of the attribute</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", MessageId = "Decimal", Justification = "this is intended")]
         decimal Decimal(string attribute, TModel model);
 
         /// <summary>
@@ -97,7 +94,6 @@ namespace Abbotware.Core.ExtensionPoints
         /// <param name="attributeId">attribute id</param>
         /// <param name="model">model instance</param>
         /// <returns>value of the attribute</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", MessageId = "Decimal", Justification = "this is intended")]
         decimal Decimal(long attributeId, TModel model);
 
         /// <summary>
@@ -106,7 +102,6 @@ namespace Abbotware.Core.ExtensionPoints
         /// <param name="attribute">attribute name</param>
         /// <param name="model">model instance</param>
         /// <returns>value of the attribute</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", MessageId = "Double", Justification = "this is intended")]
         double Double(string attribute, TModel model);
 
         /// <summary>
@@ -115,7 +110,6 @@ namespace Abbotware.Core.ExtensionPoints
         /// <param name="attributeId">attribute id</param>
         /// <param name="model">model instance</param>
         /// <returns>value of the attribute</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", MessageId = "Double", Justification = "this is intended")]
         double Double(long attributeId, TModel model);
 
         /// <summary>
@@ -140,7 +134,6 @@ namespace Abbotware.Core.ExtensionPoints
         /// <param name="attribute">attribute name</param>
         /// <param name="model">model instance</param>
         /// <returns>value of the attribute</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", MessageId = "String", Justification = "this is intended")]
         string String(string attribute, TModel model);
 
         /// <summary>
@@ -149,7 +142,6 @@ namespace Abbotware.Core.ExtensionPoints
         /// <param name="attributeId">attribute id</param>
         /// <param name="model">model instance</param>
         /// <returns>value of the attribute</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", MessageId = "String", Justification = "this is intended")]
         string String(long attributeId, TModel model);
 #pragma warning restore CA1720 // Identifier contains type name
 

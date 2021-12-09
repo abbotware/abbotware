@@ -111,7 +111,7 @@ namespace Abbotware.Core.Web.Plugins
                 throw new XmlException("BreadCrumb node must contain 'Controller', 'Action', and 'Text' attributes");
             }
 
-            Breadcrumb node = new Breadcrumb();
+            var node = new Breadcrumb();
 
             if (type.IsNotBlank())
             {

@@ -27,7 +27,7 @@ namespace Abbotware.Utility.UnitTest
     [ExcludeFromCodeCoverage]
     public abstract class BaseUnitTest : BaseComponent, IAssert
     {
-        private readonly NewtonsoftJsonSerializer jsonSerializer = new NewtonsoftJsonSerializer();
+        private readonly NewtonsoftJsonSerializer jsonSerializer = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseUnitTest"/> class.

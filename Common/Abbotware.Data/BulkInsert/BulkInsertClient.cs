@@ -76,7 +76,11 @@ namespace Abbotware.Data.BulkInsert
 
             if (transactionId.Length > 32)
             {
+#if NETSTANDARD2_0
                 transactionId = transactionId.Substring(0, 32);
+#else
+                transactionId = transactionId[..32];
+#endif
             }
 
             this.Logger.Debug("Bulk Copy Transaction Id:{0}", transactionId);

@@ -22,7 +22,6 @@ namespace Abbotware.Core.Data.Plugins.Storage
     /// <typeparam name="TRecord">storage record class type</typeparam>
     /// <typeparam name="TContext">storage context</typeparam>
     /// <typeparam name="TDbContext">entity framework context</typeparam>
-    [SuppressMessage("Microsoft.Design", "CA1005:AvoidExcessiveParametersOnGenericTypes", Justification = "Used to enforce type inheritance")]
     public class EntityFrameworkStorage<TRecord, TContext, TDbContext> : BaseComponent, IRecordStorer<TRecord, IStorageMetadata, TContext>
         where TRecord : class
         where TDbContext : DbContext

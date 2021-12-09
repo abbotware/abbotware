@@ -18,7 +18,7 @@ namespace Abbotware.Data.Configuration.Models
         /// <summary>
         ///     internal sql connection string builder
         /// </summary>
-        private readonly DbConnectionStringBuilder builder = new DbConnectionStringBuilder();
+        private readonly DbConnectionStringBuilder builder = new();
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="SqlConnectionOptions" /> class.

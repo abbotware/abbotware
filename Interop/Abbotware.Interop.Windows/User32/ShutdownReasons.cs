@@ -31,7 +31,6 @@ namespace Abbotware.Interop.Windows.User32
         /// <summary>
         ///     From MSDN
         /// </summary>
-        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Api", Justification = "Taken from win32 api")]
         MajorLegacyApi = 0x00070000,
 
         /// <summary>
@@ -82,7 +81,6 @@ namespace Abbotware.Interop.Windows.User32
         /// <summary>
         ///     From MSDN
         /// </summary>
-        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Hotfix", Justification = "Following Win32 API Spec")]
         MinorHotfix = 0x00000011,
 
         /// <summary>
@@ -103,7 +101,6 @@ namespace Abbotware.Interop.Windows.User32
         /// <summary>
         ///     From MSDN
         /// </summary>
-        [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "MMC", Justification = "Following Win32 API Spec")]
         MinorMMC = 0x00000019,
 
         /// <summary>
@@ -139,7 +136,6 @@ namespace Abbotware.Interop.Windows.User32
         /// <summary>
         ///     From MSDN
         /// </summary>
-        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Reconfig", Justification = "Following Win32 API Spec")]
         MinorReconfig = 0x00000004,
 
         /// <summary>
@@ -170,7 +166,6 @@ namespace Abbotware.Interop.Windows.User32
         /// <summary>
         ///     From MSDN
         /// </summary>
-        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "Srv", Justification = "Following Win32 API Spec")]
         MinorTermSrv = 0x00000020,
 
         /// <summary>
@@ -186,19 +181,16 @@ namespace Abbotware.Interop.Windows.User32
         /// <summary>
         ///     From MSDN
         /// </summary>
-        [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "WMI", Justification = "Following Win32 API Spec")]
         MinorWMI = 0x00000015,
 
         /// <summary>
         ///     From MSDN
         /// </summary>
-        [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flag", Justification = "Following Win32 API Spec")]
         FlagUserDefined = 0x40000000,
 
         /// <summary>
         ///     From MSDN
         /// </summary>
-        [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flag", Justification = "Following Win32 API Spec")]
         FlagPlanned = 0x80000000,
     }
 }

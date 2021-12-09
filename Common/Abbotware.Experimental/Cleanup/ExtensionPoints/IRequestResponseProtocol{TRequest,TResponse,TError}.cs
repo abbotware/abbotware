@@ -15,7 +15,6 @@ namespace Abbotware.Core.ExtensionPoints
     /// <typeparam name="TRequest">type of request object</typeparam>
     /// <typeparam name="TResponse">type of response object</typeparam>
     /// <typeparam name="TError">strongly typed error object</typeparam>
-    [SuppressMessage("Microsoft.Design", "CA1005:AvoidExcessiveParametersOnGenericTypes", Justification = "Reviewed")]
     public interface IRequestResponseProtocol<TRequest, TResponse, TError> : IResponseProtocol<TResponse, TError>
     {
         /// <summary>

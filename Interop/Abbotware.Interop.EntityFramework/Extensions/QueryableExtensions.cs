@@ -105,7 +105,7 @@ namespace Abbotware.Interop.EntityFramework.Extensions
                 {
                     foreach (var navigation in entityNavigations)
                     {
-#if NET6_0_OR_GREATER
+#if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER
                         var inverseNavigation = navigation.Inverse;
 #else
                         var inverseNavigation = navigation.FindInverse();
@@ -129,7 +129,7 @@ namespace Abbotware.Interop.EntityFramework.Extensions
                     break;
                 }
 
-#if NET6_0_OR_GREATER
+#if NETSTANDARD2_1_OR_GREATER || NET5_0_OR_GREATER
                 entityType = stack.Peek().Current.TargetEntityType;
 #else
                 entityType = stack.Peek().Current.GetTargetType();

@@ -20,7 +20,7 @@ namespace Abbotware.Data.Schema
         /// <summary>
         /// mapping of column names to sql metadata
         /// </summary>
-        private readonly Dictionary<string, SqlMetaData> nameToMetadata = new Dictionary<string, SqlMetaData>();
+        private readonly Dictionary<string, SqlMetaData> nameToMetadata = new();
 
         /// <summary>
         /// mapping of column ordinal to sql metadata

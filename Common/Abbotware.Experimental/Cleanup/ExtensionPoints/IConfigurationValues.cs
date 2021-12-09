@@ -39,7 +39,6 @@ namespace Abbotware.Core.ExtensionPoints
         /// </summary>
         /// <param name="attribute">attribute name</param>
         /// <returns>value of the attribute</returns>
-        [SuppressMessage("Microsoft.Naming", "CA1720:IdentifiersShouldNotContainTypeNames", MessageId = "bool", Justification = "this is intended")]
         bool Bool(string attribute);
 
         /// <summary>
@@ -47,7 +46,6 @@ namespace Abbotware.Core.ExtensionPoints
         /// </summary>
         /// <param name="attributeId">attribute id</param>
         /// <returns>value of the attribute</returns>
-        [SuppressMessage("Microsoft.Naming", "CA1720:IdentifiersShouldNotContainTypeNames", MessageId = "bool", Justification = "this is intended")]
         bool Bool(long attributeId);
 
         /// <summary>
@@ -167,7 +165,6 @@ namespace Abbotware.Core.ExtensionPoints
         /// </summary>
         /// <param name="attribute">attribute name</param>
         /// <returns>value of the attribute</returns>
-        [SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", MessageId = "Decimal", Justification = "this is intended")]
         decimal Decimal(string attribute);
 
         /// <summary>
@@ -175,7 +172,6 @@ namespace Abbotware.Core.ExtensionPoints
         /// </summary>
         /// <param name="attributeId">attribute id</param>
         /// <returns>value of the attribute</returns>
-        [SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", MessageId = "Decimal", Justification = "this is intended")]
         decimal Decimal(long attributeId);
 
         /// <summary>
@@ -183,7 +179,6 @@ namespace Abbotware.Core.ExtensionPoints
         /// </summary>
         /// <param name="attribute">attribute name</param>
         /// <returns>value of the attribute</returns>
-        [SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", MessageId = "Double", Justification = "this is intended")]
         double Double(string attribute);
 
         /// <summary>
@@ -191,7 +186,6 @@ namespace Abbotware.Core.ExtensionPoints
         /// </summary>
         /// <param name="attributeId">attribute id</param>
         /// <returns>value of the attribute</returns>
-        [SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", MessageId = "Double", Justification = "this is intended")]
         double Double(long attributeId);
 
         /// <summary>
@@ -206,7 +200,6 @@ namespace Abbotware.Core.ExtensionPoints
         /// </summary>
         /// <param name="attribute">attribute name</param>
         /// <returns>value of the attribute</returns>
-        [SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", MessageId = "String", Justification = "this is intended")]
         [SuppressMessage("Microsoft.Naming", "CA1720:IdentifiersShouldNotContainTypeNames", MessageId = "String", Justification = "this is intended")]
         string String(string attribute);
 
@@ -215,7 +208,6 @@ namespace Abbotware.Core.ExtensionPoints
         /// </summary>
         /// <param name="attributeId">attribute id</param>
         /// <returns>value of the attribute</returns>
-        [SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", MessageId = "String", Justification = "this is intended")]
         [SuppressMessage("Microsoft.Naming", "CA1720:IdentifiersShouldNotContainTypeNames", MessageId = "String", Justification = "this is intended")]
         string String(long attributeId);
 

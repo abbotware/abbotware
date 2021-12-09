@@ -21,7 +21,6 @@ namespace Abbotware.Interop.Windows.Psapi
         ///     Retrieves information about the memory usage of the specified process.
         /// </summary>
         /// <returns>Process Memory Counters object</returns>
-        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "named as per msdn")]
         public static ProcessMemoryCounters GetProcessMemoryInfo()
         {
             var currentProcessHandle = Kernel32.NativeMethods.GetCurrentProcess();

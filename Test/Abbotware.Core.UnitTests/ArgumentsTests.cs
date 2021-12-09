@@ -23,7 +23,7 @@
         [Test]
         public void NotNull_NoThrow()
         {
-            object value = new object();
+            var value = new object();
 
             void Execute() => Arguments.NotNull(value, nameof(value));
 
@@ -43,7 +43,7 @@
         [Test]
         public void EnsureNotNull_ReturnOnNotNull()
         {
-            object value = new object();
+            var value = new object();
 
             object returned = Arguments.EnsureNotNull(value, nameof(value));
 
@@ -119,7 +119,7 @@
         [Test]
         public void NotZero_NoThrows()
         {
-            IntPtr value = new IntPtr(123);
+            var value = new IntPtr(123);
 
             void Execute() => Arguments.NotZero(value, nameof(value));
 
@@ -130,7 +130,7 @@
         public void IsPositive_Throws()
         {
             {
-                TimeSpan value = new TimeSpan(0);
+                var value = new TimeSpan(0);
 
                 void Execute() => Arguments.IsPositiveAndNotZero(value, nameof(value));
 
@@ -138,7 +138,7 @@
             }
 
             {
-                TimeSpan value = new TimeSpan(-123);
+                var value = new TimeSpan(-123);
 
                 void Execute() => Arguments.IsPositiveAndNotZero(value, nameof(value));
 
@@ -166,7 +166,7 @@
         public void IsPositive_NoThrows()
         {
             {
-                TimeSpan value = new TimeSpan(123);
+                var value = new TimeSpan(123);
 
                 void Execute() => Arguments.IsPositiveAndNotZero(value, nameof(value));
 
