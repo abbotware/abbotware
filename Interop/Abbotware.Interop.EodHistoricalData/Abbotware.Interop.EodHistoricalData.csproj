@@ -7,10 +7,6 @@
     <PackageTags>EOD Historical Data;Rest;</PackageTags>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-  </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
   </ItemGroup>
