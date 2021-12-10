@@ -4,7 +4,7 @@
     <Nullable>enable</Nullable>
     <TargetFrameworks>netstandard2.0;netstandard2.1;net6</TargetFrameworks>
     <Description>Abbotware Interop Library for the ISO Codes - Contains helper methods, extension methods, and plugins</Description>
-    <PackageTags>ISO;Currency;Country</PackageTags>
+    <PackageTags>ISO;Currency;Country;ISO 3166;ISO 4217</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,6 +12,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Currency.tt">
+      <DependentUpon>Currency.tsv</DependentUpon>
+      <LastGenOutput>Currency.cs</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
     <None Update="Country.tt">
       <DependentUpon>Country.tsv</DependentUpon>
       <LastGenOutput>Country.cs</LastGenOutput>
@@ -22,6 +27,12 @@
       <LastGenOutput>CountryMetadataLookup.Data.cs</LastGenOutput>
       <DependentUpon>Country.tsv</DependentUpon>
     </None>
+    <None Update="CurrencyMetadataLookup.Data.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CurrencyMetadataLookup.Data.cs</LastGenOutput>
+      <DependentUpon>Currency.tsv</DependentUpon>
+    </None>
+
   </ItemGroup>
 
   <ItemGroup>
@@ -38,6 +49,16 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>CountryMetadataLookup.Data.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Currency.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Currency.tt</DependentUpon>
+    </Compile>
+    <Compile Update="CurrencyMetadataLookup.Data.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CurrencyMetadataLookup.Data.tt</DependentUpon>
     </Compile>
   </ItemGroup>
 

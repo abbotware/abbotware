@@ -10,7 +10,7 @@ namespace Abbotware.Interop.Iso
     using Abbotware.Core.Metadata;
 
     /// <summary>
-    /// Metadata class for ISO Country data
+    /// Metadata class for ISO 3166 Country
     /// </summary>
     /// <param name="Id">Country</param>
     /// <param name="Alpha3">ISO Alpha3 Code</param>

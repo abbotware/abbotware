@@ -13,7 +13,7 @@ namespace Abbotware.Interop.Iso
     using Abbotware.Core.Metadata;
 
     /// <summary>
-    /// Metadata for country enum
+    /// Metadata lookup for ISO 3166 Country
     /// </summary>
     public partial class CountryMetadataLookup : MetadataLookup<Country, CountryMetadata>
     {

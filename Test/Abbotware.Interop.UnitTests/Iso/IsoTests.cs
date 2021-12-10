@@ -17,7 +17,7 @@ namespace Abbotware.UnitTests.Interop.Iso
         [Test]
         [Category("Interop")]
         [Category("Interop.Iso")]
-        public void Validate()
+        public void CountryLookup()
         {
             var t = CountryMetadataLookup.Instance;
 
@@ -27,6 +27,20 @@ namespace Abbotware.UnitTests.Interop.Iso
             Assert.AreSame(us, t.Lookup((ushort)us.Id));
             Assert.AreSame(us, t.LookupAlpha3("USA"));
             Assert.AreSame(us, t.LookupAlpha2("US"));
+        }
+
+        [Test]
+        [Category("Interop")]
+        [Category("Interop.Iso")]
+        public void CurrencyLookup()
+        {
+            var t = CurrencyMetadataLookup.Instance;
+
+            var us = t.Lookup(Currency.USD);
+
+            Assert.AreSame(us, t[us.Id]);
+            Assert.AreSame(us, t.Lookup((ushort)us.Id));
+            Assert.AreSame(us, t.LookupAlpha("USD"));
         }
     }
 }
