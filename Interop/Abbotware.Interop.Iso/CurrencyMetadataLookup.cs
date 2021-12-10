@@ -9,7 +9,9 @@ namespace Abbotware.Interop.Iso
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
+    using Abbotware.Core;
     using Abbotware.Core.Metadata;
 
     /// <summary>
@@ -32,11 +34,6 @@ namespace Abbotware.Interop.Iso
         }
 
         /// <summary>
-        /// Gets the singleton instance
-        /// </summary>
-        public static CurrencyMetadataLookup Instance => new();
-
-        /// <summary>
         /// Lookup Currency by Alphabetic Code
         /// </summary>
         /// <param name="alpha">ISO Alphabetic Code</param>
@@ -44,6 +41,36 @@ namespace Abbotware.Interop.Iso
         public CurrencyMetadata LookupAlpha(string alpha)
         {
             return this.alpha[alpha];
+        }
+
+        /// <summary>
+        /// Try and parse Alphabetic Code in enum
+        /// </summary>
+        /// <param name="alpha">ISO Alphabetic Code</param>
+        /// <param name="currency">parsed currency type</param>
+        /// <returns>true/false based on parse status</returns>
+#if NETSTANDARD2_1_OR_GREATER || NET6_0_OR_GREATER
+        public bool TryParseAlpha(string? alpha, [NotNullWhen(true)] out Currency? currency)
+#else
+        public bool TryParseAlpha(string alpha, out Currency? currency)
+#endif
+        {
+            currency = null;
+
+            if (alpha == null)
+            {
+                return false;
+            }
+
+            alpha = alpha.Trim();
+
+            if (!this.alpha.TryGetValue(alpha, out var meta))
+            {
+                return false;
+            }
+
+            currency = meta.Id;
+            return true;
         }
 
         /// <summary>

@@ -19,14 +19,12 @@ namespace Abbotware.UnitTests.Interop.Iso
         [Category("Interop.Iso")]
         public void CountryLookup()
         {
-            var t = CountryMetadataLookup.Instance;
+            var us = IsoHelpers.Country.Lookup(Country.USA);
 
-            var us = t.Lookup(Country.USA);
-
-            Assert.AreSame(us, t[us.Id]);
-            Assert.AreSame(us, t.Lookup((ushort)us.Id));
-            Assert.AreSame(us, t.LookupAlpha3("USA"));
-            Assert.AreSame(us, t.LookupAlpha2("US"));
+            Assert.AreSame(us, IsoHelpers.Country[us.Id]);
+            Assert.AreSame(us, IsoHelpers.Country.Lookup((ushort)us.Id));
+            Assert.AreSame(us, IsoHelpers.Country.LookupAlpha3("USA"));
+            Assert.AreSame(us, IsoHelpers.Country.LookupAlpha2("US"));
         }
 
         [Test]
@@ -34,13 +32,68 @@ namespace Abbotware.UnitTests.Interop.Iso
         [Category("Interop.Iso")]
         public void CurrencyLookup()
         {
-            var t = CurrencyMetadataLookup.Instance;
+            var us = IsoHelpers.Currency.Lookup(Currency.USD);
 
-            var us = t.Lookup(Currency.USD);
+            Assert.AreSame(us, IsoHelpers.Currency[us.Id]);
+            Assert.AreSame(us, IsoHelpers.Currency.Lookup((ushort)us.Id));
+            Assert.AreSame(us, IsoHelpers.Currency.LookupAlpha("USD"));
+        }
 
-            Assert.AreSame(us, t[us.Id]);
-            Assert.AreSame(us, t.Lookup((ushort)us.Id));
-            Assert.AreSame(us, t.LookupAlpha("USD"));
+        [Test]
+        [Category("Interop")]
+        [Category("Interop.Iso")]
+        public void CurrencyParse_Good()
+        {
+            Assert.IsTrue(IsoHelpers.Currency.TryParseAlpha("uSd", out var c));
+            Assert.IsNotNull(c);
+            Assert.AreEqual(Currency.USD, c);
+        }
+
+        [Test]
+        [Category("Interop")]
+        [Category("Interop.Iso")]
+        public void CurrencyParse_Bad()
+        {
+            Assert.IsFalse(IsoHelpers.Currency.TryParseAlpha("USDd", out var c));
+            Assert.IsNull(c);
+        }
+
+        [Test]
+        [Category("Interop")]
+        [Category("Interop.Iso")]
+        public void CountryParseAlpha3_Good()
+        {
+            Assert.IsTrue(IsoHelpers.Country.TryParseAlpha3("uSa", out var c));
+            Assert.IsNotNull(c);
+            Assert.AreEqual(Country.USA, c);
+        }
+
+        [Test]
+        [Category("Interop")]
+        [Category("Interop.Iso")]
+        public void CountryParseAlpha3_Bad()
+        {
+            Assert.IsFalse(IsoHelpers.Country.TryParseAlpha3("asdf", out var c));
+            Assert.IsNull(c);
+        }
+
+        [Test]
+        [Category("Interop")]
+        [Category("Interop.Iso")]
+        public void CountryParseAlpha2_Good()
+        {
+            Assert.IsTrue(IsoHelpers.Country.TryParseAlpha2("uS", out var c));
+            Assert.IsNotNull(c);
+            Assert.AreEqual(Country.USA, c);
+        }
+
+        [Test]
+        [Category("Interop")]
+        [Category("Interop.Iso")]
+        public void CountryParseAlpha2_Bad()
+        {
+            Assert.IsFalse(IsoHelpers.Country.TryParseAlpha2("asdf", out var c));
+            Assert.IsNull(c);
         }
     }
 }
