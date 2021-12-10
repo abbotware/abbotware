@@ -11,5 +11,34 @@
     <ProjectReference Include="..\..\Common\Abbotware.Core\Abbotware.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Country.tt">
+      <DependentUpon>Country.tsv</DependentUpon>
+      <LastGenOutput>Country.cs</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
+    <None Update="CountryMetadataLookup.Data.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CountryMetadataLookup.Data.cs</LastGenOutput>
+      <DependentUpon>Country.tsv</DependentUpon>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Country.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Country.tt</DependentUpon>
+    </Compile>
+    <Compile Update="CountryMetadataLookup.Data.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CountryMetadataLookup.Data.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
 
 </Project>

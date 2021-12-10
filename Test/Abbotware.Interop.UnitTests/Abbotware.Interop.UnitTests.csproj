@@ -22,6 +22,7 @@
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Castle\Abbotware.Interop.Castle.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.EntityFramework\Abbotware.Interop.EntityFramework.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Ipify\Abbotware.Interop.Ipify.csproj" />
+    <ProjectReference Include="..\..\Interop\Abbotware.Interop.Iso\Abbotware.Interop.Iso.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Log4net\Abbotware.Interop.Log4net.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Microsoft\Abbotware.Interop.Microsoft.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Newtonsoft\Abbotware.Interop.Newtonsoft.csproj" />

@@ -7,25 +7,18 @@
 
 namespace Abbotware.Interop.Iso
 {
-    using Abbotware.Core.Helpers;
+    using Abbotware.Core.Metadata;
 
     /// <summary>
-    /// Metadata for country enum
+    /// Metadata class for ISO Country data
     /// </summary>
-    public class CountryMetadata : MetadataLookup<CountryCode, Country>
+    /// <param name="Id">Country</param>
+    /// <param name="Alpha3">ISO Alpha3 Code</param>
+    /// <param name="Alpha2">ISO Alpha2 Code</param>
+    /// <param name="Name">country name</param>
+    /// <param name="NameFrench">country name in French</param>
+    public record class CountryMetadata(Country Id, string Alpha3, string Alpha2, string Name, string NameFrench)
+        : BaseMetadataRecord<Country>(Id)
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CountryMetadata"/> class.
-        /// </summary>
-        public CountryMetadata()
-        {
-            var values = EnumHelper.GetValues<CountryCode>();
-
-            foreach (var v in values)
-            {
-                var m = new Country(v, v.ToString(), ((Country2Code)(int)v).ToString(), v.ToString());
-                this.Lookup.Add(v, m);
-            }
-        }
     }
 }

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31515.178
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31612.314
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{B2B83BE9-47D3-4A0E-8172-EF4B6EF5F68C}"
 EndProject
@@ -100,6 +100,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abbotware.Interop.EodHistoricalData", "Interop\Abbotware.Interop.EodHistoricalData\Abbotware.Interop.EodHistoricalData.csproj", "{C3367A78-1DBB-4CC0-87EF-FB67FFC6048F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abbotware.Interop.RestSharp", "Interop\Abbotware.Interop.RestSharp\Abbotware.Interop.RestSharp.csproj", "{FA0145E8-9F64-41FA-96B7-AFFBF8039E59}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abbotware.Interop.Iso", "Interop\Abbotware.Interop.Iso\Abbotware.Interop.Iso.csproj", "{D5A6FC36-66B9-43D5-A4B8-511A97B88DCF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -279,6 +281,10 @@ Global
 		{FA0145E8-9F64-41FA-96B7-AFFBF8039E59}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA0145E8-9F64-41FA-96B7-AFFBF8039E59}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA0145E8-9F64-41FA-96B7-AFFBF8039E59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5A6FC36-66B9-43D5-A4B8-511A97B88DCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5A6FC36-66B9-43D5-A4B8-511A97B88DCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5A6FC36-66B9-43D5-A4B8-511A97B88DCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5A6FC36-66B9-43D5-A4B8-511A97B88DCF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -327,6 +333,7 @@ Global
 		{AB2CBDBE-148B-4426-B432-6AD1C9CD1596} = {63414C79-BEF0-4A80-834A-4B47ABF9676F}
 		{C3367A78-1DBB-4CC0-87EF-FB67FFC6048F} = {63414C79-BEF0-4A80-834A-4B47ABF9676F}
 		{FA0145E8-9F64-41FA-96B7-AFFBF8039E59} = {63414C79-BEF0-4A80-834A-4B47ABF9676F}
+		{D5A6FC36-66B9-43D5-A4B8-511A97B88DCF} = {63414C79-BEF0-4A80-834A-4B47ABF9676F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7EE1C721-9604-4A41-B647-816294134415}
