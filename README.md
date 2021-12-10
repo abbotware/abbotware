@@ -1,4 +1,4 @@
-# abbotware
+# Abbotware
 Collection of many utility classes, interfaces, extension methods that have been accumulated over the years. 
 
 * Designed to be DI friendly and contiainer agnostic
