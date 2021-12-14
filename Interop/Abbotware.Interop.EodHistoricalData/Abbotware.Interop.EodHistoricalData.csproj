@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Abbotware.Interop.Iso\Abbotware.Interop.Iso.csproj" />
     <ProjectReference Include="..\Abbotware.Interop.RestSharp\Abbotware.Interop.RestSharp.csproj" />
   </ItemGroup>
 
