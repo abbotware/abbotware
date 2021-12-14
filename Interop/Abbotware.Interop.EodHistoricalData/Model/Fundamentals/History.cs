@@ -7,8 +7,8 @@
 namespace Abbotware.Interop.EodHistoricalData.Models
 {
     using System;
-    using System.ComponentModel.DataAnnotations;
     using Abbotware.Interop.EodHistoricalData.Serialization;
+    using Abbotware.Interop.Iso;
     using Abbotware.Interop.Newtonsoft.Plugins;
     using global::Newtonsoft.Json;
 
@@ -19,7 +19,7 @@ namespace Abbotware.Interop.EodHistoricalData.Models
         [property: JsonConverter(typeof(BetterDateTimeConverter))] DateTimeOffset? Date,
         [property: JsonConverter(typeof(BetterDateTimeConverter))] DateTimeOffset? ReportDate,
         BeforeAfterMarket? BeforeAfterMarket,
-        [property: JsonConverter(typeof(CurrencyTypeConverter))] CurrencyType Currency,
+        [property: JsonConverter(typeof(CurrencyTypeConverter))] Currency Currency,
         decimal? EpsActual,
         decimal? EpsEstimate,
         decimal? EpsDifference,

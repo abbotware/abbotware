@@ -9,6 +9,7 @@ namespace Abbotware.Interop.EodHistoricalData.Models
     using System.ComponentModel.DataAnnotations;
     using Abbotware.Core.Metadata;
     using Abbotware.Interop.EodHistoricalData.Serialization;
+    using Abbotware.Interop.Iso;
     using global::Newtonsoft.Json;
 
     /// <summary>
@@ -26,7 +27,7 @@ namespace Abbotware.Interop.EodHistoricalData.Models
         [property: MaxLength(500)] string Name,
         [property: MaxLength(Length.Country)] string Country,
         [property: MaxLength(10)] string Exchange,
-        [property: JsonConverter(typeof(CurrencyTypeConverter))] CurrencyType Currency,
+        [property: JsonConverter(typeof(CurrencyTypeConverter))] Currency Currency,
         [property: JsonConverter(typeof(TickerTypeTypoFixer))] TickerType Type,
         [property: MaxLength(Length.Isin)] string? Isin)
     {

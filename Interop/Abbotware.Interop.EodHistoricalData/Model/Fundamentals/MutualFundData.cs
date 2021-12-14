@@ -12,6 +12,7 @@ namespace Abbotware.Interop.EodHistoricalData.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using Abbotware.Core.Metadata;
     using Abbotware.Interop.EodHistoricalData.Serialization;
+    using Abbotware.Interop.Iso;
     using Abbotware.Interop.Newtonsoft.Plugins;
     using global::Newtonsoft.Json;
 
@@ -30,7 +31,7 @@ namespace Abbotware.Interop.EodHistoricalData.Models
           [property: JsonProperty("Morning_Star_Risk_Rating"), MaxLength(50)] string? MorningStarRiskRating,
           [property: JsonProperty("Morning_Star_Category"), MaxLength(50)] string? MorningStarCategory,
           [property: JsonProperty("Inception_Date"), JsonConverter(typeof(BetterDateTimeConverter))] DateTimeOffset? InceptionDate,
-          CurrencyType? Currency,
+          Currency Currency,
           [property: JsonProperty("Domicile"), MaxLength(100)] string? Domicile,
           [property: JsonProperty("Yield")] double? Yield,
           [property: JsonProperty("Yield_YTD")] double? YieldYtd,

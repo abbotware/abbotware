@@ -13,11 +13,11 @@ namespace Abbotware.Interop.EodHistoricalData.Models
     /// Address Data POCO
     /// </summary>
     public record AddressData(
-        [property: MaxLength(Length.Street)] string Street,
-        [property: MaxLength(Length.City)] string City,
-        [property: MaxLength(Length.Region)] string State,
-        [property: MaxLength(Length.Country)] string Country,
-        [property: MaxLength(Length.PostalCode)] string Zip)
+        [property: MaxLength(Length.Street)] string? Street,
+        [property: MaxLength(Length.City)] string? City,
+        [property: MaxLength(Length.Region)] string? State,
+        [property: MaxLength(Length.Country)] string? Country,
+        [property: MaxLength(Length.PostalCode)] string? Zip)
     {
     }
 }

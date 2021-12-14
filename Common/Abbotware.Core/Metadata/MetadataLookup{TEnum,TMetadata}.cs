@@ -24,6 +24,11 @@ namespace Abbotware.Core.Metadata
         public long Count => this.Data.Count;
 
         /// <summary>
+        /// Gets the values
+        /// </summary>
+        public IEnumerable<TMetadata> Values => this.Data.Values;
+
+        /// <summary>
         /// Gets the lookup
         /// </summary>
         protected Dictionary<TEnum, TMetadata> Data { get; } = new Dictionary<TEnum, TMetadata>();

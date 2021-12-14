@@ -9,7 +9,7 @@ namespace Abbotware.Interop.EodHistoricalData.Serialization
     using System;
     using Abbotware.Core;
     using Abbotware.Core.Extensions;
-    using Abbotware.Interop.EodHistoricalData.Models;
+    using Abbotware.Interop.Iso;
     using global::Newtonsoft.Json;
 
     /// <summary>
@@ -20,7 +20,7 @@ namespace Abbotware.Interop.EodHistoricalData.Serialization
         /// <inheritdoc/>
         public override bool CanConvert(Type objectType)
         {
-            return objectType == typeof(CurrencyType);
+            return objectType == typeof(Currency);
         }
 
         /// <inheritdoc/>
@@ -30,7 +30,7 @@ namespace Abbotware.Interop.EodHistoricalData.Serialization
 
             if (reader.TokenType == JsonToken.Null)
             {
-                return CurrencyType.Unknown;
+                return Currency.None;
             }
 
             if (reader.TokenType == JsonToken.String)
@@ -41,17 +41,20 @@ namespace Abbotware.Interop.EodHistoricalData.Serialization
 
                     if (v.IsBlank())
                     {
-                        return CurrencyType.Unknown;
+                        return Currency.None;
                     }
 
                     switch (v)
                     {
                         case "NA":
                         case "Unknown":
-                            return CurrencyType.Unknown;
+                        case "ZAC":
+                        case "ILA":
+                        case "GBX":
+                            return Currency.None;
                     }
 
-                    if (!Enum.TryParse<CurrencyType>(v, true, out var r))
+                    if (!Enum.TryParse<Currency>(v, true, out var r))
                     {
                         throw new NotSupportedException($"currency type:{v} unexpected");
                     }
