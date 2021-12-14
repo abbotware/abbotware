@@ -12,10 +12,6 @@ namespace Abbotware.Interop.Iso
     /// </summary>
     public enum Currency
     {
-        /// <summary>
-        /// No universal currency
-        /// </summary>
-        None = 0,
 
         /// <summary>
         /// Afghani
@@ -916,5 +912,10 @@ namespace Abbotware.Interop.Iso
         /// Silver
         /// </summary>
         XAG = 961,
+
+        /// <summary>
+        /// None
+        /// </summary>
+        None = 0,
     }
 }

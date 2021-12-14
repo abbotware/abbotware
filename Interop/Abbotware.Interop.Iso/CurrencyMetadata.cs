@@ -17,7 +17,7 @@ namespace Abbotware.Interop.Iso
     /// <param name="Alpha">ISO Alphabetic Code</param>
     /// <param name="MinorUnit">minor unit</param>
     public record class CurrencyMetadata(Currency Id, string Name, string Alpha, byte MinorUnit)
-        : BaseMetadataRecord<Currency>(Id)
+        : BaseMetadataRecord<Currency>(Id, Name)
     {
     }
 }

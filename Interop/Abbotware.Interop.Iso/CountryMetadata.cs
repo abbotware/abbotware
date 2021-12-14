@@ -18,7 +18,7 @@ namespace Abbotware.Interop.Iso
     /// <param name="Name">country name</param>
     /// <param name="NameFrench">country name in French</param>
     public record class CountryMetadata(Country Id, string Alpha3, string Alpha2, string Name, string NameFrench)
-        : BaseMetadataRecord<Country>(Id)
+        : BaseMetadataRecord<Country>(Id, Name)
     {
     }
 }

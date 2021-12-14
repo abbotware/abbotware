@@ -192,6 +192,7 @@ namespace Abbotware.Interop.Iso
             this.Data.Add((Currency)964, new CurrencyMetadata((Currency)964, "Palladium", "XPD", 0));
             this.Data.Add((Currency)962, new CurrencyMetadata((Currency)962, "Platinum", "XPT", 0));
             this.Data.Add((Currency)961, new CurrencyMetadata((Currency)961, "Silver", "XAG", 0));
+            this.Data.Add((Currency)0, new CurrencyMetadata((Currency)0, "None", "None", 0));
 		}
 	}
 }

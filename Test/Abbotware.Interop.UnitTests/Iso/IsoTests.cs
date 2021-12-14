@@ -42,6 +42,19 @@ namespace Abbotware.UnitTests.Interop.Iso
         [Test]
         [Category("Interop")]
         [Category("Interop.Iso")]
+        public void CurrencyLookup_None()
+        {
+            var c = IsoHelpers.Currency.Lookup(Currency.None);
+
+            Assert.AreSame(c, IsoHelpers.Currency[c.Id]);
+            Assert.AreSame(c, IsoHelpers.Currency.Lookup((ushort)c.Id));
+            Assert.AreSame(c, IsoHelpers.Currency.LookupAlpha("None"));
+        }
+
+
+        [Test]
+        [Category("Interop")]
+        [Category("Interop.Iso")]
         public void CurrencyParse_Good()
         {
             Assert.IsTrue(IsoHelpers.Currency.TryParseAlpha("uSd", out var c));

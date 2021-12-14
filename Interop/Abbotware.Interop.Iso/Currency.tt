@@ -18,10 +18,6 @@ namespace Abbotware.Interop.Iso
     /// </summary>
     public enum Currency
     {
-        /// <summary>
-        /// No universal currency
-        /// </summary>
-        None = 0,
 <#
 	var path = Host.ResolvePath(string.Empty);
 	var file = Path.Combine(path, "Currency.tsv");
@@ -43,9 +39,8 @@ namespace Abbotware.Interop.Iso
 			{
 				continue;
 			}
-			int.TryParse(keyValue[3], out var id);
 
-			if (id == 0) 
+			if (!int.TryParse(keyValue[3], out var id)) 
 			{
 				continue;
 			}

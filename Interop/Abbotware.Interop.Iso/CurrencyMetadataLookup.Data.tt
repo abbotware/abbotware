@@ -39,9 +39,8 @@ namespace Abbotware.Interop.Iso
 			{
 				continue;
 			}
-			int.TryParse(keyValue[3], out var id);
 
-			if (id == 0) 
+			if (!int.TryParse(keyValue[3], out var id)) 
 			{
 				continue;
 			}
