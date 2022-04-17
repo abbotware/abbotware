@@ -30,11 +30,6 @@ namespace Abbotware.Using.Castle.Internal
         private string defaultLogName = string.Empty;
 
         /// <summary>
-        ///     flag to indicate external configuration
-        /// </summary>
-        private bool configuredExternally;
-
-        /// <summary>
         ///     config file name
         /// </summary>
         private string configFileName = "log4net.config";
@@ -54,17 +49,6 @@ namespace Abbotware.Using.Castle.Internal
         /// </summary>
         public AbbotwareLoggingFacility()
         {
-        }
-
-        /// <summary>
-        ///     Fluent API to Indicate Logging Facility is externally configured
-        /// </summary>
-        /// <returns>the logging facility</returns>
-        public AbbotwareLoggingFacility ConfiguredExternally()
-        {
-            this.configuredExternally = true;
-
-            return this;
         }
 
         /// <summary>
@@ -153,16 +137,7 @@ namespace Abbotware.Using.Castle.Internal
                 }
             }
 
-            AbbotwareLoggerFactory loggerFactory;
-
-            if (this.configuredExternally)
-            {
-                loggerFactory = new AbbotwareLoggerFactory(this.configuredExternally);
-            }
-            else
-            {
-                loggerFactory = new AbbotwareLoggerFactory(this.configFileName);
-            }
+            var loggerFactory = new AbbotwareLoggerFactory(this.configFileName);
 
             AbbotwareILogger defaultLogger;
 
@@ -187,9 +162,9 @@ namespace Abbotware.Using.Castle.Internal
         {
             this.Kernel.Register(Component.For<ILoggerFactory>().NamedAutomatically("castleiloggerfactory").Instance(loggerFactory));
             this.Kernel.Register(Component.For<AbbotwareLoggerFactory>().NamedAutomatically("abbotwareloggerfactory").Instance(loggerFactory));
-            this.Kernel.Register(Component.For<AbbotwareILogger>().NamedAutomatically("abbotwareilogger.default").Instance(defaultLogger as AbbotwareILogger));
-            this.Kernel.Register(Component.For<CastleILogger>().NamedAutomatically("castleilogger.default").Instance(defaultLogger as CastleILogger));
-            this.Kernel.Register(Component.For<Log4netILog>().NamedAutomatically("log4netilog.default").Instance(defaultLogger as Log4netILog));
+            this.Kernel.Register(Component.For<AbbotwareILogger>().NamedAutomatically("abbotwareilogger.default").Instance(defaultLogger));
+            this.Kernel.Register(Component.For<CastleILogger>().NamedAutomatically("castleilogger.default").Instance((CastleILogger)defaultLogger));
+            this.Kernel.Register(Component.For<Log4netILog>().NamedAutomatically("log4netilog.default").Instance((Log4netILog)defaultLogger));
             this.Kernel.Resolver.AddSubResolver(new AbbotwareLoggerResolver(loggerFactory, this.defaultLogName));
         }
     }

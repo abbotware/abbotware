@@ -62,26 +62,6 @@ namespace Abbotware.Using.Castle.Internal
         /// <summary>
         ///     Initializes a new instance of the <see cref="AbbotwareLoggerFactory" /> class.
         /// </summary>
-        /// <param name="configuredExternally">indicates the logger will be configured externally</param>
-        public AbbotwareLoggerFactory(bool configuredExternally)
-        {
-            if (configuredExternally)
-            {
-                return;
-            }
-
-            var file = GetConfigFile(DefaultConfigFileName);
-
-            this.repo = GetOrCreateRepository();
-
-            XmlConfigurator.ConfigureAndWatch(this.repo, file);
-
-            this.repo = Arguments.EnsureNotNull(this.repo, nameof(this.repo));
-        }
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="AbbotwareLoggerFactory" /> class.
-        /// </summary>
         /// <param name="configStream">stream of the config file</param>
         public AbbotwareLoggerFactory(Stream configStream)
         {

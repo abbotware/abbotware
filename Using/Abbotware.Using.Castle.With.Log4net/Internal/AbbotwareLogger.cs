@@ -44,10 +44,8 @@ namespace Abbotware.Using.Castle.Internal
         /// <param name="log">Log4net's ILog</param>
         /// <param name="factory">logger factory</param>
         public AbbotwareLogger(Log4netILog log, AbbotwareLoggerFactory factory)
-            : this(log?.Logger, factory)
+            : this(log.Logger, factory)
         {
-            Arguments.NotNull(log, nameof(log));
-            Arguments.NotNull(factory, nameof(factory));
         }
 
         /// <summary>
@@ -57,18 +55,8 @@ namespace Abbotware.Using.Castle.Internal
         /// <param name="factory">logger factory</param>
         public AbbotwareLogger(Log4netILogger logger, AbbotwareLoggerFactory factory)
         {
-            Arguments.NotNull(logger, nameof(logger));
-            Arguments.NotNull(factory, nameof(factory));
-
-            this.logger = logger;
-            this.factory = factory;
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AbbotwareLogger"/> class.
-        /// </summary>
-        private AbbotwareLogger()
-        {
+            this.logger = Arguments.EnsureNotNull(logger, nameof(logger));
+            this.factory = Arguments.EnsureNotNull(factory, nameof(factory));
         }
 
         /// <inheritdoc />
@@ -332,7 +320,7 @@ namespace Abbotware.Using.Castle.Internal
         /// <inheritdoc />
         CastleILogger CastleILogger.CreateChildLogger(string name)
         {
-            return this.factory.Create(this.logger.Name + "." + name) as CastleILogger;
+            return (CastleILogger)this.factory.Create(this.logger.Name + "." + name);
         }
 
         /// <inheritdoc />
