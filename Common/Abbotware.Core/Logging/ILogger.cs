@@ -32,7 +32,7 @@ namespace Abbotware.Core.Logging
         /// </summary>
         /// <param name="message">format string</param>
         /// <param name="args">format parameters</param>
-        void Info([Localizable(false)] string message, params object?[] args);
+        void Info([Localizable(false)] string message, params object?[]? args);
 
         /// <summary>
         /// Log an Info level string using a function with parameters with an exception (first parameter)
@@ -40,7 +40,7 @@ namespace Abbotware.Core.Logging
         /// <param name="exception">exception to log</param>
         /// <param name="message">format string</param>
         /// <param name="args">format parameters</param>
-        void Info(Exception exception, [Localizable(false)] string message, params object?[] args);
+        void Info(Exception exception, [Localizable(false)] string message, params object?[]? args);
 
         /// <summary>
         /// Lazily log a Debug string using a function with parameters
@@ -55,7 +55,7 @@ namespace Abbotware.Core.Logging
         /// </summary>
         /// <param name="message">format string</param>
         /// <param name="args">format parameters</param>
-        void Debug([Localizable(false)] string message, params object?[] args);
+        void Debug([Localizable(false)] string message, params object?[]? args);
 
         /// <summary>
         /// Log a Debug level string using a function with parameters with an exception (first parameter)
@@ -63,7 +63,7 @@ namespace Abbotware.Core.Logging
         /// <param name="exception">exception to log</param>
         /// <param name="message">format string</param>
         /// <param name="args">format parameters</param>
-        void Debug(Exception exception, [Localizable(false)] string message, params object?[] args);
+        void Debug(Exception exception, [Localizable(false)] string message, params object?[]? args);
 
         /// <summary>
         /// Lazily log a Warn string using a function with parameters
@@ -78,7 +78,7 @@ namespace Abbotware.Core.Logging
         /// </summary>
         /// <param name="message">format string</param>
         /// <param name="args">format parameters</param>
-        void Warn([Localizable(false)] string message, params object?[] args);
+        void Warn([Localizable(false)] string message, params object?[]? args);
 
         /// <summary>
         /// Log a Warn level string using a function with parameters with an exception (first parameter)
@@ -86,7 +86,7 @@ namespace Abbotware.Core.Logging
         /// <param name="exception">exception to log</param>
         /// <param name="message">format string</param>
         /// <param name="args">format parameters</param>
-        void Warn(Exception exception, [Localizable(false)] string message, params object?[] args);
+        void Warn(Exception exception, [Localizable(false)] string message, params object?[]? args);
 
         /// <summary>
         /// Lazily log an Error string using a function with parameters
@@ -101,7 +101,7 @@ namespace Abbotware.Core.Logging
         /// </summary>
         /// <param name="message">format string</param>
         /// <param name="args">format parameters</param>
-        void Error([Localizable(false)] string message, params object?[] args);
+        void Error([Localizable(false)] string message, params object?[]? args);
 
         /// <summary>
         /// Log an Error level string using a function with parameters with an exception (first parameter)
@@ -109,7 +109,7 @@ namespace Abbotware.Core.Logging
         /// <param name="exception">exception to log</param>
         /// <param name="message">format string</param>
         /// <param name="args">format parameters</param>
-        void Error(Exception exception, [Localizable(false)] string message, params object?[] args);
+        void Error(Exception exception, [Localizable(false)] string message, params object?[]? args);
 
         /// <summary>
         /// Lazily log a Fatal string using a function with parameters
@@ -124,7 +124,7 @@ namespace Abbotware.Core.Logging
         /// </summary>
         /// <param name="message">format string</param>
         /// <param name="args">format parameters</param>
-        void Fatal([Localizable(false)] string message, params object?[] args);
+        void Fatal([Localizable(false)] string message, params object?[]? args);
 
         /// <summary>
         /// Log a Fatal level string using a function with parameters with an exception (first parameter)
@@ -132,7 +132,7 @@ namespace Abbotware.Core.Logging
         /// <param name="exception">exception to log</param>
         /// <param name="message">format string</param>
         /// <param name="args">format parameters</param>
-        void Fatal(Exception exception, [Localizable(false)] string message, params object?[] args);
+        void Fatal(Exception exception, [Localizable(false)] string message, params object?[]? args);
 
         /// <summary>
         /// Lazily log a Trace string using a function with parameters
@@ -147,7 +147,7 @@ namespace Abbotware.Core.Logging
         /// </summary>
         /// <param name="message">format string</param>
         /// <param name="args">format parameters</param>
-        void Trace([Localizable(false)] string message, params object?[] args);
+        void Trace([Localizable(false)] string message, params object?[]? args);
 
         /// <summary>
         /// Log a Fatal Trace string using a function with parameters with an exception (first parameter)
@@ -155,7 +155,7 @@ namespace Abbotware.Core.Logging
         /// <param name="exception">exception to log</param>
         /// <param name="message">format string</param>
         /// <param name="args">format parameters</param>
-        void Trace(Exception exception, [Localizable(false)] string message, params object?[] args);
+        void Trace(Exception exception, [Localizable(false)] string message, params object?[]? args);
 
         /// <summary>
         /// creates a logger scope

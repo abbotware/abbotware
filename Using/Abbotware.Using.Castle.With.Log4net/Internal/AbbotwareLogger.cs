@@ -117,7 +117,7 @@ namespace Abbotware.Using.Castle.Internal
         }
 
         /// <inheritdoc />
-        string AbbotwareILoggerV2.Name { get; }
+        string AbbotwareILoggerV2.Name { get; } = string.Empty;
 
         /// <inheritdoc />
         void Log4netILog.Debug(object message, Exception exception)
@@ -132,7 +132,7 @@ namespace Abbotware.Using.Castle.Internal
         }
 
         /// <inheritdoc />
-        void Log4netILog.DebugFormat(IFormatProvider provider, string format, params object[] args)
+        void Log4netILog.DebugFormat(IFormatProvider provider, string format, params object?[]? args)
         {
             (this as AbbotwareILoggerV2).Debug(format, args);
         }
@@ -156,7 +156,7 @@ namespace Abbotware.Using.Castle.Internal
         }
 
         /// <inheritdoc />
-        void Log4netILog.DebugFormat(string format, params object[] args)
+        void Log4netILog.DebugFormat(string format, params object?[]? args)
         {
             this.DebugFormat(format, args);
         }
@@ -174,7 +174,7 @@ namespace Abbotware.Using.Castle.Internal
         }
 
         /// <inheritdoc />
-        void Log4netILog.ErrorFormat(IFormatProvider provider, string format, params object[] args)
+        void Log4netILog.ErrorFormat(IFormatProvider provider, string format, params object?[]? args)
         {
             (this as AbbotwareILoggerV2).Error(format, args);
         }
@@ -198,7 +198,7 @@ namespace Abbotware.Using.Castle.Internal
         }
 
         /// <inheritdoc />
-        void Log4netILog.ErrorFormat(string format, params object[] args)
+        void Log4netILog.ErrorFormat(string format, params object?[]? args)
         {
             this.ErrorFormat(format, args);
         }
@@ -216,7 +216,7 @@ namespace Abbotware.Using.Castle.Internal
         }
 
         /// <inheritdoc />
-        void Log4netILog.FatalFormat(IFormatProvider provider, string format, params object[] args)
+        void Log4netILog.FatalFormat(IFormatProvider provider, string format, params object?[]? args)
         {
             (this as AbbotwareILoggerV2).Error(format, args);
         }
@@ -240,7 +240,7 @@ namespace Abbotware.Using.Castle.Internal
         }
 
         /// <inheritdoc />
-        void Log4netILog.FatalFormat(string format, params object[] args)
+        void Log4netILog.FatalFormat(string format, params object?[]? args)
         {
             this.FatalFormat(format, args);
         }
@@ -258,7 +258,7 @@ namespace Abbotware.Using.Castle.Internal
         }
 
         /// <inheritdoc />
-        void Log4netILog.InfoFormat(IFormatProvider provider, string format, params object[] args)
+        void Log4netILog.InfoFormat(IFormatProvider provider, string format, params object?[]? args)
         {
             (this as AbbotwareILoggerV2).Info(format, args);
         }
@@ -282,7 +282,7 @@ namespace Abbotware.Using.Castle.Internal
         }
 
         /// <inheritdoc />
-        void Log4netILog.InfoFormat(string format, params object[] args)
+        void Log4netILog.InfoFormat(string format, params object?[]? args)
         {
             this.InfoFormat(format, args);
         }
@@ -300,7 +300,7 @@ namespace Abbotware.Using.Castle.Internal
         }
 
         /// <inheritdoc />
-        void Log4netILog.WarnFormat(IFormatProvider provider, string format, params object[] args)
+        void Log4netILog.WarnFormat(IFormatProvider provider, string format, params object?[]? args)
         {
             (this as AbbotwareILoggerV2).Warn(format, args);
         }
@@ -324,7 +324,7 @@ namespace Abbotware.Using.Castle.Internal
         }
 
         /// <inheritdoc />
-        void Log4netILog.WarnFormat(string format, params object[] args)
+        void Log4netILog.WarnFormat(string format, params object?[]? args)
         {
             this.WarnFormat(format, args);
         }
@@ -357,7 +357,7 @@ namespace Abbotware.Using.Castle.Internal
         }
 
         /// <inheritdoc />
-        public void DebugFormat(string format, params object[] args)
+        public void DebugFormat(string format, params object?[]? args)
         {
             if (this.IsDebugEnabled)
             {
@@ -366,19 +366,19 @@ namespace Abbotware.Using.Castle.Internal
         }
 
         /// <inheritdoc />
-        void CastleILogger.DebugFormat(Exception exception, string format, params object[] args)
+        void CastleILogger.DebugFormat(Exception exception, string format, params object?[]? args)
         {
             (this as AbbotwareILoggerV2).Debug(exception, format, args);
         }
 
         /// <inheritdoc />
-        void CastleILogger.DebugFormat(IFormatProvider formatProvider, string format, params object[] args)
+        void CastleILogger.DebugFormat(IFormatProvider formatProvider, string format, params object?[]? args)
         {
             (this as AbbotwareILoggerV2).Debug(format, args);
         }
 
         /// <inheritdoc />
-        void CastleILogger.DebugFormat(Exception exception, IFormatProvider formatProvider, string format, params object[] args)
+        void CastleILogger.DebugFormat(Exception exception, IFormatProvider formatProvider, string format, params object?[]? args)
         {
             (this as AbbotwareILoggerV2).Debug(exception, format, args);
         }
@@ -405,7 +405,7 @@ namespace Abbotware.Using.Castle.Internal
         }
 
         /// <inheritdoc />
-        public void ErrorFormat(string format, params object[] args)
+        public void ErrorFormat(string format, params object?[]? args)
         {
             if (this.IsErrorEnabled)
             {
@@ -414,19 +414,19 @@ namespace Abbotware.Using.Castle.Internal
         }
 
         /// <inheritdoc />
-        void CastleILogger.ErrorFormat(Exception exception, string format, params object[] args)
+        void CastleILogger.ErrorFormat(Exception exception, string format, params object?[]? args)
         {
             (this as AbbotwareILoggerV2).Error(exception, format, args);
         }
 
         /// <inheritdoc />
-        void CastleILogger.ErrorFormat(IFormatProvider formatProvider, string format, params object[] args)
+        void CastleILogger.ErrorFormat(IFormatProvider formatProvider, string format, params object?[]? args)
         {
             (this as AbbotwareILoggerV2).Error(format, args);
         }
 
         /// <inheritdoc />
-        void CastleILogger.ErrorFormat(Exception exception, IFormatProvider formatProvider, string format, params object[] args)
+        void CastleILogger.ErrorFormat(Exception exception, IFormatProvider formatProvider, string format, params object?[]? args)
         {
             (this as AbbotwareILoggerV2).Error(exception, format, args);
         }
@@ -453,7 +453,7 @@ namespace Abbotware.Using.Castle.Internal
         }
 
         /// <inheritdoc />
-        public void FatalFormat(string format, params object[] args)
+        public void FatalFormat(string format, params object?[]? args)
         {
             if (this.IsFatalEnabled)
             {
@@ -462,19 +462,19 @@ namespace Abbotware.Using.Castle.Internal
         }
 
         /// <inheritdoc />
-        void CastleILogger.FatalFormat(Exception exception, string format, params object[] args)
+        void CastleILogger.FatalFormat(Exception exception, string format, params object?[]? args)
         {
             (this as AbbotwareILoggerV2).Fatal(exception, format, args);
         }
 
         /// <inheritdoc />
-        void CastleILogger.FatalFormat(IFormatProvider formatProvider, string format, params object[] args)
+        void CastleILogger.FatalFormat(IFormatProvider formatProvider, string format, params object?[]? args)
         {
             (this as AbbotwareILoggerV2).Fatal(format, args);
         }
 
         /// <inheritdoc />
-        void CastleILogger.FatalFormat(Exception exception, IFormatProvider formatProvider, string format, params object[] args)
+        void CastleILogger.FatalFormat(Exception exception, IFormatProvider formatProvider, string format, params object?[]? args)
         {
             (this as AbbotwareILoggerV2).Fatal(exception, format, args);
         }
@@ -501,7 +501,7 @@ namespace Abbotware.Using.Castle.Internal
         }
 
         /// <inheritdoc />
-        public void InfoFormat(string format, params object[] args)
+        public void InfoFormat(string format, params object?[]? args)
         {
             if (this.IsInfoEnabled)
             {
@@ -510,19 +510,19 @@ namespace Abbotware.Using.Castle.Internal
         }
 
         /// <inheritdoc />
-        void CastleILogger.InfoFormat(Exception exception, string format, params object[] args)
+        void CastleILogger.InfoFormat(Exception exception, string format, params object?[]? args)
         {
             (this as AbbotwareILoggerV2).Info(exception, format, args);
         }
 
         /// <inheritdoc />
-        void CastleILogger.InfoFormat(IFormatProvider formatProvider, string format, params object[] args)
+        void CastleILogger.InfoFormat(IFormatProvider formatProvider, string format, params object?[]? args)
         {
             (this as AbbotwareILoggerV2).Info(format, args);
         }
 
         /// <inheritdoc />
-        void CastleILogger.InfoFormat(Exception exception, IFormatProvider formatProvider, string format, params object[] args)
+        void CastleILogger.InfoFormat(Exception exception, IFormatProvider formatProvider, string format, params object?[]? args)
         {
             (this as AbbotwareILoggerV2).Info(exception, format, args);
         }
@@ -549,7 +549,7 @@ namespace Abbotware.Using.Castle.Internal
         }
 
         /// <inheritdoc />
-        public void WarnFormat(string format, params object[] args)
+        public void WarnFormat(string format, params object?[]? args)
         {
             if (this.IsWarnEnabled)
             {
@@ -558,19 +558,19 @@ namespace Abbotware.Using.Castle.Internal
         }
 
         /// <inheritdoc />
-        void CastleILogger.WarnFormat(Exception exception, string format, params object[] args)
+        void CastleILogger.WarnFormat(Exception exception, string format, params object?[]? args)
         {
             (this as AbbotwareILoggerV2).Warn(exception, format, args);
         }
 
         /// <inheritdoc />
-        void CastleILogger.WarnFormat(IFormatProvider formatProvider, string format, params object[] args)
+        void CastleILogger.WarnFormat(IFormatProvider formatProvider, string format, params object?[]? args)
         {
             (this as AbbotwareILoggerV2).Warn(format, args);
         }
 
         /// <inheritdoc />
-        void CastleILogger.WarnFormat(Exception exception, IFormatProvider formatProvider, string format, params object[] args)
+        void CastleILogger.WarnFormat(Exception exception, IFormatProvider formatProvider, string format, params object?[]? args)
         {
             (this as AbbotwareILoggerV2).Warn(exception, format, args);
         }
@@ -597,7 +597,7 @@ namespace Abbotware.Using.Castle.Internal
         }
 
         /// <inheritdoc />
-        public void TraceFormat(string format, params object[] args)
+        public void TraceFormat(string format, params object?[]? args)
         {
             if (this.IsTraceEnabled)
             {
@@ -606,19 +606,19 @@ namespace Abbotware.Using.Castle.Internal
         }
 
         /// <inheritdoc />
-        void CastleILogger.TraceFormat(Exception exception, string format, params object[] args)
+        void CastleILogger.TraceFormat(Exception exception, string format, params object?[]? args)
         {
             (this as AbbotwareILoggerV2).Trace(exception, format, args);
         }
 
         /// <inheritdoc />
-        void CastleILogger.TraceFormat(IFormatProvider formatProvider, string format, params object[] args)
+        void CastleILogger.TraceFormat(IFormatProvider formatProvider, string format, params object?[]? args)
         {
             (this as AbbotwareILoggerV2).Trace(format, args);
         }
 
         /// <inheritdoc />
-        void CastleILogger.TraceFormat(Exception exception, IFormatProvider formatProvider, string format, params object[] args)
+        void CastleILogger.TraceFormat(Exception exception, IFormatProvider formatProvider, string format, params object?[]? args)
         {
             (this as AbbotwareILoggerV2).Trace(exception, format, args);
         }
@@ -626,7 +626,7 @@ namespace Abbotware.Using.Castle.Internal
         /// <inheritdoc />
         public override string ToString()
         {
-            return this.logger.ToString();
+            return this.logger?.ToString() ?? string.Empty;
         }
 
         /// <inheritdoc />
@@ -639,7 +639,7 @@ namespace Abbotware.Using.Castle.Internal
         }
 
         /// <inheritdoc />
-        void AbbotwareILoggerV2.Info(string message, params object[] args)
+        void AbbotwareILoggerV2.Info(string message, params object?[]? args)
         {
             if (this.IsInfoEnabled)
             {
@@ -648,7 +648,7 @@ namespace Abbotware.Using.Castle.Internal
         }
 
         /// <inheritdoc />
-        void AbbotwareILoggerV2.Info(Exception exception, string message, params object[] args)
+        void AbbotwareILoggerV2.Info(Exception exception, string message, params object?[]? args)
         {
             if (this.IsInfoEnabled)
             {
@@ -666,7 +666,7 @@ namespace Abbotware.Using.Castle.Internal
         }
 
         /// <inheritdoc />
-        void AbbotwareILoggerV2.Debug(string message, params object[] args)
+        void AbbotwareILoggerV2.Debug(string message, params object?[]? args)
         {
             if (this.IsDebugEnabled)
             {
@@ -675,7 +675,7 @@ namespace Abbotware.Using.Castle.Internal
         }
 
         /// <inheritdoc />
-        void AbbotwareILoggerV2.Debug(Exception exception, string message, params object[] args)
+        void AbbotwareILoggerV2.Debug(Exception exception, string message, params object?[]? args)
         {
             if (this.IsDebugEnabled)
             {
@@ -693,7 +693,7 @@ namespace Abbotware.Using.Castle.Internal
         }
 
         /// <inheritdoc />
-        void AbbotwareILoggerV2.Warn(string message, params object[] args)
+        void AbbotwareILoggerV2.Warn(string message, params object?[]? args)
         {
             if (this.IsWarnEnabled)
             {
@@ -702,7 +702,7 @@ namespace Abbotware.Using.Castle.Internal
         }
 
         /// <inheritdoc />
-        void AbbotwareILoggerV2.Warn(Exception exception, string message, params object[] args)
+        void AbbotwareILoggerV2.Warn(Exception exception, string message, params object?[]? args)
         {
             if (this.IsWarnEnabled)
             {
@@ -720,7 +720,7 @@ namespace Abbotware.Using.Castle.Internal
         }
 
         /// <inheritdoc />
-        void AbbotwareILoggerV2.Error(string message, params object[] args)
+        void AbbotwareILoggerV2.Error(string message, params object?[]? args)
         {
             if (this.IsErrorEnabled)
             {
@@ -729,7 +729,7 @@ namespace Abbotware.Using.Castle.Internal
         }
 
         /// <inheritdoc />
-        void AbbotwareILoggerV2.Error(Exception exception, string message, params object[] args)
+        void AbbotwareILoggerV2.Error(Exception exception, string message, params object?[]? args)
         {
             if (this.IsErrorEnabled)
             {
@@ -759,7 +759,7 @@ namespace Abbotware.Using.Castle.Internal
         }
 
         /// <inheritdoc />
-        public void Fatal([Localizable(false)] string message, params object[] args)
+        public void Fatal([Localizable(false)] string message, params object?[]? args)
         {
             if (this.IsFatalEnabled)
             {
@@ -768,7 +768,7 @@ namespace Abbotware.Using.Castle.Internal
         }
 
         /// <inheritdoc />
-        public void Fatal(Exception exception, [Localizable(false)] string message, params object[] args)
+        public void Fatal(Exception exception, [Localizable(false)] string message, params object?[]? args)
         {
             if (this.IsFatalEnabled)
             {
@@ -786,7 +786,7 @@ namespace Abbotware.Using.Castle.Internal
         }
 
         /// <inheritdoc />
-        public void Trace([Localizable(false)] string message, params object[] args)
+        public void Trace([Localizable(false)] string message, params object?[]? args)
         {
             if (this.IsTraceEnabled)
             {
@@ -795,7 +795,7 @@ namespace Abbotware.Using.Castle.Internal
         }
 
         /// <inheritdoc />
-        public void Trace(Exception exception, [Localizable(false)] string message, params object[] args)
+        public void Trace(Exception exception, [Localizable(false)] string message, params object?[]? args)
         {
             if (this.IsTraceEnabled)
             {
@@ -810,12 +810,7 @@ namespace Abbotware.Using.Castle.Internal
         /// <returns>string message</returns>
         private static string ObjectToString(object objectForMessage)
         {
-            if (objectForMessage == null)
-            {
-                return string.Empty;
-            }
-
-            return objectForMessage.ToString();
+            return objectForMessage?.ToString() ?? string.Empty;
         }
     }
 }

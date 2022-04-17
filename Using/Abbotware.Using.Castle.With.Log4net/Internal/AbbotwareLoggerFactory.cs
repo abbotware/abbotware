@@ -55,6 +55,8 @@ namespace Abbotware.Using.Castle.Internal
             this.repo = GetOrCreateRepository();
 
             XmlConfigurator.ConfigureAndWatch(this.repo, file);
+
+            this.repo = Arguments.EnsureNotNull(this.repo, nameof(this.repo));
         }
 
         /// <summary>
@@ -73,6 +75,8 @@ namespace Abbotware.Using.Castle.Internal
             this.repo = GetOrCreateRepository();
 
             XmlConfigurator.ConfigureAndWatch(this.repo, file);
+
+            this.repo = Arguments.EnsureNotNull(this.repo, nameof(this.repo));
         }
 
         /// <summary>
@@ -86,6 +90,8 @@ namespace Abbotware.Using.Castle.Internal
             this.repo = GetOrCreateRepository();
 
             XmlConfigurator.Configure(this.repo, configStream);
+
+            this.repo = Arguments.EnsureNotNull(this.repo, nameof(this.repo));
         }
 
         /// <inheritdoc />

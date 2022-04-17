@@ -145,9 +145,11 @@ namespace Abbotware.Using.Castle.Internal
 
             if (this.FacilityConfig != null && this.FacilityConfig.Attributes != null)
             {
-                if (!string.IsNullOrWhiteSpace(this.FacilityConfig.Attributes["configFile"]))
+                var configFile = this.FacilityConfig.Attributes["configFile"];
+
+                if (!string.IsNullOrWhiteSpace(configFile))
                 {
-                    this.configFileName = this.FacilityConfig.Attributes["configFile"];
+                    this.configFileName = configFile;
                 }
             }
 

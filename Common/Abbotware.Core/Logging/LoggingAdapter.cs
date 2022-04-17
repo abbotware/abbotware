@@ -17,6 +17,8 @@ namespace Abbotware.Core.Logging
     /// </summary>
     public class LoggingAdapter : ILogger
     {
+        private readonly object?[] notNullArgs = Array.Empty<object>();
+
         private readonly Microsoft.Extensions.Logging.ILogger external;
 
         /// <summary>
@@ -38,15 +40,15 @@ namespace Abbotware.Core.Logging
         }
 
         /// <inheritdoc/>
-        public void Fatal([Localizable(false)] string message, params object?[] args)
+        public void Fatal([Localizable(false)] string message, params object?[]? args)
 {
-            this.external.Critical(() => string.Format(CultureInfo.InvariantCulture, message, args), null, null, null);
+            this.external.Critical(() => string.Format(CultureInfo.InvariantCulture, message, args ?? this.notNullArgs), null, null, null);
         }
 
         /// <inheritdoc/>
-        public void Fatal(Exception exception, [Localizable(false)] string message, params object?[] args)
+        public void Fatal(Exception exception, [Localizable(false)] string message, params object?[]? args)
         {
-            this.external.Critical(exception, () => string.Format(CultureInfo.InvariantCulture, message, args), null, null, null);
+            this.external.Critical(exception, () => string.Format(CultureInfo.InvariantCulture, message, args ?? this.notNullArgs), null, null, null);
         }
 
         /// <inheritdoc/>
@@ -56,15 +58,15 @@ namespace Abbotware.Core.Logging
         }
 
         /// <inheritdoc/>
-        public void Error([Localizable(false)] string message, params object?[] args)
+        public void Error([Localizable(false)] string message, params object?[]? args)
         {
-            this.external.Error(() => string.Format(CultureInfo.InvariantCulture, message, args), null, null, null);
+            this.external.Error(() => string.Format(CultureInfo.InvariantCulture, message, args ?? this.notNullArgs), null, null, null);
         }
 
         /// <inheritdoc/>
-        public void Error(Exception exception, [Localizable(false)] string message, params object?[] args)
+        public void Error(Exception exception, [Localizable(false)] string message, params object?[]? args)
         {
-            this.external.Error(exception, () => string.Format(CultureInfo.InvariantCulture, message, args), null, null, null);
+            this.external.Error(exception, () => string.Format(CultureInfo.InvariantCulture, message, args ?? this.notNullArgs), null, null, null);
         }
 
         /// <inheritdoc/>
@@ -74,15 +76,15 @@ namespace Abbotware.Core.Logging
         }
 
         /// <inheritdoc/>
-        public void Warn([Localizable(false)] string message, params object?[] args)
+        public void Warn([Localizable(false)] string message, params object?[]? args)
         {
-            this.external.Warn(() => string.Format(CultureInfo.InvariantCulture, message, args), null, null, null);
+            this.external.Warn(() => string.Format(CultureInfo.InvariantCulture, message, args ?? this.notNullArgs), null, null, null);
         }
 
         /// <inheritdoc/>
-        public void Warn(Exception exception, [Localizable(false)] string message, params object?[] args)
+        public void Warn(Exception exception, [Localizable(false)] string message, params object?[]? args)
         {
-            this.external.Warn(exception, () => string.Format(CultureInfo.InvariantCulture, message, args), null, null, null);
+            this.external.Warn(exception, () => string.Format(CultureInfo.InvariantCulture, message, args ?? this.notNullArgs), null, null, null);
         }
 
         /// <inheritdoc/>
@@ -92,15 +94,15 @@ namespace Abbotware.Core.Logging
         }
 
         /// <inheritdoc/>
-        public void Info([Localizable(false)] string message, params object?[] args)
+        public void Info([Localizable(false)] string message, params object?[]? args)
         {
-            this.external.Info(() => string.Format(CultureInfo.InvariantCulture, message, args), null, null, null);
+            this.external.Info(() => string.Format(CultureInfo.InvariantCulture, message, args ?? this.notNullArgs), null, null, null);
         }
 
         /// <inheritdoc/>
-        public void Info(Exception exception, [Localizable(false)] string message, params object?[] args)
+        public void Info(Exception exception, [Localizable(false)] string message, params object?[]? args)
         {
-            this.external.Info(exception, () => string.Format(CultureInfo.InvariantCulture, message, args), null, null, null);
+            this.external.Info(exception, () => string.Format(CultureInfo.InvariantCulture, message, args ?? this.notNullArgs), null, null, null);
         }
 
         /// <inheritdoc/>
@@ -110,15 +112,15 @@ namespace Abbotware.Core.Logging
         }
 
         /// <inheritdoc/>
-        public void Debug([Localizable(false)] string message, params object?[] args)
+        public void Debug([Localizable(false)] string message, params object?[]? args)
         {
-            this.external.Debug(() => string.Format(CultureInfo.InvariantCulture, message, args), null, null, null);
+            this.external.Debug(() => string.Format(CultureInfo.InvariantCulture, message, args ?? this.notNullArgs), null, null, null);
         }
 
         /// <inheritdoc/>
-        public void Debug(Exception exception, [Localizable(false)] string message, params object?[] args)
+        public void Debug(Exception exception, [Localizable(false)] string message, params object?[]? args)
         {
-            this.external.Debug(exception, () => string.Format(CultureInfo.InvariantCulture, message, args), null, null, null);
+            this.external.Debug(exception, () => string.Format(CultureInfo.InvariantCulture, message, args ?? this.notNullArgs), null, null, null);
         }
 
         /// <inheritdoc/>
@@ -128,15 +130,15 @@ namespace Abbotware.Core.Logging
         }
 
         /// <inheritdoc/>
-        public void Trace([Localizable(false)] string message, params object?[] args)
+        public void Trace([Localizable(false)] string message, params object?[]? args)
         {
-            this.external.Trace(() => string.Format(CultureInfo.InvariantCulture, message, args), null, null, null);
+            this.external.Trace(() => string.Format(CultureInfo.InvariantCulture, message, args ?? this.notNullArgs), null, null, null);
         }
 
         /// <inheritdoc/>
-        public void Trace(Exception exception, [Localizable(false)] string message, params object?[] args)
+        public void Trace(Exception exception, [Localizable(false)] string message, params object?[]? args)
         {
-            this.external.Trace(exception, () => string.Format(CultureInfo.InvariantCulture, message, args), null, null, null);
+            this.external.Trace(exception, () => string.Format(CultureInfo.InvariantCulture, message, args ?? this.notNullArgs), null, null, null);
         }
 
         /// <inheritdoc/>
