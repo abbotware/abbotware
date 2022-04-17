@@ -37,17 +37,7 @@ namespace Abbotware.Core.Objects
         /// </summary>
         /// <param name="logger">Injected logger for the class</param>
         protected BaseAsyncComponent(ILogger logger)
-            : this(logger, true)
-        {
-        }
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="BaseAsyncComponent" /> class.
-        /// </summary>
-        /// <param name="logger">Injected logger for the class</param>
-        /// <param name="useDefaultLogStatement">use default log statement</param>
-        protected BaseAsyncComponent(ILogger logger, bool useDefaultLogStatement)
-            : base(logger, useDefaultLogStatement)
+            : base(logger)
         {
         }
 

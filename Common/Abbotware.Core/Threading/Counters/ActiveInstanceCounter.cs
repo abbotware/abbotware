@@ -31,38 +31,17 @@ namespace Abbotware.Core.Threading.Counters
         private readonly TypeCreatedCounter<TObjectType> globalCounter = new();
 
         /// <summary>
-        ///     flag to indicate whether or not to use default log statement
-        /// </summary>
-        private readonly bool useDefaultLogStatement;
-
-        /// <summary>
         ///     Initializes a new instance of the <see cref="ActiveInstanceCounter{TObjectType}" /> class.
         /// </summary>
         /// <param name="logger">Injected logger for the class</param>
         public ActiveInstanceCounter(ILogger logger)
-            : this(logger, true)
+            : base(logger)
         {
             Arguments.NotNull(logger, nameof(logger));
-        }
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="ActiveInstanceCounter{TObjectType}" /> class.
-        /// </summary>
-        /// <param name="logger">Injected logger for the class</param>
-        /// <param name="useDefaultLogStatement">use default log statements</param>
-        public ActiveInstanceCounter(ILogger logger, bool useDefaultLogStatement)
-            : base(logger, false)
-        {
-            Arguments.NotNull(logger, nameof(logger));
-
-            this.useDefaultLogStatement = useDefaultLogStatement;
 
             var count = ActiveCounter.Increment();
 
-            if (this.useDefaultLogStatement)
-            {
-                this.Logger.Debug("Create - InstanceId: {0} Active:{0}", this.InstanceId, count);
-            }
+            this.Logger.Debug("Create - InstanceId: {0} Active:{0}", this.InstanceId, count);
         }
 
         /// <summary>
@@ -103,10 +82,7 @@ namespace Abbotware.Core.Threading.Counters
         {
             ActiveCounter.Decrement();
 
-            if (this.useDefaultLogStatement)
-            {
-                this.Logger.Debug("Dispose - InstanceId: {0} Active:{0}", this.InstanceId, this.ActiveCount);
-            }
+            this.Logger.Debug("Dispose - InstanceId: {0} Active:{0}", this.InstanceId, this.ActiveCount);
 
             base.OnDisposeManagedResources();
         }
