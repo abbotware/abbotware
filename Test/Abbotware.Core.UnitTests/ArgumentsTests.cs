@@ -13,7 +13,7 @@
         [Test]
         public void NotNull_ThrowsOnNull()
         {
-            object value = null;
+            object? value = null;
 
             void Execute() => Arguments.NotNull(value, nameof(value));
 
@@ -33,7 +33,7 @@
         [Test]
         public void EnsureNotNull_ThrowsOnNull()
         {
-            object value = null;
+            object? value = null;
 
             void Execute() => Arguments.EnsureNotNull(value, nameof(value));
 
@@ -70,9 +70,9 @@
             var ex = Assert.Throws<ArgumentException>(Execute);
 
 #if NETCOREAPP3_1
-            Assert.That(ex.Message, Is.EqualTo($"string is not valid:message about string Method:NotNullOrWhitespace_Throws_WithMessage (Parameter 'value')"));
+            Assert.That(ex?.Message, Is.EqualTo($"string is not valid:message about string Method:NotNullOrWhitespace_Throws_WithMessage (Parameter 'value')"));
 #else
-            Assert.That(ex.Message, Is.EqualTo($"string is not valid:message about string Method:NotNullOrWhitespace_Throws_WithMessage{Environment.NewLine}Parameter name: value"));
+            Assert.That(ex?.Message, Is.EqualTo($"string is not valid:message about string Method:NotNullOrWhitespace_Throws_WithMessage{Environment.NewLine}Parameter name: value"));
 #endif
         }
 

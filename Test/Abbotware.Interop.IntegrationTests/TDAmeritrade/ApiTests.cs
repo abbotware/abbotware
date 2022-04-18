@@ -36,7 +36,7 @@ namespace Abbotware.IntegrationTests.Interop.TDAmeritrade
             Assert.IsNull(res.Response);
             Assert.IsNotNull(res.Error);
             Assert.AreEqual(HttpStatusCode.BadRequest, res.StatusCode);
-            Assert.AreEqual("Input date is not acceptable.", res.Error.Message);
+            Assert.AreEqual("Input date is not acceptable.", res?.Error.Message);
         }
 
         [Test]
@@ -53,7 +53,7 @@ namespace Abbotware.IntegrationTests.Interop.TDAmeritrade
             Assert.IsNotNull(res.Response);
             Assert.IsNull(res.Error);
             Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
-            Assert.AreEqual(5, res.Response.Keys.Count());
+            Assert.AreEqual(5, res?.Response?.Keys.Count());
         }
 
         [Test]
@@ -70,7 +70,7 @@ namespace Abbotware.IntegrationTests.Interop.TDAmeritrade
             Assert.IsNotNull(res.Response);
             Assert.IsNull(res.Error);
             Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
-            Assert.AreEqual("DoesNotExist", res.Response.Symbol);
+            Assert.AreEqual("DoesNotExist", res?.Response?.Symbol);
             Assert.IsTrue(res.Response.Empty);
         }
 
@@ -88,9 +88,9 @@ namespace Abbotware.IntegrationTests.Interop.TDAmeritrade
             Assert.IsNotNull(res.Response);
             Assert.IsNull(res.Error);
             Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
-            Assert.AreEqual("IBM", res.Response.Symbol);
-            Assert.IsFalse(res.Response.Empty);
-            Assert.Less(10, res.Response.Candles.Count);
+            Assert.AreEqual("IBM", res?.Response?.Symbol);
+            Assert.IsFalse(res?.Response?.Empty);
+            Assert.Less(10, res?.Response?.Candles?.Count);
         }
 
         [Test]
@@ -107,9 +107,9 @@ namespace Abbotware.IntegrationTests.Interop.TDAmeritrade
             Assert.IsNotNull(res.Response);
             Assert.IsNull(res.Error);
             Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
-            Assert.AreEqual("IBM", res.Response.Symbol);
-            Assert.IsFalse(res.Response.Empty);
-            Assert.GreaterOrEqual(res.Response.Candles.Count, 389);
+            Assert.AreEqual("IBM", res?.Response?.Symbol);
+            Assert.IsFalse(res?.Response?.Empty);
+            Assert.GreaterOrEqual(res?.Response?.Candles?.Count, 389);
         }
 
         [Test]
@@ -126,9 +126,9 @@ namespace Abbotware.IntegrationTests.Interop.TDAmeritrade
             Assert.IsNotNull(res.Response);
             Assert.IsNull(res.Error);
             Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
-            Assert.AreEqual("IBM", res.Response.Symbol);
-            Assert.IsFalse(res.Response.Empty);
-            Assert.AreEqual(1043, res.Response.Candles.Count);
+            Assert.AreEqual("IBM", res?.Response?.Symbol);
+            Assert.IsFalse(res?.Response?.Empty);
+            Assert.AreEqual(1043, res?.Response?.Candles.Count);
         }
 
         [Test]
@@ -145,9 +145,9 @@ namespace Abbotware.IntegrationTests.Interop.TDAmeritrade
             Assert.IsNotNull(res.Response);
             Assert.IsNull(res.Error);
             Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
-            Assert.AreEqual("AGFXF", res.Response.Symbol);
-            Assert.IsFalse(res.Response.Empty);
-            Assert.AreEqual(573, res.Response.Candles.Count);
+            Assert.AreEqual("AGFXF", res?.Response?.Symbol);
+            Assert.IsFalse(res?.Response?.Empty);
+            Assert.AreEqual(573, res?.Response?.Candles?.Count);
         }
 
         [Test]
@@ -164,7 +164,7 @@ namespace Abbotware.IntegrationTests.Interop.TDAmeritrade
             Assert.IsNotNull(res.Response);
             Assert.IsNull(res.Error);
             Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
-            Assert.Less(100, res.Response.Count);
+            Assert.Less(100, res?.Response?.Count);
         }
 
         [Test]
@@ -182,8 +182,8 @@ namespace Abbotware.IntegrationTests.Interop.TDAmeritrade
             Assert.IsNull(res.Error);
             Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
 
-            Assert.AreEqual("AMDUF", res.Response.Symbol);
-            Assert.IsNotNull(res.Response.Fundamental);
+            Assert.AreEqual("AMDUF", res?.Response?.Symbol);
+            Assert.IsNotNull(res?.Response?.Fundamental);
         }
 
         [Test]
@@ -201,8 +201,8 @@ namespace Abbotware.IntegrationTests.Interop.TDAmeritrade
             Assert.IsNull(res.Error);
             Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
 
-            Assert.AreEqual("ABP", res.Response.Fundamental.Symbol);
-            Assert.IsNotNull(res.Response.Fundamental);
+            Assert.AreEqual("ABP", res?.Response?.Fundamental?.Symbol);
+            Assert.IsNotNull(res?.Response?.Fundamental);
         }
 
         [Test]
@@ -220,8 +220,8 @@ namespace Abbotware.IntegrationTests.Interop.TDAmeritrade
             Assert.IsNull(res.Error);
             Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
 
-            Assert.AreEqual("ABP", res.Response.Fundamental.Symbol);
-            Assert.IsNotNull(res.Response.Fundamental);
+            Assert.AreEqual("ABP", res?.Response?.Fundamental?.Symbol);
+            Assert.IsNotNull(res?.Response?.Fundamental);
         }
 
         [Test]
@@ -239,8 +239,8 @@ namespace Abbotware.IntegrationTests.Interop.TDAmeritrade
             Assert.IsNull(res.Error);
             Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
 
-            Assert.AreEqual("AA", res.Response.Symbol);
-            Assert.IsNotNull(res.Response.Fundamental);
+            Assert.AreEqual("AA", res?.Response?.Symbol);
+            Assert.IsNotNull(res?.Response?.Fundamental);
         }
 
         [Test]
@@ -257,7 +257,7 @@ namespace Abbotware.IntegrationTests.Interop.TDAmeritrade
             Assert.IsNull(res.Response);
             Assert.IsNotNull(res.Error);
             Assert.AreEqual(HttpStatusCode.NotFound, res.StatusCode);
-            Assert.AreEqual("Not Found", res.Error.Error);
+            Assert.AreEqual("Not Found", res?.Error?.Error);
         }
 
         private static TDAmeritradeSettings InitSettings()

@@ -44,7 +44,7 @@ namespace Abbotware.UnitTests.Core
         [MaxTime(10000)]
         public async Task ShellCommand_Ping_ExecuteAsync()
         {
-            IExitInfo result = null;
+            IExitInfo result;
 
             // command will exit before kill is issued
             var cfg = CreateCommandConfig(4, TimeSpan.FromSeconds(10));
@@ -70,7 +70,7 @@ namespace Abbotware.UnitTests.Core
 
             try
             {
-                using var p = Process.GetProcessById(result.StartInfo.ProcessId.Value);
+                using var p = Process.GetProcessById(result.StartInfo.ProcessId!.Value);
 
                 Assert.IsNull(p);
             }
@@ -86,7 +86,7 @@ namespace Abbotware.UnitTests.Core
         [MaxTime(10000)]
         public async Task ShellCommand_Ping_ExecuteAsync_Kill()
         {
-            IExitInfo result = null;
+            IExitInfo result;
 
             // timeout is less than number of pings should force a kill
             var cfg = CreateCommandConfig(10, TimeSpan.FromSeconds(4));
@@ -108,7 +108,7 @@ namespace Abbotware.UnitTests.Core
 
             try
             {
-                using var p = Process.GetProcessById(result.StartInfo.ProcessId.Value);
+                using var p = Process.GetProcessById(result.StartInfo.ProcessId!.Value);
                 Assert.IsNull(p);
             }
             catch (Exception)

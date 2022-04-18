@@ -18,7 +18,7 @@ namespace Abbotware.UnitTests.Core
         [Test]
         public void Null()
         {
-            string s = null;
+            string? s = null;
             Assert.IsTrue(s.IsBlank());
             Assert.IsFalse(s.IsNotBlank());
         }

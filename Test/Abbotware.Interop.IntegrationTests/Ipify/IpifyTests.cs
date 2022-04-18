@@ -24,7 +24,7 @@ namespace Abbotware.IntegrationTests.Interop.Ipify
         public async Task Ipify_Verify_OK()
         {
             var address = Environment.GetEnvironmentVariable("UNITTEST_IPIFY_ADDRESS");
-            var ip = IPAddress.Parse(address);
+            var ip = IPAddress.Parse(address!);
 
             using IGetInternetAddress client = new IpifyClient(this.Logger);
 

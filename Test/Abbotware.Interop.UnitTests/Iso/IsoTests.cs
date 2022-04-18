@@ -51,7 +51,6 @@ namespace Abbotware.UnitTests.Interop.Iso
             Assert.AreSame(c, IsoHelpers.Currency.LookupAlpha("None"));
         }
 
-
         [Test]
         [Category("Interop")]
         [Category("Interop.Iso")]

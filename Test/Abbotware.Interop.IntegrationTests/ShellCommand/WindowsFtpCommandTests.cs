@@ -9,6 +9,7 @@ namespace Abbotware.IntegrationTests.Core
     using System.Linq;
     using System.Net;
     using System.Threading.Tasks;
+    using Abbotware.Core;
     using Abbotware.ShellCommand;
     using Abbotware.ShellCommand.Plugins;
     using Abbotware.ShellCommand.Plugins.Configuration.Models;
@@ -34,7 +35,7 @@ namespace Abbotware.IntegrationTests.Core
         {
             this.SkipTestOnLinux();
 
-            IExitInfo result = null;
+            IExitInfo result;
 
             // command will exit before kill is issued
             var cfg = CreateCommandConfig(TimeSpan.FromSeconds(30));
@@ -60,7 +61,7 @@ namespace Abbotware.IntegrationTests.Core
 
             try
             {
-                using var p = Process.GetProcessById(result.StartInfo.ProcessId.Value);
+                using var p = Process.GetProcessById(result.StartInfo.ProcessId!.Value);
 
                 Assert.IsNull(p);
             }
@@ -78,7 +79,7 @@ namespace Abbotware.IntegrationTests.Core
         {
             this.SkipTestOnLinux();
 
-            IExitInfo result = null;
+            IExitInfo result;
 
             // command will exit before kill is issued
             var cfg = CreateCommandConfig(TimeSpan.FromSeconds(30), "asdfasdf2345sdfg");
@@ -107,7 +108,7 @@ namespace Abbotware.IntegrationTests.Core
 
             try
             {
-                using var p = Process.GetProcessById(result.StartInfo.ProcessId.Value);
+                using var p = Process.GetProcessById(result.StartInfo.ProcessId!.Value);
 
                 Assert.IsNull(p);
             }
@@ -125,7 +126,7 @@ namespace Abbotware.IntegrationTests.Core
         {
             this.SkipTestOnLinux();
 
-            IExitInfo result = null;
+            IExitInfo result;
 
             // command will exit before kill is issued
             var cfg = CreateCommandConfig(TimeSpan.FromSeconds(10), "ftp.ubuntu.com");
@@ -158,7 +159,7 @@ namespace Abbotware.IntegrationTests.Core
             {
                 System.Threading.Thread.Sleep(1000);
 
-                using var p = Process.GetProcessById(result.StartInfo.ProcessId.Value);
+                using var p = Process.GetProcessById(result.StartInfo.ProcessId!.Value);
 
                 Assert.IsNull(p);
             }
@@ -170,12 +171,14 @@ namespace Abbotware.IntegrationTests.Core
             Assert.Fail("Child process should have exited");
         }
 
-        private static WindowsFtpOptions CreateCommandConfig(TimeSpan timeout, string host = null)
+        private static WindowsFtpOptions CreateCommandConfig(TimeSpan timeout, string? host = null)
         {
             if (host == null)
             {
                 host = Environment.GetEnvironmentVariable("UNITTEST_FTP_HOST");
             }
+
+            host = Arguments.EnsureNotNull(host, nameof(host));
 
             var user = Environment.GetEnvironmentVariable("UNITTEST_FTP_USERNAME");
             var pass = Environment.GetEnvironmentVariable("UNITTEST_FTP_PASSWORD");

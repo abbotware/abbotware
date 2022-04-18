@@ -12,7 +12,6 @@ namespace Abbotware.Interop.Iso
     /// </summary>
     public enum Currency
     {
-
         /// <summary>
         /// Afghani
         /// </summary>

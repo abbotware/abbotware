@@ -18,7 +18,7 @@ namespace Abbotware.UnitTests.Core
 
         public async Task CreateTimeoutScope_NoTimeout()
         {
-            TestObject peekObject = null;
+            TestObject? peekObject = null;
 
             using (var t = new TestObject())
             {
@@ -44,7 +44,7 @@ namespace Abbotware.UnitTests.Core
         [Test]
         public async Task CreateTimeoutScope_WithTimeout()
         {
-            TestObject peekObject = null;
+            TestObject? peekObject = null;
             {
                 using var t = new TestObject();
 
@@ -66,7 +66,7 @@ namespace Abbotware.UnitTests.Core
         [Test]
         public void CreateTimeoutScope_DoubleDispose()
         {
-            TestObject peekObject = null;
+            TestObject? peekObject = null;
 
             using (var t = new TestObject())
             {

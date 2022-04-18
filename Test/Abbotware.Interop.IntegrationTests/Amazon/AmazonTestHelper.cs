@@ -14,7 +14,7 @@
             await Task.Delay(61000);
 
             using (var c = SqsHelper.CreateConnection(NullLogger.Instance, SqsSettings.DefaultSection, BaseNUnitTest.UnitTestSettingsFile))
-            using (var q = c.CreateQueueManager() as SqsQueueManager)
+            using (var q = (SqsQueueManager)c.CreateQueueManager())
             {
                 await q.PurgeAsync(q.Configuration.Queue.ToString());
             }
