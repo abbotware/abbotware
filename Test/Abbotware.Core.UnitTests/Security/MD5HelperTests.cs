@@ -36,7 +36,7 @@
         [ExpectedException(typeof(ArgumentNullException))]
         public void Null()
         {
-            var h1 = MD5Helper.GenerateHash(null);
+            var h1 = MD5Helper.GenerateHash(null!);
         }
     }
 }

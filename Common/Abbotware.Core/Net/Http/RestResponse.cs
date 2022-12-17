@@ -14,7 +14,7 @@ namespace Abbotware.Core.Net.Http
     /// <param name="StatusCode">HTTP Status code</param>
     /// <param name="RawRequest">raw request</param>
     /// <param name="RawResponse">raw response</param>
-    public abstract record RestResponse(HttpStatusCode StatusCode, string RawRequest, string RawResponse)
+    public abstract record RestResponse(HttpStatusCode StatusCode, string RawRequest, string? RawResponse)
     {
     }
 }

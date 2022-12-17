@@ -127,7 +127,11 @@ namespace Abbotware.Interop.EodHistoricalData
             var response = await this.Client.ExecuteAsync(request, ct)
               .ConfigureAwait(false);
 
-            return new(response.StatusCode, response!.ResponseUri.ToString(), response.Content) { Response = new Fundamental() };
+            var content = response.Content ?? string.Empty;
+            var status = response?.StatusCode ?? HttpStatusCode.InternalServerError;
+            var responseUri = response?.ResponseUri?.ToString() ?? string.Empty;
+
+            return new(status, responseUri, content) { Response = new Fundamental() };
         }
 
         /// <inheritdoc/>

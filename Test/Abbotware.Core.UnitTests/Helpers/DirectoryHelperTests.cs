@@ -32,7 +32,7 @@ namespace Abbotware.UnitTests.Core
         {
             var path = DirectoryHelper.GenerateSearchPaths("some.file", "folder").ToArray();
             var current = Environment.CurrentDirectory;
-            var assembly = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            var assembly = Path.GetDirectoryName(Assembly.GetEntryAssembly()!.Location);
 
             var slash = Path.DirectorySeparatorChar;
 

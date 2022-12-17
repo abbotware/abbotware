@@ -30,7 +30,7 @@
         [ExpectedException(typeof(ArgumentNullException))]
         public void Null()
         {
-            Sha256Helper.GenerateHash(null);
+            Sha256Helper.GenerateHash(null!);
         }
 
         [Test]

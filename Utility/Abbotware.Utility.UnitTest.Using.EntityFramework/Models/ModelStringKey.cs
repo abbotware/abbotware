@@ -12,8 +12,8 @@ namespace Abbotware.Utility.UnitTest.Using.EntityFramework.Models
     {
         [Key]
         [MaxLength(50)]
-        public string Id { get; set; }
+        public string? Id { get; set; }
 
-        public string Name { get; set; }
+        public string? Name { get; set; }
     }
 }

@@ -201,7 +201,7 @@
         public void ApplyAction_NullState1()
         {
             var fsm = this.EmptyStateMachine();
-            fsm.ApplyAction((IState)null, "action");
+            fsm.ApplyAction((IState)null!, "action");
         }
 
         [Test]
@@ -209,7 +209,7 @@
         public void ApplyAction_NullState2()
         {
             var fsm = this.EmptyStateMachine();
-            fsm.ApplyAction((string)null, "action");
+            fsm.ApplyAction((string)null!, "action");
         }
 
         [Test]
@@ -218,7 +218,7 @@
         {
             var fsm = this.EmptyStateMachine();
             fsm.AddState("test");
-            fsm.ApplyAction("test", null);
+            fsm.ApplyAction("test", null!);
         }
 
         [Test]
@@ -229,7 +229,7 @@
             fsm.AddState("test");
             var s = fsm.GetState("test");
 
-            fsm.ApplyAction(s, null);
+            fsm.ApplyAction(s, null!);
         }
 
         [Test]

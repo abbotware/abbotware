@@ -36,7 +36,7 @@ namespace Abbotware.IntegrationTests.Interop.TDAmeritrade
             Assert.IsNull(res.Response);
             Assert.IsNotNull(res.Error);
             Assert.AreEqual(HttpStatusCode.BadRequest, res.StatusCode);
-            Assert.AreEqual("Input date is not acceptable.", res?.Error.Message);
+            Assert.AreEqual("Input date is not acceptable.", res?.Error?.Message);
         }
 
         [Test]
@@ -71,7 +71,7 @@ namespace Abbotware.IntegrationTests.Interop.TDAmeritrade
             Assert.IsNull(res.Error);
             Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
             Assert.AreEqual("DoesNotExist", res?.Response?.Symbol);
-            Assert.IsTrue(res.Response.Empty);
+            Assert.IsTrue(res!.Response!.Empty);
         }
 
         [Test]
@@ -128,7 +128,7 @@ namespace Abbotware.IntegrationTests.Interop.TDAmeritrade
             Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
             Assert.AreEqual("IBM", res?.Response?.Symbol);
             Assert.IsFalse(res?.Response?.Empty);
-            Assert.AreEqual(1043, res?.Response?.Candles.Count);
+            Assert.AreEqual(1043, res?.Response?.Candles?.Count);
         }
 
         [Test]

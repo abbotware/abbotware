@@ -13,10 +13,10 @@ namespace Abbotware.Utility.UnitTest.Using.EntityFramework.Models
     {
         [MaxLength(50)]
         [Column(Order =1)]
-        public string Id { get; set; }
+        public string? Id { get; set; }
 
         [MaxLength(50)]
         [Column(Order = 1)]
-        public string Name { get; set; }
+        public string? Name { get; set; }
     }
 }

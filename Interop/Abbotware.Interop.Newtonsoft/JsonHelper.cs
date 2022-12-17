@@ -46,7 +46,7 @@ namespace Abbotware.Interop.Newtonsoft
         /// <typeparam name="TObject">object type</typeparam>
         /// <param name="object">object</param>
         /// <returns>JSON text</returns>
-        public static string ToString<TObject>(TObject @object)
+        public static string ToString<TObject>(TObject? @object)
         {
             return ToString(@object, Settings);
         }
@@ -57,7 +57,7 @@ namespace Abbotware.Interop.Newtonsoft
         /// <typeparam name="TObject">object type</typeparam>
         /// <param name="text">JSON text</param>
         /// <returns>object</returns>
-        public static TObject FromString<TObject>(string text)
+        public static TObject? FromString<TObject>(string? text)
         {
             return FromString<TObject>(text, Settings);
         }
@@ -69,7 +69,7 @@ namespace Abbotware.Interop.Newtonsoft
         /// <param name="object">object</param>
         /// <param name="settings">serializer settings</param>
         /// <returns>JSON text</returns>
-        public static string ToString<TObject>(TObject @object, JsonSerializerSettings settings)
+        public static string ToString<TObject>(TObject? @object, JsonSerializerSettings settings)
         {
             return JsonConvert.SerializeObject(@object, settings);
         }
@@ -81,9 +81,9 @@ namespace Abbotware.Interop.Newtonsoft
         /// <param name="text">JSON text</param>
         /// <param name="settings">serializer settings</param>
         /// <returns>object</returns>
-        public static TObject FromString<TObject>(string text, JsonSerializerSettings settings)
+        public static TObject? FromString<TObject>(string? text, JsonSerializerSettings settings)
         {
-            return JsonConvert.DeserializeObject<TObject>(text, settings)!;
+            return JsonConvert.DeserializeObject<TObject>(text ?? string.Empty, settings)!;
         }
 
         /// <summary>

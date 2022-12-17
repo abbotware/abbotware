@@ -28,7 +28,7 @@ namespace Abbotware.IntegrationTests.Interop.Redis
         {
             using var db = RedisHelper.CreateRedisConnection(this.Logger, UnitTestSettingsFile);
 
-            var l = new AutoMapperSortedSet<DateTimeOffset, int>(Guid.NewGuid().ToString(), 9, db.GetDatabase().Native, null);
+            var l = new AutoMapperSortedSet<DateTimeOffset, int>(Guid.NewGuid().ToString(), 9, db.GetDatabase().Native, null!);
 
             await l.Remote.LoadAsync(default);
         }

@@ -19,7 +19,7 @@
         {
             var gz = new GZipCompression();
 
-            gz.Compress(null);
+            gz.Compress(null!);
         }
 
         [Test]
@@ -28,7 +28,7 @@
         {
             var gz = new GZipCompression();
 
-            gz.Decompress(null);
+            gz.Decompress(null!);
         }
 
         [Test]

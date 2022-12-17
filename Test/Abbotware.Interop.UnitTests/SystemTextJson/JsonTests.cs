@@ -32,7 +32,7 @@ namespace Abbotware.UnitTests.Interop.SystemTextJson
 
             var text = JsonSerializer.Serialize(a, opts);
 
-            var b = JsonSerializer.Deserialize<TestClass>(text, opts);
+            var b = JsonSerializer.Deserialize<TestClass>(text, opts)!;
 
             Assert.AreEqual(a.TimeSpan, b.TimeSpan);
             Assert.IsNull(b.TimeSpanNullableWithNoValue);

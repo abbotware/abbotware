@@ -61,19 +61,21 @@ namespace Abbotware.Interop.RestSharp
             var response = await this.Client.ExecuteAsync<TResponse>(request, ct)
                 .ConfigureAwait(false);
 
+            var responseUri = response.ResponseUri?.ToString() ?? string.Empty;
+
             if (!response.IsSuccessful)
             {
                 // for string, just pass along the content
                 if (typeof(TError) == typeof(string))
                 {
-                    var error = (TError)(object)response.Content;
-                    return new RestResponse<TResponse, TError>(response.StatusCode, response.ResponseUri.ToString(), response.Content) with { Error = error };
+                    var error = (TError)(object)(response.Content ?? string.Empty);
+                    return new RestResponse<TResponse, TError>(response.StatusCode, responseUri, response.Content) with { Error = error };
                 }
 
                 try
                 {
                     var error = JsonHelper.FromString<TError>(response.Content);
-                    return new RestResponse<TResponse, TError>(response.StatusCode, response.ResponseUri.ToString(), response.Content) with { Error = error };
+                    return new RestResponse<TResponse, TError>(response.StatusCode, responseUri, response.Content) with { Error = error };
                 }
                 catch (Exception)
                 {
@@ -84,7 +86,7 @@ namespace Abbotware.Interop.RestSharp
                 }
             }
 
-            return new RestResponse<TResponse, TError>(response.StatusCode, response.ResponseUri.ToString(), response.Content) with { Response = response.Data };
+            return new RestResponse<TResponse, TError>(response.StatusCode, responseUri, response.Content) with { Response = response.Data };
         }
 
         /// <summary>

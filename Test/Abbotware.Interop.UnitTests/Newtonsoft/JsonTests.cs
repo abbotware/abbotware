@@ -31,7 +31,7 @@ namespace Abbotware.UnitTests.Interop.Newtonsoft
 
             var text = JsonHelper.ToString(a);
 
-            var b = JsonHelper.FromString<TestClass>(text);
+            var b = JsonHelper.FromString<TestClass>(text)!;
 
             Assert.IsNull(b.IpAddressNull);
             Assert.AreEqual(a.IpAddressValue, b.IpAddressValue);

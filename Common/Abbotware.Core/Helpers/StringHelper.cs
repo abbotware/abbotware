@@ -19,7 +19,7 @@ namespace Abbotware.Core.Helpers
         /// </summary>
         /// <param name="values">values to join</param>
         /// <returns>enum value</returns>
-        public static string JoinWithoutEmpty(params string[] values)
+        public static string JoinWithoutEmpty(params string?[] values)
         {
             if (values == null)
             {

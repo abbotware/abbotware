@@ -13,7 +13,7 @@ namespace Abbotware.Utility.UnitTest.Using.EntityFramework.Models
         [Key]
         public int Id { get; set; }
 
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         public abstract SomeEnumType Setting { get; set; }
     }

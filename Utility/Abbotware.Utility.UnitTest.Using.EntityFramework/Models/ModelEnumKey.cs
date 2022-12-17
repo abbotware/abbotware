@@ -13,6 +13,6 @@ namespace Abbotware.Utility.UnitTest.Using.EntityFramework.Models
         [Key]
         public EnumTypeId Id { get; set; }
 
-        public string Name { get; set; }
+        public string? Name { get; set; }
     }
 }

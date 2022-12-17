@@ -65,7 +65,9 @@ namespace Abbotware.Interop.Newtonsoft
                 {
                     var text = File.ReadAllText(filePath);
 
-                    return JsonHelper.FromString<TConfig>(text);
+                    var config = JsonHelper.FromString<TConfig>(text) ?? throw new AbbotwareException($"config {fileName} had a problem");
+
+                    return config;
                 }
 
                 throw new ConfigurationNotFoundException($"{fileName} not found");

@@ -33,7 +33,7 @@ namespace Abbotware.UnitTests.Interop.Redis
                 Assert.AreEqual("127.1.2.3", cfg.Endpoint.Host);
                 Assert.AreEqual(1234, cfg.Endpoint.Port);
                 Assert.AreEqual("redis", cfg.Endpoint.Scheme);
-                Assert.AreEqual("user", cfg.Credential.UserName);
+                Assert.AreEqual("user", cfg.Credential!.UserName);
                 Assert.AreEqual("pass", cfg.Credential.Password);
                 Assert.IsEmpty(cfg.Endpoint.UserInfo);
             }

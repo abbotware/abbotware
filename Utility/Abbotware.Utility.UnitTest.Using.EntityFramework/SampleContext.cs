@@ -19,17 +19,17 @@ namespace Abbotware.Utility.UnitTest.Using.EntityFramework
         {
         }
 
-        public virtual DbSet<ModelIntKey> Bas { get; set; }
+        public virtual DbSet<ModelIntKey> Bas => this.Set<ModelIntKey>();
 
-        public virtual DbSet<ModelIntKey> ModelIntKeys { get; set; }
+        public virtual DbSet<ModelIntKey> ModelIntKeys => this.Set<ModelIntKey>();
 
-        public virtual DbSet<ModelEnumKey> ModelEnumKeys { get; set; }
+        public virtual DbSet<ModelEnumKey> ModelEnumKeys => this.Set<ModelEnumKey>();
 
-        public virtual DbSet<ModelGuidKey> ModelGuidKeys { get; set; }
+        public virtual DbSet<ModelGuidKey> ModelGuidKeys => this.Set<ModelGuidKey>();
 
-        public virtual DbSet<ModelStringKey> ModelStringKeys { get; set; }
+        public virtual DbSet<ModelStringKey> ModelStringKeys => this.Set<ModelStringKey>();
 
-        public virtual DbSet<CompositeStringKey> CompositeStringKeys { get; set; }
+        public virtual DbSet<CompositeStringKey> CompositeStringKeys => this.Set<CompositeStringKey>();
 
         public static ICollection<ModelIntKey> CreateData()
         {
