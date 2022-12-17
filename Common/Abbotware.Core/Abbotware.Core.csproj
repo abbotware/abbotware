@@ -2,7 +2,7 @@
   
   <PropertyGroup>
     <Nullable>enable</Nullable>
-    <TargetFrameworks>netstandard2.0;netstandard2.1;net6</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;net6;net7</TargetFrameworks>
   </PropertyGroup>
 
   <Choose>
@@ -22,7 +22,13 @@
     <When Condition="'$(TargetFramework)' == 'net6'">
       <ItemGroup>
         <Compile Remove="**/*.netstandard2.0.cs" />
-        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0" />
+      </ItemGroup>
+    </When>
+      <When Condition="'$(TargetFramework)' == 'net7'">
+      <ItemGroup>
+        <Compile Remove="**/*.netstandard2.0.cs" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0" />
       </ItemGroup>
     </When>
   </Choose>

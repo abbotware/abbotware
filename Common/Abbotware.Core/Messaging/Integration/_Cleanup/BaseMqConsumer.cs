@@ -8,7 +8,6 @@
 namespace Abbotware.Core.Messaging.Integration.Base
 {
     using Abbotware.Core.Logging;
-    using Abbotware.Core.Messaging.Integration.Configuration;
     using Abbotware.Core.Objects;
 
     /// <summary>

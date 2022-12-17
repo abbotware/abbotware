@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  
+
   <PropertyGroup>
     <Nullable>enable</Nullable>
-    <TargetFrameworks>netstandard2.0;netstandard2.1;net6</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;net6;net7</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
@@ -11,10 +11,13 @@
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.1'">
     <Compile Remove="**/*.netstandard2.0.cs" />
   </ItemGroup>
-    <ItemGroup Condition="'$(TargetFramework)' == 'net6'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'net6'">
     <Compile Remove="**/*.netstandard2.0.cs" />
   </ItemGroup>
-  
+  <ItemGroup Condition="'$(TargetFramework)' == 'net7'">
+    <Compile Remove="**/*.netstandard2.0.cs" />
+  </ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="System.Reactive" Version="5.0.0" />
   </ItemGroup>
