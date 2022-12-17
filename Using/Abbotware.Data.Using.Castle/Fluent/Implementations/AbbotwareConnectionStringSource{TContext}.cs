@@ -6,6 +6,8 @@
 
 namespace Abbotware.Using.Castle.Fluent.Implementation
 {
+    using System;
+    using Abbotware.Core.Extensions;
     using Abbotware.Data.Configuration.Models;
     using Abbotware.Interop.EntityFramework;
     using Abbotware.Interop.EntityFramework.Adapters;
@@ -34,7 +36,12 @@ namespace Abbotware.Using.Castle.Fluent.Implementation
         public override void UseMicrosoft(IConfiguration configuration)
         {
             var connectionString = configuration
-             .GetConnectionString(this.ConnectionString);
+                   .GetConnectionString(this.ConnectionString);
+
+            if (connectionString.IsBlank())
+            {
+                throw new ArgumentException($"Can not find connection string:{this.ConnectionString}");
+            }
 
             var connection = new SqlConnectionOptions(connectionString) { ValidateSchema = true };
 

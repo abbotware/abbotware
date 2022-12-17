@@ -6,7 +6,9 @@
 
 namespace Abbotware.Using.Castle.Fluent.Implementation
 {
+    using System;
     using Abbotware.Core;
+    using Abbotware.Core.Extensions;
     using Abbotware.Data.Configuration.Models;
     using Abbotware.Interop.EntityFramework.Adapters;
     using Abbotware.Using.Castle;
@@ -56,10 +58,15 @@ namespace Abbotware.Using.Castle.Fluent.Implementation
         /// <param name="configuration">configuration</param>
         public virtual void UseMicrosoft(IConfiguration configuration)
         {
-            Arguments.NotNull(configuration, nameof(configuration));
+            configuration = Arguments.EnsureNotNull(configuration, nameof(configuration));
 
             var connectionString = configuration
                 .GetConnectionString(this.ConnectionString);
+
+            if (connectionString.IsBlank())
+            {
+                throw new ArgumentException($"Can not find connection string:{this.ConnectionString}");
+            }
 
             var connection = new SqlConnectionOptions(connectionString) { ValidateSchema = true };
 
