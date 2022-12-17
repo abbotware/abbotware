@@ -2,13 +2,13 @@
 
   <PropertyGroup>
     <Nullable>enable</Nullable>
-    <TargetFrameworks>netstandard2.0;netstandard2.1;net6</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;net6;net7</TargetFrameworks>
     <Description>Abbotware Interop Library for SharpZipLib - Contains helper methods, extension methods, and plugins</Description>
     <PackageTags>SharpZipLib;BZip2</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="SharpZipLib" Version="1.3.3" />
+    <PackageReference Include="SharpZipLib" Version="1.4.1" />
   </ItemGroup>
   
   <ItemGroup>

@@ -2,14 +2,14 @@
 
   <PropertyGroup>
     <Nullable>enable</Nullable>
-    <TargetFrameworks>netstandard2.0;netstandard2.1;net6</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;net6;net7</TargetFrameworks>
     <Description>Abbotware Interop Library for Castle.Windsor - Contains helper methods, extension methods, and plugins</Description>
     <PackageTags>Castle.Windsor</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Castle.Core" Version="4.4.1" />
-    <PackageReference Include="Castle.Windsor" Version="5.1.1" />
+    <PackageReference Include="Castle.Windsor" Version="5.1.2" />
     <PackageReference Include="System.Reactive" Version="5.0.0" />
   </ItemGroup>
   

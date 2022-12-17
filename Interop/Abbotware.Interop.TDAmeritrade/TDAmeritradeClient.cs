@@ -71,7 +71,7 @@ namespace Abbotware.Interop.TDAmeritrade
         {
             this.InitializeIfRequired();
 
-            var request = new RestRequest("marketdata/hours", Method.GET, DataFormat.None);
+            var request = new RestRequest("marketdata/hours", Method.Get);
 
             var m = string.Join(",", markets.Distinct().Select(x => EnumHelper.GetEnumMemberValue(x)));
             request.AddQueryParameter("markets", m, false);
@@ -95,7 +95,7 @@ namespace Abbotware.Interop.TDAmeritrade
         {
             this.InitializeIfRequired();
 
-            var request = new RestRequest("instruments", Method.GET, DataFormat.None);
+            var request = new RestRequest("instruments", Method.Get);
             request.AddQueryParameter("symbol", symbol, false);
             request.AddQueryParameter("projection", EnumHelper.GetEnumMemberValue(searchType), false);
 
@@ -112,7 +112,7 @@ namespace Abbotware.Interop.TDAmeritrade
         {
             this.InitializeIfRequired();
 
-            var request = new RestRequest("instruments/{cusip}", Method.GET, DataFormat.None);
+            var request = new RestRequest("instruments/{cusip}", Method.Get);
             request.AddUrlSegment("cusip", cusip, false);
 
             return this.OnExecuteAsync<Instrument, ErrorResponse>(request, ct);
@@ -260,7 +260,7 @@ namespace Abbotware.Interop.TDAmeritrade
 
         private static RestRequest CreateBasePriceHistoryRequest(string symbol, FrequencyType? frequencyType, ushort? frequency, bool extendedHoursData)
         {
-            var request = new RestRequest("marketdata/{symbol}/pricehistory", Method.GET, DataFormat.None);
+            var request = new RestRequest("marketdata/{symbol}/pricehistory", Method.Get);
             request.AddUrlSegment("symbol", symbol, false);
 
             if (frequencyType != null)

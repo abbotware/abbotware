@@ -2,13 +2,13 @@
 
 	<PropertyGroup>
     <Nullable>enable</Nullable>
-    <TargetFrameworks>netstandard2.0;netstandard2.1;net6</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;net6;net7</TargetFrameworks>
 		<Description>Abbotware Interop Library for Amazon SQS - Contains helper methods, extension methods, and plugins</Description>
 		<PackageTags>SQS;Aws;Amazon</PackageTags>
 	</PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AWSSDK.SQS" Version="3.7.2.3" />
+    <PackageReference Include="AWSSDK.SQS" Version="3.7.100.39" />
   </ItemGroup>
 
   <ItemGroup>

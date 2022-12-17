@@ -61,7 +61,7 @@ namespace Abbotware.Interop.EodHistoricalData
         {
             this.InitializeIfRequired();
 
-            var request = new RestRequest("exchanges-list", Method.GET, DataFormat.Json);
+            var request = new RestRequest("exchanges-list", Method.Get);
 
             return this.OnExecuteAsync<List<Exchange>, string>(request, ct);
         }
@@ -71,7 +71,7 @@ namespace Abbotware.Interop.EodHistoricalData
         {
             this.InitializeIfRequired();
 
-            var request = new RestRequest("exchange-symbol-list/{EXCHANGE_CODE}", Method.GET, DataFormat.Json);
+            var request = new RestRequest("exchange-symbol-list/{EXCHANGE_CODE}", Method.Get);
             request.AddUrlSegment("EXCHANGE_CODE", exchange);
             request.AddParameter("fmt", "json");
 
@@ -210,7 +210,7 @@ namespace Abbotware.Interop.EodHistoricalData
 
         private static RestRequest CreateFundamentalRequest(string symbol, string exchange)
         {
-            var request = new RestRequest("fundamentals/{symbol}.{exchange}", Method.GET, DataFormat.None);
+            var request = new RestRequest("fundamentals/{symbol}.{exchange}", Method.Get);
             request.AddUrlSegment("symbol", symbol, false);
             request.AddUrlSegment("exchange", exchange, false);
             return request;
