@@ -9,13 +9,47 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
+variables:
+  buildConfiguration: 'Release'
+  Version.MajorMinor: 5.0
+  Version.Revision: $[counter(variables['Abbotware.Core'], 0)]  
+  buildLabel3: "$(Version.MajorMinor).$(Version.Revision)"
+  buildLabel4: "$(buildLabel3).0"
+
 steps:
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script:  Write-Host "##vso[build.updatebuildnumber]$(buildLabel3)"
+
 - checkout: self
   submodules: true
   persistCredentials: true
-  clean: true
+  
+- script: dotnet build --configuration $(buildConfiguration) /p:Version=$(buildLabel4) /p:AssemblyVersion=$(buildLabel4) /p:AssemblyInformationalVersion=$(buildLabel4) /p:FileVersion=$(buildLabel4) /p:PackageVersion=$(buildLabel3)
+  displayName: 'dotnet build $(buildConfiguration)'
 
-- task: PowerShell@2
+- script: dotnet test --filter FullyQualifiedName~.UnitTests. /p:GeneratePackageOnBuild=false --configuration $(buildConfiguration) --no-restore --logger trx --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura
+  displayName: 'dotnet test $(buildConfiguration)'
+
+- task: PublishTestResults@2
+  displayName: 'Publish test report'
   inputs:
-    targetType: filePath
-    filePath: './Build/Common/Powershell/build.ps1'
+    testResultsFormat: VSTest
+    testResultsFiles: '**/*.trx' 
+
+- task: PublishCodeCoverageResults@1
+  displayName: 'Publish code coverage report'
+  inputs:
+    codeCoverageTool: 'Cobertura'
+    summaryFileLocation: '**/In/**/coverage.cobertura.xml'
+
+#- task: NuGetCommand@2
+#  displayName: 'Publish Nuget'
+#  inputs:
+#    command: push
+#    nuGetFeedType: internal
+#    versioningScheme: byEnvVar
+#    versionEnvVar: $(buildLabel3)
+#    packagesToPush: ....
+#    publishVstsFeed: ....
