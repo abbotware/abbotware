@@ -69,7 +69,7 @@
 
             var ex = Assert.Throws<ArgumentException>(Execute);
 
-#if NETCOREAPP3_1
+#if NETCOREAPP3_1 || NET6_0_OR_GREATER
             Assert.That(ex?.Message, Is.EqualTo($"string is not valid:message about string Method:NotNullOrWhitespace_Throws_WithMessage (Parameter 'value')"));
 #else
             Assert.That(ex?.Message, Is.EqualTo($"string is not valid:message about string Method:NotNullOrWhitespace_Throws_WithMessage{Environment.NewLine}Parameter name: value"));
