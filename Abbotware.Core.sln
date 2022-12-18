@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abbotware.Utility.UnitTest"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abbotware.Utility.UnitTest.Using.NUnit", "Utility\Abbotware.Utility.UnitTest.Using.NUnit\Abbotware.Utility.UnitTest.Using.NUnit.csproj", "{6CAB3CC6-8FAD-4C2D-8A48-6D150C14747C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abbotware.Core.UnitTests", "Test\Abbotware.Core.UnitTests\Abbotware.Core.UnitTests.csproj", "{86BF2F36-120C-421E-8EC3-E9F852F9B0F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abbotware.UnitTests.Core", "Test\Abbotware.Core.UnitTests\Abbotware.UnitTests.Core.csproj", "{86BF2F36-120C-421E-8EC3-E9F852F9B0F3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abbotware.Interop.Newtonsoft", "Interop\Abbotware.Interop.Newtonsoft\Abbotware.Interop.Newtonsoft.csproj", "{593B13F9-BAD1-4A60-BA45-746C2D5B677B}"
 EndProject
@@ -49,13 +49,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abbotware.Web", "Common\Abb
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abbotware.Interop.Ipify", "Interop\Abbotware.Interop.Ipify\Abbotware.Interop.Ipify.csproj", "{729F496D-E13F-491D-A5D7-85396355957F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abbotware.Interop.UnitTests", "Test\Abbotware.Interop.UnitTests\Abbotware.Interop.UnitTests.csproj", "{1A3600D6-6288-4002-A565-0134870F2E8E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abbotware.UnitTests.Interop", "Test\Abbotware.Interop.UnitTests\Abbotware.UnitTests.Interop.csproj", "{1A3600D6-6288-4002-A565-0134870F2E8E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abbotware.Interop.MacVendors", "Interop\Abbotware.Interop.MacVendors\Abbotware.Interop.MacVendors.csproj", "{067C7AB6-352D-4636-B20D-1BFF1A01B6FC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abbotware.Interop.Yubico", "Interop\Abbotware.Interop.Yubico\Abbotware.Interop.Yubico.csproj", "{E6E6CC3C-B395-4437-9A5C-31EE8A3B7FB2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abbotware.Interop.IntegrationTests", "Test\Abbotware.Interop.IntegrationTests\Abbotware.Interop.IntegrationTests.csproj", "{9B0AE512-B0BD-49B8-835A-2D2FA509CECB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abbotware.IntegrationTests.Interop", "Test\Abbotware.Interop.IntegrationTests\Abbotware.IntegrationTests.Interop.csproj", "{9B0AE512-B0BD-49B8-835A-2D2FA509CECB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abbotware.Interop.Redis", "Interop\Abbotware.Interop.Redis\Abbotware.Interop.Redis.csproj", "{90A2B711-D497-418F-8E44-C8A11F122E60}"
 EndProject
@@ -93,7 +93,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abbotware.Experimental", "C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Migrate", "_Migrate", "{9B87B618-C01B-4BA9-874E-77E3D08F1B16}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abbotware.Interop.ManualTests", "Test\Abbotware.Interop.ManualTests\Abbotware.Interop.ManualTests.csproj", "{8DD0E36D-5FCB-4736-BC01-4B9DDFA45160}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abbotware.ManualTests.Interop", "Test\Abbotware.Interop.ManualTests\Abbotware.ManualTests.Interop.csproj", "{8DD0E36D-5FCB-4736-BC01-4B9DDFA45160}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abbotware.Interop.TDAmeritrade", "Interop\Abbotware.Interop.TDAmeritrade\Abbotware.Interop.TDAmeritrade.csproj", "{AB2CBDBE-148B-4426-B432-6AD1C9CD1596}"
 EndProject

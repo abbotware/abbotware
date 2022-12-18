@@ -52,7 +52,7 @@
     <ProjectReference Include="..\..\Utility\Abbotware.Utility.UnitTest.Using.EntityFramework\Abbotware.Utility.UnitTest.Using.EntityFramework.csproj" />
     <ProjectReference Include="..\..\Utility\Abbotware.Utility.UnitTest.Using.NUnit\Abbotware.Utility.UnitTest.Using.NUnit.csproj" />
     <ProjectReference Include="..\..\Utility\Abbotware.Utility.UnitTest\Abbotware.Utility.UnitTest.csproj" />
-    <ProjectReference Include="..\Abbotware.Interop.UnitTests\Abbotware.Interop.UnitTests.csproj" />
+    <ProjectReference Include="..\Abbotware.Interop.UnitTests\Abbotware.UnitTests.Interop.csproj" />
   </ItemGroup>
 
   <ItemGroup>
