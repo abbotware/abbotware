@@ -1,6 +1,8 @@
 # Abbotware
 Collection of many utility classes, interfaces, extension methods that have been accumulated over the years. 
 
+[![Build](https://github.com/abbotware/abbotware/actions/workflows/main.yml/badge.svg)](https://github.com/abbotware/abbotware/actions/workflows/main.yml)
+
 * Designed to be DI friendly and contiainer agnostic
 * .NetStandard 2.0 and 2.1 compatible
 * uses nullable checks via C# 8.0
