@@ -1,6 +1,9 @@
 <?xml version="1.0"?>
 <Project>
-
   <Import Project="../Build/Common/Msbuild.props/Abbotware.Policy.Library.props" />
+
+  <PropertyGroup>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+  </PropertyGroup>
 
 </Project>
