@@ -15,4 +15,7 @@ steps:
   persistCredentials: true
   clean: true
 
-
+- task: PowerShell@2
+  inputs:
+    targetType: filePath
+    filePath: '.\Build\Common\Powershell\build.ps1'
