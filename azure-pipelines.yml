@@ -6,13 +6,15 @@
 trigger:
 - master
 
-pool:
-  vmImage: ubuntu-latest
-
 - checkout: self
   submodules: true
   persistCredentials: true
   clean: true
+
+pool:
+  vmImage: ubuntu-latest
+
+
 
 - task: PowerShell@2
   inputs:
