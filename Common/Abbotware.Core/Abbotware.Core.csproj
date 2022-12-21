@@ -10,7 +10,7 @@
       <ItemGroup>
         <Compile Remove="**/*.netstandard2.1.cs" />
         <Compile Remove="**/*.net5.cs" />
-        <PackageReference Include="System.Memory" Version="4.5.4" />
+        <PackageReference Include="System.Memory" Version="4.5.5" />
       </ItemGroup>
     </When>
     <When Condition="'$(TargetFramework)' == 'netstandard2.1'">
