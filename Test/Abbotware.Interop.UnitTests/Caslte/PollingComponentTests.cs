@@ -32,7 +32,7 @@ namespace Abbotware.UnitTests.Interop.Castle
 
             a.Start();
 
-            await Task.Delay(1000);
+            await Task.Delay(2000);
 
             a.Stop();
 
