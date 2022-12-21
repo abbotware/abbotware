@@ -58,7 +58,7 @@ namespace Abbotware.UnitTests.Interop.Castle
         private class AwaitCounter : PollingComponent
         {
             public AwaitCounter(ILogger logger)
-         : base(TimeSpan.FromMilliseconds(100), logger)
+         : base(TimeSpan.FromMilliseconds(50), logger)
             {
             }
 
