@@ -67,7 +67,7 @@ namespace Abbotware.Interop.AutoMapper
 
             foreach (var p in profiles)
             {
-                config.AssertConfigurationIsValid(p.ProfileName);
+                config.AssertConfigurationIsValid();
             }
 
             return config.CreateMapper();
