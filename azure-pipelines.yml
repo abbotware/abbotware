@@ -53,8 +53,12 @@ steps:
   inputs:
     pathToPublish: '**/*.trx'
     artifactName: Trx
+- task: PublishBuildArtifacts@1
+  displayName: 'Artifact Unit Test Report'
+  inputs:
+    pathToPublish: '**/In/**/coverage.cobertura.xml'
+    artifactName: Cobertura
 
-name: 
 #- task: NuGetCommand@2
 #  displayName: 'Publish Nuget'
 #  inputs:
