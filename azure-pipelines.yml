@@ -44,10 +44,17 @@ steps:
     codeCoverageTool: 'Cobertura'
     summaryFileLocation: '**/In/**/coverage.cobertura.xml'
 - task: PublishBuildArtifacts@1
+  displayName: 'Artifact Nugets'
   inputs:
-    pathToPublish: _Target/Release
+    pathToPublish: _Target/Release/nuget
     artifactName: Nugets
+- task: PublishBuildArtifacts@1
+  displayName: 'Artifact Unit Test Report'
+  inputs:
+    pathToPublish: '**/*.trx'
+    artifactName: Trx
 
+name: 
 #- task: NuGetCommand@2
 #  displayName: 'Publish Nuget'
 #  inputs:
