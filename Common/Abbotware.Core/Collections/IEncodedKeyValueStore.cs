@@ -46,7 +46,7 @@ namespace Abbotware.Core.Collections
         /// </summary>
         /// <param name="name">field name</param>
         /// <param name="value">value to encode</param>
-        void EncodeString(string name, string value);
+        void EncodeString(string name, string? value);
 
         /// <summary>
         /// Encodes a Guid
@@ -60,28 +60,28 @@ namespace Abbotware.Core.Collections
         /// </summary>
         /// <param name="name">field name</param>
         /// <returns>decoded value</returns>
-        bool DecodeBoolean(string name);
+        bool? DecodeBoolean(string name);
 
         /// <summary>
         /// Decodes a 32 bit int
         /// </summary>
         /// <param name="name">field name</param>
         /// <returns>decoded value</returns>
-        int DecodeInt32(string name);
+        int? DecodeInt32(string name);
 
         /// <summary>
         /// Decodes a 64 bit int
         /// </summary>
         /// <param name="name">field name</param>
         /// <returns>decoded value</returns>
-        long DecodeInt64(string name);
+        long? DecodeInt64(string name);
 
         /// <summary>
         /// Decodes a string
         /// </summary>
         /// <param name="name">field name</param>
         /// <returns>decoded value</returns>
-        string DecodeString(string name);
+        string? DecodeString(string name);
 
         /// <summary>
         /// Decodes a nested key value collection
@@ -95,7 +95,7 @@ namespace Abbotware.Core.Collections
         /// </summary>
         /// <param name="name">field name</param>
         /// <returns>decoded value</returns>
-        Guid DecodeGuid(string name);
+        Guid? DecodeGuid(string name);
 
         /// <summary>
         /// Encodes a TimeSpan
@@ -109,7 +109,7 @@ namespace Abbotware.Core.Collections
         /// </summary>
         /// <param name="name">field name</param>
         /// <returns>decoded value</returns>
-        TimeSpan DecodeTimeSpan(string name);
+        TimeSpan? DecodeTimeSpan(string name);
 
         /// <summary>
         /// Encodes a DateTimeOffset
@@ -123,7 +123,7 @@ namespace Abbotware.Core.Collections
         /// </summary>
         /// <param name="name">field name</param>
         /// <returns>decoded value</returns>
-        DateTimeOffset DecodeDateTimeOffset(string name);
+        DateTimeOffset? DecodeDateTimeOffset(string name);
 
         /// <summary>
         /// Encodes a DateTime (UTC)
@@ -137,7 +137,7 @@ namespace Abbotware.Core.Collections
         /// </summary>
         /// <param name="name">field name</param>
         /// <returns>decoded value</returns>
-        DateTime DecodeUtcDateTime(string name);
+        DateTime? DecodeUtcDateTime(string name);
 
         /// <summary>
         /// Encodes a enum
@@ -154,7 +154,7 @@ namespace Abbotware.Core.Collections
         /// <typeparam name="TEnum">enum type</typeparam>
         /// <param name="name">field name</param>
         /// <returns>decoded value</returns>
-        TEnum DecodeEnum<TEnum>(string name)
+        TEnum? DecodeEnum<TEnum>(string name)
             where TEnum : struct, IComparable;
     }
 }

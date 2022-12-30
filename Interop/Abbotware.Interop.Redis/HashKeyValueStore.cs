@@ -38,7 +38,7 @@ namespace Abbotware.Interop.Redis
 
             foreach (var kv in keyvalues)
             {
-                this.AddValue(kv.Name, kv);
+                this.AddValue(kv.Name!, kv);
             }
         }
 
@@ -75,7 +75,7 @@ namespace Abbotware.Interop.Redis
         /// <inheritdoc/>
         protected override string OnDecodeString(string name, HashEntry value)
         {
-            return value.Value;
+            return value.Value!;
         }
 
         /// <inheritdoc/>
@@ -87,7 +87,7 @@ namespace Abbotware.Interop.Redis
         /// <inheritdoc/>
         protected override Guid OnDecodeGuid(string name, HashEntry value)
         {
-            return new Guid((byte[])value.Value);
+            return new Guid((byte[])value.Value!);
         }
 
         /// <inheritdoc/>

@@ -28,6 +28,6 @@ namespace Abbotware.Utility.UnitTest
         /// </summary>
         /// <param name="left">left</param>
         /// <param name="right">right</param>
-        void AssertEqual(object left, object right);
+        void AssertEqual(object? left, object? right);
     }
 }

@@ -29,7 +29,7 @@ namespace Abbotware.Interop.Redis.Collections
         /// <inheritdoc />
         protected override string OnConvertElement(RedisValue value)
         {
-            return value;
+            return value!;
         }
 
         /// <inheritdoc />

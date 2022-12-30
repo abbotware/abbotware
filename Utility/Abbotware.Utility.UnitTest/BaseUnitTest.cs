@@ -78,7 +78,7 @@ namespace Abbotware.Utility.UnitTest
         public abstract void AssertFail(string message);
 
         /// <inheritdoc/>
-        public abstract void AssertEqual(object left, object right);
+        public abstract void AssertEqual(object? left, object? right);
 
         /// <summary>
         /// Checks if system is linux

@@ -63,7 +63,7 @@ namespace Abbotware.Core.Cache.ExtensionPoints
         }
 
         /// <inheritdoc/>
-        public bool DecodeBoolean(string name)
+        public bool? DecodeBoolean(string name)
         {
             this.VerifyKeyExists(name);
 
@@ -71,7 +71,7 @@ namespace Abbotware.Core.Cache.ExtensionPoints
         }
 
         /// <inheritdoc/>
-        public int DecodeInt32(string name)
+        public int? DecodeInt32(string name)
         {
             this.VerifyKeyExists(name);
 
@@ -79,7 +79,7 @@ namespace Abbotware.Core.Cache.ExtensionPoints
         }
 
         /// <inheritdoc/>
-        public void EncodeString(string name, string value)
+        public void EncodeString(string name, string? value)
         {
             this.VerifyKeyDoesNotExist(name);
 
@@ -113,7 +113,7 @@ namespace Abbotware.Core.Cache.ExtensionPoints
         }
 
         /// <inheritdoc/>
-        public Guid DecodeGuid(string name)
+        public Guid? DecodeGuid(string name)
         {
             this.VerifyKeyExists(name);
 
@@ -134,7 +134,7 @@ namespace Abbotware.Core.Cache.ExtensionPoints
         }
 
         /// <inheritdoc/>
-        public TimeSpan DecodeTimeSpan(string name)
+        public TimeSpan? DecodeTimeSpan(string name)
         {
             this.VerifyKeyExists(name);
 
@@ -155,7 +155,7 @@ namespace Abbotware.Core.Cache.ExtensionPoints
         }
 
         /// <inheritdoc/>
-        public long DecodeInt64(string name)
+        public long? DecodeInt64(string name)
         {
             this.VerifyKeyExists(name);
 
@@ -176,7 +176,7 @@ namespace Abbotware.Core.Cache.ExtensionPoints
         }
 
         /// <inheritdoc/>
-        public DateTimeOffset DecodeDateTimeOffset(string name)
+        public DateTimeOffset? DecodeDateTimeOffset(string name)
         {
             this.VerifyKeyExists(name);
 
@@ -207,7 +207,7 @@ namespace Abbotware.Core.Cache.ExtensionPoints
         }
 
         /// <inheritdoc/>
-        public DateTime DecodeUtcDateTime(string name)
+        public DateTime? DecodeUtcDateTime(string name)
         {
             this.VerifyKeyExists(name);
 
@@ -240,12 +240,12 @@ namespace Abbotware.Core.Cache.ExtensionPoints
         }
 
         /// <inheritdoc/>
-        public TEnum DecodeEnum<TEnum>(string name)
+        public TEnum? DecodeEnum<TEnum>(string name)
             where TEnum : struct, IComparable
         {
             var intValue = this.DecodeInt32(name);
 
-            return (TEnum)(object)intValue;
+            return (TEnum?)(object?)intValue;
         }
 
         /// <inheritdoc/>

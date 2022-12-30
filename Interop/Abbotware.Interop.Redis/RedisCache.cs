@@ -34,8 +34,10 @@ namespace Abbotware.Interop.Redis
         /// <inheritdoc/>
         public async Task<string> GetFieldAsync(string key, string field, CancellationToken ct)
         {
-            return await this.Native.HashGetAsync(key, field).
+            var t = await this.Native.HashGetAsync(key, field).
                 ConfigureAwait(false);
+
+            return t!;
         }
 
         /// <inheritdoc/>
