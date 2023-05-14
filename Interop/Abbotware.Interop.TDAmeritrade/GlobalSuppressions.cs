@@ -13,3 +13,4 @@ using System.Diagnostics.CodeAnalysis;
 [assembly: SuppressMessage("Design", "CA1008:Enums should have zero value", Justification = "Reviewed AA", Scope = "type", Target = "~T:Abbotware.Interop.TDAmeritrade.Models.HowManyYears")]
 [assembly: SuppressMessage("Design", "CA1008:Enums should have zero value", Justification = "Reviewed AA", Scope = "type", Target = "~T:Abbotware.Interop.TDAmeritrade.Models.Minutes")]
 [assembly: SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1633:File should have header", Justification = "Reviewed AA")]
+[assembly: SuppressMessage("Naming", "CA1720:Identifier contains type name", Justification = "Reviewed AA", Scope = "type", Target = "~T:Abbotware.Interop.TDAmeritrade.Models.OptionStrategyType")]

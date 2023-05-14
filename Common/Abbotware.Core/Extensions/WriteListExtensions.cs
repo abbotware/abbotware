@@ -20,15 +20,16 @@ namespace Abbotware.Core.Extensions
         /// <summary>
         ///     Adds a TimeSeriesValue to the list
         /// </summary>
-        /// <typeparam name="T">value type</typeparam>
+        /// <typeparam name="TY">value type</typeparam>
         /// <param name="that">extended object</param>
         /// <param name="date">date</param>
         /// <param name="value">value</param>
-        public static void AddTimeSeriesValue<T>(this IWriteList<TimeSeriesValue<T>> that, DateTimeOffset date, T value)
+        public static void AddTimeSeriesValue<TY>(this IWriteList<TimeSeriesValue<TY>> that, DateTimeOffset date, TY value)
+            where TY : struct
         {
             that = Arguments.EnsureNotNull(that, nameof(that));
 
-            that.Add(new TimeSeriesValue<T> { X = date, Y = value });
+            that.Add(new TimeSeriesValue<TY>(date, value));
         }
     }
 }

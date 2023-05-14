@@ -97,39 +97,20 @@ namespace Abbotware.Core.Workflow.Plugins
         /// <inheritdoc/>
         public IAction GetAction(long id)
         {
-            var action = this.FindWorkflowAction(id);
-
-            if (action == null)
-            {
-                throw new ActionNotFoundException(id);
-            }
-
+            var action = this.FindWorkflowAction(id) ?? throw new ActionNotFoundException(id);
             return action;
         }
 
         /// <inheritdoc/>
         public IState GetState(long id)
         {
-            var state = this.FindWorkflowState(id);
-
-            if (state == null)
-            {
-                throw new StateNotFoundException(id);
-            }
-
-            return state;
+            return this.FindWorkflowState(id) ?? throw new StateNotFoundException(id);
         }
 
         /// <inheritdoc/>
         public IState GetState(string stateName)
         {
-            var state = this.FindWorkflowState(stateName);
-
-            if (state == null)
-            {
-                throw new StateNotFoundException(stateName);
-            }
-
+            var state = this.FindWorkflowState(stateName) ?? throw new StateNotFoundException(stateName);
             return state;
         }
 
@@ -142,13 +123,7 @@ namespace Abbotware.Core.Workflow.Plugins
         /// <inheritdoc/>
         public IEnumerable<IAction> GetActions(string stateName)
         {
-            var state = this.FindWorkflowState(stateName);
-
-            if (state == null)
-            {
-                throw new StateNotFoundException(stateName);
-            }
-
+            var state = this.FindWorkflowState(stateName) ?? throw new StateNotFoundException(stateName);
             return this.GetActions(state);
         }
 
@@ -181,7 +156,7 @@ namespace Abbotware.Core.Workflow.Plugins
 
             var a = this.GetActions(state);
 
-            var action = a.Where(x => string.Equals(x.Name, actionName, StringComparison.OrdinalIgnoreCase));
+            var action = a.Where(x => string.Equals(x.Name, actionName, StringComparison.OrdinalIgnoreCase)).ToList();
 
             if (!action.Any())
             {
@@ -195,7 +170,7 @@ namespace Abbotware.Core.Workflow.Plugins
                 throw new ActionNotFoundException(state, actionName);
             }
 
-            if (action.Count() > 1)
+            if (action.Count > 1)
             {
                 throw new InvalidOperationException($"Too many actions found for:{actionName}");
             }
@@ -292,13 +267,7 @@ namespace Abbotware.Core.Workflow.Plugins
         /// <returns>state</returns>
         protected State VerifyStateExistsDuringConfigChange(string stateName)
         {
-            var v = this.FindWorkflowState(stateName);
-
-            if (v == null)
-            {
-                throw new StateNotFoundException(stateName);
-            }
-
+            var v = this.FindWorkflowState(stateName) ?? throw new StateNotFoundException(stateName);
             return v;
         }
 
@@ -357,12 +326,7 @@ namespace Abbotware.Core.Workflow.Plugins
                 throw new ActionNotFoundException(actionName, s, t);
             }
 
-            var edge = edges.SingleOrDefault(x => x.Name == actionName);
-
-            if (edge == null)
-            {
-                throw new ActionNotFoundException(actionName, s, t);
-            }
+            var edge = edges.SingleOrDefault(x => x.Name == actionName) ?? throw new ActionNotFoundException(actionName, s, t);
 
             return (ActionEdge)edge;
         }
@@ -374,10 +338,7 @@ namespace Abbotware.Core.Workflow.Plugins
         /// <returns>state if found</returns>
         protected State? FindWorkflowState(string stateName)
         {
-            if (stateName == null)
-            {
-                stateName = string.Empty;
-            }
+            stateName ??= string.Empty;
 
             return (State?)this.graph.Vertices.SingleOrDefault(v => string.Equals(v.Name, stateName, StringComparison.OrdinalIgnoreCase));
         }
@@ -391,10 +352,7 @@ namespace Abbotware.Core.Workflow.Plugins
         {
             var state = this.FindWorkflowState(stateName);
 
-            if (state == null)
-            {
-                state = this.OnCreateWorkflowState(stateName);
-            }
+            state ??= this.OnCreateWorkflowState(stateName);
 
             return state;
         }

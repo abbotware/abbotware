@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="TimeSeriesCollection{TValue}.cs" company="Abbotware, LLC">
+// <copyright file="TimeSeriesCollection{TY}.cs" company="Abbotware, LLC">
 // Copyright © Abbotware, LLC 2012-2020. All rights reserved
 // </copyright>
 // -----------------------------------------------------------------------
@@ -14,16 +14,17 @@ namespace Abbotware.Core.Chrono
     /// <summary>
     ///     Time series data set
     /// </summary>
-    /// <typeparam name="TValue">value of time point</typeparam>
-    public class TimeSeriesCollection<TValue> : ITimeSeriesCollection<TValue>
+    /// <typeparam name="TY">value of time point</typeparam>
+    public class TimeSeriesCollection<TY> : ITimeSeriesCollection<TY>
+        where TY : struct
     {
         /// <summary>
         ///     internal data set cache
         /// </summary>
-        private readonly SortedList<DateTimeOffset, ITimeSeriesValue<TValue>> data = new();
+        private readonly SortedList<DateTimeOffset, ITimeSeriesValue<TY>> data = new();
 
         /// <inheritdoc />
-        public IEnumerator<ITimeSeriesValue<TValue>> GetEnumerator()
+        public IEnumerator<ITimeSeriesValue<TY>> GetEnumerator()
         {
             return this.data.Values.GetEnumerator();
         }
@@ -39,10 +40,9 @@ namespace Abbotware.Core.Chrono
         /// </summary>
         /// <param name="time">time</param>
         /// <param name="valueY">value</param>
-        public void Add(DateTimeOffset time, TValue valueY)
+        public void Add(DateTimeOffset time, TY valueY)
         {
-            var d = new TimeSeriesValue<TValue>
-            { X = time, Y = valueY };
+            var d = new TimeSeriesValue<TY>(time, valueY);
 
             this.data.Add(d.X, d);
         }
