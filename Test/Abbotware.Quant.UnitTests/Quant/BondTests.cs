@@ -20,7 +20,7 @@
            KeyValuePair.Create(1.5d, InterestRate.Continuous(.064)),
            KeyValuePair.Create(2d, InterestRate.Continuous(.068)));
 
-            var bond = new Bond(2, InterestRate.Continuous(.06), CompoundingFrequency.SemiAnnually);
+            var bond = new Bond(2, new NominalRate(.06, TimePeriod.Annually), TimePeriod.SemiAnnually);
 
             var price = bond.Price(zeroRateCurve);
 
@@ -30,7 +30,7 @@
         [Test]
         public void PriceFromYield()
         {
-            var bond = new Bond(2, InterestRate.Continuous(.06), CompoundingFrequency.SemiAnnually);
+            var bond = new Bond(2, new NominalRate(.06, TimePeriod.Annually), TimePeriod.SemiAnnually);
 
             var price = bond.PriceFromYield(InterestRate.Continuous(.0676));
 
@@ -40,7 +40,7 @@
         [Test]
         public void YieldFromPrice()
         {
-            var bond = new Bond(2, InterestRate.Continuous(.06), CompoundingFrequency.SemiAnnually);
+            var bond = new Bond(2, new NominalRate(.06, TimePeriod.Annually), TimePeriod.SemiAnnually);
 
             var yield = bond.YieldFromPrice(98.39M);
 
@@ -52,7 +52,7 @@
         {
             Assert.Inconclusive();
 
-            var bond = new Bond(2, InterestRate.Continuous(.06), CompoundingFrequency.SemiAnnually);
+            var bond = new Bond(2, new NominalRate(.06, TimePeriod.Annually), TimePeriod.SemiAnnually);
 
             var zeroRateCurve = new ZeroRateCurve<double>(
             KeyValuePair.Create(.5d, InterestRate.Continuous(.05)),

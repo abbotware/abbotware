@@ -20,13 +20,14 @@
             if (frequency == CompoundingFrequency.Continuous)
             {
                 return InterestRateEquations.Compound(amount, new InterestRate(rate, frequency), 1);
-            } else
+            }
+            else
             {
                 return InterestRateEquations.Compound(amount, new InterestRate(rate, frequency), (ushort)frequency);
             }
         }
 
-        [TestCase(.1, AccrualPeriods.Yearly, ExpectedResult = .9)]
+        [TestCase(.1, TimePeriod.Annually, ExpectedResult = .9)]
         public double DiscountFactor(double rate, CompoundingFrequency frequency)
         {
             return InterestRateEquations.DiscountFactor(new InterestRate(rate, frequency), 1);
@@ -34,7 +35,7 @@
 
         [TestCase(.1, CompoundingFrequency.Yearly, CompoundingFrequency.Weekly)]
         [TestCase(.6, CompoundingFrequency.SemiAnnually, CompoundingFrequency.Daily)]
-        public void ConversionSanityChecks(double rateA, AccrualPeriods periodA, AccrualPeriods periodB)
+        public void ConversionSanityChecks(double rateA, TimePeriod periodA, TimePeriod periodB)
         {
             var r1 = InterestRateEquations.ConvertPeriodicToPeriodic(rateA, (ushort)periodA, (ushort)periodB);
             var r2 = InterestRateEquations.ConvertPeriodicToPeriodicAlt(rateA, (ushort)periodA, (ushort)periodB);
@@ -42,7 +43,7 @@
             Assert.That(r1, Is.EqualTo(r2));
         }
 
-        [TestCase(.1, AccrualPeriods.Yearly, CompoundingFrequency.Continuous, ExpectedResult = .9)]
+        [TestCase(.1, TimePeriod.Annually, CompoundingFrequency.Continuous, ExpectedResult = .9)]
         public double YearlyConversion(double rateA, CompoundingFrequency periodA, CompoundingFrequency periodB)
         {
             Assert.Inconclusive();

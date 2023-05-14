@@ -6,6 +6,7 @@
 
 namespace Abbotware.Quant.InterestRates
 {
+    using Abbotware.Quant.Enums;
     /// <summary>
     /// base for rate
     /// </summary>
@@ -17,9 +18,38 @@ namespace Abbotware.Quant.InterestRates
     /// <summary>
     /// Nominal Rate
     /// </summary>
-    /// <param name="Rate">Rate in Percentage</param>
-    public record class NominalRate(double Rate) : BaseRate(Rate)
+    /// <param name="Rate">Rate in percentage (R/100)</param>
+    /// <param name="Period">Time period for Rate</param>
+    public record class NominalRate(double Rate, TimePeriod Period) : BaseRate(Rate)
     {
+        /// <summary>
+        /// Gets the normalized rate per period
+        /// </summary>
+        /// <returns>rate adjusted per period</returns>
+        public double RatePerPeriod => this.Rate / (ushort)this.Period;
+
+        /// <summary>
+        /// Convert the rate in terms of another period
+        /// </summary>
+        /// <param name="period">target period</param>
+        /// <returns>converted rate</returns>
+        public double RateForPeriod(TimePeriod period)
+        {
+            var source = (uint)this.Period;
+            var target = (uint)period;
+
+            if (source == target)
+            {
+                return this.RatePerPeriod;
+            }
+
+            if (source == 1)
+            {
+                return this.Rate / target;
+            }
+
+            return InterestRateEquations.ConvertPeriodicToPeriodic(this.Rate, source, target);
+        }
     }
 
     /// <summary>

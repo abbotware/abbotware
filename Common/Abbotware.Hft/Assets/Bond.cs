@@ -19,7 +19,7 @@ namespace Abbotware.Quant.Assets
     /// <param name="Maturity">maturity in years</param>
     /// <param name="CouponRate">coupon rate</param>
     /// <param name="CouponFrequency">coupon frequency</param>
-    public record Bond(double Maturity, InterestRate CouponRate, CompoundingFrequency CouponFrequency) : Asset<double>(Maturity)
+    public record Bond(double Maturity, NominalRate CouponRate, TimePeriod CouponFrequency) : Asset<double>(Maturity)
     {
         /// <summary>
         /// gets the Notional / Face Value
@@ -33,7 +33,7 @@ namespace Abbotware.Quant.Assets
         {
             get
             {
-                return Coupon(this.Notional, this.CouponRate, this.CouponFrequency);
+                return CouponPayment(this.Notional, this.CouponRate, this.CouponFrequency);
             }
         }
 
@@ -120,9 +120,9 @@ namespace Abbotware.Quant.Assets
         /// <param name="couponRate">coupon rate</param>
         /// <param name="couponFrequency">coupon frequency</param>
         /// <returns>transactions</returns>
-        public static Transactions<double> Cashflow(decimal notional, double maturity, InterestRate couponRate, CompoundingFrequency couponFrequency)
+        public static Transactions<double> Cashflow(decimal notional, double maturity, NominalRate couponRate, TimePeriod couponFrequency)
         {
-            var coupon = Coupon(notional, couponRate, couponFrequency);
+            var coupon = CouponPayment(notional, couponRate, couponFrequency);
             var increment = 1d / (ushort)couponFrequency;
 
             var cashflow = new List<Transaction<double>>();
@@ -144,9 +144,9 @@ namespace Abbotware.Quant.Assets
         /// <param name="couponRate">coupon rate</param>
         /// <param name="couponFrequency">coupon frequency</param>
         /// <returns>coupon payment</returns>
-        public static decimal Coupon(decimal notional, InterestRate couponRate, CompoundingFrequency couponFrequency)
+        public static decimal CouponPayment(decimal notional, NominalRate couponRate, TimePeriod couponFrequency)
         {
-            var ratePerPeroid = couponRate.AnnualPercentageRate / (ushort)couponFrequency;
+            var ratePerPeroid = couponRate.RateForPeriod(couponFrequency);
             var payment = (decimal)ratePerPeroid * notional;
             return payment;
         }

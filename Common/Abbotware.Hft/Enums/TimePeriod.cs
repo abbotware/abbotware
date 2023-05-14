@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="AccrualPeriods.cs" company="Abbotware, LLC">
+// <copyright file="TimePeriod.cs" company="Abbotware, LLC">
 // Copyright © Abbotware, LLC 2012-2020. All rights reserved
 // </copyright>
 // -----------------------------------------------------------------------
@@ -7,9 +7,9 @@
 namespace Abbotware.Quant.Enums
 {
     /// <summary>
-    /// Accrual Period
+    /// Time Period
     /// </summary>
-    public enum AccrualPeriods : ushort
+    public enum TimePeriod : ushort
     {
         /// <summary>
         /// Unknown
@@ -17,9 +17,9 @@ namespace Abbotware.Quant.Enums
         Unknown,
 
         /// <summary>
-        /// Yearly
+        /// Annually
         /// </summary>
-        Yearly = 1,
+        Annually = 1,
 
         /// <summary>
         /// Semi-Annually (2x a year)
@@ -57,18 +57,9 @@ namespace Abbotware.Quant.Enums
         Weekly = 52,
 
         /// <summary>
-        /// Daily (360 days a year)
+        /// Daily (365x a year)
         /// </summary>
-        Daily360 = 360,
-
-        /// <summary>
-        /// Daily (365 days a year)
-        /// </summary>
-        Daily365 = 365,
-
-        /// <summary>
-        /// Continuous
-        /// </summary>
-        Continuous = ushort.MaxValue,
+        /// <remarks>Day Count Covention may be required</remarks>
+        Daily = 365,
     }
 }
