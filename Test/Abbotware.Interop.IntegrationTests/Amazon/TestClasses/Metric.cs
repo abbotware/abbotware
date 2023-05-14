@@ -13,7 +13,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
     /// report metric classs
     /// </summary>
     [ProtoContract]
-    internal class Metric
+    internal sealed class Metric
     {
         /// <summary>
         /// Gets or sets the metric type

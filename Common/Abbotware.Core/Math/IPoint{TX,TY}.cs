@@ -12,8 +12,8 @@ namespace Abbotware.Core.Math
     /// <typeparam name="TX">X dimension data type</typeparam>
     /// <typeparam name="TY">Y dimension data type</typeparam>
     public interface IPoint<out TX, out TY>
-        where TX : struct
-        where TY : struct
+        where TX : notnull
+        where TY : notnull
     {
         /// <summary>
         ///     Gets the X value

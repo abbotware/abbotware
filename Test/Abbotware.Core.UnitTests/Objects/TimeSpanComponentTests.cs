@@ -71,7 +71,7 @@ namespace Abbotware.UnitTests.Core
             t.Initialize();
         }
 
-        internal class TestComponent : TimeSpanComponent
+        internal sealed class TestComponent : TimeSpanComponent
         {
             public TestComponent(TimeSpan expirationTimeSpan, ILogger logger)
                 : base(expirationTimeSpan, logger)

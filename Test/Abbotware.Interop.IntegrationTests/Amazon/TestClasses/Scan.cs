@@ -15,7 +15,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
     ///     message class that represents plugin scan
     /// </summary>
     [ProtoContract]
-    internal class Scan
+    internal sealed class Scan
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="Scan" /> class.

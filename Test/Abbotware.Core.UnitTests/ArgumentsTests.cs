@@ -311,12 +311,12 @@
         }
 
         [Serializable]
-        private class WithSerializable
+        private sealed class WithSerializable
         {
             public int Id { get; set; }
         }
 
-        private class WithoutSerializable
+        private sealed class WithoutSerializable
         {
             public int Id { get; set; }
         }

@@ -29,7 +29,7 @@ namespace Abbotware.UnitTests.Core
             d.Foo();
         }
 
-        internal class DObject : BaseComponent
+        internal sealed class DObject : BaseComponent
         {
             public void Foo()
             {

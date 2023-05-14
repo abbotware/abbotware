@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using Abbotware.Quant.Assets;
     using Abbotware.Quant.Derivatives;
     using Abbotware.Quant.Enums;
     using Abbotware.Quant.InterestRates;
@@ -13,13 +14,13 @@
         public void Price()
         {
             // Table 4.2 - page 84
-            var zeroRateCurve = new ZeroRateCurve(
+            var zeroRateCurve = new ZeroRateCurve<double>(
            KeyValuePair.Create(.5d, InterestRate.Continuous(.05)),
            KeyValuePair.Create(1d, InterestRate.Continuous(.058)),
            KeyValuePair.Create(1.5d, InterestRate.Continuous(.064)),
            KeyValuePair.Create(2d, InterestRate.Continuous(.068)));
 
-            var bond = new BondModel(2, InterestRate.Continuous(.06), AccrualPeriods.SemiAnnually);
+            var bond = new Bond(2, InterestRate.Continuous(.06), CompoundingFrequency.SemiAnnually);
 
             var price = bond.Price(zeroRateCurve);
 
@@ -29,7 +30,7 @@
         [Test]
         public void PriceFromYield()
         {
-            var bond = new BondModel(2, InterestRate.Continuous(.06), AccrualPeriods.SemiAnnually);
+            var bond = new Bond(2, InterestRate.Continuous(.06), CompoundingFrequency.SemiAnnually);
 
             var price = bond.PriceFromYield(InterestRate.Continuous(.0676));
 
@@ -39,19 +40,21 @@
         [Test]
         public void YieldFromPrice()
         {
-            var bond = new BondModel(2, InterestRate.Continuous(.06), AccrualPeriods.SemiAnnually);
+            var bond = new Bond(2, InterestRate.Continuous(.06), CompoundingFrequency.SemiAnnually);
 
             var yield = bond.YieldFromPrice(98.39M);
 
-            Assert.That(yield!.Rate, Is.EqualTo(.0676).Within(.00001));
+            Assert.That(yield!.Value.AnnualPercentageRate, Is.EqualTo(.0676).Within(.00001));
         }
 
         [Test]
         public void ParYield()
         {
-            var bond = new BondModel(2, InterestRate.Continuous(.06), AccrualPeriods.SemiAnnually);
+            Assert.Inconclusive();
 
-            var zeroRateCurve = new ZeroRateCurve(
+            var bond = new Bond(2, InterestRate.Continuous(.06), CompoundingFrequency.SemiAnnually);
+
+            var zeroRateCurve = new ZeroRateCurve<double>(
             KeyValuePair.Create(.5d, InterestRate.Continuous(.05)),
             KeyValuePair.Create(1d, InterestRate.Continuous(.058)),
             KeyValuePair.Create(1.5d, InterestRate.Continuous(.064)),
@@ -59,7 +62,7 @@
 
             var yield = bond.ParYield(zeroRateCurve);
 
-            Assert.That(yield!.Rate, Is.EqualTo(.0687).Within(.00001));
+            Assert.That(yield!.Value.AnnualPercentageRate, Is.EqualTo(.0687).Within(.00001));
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Abbotware.Core.Chrono
     /// </summary>
     /// <typeparam name="TY">type of the value</typeparam>
     public interface ITimeSeriesValue<TY> : IPoint<DateTimeOffset, TY>
-        where TY : struct
+        where TY : notnull
     {
     }
 }

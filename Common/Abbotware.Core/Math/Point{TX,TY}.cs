@@ -13,8 +13,8 @@ namespace Abbotware.Core.Math
     /// <typeparam name="TX">X dimension data type</typeparam>
     /// <typeparam name="TY">Y dimension data type</typeparam>
     public record class Point<TX, TY>(TX X, TY Y) : IPoint<TX, TY>
-        where TX : struct
-        where TY : struct
+        where TX : notnull
+        where TY : notnull
     {
     }
 }

@@ -25,7 +25,7 @@ namespace Abbotware.IntegrationTests.Interop.Redis
         {
             using var db = RedisHelper.CreateRedisConnection(this.Logger, UnitTestSettingsFile);
 
-            var input = new TimeSeriesValue<string> { Y = "asdf", X = new DateTimeOffset(12, 12, 12, 12, 12, 12, TimeSpan.FromMinutes(30)) };
+            var input = new TimeSeriesValue<string>(new DateTimeOffset(12, 12, 12, 12, 12, 12, TimeSpan.FromMinutes(30)),  "asdf");
 
             var key = Guid.NewGuid().ToString();
             {

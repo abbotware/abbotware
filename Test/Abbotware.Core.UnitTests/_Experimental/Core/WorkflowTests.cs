@@ -103,17 +103,17 @@
             var a2 = wf.AddAction("s2t2", s, t);
             var a3 = wf.AddAction("t2s", t, s);
 
-            var sa = wf.GetActions("source");
+            var sa = wf.GetActions("source").ToList();
 
-            Assert.AreEqual(2, sa.Count());
+            Assert.AreEqual(2, sa.Count);
             Assert.IsTrue(sa.Any(x => x.Name == "s2t1"));
             Assert.IsTrue(sa.Any(x => x.Name == "s2t2"));
             Assert.IsTrue(sa.All(x => object.ReferenceEquals(s, x.Source)));
             Assert.IsTrue(sa.All(x => object.ReferenceEquals(t, x.Target)));
 
-            var ta = wf.GetActions(t);
+            var ta = wf.GetActions(t).ToList();
 
-            Assert.AreEqual(1, ta.Count());
+            Assert.AreEqual(1, ta.Count);
             Assert.IsTrue(ta.Any(x => x.Name == "t2s"));
             Assert.IsTrue(ta.All(x => object.ReferenceEquals(t, x.Source)));
             Assert.IsTrue(ta.All(x => object.ReferenceEquals(s, x.Target)));
@@ -240,16 +240,16 @@
             var sc = new SimpleClass();
             {
                 Assert.AreEqual("new", sc.State);
-                var a = sm.DetermineActions(sc);
-                Assert.AreEqual(1, a.Count());
+                var a = sm.DetermineActions(sc).ToList();
+                Assert.AreEqual(1, a.Count);
                 Assert.AreEqual("commit", a.Single().Name);
             }
 
             sm.ApplyAction(sc, "commit");
             {
                 Assert.AreEqual("committed", sc.State);
-                var a = sm.DetermineActions(sc);
-                Assert.AreEqual(2, a.Count());
+                var a = sm.DetermineActions(sc).ToList();
+                Assert.AreEqual(2, a.Count);
                 Assert.IsNotNull(a.Single(x => x.Name == "settle"));
                 Assert.IsNotNull(a.Single(x => x.Name == "revert"));
             }
@@ -257,16 +257,16 @@
             sm.ApplyAction(sc, "settle");
             {
                 Assert.AreEqual("settled", sc.State);
-                var a = sm.DetermineActions(sc);
-                Assert.AreEqual(1, a.Count());
+                var a = sm.DetermineActions(sc).ToList();
+                Assert.AreEqual(1, a.Count);
                 Assert.IsNotNull(a.Single(x => x.Name == "revert"));
             }
 
             sm.ApplyAction(sc, "revert");
             {
                 Assert.AreEqual("committed", sc.State);
-                var a = sm.DetermineActions(sc);
-                Assert.AreEqual(2, a.Count());
+                var a = sm.DetermineActions(sc).ToList();
+                Assert.AreEqual(2, a.Count);
                 Assert.IsNotNull(a.Single(x => x.Name == "settle"));
                 Assert.IsNotNull(a.Single(x => x.Name == "revert"));
             }
@@ -274,8 +274,8 @@
             sm.ApplyAction(sc, "revert");
             {
                 Assert.AreEqual("new", sc.State);
-                var a = sm.DetermineActions(sc);
-                Assert.AreEqual(1, a.Count());
+                var a = sm.DetermineActions(sc).ToList();
+                Assert.AreEqual(1, a.Count);
                 Assert.AreEqual("commit", a.Single().Name);
             }
         }

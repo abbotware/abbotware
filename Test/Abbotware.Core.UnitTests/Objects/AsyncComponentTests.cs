@@ -181,7 +181,7 @@ namespace Abbotware.UnitTests.Core
             }
         }
 
-        internal class AObjectInitThrows : BaseAsyncComponent
+        internal sealed class AObjectInitThrows : BaseAsyncComponent
         {
             protected override async ValueTask OnInitializeAsync(CancellationToken ct)
             {
@@ -191,7 +191,7 @@ namespace Abbotware.UnitTests.Core
             }
         }
 
-        internal class AObject : BaseAsyncComponent
+        internal sealed class AObject : BaseAsyncComponent
         {
             public int InitCalls;
 

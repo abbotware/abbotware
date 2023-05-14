@@ -60,7 +60,7 @@ namespace Abbotware.UnitTests.Core
             Assert.AreEqual(TypeCreatedCounter<AClass>.Count, c.CreatedCount);
         }
 
-        internal class AClass : BaseComponent
+        internal sealed class AClass : BaseComponent
         {
             private readonly ActiveInstanceCounter<AClass> counter;
 

@@ -38,15 +38,16 @@ namespace Abbotware.UnitTests.Core
             dobject.Foo();
         }
 
-        internal class DObject : BaseComponent
+        internal sealed class DObject : BaseComponent
         {
             public DObject(ILogger l)
                 : base(l)
             {
             }
 
-            public virtual void Foo()
+            public void Foo()
             {
+                this.OnInitialize();
             }
         }
     }

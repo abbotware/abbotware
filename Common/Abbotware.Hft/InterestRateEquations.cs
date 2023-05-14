@@ -65,11 +65,11 @@ namespace Abbotware.Quant
         /// Computes the Discount Factor
         /// </summary>
         /// <param name="rate">Interest Rate</param>
-        /// <param name="peroids">periods to apply discount</param>
+        /// <param name="periods">periods to apply discount</param>
         /// <returns>discount factor</returns>
-        public static double DiscountFactor(InterestRate rate, double peroids)
+        public static double DiscountFactor(InterestRate rate, double periods)
         {
-            return (double)Compound(1m, new(-rate.AnnualPercentageRate, rate.CompoundingFrequency), peroids);
+            return (double)Compound(1m, new(-rate.AnnualPercentageRate, rate.CompoundingFrequency), periods);
         }
 
         /// <summary>
@@ -77,17 +77,17 @@ namespace Abbotware.Quant
         /// </summary>
         /// <param name="principal">principal</param>
         /// <param name="rate">Interest Rate</param>
-        /// <param name="peroids">periods to apply interest</param>
+        /// <param name="periods">periods to apply interest</param>
         /// <returns>compounded interest</returns>
-        public static decimal Compound(decimal principal, InterestRate rate, double peroids)
+        public static decimal Compound(decimal principal, InterestRate rate, double periods)
         {
             if (rate.CompoundingFrequency == CompoundingFrequency.Continuous)
             {
-                return principal * (decimal)Math.Exp(rate.AnnualPercentageRate * peroids);
+                return principal * (decimal)Math.Exp(rate.AnnualPercentageRate * periods);
             }
             else
             {
-                return principal * (decimal)Math.Pow(1 + (rate.AnnualPercentageRate / (double)rate.CompoundingFrequency), peroids);
+                return principal * (decimal)Math.Pow(1 + (rate.AnnualPercentageRate / (double)rate.CompoundingFrequency), periods);
             }
         }
 
