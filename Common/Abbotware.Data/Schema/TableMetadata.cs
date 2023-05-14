@@ -8,6 +8,7 @@
 namespace Abbotware.Data.Schema
 {
     using System;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using Abbotware.Core;
     using Microsoft.Data.SqlClient.Server;
@@ -20,7 +21,7 @@ namespace Abbotware.Data.Schema
         /// <summary>
         /// mapping of column names to sql metadata
         /// </summary>
-        private readonly Dictionary<string, SqlMetaData> nameToMetadata = new();
+        private readonly ConcurrentDictionary<string, SqlMetaData> nameToMetadata = new();
 
         /// <summary>
         /// mapping of column ordinal to sql metadata
@@ -78,12 +79,12 @@ namespace Abbotware.Data.Schema
         {
             columnName = Arguments.EnsureNotNullOrWhitespace(columnName, nameof(columnName));
 
-            if (this.nameToMetadata.ContainsKey(columnName))
+            if (!this.nameToMetadata.TryGetValue(columnName, out var value))
             {
-                return this.nameToMetadata[columnName];
+                return null;
             }
 
-            return null;
+            return value;
         }
 
         /// <summary>
