@@ -1,4 +1,10 @@
-﻿namespace Abbotware.Quant.Solvers
+﻿// -----------------------------------------------------------------------
+// <copyright file="Bisection.cs" company="Abbotware, LLC">
+// Copyright © Abbotware, LLC 2012-2020. All rights reserved
+// </copyright>
+// -----------------------------------------------------------------------
+
+namespace Abbotware.Quant.Solvers
 {
     using System;
     using Abbotware.Core.Math;

@@ -1,4 +1,10 @@
-﻿namespace Abbotware.Quant.Payoffs.Plugins
+﻿// -----------------------------------------------------------------------
+// <copyright file="ShortPayoff.cs" company="Abbotware, LLC">
+// Copyright © Abbotware, LLC 2012-2020. All rights reserved
+// </copyright>
+// -----------------------------------------------------------------------
+
+namespace Abbotware.Quant.Payoffs.Plugins
 {
     /// <summary>
     /// Short Position Payoff

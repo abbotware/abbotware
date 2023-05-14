@@ -7,14 +7,20 @@
 namespace Abbotware.Quant.InterestRates
 {
     using System.Collections.Generic;
-    using Abbotware.Quant;
+    using Abbotware.Core.Math;
 
     /// <summary>
     /// Zero Rate Curve
     /// </summary>
-    public class ZeroRateCurve : Curve<InterestRate>
+    /// <typeparam name="TDate">date type</typeparam>
+    public class ZeroRateCurve<TDate> : Curve<TDate, InterestRate>
+              where TDate : struct
     {
-        public ZeroRateCurve(params KeyValuePair<double, InterestRate>[] points)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ZeroRateCurve{TDate}"/> class.
+        /// </summary>
+        /// <param name="points">data points to use for the curve</param>
+        public ZeroRateCurve(params KeyValuePair<TDate, InterestRate>[] points)
             : base(points)
         {
         }

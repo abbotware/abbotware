@@ -6,6 +6,9 @@
 
 namespace Abbotware.Quant.InterestRates
 {
+    /// <summary>
+    /// Yield Curve
+    /// </summary>
     public class YieldCurve
     {
     }

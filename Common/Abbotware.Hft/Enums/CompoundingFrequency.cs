@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="AccrualPeriods.cs" company="Abbotware, LLC">
+// <copyright file="CompoundingFrequency.cs" company="Abbotware, LLC">
 // Copyright © Abbotware, LLC 2012-2020. All rights reserved
 // </copyright>
 // -----------------------------------------------------------------------
@@ -9,7 +9,7 @@ namespace Abbotware.Quant.Enums
     /// <summary>
     /// Accrual Period
     /// </summary>
-    public enum AccrualPeriods : ushort
+    public enum CompoundingFrequency : ushort
     {
         /// <summary>
         /// Unknown
@@ -57,14 +57,9 @@ namespace Abbotware.Quant.Enums
         Weekly = 52,
 
         /// <summary>
-        /// Daily (360 days a year)
+        /// Daily
         /// </summary>
-        Daily360 = 360,
-
-        /// <summary>
-        /// Daily (365 days a year)
-        /// </summary>
-        Daily365 = 365,
+        Daily = 365,
 
         /// <summary>
         /// Continuous

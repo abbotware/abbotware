@@ -1,4 +1,10 @@
-﻿namespace Abbotware.Quant.Payoffs
+﻿// -----------------------------------------------------------------------
+// <copyright file="StrikePayoff.cs" company="Abbotware, LLC">
+// Copyright © Abbotware, LLC 2012-2020. All rights reserved
+// </copyright>
+// -----------------------------------------------------------------------
+
+namespace Abbotware.Quant.Payoffs
 {
     /// <summary>
     /// Strike based Payoff

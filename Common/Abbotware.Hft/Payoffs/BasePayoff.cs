@@ -1,7 +1,13 @@
-﻿namespace Abbotware.Quant.Payoffs
+﻿// -----------------------------------------------------------------------
+// <copyright file="BasePayoff.cs" company="Abbotware, LLC">
+// Copyright © Abbotware, LLC 2012-2020. All rights reserved
+// </copyright>
+// -----------------------------------------------------------------------
+
+namespace Abbotware.Quant.Payoffs
 {
     /// <summary>
-    /// Base class for computing a payoff for a given Spot
+    /// Base class for computing a payoff for a given spot price
     /// </summary>
     public abstract record class BasePayoff
     {
