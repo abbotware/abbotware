@@ -8,6 +8,7 @@
 namespace Abbotware.Core.Collections
 {
     using System;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
@@ -28,7 +29,7 @@ namespace Abbotware.Core.Collections
         /// <summary>
         ///     internal dictionaries of keys / value
         /// </summary>
-        private readonly Dictionary<T1, Dictionary<T2, Dictionary<T3, TValue>>> values = new();
+        private readonly ConcurrentDictionary<T1, ConcurrentDictionary<T2, ConcurrentDictionary<T3, TValue>>> values = new();
 
         /// <summary>
         ///     internal counter
@@ -47,22 +48,11 @@ namespace Abbotware.Core.Collections
         /// <inheritdoc />
         public void Add(T1 key1, T2 key2, T3 key3, TValue value)
         {
-            if (!this.values.ContainsKey(key1))
-            {
-                this.values.Add(key1, new Dictionary<T2, Dictionary<T3, TValue>>());
-            }
+            var level2 = this.values.GetOrAdd(key1, _ => new ConcurrentDictionary<T2, ConcurrentDictionary<T3, TValue>>());
 
-            if (!this.values[key1].ContainsKey(key2))
-            {
-                this.values[key1].Add(key2, new Dictionary<T3, TValue>());
-            }
+            var level3 = level2.GetOrAdd(key2, _ => new ConcurrentDictionary<T3, TValue>());
 
-            if (this.values[key1][key2].ContainsKey(key3))
-            {
-                throw new InvalidOperationException($"Duplicate Key: {key1} {key2} {key3} : {value}");
-            }
-
-            this.values[key1][key2].Add(key3, value);
+            level3.AddOrUpdate(key3, k => value, (_, _) => throw new InvalidOperationException($"Duplicate Key: {key1} {key2} {key3} : {value}"));
 
             Interlocked.Increment(ref this.counter);
         }

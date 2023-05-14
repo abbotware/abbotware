@@ -8,6 +8,7 @@
 namespace Abbotware.Core.Collections
 {
     using System;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading;
@@ -25,7 +26,7 @@ namespace Abbotware.Core.Collections
         /// <summary>
         ///     internal dictionaries of keys / value
         /// </summary>
-        private readonly Dictionary<T1, Dictionary<T2, TValue>> values = new();
+        private readonly ConcurrentDictionary<T1, ConcurrentDictionary<T2, TValue>> values = new();
 
         /// <summary>
         ///     internal counter
@@ -44,17 +45,9 @@ namespace Abbotware.Core.Collections
         /// <inheritdoc />
         public void Add(T1 key1, T2 key2, TValue value)
         {
-            if (!this.values.ContainsKey(key1))
-            {
-                this.values.Add(key1, new Dictionary<T2, TValue>());
-            }
+            var level2 = this.values.GetOrAdd(key1, _ => new ConcurrentDictionary<T2, TValue>());
 
-            if (this.values[key1].ContainsKey(key2))
-            {
-                throw new InvalidOperationException($"Duplicate Key: {key1} {key2} : {value}");
-            }
-
-            this.values[key1].Add(key2, value);
+            level2.AddOrUpdate(key2, k => value, (_, _) => throw new InvalidOperationException($"Duplicate Key: {key1} {key2} : {value}"));
 
             Interlocked.Increment(ref this.counter);
         }

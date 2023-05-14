@@ -8,6 +8,7 @@
 namespace Abbotware.Core.Collections
 {
     using System.Collections;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -18,7 +19,7 @@ namespace Abbotware.Core.Collections
     public class StatisticCollection<TKey> : IReadOnlyStatisticCollection<TKey>
         where TKey : notnull
     {
-        private readonly Dictionary<TKey, uint> counts = new();
+        private readonly ConcurrentDictionary<TKey, uint> counts = new();
 
         /// <inheritdoc/>
         public uint Total
@@ -30,33 +31,13 @@ namespace Abbotware.Core.Collections
         }
 
         /// <inheritdoc/>
-        public uint Count(TKey key)
-        {
-            if (this.counts.ContainsKey(key))
-            {
-                return this.counts[key];
-            }
-            else
-            {
-                return 0;
-            }
-        }
+        public uint Count(TKey key) => this.counts.GetOrAdd(key, 0);
 
         /// <summary>
         /// Increments a key by 1
         /// </summary>
         /// <param name="key">key value</param>
-        public void Increment(TKey key)
-        {
-            if (this.counts.ContainsKey(key))
-            {
-                ++this.counts[key];
-            }
-            else
-            {
-                this.counts.Add(key, 1);
-            }
-        }
+        public void Increment(TKey key) => this.counts.AddOrUpdate(key, k => 0, (k, v) => v + 1);
 
         /// <summary>
         /// Merges the source statistics into this statistics
@@ -68,14 +49,7 @@ namespace Abbotware.Core.Collections
 
             foreach (var kvp in source.counts)
             {
-                if (this.counts.ContainsKey(kvp.Key))
-                {
-                    this.counts[kvp.Key] += kvp.Value;
-                }
-                else
-                {
-                    this.counts.Add(kvp.Key, kvp.Value);
-                }
+                this.counts.AddOrUpdate(kvp.Key, k => kvp.Value, (k, v) => v + kvp.Value);
             }
         }
 

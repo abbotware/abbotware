@@ -8,6 +8,7 @@
 namespace Abbotware.Core.Collections
 {
     using System;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading;
@@ -33,7 +34,7 @@ namespace Abbotware.Core.Collections
         /// <summary>
         ///     internal dictionaries of keys / value
         /// </summary>
-        private readonly Dictionary<T1, Dictionary<T2, Dictionary<T3, Dictionary<T4, Dictionary<T5, Dictionary<T6, TValue>>>>>> values = new();
+        private readonly ConcurrentDictionary<T1, ConcurrentDictionary<T2, ConcurrentDictionary<T3, ConcurrentDictionary<T4, ConcurrentDictionary<T5, ConcurrentDictionary<T6, TValue>>>>>> values = new();
 
         /// <summary>
         ///     internal counter
@@ -166,38 +167,17 @@ namespace Abbotware.Core.Collections
         /// <inheritdoc />
         public void Add(T1 key1, T2 key2, T3 key3, T4 key4, T5 key5, T6 key6, TValue value)
         {
-            if (!this.values.ContainsKey(key1))
-            {
-                this.values.Add(key1, new Dictionary<T2, Dictionary<T3, Dictionary<T4, Dictionary<T5, Dictionary<T6, TValue>>>>>());
-            }
+            var level2 = this.values.GetOrAdd(key1, _ => new ConcurrentDictionary<T2, ConcurrentDictionary<T3, ConcurrentDictionary<T4, ConcurrentDictionary<T5, ConcurrentDictionary<T6, TValue>>>>>());
 
-            if (!this.values[key1].ContainsKey(key2))
-            {
-                this.values[key1].Add(key2, new Dictionary<T3, Dictionary<T4, Dictionary<T5, Dictionary<T6, TValue>>>>());
-            }
+            var level3 = level2.GetOrAdd(key2, _ => new ConcurrentDictionary<T3, ConcurrentDictionary<T4, ConcurrentDictionary<T5, ConcurrentDictionary<T6, TValue>>>>());
 
-            if (!this.values[key1][key2].ContainsKey(key3))
-            {
-                this.values[key1][key2].Add(key3, new Dictionary<T4, Dictionary<T5, Dictionary<T6, TValue>>>());
-            }
+            var level4 = level3.GetOrAdd(key3, _ => new ConcurrentDictionary<T4, ConcurrentDictionary<T5, ConcurrentDictionary<T6, TValue>>>());
 
-            if (!this.values[key1][key2][key3].ContainsKey(key4))
-            {
-                this.values[key1][key2][key3].Add(key4, new Dictionary<T5, Dictionary<T6, TValue>>());
-            }
+            var level5 = level4.GetOrAdd(key4, _ => new ConcurrentDictionary<T5, ConcurrentDictionary<T6, TValue>>());
 
-            if (!this.values[key1][key2][key3][key4].ContainsKey(key5))
-            {
-                this.values[key1][key2][key3][key4].Add(key5, new Dictionary<T6, TValue>());
-            }
+            var level6 = level5.GetOrAdd(key5, _ => new ConcurrentDictionary<T6, TValue>());
 
-            if (this.values[key1][key2][key3][key4][key5].ContainsKey(key6))
-            {
-                var message = $"Duplicate Key: {key1} {key2} {key3} {key4} {key5} {key6} : {value}";
-                throw new InvalidOperationException(message);
-            }
-
-            this.values[key1][key2][key3][key4][key5].Add(key6, value);
+            level6.AddOrUpdate(key6, k => value, (_, _) => throw new InvalidOperationException($"Duplicate Key: {key1} {key2} {key3} {key4} {key5} {key6} : {value}"));
 
             Interlocked.Increment(ref this.counter);
         }
