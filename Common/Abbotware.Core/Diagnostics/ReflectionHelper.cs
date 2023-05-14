@@ -361,10 +361,10 @@ namespace Abbotware.Core.Diagnostics
                         }
                         else
                         {
-                            var collectionItems1 = ((IEnumerable?)valueA!).Cast<object>();
-                            var collectionItems2 = ((IEnumerable?)valueB!).Cast<object>();
-                            var collectionItemsCount1 = collectionItems1.Count();
-                            var collectionItemsCount2 = collectionItems2.Count();
+                            var collectionItems1 = ((IEnumerable?)valueA!).Cast<object>().ToList();
+                            var collectionItems2 = ((IEnumerable?)valueB!).Cast<object>().ToList();
+                            var collectionItemsCount1 = collectionItems1.Count;
+                            var collectionItemsCount2 = collectionItems2.Count;
 
                             // check the counts to ensure they match
                             if (collectionItemsCount1 != collectionItemsCount2)

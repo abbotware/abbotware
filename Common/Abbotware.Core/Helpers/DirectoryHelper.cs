@@ -228,7 +228,7 @@ namespace Abbotware.Core.Helpers
         /// <summary>
         ///     Info class for path generation
         /// </summary>
-        internal class PathGenerationInfo
+        internal sealed class PathGenerationInfo
         {
             /// <summary>
             ///     Gets or sets the root path

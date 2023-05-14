@@ -137,7 +137,7 @@ namespace Abbotware.Core.Logging.Plugins
         {
         }
 
-        internal class NoOp : IDisposable
+        internal sealed class NoOp : IDisposable
         {
             public void Dispose()
             {

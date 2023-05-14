@@ -24,9 +24,13 @@ namespace Abbotware.Core.Security
         {
             bytes = Arguments.EnsureNotNull(bytes, nameof(bytes));
 
+#if NET6_0_OR_GREATER
+            var hash = MD5.HashData(bytes);
+#else
             using var md5 = MD5.Create();
-
             var hash = md5.ComputeHash(bytes);
+#endif
+
             return new Guid(hash);
         }
 

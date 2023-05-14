@@ -84,7 +84,7 @@ namespace Abbotware.Core.Extensions
         /// <returns>new date</returns>
         public static DateTime AddWorkdays(this DateTime date, int workingDays)
         {
-            return AddWorkdays(date, workingDays, Enumerable.Empty<DateTime>());
+            return AddWorkdays(date, workingDays, Array.Empty<DateTime>());
         }
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace Abbotware.Core.Extensions
         /// <param name="workingDays">number of working days</param>
         /// <param name="holidays">list of holiday dates to ignore when adding work days</param>
         /// <returns>new date</returns>
-        public static DateTime AddWorkdays(this DateTime date, int workingDays, IEnumerable<DateTime> holidays)
+        public static DateTime AddWorkdays(this DateTime date, int workingDays, IReadOnlyCollection<DateTime> holidays)
         {
             int direction = workingDays < 0 ? -1 : 1;
             DateTime newDate = date;
