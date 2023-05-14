@@ -34,9 +34,7 @@ namespace Abbotware.Interop.RestSharp
         protected BaseRestClient(Uri baseUri, TConfiguration configuration, ILogger logger)
             : base(configuration, logger)
         {
-            this.Client = new RestClient(baseUri);
-
-            this.Client.UseNewtonsoftJson(JsonHelper.CreateDefaultSettings());
+            this.Client = new RestClient(baseUri, configureSerialization: s => s.UseNewtonsoftJson(JsonHelper.CreateDefaultSettings()));
         }
 
         /// <summary>

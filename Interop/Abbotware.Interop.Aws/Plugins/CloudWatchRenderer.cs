@@ -7,6 +7,7 @@
 
 namespace Abbotware.Interop.Aws.Plugins
 {
+    using System.Globalization;
     using System.IO;
     using Abbotware.Core;
     using Serilog.Events;
@@ -23,7 +24,7 @@ namespace Abbotware.Interop.Aws.Plugins
             logEvent = Arguments.EnsureNotNull(logEvent, nameof(logEvent));
             output = Arguments.EnsureNotNull(output, nameof(output));
 
-            var msg = logEvent.RenderMessage();
+            var msg = logEvent.RenderMessage(CultureInfo.InvariantCulture);
 
             var t = $"[{logEvent.Timestamp}] [{logEvent.Level}] {msg} {logEvent.Exception}";
 
