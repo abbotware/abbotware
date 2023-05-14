@@ -71,7 +71,7 @@
             var b = gz.CompressString(input);
 
             Assert.IsTrue(b.Length < input.Length);
-            Assert.AreEqual(106686, b.Length);
+            Assert.AreEqual(106682, b.Length);
 
             var s = gz.DecompressString(b);
 

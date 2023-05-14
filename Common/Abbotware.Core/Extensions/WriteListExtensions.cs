@@ -8,6 +8,7 @@
 namespace Abbotware.Core.Extensions
 {
     using System;
+    using System.Collections.Generic;
     using Abbotware.Core.Cache.LocalOperations;
     using Abbotware.Core.Chrono;
 

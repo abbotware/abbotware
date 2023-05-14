@@ -85,6 +85,113 @@ namespace Abbotware.Interop.TDAmeritrade
         }
 
         /// <summary>
+        /// Get option chain for an optionable Symbol
+        /// </summary>
+        /// <param name="symbol">Option symbol</param>
+        /// <param name="contractType">Type of contracts to return in the chain.</param>
+        /// <param name="strikeCount">The number of strikes to return above and below the at-the-money price.</param>
+        /// <param name="includeQuotes">Include quotes for options in the option chain. Can be TRUE or FALSE. Default is FALSE.</param>
+        /// <param name="strategy">Passing a value returns a Strategy Chain</param>
+        /// <param name="interval">Strike interval for spread strategy chains (see strategy param).</param>
+        /// <param name="strike">Provide a strike price to return options only at that strike price.</param>
+        /// <param name="range">Returns options for the given range.</param>
+        /// <param name="fromDate">Only return expirations after this date. For strategies, expiration refers to the nearest term expiration in the strategy</param>
+        /// <param name="toDate">Only return expirations before this date. For strategies, expiration refers to the nearest term expiration in the strategy. </param>
+        /// <param name="volatility">Volatility to use in calculations. Applies only to ANALYTICAL strategy chains (see strategy param).</param>
+        /// <param name="underlyingPrice">Underlying price to use in calculations. Applies only to ANALYTICAL strategy chains (see strategy param).</param>
+        /// <param name="interestRate">Interest rate to use in calculations. Applies only to ANALYTICAL strategy chains (see strategy param).</param>
+        /// <param name="daysToExpiration">Days to expiration to use in calculations. Applies only to ANALYTICAL strategy chains (see strategy param).</param>
+        /// <param name="expMonth">Return only options expiring in the specified month.</param>
+        /// <param name="optionType">Type of contracts to return</param>
+        /// <param name="ct">cancellation token</param>
+        /// <returns>search result</returns>
+        public Task<RestResponse<IReadOnlyDictionary<string, IReadOnlyDictionary<string, MarketHours>>, ErrorResponse>> Chains(string symbol, ContractType? contractType, int? strikeCount, bool? includeQuotes, OptionStrategyType? strategy, int? interval, decimal? strike, OptionRangeType? range, DateTimeOffset? fromDate, DateTimeOffset? toDate, double? volatility, decimal? underlyingPrice, double? interestRate, int? daysToExpiration, MonthType? expMonth, OptionType? optionType, CancellationToken ct)
+        {
+            this.InitializeIfRequired();
+
+            var request = new RestRequest("marketdata/chains", Method.Get);
+
+            request.AddQueryParameter("symbol", symbol, false);
+
+            if (contractType != null)
+            {
+                request.AddQueryParameter("contractType", EnumHelper.GetEnumMemberValue(contractType), false);
+            }
+
+            if (strikeCount != null)
+            {
+                request.AddQueryParameter("strikeCount", strikeCount.Value, false);
+            }
+
+            if (includeQuotes != null)
+            {
+                request.AddQueryParameter("includeQuotes", includeQuotes.Value, false);
+            }
+
+            if (strategy != null)
+            {
+                request.AddQueryParameter("strategy", EnumHelper.GetEnumMemberValue(strategy), false);
+            }
+
+            if (interval != null)
+            {
+                request.AddQueryParameter("interval", interval.Value, false);
+            }
+
+            if (strike != null)
+            {
+                request.AddQueryParameter("strike", strike.Value, false);
+            }
+
+            if (fromDate != null)
+            {
+                request.AddQueryParameter("fromDate", fromDate.Value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture), false);
+            }
+
+            if (toDate != null)
+            {
+                request.AddQueryParameter("fromDate", toDate.Value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture), false);
+            }
+
+            if (range != null)
+            {
+                request.AddQueryParameter("range", EnumHelper.GetEnumMemberValue(range), false);
+            }
+
+            if (volatility != null)
+            {
+                request.AddQueryParameter("volatility", volatility.Value, false);
+            }
+
+            if (underlyingPrice != null)
+            {
+                request.AddQueryParameter("underlyingPrice", underlyingPrice.Value, false);
+            }
+
+            if (interestRate != null)
+            {
+                request.AddQueryParameter("interestRate", interestRate.Value, false);
+            }
+
+            if (daysToExpiration != null)
+            {
+                request.AddQueryParameter("daysToExpiration", daysToExpiration.Value, false);
+            }
+
+            if (expMonth != null)
+            {
+                request.AddQueryParameter("expMonth", EnumHelper.GetEnumMemberValue(expMonth), false);
+            }
+
+            if (optionType != null)
+            {
+                request.AddQueryParameter("optionType", EnumHelper.GetEnumMemberValue(optionType), false);
+            }
+
+            return this.OnExecuteAsync<IReadOnlyDictionary<string, IReadOnlyDictionary<string, MarketHours>>, ErrorResponse>(request, ct);
+        }
+
+        /// <summary>
         /// Search or retrieve instrument data, including fundamental data
         /// </summary>
         /// <param name="symbol">Value to pass to the search.</param>
