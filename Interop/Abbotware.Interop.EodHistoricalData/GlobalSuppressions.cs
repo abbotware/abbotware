@@ -11,3 +11,5 @@ using System.Diagnostics.CodeAnalysis;
 [assembly: SuppressMessage("Design", "CA1054:URI-like parameters should not be strings", Justification = "Reviewed AA", Scope = "type", Target = "~T:Abbotware.Interop.EodHistoricalData.Models.EtfData")]
 [assembly: SuppressMessage("Design", "CA1056:URI-like properties should not be strings", Justification = "Reviewed AA", Scope = "type", Target = "~T:Abbotware.Interop.EodHistoricalData.Models.EtfData")]
 [assembly: SuppressMessage("Naming", "CA1720:Identifier contains type name", Justification = "Reviewed AA", Scope = "type", Target = "~T:Abbotware.Interop.EodHistoricalData.Models.AssetAllocation")]
+[assembly: SuppressMessage("Maintainability", "CA1507:Use nameof to express symbol names", Justification = "Reviewed AA", Scope = "type", Target = "~T:Abbotware.Interop.EodHistoricalData.Models.MfAssetAllocation")]
+[assembly: SuppressMessage("Maintainability", "CA1507:Use nameof to express symbol names", Justification = "Reviewed AA", Scope = "type", Target = "~T:Abbotware.Interop.EodHistoricalData.Models.MutualFundData")]

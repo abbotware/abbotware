@@ -47,7 +47,7 @@ namespace Abbotware.Interop.NUnit
             return new TimeoutCommand(command, this.Timeout);
         }
 
-        private class TimeoutCommand : DelegatingTestCommand
+        private sealed class TimeoutCommand : DelegatingTestCommand
         {
             private readonly TimeSpan timeout;
 

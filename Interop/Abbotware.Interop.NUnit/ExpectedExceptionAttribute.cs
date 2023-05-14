@@ -41,7 +41,7 @@ namespace Abbotware.Interop.NUnit
             return new ExpectedExceptionCommand(command, this.ExpectedExceptionType);
         }
 
-        private class ExpectedExceptionCommand : DelegatingTestCommand
+        private sealed class ExpectedExceptionCommand : DelegatingTestCommand
         {
             private readonly Type expectedType;
 

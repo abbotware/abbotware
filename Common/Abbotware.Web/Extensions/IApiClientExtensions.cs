@@ -74,7 +74,7 @@ namespace Abbotware.Core.Extensions
             client = Arguments.EnsureNotNull(client, nameof(client));
             Arguments.NotNull(uri, nameof(uri));
 
-            client.DeleteAsync(uri, cancellationToken).Wait(timeout);
+            client.DeleteAsync(uri, cancellationToken).Wait((int)timeout.TotalMilliseconds, cancellationToken);
         }
 
         /// <summary>
@@ -145,7 +145,7 @@ namespace Abbotware.Core.Extensions
 
             var task = client.DeleteAsync<TResponse>(uri, cancellationToken);
 
-            task.Wait(timeout);
+            task.Wait((int)timeout.TotalMilliseconds, cancellationToken);
 
             return task.Result;
         }
@@ -222,7 +222,7 @@ namespace Abbotware.Core.Extensions
 
             var task = client.GetAsync<TResponse>(uri, cancellationToken);
 
-            task.Wait(timeout);
+            task.Wait((int)timeout.TotalMilliseconds, cancellationToken);
 
             return task.Result;
         }
@@ -305,7 +305,7 @@ namespace Abbotware.Core.Extensions
 
             var task = client.PostAsync<TRequest, TResponse>(uri, request, cancellationToken);
 
-            task.Wait(timeout);
+            task.Wait((int)timeout.TotalMilliseconds, cancellationToken);
 
             return task.Result;
         }
