@@ -3,8 +3,20 @@
     using System;
     using Abbotware.Core.Math;
 
+    /// <summary>
+    /// Bisection Numerical Method
+    /// </summary>
     public static class Bisection
     {
+        /// <summary>
+        /// Solve the function for the targe value
+        /// </summary>
+        /// <param name="func">function</param>
+        /// <param name="range">range</param>
+        /// <param name="target">target</param>
+        /// <param name="tolerance">tolerance</param>
+        /// <returns>value</returns>
+        /// <exception cref="ArgumentOutOfRangeException">target is not within the interval range</exception>
         public static double? Solve(Func<double, double> func, Interval<double> range, double target, double tolerance)
         {
             var u = range.UpperBound;
