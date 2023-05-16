@@ -2,7 +2,9 @@
 {
     using Abbotware.Quant;
     using Abbotware.Quant.Enums;
-    using Abbotware.Quant.InterestRates;
+    using Abbotware.Quant.Equations;
+    using Abbotware.Quant.Rates;
+    using Abbotware.Quant.UnitTests;
     using NUnit.Framework;
 
     public class RatesTests
@@ -27,10 +29,36 @@
             }
         }
 
-        [TestCase(.1, TimePeriod.Annually, ExpectedResult = .9)]
-        public double DiscountFactor(double rate, CompoundingFrequency frequency)
+        [Test]
+        public void Lecture_02_Slide12()
         {
-            return InterestRateEquations.DiscountFactor(new InterestRate(rate, frequency), 1);
+            var r1 = InterestRateEquations.ConvertPeriodicToContinuous(.1, 2);
+            Assert.That(r1, Is.EqualTo(.097580328338864084).Within(Precision.VeryHigh));
+
+            var r2 = InterestRateEquations.ConvertContinousToPeriodic(.08, 4);
+            Assert.That(r2, Is.EqualTo(.080805360107023105d).Within(Precision.VeryHigh));
+        }
+
+        [Test]
+        public void DiscountFactor_Continuous()
+        {
+            var r1 = DiscountFactor.Continuous(.12, 2);
+            Assert.That(r1, Is.EqualTo(0.7866).Within(Precision.Low));
+        }
+
+        [Test]
+        public void DiscountFactor_Discrete()
+        {
+            var r1 = DiscountFactor.Discrete(.12, 365, 2);
+            Assert.That(r1, Is.EqualTo(0.7867).Within(Precision.Low));
+            var r2 = DiscountFactor.Discrete(.12, 12, 2);
+            Assert.That(r2, Is.EqualTo(0.7876).Within(Precision.Low));
+            var r3 = DiscountFactor.Discrete(.12, 4, 2);
+            Assert.That(r3, Is.EqualTo(0.7894).Within(Precision.Low));
+            var r4 = DiscountFactor.Discrete(.12, 2, 2);
+            Assert.That(r4, Is.EqualTo(0.7921).Within(Precision.Low));
+            var r5 = DiscountFactor.Discrete(.12, 1, 2);
+            Assert.That(r5, Is.EqualTo(0.7972).Within(Precision.Low));
         }
 
         [TestCase(.1, CompoundingFrequency.Yearly, CompoundingFrequency.Weekly)]
@@ -43,13 +71,13 @@
             Assert.That(r1, Is.EqualTo(r2));
         }
 
-        [TestCase(.1, TimePeriod.Annually, CompoundingFrequency.Continuous, ExpectedResult = .9)]
-        public double YearlyConversion(double rateA, CompoundingFrequency periodA, CompoundingFrequency periodB)
-        {
-            Assert.Inconclusive();
-            var rate = new InterestRate(rateA, periodA);
-            var converted = rate.Convert(periodB);
-            return converted.AnnualPercentageRate;
-        }
+        //[TestCase(.1, TimePeriod.Annually, CompoundingFrequency.Continuous, ExpectedResult = .9)]
+        //public double YearlyConversion(double rateA, CompoundingFrequency periodA, CompoundingFrequency periodB)
+        //{
+        //    Assert.Inconclusive();
+        //    var rate = new InterestRate(rateA, periodA);
+        //    var converted = rate.Convert(periodB);
+        //    return converted.AnnualPercentageRate;
+        //}
     }
 }

@@ -7,6 +7,9 @@
 namespace Abbotware.Quant.InterestRates
 {
     using Abbotware.Quant.Enums;
+
+    public record class Yield<TDate>(double Rate, TDate Start, TDate End) : BaseRate(Rate);
+
     /// <summary>
     /// base for rate
     /// </summary>
@@ -27,29 +30,6 @@ namespace Abbotware.Quant.InterestRates
         /// </summary>
         /// <returns>rate adjusted per period</returns>
         public double RatePerPeriod => this.Rate / (ushort)this.Period;
-
-        /// <summary>
-        /// Convert the rate in terms of another period
-        /// </summary>
-        /// <param name="period">target period</param>
-        /// <returns>converted rate</returns>
-        public double RateForPeriod(TimePeriod period)
-        {
-            var source = (uint)this.Period;
-            var target = (uint)period;
-
-            if (source == target)
-            {
-                return this.RatePerPeriod;
-            }
-
-            if (source == 1)
-            {
-                return this.Rate / target;
-            }
-
-            return InterestRateEquations.ConvertPeriodicToPeriodic(this.Rate, source, target);
-        }
     }
 
     /// <summary>
@@ -57,6 +37,14 @@ namespace Abbotware.Quant.InterestRates
     /// </summary>
     /// <param name="Rate">Rate in Percentage</param>
     public record class EffectiveRate(double Rate) : BaseRate(Rate)
+    {
+    }
+
+    /// <summary>
+    /// Effective Rate
+    /// </summary>
+    /// <param name="Rate">Rate in Percentage</param>
+    public record class ActualRate(double Rate) : BaseRate(Rate)
     {
     }
 }

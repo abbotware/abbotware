@@ -6,11 +6,17 @@
 
 namespace Abbotware.Quant.Assets
 {
+    using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Linq;
     using Abbotware.Core.Math;
     using Abbotware.Quant.Cashflows;
-    using Abbotware.Quant.Enums;
+    using Abbotware.Quant.Equations;
     using Abbotware.Quant.InterestRates;
+    using Abbotware.Quant.Periodic;
+    using Abbotware.Quant.Rates;
+    using Abbotware.Quant.Rates.Plugins;
     using Abbotware.Quant.Solvers;
 
     /// <summary>
@@ -19,56 +25,38 @@ namespace Abbotware.Quant.Assets
     /// <param name="Maturity">maturity in years</param>
     /// <param name="CouponRate">coupon rate</param>
     /// <param name="CouponFrequency">coupon frequency</param>
-    public record Bond(double Maturity, NominalRate CouponRate, TimePeriod CouponFrequency) : Asset<double>(Maturity)
+    public record Bond(double Maturity, NominalRate CouponRate, BaseTimePeriod<double> CouponFrequency) : Asset<double>(Maturity)
     {
         /// <summary>
-        /// gets the Notional / Face Value
+        /// place holder used a par value
         /// </summary>
-        public decimal Notional { get; init; } = 100;
+        public const decimal Par = 100m;
+
+        /// <summary>
+        /// gets the Notional (Face Value)
+        /// </summary>
+        public decimal Notional { get; init; } = Par;
 
         /// <summary>
         /// gets the coupon payment
         /// </summary>
-        public decimal CouponAmount
-        {
-            get
-            {
-                return CouponPayment(this.Notional, this.CouponRate, this.CouponFrequency);
-            }
-        }
+        public decimal CouponAmount => CouponPayment(this.Notional, this.CouponRate, this.CouponFrequency);
 
         /// <summary>
         /// Determines price given a ZeroRateCurve
         /// </summary>
-        /// <param name="curve">zero rate curve</param>
+        /// <param name="zeroRateCurve">zero rate curve</param>
+        /// <param name="t0">start time to use other than 0</param>
         /// <returns>price</returns>
-        public decimal Price(ZeroRateCurve<double> curve)
+        public decimal Price(IRiskFreeRate<double> zeroRateCurve, double t0 = 0)
         {
-            var cashflow = this.Cashflow();
+            var cashflow = this.Cashflow(t0);
             var price = 0m;
 
             foreach (var c in cashflow)
             {
-                var zeroRate = curve.Lookup(c.Date);
-                price += c.Amount * (decimal)InterestRateEquations.DiscountFactor(zeroRate, c.Date);
-            }
-
-            return price;
-        }
-
-        /// <summary>
-        /// Determines price for a given yield
-        /// </summary>
-        /// <param name="yield">target yield</param>
-        /// <returns>price</returns>
-        public decimal PriceFromYield(InterestRate yield)
-        {
-            var cashflow = this.Cashflow();
-            var price = 0m;
-
-            foreach (var c in cashflow)
-            {
-                price += c.Amount * (decimal)InterestRateEquations.DiscountFactor(yield, c.Date);
+                var zeroRate = zeroRateCurve.Lookup(c.Date);
+                price += c.Amount * (decimal)DiscountFactor.Continuous(zeroRate, c.Date);
             }
 
             return price;
@@ -78,61 +66,96 @@ namespace Abbotware.Quant.Assets
         /// Determines yield for a given price
         /// </summary>
         /// <param name="price">target price</param>
+        /// <param name="t0">start time to use other than 0</param>
         /// <returns>yield</returns>
-        public InterestRate? YieldFromPrice(decimal price)
+        public Yield<double> YieldFromPrice(decimal price, double t0 = 0)
         {
             var range = new Interval<double>(-10, 10);
 
-            var rate = Bisection.Solve(x => (double)this.PriceFromYield(InterestRate.Continuous(x)), range, (double)price, .0001);
+            var rate = Bisection.Solve(x => (double)this.Price(new ConstantRiskFreeRate<double>(x)), range, (double)price, .0001);
 
             if (rate is not null)
             {
-                return InterestRate.Continuous(rate.Value);
+                return new(rate.Value, t0, this.Maturity);
             }
 
-            return null;
+            throw new InvalidOperationException();
         }
 
         /// <summary>
         /// Compute the par yield
         /// </summary>
         /// <param name="curve">zero rate curve</param>
+        /// <param name="t0">start time to use other than 0</param>
         /// <returns>yield</returns>
-        public InterestRate? ParYield(ZeroRateCurve<double> curve)
+        public Yield<double> ParYield(IRiskFreeRate<double> curve, double t0 = 0)
         {
-            return this.YieldFromPrice(100);
+            return ParYield(t0, this.Maturity, this.CouponFrequency, curve);
         }
 
         /// <summary>
         /// Gets the bond cashflow
         /// </summary>
+        /// <param name="t0">start time to use other than 0</param>
         /// <returns>cashflow for bond</returns>
-        public Transactions<double> Cashflow()
+        public Transactions<double> Cashflow(double t0 = 0)
         {
-            return Cashflow(this.Notional, this.Maturity, this.CouponRate, this.CouponFrequency);
+            return Cashflow(this.Notional, t0, this.Maturity, this.CouponRate, this.CouponFrequency);
+        }
+
+        /// <summary>
+        /// Generates a cashflow for a bond
+        /// </summary>
+        /// <param name="t0">initial time</param>
+        /// <param name="tM">matuity time in years</param>
+        /// <param name="couponFrequency">coupon frequency</param>
+        /// <returns>transactions</returns>
+        public static Yield<double> ParYield(double t0, double tM, BaseTimePeriod<double> couponFrequency, IRiskFreeRate<double> zeroRateCurve)
+        {
+            var timePoints = couponFrequency.GetPeriods(t0, tM).ToList();
+
+            var discountFactors = timePoints.Select(x => (t: x, df: DiscountFactor.Continuous(zeroRateCurve.Lookup(x), x))).ToList();
+
+            var lastDF = discountFactors.OrderByDescending(x => x.t).First();
+
+            Debug.Assert(lastDF.t == tM, "last time point is not maturity");
+
+            var rightSide = 1 - (decimal)lastDF.df;
+
+            rightSide /= discountFactors.Sum(x => (decimal)x.df);
+
+            rightSide *= (decimal)couponFrequency.UnitsPerPeriod();
+
+            return new((double)rightSide, t0, tM);
         }
 
         /// <summary>
         /// Generates a cashflow for a bond
         /// </summary>
         /// <param name="notional">notional/face value of bond</param>
-        /// <param name="maturity">matuity time in years</param>
+        /// <param name="t0">initial time</param>
+        /// <param name="tM">matuity time in years</param>
         /// <param name="couponRate">coupon rate</param>
         /// <param name="couponFrequency">coupon frequency</param>
         /// <returns>transactions</returns>
-        public static Transactions<double> Cashflow(decimal notional, double maturity, NominalRate couponRate, TimePeriod couponFrequency)
+        public static Transactions<double> Cashflow(decimal notional, double t0, double tM, NominalRate couponRate, BaseTimePeriod<double> couponFrequency)
         {
+            var periods = couponFrequency.GetPeriods(t0, tM).ToList();
+
+            var cashflow = new List<Transaction<double>>(periods.Count);
             var coupon = CouponPayment(notional, couponRate, couponFrequency);
-            var increment = 1d / (ushort)couponFrequency;
 
-            var cashflow = new List<Transaction<double>>();
-
-            for (var i = increment; i < maturity; i += increment)
+            foreach (var i in periods)
             {
-                cashflow.Add(new(i, coupon));
+                if (i == tM)
+                {
+                    cashflow.Add(new(i, notional + coupon));
+                }
+                else
+                {
+                    cashflow.Add(new(i, coupon));
+                }
             }
-
-            cashflow.Add(new(maturity, notional + coupon));
 
             return new(cashflow);
         }
@@ -144,9 +167,9 @@ namespace Abbotware.Quant.Assets
         /// <param name="couponRate">coupon rate</param>
         /// <param name="couponFrequency">coupon frequency</param>
         /// <returns>coupon payment</returns>
-        public static decimal CouponPayment(decimal notional, NominalRate couponRate, TimePeriod couponFrequency)
+        public static decimal CouponPayment(decimal notional, NominalRate couponRate, BaseTimePeriod<double> couponFrequency)
         {
-            var ratePerPeroid = couponRate.RateForPeriod(couponFrequency);
+            var ratePerPeroid = couponFrequency.RateForPeriod(couponRate);
             var payment = (decimal)ratePerPeroid * notional;
             return payment;
         }

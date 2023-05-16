@@ -9,6 +9,7 @@ namespace Abbotware.Quant
     using System;
     using Abbotware.Quant.Enums;
     using Abbotware.Quant.InterestRates;
+    using Abbotware.Quant.Rates;
 
     /// <summary>
     /// Interest Rate related equations
@@ -59,17 +60,6 @@ namespace Abbotware.Quant
         public static double ConvertPeriodicToPeriodicAlt(double yearlyRate, double periodsPerYearSource, double periodsPerYearTarget)
         {
             return ConvertContinousToPeriodic(ConvertPeriodicToContinuous(yearlyRate, periodsPerYearSource), periodsPerYearTarget);
-        }
-
-        /// <summary>
-        /// Computes the Discount Factor
-        /// </summary>
-        /// <param name="rate">Interest Rate</param>
-        /// <param name="periods">periods to apply discount</param>
-        /// <returns>discount factor</returns>
-        public static double DiscountFactor(InterestRate rate, double periods)
-        {
-            return (double)Compound(1m, new(-rate.AnnualPercentageRate, rate.CompoundingFrequency), periods);
         }
 
         /// <summary>

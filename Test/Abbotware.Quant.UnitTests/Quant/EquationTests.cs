@@ -1,7 +1,7 @@
 ﻿namespace Abbotware.UnitTests.Core.Quant
 {
     using Abbotware.Quant;
-    using Abbotware.Quant.InterestRates;
+    using Abbotware.Quant.Rates;
     using NUnit.Framework;
 
     public class EquationTests

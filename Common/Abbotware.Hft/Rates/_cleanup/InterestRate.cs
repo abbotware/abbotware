@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Abbotware.Quant.InterestRates
+namespace Abbotware.Quant.Rates
 {
     using Abbotware.Quant.Enums;
 

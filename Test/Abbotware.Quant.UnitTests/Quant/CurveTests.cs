@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using Abbotware.Core.Math;
     using Abbotware.Quant.InterestRates;
+    using Abbotware.Quant.Rates;
     using NUnit.Framework;
 
     public class CurveTests
@@ -40,10 +41,45 @@
                 KeyValuePair.Create(2d, InterestRate.Continuous(.068)));
 
             Assert.That(c.Lookup(0d).AnnualPercentageRate, Is.EqualTo(.05));
-            Assert.That(c.Lookup(.9d).AnnualPercentageRate, Is.EqualTo(.05));
-            Assert.That(c.Lookup(1.4d).AnnualPercentageRate, Is.EqualTo(.058));
-            Assert.That(c.Lookup(1.9d).AnnualPercentageRate, Is.EqualTo(.064));
-            Assert.That(c.Lookup(2.1).AnnualPercentageRate, Is.EqualTo(.068));
+            Assert.That(c.Lookup(.9d).AnnualPercentageRate, Is.EqualTo(.058));
+            Assert.That(c.Lookup(1.4d).AnnualPercentageRate, Is.EqualTo(.064));
+            Assert.That(c.Lookup(1.5d).AnnualPercentageRate, Is.EqualTo(.064));
+            Assert.That(c.Lookup(1.6d).AnnualPercentageRate, Is.EqualTo(.068));
+            Assert.That(c.Lookup(1.9d).AnnualPercentageRate, Is.EqualTo(.068));
+            Assert.That(c.Lookup(2.0).AnnualPercentageRate, Is.EqualTo(.068));
+        }
+
+        [Test]
+        [TestCase(0, ExpectedResult = .03)]
+        [TestCase(0.5, ExpectedResult = .03)]
+        [TestCase(1, ExpectedResult = .03)]
+        [TestCase(1.5, ExpectedResult = .035)]
+        [TestCase(2, ExpectedResult = .035)]
+        [TestCase(2.5, ExpectedResult = .04)]
+        [TestCase(3, ExpectedResult = .04)]
+        [TestCase(3.5, ExpectedResult = .04)]
+        [TestCase(4, ExpectedResult = .04)]
+        [TestCase(4.5, ExpectedResult = .04)]
+        [TestCase(5, ExpectedResult = .04)]
+        [TestCase(5.5, ExpectedResult = .0425)]
+        [TestCase(6, ExpectedResult = .0425)]
+        [TestCase(6.5, ExpectedResult = .0425)]
+        [TestCase(7, ExpectedResult = .0425)]
+        [TestCase(7.5, ExpectedResult = .0425)]
+        [TestCase(8, ExpectedResult = .0425)]
+        [TestCase(8.5, ExpectedResult = .0425)]
+        [TestCase(9, ExpectedResult = .0425)]
+        [TestCase(9.5, ExpectedResult = .0425)]
+        [TestCase(10, ExpectedResult = .0425)]
+        public double ExhaustiveMatches(double t)
+        {
+            var c = new Curve<double, InterestRate>(
+                KeyValuePair.Create(1d, InterestRate.Continuous(.03)),
+                KeyValuePair.Create(2d, InterestRate.Continuous(.035)),
+                KeyValuePair.Create(5d, InterestRate.Continuous(.04)),
+                KeyValuePair.Create(10d, InterestRate.Continuous(.0425)));
+
+            return c.Lookup(t).AnnualPercentageRate;
         }
     }
 }

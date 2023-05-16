@@ -64,7 +64,7 @@ namespace Abbotware.Core.Math
                     return this.points.Values[0];
                 }
 
-                return this.points.Values[-idx - 2];
+                return this.points.Values[-idx - 1];
             }
         }
     }
