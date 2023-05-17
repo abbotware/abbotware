@@ -4,24 +4,24 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Abbotware.Quant.Rates.Plugins
+namespace Abbotware.Quant.Price.Plugins
 {
     using System.Collections.Generic;
     using Abbotware.Core.Math;
     using Abbotware.Quant.InterestRates;
 
     /// <summary>
-    /// Zero Rate Curve
+    /// Price Curve
     /// </summary>
     /// <typeparam name="TDate">date type</typeparam>
-    public class ZeroRateCurve<TDate> : DiscreteCurve<TDate, double>, IRiskFreeRate<TDate>
+    public class PriceMaturityCurve<TDate> : DiscreteCurve<TDate, decimal>, IRiskFreeRate<TDate>
               where TDate : struct
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ZeroRateCurve{TDate}"/> class.
         /// </summary>
         /// <param name="points">data points to use for the curve</param>
-        public ZeroRateCurve(params KeyValuePair<TDate, double>[] points)
+        public PriceMaturityCurve(params KeyValuePair<TDate, double>[] points)
             : base(points)
         {
         }

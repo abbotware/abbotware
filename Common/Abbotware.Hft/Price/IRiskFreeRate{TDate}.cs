@@ -4,16 +4,19 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Abbotware.Quant.InterestRates
+namespace Abbotware.Quant.Price
 {
-    using Abbotware.Core.Math;
-
     /// <summary>
-    /// Gets the risk free rate for a given maturity t
+    /// Gets the price for a given maturity t
     /// </summary>
     /// <typeparam name="TDate">date type</typeparam>
-    public interface IRiskFreeRate<TDate> : IFittedCurve<TDate, double>
-       where TDate : notnull
+    public interface IMaturityPrice<TDate>
     {
+        /// <summary>
+        /// looks ups price for maturirty
+        /// </summary>
+        /// <param name="t">maturity</param>
+        /// <returns>rate</returns>
+        public decimal Lookup(TDate t);
     }
 }

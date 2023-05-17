@@ -1,19 +1,17 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IDiscreteCurve{TX,TY}.cs" company="Abbotware, LLC">
+// <copyright file="IFittedCurve{TX,TY}.cs" company="Abbotware, LLC">
 // Copyright © Abbotware, LLC 2012-2020. All rights reserved
 // </copyright>
 // -----------------------------------------------------------------------
 
 namespace Abbotware.Core.Math
 {
-    using System.Collections.Generic;
-
     /// <summary>
     ///     interface for a curve
     /// </summary>
     /// <typeparam name="TX">X dimension data type</typeparam>
     /// <typeparam name="TY">Y dimension data type</typeparam>
-    public interface IDiscreteCurve<TX, TY> : ICurve<TX, TY>, IEnumerable<IPoint<TX, TY>>
+    public interface IFittedCurve<TX, TY> : ICurve<TX, TY>
         where TX : notnull
         where TY : notnull
     {

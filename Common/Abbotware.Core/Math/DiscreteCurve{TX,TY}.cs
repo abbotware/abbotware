@@ -11,11 +11,11 @@ namespace Abbotware.Core.Math
     using Abbotware.Core.Extensions;
 
     /// <summary>
-    /// Represents a curve
+    /// Represents a discretized curve
     /// </summary>
     /// <typeparam name="TX">C-Value Type</typeparam>
     /// <typeparam name="TY">Y-Value Type</typeparam>
-    public class DiscreteCurve<TX, TY> : IDiscreteCurve<TX, TY>
+    public class DiscreteCurve<TX, TY> : IFittedCurve<TX, TY>, IEnumerable<IPoint<TX, TY>>
         where TX : notnull
         where TY : notnull
     {

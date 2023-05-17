@@ -68,7 +68,7 @@
         }
 
         [Test]
-        public void ParYield()
+        public void ParYield_Lecture02_Slide23()
         {
             var bond = new Bond(2, new NominalRate(.06, TimePeriod.Annually), new SimplePeriodic<double>(TimePeriod.SemiAnnually));
 

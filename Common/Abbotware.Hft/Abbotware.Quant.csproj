@@ -12,7 +12,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Price\Plugins\PriceCurve.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Price\Plugins\PriceCurve.cs" />
+  </ItemGroup>
+
+
+
+  <ItemGroup>
     <ProjectReference Include="..\Abbotware.Core\Abbotware.Core.csproj" />
   </ItemGroup>
+
+
   
 </Project>

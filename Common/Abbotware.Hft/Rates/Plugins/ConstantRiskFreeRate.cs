@@ -4,14 +4,22 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-
-
 namespace Abbotware.Quant.Rates.Plugins
 {
     using Abbotware.Quant.InterestRates;
 
+    /// <summary>
+    /// Constant Risk-Free Rate
+    /// </summary>
+    /// <typeparam name="TDate">date type</typeparam>
+    /// <param name="Rate">rate</param>
     public record class ConstantRiskFreeRate<TDate>(double Rate) : IRiskFreeRate<TDate>
+          where TDate : notnull
     {
-        public double Lookup(TDate t) => Rate;
+        /// <inheritdoc/>
+        public double GetPoint(TDate x) => this.Rate;
+
+        /// <inheritdoc/>
+        public double Nearest(TDate x) => this.Rate;
     }
 }

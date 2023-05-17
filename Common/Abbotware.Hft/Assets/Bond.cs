@@ -55,7 +55,7 @@ namespace Abbotware.Quant.Assets
 
             foreach (var c in cashflow)
             {
-                var zeroRate = zeroRateCurve.Lookup(c.Date);
+                var zeroRate = zeroRateCurve.Nearest(c.Date);
                 price += c.Amount * (decimal)DiscountFactor.Continuous(zeroRate, c.Date);
             }
 
@@ -109,12 +109,13 @@ namespace Abbotware.Quant.Assets
         /// <param name="t0">initial time</param>
         /// <param name="tM">matuity time in years</param>
         /// <param name="couponFrequency">coupon frequency</param>
+        /// <param name="zeroRateCurve">zero rate curve</param>
         /// <returns>transactions</returns>
         public static Yield<double> ParYield(double t0, double tM, BaseTimePeriod<double> couponFrequency, IRiskFreeRate<double> zeroRateCurve)
         {
             var timePoints = couponFrequency.GetPeriods(t0, tM).ToList();
 
-            var discountFactors = timePoints.Select(x => (t: x, df: DiscountFactor.Continuous(zeroRateCurve.Lookup(x), x))).ToList();
+            var discountFactors = timePoints.Select(x => (t: x, df: DiscountFactor.Continuous(zeroRateCurve.Nearest(x), x))).ToList();
 
             var lastDF = discountFactors.OrderByDescending(x => x.t).First();
 
