@@ -96,11 +96,31 @@ namespace Abbotware.Quant.Assets
         /// <summary>
         /// Gets the bond cashflow
         /// </summary>
+        /// <returns>cashflow for bond</returns>
+        public Transactions<double> Cashflow()
+        {
+            return this.Cashflow(0);
+        }
+
+        /// <summary>
+        /// Gets the bond cashflow
+        /// </summary>
         /// <param name="t0">start time to use other than 0</param>
         /// <returns>cashflow for bond</returns>
-        public Transactions<double> Cashflow(double t0 = 0)
+        public Transactions<double> Cashflow(double t0)
         {
-            return Cashflow(this.Notional, t0, this.Maturity, this.CouponRate, this.CouponFrequency);
+            return this.Cashflow(t0, this.Maturity);
+        }
+
+        /// <summary>
+        /// Gets the bond cashflow
+        /// </summary>
+        /// <param name="t0">start time to use other than 0</param>
+        /// <param name="tM">end time to use other than Maturity</param>
+        /// <returns>cashflow for bond</returns>
+        public Transactions<double> Cashflow(double t0, double tM)
+        {
+            return Cashflow(this.Notional, t0, tM, this.CouponRate, this.CouponFrequency);
         }
 
         /// <summary>

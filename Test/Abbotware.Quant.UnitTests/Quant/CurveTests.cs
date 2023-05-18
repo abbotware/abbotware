@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using Abbotware.Core.Math;
-    using Abbotware.Quant.InterestRates;
     using Abbotware.Quant.Rates;
     using NUnit.Framework;
 
