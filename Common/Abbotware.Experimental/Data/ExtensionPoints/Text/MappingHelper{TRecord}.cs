@@ -89,7 +89,7 @@ namespace Abbotware.Core.Data.ExtensionPoints.Text
             // save  header -> propertyInfo  in dictionary
             var classProperties = typeof(TRecord).GetProperties();
 
-            var fileHeaders = parser.FieldHeaders().Select(m => m.Trim('|').ToUpperInvariant());
+            var fileHeaders = parser.FieldHeaders().Select(m => m.Trim('|').ToUpperInvariant()).ToList();
 
             var extraProperties = new List<string>();
 

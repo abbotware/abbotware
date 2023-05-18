@@ -84,7 +84,7 @@ namespace Abbotware.Core.Plugins
 
             var sb = new StringBuilder();
 
-            var propertyInfos = ReflectionHelper.GetSimpleProperties<TData>();
+            var propertyInfos = ReflectionHelper.GetSimpleProperties<TData>().ToList();
 
             var propertyNames = propertyInfos
                 .Select(x => x.Name)
