@@ -13,7 +13,6 @@ namespace Abbotware.Interop.Windows.User32
     /// <summary>
     ///     shutdown force actions to be taken
     /// </summary>
-    [SuppressMessage("Microsoft.Design", "CA1027:MarkEnumsWithFlags", Justification = "options can not be combined as per win32 MSDN")]
     [Flags]
     public enum ForceShutdownMethods
     {

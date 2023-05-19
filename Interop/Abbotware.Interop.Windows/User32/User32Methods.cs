@@ -23,7 +23,6 @@ namespace Abbotware.Interop.Windows.User32
         /// <param name="forceOptions">force the shutdown</param>
         /// <param name="shutdownReason">reason of shutdown</param>
         [SuppressMessage("Microsoft.Naming", "CA1711:IdentifiersShouldNotHaveIncorrectSuffix", Justification = "matching win32 MSDN documentation")]
-        [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "ExitWindowsEx", Justification = "matching win32 MSDN documentation")]
         public static void ExitWindowsEx(ShutdownMethods shutdownMethod, ForceShutdownMethods forceOptions, ShutdownReasons shutdownReason)
         {
             var method = (uint)shutdownMethod | (uint)forceOptions;

@@ -69,7 +69,7 @@ namespace Abbotware.Quant.Finance.Equations
         /// <param name="secondPeriod">periods in second rate</param>
         /// <returns>computed forward rate</returns>
         /// <exception cref="ArgumentException">argument was invalid</exception>
-        public static double ForwardRate(NominalRate firstRate, double firstPeriod, NominalRate secondRate, double secondPeriod)
+        public static double ForwardRate(ContinuousRate firstRate, double firstPeriod, ContinuousRate secondRate, double secondPeriod)
         {
             if (firstPeriod >= secondPeriod)
             {

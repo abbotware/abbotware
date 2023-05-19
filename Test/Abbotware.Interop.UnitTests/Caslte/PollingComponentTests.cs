@@ -39,7 +39,7 @@ namespace Abbotware.UnitTests.Interop.Castle
             Assert.GreaterOrEqual(a.Counter, 8);
         }
 
-        private class MsecCounter : StartablePollingComponent
+        private sealed class MsecCounter : StartablePollingComponent
         {
             private readonly TestApp app;
 
@@ -55,7 +55,7 @@ namespace Abbotware.UnitTests.Interop.Castle
             }
         }
 
-        private class AwaitCounter : PollingComponent
+        private sealed class AwaitCounter : PollingComponent
         {
             public AwaitCounter(ILogger logger)
          : base(TimeSpan.FromMilliseconds(50), logger)
@@ -72,7 +72,7 @@ namespace Abbotware.UnitTests.Interop.Castle
             }
         }
 
-        private class TestApp : AbbotwareHostService
+        private sealed class TestApp : AbbotwareHostService
         {
             public TestApp(IHostOptions configuration)
                 : base(configuration)

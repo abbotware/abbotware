@@ -10,8 +10,24 @@ namespace Abbotware.Quant.Finance.Rates
     /// base for rate
     /// </summary>
     /// <param name="Rate">Rate in Percentage</param>
-    /// <param name="Units">time period for this rate</param>
-    public record class BaseRate(double Rate, double Units)
+    public abstract record class BaseRate(double Rate)
     {
+        /// <summary>
+        /// Gets the normalized rate per period
+        /// </summary>
+        /// <returns>rate adjusted per period</returns>
+        public abstract double RatePerPeriod { get; }
+
+        /// <summary>
+        /// Gets the number of periods per year
+        /// </summary>
+        /// <returns>rate adjusted per period</returns>
+        public abstract double PeriodsPerYear { get; }
+
+        /// <summary>
+        /// Gets the equivalent continuous compounded rate
+        /// </summary>
+        /// <returns>rate adjusted per period</returns>
+        public abstract double AsContinuous { get; }
     }
 }

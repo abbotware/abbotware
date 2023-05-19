@@ -138,11 +138,11 @@ namespace Abbotware.Quant.Assets
 
             var discountFactors = timePoints.Select(x => (t: x, df: DiscountFactor.Continuous(zeroRateCurve.Nearest(x), x))).ToList();
 
-            var lastDF = discountFactors.OrderByDescending(x => x.t).First();
+            var (t, df) = discountFactors.OrderByDescending(x => x.t).First();
 
-            Debug.Assert(lastDF.t == tM, "last time point is not maturity");
+            Debug.Assert(t == tM, "last time point is not maturity");
 
-            var rightSide = 1 - (decimal)lastDF.df;
+            var rightSide = 1m - (decimal)df;
 
             rightSide /= discountFactors.Sum(x => (decimal)x.df);
 

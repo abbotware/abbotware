@@ -82,6 +82,7 @@ namespace Abbotware.Quant.Periodic
             }
         }
 
+        /// <inheritdoc/>
         public override double UnitsPerPeriod()
         {
             return (double)this.Period;
@@ -90,7 +91,7 @@ namespace Abbotware.Quant.Periodic
         /// <inheritdoc/>
         public override double RateForPeriod(NominalRate rate)
         {
-            var source = (double)rate.Units;
+            var source = (double)rate.PeriodsPerYear;
             var target = this.UnitsPerPeriod();
 
             if (source == target)

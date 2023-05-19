@@ -148,7 +148,7 @@ namespace Abbotware.Core.ExtensionPoints
         /// <summary>
         ///     queue implementation for producer/consumer
         /// </summary>
-        private class WorkQueue : ActiveRingQueue<TItem>
+        private sealed class WorkQueue : ActiveRingQueue<TItem>
         {
             /// <summary>
             ///     owner object

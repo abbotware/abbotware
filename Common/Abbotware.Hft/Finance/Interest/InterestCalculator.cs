@@ -1,4 +1,10 @@
-﻿namespace Abbotware.Quant.Finance.Interest
+﻿// -----------------------------------------------------------------------
+// <copyright file="InterestCalculator.cs" company="Abbotware, LLC">
+// Copyright © Abbotware, LLC 2012-2020. All rights reserved
+// </copyright>
+// -----------------------------------------------------------------------
+
+namespace Abbotware.Quant.Finance.Interest
 {
     using Abbotware.Quant.Finance.Rates;
 
@@ -14,5 +20,4 @@
         /// <inheritdoc/>
         public abstract decimal AccruedAmount(decimal principal, double t);
     }
-
 }

@@ -12,7 +12,7 @@ namespace Abbotware.Core.Logging.Plugins
     /// <summary>
     /// scoped logger use for timeing a using block
     /// </summary>
-    internal class TimingScope : ITimingScope
+    internal sealed class TimingScope : ITimingScope
     {
         private readonly Stopwatch stopwatch;
         private readonly ILogger logger;

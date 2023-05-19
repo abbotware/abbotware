@@ -20,7 +20,7 @@ namespace Abbotware.Interop.Castle.Plugins.Installers
         /// <summary>
         ///     global static instance
         /// </summary>
-        private static readonly NullInstaller TheInstance = new NullInstaller();
+        private static readonly NullInstaller TheInstance = new();
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="NullInstaller" /> class.

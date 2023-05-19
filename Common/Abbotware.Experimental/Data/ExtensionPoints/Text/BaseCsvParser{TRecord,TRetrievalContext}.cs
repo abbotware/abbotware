@@ -297,9 +297,9 @@ namespace Abbotware.Core.Data.ExtensionPoints.Text
         {
             try
             {
-                if (this.customConvertors.ContainsKey(propertyName))
+                if (this.customConvertors.TryGetValue(propertyName, out var value))
                 {
-                    return (short)this.customConvertors[propertyName].Invoke(text);
+                    return (short)value.Invoke(text);
                 }
 
                 var parsed = this.shortConverter.ConvertFrom(text);

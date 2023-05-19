@@ -49,8 +49,8 @@ namespace Abbotware.Quant.Rates.Plugins
         /// <exception cref="NotImplementedException"></exception>
         public static ZeroRateCurve<double> Bootstrap(IEnumerable<(Bond Bond, decimal Price)> bonds, double t0)
         {
-            var rates = new List<KeyValuePair<double,double>>();
-            
+            var rates = new List<KeyValuePair<double, double>>();
+
             var sorted = bonds.OrderBy(x => x.Bond.Maturity).ToList();
             var f = sorted.First();
 

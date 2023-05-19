@@ -1,13 +1,13 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="BaseRate.cs" company="Abbotware, LLC">
+// <copyright file="Yield.cs" company="Abbotware, LLC">
 // Copyright © Abbotware, LLC 2012-2020. All rights reserved
 // </copyright>
 // -----------------------------------------------------------------------
 
-using Abbotware.Quant.Finance.Rates;
-
 namespace Abbotware.Quant.InterestRates
 {
+    using Abbotware.Quant.Finance.Rates;
+
     /// <summary>
     /// Yield over a given period
     /// </summary>

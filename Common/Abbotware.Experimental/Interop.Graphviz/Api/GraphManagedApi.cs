@@ -16,7 +16,7 @@ namespace Abbotware.Interop.Graphviz.Api
     /// <summary>
     ///     Managed wrapper with error checking for the native methods in the graph.dll
     /// </summary>
-    internal class GraphManagedApi : BaseComponent
+    internal sealed class GraphManagedApi : BaseComponent
     {
         /// <summary>
         ///     Initializes a new instance of the <see cref="GraphManagedApi" /> class.

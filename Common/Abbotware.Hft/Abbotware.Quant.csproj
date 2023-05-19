@@ -11,14 +11,6 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Rates\_cleanup\InterestRate.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Rates\_cleanup\InterestRate.cs" />
-  </ItemGroup>
-
 
 
   <ItemGroup>

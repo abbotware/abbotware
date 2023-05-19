@@ -32,10 +32,10 @@
             Assert.That(s.AccruedAmount(p, t), Is.EqualTo(p_i).Within(Precision.VeryLow));
         }
 
-        [TestCase(0, 0.08, 5, 0)]
-        [TestCase(1000, 0, 5, 0)]
-        [TestCase(1000, 0.08, 0, 0)]
-        public void Continuous_ZeroCases(decimal p, double r, double t, decimal p_i)
+        [TestCase(0, 0.08, 5)]
+        [TestCase(1000, 0, 5)]
+        [TestCase(1000, 0.08, 0)]
+        public void Continuous_ZeroCases(decimal p, double r, double t)
         {
             var s = new Continuous(new(r));
             Assert.That(s.Interest(p, t), Is.EqualTo(0).Within(Precision.VeryLow));
@@ -51,10 +51,10 @@
             Assert.That(s.AccruedAmount(p, t), Is.EqualTo(p_i).Within(Precision.VeryLow));
         }
 
-        [TestCase(0, .12, 7.8, CompoundingFrequency.Quarterly, 0)]
-        [TestCase(12345.00, 0, 7.8, CompoundingFrequency.Quarterly, 0)]
-        [TestCase(12345.00, .12, 0, CompoundingFrequency.Quarterly, 0)]
-        public void Discrete_ZeroCases(decimal p, double r, double t, CompoundingFrequency frequency, decimal p_i)
+        [TestCase(0, .12, 7.8, CompoundingFrequency.Quarterly)]
+        [TestCase(12345.00, 0, 7.8, CompoundingFrequency.Quarterly)]
+        [TestCase(12345.00, .12, 0, CompoundingFrequency.Quarterly)]
+        public void Discrete_ZeroCases(decimal p, double r, double t, CompoundingFrequency frequency)
         {
             var s = new Discrete(new(r), frequency);
             Assert.That(s.Interest(p, t), Is.EqualTo(0).Within(Precision.VeryLow));

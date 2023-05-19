@@ -1,26 +1,24 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="NominalRate.cs" company="Abbotware, LLC">
+// <copyright file="ContinuousRate.cs" company="Abbotware, LLC">
 // Copyright © Abbotware, LLC 2012-2020. All rights reserved
 // </copyright>
 // -----------------------------------------------------------------------
 
 namespace Abbotware.Quant.Finance.Rates
 {
-    using Abbotware.Quant.Finance.Equations;
-
     /// <summary>
-    /// Nominal Annual Rate
+    /// Annual Rate that is continuously compounded
     /// </summary>
     /// <param name="Rate">r = R/100</param>
-    public record class NominalRate(double Rate) : BaseRate(Rate)
+    public record class ContinuousRate(double Rate) : BaseRate(Rate)
     {
         /// <inheritdoc/>
         public override double RatePerPeriod => this.Rate;
 
         /// <inheritdoc/>
-        public override double AsContinuous => InterestRate.PeriodicToContinuous(this.Rate, 1);
+        public override double PeriodsPerYear => 1;
 
         /// <inheritdoc/>
-        public override double PeriodsPerYear => 1;
+        public override double AsContinuous => this.Rate;
     }
 }

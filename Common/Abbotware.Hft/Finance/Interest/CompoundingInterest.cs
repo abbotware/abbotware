@@ -1,4 +1,10 @@
-﻿namespace Abbotware.Quant.Finance.Interest
+﻿// -----------------------------------------------------------------------
+// <copyright file="CompoundingInterest.cs" company="Abbotware, LLC">
+// Copyright © Abbotware, LLC 2012-2020. All rights reserved
+// </copyright>
+// -----------------------------------------------------------------------
+
+namespace Abbotware.Quant.Finance.Interest
 {
     using Abbotware.Quant.Finance.Rates;
 
