@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Common\Abbotware.Hft\Abbotware.Quant.csproj" />
+    <ProjectReference Include="..\..\Common\Abbotware.Quant\Abbotware.Quant.csproj" />
     <ProjectReference Include="..\..\Utility\Abbotware.Utility.UnitTest.Using.NUnit\Abbotware.Utility.UnitTest.Using.NUnit.csproj" />
   </ItemGroup>
 

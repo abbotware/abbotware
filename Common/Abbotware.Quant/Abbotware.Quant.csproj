@@ -3,20 +3,16 @@
   <PropertyGroup>
     <Nullable>enable</Nullable>
     <TargetFrameworks>net7</TargetFrameworks>
-    <Description>Abbotware Quant / High Frequency Trading (HFT) Library</Description>
-    <PackageTags>Quant;Quantitative;Hft;High Frequency Trading;</PackageTags>
+    <Description>Abbotware Quant / Finance / High Frequency Trading (HFT) Library</Description>
+    <PackageTags>Quant;Quantitative;Finance;Hft;High Frequency Trading;</PackageTags>
   </PropertyGroup>
 
   <PropertyGroup>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageVersion>$(Version)-beta</PackageVersion>
   </PropertyGroup>
-
-
 
   <ItemGroup>
     <ProjectReference Include="..\Abbotware.Core\Abbotware.Core.csproj" />
   </ItemGroup>
-
-
   
 </Project>

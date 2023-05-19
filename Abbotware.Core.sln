@@ -105,7 +105,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abbotware.Interop.Iso", "In
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abbotware.Build", "Build\Common\Abbotware.Build.csproj", "{47B9FBB6-F3C3-434E-A07E-4BA6A75BEB3E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abbotware.Quant", "Common\Abbotware.Hft\Abbotware.Quant.csproj", "{48C21B92-6331-407C-A591-F8976F689655}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abbotware.Quant", "Common\Abbotware.Quant\Abbotware.Quant.csproj", "{48C21B92-6331-407C-A591-F8976F689655}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abbotware.UnitTests.Quant", "Test\Abbotware.Quant.UnitTests\Abbotware.UnitTests.Quant.csproj", "{5758F4F2-C85B-43D0-8B7D-A4BD58EAD0FB}"
 EndProject
