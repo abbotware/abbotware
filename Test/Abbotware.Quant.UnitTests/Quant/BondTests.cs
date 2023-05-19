@@ -61,7 +61,7 @@
         {
             var bond = new Bond(2, new NominalRate(.06), new SimplePeriodic<double>(TimePeriod.SemiAnnually));
 
-            var yield = bond.YieldFromPrice(98.39M);
+            var yield = bond.Yield(98.39M);
 
             Assert.That(yield!.Rate, Is.EqualTo(.0676).Within(Precision.Medium));
         }

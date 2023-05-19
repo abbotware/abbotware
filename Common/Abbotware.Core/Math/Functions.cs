@@ -72,5 +72,10 @@ namespace Abbotware.Core.Math
         {
             return Math.Round(value / unit) * unit;
         }
+
+        static double Root(double value, double root)
+        {
+            return Math.Pow(value, 1.0 / root);
+        }
     }
 }

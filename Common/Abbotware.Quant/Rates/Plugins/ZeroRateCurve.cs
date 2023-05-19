@@ -54,7 +54,7 @@ namespace Abbotware.Quant.Rates.Plugins
             var sorted = bonds.OrderBy(x => x.Bond.Maturity).ToList();
             var f = sorted.First();
 
-            var yield = f.Bond.YieldFromPrice(f.Price, t0);
+            var yield = f.Bond.Yield(f.Price, t0);
             rates.Add(new(yield.Rate, yield.End));
 
             foreach (var p in bonds.OrderBy(x => x.Bond.Maturity))
@@ -62,7 +62,7 @@ namespace Abbotware.Quant.Rates.Plugins
                 var curve = new ZeroRateCurve<double>(rates.ToArray());
 
                 var cf = p.Bond.Cashflow(t0, curve.Last().X);
-                var df = cf.Discounted(curve);
+                var df = cf.AsDiscounted(curve);
             }
 
             throw new NotImplementedException();

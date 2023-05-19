@@ -12,6 +12,7 @@ namespace Abbotware.Quant.Assets
     using System.Linq;
     using Abbotware.Core.Math;
     using Abbotware.Quant.Cashflows;
+    using Abbotware.Quant.Extensions;
     using Abbotware.Quant.Finance.Equations;
     using Abbotware.Quant.Finance.Rates;
     using Abbotware.Quant.InterestRates;
@@ -51,16 +52,7 @@ namespace Abbotware.Quant.Assets
         /// <returns>price</returns>
         public decimal Price(IRiskFreeRate<double> zeroRateCurve, double t0 = 0)
         {
-            var cashflow = this.Cashflow(t0);
-            var price = 0m;
-
-            foreach (var c in cashflow)
-            {
-                var zeroRate = zeroRateCurve.Nearest(c.Date);
-                price += c.Amount * (decimal)DiscountFactor.Continuous(zeroRate, c.Date);
-            }
-
-            return price;
+            return this.Cashflow(t0).NetPresentValue(zeroRateCurve);
         }
 
         /// <summary>
@@ -69,16 +61,17 @@ namespace Abbotware.Quant.Assets
         /// <param name="price">target price</param>
         /// <param name="t0">start time to use other than 0</param>
         /// <returns>yield</returns>
-        public Yield<double> YieldFromPrice(decimal price, double t0 = 0)
+        public Yield<double> Yield(decimal price, double t0 = 0)
         {
-            var range = new Interval<double>(-10, 10);
-
-            var rate = Bisection.Solve(x => (double)this.Price(new ConstantRiskFreeRate<double>(x)), range, (double)price, .0001);
-
-            if (rate is not null)
+            if (CouponRate.Rate == 0)
             {
-                return new(rate.Value, t0, this.Maturity);
+
+                //Functions.Root()  
             }
+
+            var rate = this.Cashflow().InternalRateOfReturn(price, t0);
+
+            return new(rate, t0, this.Maturity);
 
             throw new InvalidOperationException();
         }
