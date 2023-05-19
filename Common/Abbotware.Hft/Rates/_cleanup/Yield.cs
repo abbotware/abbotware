@@ -13,5 +13,5 @@ namespace Abbotware.Quant.InterestRates
     /// <param name="Rate">rate</param>
     /// <param name="Start">start date</param>
     /// <param name="End">end date</param>
-    public record class Yield<TDate>(double Rate, TDate Start, TDate End) : BaseRate(Rate);
+    public record class Yield<TDate>(double Rate, TDate Start, TDate End) : NominalRate(Rate);
 }

@@ -1,8 +1,8 @@
-﻿namespace Abbotware.Quant.UnitTests.Quant
+﻿namespace Abbotware.UnitTests.Quant
 {
     using System.Collections.Generic;
     using Abbotware.Quant.Assets;
-    using Abbotware.Quant.Enums;
+    using Abbotware.Quant.Finance;
     using Abbotware.Quant.InterestRates;
     using Abbotware.Quant.Periodic;
     using Abbotware.Quant.Rates.Plugins;
@@ -10,7 +10,6 @@
 
     public class CdsTests
     {
-
         [TestCase(.015, 1, 98.5112214597145d)]
         [TestCase(.025, 2, 98.0353890082365d)]
         [TestCase(.03, 5, 95.3791749943793d)]
@@ -25,12 +24,11 @@
             KeyValuePair.Create(5d, .04),
             KeyValuePair.Create(10d, .0425));
 
-            var bond = new Bond(maturity, new NominalRate(couponRate, TimePeriod.Annually), new SimplePeriodic<double>(TimePeriod.SemiAnnually));
+            var bond = new Bond(maturity, new NominalRate(couponRate), new SimplePeriodic<double>(TimePeriod.SemiAnnually));
 
             var price = bond.Price(zeroRateCurve);
 
             Assert.That(price, Is.EqualTo(xls).Within(Precision.High));
         }
-
     }
 }

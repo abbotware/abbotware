@@ -51,7 +51,7 @@ namespace Abbotware.Quant.Rates.Plugins
         {
             var rates = new List<KeyValuePair<double,double>>();
             
-            var sorted = bonds.OrderBy(x => x.Bond.Maturity);
+            var sorted = bonds.OrderBy(x => x.Bond.Maturity).ToList();
             var f = sorted.First();
 
             var yield = f.Bond.YieldFromPrice(f.Price, t0);

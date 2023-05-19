@@ -1,4 +1,4 @@
-﻿namespace Abbotware.Quant.UnitTests.Quant
+﻿namespace Abbotware.UnitTests.Quant
 {
     using Abbotware.Quant.Payoffs.Plugins;
     using NUnit.Framework;

@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Abbotware.Quant.Enums
+namespace Abbotware.Quant.Finance
 {
     /// <summary>
     /// Time Period

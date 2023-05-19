@@ -1,4 +1,4 @@
-﻿namespace Abbotware.Quant.UnitTests
+﻿namespace Abbotware.UnitTests.Quant
 {
     public static class Precision
     {

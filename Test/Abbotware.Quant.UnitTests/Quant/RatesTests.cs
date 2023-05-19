@@ -1,8 +1,8 @@
-﻿namespace Abbotware.UnitTests.Core.Quant
+﻿namespace Abbotware.UnitTests.Quant
 {
     using Abbotware.Quant;
-    using Abbotware.Quant.Enums;
     using Abbotware.Quant.Equations;
+    using Abbotware.Quant.Finance;
     using Abbotware.Quant.Rates;
     using Abbotware.Quant.UnitTests;
     using NUnit.Framework;

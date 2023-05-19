@@ -8,7 +8,7 @@ namespace Abbotware.Quant.Periodic
 {
     using System;
     using System.Collections.Generic;
-    using Abbotware.Quant.Enums;
+    using Abbotware.Quant.Finance;
     using Abbotware.Quant.InterestRates;
 
     /// <summary>
@@ -89,7 +89,7 @@ namespace Abbotware.Quant.Periodic
         /// <inheritdoc/>
         public override double RateForPeriod(NominalRate rate)
         {
-            var source = (double)rate.Period;
+            var source = (double)rate.Units;
             var target = this.UnitsPerPeriod();
 
             if (source == target)

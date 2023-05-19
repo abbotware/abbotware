@@ -6,11 +6,14 @@
 
 namespace Abbotware.Quant.InterestRates
 {
+    using Abbotware.Quant.Finance;
+
     /// <summary>
     /// base for rate
     /// </summary>
     /// <param name="Rate">Rate in Percentage</param>
-    public record class BaseRate(double Rate)
+    /// <param name="Units">time period for this rate</param>
+    public record class BaseRate(double Rate, double Units)
     {
     }
 
@@ -18,7 +21,7 @@ namespace Abbotware.Quant.InterestRates
     /// Effective Rate
     /// </summary>
     /// <param name="Rate">Rate in Percentage</param>
-    public record class EffectiveRate(double Rate) : BaseRate(Rate)
+    public record class EffectiveRate(double Rate) : BaseRate(Rate, (int)TimePeriod.Annually)
     {
     }
 
@@ -26,7 +29,7 @@ namespace Abbotware.Quant.InterestRates
     /// Effective Rate
     /// </summary>
     /// <param name="Rate">Rate in Percentage</param>
-    public record class ActualRate(double Rate) : BaseRate(Rate)
+    public record class ActualRate(double Rate) : BaseRate(Rate, (int)TimePeriod.Annually)
     {
     }
 }

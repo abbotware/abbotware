@@ -7,6 +7,7 @@
 namespace Abbotware.Quant.Rates
 {
     using Abbotware.Quant.Enums;
+    using Abbotware.Quant.Finance;
 
     /// <summary>
     /// Represents an interest rate

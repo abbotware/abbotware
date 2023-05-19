@@ -1,4 +1,4 @@
-﻿namespace Abbotware.UnitTests.Core.Quant
+﻿namespace Abbotware.UnitTests.Quant
 {
     using Abbotware.Quant;
     using Abbotware.Quant.Rates;

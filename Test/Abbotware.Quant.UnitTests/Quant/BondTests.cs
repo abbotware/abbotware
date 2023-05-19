@@ -1,8 +1,8 @@
-﻿namespace Abbotware.UnitTests.Core.Quant
+﻿namespace Abbotware.UnitTests.Quant
 {
     using System.Collections.Generic;
     using Abbotware.Quant.Assets;
-    using Abbotware.Quant.Enums;
+    using Abbotware.Quant.Finance;
     using Abbotware.Quant.InterestRates;
     using Abbotware.Quant.Periodic;
     using Abbotware.Quant.Rates.Plugins;
@@ -21,7 +21,7 @@
            KeyValuePair.Create(1.5d, .064),
            KeyValuePair.Create(2d, .068));
 
-            var bond = new Bond(2, new NominalRate(.06, TimePeriod.Annually), new SimplePeriodic<double>(TimePeriod.SemiAnnually));
+            var bond = new Bond(2, new NominalRate(.06), new SimplePeriodic<double>(TimePeriod.SemiAnnually));
 
             var price = bond.Price(zeroRateCurve);
 
@@ -40,7 +40,7 @@
             KeyValuePair.Create(5d, .04),
             KeyValuePair.Create(10d, .0425));
 
-            var bond = new Bond(maturity, new NominalRate(couponRate, TimePeriod.Annually), new SimplePeriodic<double>(TimePeriod.SemiAnnually));
+            var bond = new Bond(maturity, new NominalRate(couponRate), new SimplePeriodic<double>(TimePeriod.SemiAnnually));
 
             var price = bond.Price(zeroRateCurve);
 
@@ -50,7 +50,7 @@
         [Test]
         public void PriceFromYield()
         {
-            var bond = new Bond(2, new NominalRate(.06, TimePeriod.Annually), new SimplePeriodic<double>(TimePeriod.SemiAnnually));
+            var bond = new Bond(2, new NominalRate(.06), new SimplePeriodic<double>(TimePeriod.SemiAnnually));
 
             var price = bond.Price(new ConstantRiskFreeRate<double>(.0676));
 
@@ -60,7 +60,7 @@
         [Test]
         public void YieldFromPrice()
         {
-            var bond = new Bond(2, new NominalRate(.06, TimePeriod.Annually), new SimplePeriodic<double>(TimePeriod.SemiAnnually));
+            var bond = new Bond(2, new NominalRate(.06), new SimplePeriodic<double>(TimePeriod.SemiAnnually));
 
             var yield = bond.YieldFromPrice(98.39M);
 
@@ -70,7 +70,7 @@
         [Test]
         public void ParYield_Lecture02_Slide23()
         {
-            var bond = new Bond(2, new NominalRate(.06, TimePeriod.Annually), new SimplePeriodic<double>(TimePeriod.SemiAnnually));
+            var bond = new Bond(2, new NominalRate(.06), new SimplePeriodic<double>(TimePeriod.SemiAnnually));
 
             var zeroRateCurve = new ZeroRateCurve<double>(
             KeyValuePair.Create(.5d, .05),

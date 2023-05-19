@@ -8,6 +8,7 @@ namespace Abbotware.Quant
 {
     using System;
     using Abbotware.Quant.Enums;
+    using Abbotware.Quant.Finance;
     using Abbotware.Quant.Rates;
 
     /// <summary>
