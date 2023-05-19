@@ -1,6 +1,12 @@
-﻿namespace Abbotware.Quant.Finance.Interest
+﻿// -----------------------------------------------------------------------
+// <copyright file="Discrete.cs" company="Abbotware, LLC">
+// Copyright © Abbotware, LLC 2012-2020. All rights reserved
+// </copyright>
+// -----------------------------------------------------------------------
+
+namespace Abbotware.Quant.Finance.Interest
 {
-    using System;
+    using Abbotware.Quant.Finance.Equations;
     using Abbotware.Quant.InterestRates;
 
     /// <summary>
@@ -9,7 +15,7 @@
     /// <param name="Rate">nominal (annual) interest rate</param>
     /// <param name="Periods">periods per year</param>
     public record class Discrete(NominalRate Rate, double Periods)
-        : BaseCompounding(Rate)
+        : CompoundingInterest(Rate)
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Discrete"/> class.
@@ -24,7 +30,7 @@
         /// <inheritdoc/>
         public override decimal AccruedAmount(decimal principal, double t)
         {
-            return principal * (decimal)Math.Pow(1 + (this.Rate.Rate / this.Periods), this.Periods * t);
+            return principal * (decimal)CompoundingFactor.Discrete(this.Rate.Rate, this.Periods, t);
         }
     }
 }

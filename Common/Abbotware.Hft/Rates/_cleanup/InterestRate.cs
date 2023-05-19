@@ -38,7 +38,7 @@ namespace Abbotware.Quant.Rates
             }
             else if (source == CompoundingFrequency.Continuous)
             {
-                return new InterestRate(InterestRateEquations.ConvertContinousToPeriodic(this.AnnualPercentageRate, (ushort)target), target);
+                return new InterestRate(InterestRate.ConvertContinousToPeriodic(this.AnnualPercentageRate, (ushort)target), target);
             }
             else if (target == CompoundingFrequency.Continuous)
             {

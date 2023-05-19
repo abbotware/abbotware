@@ -1,7 +1,6 @@
-﻿namespace Abbotware.Quant.Equations
+﻿namespace Abbotware.Quant.Finance.Equations
 {
     using System;
-    using Abbotware.Quant.Rates;
 
     /// <summary>
     /// Computes the Compounding Factor
@@ -17,17 +16,6 @@
         public static double Continuous(double rate, double t)
         {
             return Math.Exp(rate * t);
-        }
-
-        /// <summary>
-        /// Computes the continous compounding factor
-        /// </summary>
-        /// <param name="rate">rate</param>
-        /// <param name="t">time period</param>
-        /// <returns>discount factor</returns>
-        public static double Continuous(InterestRate rate, double t)
-        {
-            return Math.Exp(rate.AnnualPercentageRate * t);
         }
 
         /// <summary>

@@ -60,5 +60,27 @@
             Assert.That(s.Interest(p, t), Is.EqualTo(0).Within(Precision.VeryLow));
             Assert.That(s.AccruedAmount(p, t), Is.EqualTo(p).Within(Precision.VeryLow));
         }
+
+        [TestCase(100, .1, CompoundingFrequency.Yearly, ExpectedResult = 110)]
+        [TestCase(100, .1, CompoundingFrequency.SemiAnnually, ExpectedResult = 110.250)]
+        [TestCase(100, .1, CompoundingFrequency.Quarterly, ExpectedResult = 110.3812890625)]
+        [TestCase(100, .1, CompoundingFrequency.Monthly, ExpectedResult = 110.47130674413)]
+        [TestCase(100, .1, CompoundingFrequency.Weekly, ExpectedResult = 110.506479277977)]
+        [TestCase(100, .1, CompoundingFrequency.Daily, ExpectedResult = 110.515578161623)]
+        [TestCase(100, .1, CompoundingFrequency.Continuous, ExpectedResult = 110.517091807565)]
+        [TestCase(1000, .231, CompoundingFrequency.BiMonthly, ExpectedResult = 1254.40854925457)]
+        public decimal Compound(decimal amount, double rate, CompoundingFrequency frequency)
+        {
+            if (frequency == CompoundingFrequency.Continuous)
+            {
+                var c = new Continuous(new(rate));
+                return c.AccruedAmount(amount, 1);
+            }
+            else
+            {
+                var c = new Discrete(new(rate), frequency);
+                return c.AccruedAmount(amount, 1);
+            }
+        }
     }
 }

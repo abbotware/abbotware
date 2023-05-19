@@ -2,7 +2,7 @@
 {
     using System.Linq;
     using Abbotware.Quant.Cashflows;
-    using Abbotware.Quant.Equations;
+    using Abbotware.Quant.Finance.Equations;
     using Abbotware.Quant.InterestRates;
 
     public static class TransactionsExtensions

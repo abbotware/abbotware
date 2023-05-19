@@ -12,7 +12,7 @@ namespace Abbotware.Quant.Assets
     using System.Linq;
     using Abbotware.Core.Math;
     using Abbotware.Quant.Cashflows;
-    using Abbotware.Quant.Equations;
+    using Abbotware.Quant.Finance.Equations;
     using Abbotware.Quant.InterestRates;
     using Abbotware.Quant.Periodic;
     using Abbotware.Quant.Rates;

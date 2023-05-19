@@ -9,6 +9,7 @@ namespace Abbotware.Quant.Periodic
     using System;
     using System.Collections.Generic;
     using Abbotware.Quant.Finance;
+    using Abbotware.Quant.Finance.Equations;
     using Abbotware.Quant.InterestRates;
 
     /// <summary>
@@ -102,7 +103,7 @@ namespace Abbotware.Quant.Periodic
                 return rate.Rate / target;
             }
 
-            return InterestRateEquations.ConvertPeriodicToPeriodic(rate.Rate, source, target);
+            return InterestRate.PeriodicToPeriodic(rate.Rate, source, target);
         }
     }
 }

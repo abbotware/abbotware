@@ -1,13 +1,19 @@
-﻿namespace Abbotware.Quant.Finance.Interest
+﻿// -----------------------------------------------------------------------
+// <copyright file="Continuous.cs" company="Abbotware, LLC">
+// Copyright © Abbotware, LLC 2012-2020. All rights reserved
+// </copyright>
+// -----------------------------------------------------------------------
+
+namespace Abbotware.Quant.Finance.Interest
 {
-    using Abbotware.Quant.Equations;
+    using Abbotware.Quant.Finance.Equations;
     using Abbotware.Quant.InterestRates;
 
     /// <summary>
     /// Continuous Interest Calculator
     /// </summary>
     /// <param name="Rate">nominal (annual) interest rate</param>
-    public record class Continuous(NominalRate Rate) : BaseCompounding(Rate)
+    public record class Continuous(NominalRate Rate) : CompoundingInterest(Rate)
     {
         /// <inheritdoc/>
         public override decimal AccruedAmount(decimal principal, double t)
