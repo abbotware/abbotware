@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Abbotware.Quant.InterestRates
+namespace Abbotware.Quant.Finance.Rates
 {
     using Abbotware.Quant.Finance;
 
@@ -18,6 +18,6 @@ namespace Abbotware.Quant.InterestRates
         /// Gets the normalized rate per period
         /// </summary>
         /// <returns>rate adjusted per period</returns>
-        public double RatePerPeriod => this.Rate / (ushort)this.Units;
+        public double RatePerPeriod => this.Rate / this.Units;
     }
 }

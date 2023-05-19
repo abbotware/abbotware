@@ -10,7 +10,7 @@ namespace Abbotware.Quant.Periodic
     using System.Collections.Generic;
     using Abbotware.Quant.Finance;
     using Abbotware.Quant.Finance.Equations;
-    using Abbotware.Quant.InterestRates;
+    using Abbotware.Quant.Finance.Rates;
 
     /// <summary>
     /// base for time period

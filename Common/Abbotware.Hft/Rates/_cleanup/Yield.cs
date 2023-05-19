@@ -4,6 +4,8 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using Abbotware.Quant.Finance.Rates;
+
 namespace Abbotware.Quant.InterestRates
 {
     /// <summary>

@@ -6,7 +6,7 @@
 
 namespace Abbotware.Quant.Finance.Interest
 {
-    using Abbotware.Quant.InterestRates;
+    using Abbotware.Quant.Finance.Rates;
 
     /// <summary>
     /// Simple Interest Calculator

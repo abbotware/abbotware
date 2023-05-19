@@ -7,6 +7,7 @@
 namespace Abbotware.Quant.Finance.Equations
 {
     using System;
+    using Abbotware.Quant.Finance.Rates;
 
     /// <summary>
     /// Interest Rate related equations
@@ -57,6 +58,25 @@ namespace Abbotware.Quant.Finance.Equations
         public static double PeriodicToPeriodicAlt(double yearlyRate, double periodsPerYearSource, double periodsPerYearTarget)
         {
             return ContinousToPeriodic(PeriodicToContinuous(yearlyRate, periodsPerYearSource), periodsPerYearTarget);
+        }
+
+        /// <summary>
+        /// Compute the forward rate between 2 rates
+        /// </summary>
+        /// <param name="firstRate">First Interest Rate</param>
+        /// <param name="firstPeriod">periods in first rate</param>
+        /// <param name="secondRate">Second Interest Rate</param>
+        /// <param name="secondPeriod">periods in second rate</param>
+        /// <returns>computed forward rate</returns>
+        /// <exception cref="ArgumentException">argument was invalid</exception>
+        public static double ForwardRate(NominalRate firstRate, double firstPeriod, NominalRate secondRate, double secondPeriod)
+        {
+            if (firstPeriod >= secondPeriod)
+            {
+                throw new ArgumentException($"firstPeriod >= secondPeriod");
+            }
+
+            return ((secondRate.Rate * secondPeriod) - (firstRate.Rate * firstPeriod)) / (secondPeriod - firstPeriod);
         }
     }
 }

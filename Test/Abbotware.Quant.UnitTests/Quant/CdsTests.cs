@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using Abbotware.Quant.Assets;
     using Abbotware.Quant.Finance;
-    using Abbotware.Quant.InterestRates;
+    using Abbotware.Quant.Finance.Rates;
     using Abbotware.Quant.Periodic;
     using Abbotware.Quant.Rates.Plugins;
     using NUnit.Framework;
