@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IRiskFreeRate{TDate}.cs" company="Abbotware, LLC">
+// <copyright file="IMaturityPrice{TDate}.cs" company="Abbotware, LLC">
 // Copyright © Abbotware, LLC 2012-2023. All rights reserved
 // </copyright>
 // -----------------------------------------------------------------------

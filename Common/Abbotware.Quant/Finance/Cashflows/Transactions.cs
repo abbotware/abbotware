@@ -13,11 +13,38 @@ namespace Abbotware.Quant.Cashflows
     /// Collection of Cashflow Transactions
     /// </summary>
     /// <typeparam name="TDate">type for date</typeparam>
+    /// <typeparam name="TAmount">type for amount</typeparam>
     /// <param name="Entries">cashflow entries</param>
-    public record Transactions<TDate>(IEnumerable<Transaction<TDate>> Entries) : IEnumerable<Transaction<TDate>>
+    public record Transactions<TDate, TAmount>(IEnumerable<Transaction<TDate, TAmount>> Entries) : IEnumerable<Transaction<TDate, TAmount>>
     {
         /// <inheritdoc/>
-        public IEnumerator<Transaction<TDate>> GetEnumerator() => this.Entries.GetEnumerator();
+        public IEnumerator<Transaction<TDate, TAmount>> GetEnumerator() => this.Entries.GetEnumerator();
+
+        /// <inheritdoc/>
+        IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable)this.Entries).GetEnumerator();
+    }
+
+    /// <summary>
+    /// Collection of Cashflow Transactions to be used in Computational work
+    /// </summary>
+    /// <param name="Entries">cashflow entries</param>
+    public record ComputationalTransactions(IEnumerable<Transaction<double, double>> Entries) : IEnumerable<Transaction<double, double>>
+    {
+        /// <inheritdoc/>
+        public IEnumerator<Transaction<double, double>> GetEnumerator() => this.Entries.GetEnumerator();
+
+        /// <inheritdoc/>
+        IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable)this.Entries).GetEnumerator();
+    }
+
+    /// <summary>
+    /// Collection of Cashflow Transactions to be used in Computational work
+    /// </summary>
+    /// <param name="Entries">cashflow entries</param>
+    public record TheoreticalTransactions(IEnumerable<TheoreticalTransaction> Entries) : IEnumerable<TheoreticalTransaction>
+    {
+        /// <inheritdoc/>
+        public IEnumerator<TheoreticalTransaction> GetEnumerator() => this.Entries.GetEnumerator();
 
         /// <inheritdoc/>
         IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable)this.Entries).GetEnumerator();

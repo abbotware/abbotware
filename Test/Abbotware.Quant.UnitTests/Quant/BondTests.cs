@@ -4,6 +4,7 @@
     using Abbotware.Quant.Assets;
     using Abbotware.Quant.Finance;
     using Abbotware.Quant.Finance.Rates;
+    using Abbotware.Quant.InterestRates;
     using Abbotware.Quant.Periodic;
     using Abbotware.Quant.Rates.Plugins;
     using NUnit.Framework;
@@ -57,14 +58,42 @@
         }
 
         [Test]
-        public void YieldFromPrice()
+        public void YieldToMaturity()
         {
             var bond = new Bond(2, new NominalRate(.06), new SimplePeriodic<double>(TimePeriod.SemiAnnually));
 
-            var yield = bond.Yield(98.39M);
+            var yield = bond.YieldToMaturity(98.39M);
 
-            Assert.That(yield!.Rate, Is.EqualTo(.0676).Within(Precision.Medium));
+            Assert.That(yield!.Rate.Rate, Is.EqualTo(.0676).Within(Precision.Medium));
         }
+
+        [Test]
+        public void YieldToMaturity2()
+        {
+            //// https://dqydj.com/bond-yield-to-maturity-calculator/
+
+            var bond = new Bond(10, new NominalRate(.1), new SimplePeriodic<double>(TimePeriod.SemiAnnually))
+            { Notional = 1000 };
+
+            var yield = bond.YieldToMaturity(920);
+
+            Assert.That(yield!.Rate.Rate, Is.EqualTo(.11359).Within(Precision.Low));
+        }
+
+
+        [Test]
+        public void YieldToMaturity3()
+        {
+            //// https://investinganswers.com/calculators/yield/yield-maturity-ytm-calculator-2081
+
+            var bond = new Bond(3, new NominalRate(.05), new SimplePeriodic<double>(TimePeriod.SemiAnnually))
+            { Notional = 5100 };
+
+            var yield = bond.YieldToMaturity(5200);
+
+            Assert.That(yield!.Rate.Rate, Is.EqualTo(.0215).Within(Precision.Low));
+        }
+
 
         [Test]
         public void ParYield_Lecture02_Slide23()
@@ -79,7 +108,45 @@
 
             var yield = bond.ParYield(zeroRateCurve);
 
-            Assert.That(yield.Rate, Is.EqualTo(.0687).Within(Precision.Low));
+            Assert.That(yield.Rate.Rate, Is.EqualTo(.0687).Within(Precision.Low));
+        }
+
+        [Test]
+        public void Duration_Given_Price_YTM()
+        {
+            ////https://exploringfinance.com/calculate-bond-duration/
+            var bond = new Bond(2, new NominalRate(.06), new SimplePeriodic<double>(TimePeriod.SemiAnnually))
+            { Notional = 1000 };
+
+            var ytm = new Yield<double>(new ContinuousRate(.08), new(0, 2));
+            var d = bond.MacaulayDuration(963.7m);
+
+            Assert.That(d, Is.EqualTo(1.9124).Within(Precision.Low));
+        }
+
+        [Test]
+        public void Duration_Hull_4_7()
+        {
+            var bond = new Bond(3, new NominalRate(.1), new SimplePeriodic<double>(TimePeriod.SemiAnnually))
+            { Notional = 100 };
+
+            var ytm = new Yield<double>(new ContinuousRate(.12), new(0, 3));
+            var d = bond.MacaulayDuration(94.213m, ytm);
+
+            Assert.That(d, Is.EqualTo(2.653).Within(Precision.Low));
+        }
+
+        [Test]
+        public void Duration2()
+        {
+            ////https://exploringfinance.com/calculate-bond-duration/
+            var bond = new Bond(2, new NominalRate(.06), new SimplePeriodic<double>(TimePeriod.SemiAnnually))
+            { Notional = 1000 };
+
+            //var ytm = new Yield<double>(new ContinuousRate(.08), new(0, 2));
+            var d = bond.MacaulayDuration(963.7m);
+
+            Assert.That(d, Is.EqualTo(1.9124).Within(Precision.Low));
         }
     }
 }

@@ -28,6 +28,6 @@ namespace Abbotware.Quant.Finance.Rates
         /// Gets the equivalent continuous compounded rate
         /// </summary>
         /// <returns>rate adjusted per period</returns>
-        public abstract double AsContinuous { get; }
+        public abstract ContinuousRate AsContinuous();
     }
 }

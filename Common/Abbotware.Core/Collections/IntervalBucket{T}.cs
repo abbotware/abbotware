@@ -12,36 +12,23 @@ namespace Abbotware.Core.Collections
     /// class that represents a numeric interval with an item
     /// </summary>
     /// <typeparam name="T">type of interval item</typeparam>
-    public class IntervalBucket<T> : Interval
+    /// <param name="Lower">lower bound</param>
+    /// <param name="Upper">upper bound</param>
+    /// <param name="Item">item to store</param>
+    /// <param name="IncludeLower">Gets a value indicating whether to include the upper bound</param>
+    /// <param name="IncludeUpper">Gets a value indicating whether to include the lower bound</param>
+    public record class IntervalBucket<T>(int Lower, int Upper, T Item, bool IncludeLower, bool IncludeUpper)
+        : Interval<int>(Lower, Upper, IncludeLower, IncludeUpper)
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="IntervalBucket{T}"/> class.
         /// </summary>
         /// <param name="lower">lower bound</param>
         /// <param name="upper">upper bound</param>
-        /// <param name="item">item</param>
+        /// <param name="item">item to store</param>
         public IntervalBucket(int lower, int upper, T item)
-            : this(lower, true, upper, true, item)
+            : this(lower, upper, item, true, true)
         {
         }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="IntervalBucket{T}"/> class.
-        /// </summary>
-        /// <param name="lower">lower bound</param>
-        /// <param name="includeLower">include lower bound</param>
-        /// <param name="upper">upper bound</param>
-        /// <param name="includeUpper">include upper bound</param>
-        /// <param name="item">item</param>
-        public IntervalBucket(int lower, bool includeLower, int upper, bool includeUpper, T item)
-            : base(lower, includeLower, upper, includeUpper)
-        {
-            this.Item = item;
-        }
-
-        /// <summary>
-        /// Gets the item associated with the interval
-        /// </summary>
-        public T Item { get; }
     }
 }

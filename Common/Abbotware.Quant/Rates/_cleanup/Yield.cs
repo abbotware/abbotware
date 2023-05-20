@@ -6,6 +6,7 @@
 
 namespace Abbotware.Quant.InterestRates
 {
+    using Abbotware.Core.Math;
     using Abbotware.Quant.Finance.Rates;
 
     /// <summary>
@@ -13,7 +14,6 @@ namespace Abbotware.Quant.InterestRates
     /// </summary>
     /// <typeparam name="TDate">date type</typeparam>
     /// <param name="Rate">rate</param>
-    /// <param name="Start">start date</param>
-    /// <param name="End">end date</param>
-    public record class Yield<TDate>(double Rate, TDate Start, TDate End) : NominalRate(Rate);
+    /// <param name="TimeRange">start-end time range</param>
+    public record class Yield<TDate>(BaseRate Rate, Interval<TDate> TimeRange);
 }

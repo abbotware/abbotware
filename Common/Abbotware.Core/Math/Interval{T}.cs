@@ -6,60 +6,29 @@
 
 namespace Abbotware.Core.Math
 {
-    using System;
     using System.Collections.Generic;
-    using Abbotware.Core.Extensions;
 
     /// <summary>
     /// class that represents a numeric interval.
     /// </summary>
     /// <typeparam name="T">interval type</typeparam>
-    public readonly struct Interval<T> : IEquatable<Interval<T>>
-        where T : IComparable, IComparable<T>, IEquatable<T>
+    /// <param name="Lower">lower bound</param>
+    /// <param name="Upper">upper bound</param>
+    /// <param name="IncludeLower">Gets a value indicating whether to include the upper bound</param>
+    /// <param name="IncludeUpper">Gets a value indicating whether to include the lower bound</param>
+    public record class Interval<T>(T Lower, T Upper, bool IncludeLower, bool IncludeUpper)
     {
-        private readonly IComparer<T> comparer;
+        private static readonly IComparer<T> Comparer = Comparer<T>.Default;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Interval{T}"/> struct.
+        /// Initializes a new instance of the <see cref="Interval{T}"/> class.
         /// </summary>
         /// <param name="lower">lower bound</param>
         /// <param name="upper">upper bound</param>
         public Interval(T lower, T upper)
-            : this(Lower(lower, upper), true, Upper(lower, upper), true)
+            : this(Min(lower, upper), Max(lower, upper), true, true)
         {
         }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Interval{T}"/> struct.
-        /// </summary>
-        /// <param name="lower">lower bound</param>
-        /// <param name="includeLower">include lower bound</param>
-        /// <param name="upper">upper bound</param>
-        /// <param name="includeUpper">include upper bound</param>
-        public Interval(T lower, bool includeLower, T upper, bool includeUpper)
-        {
-            this.comparer = Comparer<T>.Default;
-
-            if (this.comparer.Compare(lower, upper) > 0)
-            {
-                throw new ArgumentException($"lower:{lower} > upper:{upper}");
-            }
-
-            this.LowerBound = lower;
-            this.IncludeLower = includeLower;
-            this.UpperBound = upper;
-            this.IncludeUpper = includeUpper;
-        }
-
-        /// <summary>
-        /// Gets the lower bound
-        /// /// </summary>
-        public T LowerBound { get; }
-
-        /// <summary>
-        /// Gets the upper bound.
-        /// </summary>
-        public T UpperBound { get; }
 
         /// <summary>
         /// Gets a value indicating whether to include both upper and lower bounds
@@ -72,46 +41,14 @@ namespace Abbotware.Core.Math
         public bool IsExlusive => !this.IncludeLower && !this.IncludeUpper;
 
         /// <summary>
-        /// Gets a value indicating whether to include the lower bound
-        /// </summary>
-        public bool IncludeLower { get; }
-
-        /// <summary>
-        /// Gets a value indicating whether to include the upper bound
-        /// </summary>
-        public bool IncludeUpper { get; }
-
-        /// <summary>
-        /// equals operator
-        /// </summary>
-        /// <param name="left">left side</param>
-        /// <param name="right">right side</param>
-        /// <returns>true if equal</returns>
-        public static bool operator ==(Interval<T> left, Interval<T> right)
-        {
-            return left.Equals(right);
-        }
-
-        /// <summary>
-        /// not equals operator
-        /// </summary>
-        /// <param name="left">left side</param>
-        /// <param name="right">right side</param>
-        /// <returns>true if not equal</returns>
-        public static bool operator !=(Interval<T> left, Interval<T> right)
-        {
-            return !(left == right);
-        }
-
-        /// <summary>
         /// Checks if the supplied value is within the interval range
         /// </summary>
         /// <param name="value">value to check</param>
         /// <returns>true / false if the value is wthin the interval</returns>
         public bool Within(T value)
         {
-            var valToLower = this.comparer.Compare(value, this.LowerBound);
-            var valToUpper = this.comparer.Compare(value, this.UpperBound);
+            var valToLower = Comparer.Compare(value, this.Lower);
+            var valToUpper = Comparer.Compare(value, this.Upper);
 
             if (this.IsInclusive)
             {
@@ -131,64 +68,9 @@ namespace Abbotware.Core.Math
             }
         }
 
-        /// <inheritdoc/>
-        public override int GetHashCode()
+        private static T Min(T left, T right)
         {
-#if NETSTANDARD2_0
-            return (this.LowerBound, this.UpperBound, this.IncludeUpper, this.IncludeLower).GetHashCode();
-#else
-            return HashCode.Combine(this.LowerBound, this.UpperBound, this.IncludeUpper, this.IncludeLower);
-#endif
-        }
-
-        /// <inheritdoc/>
-        public override bool Equals(object? obj)
-        {
-            if (!this.StructPossiblyEquals<Interval<T>>(obj, out var other))
-            {
-                return false;
-            }
-
-#if NETSTANDARD2_0
-            if (other == null)
-            {
-                return false;
-            }
-#endif
-            return this.Equals(other);
-        }
-
-        /// <inheritdoc/>
-        public bool Equals(Interval<T> other)
-        {
-            if (!EqualityComparer<T>.Default.Equals(this.LowerBound, other.LowerBound))
-            {
-                return false;
-            }
-
-            if (!EqualityComparer<T>.Default.Equals(this.UpperBound, other.UpperBound))
-            {
-                return false;
-            }
-
-            if (!this.IncludeLower == other.IncludeLower)
-            {
-                return false;
-            }
-
-            if (!this.IncludeUpper == other.IncludeUpper)
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        private static T Lower(T left, T right)
-        {
-            var comparer = Comparer<T>.Default;
-
-            var valToLower = comparer.Compare(left, right);
+            var valToLower = Comparer.Compare(left, right);
 
             if (valToLower < 0)
             {
@@ -200,11 +82,9 @@ namespace Abbotware.Core.Math
             }
         }
 
-        private static T Upper(T left, T right)
+        private static T Max(T left, T right)
         {
-            var comparer = Comparer<T>.Default;
-
-            var valToLower = comparer.Compare(left, right);
+            var valToLower = Comparer.Compare(left, right);
 
             if (valToLower > 0)
             {

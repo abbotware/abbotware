@@ -8,6 +8,7 @@ namespace Abbotware.Quant.Periodic
 {
     using System;
     using System.Collections.Generic;
+    using Abbotware.Core.Math;
     using Abbotware.Quant.Finance;
     using Abbotware.Quant.Finance.Equations;
     using Abbotware.Quant.Finance.Rates;
@@ -22,10 +23,9 @@ namespace Abbotware.Quant.Periodic
         /// <summary>
         /// Gets the periods
         /// </summary>
-        /// <param name="start">start point</param>
-        /// <param name="end">end point</param>
+        /// <param name="time">time range(start-end)</param>
         /// <returns>list of time periods</returns>
-        public abstract IEnumerable<TDate> GetPeriods(TDate start, TDate end);
+        public abstract IEnumerable<TDate> GetPeriods(Interval<TDate> time);
 
         ///// <summary>
         ///// Gets the periods
@@ -58,13 +58,13 @@ namespace Abbotware.Quant.Periodic
             where TDate : notnull
     {
         /// <inheritdoc/>
-        public override IEnumerable<TDate> GetPeriods(TDate start, TDate end)
+        public override IEnumerable<TDate> GetPeriods(Interval<TDate> time)
         {
             if (typeof(TDate) == typeof(double))
             {
                 var increment = 1d / (int)this.Period;
-                var current = (double)(object)start;
-                var final = (double)(object)end;
+                var current = (double)(object)time.Lower;
+                var final = (double)(object)time.Upper;
 
                 while (current <= final)
                 {

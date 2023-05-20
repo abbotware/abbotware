@@ -19,6 +19,6 @@ namespace Abbotware.Quant.Finance.Rates
         public override double PeriodsPerYear => 1;
 
         /// <inheritdoc/>
-        public override double AsContinuous => this.Rate;
+        public override ContinuousRate AsContinuous() => this;
     }
 }

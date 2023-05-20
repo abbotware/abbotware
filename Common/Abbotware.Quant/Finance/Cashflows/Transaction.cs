@@ -12,21 +12,36 @@ namespace Abbotware.Quant.Cashflows
     /// Represents a cashflow transaction
     /// </summary>
     /// <typeparam name="TDate">type for date</typeparam>
+    /// <typeparam name="TAmount">type for amount</typeparam>
     /// <param name="Date">date value</param>
     /// <param name="Amount">transaction amount</param>
-    public record Transaction<TDate>(TDate Date, decimal Amount);
+    public record Transaction<TDate, TAmount>(TDate Date, TAmount Amount);
+
+    /// <summary>
+    /// Represents a cashflow transaction
+    /// </summary>
+    /// <param name="Date">date value</param>
+    /// <param name="Amount">transaction amount</param>
+    public record ComputationalTransaction(double Date, double Amount) : Transaction<double, double>(Date, Amount);
 
     /// <summary>
     /// Represents a cashflow transaction
     /// </summary>
     /// <param name="Date">date</param>
     /// <param name="Amount">amount</param>
-    public record TransactionActual(DateTimeOffset Date, decimal Amount) : Transaction<DateTimeOffset>(Date, Amount);
+    public record ActualTransaction(DateTimeOffset Date, decimal Amount) : Transaction<DateTimeOffset, decimal>(Date, Amount);
 
     /// <summary>
     /// Represents a modeled cashflow transaction
     /// </summary>
     /// <param name="Date">date</param>
     /// <param name="Amount">amount</param>
-    public record TransactionModel(double Date, decimal Amount) : Transaction<double>(Date, Amount);
+    public record TheoreticalTransaction(double Date, decimal Amount) : Transaction<double, decimal>(Date, Amount)
+    {
+        /// <summary>
+        /// convert to a computational transaction
+        /// </summary>
+        /// <returns>ComputationalTransaction</returns>
+        public ComputationalTransaction AsComputationTransaction() => new ComputationalTransaction(this.Date, (double)this.Amount);
+    }
 }

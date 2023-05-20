@@ -57,11 +57,11 @@ namespace Abbotware.Core.Collections
         /// </summary>
         /// <param name="interval">interval range</param>
         /// <param name="item">item</param>
-        public void Add(Interval interval, T item)
+        public void Add(Interval<int> interval, T item)
         {
             interval = Arguments.EnsureNotNull(interval, nameof(interval));
 
-            var i = new IntervalBucket<T>(interval.LowerBound, interval.UpperBound, item);
+            var i = new IntervalBucket<T>(interval.Lower, interval.Upper, item);
             this.Add(i);
         }
 
@@ -76,12 +76,12 @@ namespace Abbotware.Core.Collections
             // This validates to make sure the ranges don't overlap
             foreach (var existingRange in this.ranges)
             {
-                if (existingRange.Within(toAdd.LowerBound))
+                if (existingRange.Within(toAdd.Lower))
                 {
                     throw new InvalidOperationException("Ranges overlap");
                 }
 
-                if (existingRange.Within(toAdd.UpperBound))
+                if (existingRange.Within(toAdd.Upper))
                 {
                     throw new InvalidOperationException("Ranges overlap");
                 }

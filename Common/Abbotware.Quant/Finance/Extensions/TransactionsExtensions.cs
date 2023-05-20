@@ -6,15 +6,16 @@
 
 namespace Abbotware.Quant.Extensions
 {
-    using System.Diagnostics;
     using System;
+    using System.Collections.Generic;
     using System.Linq;
+    using Abbotware.Core.Math;
     using Abbotware.Quant.Cashflows;
     using Abbotware.Quant.Finance.Equations;
+    using Abbotware.Quant.Finance.Rates;
     using Abbotware.Quant.InterestRates;
     using Abbotware.Quant.Rates.Plugins;
     using Abbotware.Quant.Solvers;
-    using Abbotware.Core.Math;
 
     /// <summary>
     /// Transactions extension methods
@@ -27,32 +28,68 @@ namespace Abbotware.Quant.Extensions
         /// <param name="transactions">transactions</param>
         /// <param name="riskFreeRate">risk-free rate</param>
         /// <returns>discounted cash flow</returns>
-        public static Transactions<double> AsDiscounted(this Transactions<double> transactions, IRiskFreeRate<double> riskFreeRate)
+        public static ComputationalTransactions AsDiscounted(this IEnumerable<Transaction<double, double>> transactions, ContinuousRate riskFreeRate)
         {
-            var t = transactions.Select(x => x with { Amount = x.Amount * (decimal)DiscountFactor.Continuous(riskFreeRate.Nearest(x.Date), x.Date) });
+            var t = transactions.Select(x => x with { Amount = x.Amount * DiscountFactor.Continuous(riskFreeRate, x.Date) });
 
-            return new Transactions<double>(t);
+            return new ComputationalTransactions(t);
         }
 
-
-        public static decimal NetPresentValue(this Transactions<double> transactions, IRiskFreeRate<double> riskFreeRate)
+        /// <summary>
+        /// Discounts the Transactions according to the risk free rate function
+        /// </summary>
+        /// <param name="transactions">transactions</param>
+        /// <param name="riskFreeRate">risk-free rate</param>
+        /// <returns>discounted cash flow</returns>
+        public static ComputationalTransactions AsDiscounted(this IEnumerable<Transaction<double, double>> transactions, IRiskFreeRate<double> riskFreeRate)
         {
-            var price = 0m;
+            var t = transactions.Select(x => x with { Amount = x.Amount * DiscountFactor.Continuous(riskFreeRate.Nearest(x.Date), x.Date) });
+
+            return new ComputationalTransactions(t);
+        }
+
+        /// <summary>
+        /// Discounts the Transactions according to the risk free rate function
+        /// </summary>
+        /// <param name="transactions">transactions</param>
+        /// <returns>discounted cash flow</returns>
+        public static ComputationalTransactions AsTimeWeighted(this IEnumerable<Transaction<double, double>> transactions)
+        {
+            var t = transactions.Select(x => x with { Amount = x.Amount * x.Date });
+
+            return new ComputationalTransactions(t);
+        }
+
+        /// <summary>
+        /// Compute the Net Present Value of the cashflow
+        /// </summary>
+        /// <param name="transactions">cashflow</param>
+        /// <param name="riskFreeRate">risk-free rate</param>
+        /// <returns>Net Present Value</returns>
+        public static double NetPresentValue(this IEnumerable<Transaction<double, double>> transactions, IRiskFreeRate<double> riskFreeRate)
+        {
+            var price = 0d;
 
             foreach (var c in transactions)
             {
                 var zeroRate = riskFreeRate.Nearest(c.Date);
-                price += c.Amount * (decimal)DiscountFactor.Continuous(zeroRate, c.Date);
+                price += c.Amount * DiscountFactor.Continuous(zeroRate, c.Date);
             }
 
             return price;
         }
 
-        public static double InternalRateOfReturn(this Transactions<double> transactions, decimal target, double t0)
+        /// <summary>
+        /// Compute the Internal Rate of Return for the cashflow
+        /// </summary>
+        /// <param name="transactions">cashflow</param>
+        /// <param name="target">target (if other than zero)</param>
+        /// <returns>Net Present Value</returns>
+        public static double InternalRateOfReturn(this IEnumerable<Transaction<double, double>> transactions, decimal target)
         {
-            var range = new Interval<double>(-10, 10);
+            var range = new Interval<double>(-1, 1);
 
-            var rate = Bisection.Solve(x => (double)transactions.NetPresentValue(new ConstantRiskFreeRate<double>(x)), range, (double)target, .0001);
+            var rate = Bisection.Solve(x => transactions.NetPresentValue(new ConstantRiskFreeRate<double>(x)), range, (double)target, .00001);
 
             if (rate is null)
             {

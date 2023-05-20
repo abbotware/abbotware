@@ -73,7 +73,13 @@ namespace Abbotware.Core.Math
             return Math.Round(value / unit) * unit;
         }
 
-        static double Root(double value, double root)
+        /// <summary>
+        /// compute the Nth Root
+        /// </summary>
+        /// <param name="value">value</param>
+        /// <param name="root">nth root</param>
+        /// <returns>computed root</returns>
+        public static double NthRoot(double value, double root)
         {
             return Math.Pow(value, 1.0 / root);
         }

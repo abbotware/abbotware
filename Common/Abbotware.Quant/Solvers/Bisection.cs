@@ -25,8 +25,8 @@ namespace Abbotware.Quant.Solvers
         /// <exception cref="ArgumentOutOfRangeException">target is not within the interval range</exception>
         public static double? Solve(Func<double, double> func, Interval<double> range, double target, double tolerance)
         {
-            var u = range.UpperBound;
-            var l = range.LowerBound;
+            var u = range.Upper;
+            var l = range.Lower;
             var iterations = 0;
 
             var upper = func(u);
