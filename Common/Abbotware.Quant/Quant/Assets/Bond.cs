@@ -106,7 +106,7 @@ namespace Abbotware.Quant.Assets
         {
             if (this.CouponRate.Rate == 0)
             {
-                //Functions.Root()  
+                ////Functions.Root()  
             }
 
             var rate = this.Cashflow(t).ForComputation().InternalRateOfReturn(price);

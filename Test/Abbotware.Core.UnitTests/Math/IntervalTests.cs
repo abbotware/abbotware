@@ -14,10 +14,10 @@
         public void CreateTests()
         {
             {
-                var i = new Interval(5, 100);
+                var i = new Interval<int>(5, 100);
 
-                Assert.AreEqual(5, i.LowerBound);
-                Assert.AreEqual(100, i.UpperBound);
+                Assert.AreEqual(5, i.Lower);
+                Assert.AreEqual(100, i.Upper);
                 Assert.IsTrue(i.IsInclusive);
                 Assert.IsFalse(i.IsExlusive);
                 Assert.IsTrue(i.IncludeLower);
@@ -26,17 +26,17 @@
 
             {
                 // forgive minor 'mistake'
-                var i = new Interval(100, 5);
+                var i = new Interval<int>(100, 5);
 
-                Assert.AreEqual(5, i.LowerBound);
-                Assert.AreEqual(100, i.UpperBound);
+                Assert.AreEqual(5, i.Lower);
+                Assert.AreEqual(100, i.Upper);
             }
 
             {
-                var i = new Interval(5, false, 100, false);
+                var i = new Interval<int>(5, 100, false,  false);
 
-                Assert.AreEqual(5, i.LowerBound);
-                Assert.AreEqual(100, i.UpperBound);
+                Assert.AreEqual(5, i.Lower);
+                Assert.AreEqual(100, i.Upper);
                 Assert.IsFalse(i.IsInclusive);
                 Assert.IsTrue(i.IsExlusive);
                 Assert.IsFalse(i.IncludeLower);
@@ -49,13 +49,13 @@
         public void LowerGreaterThanUpper()
         {
             // upper > lower -> exception
-            _ = new Interval(100, false, 5, false);
+            _ = new Interval<int>(100, 5, false, false);
         }
 
         [Test]
         public void SinglePoint()
         {
-            var i = new Interval(5, 5);
+            var i = new Interval<int>(5, 5);
 
             Assert.IsFalse(i.Within(4));
 
@@ -67,7 +67,7 @@
         [Test]
         public void AllPositiveNonZero()
         {
-            var i = new Interval(1, int.MaxValue);
+            var i = new Interval<int>(1, int.MaxValue);
 
             Assert.IsFalse(i.Within(0));
             Assert.IsTrue(i.Within(1));
@@ -78,7 +78,7 @@
         [Test]
         public void SpecificRange()
         {
-            var i = new Interval(1_000_000, false, 2_999_999, true);
+            var i = new Interval<int>(1_000_000, 2_999_999, false,  true);
 
             Assert.IsFalse(i.IsExlusive);
             Assert.IsFalse(i.IsInclusive);

@@ -94,7 +94,6 @@
             Assert.That(yield!.Rate.Rate, Is.EqualTo(.0215).Within(Precision.Low));
         }
 
-
         [Test]
         public void ParYield_Lecture02_Slide23()
         {
