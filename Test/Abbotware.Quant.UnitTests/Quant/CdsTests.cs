@@ -24,7 +24,7 @@
             KeyValuePair.Create(5d, .04),
             KeyValuePair.Create(10d, .0425));
 
-            var bond = new Bond(maturity, new NominalRate(couponRate), new SimplePeriodic<double>(TimePeriod.SemiAnnually));
+            var bond = new Bond(maturity, new(new NominalRate(couponRate), new SimplePeriodic<double>(TimePeriod.SemiAnnually)));
 
             var price = bond.Price(zeroRateCurve);
 

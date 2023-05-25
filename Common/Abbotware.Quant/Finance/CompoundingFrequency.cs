@@ -12,9 +12,9 @@ namespace Abbotware.Quant.Finance
     public enum CompoundingFrequency : ushort
     {
         /// <summary>
-        /// Unknown
+        /// No compounding (ie simple interest)
         /// </summary>
-        Unknown,
+        None = 0,
 
         /// <summary>
         /// Yearly

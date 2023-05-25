@@ -12,6 +12,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Finance\Cashflows\no\ComputationalTransactions.cs" />
+    <Compile Remove="Finance\Cashflows\no\TheoreticalTransactions.cs" />
+    <Compile Remove="Finance\Cashflows\no\Transactions.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Finance\Cashflows\no\ComputationalTransactions.cs" />
+    <None Include="Finance\Cashflows\no\TheoreticalTransactions.cs" />
+    <None Include="Finance\Cashflows\no\Transactions.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Abbotware.Core\Abbotware.Core.csproj" />
   </ItemGroup>
   

@@ -6,6 +6,4 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-[assembly: SuppressMessage("Naming", "CA1724:Type names should not match namespaces", Justification = "Reviewed AA", Scope = "type", Target = "~T:Abbotware.Quant.Cashflows.Transactions`1")]
-[assembly: SuppressMessage("Design", "CA1028:Enum Storage should be Int32", Justification = "Reviewed AA", Scope = "type", Target = "~T:Abbotware.Quant.Enums.TimePeriod")]
-[assembly: SuppressMessage("Design", "CA1028:Enum Storage should be Int32", Justification = "Reviewed AA", Scope = "type", Target = "~T:Abbotware.Quant.Finance.Interest.CompoundingFrequency")]
+[assembly: SuppressMessage("Design", "CA1028:Enum Storage should be Int32", Justification = "Reviewed AA", Scope = "type", Target = "~T:Abbotware.Quant.Finance.CompoundingFrequency")]

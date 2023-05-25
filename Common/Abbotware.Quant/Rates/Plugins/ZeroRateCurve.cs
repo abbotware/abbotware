@@ -63,7 +63,7 @@ namespace Abbotware.Quant.Rates.Plugins
             {
                 var curve = new ZeroRateCurve<double>(rates.ToArray());
 
-                var cf = p.Bond.Cashflow( new Interval<double>(t0, curve.Last().X));
+                var cf = p.Bond.CashflowTheoretical( new Interval<double>(t0, curve.Last().X));
                 var df = cf.ForComputation().AsDiscounted(curve);
             }
 

@@ -26,13 +26,18 @@ namespace Abbotware.Quant.Extensions
         /// Discounts the Transactions according to the risk free rate function
         /// </summary>
         /// <param name="transactions">transactions</param>
-        /// <param name="riskFreeRate">risk-free rate</param>
+        /// <param name="discountRate">discount rate</param>
         /// <returns>discounted cash flow</returns>
-        public static ComputationalTransactions AsDiscounted(this IEnumerable<Transaction<double, double>> transactions, ContinuousRate riskFreeRate)
+        public static IEnumerable<Transaction<double, double>> AsDiscounted(this IEnumerable<Transaction<double, double>> transactions, BaseRate discountRate)
         {
-            var t = transactions.Select(x => x with { Amount = x.Amount * DiscountFactor.Continuous(riskFreeRate, x.Date) });
-
-            return new ComputationalTransactions(t);
+            if (discountRate.IsContinuous)
+            {
+                return transactions.Select(x => x with { Amount = x.Amount * DiscountFactor.Continuous(discountRate.Rate, x.Date) });
+            }
+            else
+            {
+                return transactions.Select(x => x with { Amount = x.Amount * DiscountFactor.Discrete(discountRate.Rate, discountRate.PeriodsPerYear, x.Date) });
+            }
         }
 
         /// <summary>
@@ -41,11 +46,9 @@ namespace Abbotware.Quant.Extensions
         /// <param name="transactions">transactions</param>
         /// <param name="riskFreeRate">risk-free rate</param>
         /// <returns>discounted cash flow</returns>
-        public static ComputationalTransactions AsDiscounted(this IEnumerable<Transaction<double, double>> transactions, IRiskFreeRate<double> riskFreeRate)
+        public static IEnumerable<Transaction<double, double>> AsDiscounted(this IEnumerable<Transaction<double, double>> transactions, IRiskFreeRate<double> riskFreeRate)
         {
-            var t = transactions.Select(x => x with { Amount = x.Amount * DiscountFactor.Continuous(riskFreeRate.Nearest(x.Date), x.Date) });
-
-            return new ComputationalTransactions(t);
+            return transactions.Select(x => x with { Amount = x.Amount * DiscountFactor.Continuous(riskFreeRate.Nearest(x.Date), x.Date) });
         }
 
         /// <summary>
@@ -53,11 +56,9 @@ namespace Abbotware.Quant.Extensions
         /// </summary>
         /// <param name="transactions">transactions</param>
         /// <returns>discounted cash flow</returns>
-        public static ComputationalTransactions AsTimeWeighted(this IEnumerable<Transaction<double, double>> transactions)
+        public static IEnumerable<Transaction<double, double>> AsTimeWeighted(this IEnumerable<Transaction<double, double>> transactions)
         {
-            var t = transactions.Select(x => x with { Amount = x.Amount * x.Date });
-
-            return new ComputationalTransactions(t);
+            return transactions.Select(x => x with { Amount = x.Amount * x.Date });
         }
 
         /// <summary>

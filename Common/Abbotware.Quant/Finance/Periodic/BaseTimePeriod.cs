@@ -8,6 +8,7 @@ namespace Abbotware.Quant.Periodic
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Abbotware.Core.Math;
     using Abbotware.Quant.Finance;
     using Abbotware.Quant.Finance.Equations;
@@ -40,7 +41,7 @@ namespace Abbotware.Quant.Periodic
         /// </summary>
         /// <param name="rate">nominal rate</param>
         /// <returns>converted rate</returns>
-        public abstract double RateForPeriod(NominalRate rate);
+        public abstract double RateForPeriod(BaseRate rate);
 
         /// <summary>
         /// Convert a nominal rate in terms this time period
@@ -60,6 +61,11 @@ namespace Abbotware.Quant.Periodic
         /// <inheritdoc/>
         public override IEnumerable<TDate> GetPeriods(Interval<TDate> time)
         {
+            if (this.Period == TimePeriod.None)
+            {
+                yield break;
+            }
+
             if (typeof(TDate) == typeof(double))
             {
                 var increment = 1d / (int)this.Period;
@@ -89,22 +95,30 @@ namespace Abbotware.Quant.Periodic
         }
 
         /// <inheritdoc/>
-        public override double RateForPeriod(NominalRate rate)
+        public override double RateForPeriod(BaseRate rate)
         {
-            var source = (double)rate.PeriodsPerYear;
             var target = this.UnitsPerPeriod();
 
-            if (source == target)
+            if (rate.IsContinuous)
             {
-                return rate.RatePerPeriod;
+                return InterestRate.ContinousToPeriodic(rate.Rate, target);
             }
-
-            if (source == 1)
+            else
             {
-                return rate.Rate / target;
-            }
+                var source = (double)rate.PeriodsPerYear;
 
-            return InterestRate.PeriodicToPeriodic(rate.Rate, source, target);
+                if (source == target)
+                {
+                    return rate.RatePerPeriod;
+                }
+
+                if (source == 1)
+                {
+                    return rate.Rate / target;
+                }
+
+                return InterestRate.PeriodicToPeriodic(rate.Rate, source, target);
+            }
         }
     }
 }

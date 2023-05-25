@@ -7,25 +7,12 @@
 namespace Abbotware.Quant.Finance.Equations
 {
     using System;
-    using Abbotware.Quant.Finance.Rates;
-    using Abbotware.Quant.Rates;
 
     /// <summary>
     /// Computes the Discount Factor
     /// </summary>
     public static class DiscountFactor
     {
-        /// <summary>
-        /// Computes the continuous discount factor
-        /// </summary>
-        /// <param name="rate">rate</param>
-        /// <param name="t">time period</param>
-        /// <returns>discount factor</returns>
-        public static double Continuous(ContinuousRate rate, double t)
-        {
-            return Continuous(rate.Rate, t);
-        }
-
         /// <summary>
         /// Computes the continuous discount factor
         /// </summary>

@@ -25,6 +25,11 @@ namespace Abbotware.Quant.Finance.Rates
         public abstract double PeriodsPerYear { get; }
 
         /// <summary>
+        /// Gets a value indicating whether or not this is a continous rate or not
+        /// </summary>
+        public virtual bool IsContinuous { get; }
+
+        /// <summary>
         /// Gets the equivalent continuous compounded rate
         /// </summary>
         /// <returns>rate adjusted per period</returns>

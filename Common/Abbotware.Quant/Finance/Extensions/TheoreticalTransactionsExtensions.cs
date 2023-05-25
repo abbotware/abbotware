@@ -6,6 +6,7 @@
 
 namespace Abbotware.Quant.Extensions
 {
+    using System.Collections.Generic;
     using System.Linq;
     using Abbotware.Quant.Cashflows;
 
@@ -19,9 +20,9 @@ namespace Abbotware.Quant.Extensions
         /// </summary>
         /// <param name="t">transactions</param>
         /// <returns>computational transactions </returns>
-        public static ComputationalTransactions ForComputation(this TheoreticalTransactions t)
+        public static IEnumerable<ComputationalTransaction> ForComputation(this IEnumerable<TheoreticalTransaction> t)
         {
-            return new(t.Select(x => x.AsComputationTransaction()));
+            return t.Select(x => x.AsComputationTransaction());
         }
     }
 }

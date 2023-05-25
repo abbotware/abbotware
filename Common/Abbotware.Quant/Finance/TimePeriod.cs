@@ -14,7 +14,7 @@ namespace Abbotware.Quant.Finance
         /// <summary>
         /// Unknown
         /// </summary>
-        Unknown,
+        None,
 
         /// <summary>
         /// Annually
