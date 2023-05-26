@@ -22,7 +22,7 @@ namespace Abbotware.Quant.Extensions
         /// <returns>computational transactions </returns>
         public static IEnumerable<ComputationalTransaction> ForComputation(this IEnumerable<TheoreticalTransaction> t)
         {
-            return t.Select(x => x.AsComputationTransaction());
+            return t.Select(x => x.AsComputational());
         }
     }
 }

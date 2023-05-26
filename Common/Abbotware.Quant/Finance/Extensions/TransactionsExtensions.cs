@@ -69,15 +69,7 @@ namespace Abbotware.Quant.Extensions
         /// <returns>Net Present Value</returns>
         public static double NetPresentValue(this IEnumerable<Transaction<double, double>> transactions, IRiskFreeRate<double> riskFreeRate)
         {
-            var price = 0d;
-
-            foreach (var c in transactions)
-            {
-                var zeroRate = riskFreeRate.Nearest(c.Date);
-                price += c.Amount * DiscountFactor.Continuous(zeroRate, c.Date);
-            }
-
-            return price;
+            return transactions.AsDiscounted(riskFreeRate).Sum(x => x.Amount);
         }
 
         /// <summary>

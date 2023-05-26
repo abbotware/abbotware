@@ -17,6 +17,6 @@ namespace Abbotware.Quant.Cashflows
         /// convert to a computational transaction
         /// </summary>
         /// <returns>ComputationalTransaction</returns>
-        public ComputationalTransaction AsComputationTransaction() => new ComputationalTransaction(this.Date, (double)this.Amount);
+        public ComputationalTransaction AsComputational() => new ComputationalTransaction(this.Date, (double)this.Amount);
     }
 }
