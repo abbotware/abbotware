@@ -7,6 +7,7 @@
 namespace Abbotware.Quant.Finance.Equations
 {
     using System;
+    using System.Runtime.CompilerServices;
 
     /// <summary>
     /// Computes the Compounding Factor
@@ -14,26 +15,34 @@ namespace Abbotware.Quant.Finance.Equations
     public static class CompoundingFactor
     {
         /// <summary>
-        /// Computes the continous compounding factor
+        /// Computes the continuous compounding factor
         /// </summary>
-        /// <param name="rate">rate</param>
-        /// <param name="t">time period</param>
+        /// <param name="r">rate per unit of time</param>
+        /// <param name="t">unit(s) of time</param>
         /// <returns>discount factor</returns>
-        public static double Continuous(double rate, double t)
-        {
-            return Math.Exp(rate * t);
-        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Continuous(double r, double t)
+            => Math.Exp(r * t);
 
         /// <summary>
         /// Computes the discretized compounding factor
         /// </summary>
-        /// <param name="rate">rate</param>
-        /// <param name="periods">number of time periods</param>
-        /// <param name="t">time period</param>
+        /// <param name="r">rate for the peroid</param>
+        /// <param name="n">number of periods</param>
         /// <returns>discount factor</returns>
-        public static double Discrete(double rate, double periods, double t)
-        {
-            return Math.Pow(1 + (rate / periods), periods * t);
-        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Discrete(double r, double n)
+            => Math.Pow(1 + r, n);
+
+        /// <summary>
+        /// Computes the discretized compounding factor
+        /// </summary>
+        /// <param name="r">rate per unit of time</param>
+        /// <param name="n">number of compounding periods per unit of time</param>
+        /// <param name="t">unit(s) of time</param>
+        /// <returns>discount factor</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static double Discrete(double r, double n, double t)
+            => Discrete(r / n, n * t);
     }
 }

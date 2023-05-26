@@ -237,7 +237,7 @@ namespace Abbotware.Quant.Assets
         /// <returns>transactions</returns>
         public static Yield<double> ParYield(Interval<double> t, Coupon coupon, IRiskFreeRate<double> zeroRateCurve)
         {
-            var timePoints = coupon.Frequency.GetPeriods(t).ToList();
+            var timePoints = coupon.PaymentFrequency.GetPeriods(t).ToList();
 
             var discountFactors = timePoints.Select(x => (t: x, df: DiscountFactor.Continuous(zeroRateCurve.Nearest(x), x))).ToList();
 
@@ -249,7 +249,7 @@ namespace Abbotware.Quant.Assets
 
             rightSide /= discountFactors.Sum(x => x.df);
 
-            rightSide *= coupon.Frequency.UnitsPerPeriod();
+            rightSide *= coupon.PaymentFrequency.UnitsPerPeriod();
 
             return new(new ContinuousRate(rightSide), t);
         }
@@ -263,7 +263,7 @@ namespace Abbotware.Quant.Assets
         /// <returns>transactions</returns>
         public static IEnumerable<TheoreticalTransaction> CashflowTheoretical(Interval<double> t, decimal notional, Coupon coupon)
         {
-            var periods = coupon.Frequency.GetPeriods(t).ToList();
+            var periods = coupon.PaymentFrequency.GetPeriods(t).ToList();
 
             var cashflow = new List<TheoreticalTransaction>(periods.Count + 1);
 
@@ -292,7 +292,7 @@ namespace Abbotware.Quant.Assets
                 return 0m;
             }
 
-            var ratePerPeroid = coupon.Frequency.RateForPeriod(coupon.Rate);
+            var ratePerPeroid = coupon.PaymentFrequency.RateForPeriod(coupon.Rate);
             var payment = (decimal)ratePerPeroid * notional;
             return payment;
         }

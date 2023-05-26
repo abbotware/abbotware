@@ -7,6 +7,7 @@
 namespace Abbotware.Quant.Finance.Equations
 {
     using System;
+    using System.Runtime.CompilerServices;
     using Abbotware.Quant.Finance.Rates;
 
     /// <summary>
@@ -20,6 +21,7 @@ namespace Abbotware.Quant.Finance.Equations
         /// <param name="yearlyRate">continuous yearly rate</param>
         /// <param name="periodsPerYear">periods per year</param>
         /// <returns>perodic rate</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ContinousToPeriodic(double yearlyRate, double periodsPerYear)
         {
             return periodsPerYear * (Math.Exp(yearlyRate / periodsPerYear) - 1);
@@ -31,6 +33,7 @@ namespace Abbotware.Quant.Finance.Equations
         /// <param name="yearlyRate">peroidic yearly rate</param>
         /// <param name="periodsPerYear">periods per year</param>
         /// <returns>continuous rate</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double PeriodicToContinuous(double yearlyRate, double periodsPerYear)
         {
             return periodsPerYear * Math.Log(1 + (yearlyRate / periodsPerYear));
@@ -43,6 +46,7 @@ namespace Abbotware.Quant.Finance.Equations
         /// <param name="periodsPerYearSource">source periods per year</param>
         /// <param name="periodsPerYearTarget">target periods per year</param>
         /// <returns>new perodic rate</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double PeriodicToPeriodic(double yearlyRate, double periodsPerYearSource, double periodsPerYearTarget)
         {
             return periodsPerYearTarget * (Math.Pow(1 + (yearlyRate / periodsPerYearSource), periodsPerYearSource / periodsPerYearTarget) - 1);
@@ -69,6 +73,7 @@ namespace Abbotware.Quant.Finance.Equations
         /// <param name="secondPeriod">periods in second rate</param>
         /// <returns>computed forward rate</returns>
         /// <exception cref="ArgumentException">argument was invalid</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double ForwardRate(ContinuousRate firstRate, double firstPeriod, ContinuousRate secondRate, double secondPeriod)
         {
             if (firstPeriod >= secondPeriod)
