@@ -32,7 +32,14 @@ namespace Abbotware.Quant.Finance.Rates
         /// <summary>
         /// Gets the equivalent continuous compounded rate
         /// </summary>
-        /// <returns>rate adjusted per period</returns>
+        /// <returns>rate as its equivalent continuous rate</returns>
         public abstract ContinuousRate AsContinuous();
+
+        /// <summary>
+        /// Gets the equivalent periodic compounded rate
+        /// </summary>
+        /// <param name="periodsPerYear">the number of periods per year</param>
+        /// <returns>rate as its equivalent periodic compunding rate</returns>
+        public abstract CompoundingRate AsPeriodic(double periodsPerYear);
     }
 }

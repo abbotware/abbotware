@@ -78,15 +78,15 @@ namespace Abbotware.Quant.Assets
             => (decimal)this.CashflowTheoretical(t).ForComputation().NetPresentValue(zeroRateCurve);
 
         /// <summary>
-        /// Determines yield for a given price
+        /// Determines yield from 0 to Maturity for a given price
         /// </summary>
         /// <param name="price">target price</param>
         /// <returns>yield</returns>
-        public Yield<double> YieldToMaturity(decimal price)
+        public Yield<double> Yield(decimal price)
             => this.Yield(price, this.TZeroToMaturity);
 
         /// <summary>
-        /// Determines yield for a given price
+        /// Determines yield from t0 to Maturity for a given price
         /// </summary>
         /// <param name="price">target price</param>
         /// <param name="t0">start time to use other than 0</param>
@@ -95,18 +95,13 @@ namespace Abbotware.Quant.Assets
             => this.Yield(price, this.ToMaturity(t0));
 
         /// <summary>
-        /// Determines yield for a given price
+        /// Determines yield over time-interval for a given price
         /// </summary>
         /// <param name="price">target price</param>
         /// <param name="t">start time to use other than 0</param>
         /// <returns>yield</returns>
-        public Yield<double> Yield(decimal price, Interval<double> t)
+        public virtual Yield<double> Yield(decimal price, Interval<double> t)
         {
-            if (this.Coupon is ZeroCoupon)
-            {
-                ////Functions.Root()  
-            }
-
             var rate = this.CashflowTheoretical(t).ForComputation().InternalRateOfReturn(price);
 
             return new(new ContinuousRate(rate), t);

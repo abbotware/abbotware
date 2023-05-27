@@ -12,7 +12,7 @@ namespace Abbotware.Quant.Finance.Rates
     /// Nominal Annual Rate
     /// </summary>
     /// <param name="Rate">r = R/100</param>
-    public record class NominalRate(double Rate) : BaseRate(Rate)
+    public record class NominalRate(double Rate) : CompoundingRate(Rate, 1)
     {
         /// <inheritdoc/>
         public override double RatePerPeriod => this.Rate;
@@ -21,6 +21,6 @@ namespace Abbotware.Quant.Finance.Rates
         public override double PeriodsPerYear => 1;
 
         /// <inheritdoc/>
-        public override ContinuousRate AsContinuous() => new ContinuousRate(InterestRate.PeriodicToContinuous(this.Rate, 1));
+        public override ContinuousRate AsContinuous() => new(InterestRate.PeriodicToContinuous(this.Rate, 1));
     }
 }

@@ -18,50 +18,50 @@ namespace Abbotware.Quant.Finance.Equations
         /// <summary>
         /// Convert a Continuous Rate to a periodic
         /// </summary>
-        /// <param name="yearlyRate">continuous yearly rate</param>
-        /// <param name="periodsPerYear">periods per year</param>
+        /// <param name="source">source continuous yearly rate</param>
+        /// <param name="targetN">target rate's number of periods per year</param>
         /// <returns>perodic rate</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double ContinousToPeriodic(double yearlyRate, double periodsPerYear)
+        public static double ContinousToPeriodic(double source, double targetN)
         {
-            return periodsPerYear * (Math.Exp(yearlyRate / periodsPerYear) - 1);
+            return targetN * (Math.Exp(source / targetN) - 1);
         }
 
         /// <summary>
         /// Convert a periodic Rate to a Continuous Rate
         /// </summary>
-        /// <param name="yearlyRate">peroidic yearly rate</param>
-        /// <param name="periodsPerYear">periods per year</param>
+        /// <param name="source">source periodic yearly rate</param>
+        /// <param name="sourceN">source rate's number of periods per year</param>
         /// <returns>continuous rate</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double PeriodicToContinuous(double yearlyRate, double periodsPerYear)
+        public static double PeriodicToContinuous(double source, double sourceN)
         {
-            return periodsPerYear * Math.Log(1 + (yearlyRate / periodsPerYear));
+            return sourceN * Math.Log(1 + (source / sourceN));
         }
 
         /// <summary>
         /// Convert a periodic Rate to another per Continuous Rate
         /// </summary>
-        /// <param name="yearlyRate">source peroidic yearly rate</param>
-        /// <param name="periodsPerYearSource">source periods per year</param>
-        /// <param name="periodsPerYearTarget">target periods per year</param>
+        /// <param name="source">source periodic yearly rate</param>
+        /// <param name="sourceN">source rate's number of periods per year</param>
+        /// <param name="targetN">target rate's number of periods per year</param>
         /// <returns>new perodic rate</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double PeriodicToPeriodic(double yearlyRate, double periodsPerYearSource, double periodsPerYearTarget)
+        public static double PeriodicToPeriodic(double source, double sourceN, double targetN)
         {
-            return periodsPerYearTarget * (Math.Pow(1 + (yearlyRate / periodsPerYearSource), periodsPerYearSource / periodsPerYearTarget) - 1);
+            return targetN * (Math.Pow(1 + (source / sourceN), sourceN / targetN) - 1);
         }
 
         /// <summary>
         /// Convert a periodic Rate to another per Continuous Rate (Alt Method)
         /// </summary>
-        /// <param name="yearlyRate">source peroidic yearly rate</param>
-        /// <param name="periodsPerYearSource">source periods per year</param>
-        /// <param name="periodsPerYearTarget">target periods per year</param>
+        /// <param name="source">source periodic yearly rate</param>
+        /// <param name="sourceN">source rate's number of periods per year</param>
+        /// <param name="targetN">target rate's number of periods per year</param>
         /// <returns>new perodic rate</returns>
-        public static double PeriodicToPeriodicAlt(double yearlyRate, double periodsPerYearSource, double periodsPerYearTarget)
+        public static double PeriodicToPeriodicAlt(double source, double sourceN, double targetN)
         {
-            return ContinousToPeriodic(PeriodicToContinuous(yearlyRate, periodsPerYearSource), periodsPerYearTarget);
+            return ContinousToPeriodic(PeriodicToContinuous(source, sourceN), targetN);
         }
 
         /// <summary>

@@ -4,6 +4,8 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using Abbotware.Quant.Finance.Equations;
+
 namespace Abbotware.Quant.Finance.Rates
 {
     /// <summary>
@@ -23,5 +25,13 @@ namespace Abbotware.Quant.Finance.Rates
 
         /// <inheritdoc/>
         public override ContinuousRate AsContinuous() => this;
+
+        /// <inheritdoc/>
+        public override CompoundingRate AsPeriodic(double periodsPerYear)
+        {
+            var newR = InterestRate.ContinousToPeriodic(this.Rate, periodsPerYear);
+
+            return new(newR, periodsPerYear);
+        }
     }
 }

@@ -33,6 +33,19 @@ namespace Abbotware.Quant.Finance.Rates
         public override double PeriodsPerYear => this.Periods;
 
         /// <inheritdoc/>
-        public override ContinuousRate AsContinuous() => new ContinuousRate(InterestRate.PeriodicToContinuous(this.Rate, this.Periods));
+        public override ContinuousRate AsContinuous() => new(InterestRate.PeriodicToContinuous(this.Rate, this.Periods));
+
+        /// <inheritdoc/>
+        public override CompoundingRate AsPeriodic(double periodsPerYear)
+        {
+            if (this.PeriodsPerYear == periodsPerYear)
+            {
+                return this;
+            }
+
+            var newR = InterestRate.PeriodicToPeriodic(this.Rate, this.RatePerPeriod, periodsPerYear);
+
+            return new(newR, periodsPerYear);
+        }
     }
 }

@@ -8,27 +8,11 @@
     using Abbotware.Quant.InterestRates;
     using Abbotware.Quant.Periodic;
     using Abbotware.Quant.Rates.Plugins;
+    using Abbotware.UnitTests.Quant.Hull;
     using NUnit.Framework;
 
     public class BondTests
     {
-        [Test]
-        public void Price_Lecture02_Slide21()
-        {
-            // Table 4.2 - page 84
-            var zeroRateCurve = new ZeroRateCurve<double>(
-           KeyValuePair.Create(.5d, .05),
-           KeyValuePair.Create(1d, .058),
-           KeyValuePair.Create(1.5d, .064),
-           KeyValuePair.Create(2d, .068));
-
-            var bond = new Bond(2, Coupon.Simple(.06, TimePeriod.SemiAnnually));
-
-            var price = bond.Price(zeroRateCurve);
-
-            Assert.That(price, Is.EqualTo(98.39).Within(Precision.VeryLow));
-        }
-
         [TestCase(.015, 1, 98.5112214597145d)]
         [TestCase(.025, 2, 98.0353890082365d)]
         [TestCase(.03, 5, 95.3791749943793d)]
@@ -53,7 +37,7 @@
         {
             var zcb = new ZeroCouponBond(10) { Notional = 1000 };
 
-            var ytm = zcb.YieldToMaturity(742.47m);
+            var ytm = zcb.Yield(742.47m);
 
             Assert.That(ytm.Rate.Rate, Is.EqualTo(.03).Within(Precision.VeryLow));
         }
@@ -77,13 +61,9 @@
         }
 
         [Test]
-        public void YieldToMaturity()
+        public void YieldFromPrice()
         {
-            var bond = new Bond(2, Coupon.Simple(.06, TimePeriod.SemiAnnually));
-
-            var yield = bond.YieldToMaturity(98.39M);
-
-            Assert.That(yield!.Rate.Rate, Is.EqualTo(.0676).Within(Precision.Medium));
+            new Chapters().Chapters_04_06_02_Bond_Yield();
         }
 
         [Test]
@@ -94,11 +74,10 @@
             var bond = new Bond(10, Coupon.Simple(.1, TimePeriod.SemiAnnually))
             { Notional = 1000 };
 
-            var yield = bond.YieldToMaturity(920);
+            var yield = bond.Yield(920);
 
             Assert.That(yield!.Rate.Rate, Is.EqualTo(.11359).Within(Precision.Low));
         }
-
 
         [Test]
         public void YieldToMaturity3()
@@ -108,25 +87,9 @@
             var bond = new Bond(3, Coupon.Simple(.05, TimePeriod.SemiAnnually))
             { Notional = 5100 };
 
-            var yield = bond.YieldToMaturity(5200);
+            var yield = bond.Yield(5200);
 
             Assert.That(yield!.Rate.Rate, Is.EqualTo(.0215).Within(Precision.Low));
-        }
-
-        [Test]
-        public void ParYield_Lecture02_Slide23()
-        {
-            var bond = new Bond(2, Coupon.Simple(.06, TimePeriod.SemiAnnually));
-
-            var zeroRateCurve = new ZeroRateCurve<double>(
-            KeyValuePair.Create(.5d, .05),
-            KeyValuePair.Create(1d, .058),
-            KeyValuePair.Create(1.5d, .064),
-            KeyValuePair.Create(2d, .068));
-
-            var yield = bond.ParYield(zeroRateCurve);
-
-            Assert.That(yield.Rate.Rate, Is.EqualTo(.0687).Within(Precision.Low));
         }
 
         [Test]

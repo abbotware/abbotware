@@ -31,7 +31,7 @@ namespace Abbotware.Quant.Finance.Equations
         /// <param name="n">number of periods</param>
         /// <returns>discount factor</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static double Discrete(double r, double n) 
+        public static double Discrete(double r, double n)
             => Math.Pow(1 + r, -n);
 
         /// <summary>
