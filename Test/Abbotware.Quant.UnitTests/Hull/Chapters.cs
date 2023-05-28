@@ -43,7 +43,7 @@
 
             var price = bond.Yield(98.39m);
 
-            Assert.That(price.Rate.Rate, Is.EqualTo(.0676).Within(Precision.Low));
+            Assert.That(price.Rate, Is.EqualTo(.0676).Within(Precision.Low));
         }
 
         [Test]
@@ -60,7 +60,7 @@
 
             var yield = bond.ParYield(zeroRateCurve);
 
-            Assert.That(yield.Rate.Rate, Is.EqualTo(.0687).Within(Precision.Low));
+            Assert.That(yield.Rate, Is.EqualTo(.0687).Within(Precision.Low));
         }
 
         [Test]
@@ -76,13 +76,14 @@
             Assert.That(r3, Is.EqualTo(.02225).Within(Precision.Medium));
 
             var b1 = new ZeroCouponBond(.25);
-            Assert.That(b1.Yield(99.6m).Rate.Rate, Is.EqualTo(r1));
+            Assert.That(b1.Yield(99.6m).Rate, Is.EqualTo(r1));
+            //Assert.That(b1.ParYield(99.6m).Rate, Is.EqualTo(.016064).Within(Precision.High));
 
             var b2 = new ZeroCouponBond(.5);
-            Assert.That(b2.Yield(99m).Rate.Rate, Is.EqualTo(r2));
+            Assert.That(b2.Yield(99m).Rate, Is.EqualTo(r2));
 
             var b3 = new ZeroCouponBond(1);
-            Assert.That(b3.Yield(97.8m).Rate.Rate, Is.EqualTo(r3));
+            Assert.That(b3.Yield(97.8m).Rate, Is.EqualTo(r3));
         }
     }
 }

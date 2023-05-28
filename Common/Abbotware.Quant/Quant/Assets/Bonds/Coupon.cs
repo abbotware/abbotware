@@ -20,7 +20,7 @@ namespace Abbotware.Quant.Assets
         /// <summary>
         /// Gets a value indicating whether this is a zero rate coupon
         /// </summary>
-        public virtual bool IsZeroCoupon => this.Rate.Rate == 0;
+        public virtual bool IsZeroCoupon => this.Rate.Rate == 0 || this.PaymentFrequency.UnitsPerPeriod() == 0;
 
         /// <summary>
         /// Creates a Simple Coupon
@@ -29,6 +29,6 @@ namespace Abbotware.Quant.Assets
         /// <param name="couponFrequency">frequency</param>
         /// <returns>coupon</returns>
         public static Coupon Simple(double annualRate, TimePeriod couponFrequency)
-            => new Coupon(new NominalRate(annualRate), new SimplePeriodic<double>(couponFrequency));
+            => new(new NominalRate(annualRate), new SimplePeriodic<double>(couponFrequency));
     }
 }

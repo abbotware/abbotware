@@ -13,8 +13,8 @@ namespace Abbotware.Quant.Finance.Rates
     /// Annual Rate that is periodically compounded
     /// </summary>
     /// <param name="Rate">r = R/100</param>
-    /// <param name="Periods">periods per year</param>
-    public record class CompoundingRate(double Rate, double Periods) : BaseRate(Rate)
+    /// <param name="PeriodsPerYear">periods per year</param>
+    public record class CompoundingRate(double Rate, double PeriodsPerYear) : BaseRate(Rate)
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CompoundingRate"/> class.
@@ -27,16 +27,10 @@ namespace Abbotware.Quant.Finance.Rates
         }
 
         /// <inheritdoc/>
-        public override double RatePerPeriod => this.Rate / this.Periods;
+        public override ContinuousRate AsYearlyContinuous() => new(InterestRate.PeriodicToContinuous(this.Rate, this.PeriodsPerYear));
 
         /// <inheritdoc/>
-        public override double PeriodsPerYear => this.Periods;
-
-        /// <inheritdoc/>
-        public override ContinuousRate AsContinuous() => new(InterestRate.PeriodicToContinuous(this.Rate, this.Periods));
-
-        /// <inheritdoc/>
-        public override CompoundingRate AsPeriodic(double periodsPerYear)
+        public override CompoundingRate AsYearlyPeriodic(double periodsPerYear)
         {
             if (this.PeriodsPerYear == periodsPerYear)
             {

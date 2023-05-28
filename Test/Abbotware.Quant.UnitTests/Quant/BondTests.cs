@@ -39,7 +39,7 @@
 
             var ytm = zcb.Yield(742.47m);
 
-            Assert.That(ytm.Rate.Rate, Is.EqualTo(.03).Within(Precision.VeryLow));
+            Assert.That(ytm.Rate, Is.EqualTo(.03).Within(Precision.VeryLow));
         }
 
         [Test]
@@ -76,7 +76,7 @@
 
             var yield = bond.Yield(920);
 
-            Assert.That(yield!.Rate.Rate, Is.EqualTo(.11359).Within(Precision.Low));
+            Assert.That(yield!.Rate, Is.EqualTo(.11359).Within(Precision.Low));
         }
 
         [Test]
@@ -89,7 +89,7 @@
 
             var yield = bond.Yield(5200);
 
-            Assert.That(yield!.Rate.Rate, Is.EqualTo(.0215).Within(Precision.Low));
+            Assert.That(yield!.Rate, Is.EqualTo(.0215).Within(Precision.Low));
         }
 
         [Test]
@@ -99,7 +99,7 @@
             var bond = new Bond(2, Coupon.Simple(.06, TimePeriod.SemiAnnually))
             { Notional = 1000 };
 
-            var ytm = new Yield<double>(new ContinuousRate(.08), new(0, 2));
+            var ytm = new Yield(.08, 2);
             var d = bond.MacaulayDuration(963.7m);
 
             Assert.That(d, Is.EqualTo(1.9124).Within(Precision.Low));
@@ -111,7 +111,7 @@
             var bond = new Bond(3, Coupon.Simple(.1, TimePeriod.SemiAnnually))
             { Notional = 100 };
 
-            var ytm = new Yield<double>(new ContinuousRate(.12), new(0, 3));
+            var ytm = new Yield(.12, 3);
             var d = bond.MacaulayDuration(94.213m, ytm);
 
             Assert.That(d, Is.EqualTo(2.653).Within(Precision.Low));

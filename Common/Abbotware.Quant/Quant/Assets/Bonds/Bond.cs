@@ -37,7 +37,7 @@ namespace Abbotware.Quant.Assets
         /// <summary>
         /// Gets the range of t0 to tM
         /// </summary>
-        public Interval<double> TZeroToMaturity => new Interval<double>(0, this.Maturity);
+        public Interval<double> TZeroToMaturity => new(0, this.Maturity);
 
         /// <summary>
         /// gets the coupon payment
@@ -49,7 +49,7 @@ namespace Abbotware.Quant.Assets
         /// </summary>
         /// <param name="t0">start time to use</param>
         /// <returns>t0 - Maturity range</returns>
-        public Interval<double> ToMaturity(double t0) => new Interval<double>(t0, this.Maturity);
+        public Interval<double> ToMaturity(double t0) => new(t0, this.Maturity);
 
         /// <summary>
         /// Determines price given a ZeroRateCurve
@@ -82,7 +82,7 @@ namespace Abbotware.Quant.Assets
         /// </summary>
         /// <param name="price">target price</param>
         /// <returns>yield</returns>
-        public Yield<double> Yield(decimal price)
+        public Yield Yield(decimal price)
             => this.Yield(price, this.TZeroToMaturity);
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace Abbotware.Quant.Assets
         /// <param name="price">target price</param>
         /// <param name="t0">start time to use other than 0</param>
         /// <returns>yield</returns>
-        public Yield<double> Yield(decimal price, double t0)
+        public Yield Yield(decimal price, double t0)
             => this.Yield(price, this.ToMaturity(t0));
 
         /// <summary>
@@ -100,11 +100,11 @@ namespace Abbotware.Quant.Assets
         /// <param name="price">target price</param>
         /// <param name="t">start time to use other than 0</param>
         /// <returns>yield</returns>
-        public virtual Yield<double> Yield(decimal price, Interval<double> t)
+        public virtual Yield Yield(decimal price, Interval<double> t)
         {
             var rate = this.CashflowTheoretical(t).ForComputation().InternalRateOfReturn(price);
 
-            return new(new ContinuousRate(rate), t);
+            return new(rate, t);
 
             throw new InvalidOperationException();
         }
@@ -114,7 +114,7 @@ namespace Abbotware.Quant.Assets
         /// </summary>
         /// <param name="curve">zero rate curve</param>
         /// <returns>yield</returns>
-        public Yield<double> ParYield(IRiskFreeRate<double> curve)
+        public Yield ParYield(IRiskFreeRate<double> curve)
         {
             return this.ParYield(curve, this.TZeroToMaturity);
         }
@@ -125,7 +125,7 @@ namespace Abbotware.Quant.Assets
         /// <param name="curve">zero rate curve</param>>
         /// <param name="t0">start time to use other than 0</param>
         /// <returns>yield</returns>
-        public Yield<double> ParYield(IRiskFreeRate<double> curve, double t0)
+        public Yield ParYield(IRiskFreeRate<double> curve, double t0)
             => this.ParYield(curve, this.ToMaturity(t0));
 
         /// <summary>
@@ -134,7 +134,7 @@ namespace Abbotware.Quant.Assets
         /// <param name="curve">zero rate curve</param>>
         /// <param name="t">start time to use other than 0</param>
         /// <returns>yield</returns>
-        public Yield<double> ParYield(IRiskFreeRate<double> curve, Interval<double> t)
+        public Yield ParYield(IRiskFreeRate<double> curve, Interval<double> t)
             => ParYield(t, this.Coupon, curve);
 
         /// <summary>
@@ -174,7 +174,7 @@ namespace Abbotware.Quant.Assets
         /// <param name="price">price to use</param>
         /// <param name="yieldToMaturity">yield to maturity to use</param>
         /// <returns>duration for bond</returns>
-        public double MacaulayDuration(decimal price, Yield<double> yieldToMaturity)
+        public double MacaulayDuration(decimal price, Yield yieldToMaturity)
             => this.MacaulayDuration(price, yieldToMaturity, this.TZeroToMaturity);
 
         /// <summary>
@@ -202,19 +202,19 @@ namespace Abbotware.Quant.Assets
         /// <param name="yield">yield to use</param>
         /// <param name="t">start-end time range</param>
         /// <returns>Macaulay duration</returns>
-        public double MacaulayDuration(decimal price, Yield<double> yield, Interval<double> t)
+        public double MacaulayDuration(decimal price, Yield yield, Interval<double> t)
         {
             if (this.Coupon.Rate.Rate == 0)
             {
                 return this.Maturity;
             }
 
-            if (yield.TimeRange != t)
+            if (yield.TimePeriod != t)
             {
                 throw new ArgumentException("Yield time range does not match");
             }
 
-            var df = this.CashflowTheoretical(t).ForComputation().AsDiscounted(yield.Rate.AsContinuous()).ToList();
+            var df = this.CashflowTheoretical(t).ForComputation().AsDiscounted(yield.AsYearlyContinuous()).ToList();
 
             var tw = df.AsTimeWeighted();
 
@@ -230,7 +230,7 @@ namespace Abbotware.Quant.Assets
         /// <param name="coupon">coupon</param>
         /// <param name="zeroRateCurve">zero rate curve</param>
         /// <returns>transactions</returns>
-        public static Yield<double> ParYield(Interval<double> t, Coupon coupon, IRiskFreeRate<double> zeroRateCurve)
+        public static Yield ParYield(Interval<double> t, Coupon coupon, IRiskFreeRate<double> zeroRateCurve)
         {
             var timePoints = coupon.PaymentFrequency.GetPeriods(t).ToList();
 
@@ -246,7 +246,7 @@ namespace Abbotware.Quant.Assets
 
             rightSide *= coupon.PaymentFrequency.UnitsPerPeriod();
 
-            return new(new ContinuousRate(rightSide), t);
+            return new(rightSide, t);
         }
 
         /// <summary>

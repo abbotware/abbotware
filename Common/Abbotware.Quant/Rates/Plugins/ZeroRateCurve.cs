@@ -9,13 +9,10 @@ namespace Abbotware.Quant.Rates.Plugins
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Security.Cryptography;
     using Abbotware.Core.Math;
     using Abbotware.Quant.Assets;
     using Abbotware.Quant.Extensions;
-    using Abbotware.Quant.Finance.Rates;
     using Abbotware.Quant.InterestRates;
-    using Abbotware.Quant.Price.Plugins;
 
     /// <summary>
     /// Zero Rate Curve
@@ -57,13 +54,13 @@ namespace Abbotware.Quant.Rates.Plugins
             var t1 = new Interval<double>(t0, f.Bond.Maturity);
 
             var yield = f.Bond.Yield(f.Price, t1);
-            rates.Add(new(yield.Rate.Rate, t1.Upper));
+            rates.Add(new(yield.Rate, t1.Upper));
 
             foreach (var p in sorted.Skip(1))
             {
                 var curve = new ZeroRateCurve<double>(rates.ToArray());
 
-                var cf = p.Bond.CashflowTheoretical( new Interval<double>(t0, curve.Last().X));
+                var cf = p.Bond.CashflowTheoretical(new Interval<double>(t0, curve.Last().X));
                 var df = cf.ForComputation().AsDiscounted(curve);
             }
 

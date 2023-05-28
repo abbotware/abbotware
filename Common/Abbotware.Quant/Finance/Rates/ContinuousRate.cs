@@ -4,10 +4,10 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-using Abbotware.Quant.Finance.Equations;
-
 namespace Abbotware.Quant.Finance.Rates
 {
+    using Abbotware.Quant.Finance.Equations;
+
     /// <summary>
     /// Annual Rate that is continuously compounded
     /// </summary>
@@ -18,16 +18,19 @@ namespace Abbotware.Quant.Finance.Rates
         public override double RatePerPeriod => this.Rate;
 
         /// <inheritdoc/>
-        public override double PeriodsPerYear => 1;
-
-        /// <inheritdoc/>
         public override bool IsContinuous => true;
 
         /// <inheritdoc/>
-        public override ContinuousRate AsContinuous() => this;
+        public override double PeriodLength => 1;
 
         /// <inheritdoc/>
-        public override CompoundingRate AsPeriodic(double periodsPerYear)
+        public override double PeriodsPerYear { get; init; } = 1;
+
+        /// <inheritdoc/>
+        public override ContinuousRate AsYearlyContinuous() => this;
+
+        /// <inheritdoc/>
+        public override CompoundingRate AsYearlyPeriodic(double periodsPerYear)
         {
             var newR = InterestRate.ContinousToPeriodic(this.Rate, periodsPerYear);
 

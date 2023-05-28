@@ -16,7 +16,7 @@
             Assert.That(equationResult, Is.EqualTo(.09758).Within(Precision.Medium));
 
             var r = new CompoundingRate(.1, TimePeriod.SemiAnnually);
-            Assert.That(r.AsContinuous().Rate, Is.EqualTo(equationResult));
+            Assert.That(r.AsYearlyContinuous().Rate, Is.EqualTo(equationResult));
         }
 
         [Test]
@@ -27,7 +27,7 @@
             Assert.That(equationResult, Is.EqualTo(.0808).Within(Precision.Medium));
 
             var r = new ContinuousRate(.08);
-            Assert.That(r.AsPeriodic(4).Rate, Is.EqualTo(equationResult));
+            Assert.That(r.AsYearlyPeriodic(4).Rate, Is.EqualTo(equationResult));
         }
     }
 }

@@ -14,5 +14,9 @@
   <ItemGroup>
     <ProjectReference Include="..\Abbotware.Core\Abbotware.Core.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Rates\_cleanup\" />
+  </ItemGroup>
   
 </Project>

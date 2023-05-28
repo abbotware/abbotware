@@ -9,7 +9,6 @@ namespace Abbotware.Quant.Assets
     using Abbotware.Core.Math;
     using Abbotware.Quant.Finance.Equations;
     using Abbotware.Quant.Finance.Rates;
-    using Abbotware.Quant.InterestRates;
 
     /// <summary>
     /// Zero Coupon Bond
@@ -18,16 +17,16 @@ namespace Abbotware.Quant.Assets
     public record ZeroCouponBond(double Maturity) : Bond(Maturity, new ZeroCoupon())
     {
         /// <inheritdoc/>>
-        public override Yield<double> Yield(decimal price, Interval<double> t)
+        public override Yield Yield(decimal price, Interval<double> t)
         {
             if (t.Upper < this.Maturity)
             {
-                return new Yield<double>(new NominalRate(0), t);
+                return new Yield(0, t);
             }
 
             var y = TimeValue.Continuous.Rate(price, this.Notional, t.Upper);
 
-            return new Yield<double>(new NominalRate(y), t);
+            return new Yield(y, t);
         }
     }
 }
