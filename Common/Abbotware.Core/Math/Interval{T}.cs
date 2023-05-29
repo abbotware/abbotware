@@ -12,11 +12,7 @@ namespace Abbotware.Core.Math
     /// class that represents a numeric interval.
     /// </summary>
     /// <typeparam name="T">interval type</typeparam>
-    /// <param name="Lower">lower bound</param>
-    /// <param name="Upper">upper bound</param>
-    /// <param name="IncludeLower">Gets a value indicating whether to include the upper bound</param>
-    /// <param name="IncludeUpper">Gets a value indicating whether to include the lower bound</param>
-    public record class Interval<T>(T Lower, T Upper, bool IncludeLower, bool IncludeUpper)
+    public record class Interval<T>
     {
         private static readonly IComparer<T> Comparer = Comparer<T>.Default;
 
@@ -26,9 +22,44 @@ namespace Abbotware.Core.Math
         /// <param name="lower">lower bound</param>
         /// <param name="upper">upper bound</param>
         public Interval(T lower, T upper)
-            : this(Min(lower, upper), Max(lower, upper), true, true)
+            : this(lower, upper, true, true)
         {
         }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Interval{T}"/> class.
+        /// </summary>
+        /// <param name="lower">lower bound</param>
+        /// <param name="upper">upper bound</param>
+        /// <param name="includeLower">a value indicating whether to include the lower bound</param>
+        /// <param name="includeUpper">a value indicating whether to include the upper bound</param>
+        public Interval(T lower, T upper, bool includeLower, bool includeUpper)
+        {
+            this.Lower = Min(lower, upper);
+            this.Upper = Max(lower, upper);
+            this.IncludeLower = includeLower;
+            this.IncludeUpper = includeUpper;
+        }
+
+        /// <summary>
+        /// Gets lower bound
+        /// </summary>
+        public T Lower { get; init; }
+
+        /// <summary>
+        /// Gets upper bound
+        /// </summary>
+        public T Upper { get; init; }
+
+        /// <summary>
+        /// Gets a value indicating whether to include the lower bound
+        /// </summary>
+        public bool IncludeLower { get; init; }
+
+        /// <summary>
+        ///    Gets a value indicating whether to include the upper bound
+        /// </summary>
+        public bool IncludeUpper { get; init; }
 
         /// <summary>
         /// Gets a value indicating whether to include both upper and lower bounds

@@ -45,11 +45,14 @@
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
         public void LowerGreaterThanUpper()
         {
             // upper > lower -> exception
-            _ = new Interval<int>(100, 5, false, false);
+            var i = new Interval<int>(100, 5, false, false);
+
+            Assert.That(i.Lower, Is.Not.EqualTo(i.Upper));
+            Assert.That(i.Lower, Is.EqualTo(5));
+            Assert.That(i.Upper, Is.EqualTo(100));
         }
 
         [Test]
