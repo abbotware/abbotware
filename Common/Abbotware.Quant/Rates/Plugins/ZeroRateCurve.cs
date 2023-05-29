@@ -42,29 +42,29 @@ namespace Abbotware.Quant.Rates.Plugins
         /// Bootstraps a zero-rate curve from bond prices
         /// </summary>
         /// <param name="bonds">bonds</param>
-        /// <param name="t0"></param>
-        /// <returns></returns>
-        public static ZeroRateCurve<double> Bootstrap(IEnumerable<(Bond Bond, decimal Price)> bonds, double t0)
+        /// <returns>zero rate curve</returns>
+        public static ZeroRateCurve<double> Bootstrap(IEnumerable<(Bond Bond, decimal Price)> bonds)
         {
             var rates = new List<KeyValuePair<double, double>>();
 
             var sorted = bonds.OrderBy(x => x.Bond.Maturity).ToList();
-            var f = sorted.First();
 
-            var t1 = new Interval<double>(t0, f.Bond.Maturity);
-
-            var yield = f.Bond.Yield(f.Price, t1);
-            rates.Add(new(yield.Rate, t1.Upper));
-
-            foreach (var p in sorted.Skip(1))
+            foreach (var p in sorted)
             {
-                var curve = new ZeroRateCurve<double>(rates.ToArray());
-
-                var cf = p.Bond.CashflowTheoretical(new Interval<double>(t0, curve.Last().X));
-                var df = cf.ForComputation().AsDiscounted(curve);
+                if (p.Bond.Coupon.IsZeroCoupon)
+                {
+                    var yield = p.Bond.Yield(p.Price);
+                    rates.Add(new(yield.Rate, yield.TimePeriod.Upper));
+                }
+                else
+                {
+                    var curve = new ZeroRateCurve<double>(rates.ToArray());
+                    var cf = p.Bond.CashflowTheoretical();
+                    var df = cf.ForComputation().AsDiscounted(curve);
+                }
             }
 
-            throw new NotImplementedException();
+            return new ZeroRateCurve<double>(rates.ToArray());
         }
     }
 }

@@ -21,8 +21,6 @@ namespace Abbotware.Quant.Extensions
         /// <param name="t">transactions</param>
         /// <returns>computational transactions </returns>
         public static IEnumerable<ComputationalTransaction> ForComputation(this IEnumerable<TheoreticalTransaction> t)
-        {
-            return t.Select(x => x.AsComputational());
-        }
+            => t.Select(x => x.AsComputational());
     }
 }

@@ -75,8 +75,14 @@
             { Notional = 1000 };
 
             var yield = bond.Yield(920);
+            Assert.That(yield.AsYearlyPeriodic(2).Rate, Is.EqualTo(.11359).Within(Precision.Low));
 
-            Assert.That(yield!.Rate, Is.EqualTo(.11359).Within(Precision.Low));
+            //var yieldEstimate = bond.YieldEstimate(920);
+            //Assert.That(yieldEstimate.AsYearlyPeriodic(2).Rate, Is.EqualTo(.11250).Within(Precision.Low));
+
+            var currentYield = bond.CurrentYield(920);
+            Assert.That(currentYield.Rate, Is.EqualTo(.10870).Within(Precision.Low));
+
         }
 
         [Test]
@@ -84,12 +90,12 @@
         {
             //// https://investinganswers.com/calculators/yield/yield-maturity-ytm-calculator-2081
 
-            var bond = new Bond(3, Coupon.Simple(.05, TimePeriod.SemiAnnually))
-            { Notional = 5100 };
+            var bond = new Bond(5, Coupon.Simple(.08, TimePeriod.SemiAnnually))
+            { Notional = 1000 };
 
-            var yield = bond.Yield(5200);
+            var yield = bond.Yield(900);
 
-            Assert.That(yield!.Rate, Is.EqualTo(.0215).Within(Precision.Low));
+            Assert.That(yield.AsYearlyPeriodic(2).Rate, Is.EqualTo(.1063).Within(Precision.Low));
         }
 
         [Test]

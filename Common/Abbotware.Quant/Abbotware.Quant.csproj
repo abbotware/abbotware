@@ -12,11 +12,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Abbotware.Core\Abbotware.Core.csproj" />
+    <Compile Remove="Rates\_cleanup\**" />
+    <EmbeddedResource Remove="Rates\_cleanup\**" />
+    <None Remove="Rates\_cleanup\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Rates\_cleanup\" />
+    <ProjectReference Include="..\Abbotware.Core\Abbotware.Core.csproj" />
   </ItemGroup>
   
 </Project>

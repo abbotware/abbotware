@@ -67,23 +67,36 @@
         public void Chapters_04_07_01_Treasury_Rates()
         {
             var r1 = TimeValue.Continuous.Rate(99.6m, 100m, .25);
+            var r1a = InterestRate.ContinousToPeriodic(r1, 4);
             Assert.That(r1, Is.EqualTo(.01603).Within(Precision.Medium));
+            Assert.That(r1a, Is.EqualTo(.016064).Within(Precision.Medium));
 
             var r2 = TimeValue.Continuous.Rate(99m, 100m, .5);
+            var r2a = InterestRate.ContinousToPeriodic(r2, 2);
             Assert.That(r2, Is.EqualTo(.02010).Within(Precision.Medium));
+            Assert.That(r2a, Is.EqualTo(.020202).Within(Precision.Medium));
 
             var r3 = TimeValue.Continuous.Rate(97.8m, 100m, 1);
+            var r3a = InterestRate.ContinousToPeriodic(r3, 1);
             Assert.That(r3, Is.EqualTo(.02225).Within(Precision.Medium));
+            Assert.That(r3a, Is.EqualTo(.022495).Within(Precision.Medium));
 
             var b1 = new ZeroCouponBond(.25);
             Assert.That(b1.Yield(99.6m).Rate, Is.EqualTo(r1));
-            //Assert.That(b1.ParYield(99.6m).Rate, Is.EqualTo(.016064).Within(Precision.High));
+            Assert.That(b1.Yield(99.6m).AsYearlyPeriodic(4).Rate, Is.EqualTo(r1a));
 
             var b2 = new ZeroCouponBond(.5);
             Assert.That(b2.Yield(99m).Rate, Is.EqualTo(r2));
+            Assert.That(b2.Yield(99m).AsYearlyPeriodic(2).Rate, Is.EqualTo(r2a));
 
             var b3 = new ZeroCouponBond(1);
             Assert.That(b3.Yield(97.8m).Rate, Is.EqualTo(r3));
+            Assert.That(b3.Yield(97.8m).AsYearlyPeriodic(1).Rate, Is.EqualTo(r3a));
+
+            var b4 = new Bond(1.5, Coupon.Simple(.04, TimePeriod.SemiAnnually));
+
+            var b5 = new Bond(2, Coupon.Simple(.05, TimePeriod.SemiAnnually));
+
         }
     }
 }

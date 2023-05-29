@@ -37,9 +37,9 @@ namespace Abbotware.Quant.Finance.Rates
                 return this;
             }
 
-            var newR = InterestRate.PeriodicToPeriodic(this.Rate, this.RatePerPeriod, periodsPerYear);
+            var r = InterestRate.PeriodicToPeriodic(this.Rate, this.RatePerPeriod, periodsPerYear);
 
-            return new(newR, periodsPerYear);
+            return new(r, periodsPerYear);
         }
     }
 }

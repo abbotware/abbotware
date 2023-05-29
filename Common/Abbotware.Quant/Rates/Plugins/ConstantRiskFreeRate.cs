@@ -6,6 +6,7 @@
 
 namespace Abbotware.Quant.Rates.Plugins
 {
+    using Abbotware.Core.Math;
     using Abbotware.Quant.InterestRates;
 
     /// <summary>
@@ -16,6 +17,8 @@ namespace Abbotware.Quant.Rates.Plugins
     public record class ConstantRiskFreeRate<TDate>(double Rate) : IRiskFreeRate<TDate>
           where TDate : notnull
     {
+        public Interval<TDate> Range => throw new System.NotImplementedException();
+
         /// <inheritdoc/>
         public double GetPoint(TDate x) => this.Rate;
 

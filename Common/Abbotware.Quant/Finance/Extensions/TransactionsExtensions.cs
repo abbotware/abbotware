@@ -82,7 +82,7 @@ namespace Abbotware.Quant.Extensions
         {
             var range = new Interval<double>(-1, 1);
 
-            var rate = Bisection.Solve(x => transactions.NetPresentValue(new ConstantRiskFreeRate<double>(x)), range, (double)target, .00001);
+            var rate = Bisection.Solve(x => transactions.NetPresentValue(new ConstantRiskFreeRate<double>(x)), range, (double)target, .0000001);
 
             if (rate is null)
             {

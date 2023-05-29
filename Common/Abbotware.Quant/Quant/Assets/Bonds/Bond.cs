@@ -86,6 +86,26 @@ namespace Abbotware.Quant.Assets
             => this.Yield(price, this.TZeroToMaturity);
 
         /// <summary>
+        /// Determines yield from 0 to Maturity for a given price
+        /// </summary>
+        /// <param name="price">target price</param>
+        /// <returns>yield</returns>
+        public Yield CurrentYield(decimal price)
+        {
+            var s = this.CashflowTheoretical(new Interval<double>(0, 1)).Sum(x => x.Amount);
+
+            return new((double)(s / price), 1);
+        }
+
+        /// <summary>
+        /// Determines yield from 0 to Maturity for a given price
+        /// </summary>
+        /// <param name="price">target price</param>
+        /// <returns>yield</returns>
+        public Yield YieldEstimate(decimal price)
+            => new(Functions.NthRoot((double)(Par / price), this.TZeroToMaturity.Upper) - 1, this.TZeroToMaturity);
+
+        /// <summary>
         /// Determines yield from t0 to Maturity for a given price
         /// </summary>
         /// <param name="price">target price</param>
@@ -105,12 +125,10 @@ namespace Abbotware.Quant.Assets
             var rate = this.CashflowTheoretical(t).ForComputation().InternalRateOfReturn(price);
 
             return new(rate, t);
-
-            throw new InvalidOperationException();
         }
 
         /// <summary>
-        /// Compute the par yield
+        /// Determines the par yield - the coupon rate that causes the bond price to equal its par value
         /// </summary>
         /// <param name="curve">zero rate curve</param>
         /// <returns>yield</returns>
@@ -120,7 +138,7 @@ namespace Abbotware.Quant.Assets
         }
 
         /// <summary>
-        /// Determines yield for a given price
+        /// Determines the par yield - the coupon rate that causes the bond price to equal its par value
         /// </summary>
         /// <param name="curve">zero rate curve</param>>
         /// <param name="t0">start time to use other than 0</param>
@@ -129,7 +147,7 @@ namespace Abbotware.Quant.Assets
             => this.ParYield(curve, this.ToMaturity(t0));
 
         /// <summary>
-        /// Determines yield for a given price
+        /// Determines the par yield - the coupon rate that causes the bond price to equal its par value
         /// </summary>
         /// <param name="curve">zero rate curve</param>>
         /// <param name="t">start time to use other than 0</param>
@@ -158,7 +176,7 @@ namespace Abbotware.Quant.Assets
         /// <param name="t">start-end time range</param>
         /// <returns>cashflow for bond</returns>
         public IEnumerable<TheoreticalTransaction> CashflowTheoretical(Interval<double> t)
-            => CashflowTheoretical(t, this.Notional, this.Coupon);
+            => CashflowTheoretical(t, this.Notional, this.Coupon, this.Maturity);
 
         /// <summary>
         /// calculates the Macaulay duration of the bond
@@ -204,7 +222,7 @@ namespace Abbotware.Quant.Assets
         /// <returns>Macaulay duration</returns>
         public double MacaulayDuration(decimal price, Yield yield, Interval<double> t)
         {
-            if (this.Coupon.Rate.Rate == 0)
+            if (this.Coupon.IsZeroCoupon)
             {
                 return this.Maturity;
             }
@@ -224,7 +242,7 @@ namespace Abbotware.Quant.Assets
         }
 
         /// <summary>
-        /// Generates a cashflow for a bond
+        /// The par yield - the coupon rate that causes the bond price to equal its par value
         /// </summary>
         /// <param name="t">start-end time range</param>
         /// <param name="coupon">coupon</param>
@@ -255,8 +273,9 @@ namespace Abbotware.Quant.Assets
         /// <param name="t">start-end time range</param>
         /// <param name="notional">notional/face value of bond</param>
         /// <param name="coupon">coupon rate</param>
+        /// <param name="maturity">maturity</param>
         /// <returns>transactions</returns>
-        public static IEnumerable<TheoreticalTransaction> CashflowTheoretical(Interval<double> t, decimal notional, Coupon coupon)
+        public static IEnumerable<TheoreticalTransaction> CashflowTheoretical(Interval<double> t, decimal notional, Coupon coupon, double maturity)
         {
             var periods = coupon.PaymentFrequency.GetPeriods(t).ToList();
 
@@ -266,10 +285,16 @@ namespace Abbotware.Quant.Assets
 
             foreach (var i in periods)
             {
-                cashflow.Add(new(i, c));
+                if (t.Within(i))
+                {
+                    cashflow.Add(new(i, c));
+                }
             }
 
-            cashflow.Add(new(t.Upper, notional));
+            if (t.Within(maturity))
+            {
+                cashflow.Add(new(maturity, notional));
+            }
 
             return cashflow;
         }

@@ -8,6 +8,7 @@ namespace Abbotware.Core.Math
 {
     using System.Collections;
     using System.Collections.Generic;
+    using System.Linq;
     using Abbotware.Core.Extensions;
 
     /// <summary>
@@ -31,6 +32,8 @@ namespace Abbotware.Core.Math
             {
                 this.points.Add(p.X, p.Y);
             }
+
+            this.Range = new Interval<TX>(this.points.Min(p => p.Key)!, this.points.Max(p => p.Key)!);
         }
 
         /// <summary>
@@ -43,7 +46,12 @@ namespace Abbotware.Core.Math
             {
                 this.points.Add(p.Key, p.Value);
             }
+
+            this.Range = new Interval<TX>(this.points.Min(p => p.Key)!, this.points.Max(p => p.Key)!);
         }
+
+        /// <inheritdoc/>
+        public Interval<TX> Range { get; }
 
         /// <inheritdoc/>>
         public IEnumerator<IPoint<TX, TY>> GetEnumerator()

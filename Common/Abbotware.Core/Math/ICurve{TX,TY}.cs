@@ -16,6 +16,11 @@ namespace Abbotware.Core.Math
         where TY : notnull
     {
         /// <summary>
+        /// Gets the range of the curves
+        /// </summary>
+        Interval<TX> Range { get; }
+
+        /// <summary>
         /// Gets the y value for a given x value
         /// </summary>
         /// <param name="x">x value</param>
