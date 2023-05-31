@@ -16,7 +16,6 @@ namespace Abbotware.Quant.Finance.Rates
     /// <param name="TimePeriod">start-end time range</param>
     public record class Yield(double Rate, Interval<double> TimePeriod) : ContinuousRate(Rate)
     {
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Yield"/> class.
         /// </summary>
@@ -46,6 +45,21 @@ namespace Abbotware.Quant.Finance.Rates
             }
 
             return new(this.Rate, this.TimePeriod.Upper);
+        }
+
+        /// <summary>
+        /// Cconverts to a Discount Rate yield
+        /// </summary>
+        /// <returns>ZeroRate</returns>
+        /// <exception cref="InvalidOperationException">if lower is not 0</exception>
+        public DiscountRate AsDiscountRate()
+        {
+            if (this.TimePeriod.Lower != 0)
+            {
+                throw new InvalidOperationException($"Yield Lower Range is not 0");
+            }
+
+            return new(this.AsYearlyContinuous().Rate);
         }
     }
 }

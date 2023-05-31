@@ -135,5 +135,18 @@
 
             Assert.That(d, Is.EqualTo(1.9124).Within(Precision.Low));
         }
+
+        [Test]
+        public void Duration2()
+        {
+            ////https://exploringfinance.com/calculate-bond-duration/
+            var bond = new Bond(2, Coupon.Simple(.06, TimePeriod.SemiAnnually))
+            { Notional = 1000 };
+
+            //var ytm = new Yield<double>(new ContinuousRate(.08), new(0, 2));
+            var d = bond.MacaulayDuration(963.7m);
+
+            Assert.That(d, Is.EqualTo(1.9124).Within(Precision.Low));
+        }
     }
 }

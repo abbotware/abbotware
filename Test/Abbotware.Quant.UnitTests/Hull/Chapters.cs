@@ -4,6 +4,7 @@
     using Abbotware.Quant.Assets;
     using Abbotware.Quant.Finance;
     using Abbotware.Quant.Finance.Equations;
+    using Abbotware.Quant.Finance.Rates;
     using Abbotware.Quant.Rates.Plugins;
     using Abbotware.UnitTests.Quant;
     using NUnit.Framework;
@@ -97,6 +98,17 @@
 
             var b5 = new Bond(2, Coupon.Simple(.05, TimePeriod.SemiAnnually));
 
+        }
+
+        [Test]
+        public void Chapters_04_10_Duration()
+        {
+            var b = new Bond(3, Coupon.Simple(.1, TimePeriod.SemiAnnually));
+            var y = new Yield(.12, 1);
+            var p = b.Price(y.AsDiscountRate());
+            Assert.That(p, Is.EqualTo(94.213).Within(Precision.Low));
+            var d = b.MacaulayDuration(p);
+            Assert.That(p, Is.EqualTo(94.213).Within(Precision.Low));
         }
     }
 }

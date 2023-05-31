@@ -28,7 +28,7 @@ namespace Abbotware.Quant.Extensions
         /// <param name="transactions">transactions</param>
         /// <param name="discountRate">discount rate</param>
         /// <returns>discounted cash flow</returns>
-        public static IEnumerable<Transaction<double, double>> AsDiscounted(this IEnumerable<Transaction<double, double>> transactions, BaseRate discountRate)
+        public static IEnumerable<Transaction<double, double>> AsDiscounted(this IEnumerable<Transaction<double, double>> transactions, DiscountRate discountRate)
         {
             if (discountRate.IsContinuous)
             {

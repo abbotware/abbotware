@@ -232,7 +232,7 @@ namespace Abbotware.Quant.Assets
                 throw new ArgumentException("Yield time range does not match");
             }
 
-            var df = this.CashflowTheoretical(t).ForComputation().AsDiscounted(yield.AsYearlyContinuous()).ToList();
+            var df = this.CashflowTheoretical(t).ForComputation().AsDiscounted(yield.AsDiscountRate()).ToList();
 
             var tw = df.AsTimeWeighted();
 

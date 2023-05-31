@@ -29,5 +29,16 @@
             var r = new ContinuousRate(.08);
             Assert.That(r.AsYearlyPeriodic(4).Rate, Is.EqualTo(equationResult));
         }
+
+        [Test]
+        public void Example_04_06()
+        {
+            var equationResult = InterestRate.ContinousToPeriodic(.08, 4);
+
+            Assert.That(equationResult, Is.EqualTo(.0808).Within(Precision.Medium));
+
+            var r = new ContinuousRate(.08);
+            Assert.That(r.AsYearlyPeriodic(4).Rate, Is.EqualTo(equationResult));
+        }
     }
 }
