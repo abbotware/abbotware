@@ -1,6 +1,9 @@
 ﻿# ﻿Abbotware.Interop.Iso
 
-Enum classes and metadata for ISO 4217 Currency codes and ISO 3166 Country Codes.  
+Enum classes and metadata for the free ISO Standard Codes:
+
+- [ISO 4217 Currency codes](https://www.iso.org/iso-4217-currency-codes.html) 
+- [ISO 3166 Country Codes](https://www.iso.org/iso-3166-country-codes.html)  
 
 The underlying numeric value of the enum matches the numeric code of the ISO standard for the corresponding standard
 
