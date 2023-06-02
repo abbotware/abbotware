@@ -14,13 +14,13 @@ namespace Abbotware.Interop.Aws.Timestream
     using System.Threading;
     using System.Threading.Tasks;
     using Abbotware.Core.Diagnostics;
+    using Abbotware.Core.Extensions;
     using Abbotware.Core.Logging;
     using Abbotware.Core.Messaging.Integration;
     using Abbotware.Core.Objects;
     using Abbotware.Interop.Aws.Timestream.Attributes;
     using Abbotware.Interop.Aws.Timestream.Configuration;
     using Amazon;
-    using Amazon.Runtime.Internal.Transform;
     using Amazon.TimestreamWrite;
     using Amazon.TimestreamWrite.Model;
 
@@ -28,7 +28,7 @@ namespace Abbotware.Interop.Aws.Timestream
     /// Typed Message Publisher
     /// </summary>
     /// <typeparam name="TMessage">message type</typeparam>
-    public class TimestreamPublisher<TMessage> : BaseComponent<ITimestreamOptions>, IMessagePublisher<TMessage>
+    public class TimestreamPublisher<TMessage> : BaseComponent<ITimestreamOptions>, IMessageBatchPublisher<TMessage>
     {
         private static readonly IReadOnlyDictionary<Type, MeasureValueType> MeasureTypes = new Dictionary<Type, MeasureValueType>
         {
@@ -94,6 +94,9 @@ namespace Abbotware.Interop.Aws.Timestream
 
         private readonly (TimeAttribute, PropertyInfo)? time;
 
+        private readonly MeasureNameAttribute? measureNameAttribute;
+
+
         /// <summary>
         /// Initializes a new instance of the <see cref="TimestreamPublisher{TMessage}"/> class.
         /// </summary>
@@ -110,6 +113,8 @@ namespace Abbotware.Interop.Aws.Timestream
             };
 
             this.writeClient = new AmazonTimestreamWriteClient(writeClientConfig);
+
+            this.writeClient.ExceptionEvent += this.OnExceptionEvent;
 
             var t = typeof(TMessage);
             var properties = ReflectionHelper.Properties<TMessage>();
@@ -167,6 +172,16 @@ namespace Abbotware.Interop.Aws.Timestream
             {
                 throw new InvalidOperationException($"{t.FullName} has no MeasureValue Attributes");
             }
+
+            if (this.measures.Count > 1)
+            {
+                this.measureNameAttribute = ReflectionHelper.SingleOrDefaultAttribute<MeasureNameAttribute>(t);
+
+                if (this.measureNameAttribute is null)
+                {
+                    throw new InvalidOperationException($"{t.FullName} has multiple measures and is missing a MeasureName Attribute");
+                }
+            }
         }
 
         /// <inheritdoc/>
@@ -175,21 +190,33 @@ namespace Abbotware.Interop.Aws.Timestream
             return this.WriteRecordsAsync(new TMessage[] { message }, ct);
         }
 
+        /// <inheritdoc/>
+        public ValueTask<PublishStatus> PublishAsync(TMessage[] message, CancellationToken ct)
+        {
+            return this.WriteRecordsAsync(message.AsEnumerable(), ct);
+        }
+
+        /// <inheritdoc/>
+        public ValueTask<PublishStatus> PublishAsync(IEnumerable<TMessage> message, CancellationToken ct)
+        {
+            return this.WriteRecordsAsync(message, ct);
+        }
+
         /// <summary>
         /// writes records
         /// </summary>
         /// <param name="messages">records to write</param>
         /// <param name="ct">cancellation token</param>
         /// <returns>publish status</returns>
-        public async ValueTask<PublishStatus> WriteRecordsAsync(TMessage[] messages, CancellationToken ct)
+        public async ValueTask<PublishStatus> WriteRecordsAsync(IEnumerable<TMessage> messages, CancellationToken ct)
         {
             var time = DateTimeOffset.UtcNow;
             var records = new List<Record>();
 
             foreach (var message in messages)
             {
-                var d = this.OnMessageDimensions(message);
-                var m = this.OnMessageMeasures(message);
+                var d = this.OnCreateDimensions(message);
+                var m = this.OnCreateMeasures(message);
 
                 var record = new Record
                 {
@@ -197,7 +224,7 @@ namespace Abbotware.Interop.Aws.Timestream
                     Version = 1,
                 };
 
-                this.OnMessageTime(message, record, time);
+                this.OnSetTime(message, record, time);
 
                 if (m.Count == 1)
                 {
@@ -211,6 +238,8 @@ namespace Abbotware.Interop.Aws.Timestream
                     record.MeasureValues = m;
                     record.MeasureValueType = MeasureValueType.MULTI;
                 }
+
+                records.Add(record);
             }
 
             var writeRecordsRequest = new WriteRecordsRequest
@@ -220,15 +249,22 @@ namespace Abbotware.Interop.Aws.Timestream
                 Records = records,
             };
 
+            if (this.measureNameAttribute is not null)
+            {
+                var common = new Record();
+                common.MeasureName = this.measureNameAttribute.Name;
+                writeRecordsRequest.CommonAttributes = common;
+            }
+
             var result = await this.writeClient.WriteRecordsAsync(writeRecordsRequest, ct)
-                .ConfigureAwait(false);
+            .ConfigureAwait(false);
 
             if (result.HttpStatusCode != System.Net.HttpStatusCode.OK)
             {
                 return PublishStatus.Unknown;
             }
 
-            if (result.RecordsIngested.Total != 1)
+            if (result.RecordsIngested.Total != records.Count)
             {
                 return PublishStatus.Unknown;
             }
@@ -241,6 +277,8 @@ namespace Abbotware.Interop.Aws.Timestream
         {
             this.writeClient.Dispose();
 
+            this.writeClient.ExceptionEvent -= this.OnExceptionEvent;
+
             base.OnDisposeManagedResources();
         }
 
@@ -249,18 +287,22 @@ namespace Abbotware.Interop.Aws.Timestream
         /// </summary>
         /// <param name="message">message</param>
         /// <returns>dimension properties</returns>
-        protected virtual List<Dimension> OnMessageDimensions(TMessage message)
+        protected virtual List<Dimension> OnCreateDimensions(TMessage message)
         {
             var l = new List<Dimension>(this.dimensions.Count);
 
             foreach (var dimension in this.dimensions)
             {
                 var o = dimension.Value.Item2.GetValue(message);
+                if (o is null)
+                {
+                    continue;
+                }
 
                 var d = new Dimension
                 {
                     Name = dimension.Key,
-                    Value = o?.ToString(),
+                    Value = o.ToString(),
                     DimensionValueType = dimension.Value.Item3,
                 };
 
@@ -275,18 +317,39 @@ namespace Abbotware.Interop.Aws.Timestream
         /// </summary>
         /// <param name="message">message</param>
         /// <returns>dimension properties</returns>
-        protected virtual List<MeasureValue> OnMessageMeasures(TMessage message)
+        protected virtual List<MeasureValue> OnCreateMeasures(TMessage message)
         {
             var l = new List<MeasureValue>(this.measures.Count);
 
             foreach (var measure in this.measures)
             {
                 var o = measure.Value.Item2.GetValue(message);
+                if (o is null)
+                {
+                    continue;
+                }
+
+                var value = string.Empty;
+
+                switch (o)
+                {
+                    case DateTimeOffset dt1:
+                        value = dt1.ToUnixTimeMilliseconds().ToString(CultureInfo.InvariantCulture);
+                        break;
+
+                    case DateTime dt2:
+                        var dto = new DateTimeOffset(dt2.ToUniversalTime());
+                        value = dto.ToUnixTimeMilliseconds().ToString(CultureInfo.InvariantCulture);
+                        break;
+                    default:
+                        value = o.ToString();
+                        break;
+                }
 
                 var mv = new MeasureValue
                 {
                     Name = measure.Key,
-                    Value = o?.ToString(),
+                    Value = value,
                     Type = measure.Value.Item3,
                 };
 
@@ -302,20 +365,25 @@ namespace Abbotware.Interop.Aws.Timestream
         /// <param name="message">message</param>
         /// <param name="record">timestream record object</param>
         /// <param name="fallbackTime">fallback time if there is none present on the message</param>
-        protected virtual void OnMessageTime(TMessage message, Record record, DateTimeOffset fallbackTime)
+        protected virtual void OnSetTime(TMessage message, Record record, DateTimeOffset fallbackTime)
         {
+            var time = fallbackTime;
+            record.TimeUnit = TimeUnit.MILLISECONDS;
+
             if (this.time is not null)
             {
                 var o = this.time.Value.Item2.GetValue(message);
-                record.Time = o?.ToString();
+                time = (o as DateTimeOffset?) ?? fallbackTime;
                 record.TimeUnit = this.time.Value.Item1.TimeUnit;
             }
-            else
-            {
-                var t = fallbackTime.ToUnixTimeMilliseconds();
-                record.Time = t.ToString(CultureInfo.InvariantCulture);
-                record.TimeUnit = TimeUnit.MILLISECONDS;
-            }
+
+            var t = time.ToUnixTimeMilliseconds();
+            record.Time = t.ToString(CultureInfo.InvariantCulture);
+        }
+
+        private void OnExceptionEvent(object sender, Amazon.Runtime.ExceptionEventArgs e)
+        {
+            this.Logger.Error(e.ToString());
         }
     }
 }

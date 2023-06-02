@@ -11,7 +11,7 @@ namespace Abbotware.Interop.Aws.Timestream.Attributes
     /// <summary>
     /// Attribute to identify a property that is used for dimensions
     /// </summary>
-    [AttributeUsage(AttributeTargets.Property)]
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
     public sealed class DimensionAttribute : Attribute
     {
     }

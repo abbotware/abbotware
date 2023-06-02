@@ -27,8 +27,7 @@ namespace Abbotware.Interop.Aws.Sqs
         /// <returns>sqs connection</returns>
         public static ISqsSettings GetSqsConfigurationFromFile(string section = SqsSettings.DefaultSection,  string file = ConfigurationHelper.AppSettingsFileName)
         {
-            var settings = ConfigurationHelper.AppSettingsJson(file);
-            var cfg = settings.BindSection<SqsSettings>(section);
+            var cfg = ConfigurationHelper.AppSettingsJson(file).BindSection<SqsSettings>(section);
 
             if (cfg.Username == "USE_ENV")
             {

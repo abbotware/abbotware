@@ -12,12 +12,12 @@ namespace Abbotware.Interop.Aws.Timestream.Attributes
     /// <summary>
     /// Attribute to identify a property that is used for measure values
     /// </summary>
-    [AttributeUsage(AttributeTargets.Property)]
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
     public sealed class TimeAttribute : Attribute
     {
         /// <summary>
-        /// Gets or sets the time unit type
+        /// Gets the time unit type
         /// </summary>
-        public TimeUnit TimeUnit { get; set; } = TimeUnit.MILLISECONDS;
+        public TimeUnit TimeUnit { get; } = TimeUnit.MILLISECONDS;
     }
 }

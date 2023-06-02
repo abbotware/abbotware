@@ -12,6 +12,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <EmbeddedFiles Remove="Attributes\MeasureNameAttribute.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
 	  <PackageReference Include="AWSSDK.TimestreamQuery" Version="3.7.100.138" />
 	  <PackageReference Include="AWSSDK.TimestreamWrite" Version="3.7.101.58" />
 	</ItemGroup>

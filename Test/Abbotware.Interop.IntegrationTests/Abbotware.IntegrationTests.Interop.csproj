@@ -17,6 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Abbotware.ShellCommand\Abbotware.ShellCommand.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Aws.Sqs\Abbotware.Interop.Aws.Sqs.csproj" />
+    <ProjectReference Include="..\..\Interop\Abbotware.Interop.Aws.Timestream\Abbotware.Interop.Aws.Timestream.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.EodHistoricalData\Abbotware.Interop.EodHistoricalData.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Ipify\Abbotware.Interop.Ipify.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.MacVendors\Abbotware.Interop.MacVendors.csproj" />

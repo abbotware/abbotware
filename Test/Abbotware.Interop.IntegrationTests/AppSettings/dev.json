@@ -7,6 +7,14 @@
     "Region": "us-east-2",
     "Username": "USE_ENV",
     "Password": "USE_ENV",
-    "Queue": "https://sqs.us-east-2.amazonaws.com/235837667727/Dev-Scans"
+    "Queue": "https://sqs.us-east-2.amazonaws.com/235837667727/Dev-Scans",
+  },
+    
+  "Timestream": {
+      "Region": "us-east-1",
+      "Username": "USE_ENV",
+      "Password": "USE_ENV",
+      "Database": "test-database",
+      "Table": "test-table"
   }
 }
