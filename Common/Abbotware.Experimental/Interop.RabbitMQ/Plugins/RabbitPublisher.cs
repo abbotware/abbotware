@@ -112,11 +112,11 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
             envelope.PublishProperties.Mandatory = mandatory;
             envelope.Body = body;
 
-            return this.Publish(envelope);
+            return this.Publish(envelope).AsTask();
         }
 
         /// <inheritdoc />
-        public Task<PublishStatus> Publish(byte[] body, IPublishProperties properties)
+        public ValueTask<PublishStatus> Publish(byte[] body, IPublishProperties properties)
         {
             Arguments.NotNull(body, nameof(body));
             Arguments.NotNull(properties, nameof(properties));
@@ -133,7 +133,7 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
         }
 
         /// <inheritdoc />
-        public Task<PublishStatus> Publish(IMessageEnvelope envelope)
+        public ValueTask<PublishStatus> Publish(IMessageEnvelope envelope)
         {
             Arguments.NotNull(envelope, nameof(envelope));
 
@@ -178,7 +178,7 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
                 {
                     case ChannelMode.ConfirmationMode:
                         {
-                            return tcs.Task;
+                            return new(tcs.Task);
                         }
 
                     case ChannelMode.TransactionMode:
@@ -198,9 +198,7 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
                         }
                 }
 
-#pragma warning disable CA2008 // Do not create tasks without passing a TaskScheduler
-                return Task.Factory.StartNew(() => { return PublishStatus.Unknown; });
-#pragma warning restore CA2008 // Do not create tasks without passing a TaskScheduler
+                return ValueTask.FromResult(PublishStatus.Unknown);
             }
         }
 

@@ -7,6 +7,7 @@
 
 namespace Abbotware.Core.Messaging.Amqp.Plugins
 {
+    using System.Threading;
     using System.Threading.Tasks;
     using Abbotware.Core.Logging;
     using Abbotware.Core.Messaging;
@@ -42,9 +43,9 @@ namespace Abbotware.Core.Messaging.Amqp.Plugins
         }
 
         /// <inheritdoc />
-        public async Task<PublishStatus> PublishAsync(TMessage message)
+        public ValueTask<PublishStatus> PublishAsync(TMessage message, CancellationToken ct)
         {
-            return await this.publisher.PublishAsync(message, this.defaults.Exchange, this.defaults.Topic, this.defaults.Mandatory).ConfigureAwait(false);
+            return new(this.publisher.PublishAsync(message, this.defaults.Exchange, this.defaults.Topic, this.defaults.Mandatory));
         }
 
         /// <inheritdoc />

@@ -66,7 +66,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
             using (var p = c.CreatePublisher<SqsPublisher>())
             using (var pub = new Publisher<string>(p.Configuration.Queue.ToString(), p, new Strings(), this.Logger))
             {
-                var result = await pub.PublishAsync(payload);
+                var result = await pub.PublishAsync(payload, default);
                 Assert.AreEqual(PublishStatus.Confirmed, result);
             }
 

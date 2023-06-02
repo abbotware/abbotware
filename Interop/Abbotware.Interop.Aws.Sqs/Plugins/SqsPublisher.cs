@@ -10,6 +10,7 @@ namespace Abbotware.Interop.Aws.Sqs.Plugins
     using System.Diagnostics.CodeAnalysis;
     using System.IO;
     using System.Text;
+    using System.Threading;
     using System.Threading.Tasks;
     using Abbotware.Core;
     using Abbotware.Core.Logging;
@@ -52,7 +53,7 @@ namespace Abbotware.Interop.Aws.Sqs.Plugins
         public long PublishedMessages => this.published.Value;
 
         /// <inheritdoc />
-        public Task<PublishStatus> Publish(byte[] body, IPublishProperties properties)
+        public ValueTask<PublishStatus> Publish(byte[] body, IPublishProperties properties)
         {
             properties = Arguments.EnsureNotNull(properties, nameof(properties));
 
@@ -68,7 +69,7 @@ namespace Abbotware.Interop.Aws.Sqs.Plugins
         }
 
         /// <inheritdoc />
-        public async Task<PublishStatus> Publish(IMessageEnvelope envelope)
+        public async ValueTask<PublishStatus> Publish(IMessageEnvelope envelope)
         {
             envelope = Arguments.EnsureNotNull(envelope, nameof(envelope));
 

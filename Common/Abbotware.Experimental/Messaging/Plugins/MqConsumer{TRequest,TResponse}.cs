@@ -111,7 +111,7 @@ namespace Abbotware.Core.Messaging.Plugins
         {
             Arguments.NotNull(response, nameof(response));
 
-            return this.Publisher.PublishAsync(response);
+            return this.Publisher.PublishAsync(response, default).AsTask();
         }
     }
 }
