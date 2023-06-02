@@ -37,8 +37,8 @@ public class Poco
 ## Publisher 
 
 ```c#
-// 1. create
-var options = mew TimestreamOptions( ... );
+// 1. configure
+var options = new TimestreamOptions( ... );
             
 // 2. create
 using var c = new TimestreamPublisher<MultiMeasureTest>(options, ... );
