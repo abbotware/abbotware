@@ -7,7 +7,6 @@
 namespace Abbotware.Interop.Aws.Timestream.Attributes
 {
     using System;
-    using Amazon.TimestreamWrite;
 
     /// <summary>
     /// Attribute to identify a property that is used for measure values
@@ -16,8 +15,8 @@ namespace Abbotware.Interop.Aws.Timestream.Attributes
     public sealed class TimeAttribute : Attribute
     {
         /// <summary>
-        /// Gets the time unit type
+        /// Gets or sets the time unit type
         /// </summary>
-        public TimeUnit TimeUnit { get; } = TimeUnit.MILLISECONDS;
+        public TimeUnitType TimeUnit { get; set; } = TimeUnitType.Milliseconds;
     }
 }

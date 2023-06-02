@@ -41,7 +41,7 @@ public class Poco
 var options = new TimestreamOptions( ... );
             
 // 2. create
-using var c = new TimestreamPublisher<MultiMeasureTest>(options, ... );
+using var c = new PocoTimestreamPublisher<MultiMeasureTest>(options, ... );
 
 // 3. publish
 

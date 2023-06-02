@@ -28,7 +28,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
         public async Task TimestreamBasic_SingleMeasureTest()
         {
             var options = ConfigurationHelper.AppSettingsJson(UnitTestSettingsFile).BindSection<TimestreamOptions>(TimestreamOptions.DefaultSection);
-            using var c = new TimestreamPublisher<SingleMeasureTest>(options, this.Logger);
+            using var c = new PocoTimestreamPublisher<SingleMeasureTest>(options, this.Logger);
 
             var p = await c.PublishAsync(new SingleMeasureTest { Name = "asdf", Value = 123 }, default);
 
@@ -39,7 +39,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
         public async Task TimestreamBasic_MultiMeasureTest()
         {
             var options = ConfigurationHelper.AppSettingsJson(UnitTestSettingsFile).BindSection<TimestreamOptions>(TimestreamOptions.DefaultSection);
-            using var c = new TimestreamPublisher<MultiMeasureTest>(options, this.Logger);
+            using var c = new PocoTimestreamPublisher<MultiMeasureTest>(options, this.Logger);
 
             var p = await c.PublishAsync(new MultiMeasureTest { Name = "asdf", Company = "asdfads", ValueA = 123, ValueB = 345, ValueC = 789, ValueD = "testing", ValueE = 123.23, ValueF = 12.345m, ValueG = DateTime.UtcNow, ValueH = false }, default);
 
@@ -50,7 +50,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
         public async Task TimestreamBasic_BatchMultiMeasureTest()
         {
             var options = ConfigurationHelper.AppSettingsJson(UnitTestSettingsFile).BindSection<TimestreamOptions>(TimestreamOptions.DefaultSection);
-            using var c = new TimestreamPublisher<MultiMeasureTestWithTime>(options, this.Logger);
+            using var c = new PocoTimestreamPublisher<MultiMeasureTestWithTime>(options, this.Logger);
 
             var list = new List<MultiMeasureTestWithTime>();
 
