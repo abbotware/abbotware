@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+    <Nullable>enable</Nullable>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;net6;net7</TargetFrameworks>
+		<Description>Abbotware Interop Library for Amazon Timestream - Contains helper methods, extension methods, and plugins</Description>
+		<PackageTags>Timestream;Aws;Amazon</PackageTags>
+	</PropertyGroup>
+
+  <PropertyGroup>
+    <PackageVersion>$(Version)-beta</PackageVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+	  <PackageReference Include="AWSSDK.TimestreamQuery" Version="3.7.100.138" />
+	  <PackageReference Include="AWSSDK.TimestreamWrite" Version="3.7.101.58" />
+	</ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Abbotware.Core\Abbotware.Core.csproj" />
+  </ItemGroup>
+
+</Project>
