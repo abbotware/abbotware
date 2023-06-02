@@ -8,6 +8,7 @@
 namespace Abbotware.Core.Messaging.Integration
 {
     using System;
+    using System.Threading;
     using System.Threading.Tasks;
 
     /// <summary>
@@ -20,7 +21,8 @@ namespace Abbotware.Core.Messaging.Integration
         ///     Publishes a message
         /// </summary>
         /// <param name="message">message object</param>
+        /// <param name="ct">Cancellation Token</param>
         /// <returns>task for the publish request</returns>
-        Task<PublishStatus> PublishAsync(TMessage message);
+        ValueTask<PublishStatus> PublishAsync(TMessage message, CancellationToken ct);
     }
 }

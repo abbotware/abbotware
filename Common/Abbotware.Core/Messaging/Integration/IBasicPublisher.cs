@@ -28,7 +28,7 @@ namespace Abbotware.Core.Messaging.Integration
         /// <param name="properties">publish properties</param>
         /// <returns>Task that can be used synchronously or Asynchronously to determine the publish status</returns>
         /// <remarks>the task object only works when the channel is in confirmation mode, otherwise all publish status is unknown</remarks>
-        Task<PublishStatus> Publish(byte[] body, IPublishProperties properties);
+        ValueTask<PublishStatus> Publish(byte[] body, IPublishProperties properties);
 
         /// <summary>
         ///     Asynchronously Publishes message data to an exchange
@@ -36,6 +36,6 @@ namespace Abbotware.Core.Messaging.Integration
         /// <param name="envelope">entire message with properties</param>
         /// <returns>Task that can be used synchronously or Asynchronously to determine the publish status</returns>
         /// <remarks>the task object only works when the channel is in confirmation mode, otherwise all publish status is unknown</remarks>
-        Task<PublishStatus> Publish(IMessageEnvelope envelope);
+        ValueTask<PublishStatus> Publish(IMessageEnvelope envelope);
     }
 }
