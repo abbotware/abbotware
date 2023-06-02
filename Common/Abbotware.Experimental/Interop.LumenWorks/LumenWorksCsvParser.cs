@@ -189,7 +189,7 @@ namespace Abbotware.Interop.LumenWorks
                 var property = this.Mapper[header.Key];
 
                 // get underlying type
-                var columnType = ReflectionHelper.GetPropertyDataType(property);
+                var columnType = ReflectionHelper.GetPropertyDataTypeName(property);
 
                 // get column value in csv (in string)
                 var columnName = header;

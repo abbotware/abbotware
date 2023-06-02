@@ -49,25 +49,25 @@ namespace Abbotware.Core.Diagnostics
         /// </summary>
         /// <param name="propertyInfo">property info</param>
         /// <returns>name of type</returns>
-        public static string GetPropertyDataType(PropertyInfo propertyInfo)
+        public static Type GetPropertyDataType(PropertyInfo propertyInfo)
         {
             propertyInfo = Arguments.EnsureNotNull(propertyInfo, nameof(propertyInfo));
 
-            var propertyType = propertyInfo.PropertyType;
+            return Nullable.GetUnderlyingType(propertyInfo.PropertyType) ?? propertyInfo.PropertyType;
+        }
 
-            string typeName;
+        /// <summary>
+        /// Gets the type name of a PropertyInfo
+        /// </summary>
+        /// <param name="propertyInfo">property info</param>
+        /// <returns>name of type</returns>
+        public static string GetPropertyDataTypeName(PropertyInfo propertyInfo)
+        {
+            propertyInfo = Arguments.EnsureNotNull(propertyInfo, nameof(propertyInfo));
 
-            if (ReflectionHelper.IsNullableValueType(propertyInfo))
-            {
-                // If it is NULLABLE, then get the underlying type. eg if "Nullable<int>" then this will return just "int"
-                typeName = propertyType.GetGenericArguments()[0].Name;
-            }
-            else
-            {
-                typeName = propertyType.Name;
-            }
+            var propertyType = GetPropertyDataType(propertyInfo);
 
-            return typeName;
+            return propertyType.Name;
         }
 
         /// <summary>
