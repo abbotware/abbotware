@@ -5,14 +5,12 @@
     <TargetFrameworks>netstandard2.0;netstandard2.1;net6;net7</TargetFrameworks>
 		<Description>Abbotware Interop Library for Amazon Timestream - Contains helper methods, extension methods, and plugins</Description>
 		<PackageTags>Timestream;Aws;Amazon</PackageTags>
-	</PropertyGroup>
-
-  <PropertyGroup>
-    <PackageVersion>$(Version)-beta</PackageVersion>
+    <PackageProjectUrl>https://github.com/abbotware/abbotware/tree/master/Interop/Abbotware.Interop.Aws.Timestream</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <EmbeddedFiles Remove="Attributes\MeasureNameAttribute.cs" />
+    <None Include="README.md" Pack="true" PackagePath="\"/>
   </ItemGroup>
 
   <ItemGroup>

@@ -6,7 +6,12 @@
     <Description>Abbotware Interop Library for the ISO Codes - Contains helper methods, extension methods, and plugins</Description>
     <PackageTags>ISO;Currency;Country;ISO 3166;ISO 4217;</PackageTags>
     <PackageProjectUrl>https://github.com/abbotware/abbotware/tree/master/Interop/Abbotware.Interop.Iso</PackageProjectUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\"/>
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Abbotware.Core\Abbotware.Core.csproj" />
