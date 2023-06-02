@@ -18,7 +18,6 @@ namespace Abbotware.Interop.Aws.Timestream
     using Abbotware.Interop.Aws.Timestream.Configuration;
     using Amazon;
     using Amazon.Runtime;
-    using Amazon.Runtime.EventStreams.Internal;
     using Amazon.TimestreamWrite;
     using Amazon.TimestreamWrite.Model;
 

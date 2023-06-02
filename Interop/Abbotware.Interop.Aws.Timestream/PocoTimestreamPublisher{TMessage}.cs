@@ -8,7 +8,6 @@ namespace Abbotware.Interop.Aws.Timestream
 {
     using System;
     using System.Collections.Generic;
-    using System.Globalization;
     using System.Linq;
     using System.Reflection;
     using Abbotware.Core.Diagnostics;
