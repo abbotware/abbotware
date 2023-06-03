@@ -17,6 +17,7 @@ namespace Abbotware.Quant.Rates.Plugins
     public record class ConstantRiskFreeRate<TDate>(double Rate) : IRiskFreeRate<TDate>
           where TDate : notnull
     {
+        /// <inheritdoc/>
         public Interval<TDate> Range => throw new System.NotImplementedException();
 
         /// <inheritdoc/>

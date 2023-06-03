@@ -1,5 +1,4 @@
-﻿
-namespace Abbotware.UnitTests.Quant.Finance
+﻿namespace Abbotware.UnitTests.Quant.Finance
 {
     using Abbotware.Quant.Finance.Equations;
     using NUnit.Framework;

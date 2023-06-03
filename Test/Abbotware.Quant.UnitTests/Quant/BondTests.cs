@@ -77,12 +77,11 @@
             var yield = bond.Yield(920);
             Assert.That(yield.AsYearlyPeriodic(2).Rate, Is.EqualTo(.11359).Within(Precision.Low));
 
-            //var yieldEstimate = bond.YieldEstimate(920);
-            //Assert.That(yieldEstimate.AsYearlyPeriodic(2).Rate, Is.EqualTo(.11250).Within(Precision.Low));
+            ////var yieldEstimate = bond.YieldEstimate(920);
+            ////Assert.That(yieldEstimate.AsYearlyPeriodic(2).Rate, Is.EqualTo(.11250).Within(Precision.Low));
 
             var currentYield = bond.CurrentYield(920);
             Assert.That(currentYield.Rate, Is.EqualTo(.10870).Within(Precision.Low));
-
         }
 
         [Test]
@@ -105,10 +104,12 @@
             var bond = new Bond(2, Coupon.Simple(.06, TimePeriod.SemiAnnually))
             { Notional = 1000 };
 
-            var ytm = new Yield(.08, 2);
+            ////var ytm = new Yield(.08, 2);
             var d = bond.MacaulayDuration(963.7m);
 
             Assert.That(d, Is.EqualTo(1.9124).Within(Precision.Low));
+
+            Assert.Inconclusive();
         }
 
         [Test]
@@ -130,10 +131,12 @@
             var bond = new Bond(2, Coupon.Simple(.06, TimePeriod.SemiAnnually))
             { Notional = 1000 };
 
-            //var ytm = new Yield<double>(new ContinuousRate(.08), new(0, 2));
+            ////var ytm = new Yield<double>(new ContinuousRate(.08), new(0, 2));
             var d = bond.MacaulayDuration(963.7m);
 
             Assert.That(d, Is.EqualTo(1.9124).Within(Precision.Low));
+
+            Assert.Inconclusive();
         }
     }
 }

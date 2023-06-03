@@ -9,7 +9,7 @@ namespace Abbotware.Quant.Finance
     /// <summary>
     /// Time Period
     /// </summary>
-    public enum TimePeriod : ushort
+    public enum TimePeriod
     {
         /// <summary>
         /// Unknown

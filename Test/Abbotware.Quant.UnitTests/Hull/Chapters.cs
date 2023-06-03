@@ -94,10 +94,11 @@
             Assert.That(b3.Yield(97.8m).Rate, Is.EqualTo(r3));
             Assert.That(b3.Yield(97.8m).AsYearlyPeriodic(1).Rate, Is.EqualTo(r3a));
 
-            var b4 = new Bond(1.5, Coupon.Simple(.04, TimePeriod.SemiAnnually));
+            ////var b4 = new Bond(1.5, Coupon.Simple(.04, TimePeriod.SemiAnnually));
 
-            var b5 = new Bond(2, Coupon.Simple(.05, TimePeriod.SemiAnnually));
+            ////var b5 = new Bond(2, Coupon.Simple(.05, TimePeriod.SemiAnnually));
 
+            Assert.Inconclusive();
         }
 
         [Test]
@@ -107,8 +108,10 @@
             var y = new Yield(.12, 1);
             var p = b.Price(y.AsDiscountRate());
             Assert.That(p, Is.EqualTo(94.213).Within(Precision.Low));
-            var d = b.MacaulayDuration(p);
+            ////var d = b.MacaulayDuration(p);
             Assert.That(p, Is.EqualTo(94.213).Within(Precision.Low));
+
+            Assert.Inconclusive();
         }
     }
 }

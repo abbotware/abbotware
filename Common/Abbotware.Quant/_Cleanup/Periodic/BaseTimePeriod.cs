@@ -34,7 +34,7 @@ namespace Abbotware.Quant.Periodic
         ///// <param name="start">start point</param>
         ///// <param name="end">end point</param>
         ///// <returns>list of time periods</returns>
-        //public abstract double Periods(TDate start, TDate end);
+        ////public abstract double Periods(TDate start, TDate end);
 
         /// <summary>
         /// Convert a nominal rate in terms this time period
