@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="ITimestreamOptions.cs" company="Abbotware, LLC">
+// <copyright file="TimestreamOptions.cs" company="Abbotware, LLC">
 // Copyright © Abbotware, LLC 2012-2023. All rights reserved
 // </copyright>
 // -----------------------------------------------------------------------
@@ -8,23 +8,23 @@
 namespace Abbotware.Interop.Aws.Timestream.Configuration
 {
     /// <summary>
-    ///     Read only interface for Teamstream configuration parameters
+    ///     POCO class for Teamstream configuration parameters
     /// </summary>
-    public interface ITimestreamOptions
+    public record class TimestreamOptions
     {
         /// <summary>
-        /// Gets the region
+        /// Default config section name
         /// </summary>
-        string Region { get;  }
+        public const string DefaultSection = "Timestream";
 
         /// <summary>
-        /// Gets the database name
+        /// Gets the Database
         /// </summary>
-        string Database { get; }
+        public string Database { get; init; } = string.Empty;
 
         /// <summary>
-        /// Gets the table name
+        /// Gets the Table
         /// </summary>
-        string Table { get; }
+        public string Table { get; init; } = string.Empty;
     }
 }

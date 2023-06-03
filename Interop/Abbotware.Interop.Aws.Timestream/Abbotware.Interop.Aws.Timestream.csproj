@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Abbotware.Core\Abbotware.Core.csproj" />
+    <ProjectReference Include="..\Abbotware.Interop.Aws\Abbotware.Interop.Aws.csproj" />
   </ItemGroup>
 
 </Project>

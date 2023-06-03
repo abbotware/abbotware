@@ -14,9 +14,7 @@ namespace Abbotware.Interop.Aws.Timestream
     using System.Threading.Tasks;
     using Abbotware.Core.Logging;
     using Abbotware.Core.Messaging.Integration;
-    using Abbotware.Core.Objects;
     using Abbotware.Interop.Aws.Timestream.Configuration;
-    using Amazon;
     using Amazon.Runtime;
     using Amazon.TimestreamWrite;
     using Amazon.TimestreamWrite.Model;
@@ -25,7 +23,7 @@ namespace Abbotware.Interop.Aws.Timestream
     /// Typed Message Publisher
     /// </summary>
     /// <typeparam name="TMessage">message type</typeparam>
-    public abstract class BaseTimestreamPublisher<TMessage> : BaseComponent<ITimestreamOptions>, IMessageBatchPublisher<TMessage>
+    public abstract class BaseTimestreamPublisher<TMessage> : AwsConnection<AmazonTimestreamWriteClient, AmazonTimestreamWriteConfig, TimestreamOptions>, IMessageBatchPublisher<TMessage>
     {
         /// <summary>
         /// map of C# type to timestream measure value type
@@ -89,26 +87,15 @@ namespace Abbotware.Interop.Aws.Timestream
             },
         };
 
-        private readonly AmazonTimestreamWriteClient writeClient;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseTimestreamPublisher{TMessage}"/> class.
         /// </summary>
+        /// <param name="client">client</param>
         /// <param name="options">options</param>
         /// <param name="logger">injected logger</param>
-        protected BaseTimestreamPublisher(ITimestreamOptions options, ILogger logger)
-            : base(options, logger)
+        protected BaseTimestreamPublisher(AmazonTimestreamWriteClient client, TimestreamOptions options, ILogger logger)
+            : base(client, options, logger)
         {
-            var writeClientConfig = new AmazonTimestreamWriteConfig
-            {
-                RegionEndpoint = RegionEndpoint.GetBySystemName(options.Region),
-                Timeout = TimeSpan.FromSeconds(100),
-                MaxErrorRetry = 10,
-            };
-
-            this.writeClient = new AmazonTimestreamWriteClient(writeClientConfig);
-
-            this.writeClient.ExceptionEvent += this.OnExceptionEvent;
         }
 
         /// <inheritdoc/>
@@ -177,7 +164,7 @@ namespace Abbotware.Interop.Aws.Timestream
                 CommonAttributes = this.OnCreateCommonAttributes(),
             };
 
-            var result = await this.writeClient.WriteRecordsAsync(writeRecordsRequest, ct)
+            var result = await this.Client.WriteRecordsAsync(writeRecordsRequest, ct)
             .ConfigureAwait(false);
 
             if (result.HttpStatusCode != System.Net.HttpStatusCode.OK)
@@ -222,16 +209,6 @@ namespace Abbotware.Interop.Aws.Timestream
         {
             var t = time.ToUnixTimeMilliseconds();
             return t.ToString(CultureInfo.InvariantCulture);
-        }
-
-        /// <inheritdoc/>
-        protected override void OnDisposeManagedResources()
-        {
-            this.writeClient.Dispose();
-
-            this.writeClient.ExceptionEvent -= this.OnExceptionEvent;
-
-            base.OnDisposeManagedResources();
         }
 
         /// <summary>

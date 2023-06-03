@@ -34,10 +34,11 @@ namespace Abbotware.Interop.Aws.Timestream
         /// <summary>
         /// Initializes a new instance of the <see cref="PocoTimestreamPublisher{TMessage}"/> class.
         /// </summary>
+        /// <param name="client">client </param>
         /// <param name="options">options</param>
         /// <param name="logger">injected logger</param>
-        public PocoTimestreamPublisher(ITimestreamOptions options, ILogger logger)
-            : base(options, logger)
+        public PocoTimestreamPublisher(AmazonTimestreamWriteClient client, TimestreamOptions options, ILogger logger)
+            : base(client, options, logger)
         {
             var t = typeof(TMessage);
             var properties = ReflectionHelper.Properties<TMessage>();
