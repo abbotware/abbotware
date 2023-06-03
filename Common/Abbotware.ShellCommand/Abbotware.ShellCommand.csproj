@@ -19,8 +19,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Reactive" Version="5.0.0" />
+    <PackageReference Include="System.Reactive" Version="6.0.0" />
   </ItemGroup>
+  
   <ItemGroup>
     <ProjectReference Include="..\Abbotware.Core\Abbotware.Core.csproj" />
   </ItemGroup>
