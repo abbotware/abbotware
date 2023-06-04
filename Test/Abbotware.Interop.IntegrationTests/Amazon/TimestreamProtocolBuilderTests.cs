@@ -8,67 +8,83 @@
 namespace Abbotware.IntegrationTests.Interop.Amazon
 {
     using System;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
-    using Abbotware.Core.Messaging.Integration;
+    using System.Linq;
     using Abbotware.Interop.Aws.Timestream;
     using Abbotware.Interop.Aws.Timestream.Attributes;
     using Abbotware.Interop.Aws.Timestream.Configuration;
-    using Abbotware.Interop.Microsoft;
+    using Abbotware.Interop.Aws.Timestream.Protocol;
+    using Abbotware.Interop.Aws.Timestream.Protocol.Plugins;
     using Abbotware.Utility.UnitTest.Using.NUnit;
-    using global::Amazon.TimestreamWrite;
     using NUnit.Framework;
 
     [TestFixture]
     [Category("Interop.Amazon")]
     [Category("Interop.Amazon.Integration")]
     [Category("IntegrationTests")]
-    public class TimestreamBasicTests : BaseNUnitTest
+    public class TimestreamProtocolBuilderTests : BaseNUnitTest
     {
         [Test]
-        public async Task TimestreamBasic_SingleMeasureTest()
+        public void TimestreamBasic_AddMeasureTwice()
         {
-            var options = ConfigurationHelper.AppSettingsJson(UnitTestSettingsFile).BindSection<TimestreamOptions>(TimestreamOptions.DefaultSection);
-            using var c1 = new AmazonTimestreamWriteClient();
-            using var c = new PocoPublisher<SingleMeasureTest>(c1, options, this.Logger);
+            var pb = new ProtocolBuilder<SingleMeasureTest>();
+            pb.AddMeasure(x => x.Name);
 
-            var p = await c.PublishAsync(new SingleMeasureTest { Name = "asdf", Value = 123 }, default);
-
-            Assert.That(p, Is.EqualTo(PublishStatus.Confirmed));
+            Assert.Throws<InvalidOperationException>(() => pb.AddMeasure(x => x.Name));
         }
 
         [Test]
-        public async Task TimestreamBasic_MultiMeasureTest()
+        public void TimestreamBasic_AddDimensionTwice()
         {
-            var options = ConfigurationHelper.AppSettingsJson(UnitTestSettingsFile).BindSection<TimestreamOptions>(TimestreamOptions.DefaultSection);
-            using var c1 = new AmazonTimestreamWriteClient();
-            using var c = new PocoPublisher<MultiMeasureTest>(c1, options, this.Logger);
+            var pb = new ProtocolBuilder<SingleMeasureTest>();
+            pb.AddDimension(x => x.Name);
 
-            var p = await c.PublishAsync(new MultiMeasureTest { Name = "asdf", Company = "asdfads", ValueA = 123, ValueB = 345, ValueC = 789, ValueD = "testing", ValueE = 123.23, ValueF = 12.345m, ValueG = DateTime.UtcNow, ValueH = false }, default);
-
-            Assert.That(p, Is.EqualTo(PublishStatus.Confirmed));
+            Assert.Throws<InvalidOperationException>(() => pb.AddDimension(x => x.Name));
         }
 
         [Test]
-        public async Task TimestreamBasic_BatchMultiMeasureTest()
+        public void TimestreamBasic_AddDuplicate()
         {
-            var options = ConfigurationHelper.AppSettingsJson(UnitTestSettingsFile).BindSection<TimestreamOptions>(TimestreamOptions.DefaultSection);
-            using var c1 = new AmazonTimestreamWriteClient();
-            using var c = new PocoPublisher<MultiMeasureTestWithTime>(c1, options, this.Logger);
+            var pb = new ProtocolBuilder<SingleMeasureTest>();
+            pb.AddMeasure(x => x.Name);
 
-            var list = new List<MultiMeasureTestWithTime>();
+            Assert.Throws<InvalidOperationException>(() => pb.AddDimension(x => x.Name));
+        }
 
-            var t = DateTimeOffset.UtcNow;
+        [Test]
+        public void TimestreamBasic_AddTimeDuplicate()
+        {
+            var pb = new ProtocolBuilder<MultiMeasureTestWithTime>();
+            pb.AddTime(x => x.Time, TimeUnitType.Milliseconds);
 
-            for (int i = 0; i < 100; ++i)
-            {
-                t = t.AddMilliseconds(1);
-                list.Add(new MultiMeasureTestWithTime { Name = "asdf", Company = "asdfads", ValueA = 123 + i, ValueB = 345 + i, ValueC = 789 + i, ValueD = "testing", ValueE = 123.23 + i, ValueF = 12.345m + i, ValueG = DateTime.UtcNow, ValueH = false, Time = t });
-            }
+            Assert.Throws<InvalidOperationException>(() => pb.AddTime(x => x.Time, TimeUnitType.Milliseconds));
+        }
 
-            var p = await c.PublishAsync(list, default);
+        [Test]
+        public void TimestreamBasic_MultiMeasureBuilder()
+        {
+            var pb = new ProtocolBuilder<MultiMeasureTestWithTime>();
+            pb.AddDimension(x => x.Name);
+            pb.AddDimension(x => x.Company);
+            pb.AddMeasure(x => x.ValueA);
+            pb.AddMeasure(x => x.ValueB);
+            pb.AddMeasure(x => x.ValueC);
+            pb.AddMeasure(x => x.ValueD);
+            pb.AddMeasure(x => x.ValueE);
+            pb.AddMeasure(x => x.ValueF);
+            pb.AddMeasure(x => x.ValueG);
+            pb.AddMeasure(x => x.ValueH);
+            pb.AddTime(x => x.Time, TimeUnitType.Milliseconds);
 
-            Assert.That(p, Is.EqualTo(PublishStatus.Confirmed));
+            var options = new TimestreamOptions() {Database = "db", Table = "table" };
+
+            var protocol = pb.Build();
+
+            var m = new MultiMeasureTestWithTime { Name = "asdf", Company = "asdfads", ValueA = 123, ValueB = 345, ValueC = 789, ValueD = "testing", ValueE = 123.23, ValueF = 12.345m, ValueG = DateTime.UtcNow, ValueH = false, Time = DateTime.UtcNow };
+
+            var encoded = protocol.Encode(m, options);
+
+            Assert.That(encoded.Records.Single().Dimensions.Single(x => x.Name == "Name").Value, Is.EqualTo(m.Name));
+            Assert.That(encoded.Records.Single().Dimensions.Single(x => x.Name == "Company").Value, Is.EqualTo(m.Company));
         }
 
         public class SingleMeasureTest

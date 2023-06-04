@@ -71,12 +71,7 @@ namespace Abbotware.Interop.EntityFramework
         {
             context = Arguments.EnsureNotNull(context, nameof(context));
 
-            var meta = context.Model.FindEntityType(typeof(TEntity).FullName);
-
-            if (meta == null)
-            {
-                throw new InvalidOperationException("Missing Primary Key");
-            }
+            var meta = context.Model.FindEntityType(typeof(TEntity).FullName) ?? throw new InvalidOperationException("Missing Primary Key");
 
             var pk = meta.FindPrimaryKey() ?? throw new InvalidOperationException("Missing Primary Key");
 
