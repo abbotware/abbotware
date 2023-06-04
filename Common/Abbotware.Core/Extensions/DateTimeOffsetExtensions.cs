@@ -18,26 +18,6 @@ namespace Abbotware.Core.Extensions
     public static class DateTimeOffsetExtensions
     {
         /// <summary>
-        ///     Converts a DateTimeOffset to UNIX time
-        /// </summary>
-        /// <param name="extendedObject">DateTime object</param>
-        /// <returns>converted UNIX time</returns>
-        public static long ToUnixTimeSeconds(this DateTimeOffset extendedObject)
-        {
-            return extendedObject.UtcDateTime.ToUnixTimeSeconds();
-        }
-
-        /// <summary>
-        ///     Converts UNIX time to a DateTimeOffset
-        /// </summary>
-        /// <param name="extendedObject">UNIX time value</param>
-        /// <returns>converted DateTime</returns>
-        public static DateTimeOffset DateTimeOffsetFromUnixTimeSeconds(this long extendedObject)
-        {
-            return extendedObject.FromUnixTimeSeconds();
-        }
-
-        /// <summary>
         ///     Determins if the given DateTimeOffset is between the two supplied DateTimeOffset values
         /// </summary>
         /// <param name="extended">the time being checked</param>

@@ -18,36 +18,14 @@ namespace Abbotware.Core.Extensions
     public static class DateTimeExtensions
     {
         /// <summary>
+        ///     Value used for UNIX time conversions
+        /// </summary>
+        public static readonly DateTime UnixEpoch = new(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+
+        /// <summary>
         /// string format for RFC 822 date time
         /// </summary>
         private static readonly string Rfc822Format = InitRfc822FormatString();
-
-        /// <summary>
-        ///     Value used for UNIX time conversions
-        /// </summary>
-        private static readonly DateTime UnixEpoch = new(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
-
-        /// <summary>
-        ///     Converts a DateTime to UNIX time
-        /// </summary>
-        /// <param name="extendedObject">DateTime object</param>
-        /// <returns>converted UNIX time</returns>
-        public static long ToUnixTimeSeconds(this DateTime extendedObject)
-        {
-            var span = extendedObject - DateTimeExtensions.UnixEpoch;
-            return (long)span.TotalSeconds;
-        }
-
-        /// <summary>
-        ///     Converts UNIX time to a DateTime
-        /// </summary>
-        /// <param name="extendedObject">UNIX time value</param>
-        /// <returns>converted DateTime</returns>
-        public static DateTime FromUnixTimeSeconds(this long extendedObject)
-        {
-            return DateTimeExtensions.UnixEpoch.AddSeconds(extendedObject)
-                .ToUniversalTime();
-        }
 
         /// <summary>
         ///     Determins if the given DateTime is between the two supplied DateTime values
