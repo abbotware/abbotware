@@ -27,6 +27,17 @@ namespace Abbotware.Interop.Aws.Timestream
         /// <summary>
         /// Initializes a new instance of the <see cref="TimestreamPublisher{TMessage}"/> class.
         /// </summary>
+        /// <param name="options">options</param>
+        /// <param name="protocol">message encoding protocol</param>
+        /// <param name="logger">injected logger</param>
+        public TimestreamPublisher(TimestreamOptions options, ITimestreamProtocol<TMessage> protocol, ILogger logger)
+            : this(new AmazonTimestreamWriteClient(), options, protocol, logger)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TimestreamPublisher{TMessage}"/> class.
+        /// </summary>
         /// <param name="client">client</param>
         /// <param name="options">options</param>
         /// <param name="protocol">message encoding protocol</param>
