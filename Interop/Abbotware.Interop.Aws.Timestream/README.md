@@ -1,10 +1,10 @@
 ﻿# ﻿Abbotware.Interop.Aws.Timestream
 
-C# Fluent and Attribute based publishers for AWS Timestream that supports single and multi-value based off POCOs
+C# Fluent and Attribute based publishers for AWS Timestream.  Quick and easy support for single measure and multi-measure values based off POCOs
 
-## Attributes
+## POCO via Attributes
 
-Attributes can be are used to define dimensions, measures, and time fields.
+Attributes can be used to define dimensions, measures, and time fields.  
 
 ```c#
 [MeasureName("Data")]
@@ -51,9 +51,9 @@ var p = await c.PublishAsync(poco, ct);
 ```
 
 
-## Fluent API
+## POCO via Fluent API
 
-Fluent API require a little more setup, but can be used on objects you have no control over
+The Fluent API requires a little more setup, but can be used on objects you have no control over.
 
 ```c#
 public class Poco
@@ -68,7 +68,7 @@ public class Poco
 }
 ```
 
-### Define Protocol via Protocol Builder
+### Define Protocol via Builder
 ```c#
 // supply name for multi measure name
 var pb = new ProtocolBuilder<Poco>("metrics");
