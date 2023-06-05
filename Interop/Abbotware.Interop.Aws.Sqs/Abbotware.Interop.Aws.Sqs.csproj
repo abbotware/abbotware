@@ -3,7 +3,7 @@
 	<PropertyGroup>
     <Nullable>enable</Nullable>
     <TargetFrameworks>netstandard2.0;netstandard2.1;net6;net7</TargetFrameworks>
-		<Description>Abbotware Interop Library for Amazon SQS - Contains helper methods, extension methods, and plugins</Description>
+		<Description>Abbotware Interop Library for Aws SQS - Contains helper methods, extension methods, and plugins</Description>
 		<PackageTags>SQS;Aws;Amazon</PackageTags>
 	</PropertyGroup>
 
@@ -12,7 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Common\Abbotware.Core\Abbotware.Core.csproj" />
     <ProjectReference Include="..\Abbotware.Interop.Castle\Abbotware.Interop.Castle.csproj" />
     <ProjectReference Include="..\Abbotware.Interop.Microsoft\Abbotware.Interop.Microsoft.csproj" />
     <ProjectReference Include="..\Abbotware.Interop.ProtoBufNet\Abbotware.Interop.ProtoBufNet.csproj" />

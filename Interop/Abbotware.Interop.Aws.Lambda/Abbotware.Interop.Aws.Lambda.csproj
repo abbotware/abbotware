@@ -3,7 +3,7 @@
 	<PropertyGroup>
     <Nullable>enable</Nullable>
     <TargetFrameworks>netstandard2.0;netstandard2.1;net6;net7</TargetFrameworks>
-		<Description>Abbotware Interop Library for Amazon Lambda - Contains helper methods, extension methods, and plugins</Description>
+		<Description>Abbotware Interop Library for Aws Lambda - Contains helper methods, extension methods, and plugins</Description>
 		<PackageTags>Lambda;Aws;Amazon</PackageTags>
 	</PropertyGroup>
 
@@ -14,7 +14,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\Common\Abbotware.Core\Abbotware.Core.csproj" />
 		<ProjectReference Include="..\..\Common\Abbotware.Host\Abbotware.Host.csproj" />
 		<ProjectReference Include="..\Abbotware.Interop.Aws.Sqs\Abbotware.Interop.Aws.Sqs.csproj" />
 	</ItemGroup>
