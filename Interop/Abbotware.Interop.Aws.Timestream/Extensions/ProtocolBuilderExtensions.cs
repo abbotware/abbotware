@@ -1,8 +1,15 @@
-﻿namespace Abbotware.Interop.Aws.Timestream.Protocol
+﻿// -----------------------------------------------------------------------
+// <copyright file="ProtocolBuilderExtensions.cs" company="Abbotware, LLC">
+// Copyright © Abbotware, LLC 2012-2023. All rights reserved
+// </copyright>
+// -----------------------------------------------------------------------
+
+namespace Abbotware.Interop.Aws.Timestream.Protocol
 {
     using System;
     using System.Globalization;
     using System.Linq.Expressions;
+    using System.Runtime.CompilerServices;
     using Amazon.TimestreamWrite;
 
     /// <summary>
@@ -343,7 +350,7 @@
         /// <returns>builder</returns>
         public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, DateTime?>> expression)
         {
-            return builder.AddNullableMeasure(expression, MeasureValueType.TIMESTAMP, x => BuildTimestampFromDateTimeOffset(x));
+            return builder.AddNullableMeasure(expression, MeasureValueType.TIMESTAMP, BuildTimestampFromNullableDateTime);
         }
 
         /// <summary>
@@ -355,32 +362,46 @@
         /// <returns>builder</returns>
         public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, DateTimeOffset?>> expression)
         {
-            return builder.AddNullableMeasure(expression, MeasureValueType.TIMESTAMP, x => BuildTimestampFromDateTimeOffset(x));
+            return builder.AddNullableMeasure(expression, MeasureValueType.TIMESTAMP, BuildTimestampFromNullableDateTimeOffset);
         }
 
-        private static string? BuildTimestampFromDateTime(DateTime? dateTime)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static string? BuildTimestampFromNullableDateTime(DateTime? dateTime)
         {
             if (dateTime is null)
             {
                 return null;
             }
 
-            if (dateTime.Value.Kind == DateTimeKind.Unspecified)
+            return BuildTimestampFromDateTime(dateTime.Value);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static string BuildTimestampFromDateTime(DateTime dateTime)
+        {
+            if (dateTime.Kind == DateTimeKind.Unspecified)
             {
                 throw new InvalidOperationException("Unable to convert to UTC");
             }
 
-            return BuildTimestampFromDateTimeOffset(new(dateTime.Value));
+            return BuildTimestampFromDateTimeOffset(new(dateTime));
         }
 
-        private static string? BuildTimestampFromDateTimeOffset(DateTimeOffset? dateTimeOffset)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static string? BuildTimestampFromNullableDateTimeOffset(DateTimeOffset? dateTimeOffset)
         {
             if (dateTimeOffset is null)
             {
                 return null;
             }
 
-            return dateTimeOffset.Value.ToString(CultureInfo.InvariantCulture);
+            return BuildTimestampFromDateTimeOffset(dateTimeOffset.Value);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static string BuildTimestampFromDateTimeOffset(DateTimeOffset dateTimeOffset)
+        {
+            return dateTimeOffset.ToUnixTimeMilliseconds().ToString(CultureInfo.InvariantCulture);
         }
     }
 }

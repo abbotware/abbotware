@@ -15,6 +15,8 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
     using Abbotware.Interop.Aws.Timestream.Protocol;
     using Abbotware.Interop.Aws.Timestream.Protocol.Plugins;
     using Abbotware.Utility.UnitTest.Using.NUnit;
+    using global::Amazon.TimestreamWrite.Model;
+    using Newtonsoft.Json.Linq;
     using NUnit.Framework;
 
     [TestFixture]
@@ -29,7 +31,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
             var pb = new ProtocolBuilder<SingleMeasureTest>();
             pb.AddMeasure(x => x.Name);
 
-            Assert.Throws<InvalidOperationException>(() => pb.AddMeasure(x => x.Name));
+            Assert.Throws<ArgumentException>(() => pb.AddMeasure(x => x.Name));
         }
 
         [Test]
@@ -38,7 +40,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
             var pb = new ProtocolBuilder<SingleMeasureTest>();
             pb.AddDimension(x => x.Name);
 
-            Assert.Throws<InvalidOperationException>(() => pb.AddDimension(x => x.Name));
+            Assert.Throws<ArgumentException>(() => pb.AddDimension(x => x.Name));
         }
 
         [Test]
@@ -47,7 +49,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
             var pb = new ProtocolBuilder<SingleMeasureTest>();
             pb.AddMeasure(x => x.Name);
 
-            Assert.Throws<InvalidOperationException>(() => pb.AddDimension(x => x.Name));
+            Assert.Throws<ArgumentException>(() => pb.AddDimension(x => x.Name));
         }
 
         [Test]
@@ -56,13 +58,22 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
             var pb = new ProtocolBuilder<MultiMeasureTestWithTime>();
             pb.AddTime(x => x.Time, TimeUnitType.Milliseconds);
 
-            Assert.Throws<InvalidOperationException>(() => pb.AddTime(x => x.Time, TimeUnitType.Milliseconds));
+            Assert.Throws<ArgumentException>(() => pb.AddTime(x => x.Time, TimeUnitType.Milliseconds));
+        }
+
+        [Test]
+        public void TimestreamBasic_MultiMeasureBuilder_NoMeasureName()
+        {
+            var pb = new ProtocolBuilder<MultiMeasureTestWithTime>();
+            pb.AddMeasure(x => x.ValueA);
+
+            Assert.Throws<ArgumentException>(() => pb.AddMeasure(x => x.ValueB));
         }
 
         [Test]
         public void TimestreamBasic_MultiMeasureBuilder()
         {
-            var pb = new ProtocolBuilder<MultiMeasureTestWithTime>();
+            var pb = new ProtocolBuilder<MultiMeasureTestWithTime>("metrics");
             pb.AddDimension(x => x.Name);
             pb.AddDimension(x => x.Company);
             pb.AddMeasure(x => x.ValueA);
@@ -75,16 +86,37 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
             pb.AddMeasure(x => x.ValueH);
             pb.AddTime(x => x.Time, TimeUnitType.Milliseconds);
 
-            var options = new TimestreamOptions() {Database = "db", Table = "table" };
-
+            var options = new TimestreamOptions() { Database = "db", Table = "table" };
             var protocol = pb.Build();
 
-            var m = new MultiMeasureTestWithTime { Name = "asdf", Company = "asdfads", ValueA = 123, ValueB = 345, ValueC = 789, ValueD = "testing", ValueE = 123.23, ValueF = 12.345m, ValueG = DateTime.UtcNow, ValueH = false, Time = DateTime.UtcNow };
+            var record_time = DateTime.UtcNow;
+            var write_time = DateTimeOffset.UtcNow.AddDays(-1);
+
+            var m = new MultiMeasureTestWithTime { Name = "asdf", Company = "asdfads", ValueA = 123, ValueB = 345, ValueC = 789, ValueD = "testing", ValueE = 123.23, ValueF = 12.345m, ValueG = record_time, ValueH = false, Time = write_time };
 
             var encoded = protocol.Encode(m, options);
 
+            // Check Dimensions
             Assert.That(encoded.Records.Single().Dimensions.Single(x => x.Name == "Name").Value, Is.EqualTo(m.Name));
             Assert.That(encoded.Records.Single().Dimensions.Single(x => x.Name == "Company").Value, Is.EqualTo(m.Company));
+
+            // Check Measures
+            Assert.That(encoded.CommonAttributes.MeasureName, Is.EqualTo("metrics"));
+            Assert.That(encoded.Records.Single().MeasureValueType.Value, Is.EqualTo("MULTI"));
+
+            Assert.That(encoded.Records.Single().MeasureValues.Single(x => x.Name == "ValueA").Value, Is.EqualTo("123"));
+            Assert.That(encoded.Records.Single().MeasureValues.Single(x => x.Name == "ValueB").Value, Is.EqualTo("345"));
+            Assert.That(encoded.Records.Single().MeasureValues.Single(x => x.Name == "ValueC").Value, Is.EqualTo("789"));
+            Assert.That(encoded.Records.Single().MeasureValues.Single(x => x.Name == "ValueD").Value, Is.EqualTo("testing"));
+            Assert.That(encoded.Records.Single().MeasureValues.Single(x => x.Name == "ValueE").Value, Is.EqualTo("123.23"));
+            Assert.That(encoded.Records.Single().MeasureValues.Single(x => x.Name == "ValueF").Value, Is.EqualTo("12.345"));
+            var gValue = new DateTimeOffset(record_time).ToUnixTimeMilliseconds().ToString();
+            Assert.That(encoded.Records.Single().MeasureValues.Single(x => x.Name == "ValueG").Value, Is.EqualTo(gValue));
+            Assert.That(encoded.Records.Single().MeasureValues.Single(x => x.Name == "ValueH").Value, Is.EqualTo("False"));
+
+            // Check Time
+            var tValue = write_time.ToUnixTimeMilliseconds().ToString();
+            Assert.That(encoded.Records.Single().Time, Is.EqualTo(tValue));
         }
 
         public class SingleMeasureTest

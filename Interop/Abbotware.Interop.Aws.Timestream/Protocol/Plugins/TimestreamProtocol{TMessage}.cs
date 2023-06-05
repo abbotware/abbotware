@@ -10,6 +10,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
     using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
+    using Abbotware.Core.Extensions;
     using Abbotware.Core.Logging;
     using Abbotware.Core.Objects;
     using Abbotware.Interop.Aws.Timestream;
@@ -235,6 +236,8 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
                 d.DimensionValueType = DimensionValueType.VARCHAR;
                 d.Name = dimension.Key;
                 d.Value = dimension.Value.Lookup(message);
+
+                l.Add(d);
             }
 
             return l;
@@ -251,10 +254,12 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
 
             foreach (var measure in this.measures)
             {
-                var d = new MeasureValue();
-                d.Type = MeasureValueType.VARCHAR;
-                d.Name = measure.Key;
-                d.Value = measure.Value.Lookup(message);
+                var mv = new MeasureValue();
+                mv.Type = measure.Value.Type;
+                mv.Name = measure.Key;
+                mv.Value = measure.Value.Lookup(message);
+
+                l.Add(mv);
             }
 
             return l;
@@ -278,7 +283,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
         /// <returns>Common Attributes record</returns>
         protected virtual Record? OnCreateCommonAttributes(IReadOnlyCollection<Record> records)
         {
-            if (records.Count > 1)
+            if (this.measureName.IsNotBlank())
             {
                 return new Record
                 {

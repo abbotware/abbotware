@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="TimestreamProtocol.cs" company="Abbotware, LLC">
+// <copyright file="TimestreamTypes.cs" company="Abbotware, LLC">
 // Copyright © Abbotware, LLC 2012-2023. All rights reserved
 // </copyright>
 // -----------------------------------------------------------------------
@@ -10,7 +10,10 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
     using System.Collections.Generic;
     using Amazon.TimestreamWrite;
 
-    public static class TimestreamProtocol
+    /// <summary>
+    /// Timestream Type info
+    /// </summary>
+    public static class TimestreamTypes
     {
         /// <summary>
         /// map of C# type to timestream measure value type

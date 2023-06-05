@@ -44,7 +44,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
 
                 if (d is not null)
                 {
-                    if (!TimestreamProtocol.DimensionTypes.TryGetValue(type, out var dvt))
+                    if (!TimestreamTypes.DimensionTypes.TryGetValue(type, out var dvt))
                     {
                         throw new NotSupportedException($"dimension type:{type.FullName} not supported");
                     }
@@ -54,14 +54,14 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
                         throw new InvalidOperationException($"{t.FullName}.{p.Name} is not a string");
                     }
 
-                    ds.Add(p.Name, new(dvt, x => (string)p.GetValue(x)));
+                    ds.Add(p.Name, new(dvt, x => (string)p.GetValue(x)!));
                 }
 
                 var m = ReflectionHelper.SingleOrDefaultAttribute<MeasureValueAttribute>(p);
 
                 if (m is not null)
                 {
-                    if (!TimestreamProtocol.MeasureTypes.TryGetValue(type, out var mvt))
+                    if (!TimestreamTypes.MeasureTypes.TryGetValue(type, out var mvt))
                     {
                         throw new NotSupportedException($"measure value type:{type.FullName} not supported");
                     }
@@ -85,7 +85,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
                         throw new InvalidOperationException($"{t.FullName}.{p.Name} is not a datetimeoffset");
                     }
 
-                    time = new(tm.TimeUnit, x => (DateTimeOffset)p.GetValue(x));
+                    time = new(tm.TimeUnit, x => (DateTimeOffset)p.GetValue(x)!);
                 }
             }
 

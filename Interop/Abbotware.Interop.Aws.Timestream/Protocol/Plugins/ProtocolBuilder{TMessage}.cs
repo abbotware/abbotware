@@ -81,7 +81,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
             {
                 if (this.MeasureName.IsBlank())
                 {
-                    throw new InvalidOperationException($"{this.type.FullName} has multiple measures - need to use ProtocolBuilder(string meaureName ... ) ");
+                    throw new ArgumentException($"{this.type.FullName} has multiple measures - need to use ProtocolBuilder(string meaureName ... ) ");
                 }
             }
 
@@ -99,7 +99,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
             {
                 if (this.MeasureName.IsBlank())
                 {
-                    throw new InvalidOperationException($"{this.type.FullName} has multiple measures - need to use ProtocolBuilder(string meaureName ... ) ");
+                    throw new ArgumentException($"{this.type.FullName} has multiple measures - need to use ProtocolBuilder(string meaureName ... ) ");
                 }
             }
 
@@ -115,7 +115,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
         {
             if (this.time is not null)
             {
-                throw new InvalidOperationException($"{this.type.FullName} has more than one Time value");
+                throw new ArgumentException($"{this.type.FullName} has more than one Time value");
             }
 
             var (_, compiled) = this.GetProperty(expression);
@@ -141,7 +141,25 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
         /// <returns>configured protocol</returns>
         public ITimestreamProtocol<TMessage> Build(ILogger logger)
         {
-            return new TimestreamProtocol<TMessage>(dimensions, measures, logger);
+            if (this.measures.Count > 1)
+            {
+
+                if (this.time is not null)
+                {
+                    return new TimestreamProtocol<TMessage>(this.dimensions, this.measures, this.time, this.MeasureName, logger);
+                }
+
+                return new TimestreamProtocol<TMessage>(this.dimensions, this.measures, this.MeasureName, logger);
+            }
+            else
+            {
+                if (this.time is not null)
+                {
+                    return new TimestreamProtocol<TMessage>(this.dimensions, this.measures, this.time, logger);
+                }
+
+                return new TimestreamProtocol<TMessage>(this.dimensions, this.measures, logger);
+            }
         }
 
         private (PropertyInfo PropertyInfo, Func<TMessage, TField> Compiled) GetProperty<TField>(Expression<Func<TMessage, TField>> expression)
