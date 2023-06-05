@@ -232,10 +232,12 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
 
             foreach (var dimension in this.dimensions)
             {
-                var d = new Dimension();
-                d.DimensionValueType = DimensionValueType.VARCHAR;
-                d.Name = dimension.Key;
-                d.Value = dimension.Value.Lookup(message);
+                var d = new Dimension
+                {
+                    DimensionValueType = DimensionValueType.VARCHAR,
+                    Name = dimension.Key,
+                    Value = dimension.Value.Lookup(message),
+                };
 
                 l.Add(d);
             }
@@ -254,10 +256,12 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
 
             foreach (var measure in this.measures)
             {
-                var mv = new MeasureValue();
-                mv.Type = measure.Value.Type;
-                mv.Name = measure.Key;
-                mv.Value = measure.Value.Lookup(message);
+                var mv = new MeasureValue
+                {
+                    Type = measure.Value.Type,
+                    Name = measure.Key,
+                    Value = measure.Value.Lookup(message),
+                };
 
                 l.Add(mv);
             }

@@ -1,4 +1,10 @@
-﻿namespace Abbotware.Core.Helpers
+﻿// -----------------------------------------------------------------------
+// <copyright file="TypeDescriptorHelper.cs" company="Abbotware, LLC">
+// Copyright © Abbotware, LLC 2012-2023. All rights reserved
+// </copyright>
+// -----------------------------------------------------------------------
+
+namespace Abbotware.Core.Helpers
 {
     using System;
     using System.Collections.Concurrent;

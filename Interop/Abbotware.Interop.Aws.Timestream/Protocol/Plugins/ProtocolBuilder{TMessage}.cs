@@ -143,7 +143,6 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
         {
             if (this.measures.Count > 1)
             {
-
                 if (this.time is not null)
                 {
                     return new TimestreamProtocol<TMessage>(this.dimensions, this.measures, this.time, this.MeasureName, logger);
