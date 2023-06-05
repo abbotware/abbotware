@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------
 // <author>Anthony Abate</author>
 
-namespace Abbotware.Interop.Aws.Plugins
+namespace Abbotware.Interop.Aws.CloudWatch
 {
     using System.Globalization;
     using System.IO;

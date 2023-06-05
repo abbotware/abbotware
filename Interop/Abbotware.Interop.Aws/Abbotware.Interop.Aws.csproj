@@ -7,9 +7,11 @@
 		<PackageTags>Aws;Amazon;CloudWatch</PackageTags>
 	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Serilog.Sinks.AwsCloudWatch" Version="4.0.171" />
-  </ItemGroup>
+	<ItemGroup>
+	  <PackageReference Include="AWSSDK.Core" Version="3.7.107.1" />
+	</ItemGroup>
+
+
 
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Abbotware.Core\Abbotware.Core.csproj" />
