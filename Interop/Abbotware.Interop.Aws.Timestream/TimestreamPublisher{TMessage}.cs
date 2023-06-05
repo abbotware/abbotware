@@ -63,10 +63,10 @@ namespace Abbotware.Interop.Aws.Timestream
         /// <returns>publish status</returns>
         public async ValueTask<PublishStatus> WriteRecordsAsync(TMessage[] messages, CancellationToken ct)
         {
-            var request = this.protocol.Encode(messages);
+            var request = this.protocol.Encode(messages, this.Configuration);
 
             var result = await this.Client.WriteRecordsAsync(request, ct)
-            .ConfigureAwait(false);
+                .ConfigureAwait(false);
 
             if (result.HttpStatusCode != System.Net.HttpStatusCode.OK)
             {

@@ -8,6 +8,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
 {
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
     using Abbotware.Core.Diagnostics;
     using Abbotware.Core.Helpers;
@@ -68,7 +69,18 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
 
                     var c = TypeDescriptorHelper.GetConverter(type);
 
-                    ms.Add(p.Name, new(mvt, x => c.ConvertToString(p.GetValue(x))));
+                    if (type == typeof(DateTime))
+                    {
+                        ms.Add(p.Name, new(mvt, x => new DateTimeOffset((DateTime)p.GetValue(x)).ToUnixTimeMilliseconds().ToString(CultureInfo.InvariantCulture)));
+                    }
+                    else if (type == typeof(DateTimeOffset))
+                    {
+                        ms.Add(p.Name, new(mvt, x => ((DateTimeOffset)p.GetValue(x)).ToUnixTimeMilliseconds().ToString(CultureInfo.InvariantCulture)));
+                    }
+                    else
+                    {
+                        ms.Add(p.Name, new(mvt, x => c.ConvertToString(p.GetValue(x))));
+                    }
                 }
 
                 var tm = ReflectionHelper.SingleOrDefaultAttribute<TimeAttribute>(p);
