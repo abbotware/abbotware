@@ -20,6 +20,16 @@ namespace Abbotware.Interop.Aws.Timestream
         /// <summary>
         /// Initializes a new instance of the <see cref="PocoPublisher{TMessage}"/> class.
         /// </summary>
+        /// <param name="options">options</param>
+        /// <param name="logger">injected logger</param>
+        public PocoPublisher(TimestreamOptions options, ILogger logger)
+            : base(new AmazonTimestreamWriteClient(), options, PocoProtocol.Build<TMessage>(logger), logger)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PocoPublisher{TMessage}"/> class.
+        /// </summary>
         /// <param name="client">client </param>
         /// <param name="options">options</param>
         /// <param name="logger">injected logger</param>

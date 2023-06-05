@@ -1,10 +1,10 @@
 ﻿# ﻿Abbotware.Interop.Aws.Timestream
 
-POCO based publisher for AWS Timestream that supports single and multi-value measures
+C# Fluent and Attribute based publishers for AWS Timestream that supports single and multi-value based off POCOs
 
-## POCO Attributes
+## Attributes
 
-attributes are used to define dimensions, measures, and time fields
+Attributes can be are used to define dimensions, measures, and time fields.
 
 ```c#
 [MeasureName("Data")]
@@ -14,7 +14,7 @@ public class Poco
     public string PropertyA { get; set; }
 
     [Dimension]
-    public string PropertyAB { get; set; }
+    public string PropertyB { get; set; }
 
     [MeasureValue]
     public int? ValueA { get; set; }
@@ -34,18 +34,68 @@ public class Poco
 ```
 
 
-## Publisher 
+### Poco Publisher Example 
 
 ```c#
-// 1. configure
-var options = new TimestreamOptions( ... );
+// create write options for target database / table
+var options = new TimestreamOptions() { Database = "database", Table = "table" };
             
-// 2. create
-using var c = new PocoTimestreamPublisher<MultiMeasureTest>(options, ... );
+// create publisher with options + logger
+using var c = new PocoPublisher<MultiMeasureTest>(options, NullLogger.Instance);
 
-// 3. publish
-
+// create message
 var poco = new Poco() { ... }
+
+// publish
+var p = await c.PublishAsync(poco, ct);
+```
+
+
+## Fluent API
+
+Fluent API require a little more setup, but can be used on objects you have no control over
+
+```c#
+public class Poco
+{
+    public string PropertyA { get; set; }
+    public string PropertyB { get; set; }
+    public int? ValueA { get; set; }
+    public string ValueB { get; set; }
+    public decimal? ValueC { get; set; }
+    public bool? ValueD { get; set; }
+    public DateTimeOffset? Time { get; set; }
+}
+```
+
+### Define Protocol via Protocol Builder
+```c#
+// supply name for multi measure name
+var pb = new ProtocolBuilder<Poco>("metrics");
+    pb.AddDimension(x => x.PropertyA);
+    pb.AddDimension(x => x.PropertyB);
+    pb.AddMeasure(x => x.ValueA);
+    pb.AddMeasure(x => x.ValueB);
+    pb.AddMeasure(x => x.ValueC);
+    pb.AddMeasure(x => x.ValueD);
+    pb.AddTime(x => x.Time, TimeUnitType.Milliseconds);
+
+var protocol = pb.Build();
+```
+
+### Create Publisher
+
+```c#      
+// create write options for target database / table
+var options = new TimestreamOptions() { Database = "database", Table = "table" };
+
+// create publisher with options + protocol + logger
+using var p = new TimestreamPublisher<SingleMeasureTest>(options, protocol, NullLogger.Instance);
+
+// create message
+var poco = new Poco() { ... }
+
+// publish
 var p = await c.PublishAsync(poco, ct);
 ```
 
