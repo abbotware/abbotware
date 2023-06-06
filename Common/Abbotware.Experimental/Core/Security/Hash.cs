@@ -74,20 +74,16 @@ namespace Abbotware.Core.Security
                 case HashAlgorithm.Sha1:
                     {
 #pragma warning disable CA5350 // Do Not Use Weak Cryptographic Algorithms
-                        using var sha1 = SHA1.Create();
+                        this.data = SHA1.HashData(data);
 #pragma warning restore CA5350 // Do Not Use Weak Cryptographic Algorithms
-
-                        this.data = sha1.ComputeHash(data);
                         break;
                     }
 
                 case HashAlgorithm.MD5:
                     {
 #pragma warning disable CA5351 // Do Not Use Broken Cryptographic Algorithms
-                        using var md5 = MD5.Create();
+                        this.data = MD5.HashData(data);
 #pragma warning restore CA5351 // Do Not Use Broken Cryptographic Algorithms
-
-                        this.data = md5.ComputeHash(data);
                         break;
                     }
 
@@ -130,12 +126,7 @@ namespace Abbotware.Core.Security
             {
                 case HashAlgorithmWithKey.HmacSha256:
                     {
-                        using var h = HMAC.Create("System.Security.Cryptography.HMACSHA256")!;
-
-                        h.Key = key;
-
-                        this.data = h.ComputeHash(data);
-
+                        this.data = HMACSHA256.HashData(key, data);
                         break;
                     }
 

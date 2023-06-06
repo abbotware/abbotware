@@ -53,7 +53,7 @@ namespace Abbotware.Core.Extensions
             using var bufferedStream = new BufferedStream(responseStream, 1024 * 16);
             using var reader = new StreamReader(bufferedStream);
 
-            return await reader.ReadToEndAsync().ConfigureAwait(false);
+            return await reader.ReadToEndAsync(ct).ConfigureAwait(false);
         }
 
         /// <summary>
