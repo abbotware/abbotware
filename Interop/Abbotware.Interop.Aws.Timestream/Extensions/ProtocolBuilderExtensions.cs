@@ -50,6 +50,43 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
             return builder.AddNullableDimension(expression, o);
         }
 
+
+
+
+        /// <summary>
+        /// Adds a Dimension Measure
+        /// </summary>
+        /// <typeparam name="TMessage">message types</typeparam>
+        /// <typeparam name="TProperty">property type</typeparam>
+        /// <param name="builder">extended builder</param>
+        /// <param name="expression">property accessor expression</param>
+        /// <param name="configure">configure callback</param>
+        /// <returns>builder</returns>
+        public static IProtocolBuilder<TMessage> AddDimension<TMessage, TProperty>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, TProperty>> expression, Action<DimensionValueBuilderOptions<TMessage, TProperty>>? configure = null)
+        {
+            var o = new DimensionValueBuilderOptions<TMessage, TProperty>(DimensionValueType.VARCHAR, x => x.ToString());
+            configure?.Invoke(o);
+
+            return builder.AddDimension(expression, o);
+        }
+
+        /// <summary>
+        /// Adds a Nullable Dimension Measure
+        /// </summary>
+        /// <typeparam name="TMessage">message types</typeparam>
+        /// <typeparam name="TProperty">property type</typeparam>
+        /// <param name="builder">extended builder</param>
+        /// <param name="expression">property accessor expression</param>
+        /// <param name="configure">configure callback</param>
+        /// <returns>builder</returns>
+        public static IProtocolBuilder<TMessage> AddNullableDimension<TMessage, TProperty>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, TProperty?>> expression, Action<NullableDimensionValueBuilderOptions<TMessage, TProperty?>>? configure = null)
+        {
+            var o = new NullableDimensionValueBuilderOptions<TMessage, TProperty?>(DimensionValueType.VARCHAR, x => x?.ToString());
+            configure?.Invoke(o);
+
+            return builder.AddNullableDimension(expression, o);
+        }
+
         /// <summary>
         /// Adds a VARCHAR Measure
         /// </summary>

@@ -83,9 +83,10 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
         {
             var pb = new ProtocolBuilder<MultiMeasureTestWithTime>("metrics");
             pb.AddDimension(x => x.Name);
-            pb.AddDimension(x => x.Company);
+            pb.AddDimension(x => x.Company, x => x.Converter = y => y);
             pb.AddNullableDimension(x => x.Optional);
             pb.AddNullableDimension(x => x.SetOptional);
+            pb.AddDimension(x => x.IdDimension, x => x.Converter = y => y.ToString());
             pb.AddMeasure(x => x.ValueA);
             pb.AddMeasure(x => x.ValueB);
             pb.AddMeasure(x => x.ValueC);
@@ -189,6 +190,9 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
 
             [Dimension]
             public string? SetOptional { get; set; }
+
+            [Dimension]
+            public long IdDimension { get; set; }
 
             [MeasureValue]
             public int ValueA { get; set; }
