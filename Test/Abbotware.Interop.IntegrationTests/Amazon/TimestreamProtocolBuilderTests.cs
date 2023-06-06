@@ -16,7 +16,6 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
     using Abbotware.Interop.Aws.Timestream.Protocol.Plugins;
     using Abbotware.Utility.UnitTest.Using.NUnit;
     using global::Amazon.TimestreamWrite.Model;
-    using Newtonsoft.Json.Linq;
     using NUnit.Framework;
 
     [TestFixture]
@@ -32,6 +31,15 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
             pb.AddMeasure(x => x.Name);
 
             Assert.Throws<ArgumentException>(() => pb.AddMeasure(x => x.Name));
+        }
+
+        [Test]
+        public void TimestreamBasic_AddMeasureTwice_Configure()
+        {
+            var pb = new ProtocolBuilder<SingleMeasureTest>();
+            pb.AddMeasure(x => x.Name);
+
+            Assert.Throws<ArgumentException>(() => pb.AddMeasure(x => x.Value, x => x.Name = "Name"));
         }
 
         [Test]
@@ -76,6 +84,8 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
             var pb = new ProtocolBuilder<MultiMeasureTestWithTime>("metrics");
             pb.AddDimension(x => x.Name);
             pb.AddDimension(x => x.Company);
+            pb.AddNullableDimension(x => x.Optional);
+            pb.AddNullableDimension(x => x.SetOptional);
             pb.AddMeasure(x => x.ValueA);
             pb.AddMeasure(x => x.ValueB);
             pb.AddMeasure(x => x.ValueC);
@@ -92,13 +102,16 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
             var record_time = DateTime.UtcNow;
             var write_time = DateTimeOffset.UtcNow.AddDays(-1);
 
-            var m = new MultiMeasureTestWithTime { Name = "asdf", Company = "asdfads", ValueA = 123, ValueB = 345, ValueC = 789, ValueD = "testing", ValueE = 123.23, ValueF = 12.345m, ValueG = record_time, ValueH = false, Time = write_time };
+            var m = new MultiMeasureTestWithTime { Name = "asdf", Company = "asdfads", SetOptional = "SetOptional",  ValueA = 123, ValueB = 345, ValueC = 789, ValueD = "testing", ValueE = 123.23, ValueF = 12.345m, ValueG = record_time, ValueH = false, Time = write_time };
 
             var encoded = protocol.Encode(m, options);
 
             // Check Dimensions
             Assert.That(encoded.Records.Single().Dimensions.Single(x => x.Name == "Name").Value, Is.EqualTo(m.Name));
             Assert.That(encoded.Records.Single().Dimensions.Single(x => x.Name == "Company").Value, Is.EqualTo(m.Company));
+            Assert.That(encoded.Records.Single().Dimensions.SingleOrDefault(x => x.Name == "Optional"), Is.Null);
+            Assert.That(encoded.Records.Single().Dimensions.SingleOrDefault(x => x.Name == "SetOptional"), Is.Not.Null);
+            Assert.That(encoded.Records.Single().Dimensions.Single(x => x.Name == "SetOptional").Value, Is.EqualTo(m.SetOptional));
 
             // Check Measures
             Assert.That(encoded.CommonAttributes.MeasureName, Is.EqualTo("metrics"));
@@ -170,6 +183,12 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
 
             [Dimension]
             public string Company { get; set; }
+
+            [Dimension]
+            public string? Optional { get; set; }
+
+            [Dimension]
+            public string? SetOptional { get; set; }
 
             [MeasureValue]
             public int ValueA { get; set; }

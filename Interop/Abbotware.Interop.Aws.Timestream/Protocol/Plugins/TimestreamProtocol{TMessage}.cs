@@ -232,12 +232,12 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
 
             foreach (var dimension in this.dimensions)
             {
-                var d = new Dimension
+                var d = dimension.Value.Create(message, dimension.Key);
+
+                if (d is null)
                 {
-                    DimensionValueType = DimensionValueType.VARCHAR,
-                    Name = dimension.Key,
-                    Value = dimension.Value.Lookup(message),
-                };
+                    continue;
+                }
 
                 l.Add(d);
             }
@@ -256,14 +256,14 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
 
             foreach (var measure in this.measures)
             {
-                var mv = new MeasureValue
-                {
-                    Type = measure.Value.Type,
-                    Name = measure.Key,
-                    Value = measure.Value.Lookup(message),
-                };
+                var m = measure.Value.Create(message, measure.Key);
 
-                l.Add(mv);
+                if (m is null)
+                {
+                    continue;
+                }
+
+                l.Add(m);
             }
 
             return l;

@@ -8,6 +8,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
 {
     using System;
     using System.Linq.Expressions;
+    using Abbotware.Interop.Aws.Timestream.Protocol.Builder;
     using Amazon.TimestreamWrite;
 
     /// <summary>
@@ -17,41 +18,40 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
     public interface IProtocolBuilder<TMessage>
     {
         /// <summary>
-        /// Adds a VARCHAR Dimension
-        /// </summary>
-        /// <param name="expression">propety accessor expression</param>
-        /// <returns>builder</returns>
-        public IProtocolBuilder<TMessage> AddDimension(Expression<Func<TMessage, string>> expression);
-
-        /// <summary>
         /// Adds a Dimension
         /// </summary>
         /// <typeparam name="TProperty">property type</typeparam>
         /// <param name="expression">propety accessor expression</param>
-        /// <param name="type">dimension type</param>
-        /// <param name="converter">conversion function</param>
+        /// <param name="options">builder options</param>
         /// <returns>builder</returns>
-        public IProtocolBuilder<TMessage> AddDimension<TProperty>(Expression<Func<TMessage, TProperty>> expression, DimensionValueType type, Func<TProperty, string> converter);
+        public IProtocolBuilder<TMessage> AddDimension<TProperty>(Expression<Func<TMessage, TProperty>> expression, DimensionValueBuilderOptions<TMessage, TProperty> options);
+
+        /// <summary>
+        /// Adds a Nullable Dimension
+        /// </summary>
+        /// <typeparam name="TProperty">property type</typeparam>
+        /// <param name="expression">propety accessor expression</param>
+        /// <param name="options">builder options</param>
+        /// <returns>builder</returns>
+        public IProtocolBuilder<TMessage> AddNullableDimension<TProperty>(Expression<Func<TMessage, TProperty?>> expression, NullableDimensionValueBuilderOptions<TMessage, TProperty?> options);
 
         /// <summary>
         /// Adds a Measure
         /// </summary>
         /// <typeparam name="TProperty">property type</typeparam>
         /// <param name="expression">propety accessor expression</param>
-        /// <param name="type">measure type</param>
-        /// <param name="converter">conversion function</param>
+        /// <param name="options">builder options</param>
         /// <returns>builder</returns>
-        public IProtocolBuilder<TMessage> AddMeasure<TProperty>(Expression<Func<TMessage, TProperty>> expression, MeasureValueType type, Func<TProperty, string> converter);
+        public IProtocolBuilder<TMessage> AddMeasure<TProperty>(Expression<Func<TMessage, TProperty>> expression, MeasureValueBuilderOptions<TMessage, TProperty> options);
 
         /// <summary>
         /// Adds a Nullable Measure
         /// </summary>
         /// <typeparam name="TProperty">property type</typeparam>
         /// <param name="expression">propety accessor expression</param>
-        /// <param name="type">measure type</param>
-        /// <param name="converter">conversion function</param>
+        /// <param name="options">builder options</param>
         /// <returns>builder</returns>
-        public IProtocolBuilder<TMessage> AddNullableMeasure<TProperty>(Expression<Func<TMessage, TProperty?>> expression, MeasureValueType type, Func<TProperty?, string?> converter);
+        public IProtocolBuilder<TMessage> AddNullableMeasure<TProperty>(Expression<Func<TMessage, TProperty?>> expression, NullableMeasureValueBuilderOptions<TMessage, TProperty?> options);
 
         /// <summary>
         /// Adds Time
@@ -60,5 +60,15 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// <param name="timeUnitType">time unit type</param>
         /// <returns>builder</returns>
         public IProtocolBuilder<TMessage> AddTime(Expression<Func<TMessage, DateTimeOffset>> expression, TimeUnitType timeUnitType);
+
+        /// <summary>
+        /// Adds Time
+        /// </summary>
+        /// <typeparam name="TProperty">property type</typeparam>
+        /// <param name="expression">propety accessor expression</param>
+        /// <param name="timeUnitType">time unit type</param>
+        /// <param name="converter">conversion function</param>
+        /// <returns>builder</returns>
+        public IProtocolBuilder<TMessage> AddTime<TProperty>(Expression<Func<TMessage, TProperty>> expression, TimeUnitType timeUnitType, Func<TProperty, DateTimeOffset> converter);
     }
 }

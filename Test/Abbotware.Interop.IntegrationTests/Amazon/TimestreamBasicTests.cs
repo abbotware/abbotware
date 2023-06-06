@@ -16,7 +16,6 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
     using Abbotware.Interop.Aws.Timestream.Configuration;
     using Abbotware.Interop.Microsoft;
     using Abbotware.Utility.UnitTest.Using.NUnit;
-    using global::Amazon.TimestreamWrite;
     using NUnit.Framework;
 
     [TestFixture]
@@ -83,7 +82,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
             [Dimension]
             public string Name { get; set; }
 
-            [Dimension]
+            [Dimension(Name = "Company2")]
             public string Company { get; set; }
 
             [MeasureValue]

@@ -11,8 +11,6 @@
 	  <PackageReference Include="AWSSDK.Core" Version="3.7.107.1" />
 	</ItemGroup>
 
-
-
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Abbotware.Core\Abbotware.Core.csproj" />
   </ItemGroup>

@@ -14,5 +14,9 @@ namespace Abbotware.Interop.Aws.Timestream.Attributes
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
     public sealed class MeasureValueAttribute : Attribute
     {
+        /// <summary>
+        /// Gets or sets the name
+        /// </summary>
+        public string? Name { get; set; }
     }
 }

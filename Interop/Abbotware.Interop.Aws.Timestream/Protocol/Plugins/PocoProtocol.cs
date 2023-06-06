@@ -40,10 +40,10 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
 
             foreach (var p in properties)
             {
-                var d = ReflectionHelper.SingleOrDefaultAttribute<DimensionAttribute>(p);
+                var da = ReflectionHelper.SingleOrDefaultAttribute<DimensionAttribute>(p);
                 var type = ReflectionHelper.GetPropertyDataType(p);
 
-                if (d is not null)
+                if (da is not null)
                 {
                     if (!TimestreamTypes.DimensionTypes.TryGetValue(type, out var dvt))
                     {
@@ -55,12 +55,12 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
                         throw new InvalidOperationException($"{t.FullName}.{p.Name} is not a string");
                     }
 
-                    ds.Add(p.Name, new(dvt, x => (string)p.GetValue(x)!));
+                    ds.Add(da.Name ?? p.Name, new(dvt, x => (string)p.GetValue(x)!, x => false));
                 }
 
-                var m = ReflectionHelper.SingleOrDefaultAttribute<MeasureValueAttribute>(p);
+                var mva = ReflectionHelper.SingleOrDefaultAttribute<MeasureValueAttribute>(p);
 
-                if (m is not null)
+                if (mva is not null)
                 {
                     if (!TimestreamTypes.MeasureTypes.TryGetValue(type, out var mvt))
                     {
@@ -71,21 +71,21 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
 
                     if (type == typeof(DateTime))
                     {
-                        ms.Add(p.Name, new(mvt, x => new DateTimeOffset((DateTime)p.GetValue(x)).ToUnixTimeMilliseconds().ToString(CultureInfo.InvariantCulture)));
+                        ms.Add(mva.Name ?? p.Name, new(mvt, x => new DateTimeOffset((DateTime)p.GetValue(x)).ToUnixTimeMilliseconds().ToString(CultureInfo.InvariantCulture)));
                     }
                     else if (type == typeof(DateTimeOffset))
                     {
-                        ms.Add(p.Name, new(mvt, x => ((DateTimeOffset)p.GetValue(x)).ToUnixTimeMilliseconds().ToString(CultureInfo.InvariantCulture)));
+                        ms.Add(mva.Name ?? p.Name, new(mvt, x => ((DateTimeOffset)p.GetValue(x)).ToUnixTimeMilliseconds().ToString(CultureInfo.InvariantCulture)));
                     }
                     else
                     {
-                        ms.Add(p.Name, new(mvt, x => c.ConvertToString(p.GetValue(x))));
+                        ms.Add(mva.Name ?? p.Name, new(mvt, x => c.ConvertToString(p.GetValue(x))));
                     }
                 }
 
-                var tm = ReflectionHelper.SingleOrDefaultAttribute<TimeAttribute>(p);
+                var ta = ReflectionHelper.SingleOrDefaultAttribute<TimeAttribute>(p);
 
-                if (tm is not null)
+                if (ta is not null)
                 {
                     if (time is not null)
                     {
@@ -97,7 +97,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
                         throw new InvalidOperationException($"{t.FullName}.{p.Name} is not a datetimeoffset");
                     }
 
-                    time = new(tm.TimeUnit, x => (DateTimeOffset)p.GetValue(x)!);
+                    time = new(ta.TimeUnit, x => (DateTimeOffset)p.GetValue(x)!);
                 }
             }
 

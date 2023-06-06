@@ -10,6 +10,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
     using System.Globalization;
     using System.Linq.Expressions;
     using System.Runtime.CompilerServices;
+    using Abbotware.Interop.Aws.Timestream.Protocol.Builder;
     using Amazon.TimestreamWrite;
 
     /// <summary>
@@ -18,15 +19,51 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
     public static class ProtocolBuilderExtensions
     {
         /// <summary>
+        /// Adds a Dimension Measure
+        /// </summary>
+        /// <typeparam name="TMessage">message types</typeparam>
+        /// <param name="builder">extended builder</param>
+        /// <param name="expression">property accessor expression</param>
+        /// <param name="configure">configure callback</param>
+        /// <returns>builder</returns>
+        public static IProtocolBuilder<TMessage> AddDimension<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, string>> expression, Action<DimensionValueBuilderOptions<TMessage, string>>? configure = null)
+        {
+            var o = new DimensionValueBuilderOptions<TMessage, string>(DimensionValueType.VARCHAR, x => x);
+            configure?.Invoke(o);
+
+            return builder.AddDimension(expression, o);
+        }
+
+        /// <summary>
+        /// Adds a Nullable Dimension Measure
+        /// </summary>
+        /// <typeparam name="TMessage">message types</typeparam>
+        /// <param name="builder">extended builder</param>
+        /// <param name="expression">property accessor expression</param>
+        /// <param name="configure">configure callback</param>
+        /// <returns>builder</returns>
+        public static IProtocolBuilder<TMessage> AddNullableDimension<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, string?>> expression, Action<NullableDimensionValueBuilderOptions<TMessage, string?>>? configure = null)
+        {
+            var o = new NullableDimensionValueBuilderOptions<TMessage, string?>(DimensionValueType.VARCHAR, x => x);
+            configure?.Invoke(o);
+
+            return builder.AddNullableDimension(expression, o);
+        }
+
+        /// <summary>
         /// Adds a VARCHAR Measure
         /// </summary>
         /// <typeparam name="TMessage">message types</typeparam>
         /// <param name="builder">extended builder</param>
-        /// <param name="expression">propety accessor expression</param>
+        /// <param name="expression">property accessor expression</param>
+        /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
-        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, string>> expression)
+        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, string>> expression, Action<MeasureValueBuilderOptions<TMessage, string>>? configure = null)
         {
-            return builder.AddMeasure(expression, MeasureValueType.VARCHAR, x => x);
+            var o = new MeasureValueBuilderOptions<TMessage, string>(MeasureValueType.VARCHAR, x => x);
+            configure?.Invoke(o);
+
+            return builder.AddMeasure(expression, o);
         }
 
         /// <summary>
@@ -34,11 +71,15 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// </summary>
         /// <typeparam name="TMessage">message types</typeparam>
         /// <param name="builder">extended builder</param>
-        /// <param name="expression">propety accessor expression</param>
+        /// <param name="expression">property accessor expression</param>
+        /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
-        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, long>> expression)
+        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, long>> expression, Action<MeasureValueBuilderOptions<TMessage, long>>? configure = null)
         {
-            return builder.AddMeasure(expression, MeasureValueType.BIGINT, x => x.ToString(CultureInfo.InvariantCulture));
+            var o = new MeasureValueBuilderOptions<TMessage, long>(MeasureValueType.BIGINT, x => x.ToString(CultureInfo.InvariantCulture));
+            configure?.Invoke(o);
+
+            return builder.AddMeasure(expression, o);
         }
 
         /// <summary>
@@ -46,11 +87,15 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// </summary>
         /// <typeparam name="TMessage">message types</typeparam>
         /// <param name="builder">extended builder</param>
-        /// <param name="expression">propety accessor expression</param>
+        /// <param name="expression">property accessor expression</param>
+        /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
-        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, short>> expression)
+        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, short>> expression, Action<MeasureValueBuilderOptions<TMessage, short>>? configure = null)
         {
-            return builder.AddMeasure(expression, MeasureValueType.BIGINT, x => x.ToString(CultureInfo.InvariantCulture));
+            var o = new MeasureValueBuilderOptions<TMessage, short>(MeasureValueType.BIGINT, x => x.ToString(CultureInfo.InvariantCulture));
+            configure?.Invoke(o);
+
+            return builder.AddMeasure(expression, o);
         }
 
         /// <summary>
@@ -58,11 +103,15 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// </summary>
         /// <typeparam name="TMessage">message types</typeparam>
         /// <param name="builder">extended builder</param>
-        /// <param name="expression">propety accessor expression</param>
+        /// <param name="expression">property accessor expression</param>
+        /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
-        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, int>> expression)
+        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, int>> expression, Action<MeasureValueBuilderOptions<TMessage, int>>? configure = null)
         {
-            return builder.AddMeasure(expression, MeasureValueType.BIGINT, x => x.ToString(CultureInfo.InvariantCulture));
+            var o = new MeasureValueBuilderOptions<TMessage, int>(MeasureValueType.BIGINT, x => x.ToString(CultureInfo.InvariantCulture));
+            configure?.Invoke(o);
+
+            return builder.AddMeasure(expression, o);
         }
 
         /// <summary>
@@ -70,11 +119,15 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// </summary>
         /// <typeparam name="TMessage">message types</typeparam>
         /// <param name="builder">extended builder</param>
-        /// <param name="expression">propety accessor expression</param>
+        /// <param name="expression">property accessor expression</param>
+        /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
-        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, sbyte>> expression)
+        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, sbyte>> expression, Action<MeasureValueBuilderOptions<TMessage, sbyte>>? configure = null)
         {
-            return builder.AddMeasure(expression, MeasureValueType.BIGINT, x => x.ToString(CultureInfo.InvariantCulture));
+            var o = new MeasureValueBuilderOptions<TMessage, sbyte>(MeasureValueType.BIGINT, x => x.ToString(CultureInfo.InvariantCulture));
+            configure?.Invoke(o);
+
+            return builder.AddMeasure(expression, o);
         }
 
         /// <summary>
@@ -82,11 +135,15 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// </summary>
         /// <typeparam name="TMessage">message types</typeparam>
         /// <param name="builder">extended builder</param>
-        /// <param name="expression">propety accessor expression</param>
+        /// <param name="expression">property accessor expression</param>
+        /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
-        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, ulong>> expression)
+        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, ulong>> expression, Action<MeasureValueBuilderOptions<TMessage, ulong>>? configure = null)
         {
-            return builder.AddMeasure(expression, MeasureValueType.BIGINT, x => x.ToString(CultureInfo.InvariantCulture));
+            var o = new MeasureValueBuilderOptions<TMessage, ulong>(MeasureValueType.BIGINT, x => x.ToString(CultureInfo.InvariantCulture));
+            configure?.Invoke(o);
+
+            return builder.AddMeasure(expression, o);
         }
 
         /// <summary>
@@ -94,11 +151,15 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// </summary>
         /// <typeparam name="TMessage">message types</typeparam>
         /// <param name="builder">extended builder</param>
-        /// <param name="expression">propety accessor expression</param>
+        /// <param name="expression">property accessor expression</param>
+        /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
-        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, ushort>> expression)
+        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, ushort>> expression, Action<MeasureValueBuilderOptions<TMessage, ushort>>? configure = null)
         {
-            return builder.AddMeasure(expression, MeasureValueType.BIGINT, x => x.ToString(CultureInfo.InvariantCulture));
+            var o = new MeasureValueBuilderOptions<TMessage, ushort>(MeasureValueType.BIGINT, x => x.ToString(CultureInfo.InvariantCulture));
+            configure?.Invoke(o);
+
+            return builder.AddMeasure(expression, o);
         }
 
         /// <summary>
@@ -106,11 +167,15 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// </summary>
         /// <typeparam name="TMessage">message types</typeparam>
         /// <param name="builder">extended builder</param>
-        /// <param name="expression">propety accessor expression</param>
+        /// <param name="expression">property accessor expression</param>
+        /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
-        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, uint>> expression)
+        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, uint>> expression, Action<MeasureValueBuilderOptions<TMessage, uint>>? configure = null)
         {
-            return builder.AddMeasure(expression, MeasureValueType.BIGINT, x => x.ToString(CultureInfo.InvariantCulture));
+            var o = new MeasureValueBuilderOptions<TMessage, uint>(MeasureValueType.BIGINT, x => x.ToString(CultureInfo.InvariantCulture));
+            configure?.Invoke(o);
+
+            return builder.AddMeasure(expression, o);
         }
 
         /// <summary>
@@ -118,11 +183,15 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// </summary>
         /// <typeparam name="TMessage">message types</typeparam>
         /// <param name="builder">extended builder</param>
-        /// <param name="expression">propety accessor expression</param>
+        /// <param name="expression">property accessor expression</param>
+        /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
-        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, byte>> expression)
+        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, byte>> expression, Action<MeasureValueBuilderOptions<TMessage, byte>>? configure = null)
         {
-            return builder.AddMeasure(expression, MeasureValueType.BIGINT, x => x.ToString(CultureInfo.InvariantCulture));
+            var o = new MeasureValueBuilderOptions<TMessage, byte>(MeasureValueType.BIGINT, x => x.ToString(CultureInfo.InvariantCulture));
+            configure?.Invoke(o);
+
+            return builder.AddMeasure(expression, o);
         }
 
         /// <summary>
@@ -130,11 +199,15 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// </summary>
         /// <typeparam name="TMessage">message types</typeparam>
         /// <param name="builder">extended builder</param>
-        /// <param name="expression">propety accessor expression</param>
+        /// <param name="expression">property accessor expression</param>
+        /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
-        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, bool>> expression)
+        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, bool>> expression, Action<MeasureValueBuilderOptions<TMessage, bool>>? configure = null)
         {
-            return builder.AddMeasure(expression, MeasureValueType.BOOLEAN, x => x.ToString(CultureInfo.InvariantCulture));
+            var o = new MeasureValueBuilderOptions<TMessage, bool>(MeasureValueType.BOOLEAN, x => x.ToString(CultureInfo.InvariantCulture));
+            configure?.Invoke(o);
+
+            return builder.AddMeasure(expression, o);
         }
 
         /// <summary>
@@ -142,11 +215,15 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// </summary>
         /// <typeparam name="TMessage">message types</typeparam>
         /// <param name="builder">extended builder</param>
-        /// <param name="expression">propety accessor expression</param>
+        /// <param name="expression">property accessor expression</param>
+        /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
-        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, double>> expression)
+        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, double>> expression, Action<MeasureValueBuilderOptions<TMessage, double>>? configure = null)
         {
-            return builder.AddMeasure(expression, MeasureValueType.DOUBLE, x => x.ToString(CultureInfo.InvariantCulture));
+            var o = new MeasureValueBuilderOptions<TMessage, double>(MeasureValueType.DOUBLE, x => x.ToString(CultureInfo.InvariantCulture));
+            configure?.Invoke(o);
+
+            return builder.AddMeasure(expression, o);
         }
 
         /// <summary>
@@ -154,11 +231,15 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// </summary>
         /// <typeparam name="TMessage">message types</typeparam>
         /// <param name="builder">extended builder</param>
-        /// <param name="expression">propety accessor expression</param>
+        /// <param name="expression">property accessor expression</param>
+        /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
-        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, float>> expression)
+        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, float>> expression, Action<MeasureValueBuilderOptions<TMessage, float>>? configure = null)
         {
-            return builder.AddMeasure(expression, MeasureValueType.DOUBLE, x => x.ToString(CultureInfo.InvariantCulture));
+            var o = new MeasureValueBuilderOptions<TMessage, float>(MeasureValueType.DOUBLE, x => x.ToString(CultureInfo.InvariantCulture));
+            configure?.Invoke(o);
+
+            return builder.AddMeasure(expression, o);
         }
 
         /// <summary>
@@ -166,35 +247,47 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// </summary>
         /// <typeparam name="TMessage">message types</typeparam>
         /// <param name="builder">extended builder</param>
-        /// <param name="expression">propety accessor expression</param>
+        /// <param name="expression">property accessor expression</param>
+        /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
-        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, decimal>> expression)
+        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, decimal>> expression, Action<MeasureValueBuilderOptions<TMessage, decimal>>? configure = null)
         {
-            return builder.AddMeasure(expression, MeasureValueType.DOUBLE, x => x.ToString(CultureInfo.InvariantCulture));
+            var o = new MeasureValueBuilderOptions<TMessage, decimal>(MeasureValueType.DOUBLE, x => x.ToString(CultureInfo.InvariantCulture));
+            configure?.Invoke(o);
+
+            return builder.AddMeasure(expression, o);
         }
 
         /// <summary>
-        /// Adds a TIMESTAMP (from datetime)
+        /// Adds a TIMESTAMP (from DateTime)
         /// </summary>
         /// <typeparam name="TMessage">message types</typeparam>
         /// <param name="builder">extended builder</param>
-        /// <param name="expression">propety accessor expression</param>
+        /// <param name="expression">property accessor expression</param>
+        /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
-        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, DateTime>> expression)
+        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, DateTime>> expression, Action<MeasureValueBuilderOptions<TMessage, DateTime>>? configure = null)
         {
-            return builder.AddMeasure(expression, MeasureValueType.TIMESTAMP, x => BuildTimestampFromDateTimeOffset(x));
+            var o = new MeasureValueBuilderOptions<TMessage, DateTime>(MeasureValueType.TIMESTAMP, BuildTimestampFromDateTime);
+            configure?.Invoke(o);
+
+            return builder.AddMeasure(expression, o);
         }
 
         /// <summary>
-        /// Adds a TIMESTAMP (from datetimeoffset)
+        /// Adds a TIMESTAMP (from DateTimeOffset)
         /// </summary>
         /// <typeparam name="TMessage">message types</typeparam>
         /// <param name="builder">extended builder</param>
-        /// <param name="expression">propety accessor expression</param>
+        /// <param name="expression">property accessor expression</param>
+        /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
-        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, DateTimeOffset>> expression)
+        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, DateTimeOffset>> expression, Action<MeasureValueBuilderOptions<TMessage, DateTimeOffset>>? configure = null)
         {
-            return builder.AddMeasure(expression, MeasureValueType.TIMESTAMP, x => BuildTimestampFromDateTimeOffset(x));
+            var o = new MeasureValueBuilderOptions<TMessage, DateTimeOffset>(MeasureValueType.TIMESTAMP, BuildTimestampFromDateTimeOffset);
+            configure?.Invoke(o);
+
+            return builder.AddMeasure(expression, o);
         }
 
         /// <summary>
@@ -202,11 +295,15 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// </summary>
         /// <typeparam name="TMessage">message types</typeparam>
         /// <param name="builder">extended builder</param>
-        /// <param name="expression">propety accessor expression</param>
+        /// <param name="expression">property accessor expression</param>
+        /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
-        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, long?>> expression)
+        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, long?>> expression, Action<NullableMeasureValueBuilderOptions<TMessage, long?>>? configure = null)
         {
-            return builder.AddNullableMeasure(expression, MeasureValueType.BIGINT, x => x?.ToString(CultureInfo.InvariantCulture));
+            var o = new NullableMeasureValueBuilderOptions<TMessage, long?>(MeasureValueType.BIGINT, x => x?.ToString(CultureInfo.InvariantCulture));
+            configure?.Invoke(o);
+
+            return builder.AddNullableMeasure(expression, o);
         }
 
         /// <summary>
@@ -214,11 +311,15 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// </summary>
         /// <typeparam name="TMessage">message types</typeparam>
         /// <param name="builder">extended builder</param>
-        /// <param name="expression">propety accessor expression</param>
+        /// <param name="expression">property accessor expression</param>
+        /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
-        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, short?>> expression)
+        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, short?>> expression, Action<NullableMeasureValueBuilderOptions<TMessage, short?>>? configure = null)
         {
-            return builder.AddNullableMeasure(expression, MeasureValueType.BIGINT, x => x?.ToString(CultureInfo.InvariantCulture));
+            var o = new NullableMeasureValueBuilderOptions<TMessage, short?>(MeasureValueType.BIGINT, x => x?.ToString(CultureInfo.InvariantCulture));
+            configure?.Invoke(o);
+
+            return builder.AddNullableMeasure(expression, o);
         }
 
         /// <summary>
@@ -226,11 +327,15 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// </summary>
         /// <typeparam name="TMessage">message types</typeparam>
         /// <param name="builder">extended builder</param>
-        /// <param name="expression">propety accessor expression</param>
+        /// <param name="expression">property accessor expression</param>
+        /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
-        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, int?>> expression)
+        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, int?>> expression, Action<NullableMeasureValueBuilderOptions<TMessage, int?>>? configure = null)
         {
-            return builder.AddNullableMeasure(expression, MeasureValueType.BIGINT, x => x?.ToString(CultureInfo.InvariantCulture));
+            var o = new NullableMeasureValueBuilderOptions<TMessage, int?>(MeasureValueType.BIGINT, x => x?.ToString(CultureInfo.InvariantCulture));
+            configure?.Invoke(o);
+
+            return builder.AddNullableMeasure(expression, o);
         }
 
         /// <summary>
@@ -238,11 +343,15 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// </summary>
         /// <typeparam name="TMessage">message types</typeparam>
         /// <param name="builder">extended builder</param>
-        /// <param name="expression">propety accessor expression</param>
+        /// <param name="expression">property accessor expression</param>
+        /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
-        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, sbyte?>> expression)
+        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, sbyte?>> expression, Action<NullableMeasureValueBuilderOptions<TMessage, sbyte?>>? configure = null)
         {
-            return builder.AddNullableMeasure(expression, MeasureValueType.BIGINT, x => x?.ToString(CultureInfo.InvariantCulture));
+            var o = new NullableMeasureValueBuilderOptions<TMessage, sbyte?>(MeasureValueType.BIGINT, x => x?.ToString(CultureInfo.InvariantCulture));
+            configure?.Invoke(o);
+
+            return builder.AddNullableMeasure(expression, o);
         }
 
         /// <summary>
@@ -250,11 +359,15 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// </summary>
         /// <typeparam name="TMessage">message types</typeparam>
         /// <param name="builder">extended builder</param>
-        /// <param name="expression">propety accessor expression</param>
+        /// <param name="expression">property accessor expression</param>
+        /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
-        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, ulong?>> expression)
+        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, ulong?>> expression, Action<NullableMeasureValueBuilderOptions<TMessage, ulong?>>? configure = null)
         {
-            return builder.AddNullableMeasure(expression, MeasureValueType.BIGINT, x => x?.ToString(CultureInfo.InvariantCulture));
+            var o = new NullableMeasureValueBuilderOptions<TMessage, ulong?>(MeasureValueType.BIGINT, x => x?.ToString(CultureInfo.InvariantCulture));
+            configure?.Invoke(o);
+
+            return builder.AddNullableMeasure(expression, o);
         }
 
         /// <summary>
@@ -262,11 +375,15 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// </summary>
         /// <typeparam name="TMessage">message types</typeparam>
         /// <param name="builder">extended builder</param>
-        /// <param name="expression">propety accessor expression</param>
+        /// <param name="expression">property accessor expression</param>
+        /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
-        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, ushort?>> expression)
+        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, ushort?>> expression, Action<NullableMeasureValueBuilderOptions<TMessage, ushort?>>? configure = null)
         {
-            return builder.AddNullableMeasure(expression, MeasureValueType.BIGINT, x => x?.ToString(CultureInfo.InvariantCulture));
+            var o = new NullableMeasureValueBuilderOptions<TMessage, ushort?>(MeasureValueType.BIGINT, x => x?.ToString(CultureInfo.InvariantCulture));
+            configure?.Invoke(o);
+
+            return builder.AddNullableMeasure(expression, o);
         }
 
         /// <summary>
@@ -274,11 +391,15 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// </summary>
         /// <typeparam name="TMessage">message types</typeparam>
         /// <param name="builder">extended builder</param>
-        /// <param name="expression">propety accessor expression</param>
+        /// <param name="expression">property accessor expression</param>
+        /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
-        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, uint?>> expression)
+        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, uint?>> expression, Action<NullableMeasureValueBuilderOptions<TMessage, uint?>>? configure = null)
         {
-            return builder.AddNullableMeasure(expression, MeasureValueType.BIGINT, x => x?.ToString(CultureInfo.InvariantCulture));
+            var o = new NullableMeasureValueBuilderOptions<TMessage, uint?>(MeasureValueType.BIGINT, x => x?.ToString(CultureInfo.InvariantCulture));
+            configure?.Invoke(o);
+
+            return builder.AddNullableMeasure(expression, o);
         }
 
         /// <summary>
@@ -286,11 +407,15 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// </summary>
         /// <typeparam name="TMessage">message types</typeparam>
         /// <param name="builder">extended builder</param>
-        /// <param name="expression">propety accessor expression</param>
+        /// <param name="expression">property accessor expression</param>
+        /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
-        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, byte?>> expression)
+        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, byte?>> expression, Action<NullableMeasureValueBuilderOptions<TMessage, byte?>>? configure = null)
         {
-            return builder.AddNullableMeasure(expression, MeasureValueType.BIGINT, x => x?.ToString(CultureInfo.InvariantCulture));
+            var o = new NullableMeasureValueBuilderOptions<TMessage, byte?>(MeasureValueType.BIGINT, x => x?.ToString(CultureInfo.InvariantCulture));
+            configure?.Invoke(o);
+
+            return builder.AddNullableMeasure(expression, o);
         }
 
         /// <summary>
@@ -298,11 +423,15 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// </summary>
         /// <typeparam name="TMessage">message types</typeparam>
         /// <param name="builder">extended builder</param>
-        /// <param name="expression">propety accessor expression</param>
+        /// <param name="expression">property accessor expression</param>
+        /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
-        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, bool?>> expression)
+        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, bool?>> expression, Action<NullableMeasureValueBuilderOptions<TMessage, bool?>>? configure = null)
         {
-            return builder.AddNullableMeasure(expression, MeasureValueType.BOOLEAN, x => x?.ToString(CultureInfo.InvariantCulture));
+            var o = new NullableMeasureValueBuilderOptions<TMessage, bool?>(MeasureValueType.BOOLEAN, x => x?.ToString(CultureInfo.InvariantCulture));
+            configure?.Invoke(o);
+
+            return builder.AddNullableMeasure(expression, o);
         }
 
         /// <summary>
@@ -310,11 +439,15 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// </summary>
         /// <typeparam name="TMessage">message types</typeparam>
         /// <param name="builder">extended builder</param>
-        /// <param name="expression">propety accessor expression</param>
+        /// <param name="expression">property accessor expression</param>
+        /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
-        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, double?>> expression)
+        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, double?>> expression, Action<NullableMeasureValueBuilderOptions<TMessage, double?>>? configure = null)
         {
-            return builder.AddNullableMeasure(expression, MeasureValueType.DOUBLE, x => x?.ToString(CultureInfo.InvariantCulture));
+            var o = new NullableMeasureValueBuilderOptions<TMessage, double?>(MeasureValueType.DOUBLE, x => x?.ToString(CultureInfo.InvariantCulture));
+            configure?.Invoke(o);
+
+            return builder.AddNullableMeasure(expression, o);
         }
 
         /// <summary>
@@ -322,11 +455,15 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// </summary>
         /// <typeparam name="TMessage">message types</typeparam>
         /// <param name="builder">extended builder</param>
-        /// <param name="expression">propety accessor expression</param>
+        /// <param name="expression">property accessor expression</param>
+        /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
-        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, float?>> expression)
+        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, float?>> expression, Action<NullableMeasureValueBuilderOptions<TMessage, float?>>? configure = null)
         {
-            return builder.AddNullableMeasure(expression, MeasureValueType.DOUBLE, x => x?.ToString(CultureInfo.InvariantCulture));
+            var o = new NullableMeasureValueBuilderOptions<TMessage, float?>(MeasureValueType.DOUBLE, x => x?.ToString(CultureInfo.InvariantCulture));
+            configure?.Invoke(o);
+
+            return builder.AddNullableMeasure(expression, o);
         }
 
         /// <summary>
@@ -334,35 +471,47 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// </summary>
         /// <typeparam name="TMessage">message types</typeparam>
         /// <param name="builder">extended builder</param>
-        /// <param name="expression">propety accessor expression</param>
+        /// <param name="expression">property accessor expression</param>
+        /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
-        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, decimal?>> expression)
+        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, decimal?>> expression, Action<NullableMeasureValueBuilderOptions<TMessage, decimal?>>? configure = null)
         {
-            return builder.AddNullableMeasure(expression, MeasureValueType.DOUBLE, x => x?.ToString(CultureInfo.InvariantCulture));
+            var o = new NullableMeasureValueBuilderOptions<TMessage, decimal?>(MeasureValueType.DOUBLE, x => x?.ToString(CultureInfo.InvariantCulture));
+            configure?.Invoke(o);
+
+            return builder.AddNullableMeasure(expression, o);
         }
 
         /// <summary>
-        /// Adds an optional TIMESTAMP (from datetime?)
+        /// Adds an optional TIMESTAMP (from DateTime?)
         /// </summary>
         /// <typeparam name="TMessage">message types</typeparam>
         /// <param name="builder">extended builder</param>
-        /// <param name="expression">propety accessor expression</param>
+        /// <param name="expression">property accessor expression</param>
+        /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
-        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, DateTime?>> expression)
+        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, DateTime?>> expression, Action<NullableMeasureValueBuilderOptions<TMessage, DateTime?>>? configure = null)
         {
-            return builder.AddNullableMeasure(expression, MeasureValueType.TIMESTAMP, BuildTimestampFromNullableDateTime);
+            var o = new NullableMeasureValueBuilderOptions<TMessage, DateTime?>(MeasureValueType.TIMESTAMP, BuildTimestampFromNullableDateTime);
+            configure?.Invoke(o);
+
+            return builder.AddNullableMeasure(expression, o);
         }
 
         /// <summary>
-        /// Adds an optional TIMESTAMP (from datetimeoffset?)
+        /// Adds an optional TIMESTAMP (from DateTimeOffset?)
         /// </summary>
         /// <typeparam name="TMessage">message types</typeparam>
         /// <param name="builder">extended builder</param>
-        /// <param name="expression">propety accessor expression</param>
+        /// <param name="expression">property accessor expression</param>
+        /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
-        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, DateTimeOffset?>> expression)
+        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, DateTimeOffset?>> expression, Action<NullableMeasureValueBuilderOptions<TMessage, DateTimeOffset?>>? configure = null)
         {
-            return builder.AddNullableMeasure(expression, MeasureValueType.TIMESTAMP, BuildTimestampFromNullableDateTimeOffset);
+            var o = new NullableMeasureValueBuilderOptions<TMessage, DateTimeOffset?>(MeasureValueType.TIMESTAMP, BuildTimestampFromNullableDateTimeOffset);
+            configure?.Invoke(o);
+
+            return builder.AddNullableMeasure(expression, o);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
