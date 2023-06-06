@@ -24,6 +24,18 @@ namespace Abbotware.Interop.Aws.Timestream
     {
         private readonly ITimestreamProtocol<TMessage> protocol;
 
+#if NET6_0_OR_GREATER
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TimestreamPublisher{TMessage}"/> class.
+        /// </summary>
+        /// <param name="options">options</param>
+        /// <param name="protocol">message encoding protocol</param>
+        /// <param name="logger">injected logger</param>
+        public TimestreamPublisher(TimestreamOptions options, ITimestreamProtocol<TMessage> protocol, Microsoft.Extensions.Logging.ILogger<TimestreamPublisher<TMessage>> logger)
+            : this(new AmazonTimestreamWriteClient(), options, protocol, new LoggingAdapter(logger))
+        {
+        }
+#else
         /// <summary>
         /// Initializes a new instance of the <see cref="TimestreamPublisher{TMessage}"/> class.
         /// </summary>
@@ -34,6 +46,7 @@ namespace Abbotware.Interop.Aws.Timestream
             : this(new AmazonTimestreamWriteClient(), options, protocol, logger)
         {
         }
+#endif
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TimestreamPublisher{TMessage}"/> class.
