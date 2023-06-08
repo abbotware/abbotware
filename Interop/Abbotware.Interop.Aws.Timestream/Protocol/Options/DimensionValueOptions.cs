@@ -17,7 +17,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Options
     /// <param name="Type">DimensionValueType</param>
     /// <param name="Lookup">lookup function</param>
     /// <param name="IsNull">IsNull lookup function</param>
-    public record class DimensionValueOptions<TMessage>(DimensionValueType Type, Func<TMessage, string> Lookup, Func<TMessage,bool> IsNull) : MessagePropertyOption<DimensionValueType, TMessage, string>(Type, Lookup)
+    public record class DimensionValueOptions<TMessage>(DimensionValueType Type, Func<TMessage, string> Lookup, Func<TMessage, bool> IsNull) : MessagePropertyOption<DimensionValueType, TMessage, string>(Type, Lookup)
     {
         /// <summary>
         /// Creates a Dimension Value
