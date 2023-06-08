@@ -55,7 +55,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
                         throw new InvalidOperationException($"{t.FullName}.{p.Name} is not a string");
                     }
 
-                    ds.Add(da.Name ?? p.Name, new(dvt, x => (string)p.GetValue(x)!, x => false));
+                    ds.Add(da.Name ?? p.Name, new(dvt, x => (string)p.GetValue(x)!, x => p.GetValue(x) is null));
                 }
 
                 var mva = ReflectionHelper.SingleOrDefaultAttribute<MeasureValueAttribute>(p);
