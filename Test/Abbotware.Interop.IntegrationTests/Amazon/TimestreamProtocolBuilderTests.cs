@@ -9,13 +9,12 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
 {
     using System;
     using System.Linq;
+    using Abbotware.IntegrationTests.Interop.Amazon.TestClasses.Timestream;
     using Abbotware.Interop.Aws.Timestream;
-    using Abbotware.Interop.Aws.Timestream.Attributes;
     using Abbotware.Interop.Aws.Timestream.Configuration;
     using Abbotware.Interop.Aws.Timestream.Protocol;
     using Abbotware.Interop.Aws.Timestream.Protocol.Plugins;
     using Abbotware.Utility.UnitTest.Using.NUnit;
-    using global::Amazon.TimestreamWrite.Model;
     using NUnit.Framework;
 
     [TestFixture]
@@ -63,7 +62,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
         [Test]
         public void TimestreamBasic_AddTimeDuplicate()
         {
-            var pb = new ProtocolBuilder<MultiMeasureTestWithTime>();
+            var pb = new ProtocolBuilder<MultiMeasureNonStringDimensionsTestWithTime>();
             pb.AddTime(x => x.Time, TimeUnitType.Milliseconds);
 
             Assert.Throws<ArgumentException>(() => pb.AddTime(x => x.Time, TimeUnitType.Milliseconds));
@@ -72,7 +71,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
         [Test]
         public void TimestreamBasic_MultiMeasureBuilder_NoMeasureName()
         {
-            var pb = new ProtocolBuilder<MultiMeasureTestWithTime>();
+            var pb = new ProtocolBuilder<MultiMeasureNonStringDimensionsTestWithTime>();
             pb.AddMeasure(x => x.ValueA);
 
             Assert.Throws<ArgumentException>(() => pb.AddMeasure(x => x.ValueB));
@@ -81,7 +80,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
         [Test]
         public void TimestreamBasic_MultiMeasureBuilder()
         {
-            var pb = new ProtocolBuilder<MultiMeasureTestWithTime>("metrics");
+            var pb = new ProtocolBuilder<MultiMeasureNonStringDimensionsTestWithTime>("metrics");
             pb.AddDimension(x => x.Name);
             pb.AddDimension(x => x.Company, x => x.Converter = y => y);
             pb.AddNullableDimension(x => x.Optional);
@@ -103,7 +102,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
             var record_time = DateTime.UtcNow;
             var write_time = DateTimeOffset.UtcNow.AddDays(-1);
 
-            var m = new MultiMeasureTestWithTime { Name = "asdf", Company = "asdfads", SetOptional = "SetOptional",  ValueA = 123, ValueB = 345, ValueC = 789, ValueD = "testing", ValueE = 123.23, ValueF = 12.345m, ValueG = record_time, ValueH = false, Time = write_time };
+            var m = new MultiMeasureNonStringDimensionsTestWithTime { Name = "asdf", Company = "asdfads", SetOptional = "SetOptional",  ValueA = 123, ValueB = 345, ValueC = 789, ValueD = "testing", ValueE = 123.23, ValueF = 12.345m, ValueG = record_time, ValueH = false, Time = write_time };
 
             var encoded = protocol.Encode(m, options);
 
@@ -131,95 +130,6 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
             // Check Time
             var tValue = write_time.ToUnixTimeMilliseconds().ToString();
             Assert.That(encoded.Records.Single().Time, Is.EqualTo(tValue));
-        }
-
-        public class SingleMeasureTest
-        {
-            [Dimension]
-            public string Name { get; set; }
-
-            [MeasureValue]
-            public int Value { get; set; }
-        }
-
-        [MeasureName("Data")]
-        public class MultiMeasureTest
-        {
-            [Dimension]
-            public string Name { get; set; }
-
-            [Dimension]
-            public string Company { get; set; }
-
-            [MeasureValue]
-            public int ValueA { get; set; }
-
-            [MeasureValue]
-            public long? ValueB { get; set; }
-
-            [MeasureValue]
-            public long ValueC { get; set; }
-
-            [MeasureValue]
-            public string ValueD { get; set; }
-
-            [MeasureValue]
-            public double ValueE { get; set; }
-
-            [MeasureValue]
-            public decimal ValueF { get; set; }
-
-            [MeasureValue]
-            public DateTime ValueG { get; set; }
-
-            [MeasureValue]
-            public bool ValueH { get; set; }
-        }
-
-        [MeasureName("Data")]
-        public class MultiMeasureTestWithTime
-        {
-            [Dimension]
-            public string Name { get; set; }
-
-            [Dimension]
-            public string Company { get; set; }
-
-            [Dimension]
-            public string? Optional { get; set; }
-
-            [Dimension]
-            public string? SetOptional { get; set; }
-
-            [Dimension]
-            public long IdDimension { get; set; }
-
-            [MeasureValue]
-            public int ValueA { get; set; }
-
-            [MeasureValue]
-            public long? ValueB { get; set; }
-
-            [MeasureValue]
-            public long ValueC { get; set; }
-
-            [MeasureValue]
-            public string ValueD { get; set; }
-
-            [MeasureValue]
-            public double ValueE { get; set; }
-
-            [MeasureValue]
-            public decimal ValueF { get; set; }
-
-            [MeasureValue]
-            public DateTime ValueG { get; set; }
-
-            [MeasureValue]
-            public bool ValueH { get; set; }
-
-            [Time]
-            public DateTimeOffset Time { get; set; }
         }
     }
 }

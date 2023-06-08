@@ -11,9 +11,12 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Abbotware.Core.Messaging.Integration;
+    using Abbotware.IntegrationTests.Interop.Amazon.TestClasses.Timestream;
     using Abbotware.Interop.Aws.Timestream;
     using Abbotware.Interop.Aws.Timestream.Attributes;
     using Abbotware.Interop.Aws.Timestream.Configuration;
+    using Abbotware.Interop.Aws.Timestream.Protocol;
+    using Abbotware.Interop.Aws.Timestream.Protocol.Plugins;
     using Abbotware.Interop.Microsoft;
     using Abbotware.Utility.UnitTest.Using.NUnit;
     using NUnit.Framework;
@@ -25,7 +28,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
     public class TimestreamBasicTests : BaseNUnitTest
     {
         [Test]
-        public async Task TimestreamBasic_SingleMeasureTest()
+        public async Task POCO_TimestreamBasic_SingleMeasureTest()
         {
             var options = ConfigurationHelper.AppSettingsJson(UnitTestSettingsFile).BindSection<TimestreamOptions>(TimestreamOptions.DefaultSection);
             using var c = new PocoPublisher<SingleMeasureTest>(options, this.Logger);
@@ -36,7 +39,18 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
         }
 
         [Test]
-        public async Task TimestreamBasic_MultiMeasureTest()
+        public async Task POCO_TimestreamBasic_NullDimension()
+        {
+            var options = ConfigurationHelper.AppSettingsJson(UnitTestSettingsFile).BindSection<TimestreamOptions>(TimestreamOptions.DefaultSection);
+            using var c = new PocoPublisher<NullDimension>(options, this.Logger);
+
+            var p = await c.PublishAsync(new NullDimension { Name = "asdf", Value = 123 }, default);
+
+            Assert.That(p, Is.EqualTo(PublishStatus.Confirmed));
+        }
+
+        [Test]
+        public async Task POCO_TimestreamBasic_MultiMeasureTest()
         {
             var options = ConfigurationHelper.AppSettingsJson(UnitTestSettingsFile).BindSection<TimestreamOptions>(TimestreamOptions.DefaultSection);
             using var c = new PocoPublisher<MultiMeasureTest>(options, this.Logger);
@@ -47,19 +61,19 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
         }
 
         [Test]
-        public async Task TimestreamBasic_BatchMultiMeasureTest()
+        public async Task POCO_TimestreamBasic_MultiMeasureStringDimensionsTestWithTime()
         {
             var options = ConfigurationHelper.AppSettingsJson(UnitTestSettingsFile).BindSection<TimestreamOptions>(TimestreamOptions.DefaultSection);
-            using var c = new PocoPublisher<MultiMeasureTestWithTime>(options, this.Logger);
+            using var c = new PocoPublisher<MultiMeasureStringDimensionsTestWithTime>(options, this.Logger);
 
-            var list = new List<MultiMeasureTestWithTime>();
+            var list = new List<MultiMeasureStringDimensionsTestWithTime>();
 
             var t = DateTimeOffset.UtcNow;
 
             for (int i = 0; i < 100; ++i)
             {
                 t = t.AddMilliseconds(1);
-                list.Add(new MultiMeasureTestWithTime { Name = "asdf", Company = "asdfads", ValueA = 123 + i, ValueB = 345 + i, ValueC = 789 + i, ValueD = "testing", ValueE = 123.23 + i, ValueF = 12.345m + i, ValueG = DateTime.UtcNow, ValueH = false, Time = t });
+                list.Add(new MultiMeasureStringDimensionsTestWithTime { Name = "asdf", Company = "asdfads", ValueA = 123 + i, ValueB = 345 + i, ValueC = 789 + i, ValueD = "testing", ValueE = 123.23 + i, ValueF = 12.345m + i, ValueG = DateTime.UtcNow, ValueH = false, Time = t });
             }
 
             var p = await c.PublishAsync(list, default);
@@ -67,84 +81,119 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
             Assert.That(p, Is.EqualTo(PublishStatus.Confirmed));
         }
 
-        public class SingleMeasureTest
+        [Test]
+        public async Task Builder_NullDimension()
         {
-            [Dimension]
-            public string Name { get; set; }
+            var pb = new ProtocolBuilder<NullDimension>("metrics");
+            pb.AddDimension(x => x.Name);
+            pb.AddNullableDimension(x => x.Optional);
+            pb.AddMeasure(x => x.Value);
 
-            [MeasureValue]
-            public int Value { get; set; }
+            var options = ConfigurationHelper.AppSettingsJson(UnitTestSettingsFile).BindSection<TimestreamOptions>(TimestreamOptions.DefaultSection);
+            using var c = new PocoPublisher<NullDimension>(options, this.Logger);
+
+            var p = await c.PublishAsync(new NullDimension { Name = "asdf", Value = 1 }, default);
+
+            Assert.That(p, Is.EqualTo(PublishStatus.Confirmed));
         }
 
-        [MeasureName("Data")]
-        public class MultiMeasureTest
+        [Test]
+        public async Task Builder_Batch_NullDimension()
         {
-            [Dimension]
-            public string Name { get; set; }
+            var pb = new ProtocolBuilder<NullDimension>("metrics");
+            pb.AddDimension(x => x.Name);
+            pb.AddNullableDimension(x => x.Optional);
+            pb.AddMeasure(x => x.Value);
+            pb.AddTime(x => x.Time, TimeUnitType.Milliseconds);
 
-            [Dimension(Name = "Company2")]
-            public string Company { get; set; }
+            var options = ConfigurationHelper.AppSettingsJson(UnitTestSettingsFile).BindSection<TimestreamOptions>(TimestreamOptions.DefaultSection);
+            using var c = new PocoPublisher<NullDimension>(options, this.Logger);
 
-            [MeasureValue]
-            public int ValueA { get; set; }
+            var list = new List<NullDimension>();
 
-            [MeasureValue]
-            public long? ValueB { get; set; }
+            var t = DateTimeOffset.UtcNow;
 
-            [MeasureValue]
-            public long ValueC { get; set; }
+            for (int i = 0; i < 100; ++i)
+            {
+                list.Add(new NullDimension { Name = Guid.NewGuid().ToString(), Value = i, Time = t });
+            }
 
-            [MeasureValue]
-            public string ValueD { get; set; }
+            var p = await c.PublishAsync(list, default);
 
-            [MeasureValue]
-            public double ValueE { get; set; }
-
-            [MeasureValue]
-            public decimal ValueF { get; set; }
-
-            [MeasureValue]
-            public DateTime ValueG { get; set; }
-
-            [MeasureValue]
-            public bool ValueH { get; set; }
+            Assert.That(p, Is.EqualTo(PublishStatus.Confirmed));
         }
 
-        [MeasureName("Data")]
-        public class MultiMeasureTestWithTime
+        [Test]
+        public async Task Builder_Batch_MultiMeasureStringDimensionsTestWithTime()
         {
-            [Dimension]
-            public string Name { get; set; }
+            var pb = new ProtocolBuilder<MultiMeasureStringDimensionsTestWithTime>("metrics");
+            pb.AddDimension(x => x.Name);
+            pb.AddDimension(x => x.Company, x => x.Converter = y => y);
+            pb.AddNullableDimension(x => x.Optional);
+            pb.AddNullableDimension(x => x.SetOptional);
+            pb.AddMeasure(x => x.ValueA);
+            pb.AddMeasure(x => x.ValueB);
+            pb.AddMeasure(x => x.ValueC);
+            pb.AddMeasure(x => x.ValueD);
+            pb.AddMeasure(x => x.ValueE);
+            pb.AddMeasure(x => x.ValueF);
+            pb.AddMeasure(x => x.ValueG);
+            pb.AddMeasure(x => x.ValueH);
+            pb.AddTime(x => x.Time, TimeUnitType.Milliseconds);
 
-            [Dimension]
-            public string Company { get; set; }
+            var options = ConfigurationHelper.AppSettingsJson(UnitTestSettingsFile).BindSection<TimestreamOptions>(TimestreamOptions.DefaultSection);
+            using var c = new PocoPublisher<MultiMeasureStringDimensionsTestWithTime>(options, this.Logger);
 
-            [MeasureValue]
-            public int ValueA { get; set; }
+            var list = new List<MultiMeasureStringDimensionsTestWithTime>();
 
-            [MeasureValue]
-            public long? ValueB { get; set; }
+            var t = DateTimeOffset.UtcNow;
 
-            [MeasureValue]
-            public long ValueC { get; set; }
+            for (int i = 0; i < 101; ++i)
+            {
+                t = t.AddMilliseconds(1);
+                list.Add(new MultiMeasureStringDimensionsTestWithTime { Name = "asdf", Company = "asdfads", ValueA = 123 + i, ValueB = 345 + i, ValueC = 789 + i, ValueD = "testing", ValueE = 123.23 + i, ValueF = 12.345m + i, ValueG = DateTime.UtcNow, ValueH = false, Time = t });
+            }
 
-            [MeasureValue]
-            public string ValueD { get; set; }
+            var p = await c.PublishAsync(list, default);
 
-            [MeasureValue]
-            public double ValueE { get; set; }
+            Assert.That(p, Is.EqualTo(PublishStatus.Confirmed));
+        }
 
-            [MeasureValue]
-            public decimal ValueF { get; set; }
+        [Test]
+        public async Task Builder_Batch_MultiMeasureNonStringDimensionsTestWithTime()
+        {
+            var pb = new ProtocolBuilder<MultiMeasureNonStringDimensionsTestWithTime>("metrics");
+            pb.AddDimension(x => x.Name);
+            pb.AddDimension(x => x.Company, x => x.Converter = y => y);
+            pb.AddNullableDimension(x => x.Optional);
+            pb.AddNullableDimension(x => x.SetOptional);
+            pb.AddDimension(x => x.IdDimension, x => x.Converter = y => y.ToString());
+            pb.AddMeasure(x => x.ValueA);
+            pb.AddMeasure(x => x.ValueB);
+            pb.AddMeasure(x => x.ValueC);
+            pb.AddMeasure(x => x.ValueD);
+            pb.AddMeasure(x => x.ValueE);
+            pb.AddMeasure(x => x.ValueF);
+            pb.AddMeasure(x => x.ValueG);
+            pb.AddMeasure(x => x.ValueH);
+            pb.AddTime(x => x.Time, TimeUnitType.Milliseconds);
 
-            [MeasureValue]
-            public DateTime ValueG { get; set; }
+            var options = ConfigurationHelper.AppSettingsJson(UnitTestSettingsFile).BindSection<TimestreamOptions>(TimestreamOptions.DefaultSection);
+            using var c = new PocoPublisher<MultiMeasureNonStringDimensionsTestWithTime>(options, this.Logger);
 
-            [MeasureValue]
-            public bool ValueH { get; set; }
+            var list = new List<MultiMeasureNonStringDimensionsTestWithTime>();
 
-            [Time]
-            public DateTimeOffset Time { get; set; }
+            var t = DateTimeOffset.UtcNow;
+
+            for (int i = 0; i < 101; ++i)
+            {
+                t = t.AddMilliseconds(1);
+                list.Add(new MultiMeasureNonStringDimensionsTestWithTime { Name = "asdf", Company = "asdfads", ValueA = 123 + i, ValueB = 345 + i, ValueC = 789 + i, ValueD = "testing", ValueE = 123.23 + i, ValueF = 12.345m + i, ValueG = DateTime.UtcNow, ValueH = false, Time = t });
+            }
+
+            var p = await c.PublishAsync(list, default);
+
+            Assert.That(p, Is.EqualTo(PublishStatus.Confirmed));
         }
     }
 }
