@@ -19,6 +19,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
     using Abbotware.Interop.Aws.Timestream.Protocol.Plugins;
     using Abbotware.Interop.Microsoft;
     using Abbotware.Utility.UnitTest.Using.NUnit;
+    using Microsoft.Extensions.Logging.Abstractions;
     using NUnit.Framework;
 
     [TestFixture]
@@ -33,7 +34,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
             var options = ConfigurationHelper.AppSettingsJson(UnitTestSettingsFile).BindSection<TimestreamOptions>(TimestreamOptions.DefaultSection);
             using var c = new PocoPublisher<SingleMeasureTest>(options, this.Logger);
 
-            var p = await c.PublishAsync(new SingleMeasureTest { Name = "asdf", Value = 123 }, default);
+            var p = await c.PublishAsync(new SingleMeasureTest { Name = Guid.NewGuid().ToString(), Value = 123 }, default);
 
             Assert.That(p, Is.EqualTo(PublishStatus.Confirmed));
         }
@@ -44,7 +45,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
             var options = ConfigurationHelper.AppSettingsJson(UnitTestSettingsFile).BindSection<TimestreamOptions>(TimestreamOptions.DefaultSection);
             using var c = new PocoPublisher<NullDimension>(options, this.Logger);
 
-            var p = await c.PublishAsync(new NullDimension { Name = "asdf", Value = 123 }, default);
+            var p = await c.PublishAsync(new NullDimension { Name = Guid.NewGuid().ToString(), Value = 123, Time = DateTimeOffset.Now }, default);
 
             Assert.That(p, Is.EqualTo(PublishStatus.Confirmed));
         }
@@ -55,7 +56,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
             var options = ConfigurationHelper.AppSettingsJson(UnitTestSettingsFile).BindSection<TimestreamOptions>(TimestreamOptions.DefaultSection);
             using var c = new PocoPublisher<MultiMeasureTest>(options, this.Logger);
 
-            var p = await c.PublishAsync(new MultiMeasureTest { Name = "asdf", Company = "asdfads", ValueA = 123, ValueB = 345, ValueC = 789, ValueD = "testing", ValueE = 123.23, ValueF = 12.345m, ValueG = DateTime.UtcNow, ValueH = false }, default);
+            var p = await c.PublishAsync(new MultiMeasureTest { Name = Guid.NewGuid().ToString(), Company = "asdfads", ValueA = 123, ValueB = 345, ValueC = 789, ValueD = "testing", ValueE = 123.23, ValueF = 12.345m, ValueG = DateTime.UtcNow, ValueH = false }, default);
 
             Assert.That(p, Is.EqualTo(PublishStatus.Confirmed));
         }
@@ -73,7 +74,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
             for (int i = 0; i < 100; ++i)
             {
                 t = t.AddMilliseconds(1);
-                list.Add(new MultiMeasureStringDimensionsTestWithTime { Name = "asdf", Company = "asdfads", ValueA = 123 + i, ValueB = 345 + i, ValueC = 789 + i, ValueD = "testing", ValueE = 123.23 + i, ValueF = 12.345m + i, ValueG = DateTime.UtcNow, ValueH = false, Time = t });
+                list.Add(new MultiMeasureStringDimensionsTestWithTime { Name = Guid.NewGuid().ToString(), Company = "asdfads", ValueA = 123 + i, ValueB = 345 + i, ValueC = 789 + i, ValueD = "testing", ValueE = 123.23 + i, ValueF = 12.345m + i, ValueG = DateTime.UtcNow, ValueH = false, Time = t });
             }
 
             var p = await c.PublishAsync(list, default);
@@ -88,26 +89,28 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
             pb.AddDimension(x => x.Name);
             pb.AddNullableDimension(x => x.Optional);
             pb.AddMeasure(x => x.Value);
+            pb.AddMeasure(x => x.ValueB);
 
             var options = ConfigurationHelper.AppSettingsJson(UnitTestSettingsFile).BindSection<TimestreamOptions>(TimestreamOptions.DefaultSection);
-            using var c = new PocoPublisher<NullDimension>(options, this.Logger);
+            using var c = new TimestreamPublisher<NullDimension>(options, pb.Build(), NullLogger<TimestreamPublisher<NullDimension>>.Instance);
 
-            var p = await c.PublishAsync(new NullDimension { Name = "asdf", Value = 1 }, default);
+            var p = await c.PublishAsync(new NullDimension { Name = Guid.NewGuid().ToString(), Value = 1 }, default);
 
             Assert.That(p, Is.EqualTo(PublishStatus.Confirmed));
         }
 
         [Test]
-        public async Task Builder_Batch_NullDimension()
+        public async Task Builder_Batch_NullDimensionNullMeasure()
         {
             var pb = new ProtocolBuilder<NullDimension>("metrics");
             pb.AddDimension(x => x.Name);
             pb.AddNullableDimension(x => x.Optional);
             pb.AddMeasure(x => x.Value);
+            pb.AddMeasure(x => x.ValueB);
             pb.AddTime(x => x.Time, TimeUnitType.Milliseconds);
 
             var options = ConfigurationHelper.AppSettingsJson(UnitTestSettingsFile).BindSection<TimestreamOptions>(TimestreamOptions.DefaultSection);
-            using var c = new PocoPublisher<NullDimension>(options, this.Logger);
+            using var c = new TimestreamPublisher<NullDimension>(options, pb.Build(), NullLogger<TimestreamPublisher<NullDimension>>.Instance);
 
             var list = new List<NullDimension>();
 
@@ -142,16 +145,16 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
             pb.AddTime(x => x.Time, TimeUnitType.Milliseconds);
 
             var options = ConfigurationHelper.AppSettingsJson(UnitTestSettingsFile).BindSection<TimestreamOptions>(TimestreamOptions.DefaultSection);
-            using var c = new PocoPublisher<MultiMeasureStringDimensionsTestWithTime>(options, this.Logger);
+            using var c = new TimestreamPublisher<MultiMeasureStringDimensionsTestWithTime>(options, pb.Build(), NullLogger<TimestreamPublisher<MultiMeasureStringDimensionsTestWithTime>>.Instance);
 
             var list = new List<MultiMeasureStringDimensionsTestWithTime>();
 
             var t = DateTimeOffset.UtcNow;
 
-            for (int i = 0; i < 101; ++i)
+            for (int i = 0; i < 100; ++i)
             {
                 t = t.AddMilliseconds(1);
-                list.Add(new MultiMeasureStringDimensionsTestWithTime { Name = "asdf", Company = "asdfads", ValueA = 123 + i, ValueB = 345 + i, ValueC = 789 + i, ValueD = "testing", ValueE = 123.23 + i, ValueF = 12.345m + i, ValueG = DateTime.UtcNow, ValueH = false, Time = t });
+                list.Add(new MultiMeasureStringDimensionsTestWithTime { Name = Guid.NewGuid().ToString(), Company = "asdfads", ValueA = 123 + i, ValueB = 345 + i, ValueC = 789 + i, ValueD = "testing", ValueE = 123.23 + i, ValueF = 12.345m + i, ValueG = DateTime.UtcNow, ValueH = false, Time = t });
             }
 
             var p = await c.PublishAsync(list, default);
@@ -179,16 +182,16 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
             pb.AddTime(x => x.Time, TimeUnitType.Milliseconds);
 
             var options = ConfigurationHelper.AppSettingsJson(UnitTestSettingsFile).BindSection<TimestreamOptions>(TimestreamOptions.DefaultSection);
-            using var c = new PocoPublisher<MultiMeasureNonStringDimensionsTestWithTime>(options, this.Logger);
+            using var c = new TimestreamPublisher<MultiMeasureNonStringDimensionsTestWithTime>(options, pb.Build(), NullLogger<TimestreamPublisher<MultiMeasureNonStringDimensionsTestWithTime>>.Instance);
 
             var list = new List<MultiMeasureNonStringDimensionsTestWithTime>();
 
             var t = DateTimeOffset.UtcNow;
 
-            for (int i = 0; i < 101; ++i)
+            for (int i = 0; i < 100; ++i)
             {
                 t = t.AddMilliseconds(1);
-                list.Add(new MultiMeasureNonStringDimensionsTestWithTime { Name = "asdf", Company = "asdfads", ValueA = 123 + i, ValueB = 345 + i, ValueC = 789 + i, ValueD = "testing", ValueE = 123.23 + i, ValueF = 12.345m + i, ValueG = DateTime.UtcNow, ValueH = false, Time = t });
+                list.Add(new MultiMeasureNonStringDimensionsTestWithTime { Name = Guid.NewGuid().ToString(), Company = "asdfads", ValueA = 123 + i, ValueB = 345 + i, ValueC = 789 + i, ValueD = "testing", ValueE = 123.23 + i, ValueF = 12.345m + i, ValueG = DateTime.UtcNow, ValueH = false, Time = t });
             }
 
             var p = await c.PublishAsync(list, default);

@@ -50,9 +50,6 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
             return builder.AddNullableDimension(expression, o);
         }
 
-
-
-
         /// <summary>
         /// Adds a Dimension Measure
         /// </summary>
@@ -64,7 +61,17 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// <returns>builder</returns>
         public static IProtocolBuilder<TMessage> AddDimension<TMessage, TProperty>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, TProperty>> expression, Action<DimensionValueBuilderOptions<TMessage, TProperty>>? configure = null)
         {
-            var o = new DimensionValueBuilderOptions<TMessage, TProperty>(DimensionValueType.VARCHAR, x => x.ToString());
+            var o = new DimensionValueBuilderOptions<TMessage, TProperty>(
+                DimensionValueType.VARCHAR,
+                x =>
+                {
+                    if (x is null)
+                    {
+                        throw new InvalidOperationException("Unexpected Null value found for Dimension:{}, use AddNullableDimension instead");
+                    }
+
+                    return x.ToString()!;
+                });
             configure?.Invoke(o);
 
             return builder.AddDimension(expression, o);
@@ -95,12 +102,12 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// <param name="expression">property accessor expression</param>
         /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
-        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, string>> expression, Action<MeasureValueBuilderOptions<TMessage, string>>? configure = null)
+        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, string?>> expression, Action<NullableMeasureValueBuilderOptions<TMessage, string?>>? configure = null)
         {
-            var o = new MeasureValueBuilderOptions<TMessage, string>(MeasureValueType.VARCHAR, x => x);
+            var o = new NullableMeasureValueBuilderOptions<TMessage, string?>(MeasureValueType.VARCHAR, x => x);
             configure?.Invoke(o);
 
-            return builder.AddMeasure(expression, o);
+            return builder.AddNullableMeasure(expression, o);
         }
 
         /// <summary>

@@ -17,15 +17,16 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Options
     /// <param name="Type">DimensionValueType</param>
     /// <param name="Lookup">lookup function</param>
     /// <param name="IsNull">IsNull lookup function</param>
-    public record class DimensionValueOptions<TMessage>(DimensionValueType Type, Func<TMessage, string> Lookup, Func<TMessage, bool> IsNull) : MessagePropertyOption<DimensionValueType, TMessage, string>(Type, Lookup)
+    /// <param name="SourceName">source property name</param>
+    /// <param name="TargetName">target name</param>
+    public record class DimensionValueOptions<TMessage>(DimensionValueType Type, Func<TMessage, string> Lookup, Func<TMessage, bool> IsNull, string SourceName, string TargetName) : MessagePropertyOption<DimensionValueType, TMessage, string>(Type, Lookup, SourceName, TargetName)
     {
         /// <summary>
         /// Creates a Dimension Value
         /// </summary>
         /// <param name="message">message </param>
-        /// <param name="name">measure name</param>
         /// <returns>measure value</returns>
-        public Dimension? Create(TMessage message, string name)
+        public Dimension? Create(TMessage message)
         {
             if (this.IsNull(message))
             {
@@ -37,7 +38,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Options
             return new Dimension
             {
                 DimensionValueType = this.Type,
-                Name = name,
+                Name = this.TargetName,
                 Value = v,
             };
         }

@@ -10,6 +10,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
     using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
+    using System.Xml.Linq;
     using Abbotware.Core.Diagnostics;
     using Abbotware.Core.Helpers;
     using Abbotware.Core.Logging;
@@ -42,9 +43,12 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
             {
                 var da = ReflectionHelper.SingleOrDefaultAttribute<DimensionAttribute>(p);
                 var type = ReflectionHelper.GetPropertyDataType(p);
+                var sourceName = p.Name;
 
                 if (da is not null)
                 {
+                    var targetName = da.Name ?? sourceName;
+
                     if (!TimestreamTypes.DimensionTypes.TryGetValue(type, out var dvt))
                     {
                         throw new NotSupportedException($"dimension type:{type.FullName} not supported");
@@ -55,13 +59,15 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
                         throw new InvalidOperationException($"{t.FullName}.{p.Name} is not a string");
                     }
 
-                    ds.Add(da.Name ?? p.Name, new(dvt, x => (string)p.GetValue(x)!, x => p.GetValue(x) is null));
+                    ds.Add(targetName, new(dvt, x => (string)p.GetValue(x)!, x => p.GetValue(x) is null, sourceName, targetName));
                 }
 
                 var mva = ReflectionHelper.SingleOrDefaultAttribute<MeasureValueAttribute>(p);
 
                 if (mva is not null)
                 {
+                    var targetName = mva.Name ?? sourceName;
+
                     if (!TimestreamTypes.MeasureTypes.TryGetValue(type, out var mvt))
                     {
                         throw new NotSupportedException($"measure value type:{type.FullName} not supported");
@@ -71,15 +77,54 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
 
                     if (type == typeof(DateTime))
                     {
-                        ms.Add(mva.Name ?? p.Name, new(mvt, x => new DateTimeOffset((DateTime)p.GetValue(x)).ToUnixTimeMilliseconds().ToString(CultureInfo.InvariantCulture)));
+                        ms.Add(targetName, new(
+                            mvt,
+                            x =>
+                            {
+                                var v = p.GetValue(x);
+                                if (v is null)
+                                {
+                                    throw new InvalidOperationException($"unexpected null for:{sourceName}");
+                                }
+
+                                return new DateTimeOffset((DateTime)v).ToUnixTimeMilliseconds().ToString(CultureInfo.InvariantCulture);
+                            },
+                            sourceName,
+                            targetName));
                     }
                     else if (type == typeof(DateTimeOffset))
                     {
-                        ms.Add(mva.Name ?? p.Name, new(mvt, x => ((DateTimeOffset)p.GetValue(x)).ToUnixTimeMilliseconds().ToString(CultureInfo.InvariantCulture)));
+                        ms.Add(targetName, new(
+                            mvt,
+                            x =>
+                            {
+                                var v = p.GetValue(x);
+                                if (v is null)
+                                {
+                                    throw new InvalidOperationException($"unexpected null for:{sourceName}");
+                                }
+
+                                return ((DateTimeOffset)v).ToUnixTimeMilliseconds().ToString(CultureInfo.InvariantCulture);
+                            },
+                            sourceName,
+                            targetName));
                     }
                     else
                     {
-                        ms.Add(mva.Name ?? p.Name, new(mvt, x => c.ConvertToString(p.GetValue(x))));
+                        ms.Add(targetName, new(
+                        mvt,
+                        x =>
+                            {
+                                var v = p.GetValue(x);
+                                if (v is null)
+                                {
+                                    return null;
+                                }
+
+                                return c.ConvertToString(v);
+                            },
+                        sourceName,
+                        targetName));
                     }
                 }
 
@@ -97,7 +142,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
                         throw new InvalidOperationException($"{t.FullName}.{p.Name} is not a datetimeoffset");
                     }
 
-                    time = new(ta.TimeUnit, x => (DateTimeOffset)p.GetValue(x)!);
+                    time = new(ta.TimeUnit, x => (DateTimeOffset)p.GetValue(x)!, sourceName);
                 }
             }
 

@@ -19,6 +19,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
     using Abbotware.Interop.Aws.Timestream.Protocol;
     using Abbotware.Interop.Aws.Timestream.Protocol.Builder;
     using Abbotware.Interop.Aws.Timestream.Protocol.Options;
+    using Amazon.Auth.AccessControlPolicy;
 
     /// <summary>
     /// Protocol Builder
@@ -62,8 +63,10 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
         public IProtocolBuilder<TMessage> AddDimension<TProperty>(Expression<Func<TMessage, TProperty>> expression, DimensionValueBuilderOptions<TMessage, TProperty> options)
         {
             var (pi, compiled) = this.GetProperty(expression);
+            var source = pi.Name;
+            var target = options.Name ?? source;
 
-            this.dimensions.Add(options.Name ?? pi.Name, new(options.ValueType, x => options.Converter(compiled(x)), x => false));
+            this.dimensions.Add(target, new(options.ValueType, x => options.Converter(compiled(x)), x => false, source, target));
 
             return this;
         }
@@ -72,8 +75,10 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
         public IProtocolBuilder<TMessage> AddNullableDimension<TProperty>(Expression<Func<TMessage, TProperty?>> expression, NullableDimensionValueBuilderOptions<TMessage, TProperty?> options)
         {
             var (pi, compiled) = this.GetProperty(expression);
+            var source = pi.Name;
+            var target = options.Name ?? source;
 
-            this.dimensions.Add(options.Name ?? pi.Name, new(options.ValueType, x => options.Converter(compiled(x)) ?? string.Empty, x => compiled(x) == null));
+            this.dimensions.Add(target, new(options.ValueType, x => options.Converter(compiled(x)) ?? string.Empty, x => compiled(x) == null, source, target));
 
             return this;
         }
@@ -90,8 +95,10 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
             }
 
             var (pi, compiled) = this.GetProperty(expression);
+            var source = pi.Name;
+            var target = options.Name ?? source;
 
-            this.measures.Add(options.Name ?? pi.Name, new(options.ValueType, x => options.Converter(compiled(x))));
+            this.measures.Add(target, new(options.ValueType, x => options.Converter(compiled(x)), source, target));
 
             return this;
         }
@@ -108,8 +115,10 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
             }
 
             var (pi, compiled) = this.GetProperty(expression);
+            var source = pi.Name;
+            var target = options.Name ?? source;
 
-            this.measures.Add(options.Name ?? pi.Name, new(options.ValueType, x => options.Converter(compiled(x))));
+            this.measures.Add(target, new(options.ValueType, x => options.Converter(compiled(x)), source, target));
 
             return this;
         }
@@ -128,9 +137,10 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
                 throw new ArgumentException($"{this.type.FullName} has more than one Time value");
             }
 
-            var (_, compiled) = this.GetProperty(expression);
+            var (pi, compiled) = this.GetProperty(expression);
+            var source = pi.Name;
 
-            this.time = new(timeUnitType, x => converter(compiled(x)));
+            this.time = new(timeUnitType, x => converter(compiled(x)), source);
 
             return this;
         }

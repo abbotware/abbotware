@@ -16,5 +16,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Options
     /// <typeparam name="TProperty">messsage property type</typeparam>
     /// <param name="Type">protocol specific type</param>
     /// <param name="Lookup">lookup function</param>
-    public record class MessagePropertyOption<TProtocolType, TMessage, TProperty>(TProtocolType Type, Func<TMessage, TProperty> Lookup);
+    /// <param name="SourceName">source property name</param>
+    /// <param name="TargetName">target name</param>
+    public record class MessagePropertyOption<TProtocolType, TMessage, TProperty>(TProtocolType Type, Func<TMessage, TProperty> Lookup, string SourceName, string TargetName);
 }

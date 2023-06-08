@@ -3,6 +3,7 @@
     using System;
     using Abbotware.Interop.Aws.Timestream.Attributes;
 
+    [MeasureName("metrics")]
     public class NullDimension
     {
         [Dimension]
@@ -14,6 +15,10 @@
         [MeasureValue]
         public int Value { get; set; }
 
+        [MeasureValue]
+        public int? ValueB { get; set; }
+
+        [Time]
         public DateTimeOffset Time { get; set; }
     }
 }

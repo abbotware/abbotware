@@ -45,7 +45,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
         /// <param name="measures">measure lookups</param>
         /// <param name="logger">injected logger</param>
         public TimestreamProtocol(IReadOnlyDictionary<string, DimensionValueOptions<TMessage>> dimensions, IReadOnlyDictionary<string, MeasureValueOptions<TMessage>> measures, ILogger logger)
-            : this(dimensions, measures, new(TimeUnitType.Milliseconds, x => DateTimeOffset.UtcNow), string.Empty, logger)
+            : this(dimensions, measures, new(TimeUnitType.Milliseconds, x => DateTimeOffset.UtcNow, string.Empty), string.Empty, logger)
         {
         }
 
@@ -69,7 +69,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
         /// <param name="measureName">time function</param>
         /// <param name="logger">injected logger</param>
         public TimestreamProtocol(IReadOnlyDictionary<string, DimensionValueOptions<TMessage>> dimensions, IReadOnlyDictionary<string, MeasureValueOptions<TMessage>> measures, string measureName, ILogger logger)
-            : this(dimensions, measures, new(TimeUnitType.Milliseconds, x => DateTimeOffset.UtcNow), measureName, logger)
+            : this(dimensions, measures, new(TimeUnitType.Milliseconds, x => DateTimeOffset.UtcNow, string.Empty), measureName, logger)
         {
         }
 
@@ -103,6 +103,11 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
                 }
             }
         }
+
+        /// <summary>
+        /// Gets a value indicating whether or not this is a MULTI record
+        /// </summary>
+        public bool IsMulti => this.measureName.IsNotBlank();
 
         /// <inheritdoc/>
         public virtual WriteRecordsRequest Encode(TMessage value)
@@ -174,17 +179,17 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
 
                 this.OnRecordTime(message, record, timestamp);
 
-                if (m.Count == 1)
+                if (this.IsMulti)
+                {
+                    record.MeasureValues = m;
+                    record.MeasureValueType = MeasureValueType.MULTI;
+                }
+                else
                 {
                     var s = m.Single();
                     record.MeasureName = s.Name;
                     record.MeasureValue = s.Value;
                     record.MeasureValueType = s.Type;
-                }
-                else
-                {
-                    record.MeasureValues = m;
-                    record.MeasureValueType = MeasureValueType.MULTI;
                 }
 
                 records.Add(record);
@@ -213,7 +218,14 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
             switch (timestamp.Type)
             {
                 case TimeUnitType.Milliseconds:
-                    record.Time = time.ToUnixTimeMilliseconds().ToString(CultureInfo.InvariantCulture);
+                    var t = time.ToUnixTimeMilliseconds();
+
+                    if (t < 0)
+                    {
+                        throw new ArgumentOutOfRangeException($"{t} is not a valild Unix Time in milliseconds. {timestamp.SourceName}:{time}");
+                    }
+
+                    record.Time = t.ToString(CultureInfo.InvariantCulture);
                     record.TimeUnit = TimeUnit.MILLISECONDS;
                     break;
                 default:
@@ -232,7 +244,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
 
             foreach (var dimension in this.dimensions)
             {
-                var d = dimension.Value.Create(message, dimension.Key);
+                var d = dimension.Value.Create(message);
 
                 if (d is null)
                 {
@@ -256,7 +268,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
 
             foreach (var measure in this.measures)
             {
-                var m = measure.Value.Create(message, measure.Key);
+                var m = measure.Value.Create(message);
 
                 if (m is null)
                 {
@@ -287,7 +299,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
         /// <returns>Common Attributes record</returns>
         protected virtual Record? OnCreateCommonAttributes(IReadOnlyCollection<Record> records)
         {
-            if (this.measureName.IsNotBlank())
+            if (this.IsMulti)
             {
                 return new Record
                 {
