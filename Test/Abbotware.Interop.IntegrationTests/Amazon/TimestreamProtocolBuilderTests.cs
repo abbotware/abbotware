@@ -102,7 +102,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
             var record_time = DateTime.UtcNow;
             var write_time = DateTimeOffset.UtcNow.AddDays(-1);
 
-            var m = new MultiMeasureNonStringDimensionsTestWithTime { Name = "asdf", Company = "asdfads", SetOptional = "SetOptional",  ValueA = 123, ValueB = 345, ValueC = 789, ValueD = "testing", ValueE = 123.23, ValueF = 12.345m, ValueG = record_time, ValueH = false, Time = write_time };
+            var m = new MultiMeasureNonStringDimensionsTestWithTime { Name = "asdf", Company = "asdfads", SetOptional = "SetOptional", ValueA = 123, ValueB = 345, ValueC = 789, ValueD = "testing", ValueE = 123.23, ValueF = 12.345m, ValueG = record_time, ValueH = false, Time = write_time };
 
             var encoded = protocol.Encode(m, options);
 
@@ -130,6 +130,23 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
             // Check Time
             var tValue = write_time.ToUnixTimeMilliseconds().ToString();
             Assert.That(encoded.Records.Single().Time, Is.EqualTo(tValue));
+        }
+
+        [Test]
+        public void TimestreamBasic_MultiMeasure_AllNullMeasures()
+        {
+            var pb = new ProtocolBuilder<MultiMeasureNonStringDimensionsTestWithTime>("metrics");
+            pb.AddDimension(x => x.Name);
+            pb.AddMeasure(x => x.ValueB);
+
+            var options = new TimestreamOptions() { Database = "db", Table = "table" };
+            var protocol = pb.Build();
+
+            var m = new MultiMeasureNonStringDimensionsTestWithTime { Name = "asdf" };
+
+            var ex = Assert.Catch<Exception>(() => protocol.Encode(m, options));
+
+            Assert.That(ex?.Message, Is.EqualTo("Record is missing measure values (they might all be null?)"));
         }
     }
 }

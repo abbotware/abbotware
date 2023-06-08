@@ -161,7 +161,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
         /// <returns>configured protocol</returns>
         public ITimestreamProtocol<TMessage> Build(ILogger logger)
         {
-            if (this.measures.Count > 1)
+            if (this.MeasureName.IsNotBlank())
             {
                 if (this.time is not null)
                 {
