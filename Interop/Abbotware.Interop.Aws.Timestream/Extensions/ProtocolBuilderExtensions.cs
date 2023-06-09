@@ -27,6 +27,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
         public static IProtocolBuilder<TMessage> AddDimension<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, string>> expression, Action<DimensionValueBuilderOptions<TMessage, string>>? configure = null)
+            where TMessage : notnull
         {
             var o = new DimensionValueBuilderOptions<TMessage, string>(DimensionValueType.VARCHAR, x => x);
             configure?.Invoke(o);
@@ -43,6 +44,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
         public static IProtocolBuilder<TMessage> AddNullableDimension<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, string?>> expression, Action<NullableDimensionValueBuilderOptions<TMessage, string?>>? configure = null)
+            where TMessage : notnull
         {
             var o = new NullableDimensionValueBuilderOptions<TMessage, string?>(DimensionValueType.VARCHAR, x => x);
             configure?.Invoke(o);
@@ -60,6 +62,8 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
         public static IProtocolBuilder<TMessage> AddDimension<TMessage, TProperty>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, TProperty>> expression, Action<DimensionValueBuilderOptions<TMessage, TProperty>>? configure = null)
+            where TMessage : notnull
+            where TProperty : notnull
         {
             var o = new DimensionValueBuilderOptions<TMessage, TProperty>(
                 DimensionValueType.VARCHAR,
@@ -87,6 +91,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
         public static IProtocolBuilder<TMessage> AddNullableDimension<TMessage, TProperty>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, TProperty?>> expression, Action<NullableDimensionValueBuilderOptions<TMessage, TProperty?>>? configure = null)
+            where TMessage : notnull
         {
             var o = new NullableDimensionValueBuilderOptions<TMessage, TProperty?>(DimensionValueType.VARCHAR, x => x?.ToString());
             configure?.Invoke(o);
@@ -103,6 +108,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
         public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, string?>> expression, Action<NullableMeasureValueBuilderOptions<TMessage, string?>>? configure = null)
+                where TMessage : notnull
         {
             var o = new NullableMeasureValueBuilderOptions<TMessage, string?>(MeasureValueType.VARCHAR, x => x);
             configure?.Invoke(o);
@@ -119,6 +125,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
         public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, long>> expression, Action<MeasureValueBuilderOptions<TMessage, long>>? configure = null)
+             where TMessage : notnull
         {
             var o = new MeasureValueBuilderOptions<TMessage, long>(MeasureValueType.BIGINT, x => x.ToString(CultureInfo.InvariantCulture));
             configure?.Invoke(o);
@@ -135,6 +142,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
         public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, short>> expression, Action<MeasureValueBuilderOptions<TMessage, short>>? configure = null)
+              where TMessage : notnull
         {
             var o = new MeasureValueBuilderOptions<TMessage, short>(MeasureValueType.BIGINT, x => x.ToString(CultureInfo.InvariantCulture));
             configure?.Invoke(o);
@@ -151,6 +159,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
         public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, int>> expression, Action<MeasureValueBuilderOptions<TMessage, int>>? configure = null)
+              where TMessage : notnull
         {
             var o = new MeasureValueBuilderOptions<TMessage, int>(MeasureValueType.BIGINT, x => x.ToString(CultureInfo.InvariantCulture));
             configure?.Invoke(o);
@@ -167,6 +176,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
         public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, sbyte>> expression, Action<MeasureValueBuilderOptions<TMessage, sbyte>>? configure = null)
+            where TMessage : notnull
         {
             var o = new MeasureValueBuilderOptions<TMessage, sbyte>(MeasureValueType.BIGINT, x => x.ToString(CultureInfo.InvariantCulture));
             configure?.Invoke(o);
@@ -183,6 +193,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
         public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, ulong>> expression, Action<MeasureValueBuilderOptions<TMessage, ulong>>? configure = null)
+            where TMessage : notnull
         {
             var o = new MeasureValueBuilderOptions<TMessage, ulong>(MeasureValueType.BIGINT, x => x.ToString(CultureInfo.InvariantCulture));
             configure?.Invoke(o);
@@ -199,6 +210,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
         public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, ushort>> expression, Action<MeasureValueBuilderOptions<TMessage, ushort>>? configure = null)
+              where TMessage : notnull
         {
             var o = new MeasureValueBuilderOptions<TMessage, ushort>(MeasureValueType.BIGINT, x => x.ToString(CultureInfo.InvariantCulture));
             configure?.Invoke(o);
@@ -215,6 +227,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
         public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, uint>> expression, Action<MeasureValueBuilderOptions<TMessage, uint>>? configure = null)
+            where TMessage : notnull
         {
             var o = new MeasureValueBuilderOptions<TMessage, uint>(MeasureValueType.BIGINT, x => x.ToString(CultureInfo.InvariantCulture));
             configure?.Invoke(o);
@@ -231,6 +244,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
         public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, byte>> expression, Action<MeasureValueBuilderOptions<TMessage, byte>>? configure = null)
+            where TMessage : notnull
         {
             var o = new MeasureValueBuilderOptions<TMessage, byte>(MeasureValueType.BIGINT, x => x.ToString(CultureInfo.InvariantCulture));
             configure?.Invoke(o);
@@ -247,6 +261,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
         public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, bool>> expression, Action<MeasureValueBuilderOptions<TMessage, bool>>? configure = null)
+             where TMessage : notnull
         {
             var o = new MeasureValueBuilderOptions<TMessage, bool>(MeasureValueType.BOOLEAN, x => x.ToString(CultureInfo.InvariantCulture));
             configure?.Invoke(o);
@@ -263,6 +278,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
         public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, double>> expression, Action<MeasureValueBuilderOptions<TMessage, double>>? configure = null)
+            where TMessage : notnull
         {
             var o = new MeasureValueBuilderOptions<TMessage, double>(MeasureValueType.DOUBLE, x => x.ToString(CultureInfo.InvariantCulture));
             configure?.Invoke(o);
@@ -279,6 +295,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
         public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, float>> expression, Action<MeasureValueBuilderOptions<TMessage, float>>? configure = null)
+               where TMessage : notnull
         {
             var o = new MeasureValueBuilderOptions<TMessage, float>(MeasureValueType.DOUBLE, x => x.ToString(CultureInfo.InvariantCulture));
             configure?.Invoke(o);
@@ -295,6 +312,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
         public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, decimal>> expression, Action<MeasureValueBuilderOptions<TMessage, decimal>>? configure = null)
+                  where TMessage : notnull
         {
             var o = new MeasureValueBuilderOptions<TMessage, decimal>(MeasureValueType.DOUBLE, x => x.ToString(CultureInfo.InvariantCulture));
             configure?.Invoke(o);
@@ -311,6 +329,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
         public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, DateTime>> expression, Action<MeasureValueBuilderOptions<TMessage, DateTime>>? configure = null)
+               where TMessage : notnull
         {
             var o = new MeasureValueBuilderOptions<TMessage, DateTime>(MeasureValueType.TIMESTAMP, BuildTimestampFromDateTime);
             configure?.Invoke(o);
@@ -327,6 +346,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
         public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, DateTimeOffset>> expression, Action<MeasureValueBuilderOptions<TMessage, DateTimeOffset>>? configure = null)
+              where TMessage : notnull
         {
             var o = new MeasureValueBuilderOptions<TMessage, DateTimeOffset>(MeasureValueType.TIMESTAMP, BuildTimestampFromDateTimeOffset);
             configure?.Invoke(o);
@@ -343,6 +363,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
         public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, long?>> expression, Action<NullableMeasureValueBuilderOptions<TMessage, long?>>? configure = null)
+              where TMessage : notnull
         {
             var o = new NullableMeasureValueBuilderOptions<TMessage, long?>(MeasureValueType.BIGINT, x => x?.ToString(CultureInfo.InvariantCulture));
             configure?.Invoke(o);
@@ -359,6 +380,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
         public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, short?>> expression, Action<NullableMeasureValueBuilderOptions<TMessage, short?>>? configure = null)
+              where TMessage : notnull
         {
             var o = new NullableMeasureValueBuilderOptions<TMessage, short?>(MeasureValueType.BIGINT, x => x?.ToString(CultureInfo.InvariantCulture));
             configure?.Invoke(o);
@@ -375,6 +397,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
         public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, int?>> expression, Action<NullableMeasureValueBuilderOptions<TMessage, int?>>? configure = null)
+            where TMessage : notnull
         {
             var o = new NullableMeasureValueBuilderOptions<TMessage, int?>(MeasureValueType.BIGINT, x => x?.ToString(CultureInfo.InvariantCulture));
             configure?.Invoke(o);
@@ -391,6 +414,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
         public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, sbyte?>> expression, Action<NullableMeasureValueBuilderOptions<TMessage, sbyte?>>? configure = null)
+            where TMessage : notnull
         {
             var o = new NullableMeasureValueBuilderOptions<TMessage, sbyte?>(MeasureValueType.BIGINT, x => x?.ToString(CultureInfo.InvariantCulture));
             configure?.Invoke(o);
@@ -407,6 +431,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
         public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, ulong?>> expression, Action<NullableMeasureValueBuilderOptions<TMessage, ulong?>>? configure = null)
+                where TMessage : notnull
         {
             var o = new NullableMeasureValueBuilderOptions<TMessage, ulong?>(MeasureValueType.BIGINT, x => x?.ToString(CultureInfo.InvariantCulture));
             configure?.Invoke(o);
@@ -423,6 +448,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
         public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, ushort?>> expression, Action<NullableMeasureValueBuilderOptions<TMessage, ushort?>>? configure = null)
+                where TMessage : notnull
         {
             var o = new NullableMeasureValueBuilderOptions<TMessage, ushort?>(MeasureValueType.BIGINT, x => x?.ToString(CultureInfo.InvariantCulture));
             configure?.Invoke(o);
@@ -439,6 +465,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
         public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, uint?>> expression, Action<NullableMeasureValueBuilderOptions<TMessage, uint?>>? configure = null)
+                where TMessage : notnull
         {
             var o = new NullableMeasureValueBuilderOptions<TMessage, uint?>(MeasureValueType.BIGINT, x => x?.ToString(CultureInfo.InvariantCulture));
             configure?.Invoke(o);
@@ -455,6 +482,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
         public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, byte?>> expression, Action<NullableMeasureValueBuilderOptions<TMessage, byte?>>? configure = null)
+                 where TMessage : notnull
         {
             var o = new NullableMeasureValueBuilderOptions<TMessage, byte?>(MeasureValueType.BIGINT, x => x?.ToString(CultureInfo.InvariantCulture));
             configure?.Invoke(o);
@@ -471,6 +499,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
         public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, bool?>> expression, Action<NullableMeasureValueBuilderOptions<TMessage, bool?>>? configure = null)
+              where TMessage : notnull
         {
             var o = new NullableMeasureValueBuilderOptions<TMessage, bool?>(MeasureValueType.BOOLEAN, x => x?.ToString(CultureInfo.InvariantCulture));
             configure?.Invoke(o);
@@ -487,6 +516,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
         public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, double?>> expression, Action<NullableMeasureValueBuilderOptions<TMessage, double?>>? configure = null)
+               where TMessage : notnull
         {
             var o = new NullableMeasureValueBuilderOptions<TMessage, double?>(MeasureValueType.DOUBLE, x => x?.ToString(CultureInfo.InvariantCulture));
             configure?.Invoke(o);
@@ -503,6 +533,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
         public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, float?>> expression, Action<NullableMeasureValueBuilderOptions<TMessage, float?>>? configure = null)
+               where TMessage : notnull
         {
             var o = new NullableMeasureValueBuilderOptions<TMessage, float?>(MeasureValueType.DOUBLE, x => x?.ToString(CultureInfo.InvariantCulture));
             configure?.Invoke(o);
@@ -519,6 +550,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
         public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, decimal?>> expression, Action<NullableMeasureValueBuilderOptions<TMessage, decimal?>>? configure = null)
+              where TMessage : notnull
         {
             var o = new NullableMeasureValueBuilderOptions<TMessage, decimal?>(MeasureValueType.DOUBLE, x => x?.ToString(CultureInfo.InvariantCulture));
             configure?.Invoke(o);
@@ -535,6 +567,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
         public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, DateTime?>> expression, Action<NullableMeasureValueBuilderOptions<TMessage, DateTime?>>? configure = null)
+               where TMessage : notnull
         {
             var o = new NullableMeasureValueBuilderOptions<TMessage, DateTime?>(MeasureValueType.TIMESTAMP, BuildTimestampFromNullableDateTime);
             configure?.Invoke(o);
@@ -551,6 +584,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
         public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, DateTimeOffset?>> expression, Action<NullableMeasureValueBuilderOptions<TMessage, DateTimeOffset?>>? configure = null)
+                where TMessage : notnull
         {
             var o = new NullableMeasureValueBuilderOptions<TMessage, DateTimeOffset?>(MeasureValueType.TIMESTAMP, BuildTimestampFromNullableDateTimeOffset);
             configure?.Invoke(o);

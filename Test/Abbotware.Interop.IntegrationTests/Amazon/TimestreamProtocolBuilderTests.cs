@@ -15,6 +15,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
     using Abbotware.Interop.Aws.Timestream.Protocol;
     using Abbotware.Interop.Aws.Timestream.Protocol.Plugins;
     using Abbotware.Utility.UnitTest.Using.NUnit;
+    using Newtonsoft.Json.Linq;
     using NUnit.Framework;
 
     [TestFixture]
@@ -24,7 +25,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
     public class TimestreamProtocolBuilderTests : BaseNUnitTest
     {
         [Test]
-        public void TimestreamBasic_AddMeasureTwice()
+        public void AddMeasureTwice()
         {
             var pb = new ProtocolBuilder<SingleMeasureTest>();
             pb.AddMeasure(x => x.Name);
@@ -33,7 +34,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
         }
 
         [Test]
-        public void TimestreamBasic_AddMeasureTwice_Configure()
+        public void AddMeasureTwice_SetName()
         {
             var pb = new ProtocolBuilder<SingleMeasureTest>();
             pb.AddMeasure(x => x.Name);
@@ -42,7 +43,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
         }
 
         [Test]
-        public void TimestreamBasic_AddDimensionTwice()
+        public void AddDimensionTwice()
         {
             var pb = new ProtocolBuilder<SingleMeasureTest>();
             pb.AddDimension(x => x.Name);
@@ -51,7 +52,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
         }
 
         [Test]
-        public void TimestreamBasic_AddDuplicate()
+        public void AddWithSameName()
         {
             var pb = new ProtocolBuilder<SingleMeasureTest>();
             pb.AddMeasure(x => x.Name);
@@ -60,7 +61,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
         }
 
         [Test]
-        public void TimestreamBasic_AddTimeDuplicate()
+        public void AddTimeTwice()
         {
             var pb = new ProtocolBuilder<MultiMeasureNonStringDimensionsTestWithTime>();
             pb.AddTime(x => x.Time, TimeUnitType.Milliseconds);
@@ -69,7 +70,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
         }
 
         [Test]
-        public void TimestreamBasic_MultiMeasureBuilder_NoMeasureName()
+        public void MultiMeasure_MissingMeasureName()
         {
             var pb = new ProtocolBuilder<MultiMeasureNonStringDimensionsTestWithTime>();
             pb.AddMeasure(x => x.ValueA);
@@ -78,7 +79,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
         }
 
         [Test]
-        public void TimestreamBasic_MultiMeasureBuilder()
+        public void MultiMeasure_Encode()
         {
             var pb = new ProtocolBuilder<MultiMeasureNonStringDimensionsTestWithTime>("metrics");
             pb.AddDimension(x => x.Name);
@@ -133,7 +134,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
         }
 
         [Test]
-        public void TimestreamBasic_MultiMeasure_AllNullMeasures()
+        public void Encode_AllNullMeasures()
         {
             var pb = new ProtocolBuilder<MultiMeasureNonStringDimensionsTestWithTime>("metrics");
             pb.AddDimension(x => x.Name);
@@ -146,7 +147,41 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
 
             var ex = Assert.Catch<Exception>(() => protocol.Encode(m, options));
 
-            Assert.That(ex?.Message, Is.EqualTo("Record is missing measure values (they might all be null?)"));
+            StringAssert.StartsWith("Record is missing measure values (they might all be null?)", ex!.Message);
+        }
+
+        [Test]
+        public void Encode_AllNullDimensions()
+        {
+            var pb = new ProtocolBuilder<MultiMeasureNonStringDimensionsTestWithTime>("metrics");
+            pb.AddNullableDimension(x => x.Optional);
+            pb.AddMeasure(x => x.ValueB);
+
+            var options = new TimestreamOptions() { Database = "db", Table = "table" };
+            var protocol = pb.Build();
+
+            var m = new MultiMeasureNonStringDimensionsTestWithTime { Name = "asdf", ValueB = 123 };
+
+            var ex = Assert.Catch<Exception>(() => protocol.Encode(m, options));
+
+            StringAssert.StartsWith("Record is missing dimension values (they might all be null?)", ex!.Message);
+        }
+
+        [Test]
+        public void Encode_AllNullDimensions_NonOptional()
+        {
+            var pb = new ProtocolBuilder<MultiMeasureNonStringDimensionsTestWithTime>("metrics");
+            pb.AddDimension(x => x.Name);
+            pb.AddMeasure(x => x.ValueB);
+
+            var options = new TimestreamOptions() { Database = "db", Table = "table" };
+            var protocol = pb.Build();
+
+            var m = new MultiMeasureNonStringDimensionsTestWithTime { ValueB = 123 };
+
+            var ex = Assert.Catch<Exception>(() => protocol.Encode(m, options));
+
+            StringAssert.StartsWith("Record is missing dimension values (they might all be null?)", ex!.Message);
         }
     }
 }

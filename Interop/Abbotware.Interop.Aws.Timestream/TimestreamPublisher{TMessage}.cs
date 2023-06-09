@@ -22,6 +22,7 @@ namespace Abbotware.Interop.Aws.Timestream
     /// </summary>
     /// <typeparam name="TMessage">message type</typeparam>
     public class TimestreamPublisher<TMessage> : AwsConnection<AmazonTimestreamWriteClient, AmazonTimestreamWriteConfig, TimestreamOptions>, IMessageBatchPublisher<TMessage>
+        where TMessage : notnull
     {
         private readonly ITimestreamProtocol<TMessage> protocol;
 

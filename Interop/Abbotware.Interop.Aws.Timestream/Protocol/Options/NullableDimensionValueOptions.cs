@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="DimensionValueOptions.cs" company="Abbotware, LLC">
+// <copyright file="NullableDimensionValueOptions.cs" company="Abbotware, LLC">
 // Copyright © Abbotware, LLC 2012-2023. All rights reserved
 // </copyright>
 // -----------------------------------------------------------------------
@@ -11,7 +11,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Options
     using Amazon.TimestreamWrite.Model;
 
     /// <summary>
-    /// DimensionValue Options class
+    /// Nulalble DimensionValue Options class
     /// </summary>
     /// <typeparam name="TMessage">message type</typeparam>
     /// <typeparam name="TProperty">property type</typeparam>
@@ -20,9 +20,8 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Options
     /// <param name="Converter">converter function</param>
     /// <param name="SourceName">source property name</param>
     /// <param name="TargetName">target name</param>
-    public record class DimensionValueOptions<TMessage, TProperty>(DimensionValueType Type, Func<TMessage, TProperty> Expression, Func<TProperty, string> Converter, string SourceName, string TargetName) : MessagePropertyFactoryOptions<DimensionValueType, TMessage, TProperty, string, Dimension>(Type, Expression, Converter, SourceName, TargetName)
+    public record class NullableDimensionValueOptions<TMessage, TProperty>(DimensionValueType Type, Func<TMessage, TProperty?> Expression, Func<TProperty?, string?> Converter, string SourceName, string TargetName) : MessagePropertyFactoryOptions<DimensionValueType, TMessage, TProperty?, string?, Dimension>(Type, Expression, Converter, SourceName, TargetName)
         where TMessage : notnull
-        where TProperty : notnull
     {
         /// <summary>
         /// Creates a Dimension Value

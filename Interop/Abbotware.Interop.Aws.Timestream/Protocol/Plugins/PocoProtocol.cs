@@ -15,7 +15,9 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
     using Abbotware.Core.Helpers;
     using Abbotware.Core.Logging;
     using Abbotware.Interop.Aws.Timestream.Attributes;
+    using Abbotware.Interop.Aws.Timestream.Protocol.Internal;
     using Abbotware.Interop.Aws.Timestream.Protocol.Options;
+    using Amazon.TimestreamWrite.Model;
 
     /// <summary>
     /// Helper class to build a Poco / Attribute based protocol
@@ -31,12 +33,13 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
         /// <exception cref="NotSupportedException">unsupported</exception>
         /// <exception cref="InvalidOperationException">wrong attributes</exception>
         public static ITimestreamProtocol<TMessage> Build<TMessage>(ILogger logger)
+            where TMessage : notnull
         {
             var t = typeof(TMessage);
             var properties = ReflectionHelper.Properties<TMessage>();
-            var ds = new Dictionary<string, DimensionValueOptions<TMessage>>();
-            var ms = new Dictionary<string, MeasureValueOptions<TMessage>>();
-            TimeValueOptions<TMessage>? time = null;
+            var ds = new Dictionary<string, IMessagePropertyFactory<TMessage, Dimension>>();
+            var ms = new Dictionary<string, IMessagePropertyFactory<TMessage, MeasureValue>>();
+            IRecordUpdater<TMessage>? time = null;
             MeasureNameAttribute? measureNameAttribute = null;
 
             foreach (var p in properties)
@@ -59,7 +62,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
                         throw new InvalidOperationException($"{t.FullName}.{p.Name} is not a string");
                     }
 
-                    ds.Add(targetName, new(dvt, x => (string)p.GetValue(x)!, x => p.GetValue(x) is null, sourceName, targetName));
+                    ds.Add(targetName, new DimensionValueOptions<TMessage, string>(dvt, x => (string)p.GetValue(x)!, x => x, sourceName, targetName));
                 }
 
                 var mva = ReflectionHelper.SingleOrDefaultAttribute<MeasureValueAttribute>(p);
@@ -77,24 +80,26 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
 
                     if (type == typeof(DateTime))
                     {
-                        ms.Add(targetName, new(
+                        ms.Add(targetName, new MeasureValueOptions<TMessage, DateTime>(
                             mvt,
                             x =>
                             {
                                 var v = p.GetValue(x);
+
                                 if (v is null)
                                 {
                                     throw new InvalidOperationException($"unexpected null for:{sourceName}");
                                 }
 
-                                return new DateTimeOffset((DateTime)v).ToUnixTimeMilliseconds().ToString(CultureInfo.InvariantCulture);
+                                return (DateTime)v;
                             },
+                            x => new DateTimeOffset(x).ToUnixTimeMilliseconds().ToString(CultureInfo.InvariantCulture),
                             sourceName,
                             targetName));
                     }
                     else if (type == typeof(DateTimeOffset))
                     {
-                        ms.Add(targetName, new(
+                        ms.Add(targetName, new MeasureValueOptions<TMessage, DateTimeOffset>(
                             mvt,
                             x =>
                             {
@@ -104,14 +109,15 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
                                     throw new InvalidOperationException($"unexpected null for:{sourceName}");
                                 }
 
-                                return ((DateTimeOffset)v).ToUnixTimeMilliseconds().ToString(CultureInfo.InvariantCulture);
+                                return (DateTimeOffset)v;
                             },
+                            x => x.ToUnixTimeMilliseconds().ToString(CultureInfo.InvariantCulture),
                             sourceName,
                             targetName));
                     }
                     else
                     {
-                        ms.Add(targetName, new(
+                        ms.Add(targetName, new MeasureValueOptions<TMessage, string?>(
                         mvt,
                         x =>
                             {
@@ -123,6 +129,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
 
                                 return c.ConvertToString(v);
                             },
+                        x => x,
                         sourceName,
                         targetName));
                     }
@@ -142,7 +149,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
                         throw new InvalidOperationException($"{t.FullName}.{p.Name} is not a datetimeoffset");
                     }
 
-                    time = new(ta.TimeUnit, x => (DateTimeOffset)p.GetValue(x)!, sourceName);
+                    time = new TimeValueOptions<TMessage, DateTimeOffset>(ta.TimeUnit, x => (DateTimeOffset)p.GetValue(x)!, x => x, sourceName);
                 }
             }
 

@@ -16,6 +16,7 @@ namespace Abbotware.Interop.Aws.Timestream
     /// </summary>
     /// <typeparam name="TMessage">message type</typeparam>
     public class PocoPublisher<TMessage> : TimestreamPublisher<TMessage>
+        where TMessage : notnull
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PocoPublisher{TMessage}"/> class.

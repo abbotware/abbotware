@@ -16,6 +16,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
     using Abbotware.Interop.Aws.Timestream;
     using Abbotware.Interop.Aws.Timestream.Configuration;
     using Abbotware.Interop.Aws.Timestream.Protocol;
+    using Abbotware.Interop.Aws.Timestream.Protocol.Internal;
     using Abbotware.Interop.Aws.Timestream.Protocol.Options;
     using Amazon.TimestreamWrite;
     using Amazon.TimestreamWrite.Model;
@@ -25,16 +26,17 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
     /// </summary>
     /// <typeparam name="TMessage">message type</typeparam>
     public class TimestreamProtocol<TMessage> : BaseComponent, ITimestreamProtocol<TMessage>
+        where TMessage : notnull
     {
         private readonly Type type = typeof(TMessage);
 
         private readonly HashSet<string> fields = new();
 
-        private readonly IReadOnlyDictionary<string, DimensionValueOptions<TMessage>> dimensions;
+        private readonly IReadOnlyDictionary<string, IMessagePropertyFactory<TMessage, Dimension>> dimensions;
 
-        private readonly IReadOnlyDictionary<string, MeasureValueOptions<TMessage>> measures;
+        private readonly IReadOnlyDictionary<string, IMessagePropertyFactory<TMessage, MeasureValue>> measures;
 
-        private readonly TimeValueOptions<TMessage> time;
+        private readonly IRecordUpdater<TMessage> time;
 
         private readonly string measureName;
 
@@ -44,8 +46,8 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
         /// <param name="dimensions">dimension lookups</param>
         /// <param name="measures">measure lookups</param>
         /// <param name="logger">injected logger</param>
-        public TimestreamProtocol(IReadOnlyDictionary<string, DimensionValueOptions<TMessage>> dimensions, IReadOnlyDictionary<string, MeasureValueOptions<TMessage>> measures, ILogger logger)
-            : this(dimensions, measures, new(TimeUnitType.Milliseconds, x => DateTimeOffset.UtcNow, string.Empty), string.Empty, logger)
+        public TimestreamProtocol(IReadOnlyDictionary<string, IMessagePropertyFactory<TMessage, Dimension>> dimensions, IReadOnlyDictionary<string, IMessagePropertyFactory<TMessage, MeasureValue>> measures, ILogger logger)
+            : this(dimensions, measures, new TimeValueOptions<TMessage, DateTimeOffset>(TimeUnitType.Milliseconds, x => DateTimeOffset.UtcNow, x => x, string.Empty), string.Empty, logger)
         {
         }
 
@@ -56,7 +58,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
         /// <param name="measures">measure lookups</param>
         /// <param name="time">time function</param>
         /// <param name="logger">injected logger</param>
-        public TimestreamProtocol(IReadOnlyDictionary<string, DimensionValueOptions<TMessage>> dimensions, IReadOnlyDictionary<string, MeasureValueOptions<TMessage>> measures, TimeValueOptions<TMessage> time, ILogger logger)
+        public TimestreamProtocol(IReadOnlyDictionary<string, IMessagePropertyFactory<TMessage, Dimension>> dimensions, IReadOnlyDictionary<string, IMessagePropertyFactory<TMessage, MeasureValue>> measures, IRecordUpdater<TMessage> time, ILogger logger)
             : this(dimensions, measures, time, string.Empty, logger)
         {
         }
@@ -68,8 +70,8 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
         /// <param name="measures">measure lookups</param>
         /// <param name="measureName">time function</param>
         /// <param name="logger">injected logger</param>
-        public TimestreamProtocol(IReadOnlyDictionary<string, DimensionValueOptions<TMessage>> dimensions, IReadOnlyDictionary<string, MeasureValueOptions<TMessage>> measures, string measureName, ILogger logger)
-            : this(dimensions, measures, new(TimeUnitType.Milliseconds, x => DateTimeOffset.UtcNow, string.Empty), measureName, logger)
+        public TimestreamProtocol(IReadOnlyDictionary<string, IMessagePropertyFactory<TMessage, Dimension>> dimensions, IReadOnlyDictionary<string, IMessagePropertyFactory<TMessage, MeasureValue>> measures, string measureName, ILogger logger)
+            : this(dimensions, measures, new TimeValueOptions<TMessage, DateTimeOffset>(TimeUnitType.Milliseconds, x => DateTimeOffset.UtcNow, x => x, string.Empty), measureName, logger)
         {
         }
 
@@ -81,7 +83,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
         /// <param name="time">time function</param>
         /// <param name="measureName">measure name</param>
         /// <param name="logger">injected logger</param>
-        public TimestreamProtocol(IReadOnlyDictionary<string, DimensionValueOptions<TMessage>> dimensions, IReadOnlyDictionary<string, MeasureValueOptions<TMessage>> measures, TimeValueOptions<TMessage> time, string measureName, ILogger logger)
+        public TimestreamProtocol(IReadOnlyDictionary<string, IMessagePropertyFactory<TMessage, Dimension>> dimensions, IReadOnlyDictionary<string, IMessagePropertyFactory<TMessage, MeasureValue>> measures, IRecordUpdater<TMessage> time, string measureName, ILogger logger)
             : base(logger)
         {
             this.dimensions = dimensions;
@@ -140,13 +142,13 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
         }
 
         /// <inheritdoc/>
-        public WriteRecordsRequest Encode(TMessage message, TimestreamOptions options, TimeValueOptions<TMessage> timestamp)
+        public WriteRecordsRequest Encode(TMessage message, TimestreamOptions options, IRecordUpdater<TMessage> timestamp)
         {
             return this.Encode(new[] { message }, options, timestamp);
         }
 
         /// <inheritdoc/>
-        public WriteRecordsRequest Encode(TMessage[] messages, TimestreamOptions options, TimeValueOptions<TMessage> timestamp)
+        public WriteRecordsRequest Encode(TMessage[] messages, TimestreamOptions options, IRecordUpdater<TMessage> timestamp)
         {
             var request = this.Encode(messages, timestamp);
             request.DatabaseName = options.Database;
@@ -156,13 +158,13 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
         }
 
         /// <inheritdoc/>
-        public WriteRecordsRequest Encode(TMessage message, TimeValueOptions<TMessage> timestamp)
+        public WriteRecordsRequest Encode(TMessage message, IRecordUpdater<TMessage> timestamp)
         {
             return this.Encode(new[] { message }, timestamp);
         }
 
         /// <inheritdoc/>
-        public WriteRecordsRequest Encode(TMessage[] messages, TimeValueOptions<TMessage> timestamp)
+        public WriteRecordsRequest Encode(TMessage[] messages, IRecordUpdater<TMessage> timestamp)
         {
             var records = new List<Record>();
 
@@ -188,7 +190,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
                     Version = 1,
                 };
 
-                this.OnRecordTime(message, record, timestamp);
+                timestamp.Update(message, record);
 
                 if (this.IsMulti)
                 {
@@ -213,35 +215,6 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
             };
 
             return writeRecordsRequest;
-        }
-
-        /// <summary>
-        /// Serializesthe time into the record
-        /// </summary>
-        /// <param name="message">message </param>
-        /// <param name="record">record to update</param>
-        /// <param name="timestamp">timestamp lookup</param>
-        /// <exception cref="NotSupportedException">currently unsupported time unit</exception>
-        protected static void WriteRecordTime(TMessage message, Record record, TimeValueOptions<TMessage> timestamp)
-        {
-            var time = timestamp.Lookup(message);
-
-            switch (timestamp.Type)
-            {
-                case TimeUnitType.Milliseconds:
-                    var t = time.ToUnixTimeMilliseconds();
-
-                    if (t < 0)
-                    {
-                        throw new ArgumentOutOfRangeException($"{t} is not a valild Unix Time in milliseconds. {timestamp.SourceName}:{time}");
-                    }
-
-                    record.Time = t.ToString(CultureInfo.InvariantCulture);
-                    record.TimeUnit = TimeUnit.MILLISECONDS;
-                    break;
-                default:
-                    throw new NotSupportedException($"TimeUnitType:{timestamp.Type} currently unsupported");
-            }
         }
 
         /// <summary>
@@ -290,17 +263,6 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
             }
 
             return l;
-        }
-
-        /// <summary>
-        ///  Hook to implement custom logic that sets the message time value
-        /// </summary>
-        /// <param name="message">message</param>
-        /// <param name="record">timestream record object</param>
-        /// <param name="timestamp">timestamp lookup</param>
-        protected virtual void OnRecordTime(TMessage message, Record record, TimeValueOptions<TMessage> timestamp)
-        {
-            WriteRecordTime(message, record, timestamp);
         }
 
         /// <summary>

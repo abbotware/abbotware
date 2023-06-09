@@ -18,24 +18,26 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
     using Abbotware.Interop.Aws.Timestream;
     using Abbotware.Interop.Aws.Timestream.Protocol;
     using Abbotware.Interop.Aws.Timestream.Protocol.Builder;
+    using Abbotware.Interop.Aws.Timestream.Protocol.Internal;
     using Abbotware.Interop.Aws.Timestream.Protocol.Options;
-    using Amazon.Auth.AccessControlPolicy;
+    using Amazon.TimestreamWrite.Model;
 
     /// <summary>
     /// Protocol Builder
     /// </summary>
     /// <typeparam name="TMessage">message types</typeparam>
     public class ProtocolBuilder<TMessage> : IProtocolBuilder<TMessage>
+        where TMessage : notnull
     {
         private readonly Type type = typeof(TMessage);
 
         private readonly HashSet<string> fields = new();
 
-        private readonly Dictionary<string, DimensionValueOptions<TMessage>> dimensions = new();
+        private readonly Dictionary<string, IMessagePropertyFactory<TMessage, Dimension>> dimensions = new();
 
-        private readonly Dictionary<string, MeasureValueOptions<TMessage>> measures = new();
+        private readonly Dictionary<string, IMessagePropertyFactory<TMessage, MeasureValue>> measures = new();
 
-        private TimeValueOptions<TMessage>? time;
+        private IRecordUpdater<TMessage>? time;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProtocolBuilder{TMessage}"/> class.
@@ -61,12 +63,13 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
 
         /// <inheritdoc/>
         public IProtocolBuilder<TMessage> AddDimension<TProperty>(Expression<Func<TMessage, TProperty>> expression, DimensionValueBuilderOptions<TMessage, TProperty> options)
+            where TProperty : notnull
         {
             var (pi, compiled) = this.GetProperty(expression);
             var source = pi.Name;
             var target = options.Name ?? source;
 
-            this.dimensions.Add(target, new(options.ValueType, x => options.Converter(compiled(x)), x => false, source, target));
+            this.dimensions.Add(target, new DimensionValueOptions<TMessage, TProperty>(options.ValueType, compiled, options.Converter, source, target));
 
             return this;
         }
@@ -78,13 +81,14 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
             var source = pi.Name;
             var target = options.Name ?? source;
 
-            this.dimensions.Add(target, new(options.ValueType, x => options.Converter(compiled(x)) ?? string.Empty, x => compiled(x) == null, source, target));
+            this.dimensions.Add(target, new NullableDimensionValueOptions<TMessage, TProperty?>(options.ValueType, compiled, options.Converter, source, target));
 
             return this;
         }
 
         /// <inheritdoc/>
         public IProtocolBuilder<TMessage> AddMeasure<TProperty>(Expression<Func<TMessage, TProperty>> expression, MeasureValueBuilderOptions<TMessage, TProperty> options)
+            where TProperty : notnull
         {
             if (this.measures.Any())
             {
@@ -98,7 +102,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
             var source = pi.Name;
             var target = options.Name ?? source;
 
-            this.measures.Add(target, new(options.ValueType, x => options.Converter(compiled(x)), source, target));
+            this.measures.Add(target, new MeasureValueOptions<TMessage, TProperty>(options.ValueType, compiled, options.Converter, source, target));
 
             return this;
         }
@@ -118,7 +122,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
             var source = pi.Name;
             var target = options.Name ?? source;
 
-            this.measures.Add(target, new(options.ValueType, x => options.Converter(compiled(x)), source, target));
+            this.measures.Add(target, new MeasureValueOptions<TMessage, TProperty?>(options.ValueType, compiled, options.Converter, source, target));
 
             return this;
         }
@@ -131,6 +135,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
 
         /// <inheritdoc/>
         public IProtocolBuilder<TMessage> AddTime<TProperty>(Expression<Func<TMessage, TProperty>> expression, TimeUnitType timeUnitType, Func<TProperty, DateTimeOffset> converter)
+            where TProperty : notnull
         {
             if (this.time is not null)
             {
@@ -140,7 +145,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
             var (pi, compiled) = this.GetProperty(expression);
             var source = pi.Name;
 
-            this.time = new(timeUnitType, x => converter(compiled(x)), source);
+            this.time = new TimeValueOptions<TMessage, TProperty>(timeUnitType, compiled, converter, source);
 
             return this;
         }
