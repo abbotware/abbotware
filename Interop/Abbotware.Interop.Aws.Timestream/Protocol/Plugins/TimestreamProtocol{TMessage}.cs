@@ -8,7 +8,6 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
 {
     using System;
     using System.Collections.Generic;
-    using System.Globalization;
     using System.Linq;
     using Abbotware.Core.Extensions;
     using Abbotware.Core.Logging;

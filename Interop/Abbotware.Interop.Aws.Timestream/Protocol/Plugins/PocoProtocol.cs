@@ -10,7 +10,6 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
     using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
-    using System.Xml.Linq;
     using Abbotware.Core.Diagnostics;
     using Abbotware.Core.Helpers;
     using Abbotware.Core.Logging;
