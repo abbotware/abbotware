@@ -105,11 +105,11 @@ namespace Abbotware.Interop.Aws.Timestream
 
                 if (!all)
                 {
-                    this.Logger.Debug($"WriteRecordsAsync={result.HttpStatusCode}  time:{sw.Elapsed} records:{messages.Length} != injested:{result.RecordsIngested.Total}");
+                    this.Logger.Warn($"WriteRecordsAsync={result.HttpStatusCode}  time:{sw.Elapsed} records:{messages.Length} != injested:{result.RecordsIngested.Total}");
                 }
                 else
                 {
-                    this.Logger.Warn($"WriteRecordsAsync={result.HttpStatusCode}  time:{sw.Elapsed} injested:{result.RecordsIngested.Total}");
+                    this.Logger.Debug($"WriteRecordsAsync={result.HttpStatusCode}  time:{sw.Elapsed} injested:{result.RecordsIngested.Total}");
                 }
 
                 if (result.HttpStatusCode != System.Net.HttpStatusCode.OK)
