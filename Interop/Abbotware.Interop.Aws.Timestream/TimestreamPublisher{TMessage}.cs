@@ -8,6 +8,7 @@ namespace Abbotware.Interop.Aws.Timestream
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
@@ -93,15 +94,30 @@ namespace Abbotware.Interop.Aws.Timestream
 
             try
             {
+                var sw = Stopwatch.StartNew();
+
                 var result = await this.Client.WriteRecordsAsync(request, ct)
                     .ConfigureAwait(false);
 
-                if (result.HttpStatusCode != System.Net.HttpStatusCode.OK)
+                sw.Stop();
+
+                var all = result.RecordsIngested.Total == messages.Length;
+
+                if (!all)
                 {
-                    return PublishStatus.Unknown;
+                    this.Logger.Debug($"WriteRecordsAsyn={result.HttpStatusCode}  time:{sw.Elapsed} records:{messages.Length} != injested:{result.RecordsIngested.Total}");
+                }
+                else
+                {
+                    this.Logger.Warn($"WriteRecordsAsync={result.HttpStatusCode}  time:{sw.Elapsed} injested:{result.RecordsIngested.Total}");
                 }
 
-                if (result.RecordsIngested.Total != messages.Length)
+                if (result.HttpStatusCode != System.Net.HttpStatusCode.OK)
+                {
+                    return PublishStatus.Returned;
+                }
+
+                if (!all)
                 {
                     return PublishStatus.Unknown;
                 }
