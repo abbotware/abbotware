@@ -13,8 +13,7 @@ namespace Abbotware.Using.Castle.Internal
     /// <summary>
     ///     Abbotware Castle Facility for Logging
     /// </summary>
-    public class MicrosoftLoggerFacility
-        : AbstractFacility
+    public class MicrosoftLoggerFacility : AbstractFacility
     {
         /// <inheritdoc />
         protected override void Init()

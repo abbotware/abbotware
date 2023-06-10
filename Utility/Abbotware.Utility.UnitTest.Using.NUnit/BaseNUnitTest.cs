@@ -30,7 +30,7 @@ namespace Abbotware.Utility.UnitTest.Using.NUnit
         }
 
         private BaseNUnitTest(IWindsorContainer container)
-            : this(container, container.Resolve<ILogger>())
+            : this(container, container.Kernel.Resolve<ILogger>())
         {
         }
 

@@ -27,9 +27,7 @@ namespace Abbotware.Using.Castle
         {
             container = Arguments.EnsureNotNull(container, nameof(container));
 
-            container.Register(Component.For<ILoggerFactory>().Instance(NullLoggerFactory.Instance));
-
-            return container.AddFacility<MicrosoftLoggerFacility>();
+            return container.AddMicrosoftLogger(NullLoggerFactory.Instance);
         }
 
         /// <summary>
@@ -42,6 +40,10 @@ namespace Abbotware.Using.Castle
         {
             container = Arguments.EnsureNotNull(container, nameof(container));
 
+            // register a global logger
+            container.Register(Component.For<ILogger>().Instance(factory.CreateLogger(string.Empty)));
+
+            // register a global logger factory
             container.Register(Component.For<ILoggerFactory>().Instance(factory));
 
             return container.AddFacility<MicrosoftLoggerFacility>();
