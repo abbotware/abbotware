@@ -10,7 +10,7 @@ Collection of many utility classes, interfaces, extension methods that have been
 * Coverage Report aggregation via ([ReportGenerator](https://github.com/danielpalme/ReportGenerator))
 
 ### Abbotware.Core
-This assembly has no major dependencies on any other nugets. Starting with Net5, there will be a dependency on **Microsoft.Extensions.Logging.Abstractions** to use the Microsoft.Extensions.Logging.ILogger interface.  All internal logging will be routed via an adapter (and eventually replaced completely)
+This assembly has no major dependencies except for **Microsoft.Extensions.Logging.Abstractions**.  The internal components all log to the Microsoft.Extensions.Logging.ILogger interface.  For NetStandard2.0 /and NetStandard2.1, additional dependencies have been added only to add in missing features that have been added to later version of .Net.
 
 ### Abbotware.Interop.{Library} 
 These assemblies contain interop/wrapper classes around various third-party libraries to encapsulate initialization and logic.  Sometimes the are abstracted away as via interfaces  
@@ -29,9 +29,9 @@ Example: `Abbotware.Data.Using.Castle` provides many ways to register contexts i
 
 the following base objects make up the majority of components in this library to provide common and consistent features and behavior
 
-|class| inherits | description |
+|Class| Inherits | Description |
 |---|---|---|
-|`BaseLoggable`| n/a | minimal class with a logger | 
+|`BaseLoggable`| n/a | minimal class with a logger |
 |`BaseComponent`| `BaseLoggable` |  adds in disposable, eager and lazy initialization |
 |`BaseComponent<TConfiguration>`|`BaseComponent` |  adds in configuration  |
 
@@ -47,9 +47,13 @@ General interfaces are defined in `Abbotware.Core` and plugins maybe be in secon
 
 # Specific Libraries
 
-**Abbotware.ShellCommand** - A wrapper library for executing shell commands. Captures standard output/error with timestamps as well as auto-kills processed after a specified timeout
 
-**Abbotware.Interop.Iso** - Enum classes and metadata for the free ISO Standard Codes ([see more](https://github.com/abbotware/abbotware/tree/main/Interop/Abbotware.Interop.Iso#abbotwareinteropiso))
+
+| Library                              | Description                                                  |
+| ------------------------------------ | ------------------------------------------------------------ |
+| **Abbotware.ShellCommand**           | A wrapper library for executing shell commands. Captures standard output/error with timestamps as well as auto-kills processed after a specified timeout |
+| **Abbotware.Interop.Iso**            | Enum classes and metadata for the free ISO Standard Codes ([see more](https://github.com/abbotware/abbotware/tree/main/Interop/Abbotware.Interop.Iso#abbotwareinteropiso)) |
+| **Abbotware.Interop.Aws.Timestream** | Fluent and POCO based publishers for AWS Timestream ([see more](https://github.com/abbotware/abbotware/tree/main/Interop/Abbotware.Interop.Aws.Timestream#abbotwareinteropawstimestream)) |
 
 
 
