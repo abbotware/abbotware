@@ -15,7 +15,6 @@ namespace Abbotware.Using.Castle.Internal
     using global::Castle.Core.Logging;
     using global::Castle.MicroKernel.Facilities;
     using global::Castle.MicroKernel.Registration;
-    using AbbotwareILogger = Abbotware.Core.Logging.ILogger;
     using CastleILogger = global::Castle.Core.Logging.ILogger;
     using Log4netILog = global::log4net.ILog;
 

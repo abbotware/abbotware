@@ -51,7 +51,7 @@ namespace Abbotware.Host
             this.Configuration = hostConfiguration;
 
             this.container = IocContainer.Create(this.Configuration.ContainerOptions);
-            this.container.AddLog4net();
+            this.container.AddMicrosoftNullLogger();
 
             this.Logger = this.container.Resolve<ILogger>();
 

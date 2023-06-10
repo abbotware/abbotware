@@ -14,7 +14,8 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Linux\Abbotware.Interop.Linux.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Windows\Abbotware.Interop.Windows.csproj" />
-    <ProjectReference Include="..\..\Using\Abbotware.Using.Castle.With.Log4net\Abbotware.Using.Castle.With.Log4net.csproj" />
+    <ProjectReference Include="..\..\Using\Abbotware.Using.Castle.With.ILogger\Abbotware.Using.Castle.With.MicrosoftLogger.csproj" />
+    <ProjectReference Include="..\..\Using\Abbotware.Using.Castle\Abbotware.Using.Castle.csproj" />
   </ItemGroup>
 
 </Project>

@@ -33,7 +33,6 @@
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.SystemTextJson\Abbotware.Interop.SystemTextJson.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Yubico\Abbotware.Interop.Yubico.csproj" />
     <ProjectReference Include="..\..\Using\Abbotware.Data.Using.Castle\Abbotware.Data.Using.Castle.csproj" />
-    <ProjectReference Include="..\..\Using\Abbotware.Using.Castle.With.Log4net\Abbotware.Using.Castle.With.Log4net.csproj" />
     <ProjectReference Include="..\..\Using\Abbotware.Using.Castle\Abbotware.Using.Castle.csproj" />
     <ProjectReference Include="..\..\Utility\Abbotware.Utility.UnitTest.Using.NUnit\Abbotware.Utility.UnitTest.Using.NUnit.csproj" />
     <ProjectReference Include="..\..\Utility\Abbotware.Utility.UnitTest\Abbotware.Utility.UnitTest.csproj" />

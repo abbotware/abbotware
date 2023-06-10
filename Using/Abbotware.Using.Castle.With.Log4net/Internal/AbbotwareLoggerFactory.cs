@@ -16,7 +16,6 @@ namespace Abbotware.Using.Castle.Internal
     using log4net;
     using log4net.Config;
     using log4net.Repository;
-    using AbbotwareILoggerV2 = Abbotware.Core.Logging.ILogger;
     using CastleILogger = global::Castle.Core.Logging.ILogger;
 
     /// <summary>

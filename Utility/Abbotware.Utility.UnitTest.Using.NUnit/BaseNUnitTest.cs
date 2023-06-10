@@ -86,7 +86,7 @@ namespace Abbotware.Utility.UnitTest.Using.NUnit
         protected static IWindsorContainer CreateTestContainer()
         {
             return IocContainer.Create("UnitTest", false)
-                .AddLog4net("log4net.unittest.config");
+                .AddMicrosoftNullLogger();
         }
 
         /// <summary>
