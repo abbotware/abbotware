@@ -14,6 +14,7 @@ namespace Abbotware.Data.BulkInsert
     using Abbotware.Core;
     using Abbotware.Core.Logging;
     using Abbotware.Core.Objects;
+    using Microsoft.Extensions.Logging;
 
     /// <summary>
     ///     Creates a data reader for a list of TClass objects

@@ -13,6 +13,7 @@ namespace Abbotware.Interop.Castle.ExtensionPoints
     using System.Threading.Tasks;
     using Abbotware.Core;
     using Abbotware.Core.Logging;
+    using Microsoft.Extensions.Logging;
 
     /// <summary>
     ///     base class for an application component that runs on a polling schedule
@@ -86,7 +87,7 @@ namespace Abbotware.Interop.Castle.ExtensionPoints
         /// <returns>async task</returns>
         private async Task OnDispatchAsync()
         {
-            this.Logger.Debug("started with polling interval:{0}", this.pollingTimeSpan);
+            this.Logger.Debug($"started with polling interval:{this.pollingTimeSpan}");
 
             while (!this.cts.IsCancellationRequested)
             {

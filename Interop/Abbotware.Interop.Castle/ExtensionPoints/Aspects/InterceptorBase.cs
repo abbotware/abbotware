@@ -8,8 +8,8 @@
 namespace Abbotware.Interop.Castle.ExtensionPoints.Aspects
 {
     using Abbotware.Core;
-    using Abbotware.Core.Logging;
     using global::Castle.DynamicProxy;
+    using Microsoft.Extensions.Logging;
 
     /// <summary>
     ///     Base class for creating Castle AOP-like Interceptors

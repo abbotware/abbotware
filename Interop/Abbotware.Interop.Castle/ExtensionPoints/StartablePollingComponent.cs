@@ -11,6 +11,7 @@ namespace Abbotware.Interop.Castle.ExtensionPoints
     using System.Reactive.Linq;
     using Abbotware.Core;
     using Abbotware.Core.Logging;
+    using Microsoft.Extensions.Logging;
 
     /// <summary>
     ///     base class for an application component that runs on a polling schedule
@@ -53,7 +54,7 @@ namespace Abbotware.Interop.Castle.ExtensionPoints
             this.subscriptionHandle = this.subscription
                 .Subscribe(this.OnNext, this.OnError, this.OnComplete);
 
-            this.Logger.Debug("started with polling interval:{0}", this.pollingTimeSpan);
+            this.Logger.Debug($"started with polling interval:{this.pollingTimeSpan}");
         }
 
         /// <inheritdoc />

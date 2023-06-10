@@ -75,7 +75,7 @@ namespace Abbotware.Core.Net.Plugins
 
             this.ThrowIfDisposed();
 
-            this.Logger.Info("Sending Email:{0} to:{1} isHtml:{2}", subject, string.Join(",", recipients), isHtml);
+            this.Logger.Info($"Sending Email:{subject} to:{string.Join(",", recipients)} isHtml:{isHtml}");
 
             return SmtpManager.SendAsync(this.Configuration, recipients, subject, body, attachments, isHtml, ct);
         }

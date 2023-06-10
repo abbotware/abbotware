@@ -9,8 +9,8 @@ namespace Abbotware.Interop.Castle.ExtensionPoints.Aspects
 {
     using System;
     using Abbotware.Core;
-    using Abbotware.Core.Logging;
     using global::Castle.DynamicProxy;
+    using Microsoft.Extensions.Logging;
 
     /// <summary>
     ///     Base class for implementing an attribute based interceptor

@@ -7,8 +7,6 @@
 
 namespace Abbotware.Core.Objects
 {
-    using Abbotware.Core.Logging;
-
     /// <summary>
     /// base class for classes that contain a logger
     /// </summary>

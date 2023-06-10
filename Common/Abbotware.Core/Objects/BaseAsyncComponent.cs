@@ -13,7 +13,7 @@ namespace Abbotware.Core.Objects
     using System.Threading.Tasks;
     using Abbotware.Core.Exceptions;
     using Abbotware.Core.Logging;
-    using Abbotware.Core.Logging.Plugins;
+    using Microsoft.Extensions.Logging.Abstractions;
 
     /// <summary>
     ///     Abstract base class for writing component-like objects

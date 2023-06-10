@@ -3,8 +3,6 @@
 // Copyright © Abbotware, LLC 2012-2023. All rights reserved
 // </copyright>
 // -----------------------------------------------------------------------
-#if NET6_0_OR_GREATER
-
 namespace Abbotware.Core.Logging
 {
     using System;
@@ -371,5 +369,3 @@ namespace Abbotware.Core.Logging
         }
     }
 }
-
-#endif

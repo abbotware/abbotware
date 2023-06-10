@@ -12,11 +12,11 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
     using System.Linq;
     using Abbotware.Core.Diagnostics;
     using Abbotware.Core.Helpers;
-    using Abbotware.Core.Logging;
     using Abbotware.Interop.Aws.Timestream.Attributes;
     using Abbotware.Interop.Aws.Timestream.Protocol.Internal;
     using Abbotware.Interop.Aws.Timestream.Protocol.Options;
     using Amazon.TimestreamWrite.Model;
+    using Microsoft.Extensions.Logging;
 
     /// <summary>
     /// Helper class to build a Poco / Attribute based protocol

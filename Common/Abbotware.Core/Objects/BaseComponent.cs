@@ -12,9 +12,8 @@ namespace Abbotware.Core.Objects
     using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Runtime.CompilerServices;
-    using Abbotware.Core.Extensions;
     using Abbotware.Core.Logging;
-    using Abbotware.Core.Logging.Plugins;
+    using Microsoft.Extensions.Logging.Abstractions;
 
     /// <summary>
     ///     Abstract base class for writing component-like objects

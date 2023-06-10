@@ -10,7 +10,6 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
     using System.Collections.Generic;
     using System.Linq;
     using Abbotware.Core.Extensions;
-    using Abbotware.Core.Logging;
     using Abbotware.Core.Objects;
     using Abbotware.Interop.Aws.Timestream;
     using Abbotware.Interop.Aws.Timestream.Configuration;
@@ -19,6 +18,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
     using Abbotware.Interop.Aws.Timestream.Protocol.Options;
     using Amazon.TimestreamWrite;
     using Amazon.TimestreamWrite.Model;
+    using Microsoft.Extensions.Logging;
 
     /// <summary>
     /// message encoding protocol

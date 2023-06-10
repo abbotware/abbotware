@@ -41,7 +41,7 @@ namespace Abbotware.Core.Threading.Counters
 
             var count = ActiveCounter.Increment();
 
-            this.Logger.Debug("Create - InstanceId: {0} Active:{0}", this.InstanceId, count);
+            this.Logger.Debug($"Create - InstanceId:{this.InstanceId} Active:{count}");
         }
 
         /// <summary>
@@ -82,7 +82,7 @@ namespace Abbotware.Core.Threading.Counters
         {
             ActiveCounter.Decrement();
 
-            this.Logger.Debug("Dispose - InstanceId: {0} Active:{0}", this.InstanceId, this.ActiveCount);
+            this.Logger.Debug($"Dispose - InstanceId:{this.InstanceId} Active:{this.ActiveCount}");
 
             base.OnDisposeManagedResources();
         }

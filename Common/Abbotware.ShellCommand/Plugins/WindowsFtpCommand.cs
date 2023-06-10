@@ -9,27 +9,15 @@ namespace Abbotware.ShellCommand.Plugins
     using System.Threading.Tasks;
     using Abbotware.Core;
     using Abbotware.Core.Extensions;
-    using Abbotware.Core.Logging;
     using Abbotware.ShellCommand.Plugins.Configuration;
     using Abbotware.ShellCommand.Plugins.Configuration.Models;
+    using Microsoft.Extensions.Logging;
 
     /// <summary>
     /// Wrapper Shell Command for the Windows Ftp.exe command
     /// </summary>
     public class WindowsFtpCommand : AbbotwareShellCommand<IWindowsFtpOptions>
     {
-#if NET6_0_OR_GREATER
-        /// <summary>
-        /// Initializes a new instance of the <see cref="WindowsFtpCommand"/> class.
-        /// </summary>
-        /// <param name="options">options for windows ftp command</param>
-        /// <param name="logger">injected logger</param>
-        public WindowsFtpCommand(IWindowsFtpOptions options, Microsoft.Extensions.Logging.ILogger<WindowsFtpCommand> logger)
-            : this(options, new LoggingAdapter(logger))
-        {
-        }
-#endif
-
         /// <summary>
         /// Initializes a new instance of the <see cref="WindowsFtpCommand"/> class.
         /// </summary>

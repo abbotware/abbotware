@@ -16,6 +16,7 @@ namespace Abbotware.Interop.Castle.Plugins.Aspects
     using Abbotware.Core.Logging;
     using Abbotware.Interop.Castle.ExtensionPoints.Aspects;
     using global::Castle.DynamicProxy;
+    using Microsoft.Extensions.Logging;
 
     /// <summary>
     ///     Interceptor that can be used to log a method call's entry, exit and parameter
@@ -27,12 +28,15 @@ namespace Abbotware.Interop.Castle.Plugins.Aspects
         /// </summary>
         private readonly ConcurrentDictionary<Type, ILogger> loggers = new ConcurrentDictionary<Type, ILogger>();
 
+        private readonly ILoggerFactory factory;
+
         /// <summary>
         ///     Initializes a new instance of the <see cref="LoggingInterceptor" /> class.
         /// </summary>
+        /// <param name="factory">injected logger factory</param>
         /// <param name="logger">injected logger</param>
-        public LoggingInterceptor(ILogger logger)
-            : this(true, true, logger)
+        public LoggingInterceptor(ILoggerFactory factory, ILogger logger)
+            : this(true, true, factory, logger)
         {
             Arguments.NotNull(logger, nameof(logger));
         }
@@ -42,11 +46,14 @@ namespace Abbotware.Interop.Castle.Plugins.Aspects
         /// </summary>
         /// <param name="shouldLogExit">indicates to log exit</param>
         /// <param name="shouldLogParameters">indicates to log parameters</param>
+        /// <param name="factory">injected logger factory</param>
         /// <param name="logger">logger factory</param>
-        public LoggingInterceptor(bool shouldLogExit, bool shouldLogParameters, ILogger logger)
+        public LoggingInterceptor(bool shouldLogExit, bool shouldLogParameters, ILoggerFactory factory, ILogger logger)
             : base(logger)
         {
             Arguments.NotNull(logger, nameof(logger));
+
+            this.factory = Arguments.EnsureNotNull(factory, nameof(factory));
 
             this.ShouldLogParameters = shouldLogParameters;
             this.ShouldLogExit = shouldLogExit;
@@ -67,7 +74,7 @@ namespace Abbotware.Interop.Castle.Plugins.Aspects
         {
             invocation = Arguments.EnsureNotNull(invocation, nameof(invocation));
 
-            var currentLogger = this.loggers.GetOrAdd(invocation.TargetType, s => this.Logger.Create(s.Name));
+            var currentLogger = this.loggers.GetOrAdd(invocation.TargetType, s => this.factory.CreateLogger(s.Name));
             var parameters = !this.ShouldLogParameters ? "..." : LoggingInterceptor.CreateParametersMessage(invocation);
 
             currentLogger.Debug(LoggingInterceptor.CreateEntryMessage(invocation, parameters));
@@ -83,7 +90,7 @@ namespace Abbotware.Interop.Castle.Plugins.Aspects
             }
             catch (Exception ex)
             {
-                currentLogger.Error(ex, "EXCEPTION: {0}{1}", invocation.Method.Name, parameters);
+                currentLogger.Error(ex, $"EXCEPTION: {invocation.Method.Name}{parameters}");
 
                 throw;
             }

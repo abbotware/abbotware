@@ -7,9 +7,9 @@
 
 namespace Abbotware.ShellCommand
 {
-    using Abbotware.Core.Logging;
     using Abbotware.ShellCommand.Configuration;
     using Abbotware.ShellCommand.Configuration.Models;
+    using Microsoft.Extensions.Logging;
 
     /// <summary>
     /// class the can run a shell command

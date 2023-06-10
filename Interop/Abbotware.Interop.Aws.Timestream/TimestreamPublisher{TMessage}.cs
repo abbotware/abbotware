@@ -6,7 +6,6 @@
 
 namespace Abbotware.Interop.Aws.Timestream
 {
-    using System;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
@@ -17,6 +16,7 @@ namespace Abbotware.Interop.Aws.Timestream
     using Abbotware.Interop.Aws.Timestream.Configuration;
     using Abbotware.Interop.Aws.Timestream.Protocol;
     using Amazon.TimestreamWrite;
+    using Microsoft.Extensions.Logging;
 
     /// <summary>
     /// Typed Message Publisher
@@ -27,29 +27,16 @@ namespace Abbotware.Interop.Aws.Timestream
     {
         private readonly ITimestreamProtocol<TMessage> protocol;
 
-#if NET6_0_OR_GREATER
         /// <summary>
         /// Initializes a new instance of the <see cref="TimestreamPublisher{TMessage}"/> class.
         /// </summary>
         /// <param name="options">options</param>
         /// <param name="protocol">message encoding protocol</param>
         /// <param name="logger">injected logger</param>
-        public TimestreamPublisher(TimestreamOptions options, ITimestreamProtocol<TMessage> protocol, Microsoft.Extensions.Logging.ILogger<TimestreamPublisher<TMessage>> logger)
-            : this(new AmazonTimestreamWriteClient(), options, protocol, new LoggingAdapter(logger))
-        {
-        }
-#else
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TimestreamPublisher{TMessage}"/> class.
-        /// </summary>
-        /// <param name="options">options</param>
-        /// <param name="protocol">message encoding protocol</param>
-        /// <param name="logger">injected logger</param>
-        public TimestreamPublisher(TimestreamOptions options, ITimestreamProtocol<TMessage> protocol, ILogger logger)
+        public TimestreamPublisher(TimestreamOptions options, ITimestreamProtocol<TMessage> protocol, ILogger<TimestreamPublisher<TMessage>> logger)
             : this(new AmazonTimestreamWriteClient(), options, protocol, logger)
         {
         }
-#endif
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TimestreamPublisher{TMessage}"/> class.

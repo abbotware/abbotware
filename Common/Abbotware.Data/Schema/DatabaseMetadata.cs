@@ -18,6 +18,7 @@ namespace Abbotware.Data.Schema
     using Abbotware.Data.Configuration;
     using Microsoft.Data.SqlClient;
     using Microsoft.Data.SqlClient.Server;
+    using Microsoft.Extensions.Logging;
 
     /// <summary>
     /// Metadata about tables and columns within a database
@@ -87,11 +88,11 @@ namespace Abbotware.Data.Schema
 
             var tableInfo = con.GetSchema(SqlClientMetaDataCollectionNames.Tables, new[] { catalog });
 
-            this.Logger.Info("tables retrieved {0}", tableInfo.Rows);
+            this.Logger.Info($"tables retrieved {tableInfo.Rows}");
 
             var columnInfo = con.GetSchema(SqlClientMetaDataCollectionNames.Columns, new[] { catalog });
 
-            this.Logger.Info("tables retrieved {0}", columnInfo.Rows);
+            this.Logger.Info($"tables retrieved {columnInfo.Rows}");
 
             foreach (DataRow table in tableInfo.Rows)
             {

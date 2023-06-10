@@ -13,6 +13,7 @@ namespace Abbotware.Interop.Castle.ExtensionPoints
     using Abbotware.Core.Logging;
     using Abbotware.Core.Objects;
     using global::Castle.Core;
+    using Microsoft.Extensions.Logging;
 
     /// <summary>
     ///     base class for a startable component
@@ -53,7 +54,7 @@ namespace Abbotware.Interop.Castle.ExtensionPoints
             }
             catch (Exception ex)
             {
-                this.Logger.Error(ex, "Error Stopping:{0}", this.GetType());
+                this.Logger.Error(ex, $"Error Stopping:{this.GetType()}");
                 throw;
             }
         }
@@ -73,7 +74,7 @@ namespace Abbotware.Interop.Castle.ExtensionPoints
             }
             catch (Exception ex)
             {
-                this.Logger.Error(ex, "Error Stopping:{0}", this.GetType());
+                this.Logger.Error(ex, $"Error Stopping:{this.GetType()}");
 
                 throw;
             }

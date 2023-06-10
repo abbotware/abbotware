@@ -11,6 +11,7 @@ namespace Abbotware.Interop.Aws
     using Abbotware.Core.Logging;
     using Abbotware.Core.Objects;
     using Amazon.Runtime;
+    using Microsoft.Extensions.Logging;
 
     /// <summary>
     /// Base AWS Connection

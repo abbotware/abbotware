@@ -14,6 +14,7 @@ namespace Abbotware.Data.BulkInsert
     using Abbotware.Core.Objects;
     using Abbotware.Data.Configuration;
     using Microsoft.Data.SqlClient;
+    using Microsoft.Extensions.Logging;
 
     /// <summary>
     ///     Class that perform SQL bulk inserts
@@ -49,11 +50,11 @@ namespace Abbotware.Data.BulkInsert
                 ConnectionString = this.Configuration.SqlConnection.ConnectionString,
             };
 
-            sqlConnection.InfoMessage += (sender, args) => { this.Logger.Info("InfoMessage - Sender:{0} Args.Message:{1} Args.Source:{2} Args.Errors:{3}", sender, args.Message, args.Source, args.Errors); };
+            sqlConnection.InfoMessage += (sender, args) => { this.Logger.Info($"InfoMessage - Sender:{sender} Args.Message:{args.Message} Args.Source:{args.Source} Args.Errors:{args.Errors}"); };
 
-            sqlConnection.Disposed += (sender, args) => { this.Logger.Info("Disposed - Sender:{0}", sender); };
+            sqlConnection.Disposed += (sender, args) => { this.Logger.Info($"Disposed - Sender:{sender}"); };
 
-            sqlConnection.StateChange += (sender, args) => { this.Logger.Info("StateChange - Sender:{0} Args.OriginalState:{1} => Args.CurrentState:{2}", sender, args.OriginalState, args.CurrentState); };
+            sqlConnection.StateChange += (sender, args) => { this.Logger.Info($"StateChange - Sender:{sender} Args.OriginalState:{args.OriginalState} => Args.CurrentState:{args.CurrentState}"); };
 
             sqlConnection.Open();
 
@@ -83,7 +84,7 @@ namespace Abbotware.Data.BulkInsert
 #endif
             }
 
-            this.Logger.Debug("Bulk Copy Transaction Id:{0}", transactionId);
+            this.Logger.Debug($"Bulk Copy Transaction Id:{transactionId}");
 
             using var transaction = sqlConnection.BeginTransaction(this.Configuration.SqlConnection.IsolationLevel, transactionId);
 
@@ -124,7 +125,7 @@ namespace Abbotware.Data.BulkInsert
 
             s.NotifyAfter = this.Configuration.NotifyAfter;
 
-            s.SqlRowsCopied += (sender, args) => { this.Logger.Info("SqlRowsCopied Sender:{0} Args.Abort:{1} Args.RowsCopied{2}", sender, args.Abort, args.RowsCopied); };
+            s.SqlRowsCopied += (sender, args) => { this.Logger.Info($"SqlRowsCopied Sender:{sender} Args.Abort:{args.Abort} Args.RowsCopied{args.RowsCopied}"); };
 
             s.WriteToServer(reader);
         }

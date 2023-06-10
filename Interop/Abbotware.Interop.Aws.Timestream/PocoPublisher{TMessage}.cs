@@ -6,10 +6,10 @@
 
 namespace Abbotware.Interop.Aws.Timestream
 {
-    using Abbotware.Core.Logging;
     using Abbotware.Interop.Aws.Timestream.Configuration;
     using Abbotware.Interop.Aws.Timestream.Protocol.Plugins;
     using Amazon.TimestreamWrite;
+    using Microsoft.Extensions.Logging;
 
     /// <summary>
     /// Typed Message Publisher

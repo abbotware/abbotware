@@ -18,6 +18,7 @@ namespace Abbotware.ShellCommand
     using Abbotware.Core.Logging;
     using Abbotware.Core.Objects;
     using Abbotware.ShellCommand.Configuration;
+    using Microsoft.Extensions.Logging;
 
     /// <summary>
     /// class the can run a shell command

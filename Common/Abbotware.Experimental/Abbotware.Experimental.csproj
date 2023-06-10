@@ -17,6 +17,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Cleanup\ExtensionPoints\IAddOrUpdateRepository{TEntity,TKey}.cs" />
+    <Compile Remove="Interop.NLog\Plugins\Logger.cs" />
+    <Compile Remove="Interop.NLog\Plugins\LoggerFactory.cs" />
+    <Compile Remove="Interop.NLog\Plugins\MemoryLoggerFactory.cs" />
     <Compile Remove="Messaging\Plugins\MessageProcessor{TM,TP,TC,TConnection,TConfig}.cs" />
     <Compile Remove="Messaging\_Legacy\IMessagePublisher.cs" />
     <Compile Remove="Messaging\_Legacy\IMessageSubscription.cs" />
@@ -57,11 +60,13 @@
     <Folder Include="Core\" />
     <Folder Include="Data\" />
     <Folder Include="Interop.Graphviz\" />
-    <Folder Include="Interop.NLog\" />
     <Folder Include="Workflow\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Cleanup\ExtensionPoints\IAddOrUpdateRepository{TEntity,TKey}.cs" />
+    <None Include="Interop.NLog\Plugins\Logger.cs" />
+    <None Include="Interop.NLog\Plugins\LoggerFactory.cs" />
+    <None Include="Interop.NLog\Plugins\MemoryLoggerFactory.cs" />
     <None Include="Messaging\Plugins\MessageProcessor{TM,TP,TC,TConnection,TConfig}.cs" />
     <None Include="Messaging\_Legacy\IMessagePublisher.cs" />
     <None Include="Messaging\_Legacy\IMessageSubscription.cs" />

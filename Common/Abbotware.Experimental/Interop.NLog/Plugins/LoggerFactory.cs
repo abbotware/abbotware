@@ -8,6 +8,7 @@ namespace Abbotware.Interop.NLog.Plugins
 {
     using System;
     using Abbotware.Core.Logging;
+    using Microsoft.Extensions.Logging;
 
     /// <summary>
     /// Logger factory implementation

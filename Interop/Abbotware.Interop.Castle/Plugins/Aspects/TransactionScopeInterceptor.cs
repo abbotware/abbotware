@@ -15,6 +15,7 @@ namespace Abbotware.Interop.Castle.Plugins.Aspects
     using Abbotware.Interop.Castle.ExtensionPoints.Aspects;
     using Abbotware.Interop.Castle.Extensions;
     using global::Castle.DynamicProxy;
+    using Microsoft.Extensions.Logging;
 
     /// <summary>
     /// Interceptor that uses a transaction if required
@@ -69,11 +70,11 @@ namespace Abbotware.Interop.Castle.Plugins.Aspects
 
                 var timeSpan = stopwatch.ElapsedMilliseconds;
 
-                this.Logger.Debug("COMMIT:{0} Duration(ms):{1}", invocation.GetConcreteMethod(), timeSpan);
+                this.Logger.Debug($"COMMIT:{invocation.GetConcreteMethod()} Duration(ms):{timeSpan}");
             }
             catch (Exception ex)
             {
-                this.Logger.Error(ex, "ROLLBACK:{0} Message:{1}", invocation.GetMethodName(), ex.Message);
+                this.Logger.Error(ex, $"ROLLBACK:{invocation.GetMethodName()} Message:{ex.Message}");
                 throw;
             }
         }

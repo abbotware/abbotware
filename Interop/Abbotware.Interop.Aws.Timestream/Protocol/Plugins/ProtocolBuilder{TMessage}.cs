@@ -13,14 +13,14 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
     using System.Reflection;
     using Abbotware.Core.Extensions;
     using Abbotware.Core.Helpers;
-    using Abbotware.Core.Logging;
-    using Abbotware.Core.Logging.Plugins;
     using Abbotware.Interop.Aws.Timestream;
     using Abbotware.Interop.Aws.Timestream.Protocol;
     using Abbotware.Interop.Aws.Timestream.Protocol.Builder;
     using Abbotware.Interop.Aws.Timestream.Protocol.Internal;
     using Abbotware.Interop.Aws.Timestream.Protocol.Options;
     using Amazon.TimestreamWrite.Model;
+    using Microsoft.Extensions.Logging;
+    using Microsoft.Extensions.Logging.Abstractions;
 
     /// <summary>
     /// Protocol Builder

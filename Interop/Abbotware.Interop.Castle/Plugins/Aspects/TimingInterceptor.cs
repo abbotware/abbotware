@@ -8,11 +8,11 @@
 namespace Abbotware.Interop.Castle.Plugins.Aspects
 {
     using System.Diagnostics;
-    using System.Globalization;
     using Abbotware.Core;
     using Abbotware.Core.Logging;
     using Abbotware.Interop.Castle.ExtensionPoints.Aspects;
     using global::Castle.DynamicProxy;
+    using Microsoft.Extensions.Logging;
 
     /// <summary>
     /// Interceptor that can be used for timing method calls
@@ -58,7 +58,7 @@ namespace Abbotware.Interop.Castle.Plugins.Aspects
 
                 var concreteMethod = invocation.GetConcreteMethod();
 
-                this.Logger.Debug("Class:{0} Method:{1} Duration:{2}", concreteClass.Name, concreteMethod.Name, duration);
+                this.Logger.Debug($"Class:{concreteClass.Name} Method:{concreteMethod.Name} Duration:{duration}");
             }
         }
     }

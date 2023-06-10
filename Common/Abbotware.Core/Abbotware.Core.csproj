@@ -12,12 +12,16 @@
         <Compile Remove="**/*.net5.cs" />
         <PackageReference Include="System.Memory" Version="4.5.5" />
         <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
+        <PackageReference Include="System.Threading.Channels" Version="7.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0" />
       </ItemGroup>
     </When>
     <When Condition="'$(TargetFramework)' == 'netstandard2.1'">
       <ItemGroup>
         <Compile Remove="**/*.netstandard2.0.cs" />
         <Compile Remove="**/*.net5.cs" />
+        <PackageReference Include="System.Threading.Channels" Version="7.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0" />
       </ItemGroup>
     </When>
     <When Condition="'$(TargetFramework)' == 'net6'">

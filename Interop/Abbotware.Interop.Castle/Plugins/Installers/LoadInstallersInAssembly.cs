@@ -7,7 +7,6 @@
 namespace Abbotware.Interop.Castle.Plugins.Installers
 {
     using System;
-    using System.Diagnostics.SymbolStore;
     using System.Linq;
     using Abbotware.Core;
     using Abbotware.Core.Extensions;
@@ -16,6 +15,7 @@ namespace Abbotware.Interop.Castle.Plugins.Installers
     using global::Castle.MicroKernel.SubSystems.Configuration;
     using global::Castle.Windsor;
     using global::Castle.Windsor.Installer;
+    using Microsoft.Extensions.Logging;
 
     /// <summary>
     ///     Installer that loads Installer classes in the specified assemblies
@@ -60,7 +60,7 @@ namespace Abbotware.Interop.Castle.Plugins.Installers
                     continue;
                 }
 
-                this.logger.Debug("Running Installers in:{0}", assembly.LocalPath);
+                this.logger.Debug($"Running Installers in:{assembly.LocalPath}");
 
                 try
                 {
@@ -70,7 +70,7 @@ namespace Abbotware.Interop.Castle.Plugins.Installers
                 }
                 catch (Exception ex)
                 {
-                    this.logger.Error(ex, "installer:{0}", assembly.LocalPath);
+                    this.logger.Error(ex, $"installer:{assembly.LocalPath}");
                 }
             }
         }
