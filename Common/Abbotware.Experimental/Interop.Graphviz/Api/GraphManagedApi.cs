@@ -7,9 +7,8 @@
 
 namespace Abbotware.Interop.Graphviz.Api
 {
-    using System.Globalization;
     using Abbotware.Core;
-    using Abbotware.Core.Logging;
+    using Abbotware.Core.Extensions;
     using Abbotware.Core.Objects;
     using Abbotware.Interop.Graphviz.GraphDll;
 
@@ -41,7 +40,7 @@ namespace Abbotware.Interop.Graphviz.Api
 
             var graphHandle = NativeMethods.agmemread(graphData.ToCharArray());
 
-            this.Logger.Debug("agmemread('{0:20}'...):{1}", graphData, graphHandle);
+            this.Logger.Debug($"agmemread('{graphData:20}'...):{graphHandle}");
 
             if (graphHandle.IsInvalid)
             {
@@ -54,7 +53,7 @@ namespace Abbotware.Interop.Graphviz.Api
         /// <inheritdoc />
         protected override void OnInitialize()
         {
-            this.Logger.Debug("aginitlib({0},{1},{2})", NativeMethods.SIZEOF_AGRAPH, NativeMethods.SIZEOF_ANODE, NativeMethods.SIZEOF_AEDGE);
+            this.Logger.Debug($"aginitlib({NativeMethods.SIZEOF_AGRAPH},{NativeMethods.SIZEOF_ANODE},{NativeMethods.SIZEOF_AEDGE})");
             NativeMethods.aginitlib(NativeMethods.SIZEOF_AGRAPH, NativeMethods.SIZEOF_ANODE, NativeMethods.SIZEOF_AEDGE);
         }
     }

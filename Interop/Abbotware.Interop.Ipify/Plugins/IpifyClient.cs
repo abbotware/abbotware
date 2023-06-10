@@ -10,10 +10,10 @@ namespace Abbotware.Interop.Ipify.Plugins
     using System.Net;
     using System.Threading;
     using System.Threading.Tasks;
-    using Abbotware.Core.Logging;
     using Abbotware.Interop.Ipify.Configuration;
     using Abbotware.Web.Api.Configuration.Models;
     using Abbotware.Web.Objects;
+    using Microsoft.Extensions.Logging;
 
     /// <summary>
     /// Ipify Client

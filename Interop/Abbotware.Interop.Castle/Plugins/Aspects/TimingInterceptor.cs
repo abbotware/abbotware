@@ -9,6 +9,7 @@ namespace Abbotware.Interop.Castle.Plugins.Aspects
 {
     using System.Diagnostics;
     using Abbotware.Core;
+    using Abbotware.Core.Extensions;
     using Abbotware.Core.Logging;
     using Abbotware.Interop.Castle.ExtensionPoints.Aspects;
     using global::Castle.DynamicProxy;

@@ -9,7 +9,6 @@ namespace Abbotware.Interop.Graphviz.Api
 {
     using System;
     using Abbotware.Core;
-    using Abbotware.Core.Logging;
     using Abbotware.Core.Objects;
 
     /// <summary>
@@ -28,15 +27,12 @@ namespace Abbotware.Interop.Graphviz.Api
         /// <param name="graphData">graph data</param>
         /// <param name="logger">injected logger for class</param>
         public Graph(string graphData, ILogger logger)
-            : base(logger)
         {
             graphData = Arguments.EnsureNotNullOrWhitespace(graphData, nameof(graphData));
 
-            var sublogger = this.Logger.Create("GraphManagedApi");
-
             try
             {
-                this.graphManagedApi = new GraphManagedApi(sublogger);
+                this.graphManagedApi = new GraphManagedApi(logger);
 
                 this.SafeHandle = this.graphManagedApi.MemRead(graphData);
             }

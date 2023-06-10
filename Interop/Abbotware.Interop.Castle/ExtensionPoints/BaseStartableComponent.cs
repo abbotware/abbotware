@@ -10,6 +10,7 @@ namespace Abbotware.Interop.Castle.ExtensionPoints
     using System;
     using System.Threading;
     using Abbotware.Core;
+    using Abbotware.Core.Extensions;
     using Abbotware.Core.Logging;
     using Abbotware.Core.Objects;
     using global::Castle.Core;

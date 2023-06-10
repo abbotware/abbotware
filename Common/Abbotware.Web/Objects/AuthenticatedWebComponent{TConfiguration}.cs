@@ -7,10 +7,10 @@
 
 namespace Abbotware.Web.Objects
 {
-    using Abbotware.Core.Logging;
     using Abbotware.Web.Api;
     using Abbotware.Web.Api.Configuration;
     using Abbotware.Web.Api.Plugins;
+    using Microsoft.Extensions.Logging;
 
     /// <summary>
     ///     Component that uses a web client

@@ -7,13 +7,11 @@
 namespace Abbotware.Interop.Aws.Sqs.Plugins
 {
     using System;
-    using System.Diagnostics.CodeAnalysis;
     using System.IO;
     using System.Text;
-    using System.Threading;
     using System.Threading.Tasks;
     using Abbotware.Core;
-    using Abbotware.Core.Logging;
+    using Abbotware.Core.Extensions;
     using Abbotware.Core.Messaging.Integration;
     using Abbotware.Core.Messaging.Integration.Configuration;
     using Abbotware.Core.Messaging.Integration.Configuration.Models;
@@ -21,6 +19,7 @@ namespace Abbotware.Interop.Aws.Sqs.Plugins
     using Abbotware.Interop.Aws.Sqs.Configuration;
     using global::Amazon.SQS;
     using global::Amazon.SQS.Model;
+    using global::Microsoft.Extensions.Logging;
     using ProtoBuf;
 
     /// <summary>
@@ -81,11 +80,11 @@ namespace Abbotware.Interop.Aws.Sqs.Plugins
                 MessageBody = Convert.ToBase64String(envelope.Body.ToArray()),
             };
 
-            this.Logger.Debug("Published:{0}", this.published.Value);
+            this.Logger.Debug($"Published:{this.published.Value}");
 
             var response = await this.Client.SendMessageAsync(smr).ConfigureAwait(false);
 
-            this.Logger.Debug("SendMessageAsync: response={0}", response);
+            this.Logger.Debug($"SendMessageAsync: response={response}");
 
             this.published.Increment();
 

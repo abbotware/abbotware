@@ -8,26 +8,30 @@
 namespace Abbotware.Interop.Aws.Sqs.Plugins
 {
     using Abbotware.Core;
-    using Abbotware.Core.Logging;
     using Abbotware.Core.Objects;
     using Abbotware.Interop.Aws.Sqs.Configuration;
     using global::Amazon;
     using global::Amazon.Runtime;
     using global::Amazon.SQS;
+    using global::Microsoft.Extensions.Logging;
 
     /// <summary>
     /// Redis Connection Factory via StackExchange
     /// </summary>
     public class SqsConnectionFactory : BaseComponent, ISqsConnectionFactory
     {
+        private readonly ILoggerFactory factory;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="SqsConnectionFactory"/> class.
         /// </summary>
         /// <param name="defaultConfiguration">injected default configuration</param>
-        /// <param name="logger">injected logger</param>
-        public SqsConnectionFactory(ISqsSettings defaultConfiguration, ILogger logger)
-            : base(logger)
+        /// <param name="factory">injected logger factory</param>
+        public SqsConnectionFactory(ISqsSettings defaultConfiguration, ILoggerFactory factory)
+            : base(factory.CreateLogger<SqsConnectionFactory>())
         {
+            this.factory = Arguments.EnsureNotNull(factory, nameof(factory));
+
             this.DefaultOptions = defaultConfiguration;
         }
 
@@ -56,6 +60,14 @@ namespace Abbotware.Interop.Aws.Sqs.Plugins
             resource.Dispose();
         }
 
+        /// <inheritdoc/>
+        protected override void OnDisposeManagedResources()
+        {
+            this.factory.Dispose();
+
+            base.OnDisposeManagedResources();
+        }
+
         /// <summary>
         /// encasulates the create connection logic
         /// </summary>
@@ -78,7 +90,7 @@ namespace Abbotware.Interop.Aws.Sqs.Plugins
             {
                 temp = new AmazonSQSClient(awsCreds, sqsConfig);
 
-                var connection = new SqsConnection(temp, config, this.Logger);
+                var connection = new SqsConnection(temp, config, this.factory);
                 temp = null;
 
                 return connection;

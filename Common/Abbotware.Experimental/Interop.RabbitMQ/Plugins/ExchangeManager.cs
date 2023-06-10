@@ -50,12 +50,12 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
                 try
                 {
                     this.RabbitMQChannel.ExchangeDeclarePassive(exchange);
-                    this.Logger.Debug("EXCHANGE EXISTS:{0} ", exchange);
+                    this.Logger.Debug($"EXCHANGE EXISTS:{exchange} ");
                 }
                 catch (OperationInterruptedException)
                 {
                     // TODO: this seems like a hack
-                    this.Logger.Debug("EXCHANGE EXISTS:{0} - false", exchange);
+                    this.Logger.Debug($"EXCHANGE EXISTS:{exchange} - false");
                     return false;
                 }
 
@@ -116,7 +116,7 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
             {
                 this.ThrowIfDisposed();
 
-                this.Logger.Debug("EXHANGE DELETE:{0} IfUnused:{1}", exchange, ifUnused);
+                this.Logger.Debug($"EXHANGE DELETE:{exchange} IfUnused:{ifUnused}");
                 this.RabbitMQChannel.ExchangeDelete(exchange, ifUnused);
             }
         }

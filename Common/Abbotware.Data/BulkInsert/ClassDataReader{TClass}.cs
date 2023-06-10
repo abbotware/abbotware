@@ -12,6 +12,7 @@ namespace Abbotware.Data.BulkInsert
     using System.Data;
     using System.Linq;
     using Abbotware.Core;
+    using Abbotware.Core.Extensions;
     using Abbotware.Core.Logging;
     using Abbotware.Core.Objects;
     using Microsoft.Extensions.Logging;

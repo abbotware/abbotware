@@ -8,10 +8,8 @@ namespace Abbotware.Interop.RabbitMQ.ExtensionPoints
 {
     using System;
     using System.Diagnostics;
-    using System.Globalization;
     using Abbotware.Core;
     using Abbotware.Core.Extensions;
-    using Abbotware.Core.Logging;
     using Abbotware.Core.Messaging.Amqp.Configuration;
     using Abbotware.Core.Objects;
     using Abbotware.Interop.RabbitMQ.Extensions;
@@ -99,7 +97,7 @@ namespace Abbotware.Interop.RabbitMQ.ExtensionPoints
 
             if (qos != null)
             {
-                this.Logger.Info("Setting up QOS: PreFetchSize:{0} PreFetchCount:{1} PreFetchGlobal{2}", qos.PreFetchSize, qos.PreFetchCount, qos.PreFetchGlobal);
+                this.Logger.Info($"Setting up QOS: PreFetchSize:{qos.PreFetchSize} PreFetchCount:{qos.PreFetchCount} PreFetchGlobal{qos.PreFetchGlobal}");
                 this.rabbitMQChannel.BasicQos(qos.PreFetchSize, qos.PreFetchCount, qos.PreFetchGlobal);
             }
 
@@ -174,7 +172,7 @@ namespace Abbotware.Interop.RabbitMQ.ExtensionPoints
         /// <param name="eventArgs">event arguments</param>
         protected virtual void OnModelShutdown(object? sender, ShutdownEventArgs? eventArgs)
         {
-            this.Logger.Info("channel_ModelShutdown:{0}", eventArgs);
+            this.Logger.Info($"channel_ModelShutdown:{eventArgs}");
         }
 
         /// <summary>
@@ -184,7 +182,7 @@ namespace Abbotware.Interop.RabbitMQ.ExtensionPoints
         /// <param name="eventArgs">event arguments</param>
         private void OnFlowControl(object? sender, FlowControlEventArgs? eventArgs)
         {
-            this.Logger.Info("OnFlowControl Active:{0}", eventArgs?.Active);
+            this.Logger.Info($"OnFlowControl Active:{eventArgs?.Active}");
         }
 
         /// <summary>
@@ -194,7 +192,7 @@ namespace Abbotware.Interop.RabbitMQ.ExtensionPoints
         /// <param name="eventArgs">event arguments</param>
         private void OnCallbackException(object? sender, CallbackExceptionEventArgs? eventArgs)
         {
-            this.Logger.Error("OnCallbackException Detail:{0} Exception:{1}", eventArgs?.Detail?.StringFormat(), eventArgs?.Exception);
+            this.Logger.Error($"OnCallbackException Detail:{eventArgs?.Detail?.StringFormat()} Exception:{eventArgs?.Exception}");
         }
 
         /// <summary>
@@ -214,7 +212,7 @@ namespace Abbotware.Interop.RabbitMQ.ExtensionPoints
         /// <param name="eventArgs">event arguments</param>
         private void OnBasicNack(object? sender, BasicNackEventArgs? eventArgs)
         {
-            this.Logger.Warn("OnBasicNacks: DeliveryTag:{0} Multiple:{1} Requeue:{2}", eventArgs?.DeliveryTag, eventArgs?.Multiple, eventArgs?.Requeue);
+            this.Logger.Warn($"OnBasicNacks: DeliveryTag:{eventArgs?.DeliveryTag} Multiple:{eventArgs?.Multiple} Requeue:{eventArgs?.Requeue}");
         }
     }
 }

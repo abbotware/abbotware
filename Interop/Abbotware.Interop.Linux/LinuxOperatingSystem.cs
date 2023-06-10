@@ -12,10 +12,10 @@ namespace Abbotware.Interop.Linux
     using System.IO;
     using System.Linq;
     using Abbotware.Core.Exceptions;
-    using Abbotware.Core.Logging.Plugins;
     using Abbotware.Core.Runtime;
     using Abbotware.ShellCommand;
     using Abbotware.ShellCommand.Configuration.Models;
+    using Microsoft.Extensions.Logging.Abstractions;
 
     /// <summary>
     ///     Linux Operating System Specific functionality

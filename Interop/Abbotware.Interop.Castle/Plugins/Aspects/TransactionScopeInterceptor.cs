@@ -11,6 +11,7 @@ namespace Abbotware.Interop.Castle.Plugins.Aspects
     using System.Diagnostics;
     using System.Transactions;
     using Abbotware.Core;
+    using Abbotware.Core.Extensions;
     using Abbotware.Core.Logging;
     using Abbotware.Interop.Castle.ExtensionPoints.Aspects;
     using Abbotware.Interop.Castle.Extensions;

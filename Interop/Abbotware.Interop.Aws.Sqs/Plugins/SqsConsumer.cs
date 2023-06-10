@@ -11,9 +11,9 @@ namespace Abbotware.Interop.Aws.Sqs.Plugins
     using System.Linq;
     using System.Threading.Tasks;
     using Abbotware.Core;
-    using Abbotware.Core.Logging;
     using Abbotware.Core.Messaging.Integration;
     using Abbotware.Interop.Castle.ExtensionPoints;
+    using global::Microsoft.Extensions.Logging;
 
     /// <summary>
     ///     Base class for consuming messages from a RabbitMQ Channel

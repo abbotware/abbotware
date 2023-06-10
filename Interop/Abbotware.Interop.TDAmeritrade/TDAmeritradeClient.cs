@@ -15,30 +15,18 @@ namespace Abbotware.Interop.TDAmeritrade
     using System.Threading.Tasks;
     using Abbotware.Core;
     using Abbotware.Core.Helpers;
-    using Abbotware.Core.Logging;
     using Abbotware.Core.Net.Http;
     using Abbotware.Interop.RestSharp;
     using Abbotware.Interop.TDAmeritrade.Configuration;
     using Abbotware.Interop.TDAmeritrade.Models;
     using global::RestSharp;
+    using Microsoft.Extensions.Logging;
 
     /// <summary>
     /// TD Ameritrade API Client
     /// </summary>
     public class TDAmeritradeClient : BaseRestClient<ITDAmeritradeSettings>
     {
-#if NET6_0_OR_GREATER
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TDAmeritradeClient"/> class.
-        /// </summary>
-        /// <param name="settings">api settings</param>
-        /// <param name="logger">injected logger</param>
-        public TDAmeritradeClient(ITDAmeritradeSettings settings, Microsoft.Extensions.Logging.ILogger<TDAmeritradeClient> logger)
-            : this(settings, new LoggingAdapter(logger))
-        {
-        }
-#endif
-
         /// <summary>
         /// Initializes a new instance of the <see cref="TDAmeritradeClient"/> class.
         /// </summary>

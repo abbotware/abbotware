@@ -11,6 +11,7 @@ namespace Abbotware.Interop.Aws.Lambda
     using System.Diagnostics;
     using System.Threading;
     using System.Threading.Tasks;
+    using Abbotware.Core.Extensions;
     using Abbotware.Host;
     using Abbotware.Interop.Aws.Lambda.Configuration;
     using global::Amazon.Lambda.Core;

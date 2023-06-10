@@ -12,6 +12,7 @@ namespace Abbotware.Core.Objects
     using System.Threading;
     using System.Threading.Tasks;
     using Abbotware.Core.Exceptions;
+    using Abbotware.Core.Extensions;
     using Abbotware.Core.Logging;
     using Microsoft.Extensions.Logging.Abstractions;
 

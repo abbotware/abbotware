@@ -15,10 +15,10 @@ namespace Abbotware.Interop.EntityFramework
     using Abbotware.Core;
     using Abbotware.Core.Diagnostics;
     using Abbotware.Core.Extensions;
-    using Abbotware.Core.Logging;
     using Abbotware.Data.Configuration;
     using Abbotware.Data.Schema;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Logging;
 
     /// <summary>
     ///     Base class for entity framework context that contains logic to validate the entites and the database schema
@@ -122,7 +122,7 @@ namespace Abbotware.Interop.EntityFramework
 
                 if (dataSet.PropertyType.BaseType == typeof(object))
                 {
-                    this.Logger.Debug("Skipping DBSet:{0} type:{1} - inhertince validation not supported", dataSet.Name, dataSet.PropertyType.FullName);
+                    this.Logger.Debug($"Skipping DBSet:{dataSet.Name} type:{dataSet.PropertyType.FullName} - inhertince validation not supported");
                     continue;
                 }
 
@@ -153,7 +153,7 @@ namespace Abbotware.Interop.EntityFramework
                 {
                     if (!SqlTypeMapping.SupportedCSharpType(property))
                     {
-                        this.Logger.Debug("Skipping Property:{0} type:{1}", property.Name, property.PropertyType.FullName);
+                        this.Logger.Debug($"Skipping Property:{property.Name} type:{property.PropertyType.FullName}");
                         continue;
                     }
 

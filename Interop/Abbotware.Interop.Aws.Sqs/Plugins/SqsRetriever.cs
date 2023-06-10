@@ -13,13 +13,13 @@ namespace Abbotware.Interop.Aws.Sqs.Plugins
     using System.Text;
     using System.Threading.Tasks;
     using Abbotware.Core;
-    using Abbotware.Core.Logging;
     using Abbotware.Core.Messaging.Integration;
     using Abbotware.Core.Messaging.Integration.Configuration;
     using Abbotware.Core.Messaging.Integration.Configuration.Models;
     using Abbotware.Interop.Aws.Sqs.Configuration;
     using global::Amazon.SQS;
     using global::Amazon.SQS.Model;
+    using global::Microsoft.Extensions.Logging;
     using ProtoBuf;
 
     /// <summary>

@@ -12,7 +12,6 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
     using System.Linq;
     using Abbotware.Core;
     using Abbotware.Core.Extensions;
-    using Abbotware.Core.Logging;
     using Abbotware.Core.Messaging.Amqp.Configuration;
     using Abbotware.Core.Messaging.Amqp.ExtensionPoints;
     using Abbotware.Core.Objects;
@@ -27,6 +26,8 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
     /// </summary>
     public class RabbitConnection : BaseComponent, IRabbitConnection
     {
+        private readonly ILoggerFactory factory;
+
         /// <summary>
         ///     RabbitMQ ConnectionFactory to create the initial connection
         /// </summary>
@@ -41,12 +42,12 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
         ///     Initializes a new instance of the <see cref="RabbitConnection" /> class.
         /// </summary>
         /// <param name="connection">connection configuration</param>
-        /// <param name="logger">injected logger</param>
-        public RabbitConnection(IRabbitMQClientIConnection connection, ILogger logger)
-            : base(logger)
+        /// <param name="factory">injected logger factory</param>
+        public RabbitConnection(IRabbitMQClientIConnection connection, ILoggerFactory factory)
+            : base(factory.CreateLogger<RabbitConnection>())
         {
             Arguments.NotNull(connection, nameof(connection));
-            Arguments.NotNull(logger, nameof(logger));
+            this.factory = Arguments.EnsureNotNull(factory, nameof(factory));
 
             this.rabbitMQConnection = connection;
 
@@ -58,32 +59,32 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
             //// connection.CloseReason;
             //// connection.IsOpen;
             //// connection.AutoClose
-            this.Logger.Debug("CONNECTION INFO: IsOpen:{0} CloseReason:{2}", this.rabbitMQConnection.IsOpen, this.rabbitMQConnection.CloseReason);
+            this.Logger.Debug($"CONNECTION INFO: IsOpen:{this.rabbitMQConnection.IsOpen} CloseReason:{this.rabbitMQConnection.CloseReason}");
             Debug.Assert(this.rabbitMQConnection.IsOpen == (this.rabbitMQConnection.CloseReason == null), "according to documentation, these checks are identical");
 
             //// connection.Heartbeat;
             //// connection.FrameMax;
             //// connection.ChannelMax;
-            this.Logger.Info("CONNECTION INFO:  HeartBeat:{0} ChannelMax:{1} FrameMax:{2}", this.rabbitMQConnection.Heartbeat, this.rabbitMQConnection.ChannelMax, this.rabbitMQConnection.FrameMax);
+            this.Logger.Info($"CONNECTION INFO:  HeartBeat:{this.rabbitMQConnection.Heartbeat} ChannelMax:{this.rabbitMQConnection.ChannelMax} FrameMax:{this.rabbitMQConnection.FrameMax}");
 
             //// connection.Endpoint;
             //// connection.KnownHosts;
             //// connection.Protocol;
             //// connection.LocalPort;
             //// connection.RemotePort;
-            this.Logger.Info("CONNECTION INFO:  Endpoint:{0} Protocol:{1} KnownHosts:{2} LocalPort:{3} RemotePort:{4}", this.rabbitMQConnection.Endpoint, this.rabbitMQConnection.Protocol, this.rabbitMQConnection.KnownHosts, this.rabbitMQConnection.LocalPort, this.rabbitMQConnection.RemotePort);
+            this.Logger.Info($"CONNECTION INFO:  Endpoint:{this.rabbitMQConnection.Endpoint} Protocol:{this.rabbitMQConnection.Protocol} KnownHosts:{this.rabbitMQConnection.KnownHosts} LocalPort:{this.rabbitMQConnection.LocalPort} RemotePort:{this.rabbitMQConnection.RemotePort}");
 
             // connection.ClientProperties;
-            this.Logger.Info("CONNECTION INFO:  ClientProperties:[{0}] ", this.rabbitMQConnection.ClientProperties.StringFormat());
+            this.Logger.Info($"CONNECTION INFO:  ClientProperties:[{this.rabbitMQConnection.ClientProperties.StringFormat()}] ");
 
             // connection.ServerProperties;
-            this.Logger.Info("CONNECTION INFO:  ServerProperties:[{0}] ", this.rabbitMQConnection.ServerProperties.StringFormat());
+            this.Logger.Info($"CONNECTION INFO:  ServerProperties:[{this.rabbitMQConnection.ServerProperties.StringFormat()}] ");
 
             ////this.Logger.Info("CONNECTION INFO:  ConsumerWorkService:[{0}] ", this.rabbitMQConnection.ConsumerWorkService);
 
             var shutdownReport = string.Join(", ", this.rabbitMQConnection.ShutdownReport.Select(x => $"Description{x.Description} Ex:{x.Exception}"));
 
-            this.Logger.Info("CONNECTION INFO:  ShutdownReport:[{0}] ", shutdownReport);
+            this.Logger.Info($"CONNECTION INFO:  ShutdownReport:[{shutdownReport}] ");
 
             Debug.Assert(this.rabbitMQConnection.IsOpen, "something is wrong, connection should be open by now");
         }
@@ -99,7 +100,7 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
         {
             this.InitializeIfRequired();
 
-            using var auto = new AutoFactory<QueueManager>(() => new QueueManager(this.defaultChannelConfiguration, this.rabbitMQConnection.CreateModel(), this.Logger.Create("Channel")));
+            using var auto = new AutoFactory<QueueManager>(() => new QueueManager(this.defaultChannelConfiguration, this.rabbitMQConnection.CreateModel(), this.factory.CreateLogger("Channel")));
 
             return auto.Return();
         }
@@ -109,7 +110,7 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
         {
             this.InitializeIfRequired();
 
-            using var auto = new AutoFactory<ExchangeManager>(() => new ExchangeManager(this.defaultChannelConfiguration, this.rabbitMQConnection.CreateModel(), this.Logger.Create("Channel")));
+            using var auto = new AutoFactory<ExchangeManager>(() => new ExchangeManager(this.defaultChannelConfiguration, this.rabbitMQConnection.CreateModel(), this.factory.CreateLogger("Channel")));
 
             return auto.Return();
         }
@@ -127,7 +128,7 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
         {
             this.InitializeIfRequired();
 
-            using var auto = new AutoFactory<RabbitPublisher>(() => new RabbitPublisher(channelConfiguration, this.rabbitMQConnection.CreateModel(), this.Logger.Create("PublishManager")));
+            using var auto = new AutoFactory<RabbitPublisher>(() => new RabbitPublisher(channelConfiguration, this.rabbitMQConnection.CreateModel(), this.factory.CreateLogger("PublishManager")));
 
             return auto.Return();
         }
@@ -137,7 +138,7 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
         {
             var channel = this.CreateChannel();
 
-            var ret = new RabbitRetriever(this.defaultChannelConfiguration, channel, this.Logger.Create("MessageRetrievalManager"));
+            var ret = new RabbitRetriever(this.defaultChannelConfiguration, channel, this.factory.CreateLogger("MessageRetrievalManager"));
 
             return ret;
         }
@@ -147,7 +148,7 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
         {
             this.InitializeIfRequired();
 
-            using var auto = new AutoFactory<ConsumerManager>(() => new ConsumerManager(channelConfiguration, this.rabbitMQConnection.CreateModel(), this.Logger.Create("ConsumerManager")));
+            using var auto = new AutoFactory<ConsumerManager>(() => new ConsumerManager(channelConfiguration, this.rabbitMQConnection.CreateModel(), this.factory.CreateLogger("ConsumerManager")));
 
             return auto.Return();
         }
@@ -157,7 +158,7 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
         {
             this.InitializeIfRequired();
 
-            using var auto = new AutoFactory<ConsumerManager>(() => new ConsumerManager(this.defaultChannelConfiguration, this.rabbitMQConnection.CreateModel(), this.Logger.Create("ConsumerManager")));
+            using var auto = new AutoFactory<ConsumerManager>(() => new ConsumerManager(this.defaultChannelConfiguration, this.rabbitMQConnection.CreateModel(), this.factory.CreateLogger("ConsumerManager")));
 
             return auto.Return();
         }
@@ -167,7 +168,7 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
         {
             var channel = this.CreateChannel();
 
-            var ret = new RabbitAcknowledger(this.defaultChannelConfiguration, channel, this.Logger.Create("MessageRetrievalManager"));
+            var ret = new RabbitAcknowledger(this.defaultChannelConfiguration, channel, this.factory.CreateLogger("MessageRetrievalManager"));
 
             return ret;
         }
@@ -177,7 +178,7 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
         {
             this.InitializeIfRequired();
 
-            using var auto = new AutoFactory<ResourceManager>(() => new ResourceManager(this.CreateQueueManager(), this.CreateExchangeManager(), this.Logger.Create("ResourceManager")));
+            using var auto = new AutoFactory<ResourceManager>(() => new ResourceManager(this.CreateQueueManager(), this.CreateExchangeManager(), this.factory.CreateLogger("ResourceManager")));
 
             return auto.Return();
         }
@@ -225,7 +226,7 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
         /// <param name="eventArgs">event arguments</param>
         private void OnConnectionUnblocked(object? sender, EventArgs? eventArgs)
         {
-            this.Logger.Info("OnConnectionBlocked Sender:{0} Args:{1} ", sender, eventArgs);
+            this.Logger.Info($"OnConnectionBlocked Sender:{sender} Args:{eventArgs} ");
         }
 
         /// <summary>
@@ -235,7 +236,7 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
         /// <param name="eventArgs">event arguments</param>
         private void OnConnectionBlocked(object? sender, ConnectionBlockedEventArgs? eventArgs)
         {
-            this.Logger.Info("OnConnectionBlocked Sender:{0} Reason:{1} ", sender, eventArgs?.Reason);
+            this.Logger.Info($"OnConnectionBlocked Sender:{sender} Reason:{eventArgs?.Reason} ");
         }
 
         /// <summary>
@@ -245,7 +246,7 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
         /// <param name="eventArgs">event arguments</param>
         private void OnConnectionShutdown(object? sender, ShutdownEventArgs? eventArgs)
         {
-            this.Logger.Info("OnConnectionShutdown Sender:{0} Cause:{1} ClassId:{2}, Initiator:{3} Method Id:{4} Reply Code:{5}, Reply Text:{6}", sender, eventArgs?.Cause, eventArgs?.ClassId, eventArgs?.Initiator, eventArgs?.MethodId, eventArgs?.ReplyCode, eventArgs?.ReplyText);
+            this.Logger.Info($"OnConnectionShutdown Sender:{sender} Cause:{eventArgs?.Cause} ClassId:{eventArgs?.ClassId}, Initiator:{eventArgs?.Initiator} Method Id:{eventArgs?.MethodId} Reply Code:{eventArgs?.ReplyCode}, Reply Text:{eventArgs?.ReplyText}");
         }
 
         /// <summary>
@@ -255,7 +256,7 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
         /// <param name="eventArgs">event arguments</param>
         private void OnCallbackException(object? sender, CallbackExceptionEventArgs? eventArgs)
         {
-            this.Logger.Error("OnCallbackException Sender:{0} Detail:{1} Exception:{2}", sender, eventArgs?.Detail?.StringFormat(), eventArgs?.Exception);
+            this.Logger.Error($"OnCallbackException Sender:{sender} Detail:{eventArgs?.Detail?.StringFormat()} Exception:{eventArgs?.Exception}");
         }
     }
 }

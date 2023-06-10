@@ -8,9 +8,8 @@
 namespace Abbotware.Core.Threading
 {
     using System;
-    using System.Globalization;
     using System.Threading;
-    using Abbotware.Core.Logging;
+    using Abbotware.Core.Extensions;
     using Abbotware.Core.Objects;
 
     /// <summary>

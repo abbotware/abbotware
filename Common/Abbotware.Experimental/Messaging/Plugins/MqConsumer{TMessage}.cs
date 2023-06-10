@@ -10,6 +10,7 @@ namespace Abbotware.Core.Messaging.Plugins
     using System;
     using System.Diagnostics.CodeAnalysis;
     using Abbotware.Core;
+    using Abbotware.Core.Extensions;
     using Abbotware.Core.Logging;
     using Abbotware.Core.Messaging.Integration;
     using Abbotware.Core.Messaging.Integration.Base;
@@ -67,7 +68,7 @@ namespace Abbotware.Core.Messaging.Plugins
             }
             catch (Exception ex)
             {
-                this.Logger.Error(ex, "Message:{0} redelivered:{1}", envelope.DeliveryProperties?.DeliveryTag, envelope.DeliveryProperties?.Redelivered);
+                this.Logger.Error(ex, $"Message:{envelope.DeliveryProperties?.DeliveryTag} redelivered:{envelope.DeliveryProperties?.Redelivered}");
 
                 if (envelope.DeliveryProperties!.Redelivered)
                 {

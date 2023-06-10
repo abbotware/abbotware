@@ -8,9 +8,9 @@ namespace Abbotware.Interop.Aws.Sqs.Plugins
 {
     using System.Threading.Tasks;
     using Abbotware.Core;
-    using Abbotware.Core.Logging;
     using Abbotware.Interop.Aws.Sqs.Configuration;
     using global::Amazon.SQS;
+    using global::Microsoft.Extensions.Logging;
 
     /// <summary>
     ///     Channel manager used for manage queue operations

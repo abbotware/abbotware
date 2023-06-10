@@ -27,7 +27,7 @@ namespace Abbotware.Core.Web.Plugins
 
             if (request.Headers.ContainsKey("X-Forwarded-Proto"))
             {
-                reqProtocol = request.Headers["X-Forwarded-Proto"][0];
+                reqProtocol = request.Headers["X-Forwarded-Proto"]![0];
             }
             else
             {

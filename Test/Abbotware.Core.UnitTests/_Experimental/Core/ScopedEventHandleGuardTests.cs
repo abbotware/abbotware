@@ -5,8 +5,8 @@
 namespace Abbotware.UnitTests.Core
 {
     using System.Threading;
-    using Abbotware.Core.Logging.Plugins;
     using Abbotware.Core.Threading;
+    using Microsoft.Extensions.Logging.Abstractions;
     using NUnit.Framework;
 
     [TestFixture]

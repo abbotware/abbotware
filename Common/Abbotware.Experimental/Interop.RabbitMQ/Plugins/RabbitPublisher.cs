@@ -14,6 +14,7 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
     using System.Linq;
     using System.Threading.Tasks;
     using Abbotware.Core;
+    using Abbotware.Core.Extensions;
     using Abbotware.Core.Logging;
     using Abbotware.Core.Messaging;
     using Abbotware.Core.Messaging.Amqp.Configuration;
@@ -250,7 +251,7 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
 
                         if (!this.outstandingConfirmations.TryRemove(currentseqNo, out var tcs))
                         {
-                            this.Logger.Warn("TryRemove failed: currentseqNo:{0}", currentseqNo);
+                            this.Logger.Warn($"TryRemove failed: currentseqNo:{currentseqNo}");
                             break;
                         }
 
@@ -297,7 +298,7 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
                             {
                                 // may have already been removed by BasicReturn
                                 var keys = string.Join(",", this.outstandingConfirmations.Keys.ToList().Select(x => x.ToString(CultureInfo.InvariantCulture)));
-                                this.Logger.Warn("TryRemove SeqNo:{0}  Keys:{1}", eventArgs.DeliveryTag, keys);
+                                this.Logger.Warn($"TryRemove SeqNo:{eventArgs.DeliveryTag}  Keys:{keys}");
                                 continue;
                             }
 
@@ -328,7 +329,7 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
         /// <inheritdoc />
         protected override void OnModelShutdown(object? sender, ShutdownEventArgs? eventArgs)
         {
-            this.Logger.Info("channel_ModelShutdown:{0}", eventArgs);
+            this.Logger.Info($"channel_ModelShutdown:{eventArgs}");
 
             foreach (var k in this.outstandingConfirmations.ToList())
             {

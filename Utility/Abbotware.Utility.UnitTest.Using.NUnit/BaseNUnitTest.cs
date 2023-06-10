@@ -8,12 +8,12 @@
 namespace Abbotware.Utility.UnitTest.Using.NUnit
 {
     using System.Diagnostics.CodeAnalysis;
-    using Abbotware.Core.Logging;
     using Abbotware.Using.Castle;
     using Castle.MicroKernel.Registration;
     using Castle.MicroKernel.SubSystems.Configuration;
     using Castle.Windsor;
     using global::NUnit.Framework;
+    using Microsoft.Extensions.Logging;
 
     /// <summary>
     ///     Base class for creating NUnit unit tests

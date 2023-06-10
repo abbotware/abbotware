@@ -14,10 +14,10 @@ namespace Abbotware.Interop.MacVendors.Plugins
     using System.Threading;
     using System.Threading.Tasks;
     using Abbotware.Core.Extensions;
-    using Abbotware.Core.Logging;
     using Abbotware.Interop.MacVendors.Configuration;
     using Abbotware.Web.Api.Configuration.Models;
     using Abbotware.Web.Objects;
+    using Microsoft.Extensions.Logging;
 
     /// <summary>
     /// MacVendors Client

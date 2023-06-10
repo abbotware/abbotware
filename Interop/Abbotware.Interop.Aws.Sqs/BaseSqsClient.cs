@@ -10,11 +10,11 @@ namespace Abbotware.Interop.Aws.Sqs
     using System;
     using Abbotware.Core;
     using Abbotware.Core.Extensions;
-    using Abbotware.Core.Logging;
     using Abbotware.Core.Objects;
     using Abbotware.Interop.Aws.Sqs.Configuration;
     using global::Amazon.Runtime;
     using global::Amazon.SQS;
+    using global::Microsoft.Extensions.Logging;
 
     /// <summary>
     /// Base SQS client

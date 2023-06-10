@@ -8,27 +8,31 @@
 namespace Abbotware.Interop.Aws.Sqs.Plugins
 {
     using Abbotware.Core;
-    using Abbotware.Core.Logging;
+    using Abbotware.Core.Extensions;
     using Abbotware.Core.Messaging.Integration;
     using Abbotware.Core.Objects;
     using Abbotware.Interop.Aws.Sqs.Configuration;
     using global::Amazon.SQS;
+    using global::Microsoft.Extensions.Logging;
 
     /// <summary>
     /// SQS Connection
     /// </summary>
     public class SqsConnection : BaseComponent, ISqsConnection
     {
+        private readonly ILoggerFactory factory;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="SqsConnection"/> class.
         /// </summary>
         /// <param name="client">injected Amazon client </param>
         /// <param name="configuration">injected configuration</param>
-        /// <param name="logger">injected logger</param>
-        public SqsConnection(AmazonSQSClient client, ISqsSettings configuration, ILogger logger)
-            : base(logger)
+        /// <param name="factory">injected logger factory</param>
+        public SqsConnection(AmazonSQSClient client, ISqsSettings configuration, ILoggerFactory factory)
+            : base(factory.CreateLogger<SqsConnection>())
         {
             client = Arguments.EnsureNotNull(client, nameof(client));
+            this.factory = Arguments.EnsureNotNull(factory, nameof(factory));
 
             this.Client = client;
             this.Configuration = configuration;
@@ -54,7 +58,7 @@ namespace Abbotware.Interop.Aws.Sqs.Plugins
         /// <inheritdoc />
         public IBasicPublisher CreatePublisher()
         {
-            return new SqsPublisher(this.Client, this.Configuration, this.Logger.Create("SqsPublisher"));
+            return new SqsPublisher(this.Client, this.Configuration, this.factory.CreateLogger("SqsPublisher"));
         }
 
         /// <inheritdoc />
@@ -69,7 +73,7 @@ namespace Abbotware.Interop.Aws.Sqs.Plugins
         /// <inheritdoc />
         public IBasicRetriever CreateRetriever()
         {
-            return new SqsRetriever(this.Client, this.Configuration, this.Logger.Create("SqsRetriever"));
+            return new SqsRetriever(this.Client, this.Configuration, this.factory.CreateLogger("SqsRetriever"));
         }
 
         /// <inheritdoc />
@@ -84,13 +88,13 @@ namespace Abbotware.Interop.Aws.Sqs.Plugins
         /// <inheritdoc />
         public ISqsQueueManager CreateQueueManager()
         {
-            return new SqsQueueManager(this.Client, this.Configuration, this.Logger.Create("SqsQueueManager"));
+            return new SqsQueueManager(this.Client, this.Configuration, this.factory.CreateLogger("SqsQueueManager"));
         }
 
         /// <inheritdoc />
         public IBasicConsumer CreateConsumer()
         {
-            return new SqsConsumer(this.CreateRetriever<SqsRetriever>(), this.Logger.Create("SqsConsumer"));
+            return new SqsConsumer(this.CreateRetriever<SqsRetriever>(), this.factory.CreateLogger("SqsConsumer"));
         }
 
         /// <inheritdoc />
@@ -114,7 +118,7 @@ namespace Abbotware.Interop.Aws.Sqs.Plugins
 
         private void OnExceptionEvent(object sender, global::Amazon.Runtime.ExceptionEventArgs e)
         {
-            this.Logger.Error("Sender:{0} ExceptionEventArgs:{1}", sender, e);
+            this.Logger.Error($"Sender:{sender} ExceptionEventArgs:{e}");
         }
 
         private void OnAfterResponseEvent(object sender, global::Amazon.Runtime.ResponseEventArgs e)

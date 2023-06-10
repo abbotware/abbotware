@@ -8,11 +8,11 @@ namespace Abbotware.Interop.Aws.Sqs
 {
     using System;
     using Abbotware.Core;
-    using Abbotware.Core.Logging;
     using Abbotware.Interop.Aws.Sqs.Configuration;
     using Abbotware.Interop.Aws.Sqs.Configuration.Models;
     using Abbotware.Interop.Aws.Sqs.Plugins;
     using Abbotware.Interop.Microsoft;
+    using global::Microsoft.Extensions.Logging;
 
     /// <summary>
     /// Redis Helper function
@@ -46,39 +46,37 @@ namespace Abbotware.Interop.Aws.Sqs
         /// Create a sqs connection from a config
         /// </summary>
         /// <param name="cfg">configuration</param>
-        /// <param name="logger">injected logger</param>
+        /// <param name="factory">injected logger factory</param>
         /// <returns>sqs factory</returns>
-        public static ISqsConnectionFactory CreateFactory(ISqsSettings cfg, ILogger logger)
+        public static ISqsConnectionFactory CreateFactory(ISqsSettings cfg, ILoggerFactory factory)
         {
-            return new SqsConnectionFactory(cfg, logger);
+            return new SqsConnectionFactory(cfg, factory);
         }
 
         /// <summary>
         /// Create a sqs factory
         /// </summary>
-        /// <param name="logger">injected logger</param>
+        /// <param name="factory">injected logger factory</param>
         /// <param name="section">config section to use for binding</param>
         /// <param name="file">config file to use for settings</param>
         /// <returns>sqs factory</returns>
-        public static ISqsConnectionFactory CreateFactory(ILogger logger, string section = SqsSettings.DefaultSection, string file = ConfigurationHelper.AppSettingsFileName)
+        public static ISqsConnectionFactory CreateFactory(ILoggerFactory factory, string section = SqsSettings.DefaultSection, string file = ConfigurationHelper.AppSettingsFileName)
         {
             var cfg = GetSqsConfigurationFromFile(section, file);
 
-            return CreateFactory(cfg, logger);
+            return CreateFactory(cfg, factory);
         }
 
         /// <summary>
         /// Create a sqs connection
         /// </summary>
-        /// <param name="logger">injected logger</param>
+        /// <param name="factory">injected logger factory</param>
         /// <param name="section">config section to use for binding</param>
         /// <param name="file">config file to use for settings</param>
         /// <returns>redis connection</returns>
-        public static ISqsConnection CreateConnection(ILogger logger, string section = SqsSettings.DefaultSection, string file = ConfigurationHelper.AppSettingsFileName)
+        public static ISqsConnection CreateConnection(ILoggerFactory factory, string section = SqsSettings.DefaultSection, string file = ConfigurationHelper.AppSettingsFileName)
         {
-            var factory = CreateFactory(logger, section, file);
-
-            return factory.Create();
+            return CreateFactory(factory, section, file).Create();
         }
     }
 }

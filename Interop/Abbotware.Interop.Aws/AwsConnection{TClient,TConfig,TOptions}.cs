@@ -8,6 +8,7 @@
 namespace Abbotware.Interop.Aws
 {
     using Abbotware.Core;
+    using Abbotware.Core.Extensions;
     using Abbotware.Core.Logging;
     using Abbotware.Core.Objects;
     using Amazon.Runtime;

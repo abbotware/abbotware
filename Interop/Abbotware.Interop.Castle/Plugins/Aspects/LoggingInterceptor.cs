@@ -13,6 +13,7 @@ namespace Abbotware.Interop.Castle.Plugins.Aspects
     using System.Linq;
     using System.Text;
     using Abbotware.Core;
+    using Abbotware.Core.Extensions;
     using Abbotware.Core.Logging;
     using Abbotware.Interop.Castle.ExtensionPoints.Aspects;
     using global::Castle.DynamicProxy;

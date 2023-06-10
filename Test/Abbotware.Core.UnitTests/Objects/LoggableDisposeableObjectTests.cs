@@ -4,9 +4,9 @@
 
 namespace Abbotware.UnitTests.Core
 {
-    using Abbotware.Core.Logging;
-    using Abbotware.Core.Logging.Plugins;
     using Abbotware.Core.Objects;
+    using Microsoft.Extensions.Logging;
+    using Microsoft.Extensions.Logging.Abstractions;
     using NUnit.Framework;
 
     [TestFixture]

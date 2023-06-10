@@ -12,6 +12,7 @@ namespace Abbotware.Core.Objects
     using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Runtime.CompilerServices;
+    using Abbotware.Core.Extensions;
     using Abbotware.Core.Logging;
     using Microsoft.Extensions.Logging.Abstractions;
 

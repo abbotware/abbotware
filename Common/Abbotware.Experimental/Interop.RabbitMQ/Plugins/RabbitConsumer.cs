@@ -10,7 +10,7 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
     using System;
     using System.Globalization;
     using Abbotware.Core;
-    using Abbotware.Core.Logging;
+    using Abbotware.Core.Extensions;
     using Abbotware.Core.Messaging.Configuration;
     using Abbotware.Core.Messaging.Integration;
     using Abbotware.Core.Objects;
@@ -137,7 +137,7 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
         /// </summary>
         private void LogStatus()
         {
-            this.Logger.Info("Consumer:{0} State:{1}", this.ConsumerTag, this.Status);
+            this.Logger.Info($"Consumer:{this.ConsumerTag} State:{this.Status}");
         }
     }
 }

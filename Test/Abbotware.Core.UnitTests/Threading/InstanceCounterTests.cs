@@ -4,10 +4,10 @@
 
 namespace Abbotware.UnitTests.Core
 {
-    using Abbotware.Core.Logging;
     using Abbotware.Core.Objects;
     using Abbotware.Core.Threading.Counters;
     using Abbotware.Utility.UnitTest.Using.NUnit;
+    using Microsoft.Extensions.Logging;
     using NUnit.Framework;
 
     [TestFixture]

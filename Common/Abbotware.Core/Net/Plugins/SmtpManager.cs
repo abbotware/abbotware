@@ -13,6 +13,7 @@ namespace Abbotware.Core.Net.Plugins
     using System.Net.Mail;
     using System.Threading;
     using System.Threading.Tasks;
+    using Abbotware.Core.Extensions;
     using Abbotware.Core.Logging;
     using Abbotware.Core.Net;
     using Abbotware.Core.Net.Configuration;

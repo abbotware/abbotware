@@ -12,9 +12,9 @@ namespace Abbotware.Core.Security
     using System.IO;
     using System.Security.Cryptography.X509Certificates;
     using Abbotware.Core.Exceptions;
-    using Abbotware.Core.Logging.Plugins;
     using Abbotware.ShellCommand;
     using Abbotware.ShellCommand.Configuration.Models;
+    using Microsoft.Extensions.Logging.Abstractions;
 
     /// <summary>
     ///     Creates an X509 certificate

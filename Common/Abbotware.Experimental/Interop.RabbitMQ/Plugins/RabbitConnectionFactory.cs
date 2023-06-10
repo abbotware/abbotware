@@ -7,12 +7,12 @@
 
 namespace Abbotware.Interop.RabbitMQ.Plugins
 {
-    using System.Net.Sockets;
     using Abbotware.Core;
     using Abbotware.Core.Objects;
     using Abbotware.Interop.RabbitMQ.Conifguration;
     using Abbotware.Interop.RabbitMQ.ExtensionPoints;
     using global::RabbitMQ.Client;
+    using Microsoft.Extensions.Logging.Abstractions;
 
     /// <summary>
     /// Redis Connection Factory via StackExchange
@@ -154,7 +154,7 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
 
             ////this.connectionFactory.CreateConnection(hostnames:);
 
-            return new RabbitConnection(connection, this.Logger);
+            return new RabbitConnection(connection, NullLoggerFactory.Instance);
         }
     }
 }

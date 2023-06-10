@@ -6,10 +6,10 @@ namespace Abbotware.UnitTests.Core
 {
     using System;
     using System.Threading;
-    using Abbotware.Core.Logging;
     using Abbotware.Core.Objects;
     using Abbotware.Interop.NUnit;
     using Abbotware.Utility.UnitTest.Using.NUnit;
+    using Microsoft.Extensions.Logging;
     using NUnit.Framework;
 
     [TestFixture]

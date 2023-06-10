@@ -10,6 +10,7 @@ namespace Abbotware.Core.Messaging.Integration.Base
     using System;
     using System.Diagnostics.CodeAnalysis;
     using Abbotware.Core;
+    using Abbotware.Core.Extensions;
     using Abbotware.Core.Logging;
     using Abbotware.Core.Messaging.Integration;
     using Abbotware.Core.Messaging.Integration.Configuration;

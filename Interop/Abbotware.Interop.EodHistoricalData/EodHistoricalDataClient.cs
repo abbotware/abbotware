@@ -6,36 +6,23 @@
 
 namespace Abbotware.Interop.EodHistoricalData
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Net;
     using System.Threading;
     using System.Threading.Tasks;
-    using Abbotware.Core.Logging;
     using Abbotware.Core.Net.Http;
     using Abbotware.Interop.EodHistoricalData.Configuration.Models;
     using Abbotware.Interop.EodHistoricalData.Models;
     using Abbotware.Interop.RestSharp;
     using global::RestSharp;
+    using Microsoft.Extensions.Logging;
 
     /// <summary>
     /// EOD Historical Data API Client
     /// </summary>
     public sealed class EodHistoricalDataClient : BaseRestClient<IEodHistoricalDataSettings>, IEodHistoricalDataClient
     {
-#if NET6_0_OR_GREATER
-        /// <summary>
-        /// Initializes a new instance of the <see cref="EodHistoricalDataClient"/> class.
-        /// </summary>
-        /// <param name="settings">api settings</param>
-        /// <param name="logger">injected logger</param>
-        public EodHistoricalDataClient(IEodHistoricalDataSettings settings, Microsoft.Extensions.Logging.ILogger<EodHistoricalDataClient> logger)
-            : this(settings, new LoggingAdapter(logger))
-        {
-        }
-#endif
-
         /// <summary>
         /// Initializes a new instance of the <see cref="EodHistoricalDataClient"/> class.
         /// </summary>

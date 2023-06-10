@@ -13,7 +13,7 @@ namespace Abbotware.Using.Castle.Internal
     using Abbotware.Core;
     using log4net.Core;
     using log4net.Util;
-    using AbbotwareILoggerV2 = Abbotware.Core.Logging.ILogger;
+    using AbbotwareILoggerV2 = Microsoft.Extensions.Logging.ILogger;
     using CastleILogger = global::Castle.Core.Logging.ILogger;
     using Log4netILog = global::log4net.ILog;
     using Log4netILogger = global::log4net.Core.ILogger;

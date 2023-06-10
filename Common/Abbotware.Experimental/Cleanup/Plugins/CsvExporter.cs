@@ -17,8 +17,8 @@ namespace Abbotware.Core.Plugins
     using System.Text;
     using Abbotware.Core.Diagnostics;
     using Abbotware.Core.ExtensionPoints;
+    using Abbotware.Core.Extensions;
     using Abbotware.Core.Helpers;
-    using Abbotware.Core.Logging;
     using Abbotware.Core.Objects;
     using Abbotware.Core.Plugins.Configuration;
 
@@ -108,7 +108,7 @@ namespace Abbotware.Core.Plugins
 
             File.WriteAllText(file, sb.ToString());
 
-            this.Logger.Info("File Create:{0} in Folder:{1}", fileName, folderPath);
+            this.Logger.Info($"File Create:{fileName} in Folder:{folderPath}");
 
             return new Uri(file);
         }

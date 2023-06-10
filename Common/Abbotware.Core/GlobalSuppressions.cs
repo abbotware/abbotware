@@ -19,3 +19,4 @@ using System.Diagnostics.CodeAnalysis;
 [assembly: SuppressMessage("CodeQuality", "IDE0079:Remove unnecessary suppression", Justification = "<Reviewed AA>", Scope = "member", Target = "~M:Abbotware.Core.Net.Configuration.Models.ServicePointManagerOptions.CreateDefault~Abbotware.Core.Net.Configuration.Models.ServicePointManagerOptions")]
 [assembly: SuppressMessage("Usage", "CA2213:Disposable fields should be disposed", Justification = "Disposed in OnDisposeManagedResources", Scope = "member", Target = "~F:Abbotware.Core.Messaging.Integration.Base.BaseMqConsumer.consumer")]
 [assembly: SuppressMessage("Usage", "CA2213:Disposable fields should be disposed", Justification = "Disposed in OnDisposeManagedResources", Scope = "member", Target = "~F:Abbotware.Core.Runtime.Plugins.ProcessInformation.process")]
+[assembly: SuppressMessage("StyleCop.CSharp.OrderingRules", "SA1200:Using directives should be placed correctly", Justification = "<Pending>")]

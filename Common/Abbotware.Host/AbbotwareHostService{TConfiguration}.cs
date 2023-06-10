@@ -14,9 +14,7 @@ namespace Abbotware.Host
     using System.Runtime.ExceptionServices;
     using System.Threading;
     using System.Threading.Tasks;
-    using Abbotware.Core;
     using Abbotware.Core.Extensions;
-    using Abbotware.Core.Logging;
     using Abbotware.Core.Runtime;
     using Abbotware.Core.Runtime.Plugins;
     using Abbotware.Host.Configuration;
@@ -26,6 +24,7 @@ namespace Abbotware.Host
     using Castle.MicroKernel.Registration;
     using Castle.Windsor;
     using Microsoft.Extensions.Hosting;
+    using Microsoft.Extensions.Logging;
 
     /// <summary>
     /// Abbotware Host Service with specicalized configuration class
@@ -215,7 +214,7 @@ namespace Abbotware.Host
             }
             catch (Exception ex)
             {
-                this.Logger.Fatal(ex, "Should never reach this");
+                this.Logger.Critical(ex, "Should never reach this");
                 throw;
             }
         }
@@ -233,7 +232,7 @@ namespace Abbotware.Host
             }
             catch (Exception ex)
             {
-                this.Logger.Fatal(ex, "Should never reach this");
+                this.Logger.Critical(ex, "Should never reach this");
                 throw;
             }
         }
@@ -251,7 +250,7 @@ namespace Abbotware.Host
             }
             catch (Exception ex)
             {
-                this.Logger.Fatal(ex, "Should never reach this");
+                this.Logger.Critical(ex, "Should never reach this");
                 throw;
             }
         }

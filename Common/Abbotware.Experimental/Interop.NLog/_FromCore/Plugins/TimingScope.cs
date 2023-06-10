@@ -8,6 +8,7 @@ namespace Abbotware.Core.Logging.Plugins
 {
     using System;
     using System.Diagnostics;
+    using Abbotware.Core.Extensions;
 
     /// <summary>
     /// scoped logger use for timeing a using block
@@ -44,7 +45,7 @@ namespace Abbotware.Core.Logging.Plugins
         public void Dispose()
         {
             this.stopwatch.Stop();
-            this.logger.Debug("Exit Scope:{0} int {1} - Elapsed ms:{2}", this.ScopeName, this.MemberName, this.stopwatch.ElapsedMilliseconds);
+            this.logger.Debug($"Exit Scope:{this.ScopeName} in {this.MemberName} - Elapsed ms:{this.stopwatch.ElapsedMilliseconds}");
         }
 
         /// <summary>
@@ -52,7 +53,7 @@ namespace Abbotware.Core.Logging.Plugins
         /// </summary>
         internal void Enter()
         {
-            this.logger.Debug("Enter Scope:{0} in", this.ScopeName, this.MemberName);
+            this.logger.Debug($"Enter Scope:{this.ScopeName} in {this.MemberName}");
         }
     }
 }

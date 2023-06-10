@@ -11,7 +11,7 @@ namespace Abbotware.Core.ExtensionPoints
     using System.Collections.Generic;
     using System.Threading;
     using Abbotware.Core.Collections;
-    using Abbotware.Core.Logging;
+    using Abbotware.Core.Extensions;
     using Abbotware.Core.Objects;
 
     /// <summary>

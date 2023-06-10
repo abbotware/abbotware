@@ -11,9 +11,10 @@ namespace Abbotware.Interop.Yubico.Plugins
     using System.Net;
     using System.Threading;
     using System.Threading.Tasks;
-    using Abbotware.Core.Logging;
+    using Abbotware.Core.Extensions;
     using Abbotware.Core.Objects;
     using Abbotware.Interop.Yubico.ExtensionPoints;
+    using Microsoft.Extensions.Logging;
     using YubicoDotNetClient;
 
     /// <summary>

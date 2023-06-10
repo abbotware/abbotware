@@ -10,8 +10,8 @@ namespace Abbotware.Web.Api.Plugins
     using System;
     using System.Net.Http;
     using Abbotware.Core.Extensions;
-    using Abbotware.Core.Logging;
     using Abbotware.Web.Api.Configuration;
+    using Microsoft.Extensions.Logging;
 
     /// <summary>
     /// Authenticated Web Api Client

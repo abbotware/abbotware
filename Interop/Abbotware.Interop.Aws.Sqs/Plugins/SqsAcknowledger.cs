@@ -12,12 +12,12 @@ namespace Abbotware.Interop.Aws.Sqs.Plugins
     using System.Linq;
     using Abbotware.Core;
     using Abbotware.Core.Extensions;
-    using Abbotware.Core.Logging;
     using Abbotware.Core.Messaging.Integration;
     using Abbotware.Core.Messaging.Integration.Configuration;
     using Abbotware.Interop.Aws.Sqs.Configuration;
     using global::Amazon.SQS;
     using global::Amazon.SQS.Model;
+    using global::Microsoft.Extensions.Logging;
 
     /// <summary>
     /// Channel manager used for ack,nack, and reject operations

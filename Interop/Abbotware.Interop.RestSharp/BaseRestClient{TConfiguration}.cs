@@ -10,13 +10,13 @@ namespace Abbotware.Interop.RestSharp
     using System.Threading;
     using System.Threading.Tasks;
     using Abbotware.Core;
-    using Abbotware.Core.Logging;
     using Abbotware.Core.Net.Http;
     using Abbotware.Core.Objects;
     using Abbotware.Interop.Newtonsoft;
     using Abbotware.Interop.RestSharp.Configuration;
     using global::RestSharp;
     using global::RestSharp.Serializers.NewtonsoftJson;
+    using Microsoft.Extensions.Logging;
 
     /// <summary>
     /// Base class for RestSharp REST API clients

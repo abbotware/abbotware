@@ -6,12 +6,12 @@
 
 namespace Abbotware.Interop.Redis
 {
-    using Abbotware.Core.Logging;
     using Abbotware.Core.Objects;
     using Abbotware.Core.Objects.Configuration.Models;
     using Abbotware.Interop.Microsoft;
     using Abbotware.Interop.Redis.Configuration;
     using Abbotware.Interop.Redis.ExtensionPoints;
+    using global::Microsoft.Extensions.Logging;
 
     /// <summary>
     /// Redis Helper function

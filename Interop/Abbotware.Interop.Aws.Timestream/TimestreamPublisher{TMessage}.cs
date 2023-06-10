@@ -11,6 +11,7 @@ namespace Abbotware.Interop.Aws.Timestream
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
+    using Abbotware.Core.Extensions;
     using Abbotware.Core.Logging;
     using Abbotware.Core.Messaging.Integration;
     using Abbotware.Interop.Aws.Timestream.Configuration;

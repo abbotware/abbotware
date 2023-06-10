@@ -13,12 +13,12 @@ namespace Abbotware.Utility.UnitTest
     using Abbotware.Core;
     using Abbotware.Core.Diagnostics;
     using Abbotware.Core.Helpers;
-    using Abbotware.Core.Logging;
     using Abbotware.Core.Objects;
     using Abbotware.Core.Serialization;
     using Abbotware.Interop.Microsoft;
     using Abbotware.Interop.Newtonsoft.Plugins;
     using AutoFixture;
+    using global::Microsoft.Extensions.Logging;
     using Moq;
 
     /// <summary>

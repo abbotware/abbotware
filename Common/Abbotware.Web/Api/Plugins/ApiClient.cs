@@ -14,9 +14,9 @@ namespace Abbotware.Web.Api.Plugins
     using System.Threading;
     using System.Threading.Tasks;
     using Abbotware.Core;
-    using Abbotware.Core.Logging;
     using Abbotware.Core.Objects;
     using Abbotware.Web.Api.Configuration;
+    using Microsoft.Extensions.Logging;
 
     /// <summary>
     ///     Web Api Client

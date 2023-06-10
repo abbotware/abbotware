@@ -56,11 +56,9 @@ namespace Abbotware.Interop.Graphviz
 
             try
             {
-                var subLogger1 = this.Logger.Create("GraphvizContext");
-                this.ctx = new GraphvizContext(subLogger1);
+                this.ctx = new GraphvizContext(logger);
 
-                var subLogger2 = this.Logger.Create("Graph");
-                this.graph = new Graph(graphData, subLogger2);
+                this.graph = new Graph(graphData, logger);
             }
             catch (Exception)
             {

@@ -13,10 +13,11 @@ namespace Abbotware.Interop.Aws.Lambda
     using System.Linq;
     using System.Threading;
     using Abbotware.Core;
-    using Abbotware.Core.Logging;
+    using Abbotware.Core.Extensions;
     using Abbotware.Core.Messaging;
     using Abbotware.Interop.Aws.Sqs.Plugins;
     using Abbotware.Interop.Castle.ExtensionPoints;
+    using global::Microsoft.Extensions.Logging;
     using ProtoBuf;
 
     /// <summary>
@@ -54,7 +55,7 @@ namespace Abbotware.Interop.Aws.Lambda
             var timer = this.Configuration.LambdaHostOptions.TimeSlice;
             var targetQueue = this.Configuration.ConnectionFactory.DefaultOptions.Queue;
 
-            this.Logger.Debug("SQS Queue:{0}", targetQueue);
+            this.Logger.Debug($"SQS Queue:{targetQueue}");
 
             if (this.Configuration.LambdaContext.RemainingTime < timer)
             {

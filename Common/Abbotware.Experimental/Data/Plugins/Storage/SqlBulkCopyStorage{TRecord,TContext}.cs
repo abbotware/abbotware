@@ -14,6 +14,7 @@ namespace Abbotware.Core.Data.Plugins.Storage
     using Abbotware.Core.Data.ExtensionPoints.Storage;
     using Abbotware.Core.Data.Plugins.Configuration;
     using Abbotware.Core.Diagnostics;
+    using Abbotware.Core.Extensions;
     using Abbotware.Core.Logging;
     using Abbotware.Data.BulkInsert;
     using Abbotware.Data.BulkInsert.Plugins;
@@ -70,8 +71,8 @@ namespace Abbotware.Core.Data.Plugins.Storage
         {
             var list = record.ToList();
 
-            this.Logger.Info("Attempting:{0} rows", list.Count);
-            this.Logger.Info("bulk insert connection: {0}", this.configuration.SqlConnection);
+            this.Logger.Info($"Attempting:{list.Count} rows");
+            this.Logger.Info($"bulk insert connection: {this.configuration.SqlConnection}");
 
             var meta = new StorageMetadata();
 

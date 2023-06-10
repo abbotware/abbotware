@@ -7,6 +7,7 @@
 
 namespace Abbotware.Core.Threading.Counters
 {
+    using Abbotware.Core.Extensions;
     using Abbotware.Core.Logging;
     using Abbotware.Core.Objects;
 

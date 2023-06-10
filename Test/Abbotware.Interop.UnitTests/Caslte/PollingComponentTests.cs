@@ -9,7 +9,6 @@ namespace Abbotware.UnitTests.Interop.Castle
 {
     using System;
     using System.Threading.Tasks;
-    using Abbotware.Core.Logging;
     using Abbotware.Host;
     using Abbotware.Host.Configuration;
     using Abbotware.Interop.Castle.ExtensionPoints;
@@ -17,6 +16,7 @@ namespace Abbotware.UnitTests.Interop.Castle
     using global::Castle.MicroKernel.Registration;
     using global::Castle.Windsor;
     using global::NUnit.Framework;
+    using Microsoft.Extensions.Logging;
 
     [TestFixture]
     [Category("Interop")]

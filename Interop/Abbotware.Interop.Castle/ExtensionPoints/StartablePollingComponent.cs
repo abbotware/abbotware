@@ -10,6 +10,7 @@ namespace Abbotware.Interop.Castle.ExtensionPoints
     using System;
     using System.Reactive.Linq;
     using Abbotware.Core;
+    using Abbotware.Core.Extensions;
     using Abbotware.Core.Logging;
     using Microsoft.Extensions.Logging;
 

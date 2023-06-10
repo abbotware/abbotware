@@ -10,10 +10,9 @@ namespace Abbotware.Interop.Graphviz.Api
     using System;
     using System.ComponentModel;
     using System.Diagnostics.CodeAnalysis;
-    using System.Globalization;
     using System.Runtime.InteropServices;
     using Abbotware.Core;
-    using Abbotware.Core.Logging;
+    using Abbotware.Core.Extensions;
     using Abbotware.Core.Objects;
     using Abbotware.Interop.Graphviz.Native.GvcDll;
 
@@ -68,7 +67,7 @@ namespace Abbotware.Interop.Graphviz.Api
 
                 var buildDateString = Marshal.PtrToStringAnsi(buildDate);
 
-                this.Logger.Debug("Version:{0} BuildDate:{1} Ctx:{2}", versionString, buildDateString, this.graphvizContextPtr);
+                this.Logger.Debug($"Version:{versionString} BuildDate:{buildDateString} Ctx:{this.graphvizContextPtr}");
             }
             catch (Exception)
             {
@@ -93,11 +92,11 @@ namespace Abbotware.Interop.Graphviz.Api
 
             var errorCode = Marshal.GetLastWin32Error();
 
-            this.Logger.Debug("gvLayout({0},{1},{2}):{3}", this.graphvizContextPtr, graphObject.SafeHandle, layoutEngine.ToString().ToLowerInvariant(), funcRet);
+            this.Logger.Debug($"gvLayout({this.graphvizContextPtr},{graphObject.SafeHandle},{layoutEngine.ToString().ToLowerInvariant()}):{funcRet}");
 
             if (funcRet != NativeMethods.SUCCESS)
             {
-                this.Logger.Error("gvLayout:{0}  Win32ErrorCode:{1}", funcRet, errorCode);
+                this.Logger.Error($"gvLayout:{funcRet}  Win32ErrorCode:{errorCode}");
                 throw new GraphvizApiException("error");
             }
 
@@ -126,11 +125,11 @@ namespace Abbotware.Interop.Graphviz.Api
             if (funcRet != NativeMethods.SUCCESS)
             {
                 var errorCode = Marshal.GetLastWin32Error();
-                this.Logger.Error("gvRenderData:{0}  Win32ErrorCode:{1}", funcRet, errorCode);
+                this.Logger.Error($"gvRenderData:{funcRet}  Win32ErrorCode:{errorCode}");
                 throw new Win32Exception(errorCode, "Render Data Failed");
             }
 
-            this.Logger.Debug("render data size:{0}", bufferLength);
+            this.Logger.Debug($"render data size:{bufferLength}");
 
             // Create an array to hold the rendered graph
             var bytes = new byte[bufferLength];
@@ -163,7 +162,7 @@ namespace Abbotware.Interop.Graphviz.Api
             if (funcRet != NativeMethods.SUCCESS)
             {
                 var errorCode = Marshal.GetLastWin32Error();
-                this.Logger.Error("gvRenderFilename:{0}  Win32ErrorCode:{1}", funcRet, errorCode);
+                this.Logger.Error($"gvRenderFilename:{funcRet}  Win32ErrorCode:{errorCode}");
                 throw new Win32Exception(errorCode, "Render Filename");
             }
         }
@@ -185,7 +184,7 @@ namespace Abbotware.Interop.Graphviz.Api
             {
                 this.InternalFreeLayout();
 
-                this.Logger.Debug("gvFreeContext({0})", this.graphvizContextPtr);
+                this.Logger.Debug($"gvFreeContext({this.graphvizContextPtr})");
 
                 this.graphvizContextPtr?.Dispose();
             }
@@ -205,7 +204,7 @@ namespace Abbotware.Interop.Graphviz.Api
                 if (funcRet != NativeMethods.SUCCESS)
                 {
                     var errorCode = Marshal.GetLastWin32Error();
-                    this.Logger.Error("gvFreeLayout:{0}  Win32ErrorCode:{1}", funcRet, errorCode);
+                    this.Logger.Error($"gvFreeLayout:{funcRet}  Win32ErrorCode:{errorCode}");
                 }
             }
         }

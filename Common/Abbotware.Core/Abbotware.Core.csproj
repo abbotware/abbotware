@@ -51,7 +51,5 @@
     <None Include="Messaging\Integration\Amqp\Plugins\NetDataContract.cs" />
     <None Include="Messaging\Integration\Amqp\Plugins\NetDataContract{TMessage}.cs" />
   </ItemGroup>
-  
-
 
 </Project>

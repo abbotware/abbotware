@@ -48,12 +48,12 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
                 {
                     var result = this.RabbitMQChannel.QueueDeclarePassive(queueName);
 
-                    this.Logger.Debug("QUEUE EXISTS:'{0}' messages:{1}  consumers:{2}", result.QueueName, result.MessageCount, result.ConsumerCount);
+                    this.Logger.Debug($"QUEUE EXISTS:'{result.QueueName}' messages:{result.MessageCount}  consumers:{result.ConsumerCount}");
                 }
                 catch (OperationInterruptedException)
                 {
                     // TODO: this seems like a hack
-                    this.Logger.Debug("QUEUE EXISTS:{0} - false", queueName);
+                    this.Logger.Debug($"QUEUE EXISTS:{queueName} - false");
                     return false;
                 }
 
@@ -116,7 +116,7 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
                 this.ThrowIfDisposed();
 
                 var result = this.RabbitMQChannel.QueueDelete(queueName, ifUnused, ifEmpty);
-                this.Logger.Debug("QUEUE DELETE:[{0}] with {1} messages", queueName, result);
+                this.Logger.Debug($"QUEUE DELETE:[{queueName}] with {result} messages");
                 return result;
             }
         }
@@ -131,7 +131,7 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
                 this.ThrowIfDisposed();
 
                 var result = this.RabbitMQChannel.QueuePurge(queueName);
-                this.Logger.Debug("QUEUE PURGE:[{0}] Purged {1} messages", queueName, result);
+                this.Logger.Debug($"QUEUE PURGE:[{queueName}] Purged {result} messages");
                 return result;
             }
         }

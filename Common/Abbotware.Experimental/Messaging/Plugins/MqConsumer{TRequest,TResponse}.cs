@@ -11,11 +11,10 @@ namespace Abbotware.Core.Messaging.Plugins
     using System.Diagnostics.CodeAnalysis;
     using System.Threading.Tasks;
     using Abbotware.Core;
-    using Abbotware.Core.Logging;
+    using Abbotware.Core.Extensions;
     using Abbotware.Core.Messaging.Amqp.ExtensionPoints;
     using Abbotware.Core.Messaging.Integration;
     using Abbotware.Core.Messaging.Integration.Base;
-    using Abbotware.Core.Messaging.Integration.Configuration;
 
     /// <summary>
     ///     base class used to consume requests and send responses
@@ -93,7 +92,7 @@ namespace Abbotware.Core.Messaging.Plugins
             }
             catch (Exception ex)
             {
-                this.Logger.Error(ex, "Message:{0} redelivered:{1}", tag, envelope.DeliveryProperties.Redelivered);
+                this.Logger.Error($"Message:{tag} redelivered:{envelope.DeliveryProperties.Redelivered}");
 
                 if (envelope.DeliveryProperties!.Redelivered)
                 {
