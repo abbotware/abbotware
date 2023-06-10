@@ -7,13 +7,15 @@
 
 namespace Abbotware.Core.Objects
 {
+    using System;
+
     /// <summary>
     ///     factory interface for creating typed connections
     /// </summary>
     /// <remarks>will use the default options unless the overloaded create method is called</remarks>
     /// <typeparam name="TConnection">Connection Type</typeparam>
     /// <typeparam name="TOptions">Connection Options Type</typeparam>
-    public interface IConnectionFactory<TConnection, TOptions> : IFactory<TConnection>
+    public interface IConnectionFactory<TConnection, TOptions> : IFactory<TConnection>, IDisposable
         where TConnection : IConnection
     {
         /// <summary>

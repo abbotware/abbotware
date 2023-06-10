@@ -209,6 +209,8 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
                 this.rabbitMQConnection.Dispose();
             }
 
+            this.factory.Dispose();
+
             base.OnDisposeManagedResources();
         }
 

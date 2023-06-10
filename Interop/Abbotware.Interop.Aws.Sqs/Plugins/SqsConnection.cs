@@ -113,6 +113,8 @@ namespace Abbotware.Interop.Aws.Sqs.Plugins
             this.Client.AfterResponseEvent -= this.OnAfterResponseEvent;
             this.Client.ExceptionEvent -= this.OnExceptionEvent;
 
+            this.factory.Dispose();
+
             this.Client.Dispose();
         }
 

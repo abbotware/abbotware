@@ -7,7 +7,6 @@
 
 namespace Abbotware.Core.Objects
 {
-    using Abbotware.Core.Logging;
     using Abbotware.Core.Objects.Internal;
 
     /// <summary>
@@ -15,7 +14,7 @@ namespace Abbotware.Core.Objects
     /// </summary>
     /// <typeparam name="TConnection">Connection Type</typeparam>
     /// <typeparam name="TOptions">Connection Options Type</typeparam>
-    public abstract class BaseConnectionFactory<TConnection, TOptions> : BaseLoggable, IConnectionFactory<TConnection, TOptions>
+    public abstract class BaseConnectionFactory<TConnection, TOptions> : BaseComponent, IConnectionFactory<TConnection, TOptions>
         where TConnection : IConnection
         where TOptions : class
     {

@@ -26,7 +26,7 @@ namespace Abbotware.UnitTests.Core
             Assert.Throws<ArgumentException>(() => ExpressionHelper.GetPropertyExpression<Test, string>(x => x.Bar()));
         }
 
-        internal class Test
+        internal sealed class Test
         {
             public string Foo { get; set; }
 

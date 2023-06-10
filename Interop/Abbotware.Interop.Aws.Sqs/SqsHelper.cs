@@ -76,7 +76,9 @@ namespace Abbotware.Interop.Aws.Sqs
         /// <returns>redis connection</returns>
         public static ISqsConnection CreateConnection(ILoggerFactory factory, string section = SqsSettings.DefaultSection, string file = ConfigurationHelper.AppSettingsFileName)
         {
-            return CreateFactory(factory, section, file).Create();
+            using var f = CreateFactory(factory, section, file);
+
+            return f.Create();
         }
     }
 }
