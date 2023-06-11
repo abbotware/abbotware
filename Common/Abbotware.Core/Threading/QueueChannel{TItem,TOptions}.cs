@@ -7,9 +7,11 @@
 namespace Abbotware.Core.Threading
 {
     using System;
+    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Channels;
     using System.Threading.Tasks;
+    using Abbotware.Core.Extensions;
     using Abbotware.Core.Objects;
     using Microsoft.Extensions.Logging;
 
@@ -43,7 +45,7 @@ namespace Abbotware.Core.Threading
                     throw new NotSupportedException($"{options} is not supported");
             }
 
-            _ = this.Start();
+            _ = this.StartReaderAsync();
         }
 
         /// <summary>
@@ -63,7 +65,18 @@ namespace Abbotware.Core.Threading
         /// <param name="data">data items</param>
         /// <param name="ct">cancellation token</param>
         /// <returns>async task</returns>
-        public async ValueTask EnqueueAsync(TItem[] data, CancellationToken ct)
+        public ValueTask EnqueueAsync(TItem[] data, CancellationToken ct)
+        {
+            return this.EnqueueAsync(data, ct);
+        }
+
+        /// <summary>
+        /// Enqueues data
+        /// </summary>
+        /// <param name="data">data items</param>
+        /// <param name="ct">cancellation token</param>
+        /// <returns>async task</returns>
+        public async ValueTask EnqueueAsync(IEnumerable<TItem> data, CancellationToken ct)
         {
             foreach (var d in data)
             {
@@ -80,23 +93,36 @@ namespace Abbotware.Core.Threading
         /// <returns>async task</returns>
         protected abstract ValueTask OnItemAsync(TItem data, CancellationToken ct);
 
-        private async Task Start()
+        private async Task StartReaderAsync()
         {
             while (await this.channel.Reader.WaitToReadAsync(this.DisposeRequested.Token)
                 .ConfigureAwait(false))
             {
-                ////await foreach (var data in this.channel.Reader.ReadAllAsync(this.DisposeRequested.Token))
-                ////{
-                ////    try
-                ////    {
-                ////        await this.OnItemAsync(data, this.DisposeRequested.Token)
-                ////            .ConfigureAwait(false);
-                ////    }
-                ////    catch (Exception ex)
-                ////    {
-                ////        this.Logger.Error(ex, "OnItemAsync");
-                ////    }
-                ////}
+                try
+                {
+#if NETSTANDARD2_0
+                    while (true)
+                    {
+                        var data = await this.channel.Reader.ReadAsync(this.DisposeRequested.Token).ConfigureAwait(false);
+#else
+                    await foreach (var data in this.channel.Reader.ReadAllAsync(this.DisposeRequested.Token))
+                    {
+#endif
+                        try
+                        {
+                            await this.OnItemAsync(data, this.DisposeRequested.Token)
+                                .ConfigureAwait(false);
+                        }
+                        catch (Exception ex)
+                        {
+                            this.Logger.Error(ex, "StartReaderAsync-OnItemAsync");
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    this.Logger.Error(ex, "StartReaderAsync-Foreach");
+                }
             }
         }
     }
