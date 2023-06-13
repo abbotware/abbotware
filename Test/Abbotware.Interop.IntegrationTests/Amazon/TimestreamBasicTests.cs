@@ -198,5 +198,42 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
 
             Assert.That(p, Is.EqualTo(PublishStatus.Confirmed));
         }
+
+        [Test]
+        public async Task Buffered_Builder_Batch_MultiMeasureNonStringDimensionsTestWithTime()
+        {
+            var pb = new ProtocolBuilder<MultiMeasureNonStringDimensionsTestWithTime>("metrics");
+            pb.AddDimension(x => x.Name);
+            pb.AddDimension(x => x.Company, x => x.Converter = y => y);
+            pb.AddNullableDimension(x => x.Optional);
+            pb.AddNullableDimension(x => x.SetOptional);
+            pb.AddDimension(x => x.IdDimension, x => x.Converter = y => y.ToString());
+            pb.AddMeasure(x => x.ValueA);
+            pb.AddMeasure(x => x.ValueB);
+            pb.AddMeasure(x => x.ValueC);
+            pb.AddMeasure(x => x.ValueD);
+            pb.AddMeasure(x => x.ValueE);
+            pb.AddMeasure(x => x.ValueF);
+            pb.AddMeasure(x => x.ValueG);
+            pb.AddMeasure(x => x.ValueH);
+            pb.AddTime(x => x.Time, TimeUnitType.Milliseconds);
+
+            var options = ConfigurationHelper.AppSettingsJson(UnitTestSettingsFile).BindSection<TimestreamOptions>(TimestreamOptions.DefaultSection);
+            using var c = new BufferedTimestreamPublisher<MultiMeasureNonStringDimensionsTestWithTime>(options, pb.Build(), NullLoggerFactory.Instance, NullLogger<TimestreamPublisher<MultiMeasureNonStringDimensionsTestWithTime>>.Instance);
+
+            var list = new List<MultiMeasureNonStringDimensionsTestWithTime>();
+
+            var t = DateTimeOffset.UtcNow;
+
+            for (int i = 0; i < 100; ++i)
+            {
+                t = t.AddMilliseconds(1);
+                list.Add(new MultiMeasureNonStringDimensionsTestWithTime { Name = Guid.NewGuid().ToString(), Company = "asdfads", ValueA = 123 + i, ValueB = 345 + i, ValueC = 789 + i, ValueD = "testing", ValueE = 123.23 + i, ValueF = 12.345m + i, ValueG = DateTime.UtcNow, ValueH = false, Time = t });
+            }
+
+            var p = await c.PublishAsync(list, default);
+
+            Assert.That(p, Is.EqualTo(PublishStatus.Confirmed));
+        }
     }
 }
