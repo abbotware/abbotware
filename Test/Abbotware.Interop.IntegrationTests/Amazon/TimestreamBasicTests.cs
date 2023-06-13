@@ -233,6 +233,8 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
 
             var p = await c.PublishAsync(list, default);
 
+            this.BlockIfDebugging();
+
             Assert.That(p, Is.EqualTo(PublishStatus.Confirmed));
         }
     }
