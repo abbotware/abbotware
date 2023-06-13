@@ -135,7 +135,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
         }
 
         /// <inheritdoc/>
-        public WriteRecordsRequest Encode(TMessage[] messages, TimestreamOptions options)
+        public WriteRecordsRequest Encode(IEnumerable<TMessage> messages, TimestreamOptions options)
         {
             return this.Encode(messages, options, this.time);
         }
@@ -147,7 +147,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
         }
 
         /// <inheritdoc/>
-        public WriteRecordsRequest Encode(TMessage[] messages, TimestreamOptions options, IRecordUpdater<TMessage> timestamp)
+        public WriteRecordsRequest Encode(IEnumerable<TMessage> messages, TimestreamOptions options, IRecordUpdater<TMessage> timestamp)
         {
             var request = this.Encode(messages, timestamp);
             request.DatabaseName = options.Database;
@@ -163,7 +163,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
         }
 
         /// <inheritdoc/>
-        public WriteRecordsRequest Encode(TMessage[] messages, IRecordUpdater<TMessage> timestamp)
+        public WriteRecordsRequest Encode(IEnumerable<TMessage> messages, IRecordUpdater<TMessage> timestamp)
         {
             var records = new List<Record>();
 

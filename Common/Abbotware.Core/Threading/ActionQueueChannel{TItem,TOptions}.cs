@@ -18,7 +18,7 @@ namespace Abbotware.Core.Threading
     /// <typeparam name="TItem">item type</typeparam>
     /// <typeparam name="TOptions">channel options</typeparam>
     public class ActionQueueChannel<TItem, TOptions> : QueueChannel<TItem, TOptions>
-    where TOptions : ChannelOptions
+        where TOptions : ChannelOptions
     {
         private readonly Func<TItem, CancellationToken, ValueTask> action;
 

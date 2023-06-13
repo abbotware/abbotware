@@ -6,6 +6,7 @@
 
 namespace Abbotware.Interop.Aws.Timestream.Protocol
 {
+    using System.Collections.Generic;
     using Abbotware.Core.Serialization;
     using Abbotware.Interop.Aws.Timestream.Configuration;
     using Abbotware.Interop.Aws.Timestream.Protocol.Internal;
@@ -49,7 +50,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// <param name="messages">messages to encode</param>
         /// <param name="options">timestream options</param>
         /// <returns>encoded write request</returns>
-        WriteRecordsRequest Encode(TMessage[] messages, TimestreamOptions options);
+        WriteRecordsRequest Encode(IEnumerable<TMessage> messages, TimestreamOptions options);
 
         /// <summary>
         ///  Encodes a batch of messages
@@ -57,7 +58,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// <param name="messages">messages to encode</param>
         /// <param name="timestamp">timestamp lookup function</param>
         /// <returns>encoded write request</returns>
-        WriteRecordsRequest Encode(TMessage[] messages, IRecordUpdater<TMessage> timestamp);
+        WriteRecordsRequest Encode(IEnumerable<TMessage> messages, IRecordUpdater<TMessage> timestamp);
 
         /// <summary>
         /// Encodes a batch of messages
@@ -66,6 +67,6 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// <param name="options">timestream options</param>
         /// <param name="timestamp">timestamp lookup function</param>
         /// <returns>encoded write request</returns>
-        WriteRecordsRequest Encode(TMessage[] messages, TimestreamOptions options, IRecordUpdater<TMessage> timestamp);
+        WriteRecordsRequest Encode(IEnumerable<TMessage> messages, TimestreamOptions options, IRecordUpdater<TMessage> timestamp);
     }
 }
