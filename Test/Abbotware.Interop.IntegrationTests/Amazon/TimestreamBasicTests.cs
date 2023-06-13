@@ -13,7 +13,6 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
     using Abbotware.Core.Messaging.Integration;
     using Abbotware.IntegrationTests.Interop.Amazon.TestClasses.Timestream;
     using Abbotware.Interop.Aws.Timestream;
-    using Abbotware.Interop.Aws.Timestream.Attributes;
     using Abbotware.Interop.Aws.Timestream.Configuration;
     using Abbotware.Interop.Aws.Timestream.Protocol;
     using Abbotware.Interop.Aws.Timestream.Protocol.Plugins;
@@ -233,9 +232,12 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
 
             var p = await c.PublishAsync(list, default);
 
+            await Task.Delay(TimeSpan.FromSeconds(3));
+
             this.BlockIfDebugging();
 
-            Assert.That(p, Is.EqualTo(PublishStatus.Confirmed));
+            Assert.That(c.RecordsPublished, Is.EqualTo(100));
+            Assert.That(c.RecordsIngested, Is.EqualTo(100));
         }
     }
 }

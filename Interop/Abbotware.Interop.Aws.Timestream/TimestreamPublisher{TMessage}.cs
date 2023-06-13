@@ -24,6 +24,10 @@ namespace Abbotware.Interop.Aws.Timestream
     public class TimestreamPublisher<TMessage> : AwsConnection<AmazonTimestreamWriteClient, AmazonTimestreamWriteConfig, TimestreamOptions>, IMessageBatchPublisher<TMessage>
         where TMessage : notnull
     {
+        private volatile int recordsInjested;
+
+        private volatile int recordsPublished;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="TimestreamPublisher{TMessage}"/> class.
         /// </summary>
@@ -49,20 +53,30 @@ namespace Abbotware.Interop.Aws.Timestream
         }
 
         /// <summary>
+        /// gets the count of records injested by AWS Timestream
+        /// </summary>
+        public long RecordsIngested => this.recordsInjested;
+
+        /// <summary>
+        /// gets the count of records published to AWS Timestream
+        /// </summary>
+        public long RecordsPublished => this.recordsPublished;
+
+        /// <summary>
         /// gets the protocol encoder
         /// </summary>
         public ITimestreamProtocol<TMessage> Protocol { get; }
 
         /// <inheritdoc/>
-        public virtual ValueTask<PublishStatus> PublishAsync(TMessage message, CancellationToken ct)
+        public ValueTask<PublishStatus> PublishAsync(TMessage message, CancellationToken ct)
         {
-            return this.WriteRecordsAsync(new TMessage[] { message }, ct);
+            return this.OnPublishAsync(new TMessage[] { message }, ct);
         }
 
         /// <inheritdoc/>
-        public virtual ValueTask<PublishStatus> PublishAsync(IEnumerable<TMessage> message, CancellationToken ct)
+        public ValueTask<PublishStatus> PublishAsync(IEnumerable<TMessage> message, CancellationToken ct)
         {
-            return this.WriteRecordsAsync(message, ct);
+            return this.OnPublishAsync(message, ct);
         }
 
         /// <summary>
@@ -71,7 +85,7 @@ namespace Abbotware.Interop.Aws.Timestream
         /// <param name="messages">records to write</param>
         /// <param name="ct">cancellation token</param>
         /// <returns>publish status</returns>
-        public virtual ValueTask<PublishStatus> WriteRecordsAsync(IEnumerable<TMessage> messages, CancellationToken ct)
+        protected virtual ValueTask<PublishStatus> OnPublishAsync(IEnumerable<TMessage> messages, CancellationToken ct)
         {
             return this.OnWriteRecordsAsync(messages, ct);
         }
@@ -94,6 +108,9 @@ namespace Abbotware.Interop.Aws.Timestream
             sw.Stop();
 
             var all = result.RecordsIngested.Total == request.Records.Count;
+
+            Interlocked.Add(ref this.recordsPublished, request.Records.Count);
+            Interlocked.Add(ref this.recordsInjested, result.RecordsIngested.Total);
 
             if (!all)
             {

@@ -1,8 +1,7 @@
-﻿using System;
-using Abbotware.Interop.Aws.Timestream.Attributes;
-
-namespace Abbotware.IntegrationTests.Interop.Amazon.TestClasses.Timestream
+﻿namespace Abbotware.IntegrationTests.Interop.Amazon.TestClasses.Timestream
 {
+    using System;
+    using Abbotware.Interop.Aws.Timestream.Attributes;
 
     [MeasureName("Data")]
     public class MultiMeasureStringDimensionsTestWithTime
