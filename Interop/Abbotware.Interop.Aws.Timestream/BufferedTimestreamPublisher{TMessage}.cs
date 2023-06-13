@@ -62,7 +62,7 @@ namespace Abbotware.Interop.Aws.Timestream
         {
             foreach (var m in message)
             {
-                await this.channel.EnqueueAsync(message, ct)
+                await this.channel.EnqueueAsync(m, ct)
                     .ConfigureAwait(false);
             }
 

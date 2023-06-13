@@ -8,6 +8,7 @@ namespace Abbotware.Core.Threading
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading;
     using System.Threading.Channels;
     using System.Threading.Tasks;
@@ -69,7 +70,7 @@ namespace Abbotware.Core.Threading
         /// <returns>async task</returns>
         public ValueTask EnqueueAsync(TItem[] data, CancellationToken ct)
         {
-            return this.EnqueueAsync(data, ct);
+            return this.EnqueueAsync(data.AsEnumerable(), ct);
         }
 
         /// <summary>
