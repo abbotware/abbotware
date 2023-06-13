@@ -37,7 +37,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
         [Timeout(180000)]
         public async Task SqsPubSub_Pub_Get_String()
         {
-            using var c = SqsHelper.CreateConnection(this.Logger, SqsSettings.DefaultSection, UnitTestSettingsFile);
+            using var c = SqsHelper.CreateConnection(this.LoggerFactory, SqsSettings.DefaultSection, UnitTestSettingsFile);
 
             var payload = Guid.NewGuid().ToString();
 
@@ -59,7 +59,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
         [Obsolete("this unit test is ok for now, but 'StringRetrieveAsync' is deprecated")]
         public async Task SqsPubSub_TypedPublisher_StringRetrieve()
         {
-            using var c = SqsHelper.CreateConnection(this.Logger, SqsSettings.DefaultSection, UnitTestSettingsFile);
+            using var c = SqsHelper.CreateConnection(this.LoggerFactory, SqsSettings.DefaultSection, UnitTestSettingsFile);
 
             var payload = Guid.NewGuid().ToString();
 
@@ -81,7 +81,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
         [Obsolete("this unit test is ok for now, but 'ProtoRetrieveAsync' + 'ProtoPublishAsync' are deprecated")]
         public async Task SqsPubSub_Pub_Get_ProtoBuf()
         {
-            using var c = SqsHelper.CreateConnection(this.Logger, SqsSettings.DefaultSection, UnitTestSettingsFile);
+            using var c = SqsHelper.CreateConnection(this.LoggerFactory, SqsSettings.DefaultSection, UnitTestSettingsFile);
 
             var testData = new Scan();
             testData.Metrics.Add(new Metric { Id = MetricTypeId.PingRoundtrip });

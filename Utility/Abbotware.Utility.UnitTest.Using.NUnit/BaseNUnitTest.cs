@@ -30,16 +30,25 @@ namespace Abbotware.Utility.UnitTest.Using.NUnit
         }
 
         private BaseNUnitTest(IWindsorContainer container)
-            : this(container, container.Kernel.Resolve<ILogger>())
+            : this(container, container.Kernel.Resolve<ILogger>(), container.Kernel.Resolve<ILoggerFactory>())
         {
         }
 
-        private BaseNUnitTest(IWindsorContainer container, ILogger logger)
+        private BaseNUnitTest(IWindsorContainer container, ILogger logger, ILoggerFactory factory)
             : base(logger)
         {
             this.Container = container;
+            this.LoggerFactory = factory;
 
             this.Container.Install(this);
+        }
+
+        /// <summary>
+        ///     Gets the IoC Container for this unit test
+        /// </summary>
+        protected ILoggerFactory LoggerFactory
+        {
+            get;
         }
 
         /// <summary>

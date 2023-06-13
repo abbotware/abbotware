@@ -34,7 +34,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
         [Test]
         public void SqsBasic_CreateConnection()
         {
-            using (var c = SqsHelper.CreateConnection(this.Logger, SqsSettings.DefaultSection, UnitTestSettingsFile))
+            using (var c = SqsHelper.CreateConnection(this.LoggerFactory, SqsSettings.DefaultSection, UnitTestSettingsFile))
             {
                 Assert.IsNotNull(c);
             }
@@ -50,7 +50,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
         {
             bool hitCode = false;
 
-            using var c = SqsHelper.CreateConnection(this.Logger, SqsSettings.DefaultSection, UnitTestSettingsFile);
+            using var c = SqsHelper.CreateConnection(this.LoggerFactory, SqsSettings.DefaultSection, UnitTestSettingsFile);
             using var consumer = c.CreateConsumer<SqsConsumer>();
 
             consumer.Initialize();
@@ -82,7 +82,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
             var count = 0;
             var hitCode = false;
 
-            using (var c = SqsHelper.CreateConnection(this.Logger, SqsSettings.DefaultSection, UnitTestSettingsFile))
+            using (var c = SqsHelper.CreateConnection(this.LoggerFactory, SqsSettings.DefaultSection, UnitTestSettingsFile))
             {
                 using (var mq1 = new ActionConsumer<Scan>(x => { Interlocked.Increment(ref count); }, c.CreateRetriever(), new ProtoBufOverAmqp<Scan>(), c.CreateConsumer(), this.Logger))
                 {
