@@ -58,27 +58,22 @@ namespace Abbotware.Interop.Aws.Timestream
         }
 
         /// <inheritdoc/>
-        public override async ValueTask<PublishStatus> PublishAsync(IEnumerable<TMessage> message, CancellationToken ct)
+        public override async ValueTask<PublishStatus> PublishAsync(TMessage message, CancellationToken ct)
         {
-            foreach (var m in message)
-            {
-                await this.channel.EnqueueAsync(m, ct)
+            await this.channel.EnqueueAsync(message, ct)
                     .ConfigureAwait(false);
-            }
 
             return PublishStatus.Unknown;
         }
 
-        /// <summary>
-        /// writes records
-        /// </summary>
-        /// <param name="messages">records to write</param>
-        /// <param name="ct">cancellation token</param>
-        /// <returns>publish status</returns>
-        public async ValueTask<PublishStatus> WriteRecordsAsync(TMessage[] messages, CancellationToken ct)
+        /// <inheritdoc/>
+        protected override async ValueTask<PublishStatus> OnWriteRecordsAsync(IEnumerable<TMessage> messages, CancellationToken ct)
         {
-            await this.channel.EnqueueAsync(messages, ct)
+            foreach (var m in messages)
+            {
+                await this.channel.EnqueueAsync(m, ct)
                     .ConfigureAwait(false);
+            }
 
             return PublishStatus.Unknown;
         }

@@ -18,7 +18,7 @@ namespace Abbotware.Core.Threading
     /// </summary>
     /// <typeparam name="TItem">item type</typeparam>
     /// <typeparam name="TOptions">channel options</typeparam>
-    public abstract class QueueChannel<TItem, TOptions> : SimpleChannel<TItem,TOptions>
+    public abstract class QueueChannel<TItem, TOptions> : SimpleChannel<TItem, TOptions>
         where TOptions : ChannelOptions
     {
         /// <summary>

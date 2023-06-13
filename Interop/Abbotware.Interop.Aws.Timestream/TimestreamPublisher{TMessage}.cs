@@ -60,12 +60,6 @@ namespace Abbotware.Interop.Aws.Timestream
         }
 
         /// <inheritdoc/>
-        public virtual ValueTask<PublishStatus> PublishAsync(TMessage[] message, CancellationToken ct)
-        {
-            return this.WriteRecordsAsync(message, ct);
-        }
-
-        /// <inheritdoc/>
         public virtual ValueTask<PublishStatus> PublishAsync(IEnumerable<TMessage> message, CancellationToken ct)
         {
             return this.WriteRecordsAsync(message, ct);

@@ -68,17 +68,6 @@ namespace Abbotware.Core.Threading
         /// <param name="data">data items</param>
         /// <param name="ct">cancellation token</param>
         /// <returns>async task</returns>
-        public ValueTask EnqueueAsync(TItem[] data, CancellationToken ct)
-        {
-            return this.EnqueueAsync(data.AsEnumerable(), ct);
-        }
-
-        /// <summary>
-        /// Enqueues data
-        /// </summary>
-        /// <param name="data">data items</param>
-        /// <param name="ct">cancellation token</param>
-        /// <returns>async task</returns>
         public async ValueTask EnqueueAsync(IEnumerable<TItem> data, CancellationToken ct)
         {
             foreach (var d in data)

@@ -13,7 +13,7 @@ namespace Abbotware.Core.Messaging.Integration
     ///     Interface for publishing objects of a single type in a batch
     /// </summary>
     /// <typeparam name="TMessage">type of message</typeparam>
-    public interface IMessageBatchPublisher<TMessage> : IMessagePublisher<TMessage>, IMessagePublisher<TMessage[]>, IMessagePublisher<IEnumerable<TMessage>>
+    public interface IMessageBatchPublisher<TMessage> : IMessagePublisher<TMessage>, IMessagePublisher<IEnumerable<TMessage>>
     {
     }
 }
