@@ -6,6 +6,7 @@
 
 namespace Abbotware.Interop.Aws.Timestream
 {
+    using System;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Threading;
@@ -99,6 +100,11 @@ namespace Abbotware.Interop.Aws.Timestream
         protected virtual async ValueTask<PublishStatus> OnWriteRecordsAsync(IEnumerable<TMessage> messages, CancellationToken ct)
         {
             var request = this.Protocol.Encode(messages, this.Configuration);
+
+            if (request.Records.Count > TimesreamConstants.MaxRecordBatch)
+            {
+                throw new InvalidOperationException($"Can not send more than {TimesreamConstants.MaxRecordBatch} records to AWS Timestream");
+            }
 
             var sw = Stopwatch.StartNew();
 

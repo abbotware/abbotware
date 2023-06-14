@@ -79,28 +79,38 @@ namespace Abbotware.Interop.Aws.Timestream
 
         private async Task Start()
         {
-            while (true)
+            while (!this.IsDisposedOrDisposing)
             {
                 try
                 {
+                    // TODO: wire up cancellation token
                     await Task.Delay(TimeSpan.FromSeconds(1), default)
                         .ConfigureAwait(false);
 
                     while (this.channel.Reader.Count > 0)
                     {
-                        var messages = new List<TMessage>(100);
+                        var messages = new List<TMessage>(TimesreamConstants.MaxRecordBatch);
 
                         while (this.channel.Reader.TryRead(out var m))
                         {
                             messages.Add(m);
 
-                            if (messages.Count == 100)
+                            if (messages.Count == TimesreamConstants.MaxRecordBatch)
                             {
                                 break;
                             }
                         }
 
-                        await this.OnWriteRecordsAsync(messages, default).ConfigureAwait(false);
+                        // TODO: wire up cancellation token
+                        await this.OnWriteRecordsAsync(messages, default)
+                            .ConfigureAwait(false);
+
+                        // If the channel has less than a full batch then we will break the inner forcing a delay before writing again
+                        // This effectively 'throttles' lots of small writes
+                        if (this.channel.Reader.Count < TimesreamConstants.MaxRecordBatch)
+                        {
+                            break;
+                        }
                     }
                 }
                 catch (AmazonTimestreamWriteException ex)

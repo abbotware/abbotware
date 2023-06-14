@@ -224,7 +224,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
 
             var t = DateTimeOffset.UtcNow;
 
-            for (int i = 0; i < 100; ++i)
+            for (int i = 0; i < 101; ++i)
             {
                 t = t.AddMilliseconds(1);
                 list.Add(new MultiMeasureNonStringDimensionsTestWithTime { Name = Guid.NewGuid().ToString(), Company = "asdfads", ValueA = 123 + i, ValueB = 345 + i, ValueC = 789 + i, ValueD = "testing", ValueE = 123.23 + i, ValueF = 12.345m + i, ValueG = DateTime.UtcNow, ValueH = false, Time = t });
@@ -232,12 +232,15 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
 
             var p = await c.PublishAsync(list, default);
 
-            await Task.Delay(TimeSpan.FromSeconds(3));
-
-            this.BlockIfDebugging();
-
+            await Task.Delay(TimeSpan.FromSeconds(.5));
             Assert.That(c.RecordsPublished, Is.EqualTo(100));
             Assert.That(c.RecordsIngested, Is.EqualTo(100));
+
+            await Task.Delay(TimeSpan.FromSeconds(.5));
+            Assert.That(c.RecordsPublished, Is.EqualTo(101));
+            Assert.That(c.RecordsIngested, Is.EqualTo(101));
+
+            this.BlockIfDebugging();
         }
     }
 }
