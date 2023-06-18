@@ -49,7 +49,7 @@ namespace Abbotware.Interop.Aws.Timestream
         /// <param name="protocol">message encoding protocol</param>
         /// <param name="factory">injected logger factory</param>
         /// <param name="logger">injected logger</param>
-        public BufferedTimestreamPublisher(AmazonTimestreamWriteClient client, TimestreamOptions options, ITimestreamProtocol<TMessage> protocol, ILoggerFactory factory, ILogger logger)
+        public BufferedTimestreamPublisher(AmazonTimestreamWriteClient client, TimestreamOptions options, ITimestreamProtocol<TMessage> protocol, ILoggerFactory factory, ILogger<TimestreamPublisher<TMessage>> logger)
             : base(client, options, protocol, logger)
         {
             var o = new UnboundedChannelOptions();

@@ -23,7 +23,7 @@ namespace Abbotware.Interop.Aws.Timestream
         /// </summary>
         /// <param name="options">options</param>
         /// <param name="logger">injected logger</param>
-        public PocoPublisher(TimestreamOptions options, ILogger logger)
+        public PocoPublisher(TimestreamOptions options, ILogger<PocoPublisher<TMessage>> logger)
             : base(new AmazonTimestreamWriteClient(), options, PocoProtocol.Build<TMessage>(logger), logger)
         {
         }
@@ -34,7 +34,7 @@ namespace Abbotware.Interop.Aws.Timestream
         /// <param name="client">client </param>
         /// <param name="options">options</param>
         /// <param name="logger">injected logger</param>
-        public PocoPublisher(AmazonTimestreamWriteClient client, TimestreamOptions options, ILogger logger)
+        public PocoPublisher(AmazonTimestreamWriteClient client, TimestreamOptions options, ILogger<PocoPublisher<TMessage>> logger)
             : base(client, options, PocoProtocol.Build<TMessage>(logger), logger)
         {
         }

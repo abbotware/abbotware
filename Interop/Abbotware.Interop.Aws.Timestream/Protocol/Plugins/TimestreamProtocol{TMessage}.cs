@@ -16,6 +16,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
     using Abbotware.Interop.Aws.Timestream.Protocol;
     using Abbotware.Interop.Aws.Timestream.Protocol.Internal;
     using Abbotware.Interop.Aws.Timestream.Protocol.Options;
+    using Amazon.TimestreamQuery.Model;
     using Amazon.TimestreamWrite;
     using Amazon.TimestreamWrite.Model;
     using Microsoft.Extensions.Logging;
@@ -27,7 +28,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
     public class TimestreamProtocol<TMessage> : BaseComponent, ITimestreamProtocol<TMessage>
         where TMessage : notnull
     {
-        private readonly Type type = typeof(TMessage);
+        private readonly System.Type type = typeof(TMessage);
 
         private readonly HashSet<string> fields = new();
 
@@ -123,12 +124,6 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
         }
 
         /// <inheritdoc/>
-        public virtual WriteRecordsRequest Encode(TMessage[] values)
-        {
-            return this.Encode(values, this.time);
-        }
-
-        /// <inheritdoc/>
         public WriteRecordsRequest Encode(TMessage message, TimestreamOptions options)
         {
             return this.Encode(message, options, this.time);
@@ -214,6 +209,26 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
             };
 
             return writeRecordsRequest;
+        }
+
+        /// <inheritdoc/>
+        public TMessage Decode(Row storage)
+        {
+            if (typeof(TMessage) == typeof(Row))
+            {
+                return (TMessage)(object)storage;
+            }
+
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc/>
+        public IEnumerable<TMessage> Decode(QueryResponse storage)
+        {
+            foreach (var r in storage.Rows)
+            {
+                yield return this.Decode(r);
+            }
         }
 
         /// <summary>

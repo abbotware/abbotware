@@ -35,7 +35,7 @@ namespace Abbotware.Interop.Aws.Timestream
         /// <param name="options">options</param>
         /// <param name="protocol">message encoding protocol</param>
         /// <param name="logger">injected logger</param>
-        public TimestreamPublisher(TimestreamOptions options, ITimestreamProtocol<TMessage> protocol, ILogger<TimestreamPublisher<TMessage>> logger)
+        public TimestreamPublisher(TimestreamOptions options, ITimestreamWriteProtocol<TMessage> protocol, ILogger<TimestreamPublisher<TMessage>> logger)
             : this(new AmazonTimestreamWriteClient(), options, protocol, logger)
         {
         }
@@ -47,7 +47,7 @@ namespace Abbotware.Interop.Aws.Timestream
         /// <param name="options">options</param>
         /// <param name="protocol">message encoding protocol</param>
         /// <param name="logger">injected logger</param>
-        public TimestreamPublisher(AmazonTimestreamWriteClient client, TimestreamOptions options, ITimestreamProtocol<TMessage> protocol, ILogger logger)
+        public TimestreamPublisher(AmazonTimestreamWriteClient client, TimestreamOptions options, ITimestreamWriteProtocol<TMessage> protocol, ILogger<TimestreamPublisher<TMessage>> logger)
             : base(client, options, logger)
         {
             this.Protocol = protocol;
@@ -66,7 +66,7 @@ namespace Abbotware.Interop.Aws.Timestream
         /// <summary>
         /// gets the protocol encoder
         /// </summary>
-        public ITimestreamProtocol<TMessage> Protocol { get; }
+        public ITimestreamWriteProtocol<TMessage> Protocol { get; }
 
         /// <inheritdoc/>
         public ValueTask<PublishStatus> PublishAsync(TMessage message, CancellationToken ct)
