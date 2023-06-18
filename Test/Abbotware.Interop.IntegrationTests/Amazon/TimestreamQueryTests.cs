@@ -7,6 +7,7 @@
 
 namespace Abbotware.IntegrationTests.Interop.Amazon
 {
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     using Abbotware.Interop.Aws.Timestream;
@@ -15,6 +16,8 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
     using global::Amazon.TimestreamQuery.Model;
     using Microsoft.Extensions.Logging;
     using NUnit.Framework;
+    using NUnit.Framework.Internal;
+    using StackExchange.Redis;
 
     [TestFixture]
     [Category("Interop.Amazon")]
@@ -28,7 +31,11 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
             var p = new QueryProtocol<Row>();
             using var client = new TimestreamReader<Row>(new(), p, this.LoggerFactory.CreateLogger<TimestreamReader<Row>>());
 
-            var rows = await client.QueryAsync("select * from test-database.test-table limit 10", default).ToListAsync();
+            var query = @"SELECT* FROM ""test-database"".""test-table"" ORDER BY time DESC LIMIT 10";
+
+            var rows = await client.QueryAsync(query, default).ToListAsync();
+
+            Assert.That(rows, Has.Count.EqualTo(10));
         }
     }
 }
