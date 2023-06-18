@@ -32,7 +32,7 @@ namespace Abbotware.Interop.Aws.Timestream
         /// <param name="options">options</param>
         /// <param name="protocol">message decoding protocol</param>
         /// <param name="logger">injected logger</param>
-        public TimestreamReader(TimestreamOptions options, ITimestreamQueryProtocol<TMessage> protocol, ILogger<TimestreamPublisher<TMessage>> logger)
+        public TimestreamReader(TimestreamOptions options, ITimestreamQueryProtocol<TMessage> protocol, ILogger<TimestreamReader<TMessage>> logger)
             : this(new AmazonTimestreamQueryClient(), options, protocol, logger)
         {
         }
@@ -67,7 +67,7 @@ namespace Abbotware.Interop.Aws.Timestream
         /// <param name="ct">cancellation token</param>
         /// <returns>async enumerable of messages</returns>
         /// <exception cref="InvalidOperationException">an error occured during query running</exception>
-        public async IAsyncEnumerable<TMessage> Query(string query, [EnumeratorCancellation] CancellationToken ct)
+        public async IAsyncEnumerable<TMessage> QueryAsync(string query, [EnumeratorCancellation] CancellationToken ct)
         {
             var request = new QueryRequest();
             request.QueryString = query;

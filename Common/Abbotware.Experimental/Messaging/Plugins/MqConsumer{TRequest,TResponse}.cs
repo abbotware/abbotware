@@ -92,7 +92,7 @@ namespace Abbotware.Core.Messaging.Plugins
             }
             catch (Exception ex)
             {
-                this.Logger.Error($"Message:{tag} redelivered:{envelope.DeliveryProperties.Redelivered}");
+                this.Logger.Error(ex, $"Message:{tag} redelivered:{envelope.DeliveryProperties.Redelivered}");
 
                 if (envelope.DeliveryProperties!.Redelivered)
                 {

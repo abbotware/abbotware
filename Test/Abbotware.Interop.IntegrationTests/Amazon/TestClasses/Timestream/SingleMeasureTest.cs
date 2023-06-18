@@ -1,7 +1,7 @@
-﻿using Abbotware.Interop.Aws.Timestream.Attributes;
-
-namespace Abbotware.IntegrationTests.Interop.Amazon.TestClasses.Timestream
+﻿namespace Abbotware.IntegrationTests.Interop.Amazon.TestClasses.Timestream
 {
+    using Abbotware.Interop.Aws.Timestream.Attributes;
+
     public class SingleMeasureTest
     {
         [Dimension]

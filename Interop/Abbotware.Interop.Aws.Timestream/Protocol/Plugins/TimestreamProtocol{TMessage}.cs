@@ -40,6 +40,9 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
 
         private readonly string measureName;
 
+        // TODO: temp
+        private readonly ITimestreamQueryProtocol<TMessage> queryProtocol = new QueryProtocol<TMessage>();
+
         /// <summary>
         /// Initializes a new instance of the <see cref="TimestreamProtocol{TMessage}"/> class.
         /// </summary>
@@ -214,21 +217,13 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
         /// <inheritdoc/>
         public TMessage Decode(Row storage)
         {
-            if (typeof(TMessage) == typeof(Row))
-            {
-                return (TMessage)(object)storage;
-            }
-
-            throw new NotImplementedException();
+            return this.queryProtocol.Decode(storage);
         }
 
         /// <inheritdoc/>
         public IEnumerable<TMessage> Decode(QueryResponse storage)
         {
-            foreach (var r in storage.Rows)
-            {
-                yield return this.Decode(r);
-            }
+            return this.queryProtocol.Decode(storage);
         }
 
         /// <summary>

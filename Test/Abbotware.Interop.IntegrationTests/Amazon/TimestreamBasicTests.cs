@@ -18,6 +18,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
     using Abbotware.Interop.Aws.Timestream.Protocol.Plugins;
     using Abbotware.Interop.Microsoft;
     using Abbotware.Utility.UnitTest.Using.NUnit;
+    using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Logging.Abstractions;
     using NUnit.Framework;
 
@@ -31,7 +32,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
         public async Task POCO_TimestreamBasic_SingleMeasureTest()
         {
             var options = ConfigurationHelper.AppSettingsJson(UnitTestSettingsFile).BindSection<TimestreamOptions>(TimestreamOptions.DefaultSection);
-            using var c = new PocoPublisher<SingleMeasureTest>(options, this.Logger);
+            using var c = new PocoPublisher<SingleMeasureTest>(options, this.LoggerFactory.CreateLogger<PocoPublisher<SingleMeasureTest>>());
 
             var p = await c.PublishAsync(new SingleMeasureTest { Name = Guid.NewGuid().ToString(), Value = 123 }, default);
 
@@ -42,7 +43,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
         public async Task POCO_TimestreamBasic_NullDimension()
         {
             var options = ConfigurationHelper.AppSettingsJson(UnitTestSettingsFile).BindSection<TimestreamOptions>(TimestreamOptions.DefaultSection);
-            using var c = new PocoPublisher<NullDimension>(options, this.Logger);
+            using var c = new PocoPublisher<NullDimension>(options, this.LoggerFactory.CreateLogger<PocoPublisher<NullDimension>>());
 
             var p = await c.PublishAsync(new NullDimension { Name = Guid.NewGuid().ToString(), Value = 123, Time = DateTimeOffset.Now }, default);
 
@@ -53,7 +54,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
         public async Task POCO_TimestreamBasic_MultiMeasureTest()
         {
             var options = ConfigurationHelper.AppSettingsJson(UnitTestSettingsFile).BindSection<TimestreamOptions>(TimestreamOptions.DefaultSection);
-            using var c = new PocoPublisher<MultiMeasureTest>(options, this.Logger);
+            using var c = new PocoPublisher<MultiMeasureTest>(options, this.LoggerFactory.CreateLogger<PocoPublisher<MultiMeasureTest>>());
 
             var p = await c.PublishAsync(new MultiMeasureTest { Name = Guid.NewGuid().ToString(), Company = "asdfads", ValueA = 123, ValueB = 345, ValueC = 789, ValueD = "testing", ValueE = 123.23, ValueF = 12.345m, ValueG = DateTime.UtcNow, ValueH = false }, default);
 
@@ -64,7 +65,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
         public async Task POCO_TimestreamBasic_MultiMeasureStringDimensionsTestWithTime()
         {
             var options = ConfigurationHelper.AppSettingsJson(UnitTestSettingsFile).BindSection<TimestreamOptions>(TimestreamOptions.DefaultSection);
-            using var c = new PocoPublisher<MultiMeasureStringDimensionsTestWithTime>(options, this.Logger);
+            using var c = new PocoPublisher<MultiMeasureStringDimensionsTestWithTime>(options, this.LoggerFactory.CreateLogger<PocoPublisher<MultiMeasureStringDimensionsTestWithTime>>());
 
             var list = new List<MultiMeasureStringDimensionsTestWithTime>();
 
@@ -91,7 +92,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
             pb.AddMeasure(x => x.ValueB);
 
             var options = ConfigurationHelper.AppSettingsJson(UnitTestSettingsFile).BindSection<TimestreamOptions>(TimestreamOptions.DefaultSection);
-            using var c = new TimestreamPublisher<NullDimension>(options, pb.Build(), NullLogger<TimestreamPublisher<NullDimension>>.Instance);
+            using var c = new TimestreamPublisher<NullDimension>(options, pb.Build(), this.LoggerFactory.CreateLogger<PocoPublisher<NullDimension>>());
 
             var p = await c.PublishAsync(new NullDimension { Name = Guid.NewGuid().ToString(), Value = 1 }, default);
 
@@ -109,7 +110,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
             pb.AddTime(x => x.Time, TimeUnitType.Milliseconds);
 
             var options = ConfigurationHelper.AppSettingsJson(UnitTestSettingsFile).BindSection<TimestreamOptions>(TimestreamOptions.DefaultSection);
-            using var c = new TimestreamPublisher<NullDimension>(options, pb.Build(), NullLogger<TimestreamPublisher<NullDimension>>.Instance);
+            using var c = new TimestreamPublisher<NullDimension>(options, pb.Build(), this.LoggerFactory.CreateLogger<PocoPublisher<NullDimension>>());
 
             var list = new List<NullDimension>();
 
