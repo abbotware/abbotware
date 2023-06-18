@@ -7,7 +7,6 @@
 
 namespace Abbotware.IntegrationTests.Interop.Amazon
 {
-    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     using Abbotware.Interop.Aws.Timestream;
@@ -17,7 +16,6 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
     using Microsoft.Extensions.Logging;
     using NUnit.Framework;
     using NUnit.Framework.Internal;
-    using StackExchange.Redis;
 
     [TestFixture]
     [Category("Interop.Amazon")]
