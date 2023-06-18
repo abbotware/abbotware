@@ -49,15 +49,23 @@ namespace Abbotware.Core.Serialization
         /// Encodes an object into a new storage type
         /// </summary>
         /// <param name="values">object to encode</param>
-        /// <returns>encoded message</returns>
-        TStorage Encode(T[] values);
+        /// <returns>storage object</returns>
+        TStorage Encode(IEnumerable<T> values);
+    }
 
+    /// <summary>
+    /// Interface for encoding T into storage
+    /// </summary>
+    /// <typeparam name="T">type</typeparam>
+    /// <typeparam name="TStorage">storage type</typeparam>
+    public interface IBulkDecode<T, TStorage>
+    {
         /// <summary>
         /// Encodes an object into a new storage type
         /// </summary>
-        /// <param name="values">object to encode</param>
+        /// <param name="storage">storage to decode</param>
         /// <returns>encoded message</returns>
-        TStorage Encode(IEnumerable<T> values);
+        IEnumerable<T> Decode(TStorage storage);
     }
 
     /// <summary>
