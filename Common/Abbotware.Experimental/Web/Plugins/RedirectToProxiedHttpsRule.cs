@@ -7,6 +7,7 @@
 
 namespace Abbotware.Core.Web.Plugins
 {
+    using System.Linq;
     using System.Text;
     using Microsoft.AspNetCore.Rewrite;
 
@@ -25,9 +26,9 @@ namespace Abbotware.Core.Web.Plugins
             // #1) Did this request start off as HTTP?
             string reqProtocol;
 
-            if (request.Headers.ContainsKey("X-Forwarded-Proto"))
+            if (request.Headers.TryGetValue("X-Forwarded-Proto", out var xforwardHeader))
             {
-                reqProtocol = request.Headers["X-Forwarded-Proto"]![0];
+                reqProtocol = xforwardHeader.SingleOrDefault() ?? string.Empty;
             }
             else
             {
