@@ -18,23 +18,46 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
         where TMessage : notnull
     {
         /// <inheritdoc/>
-        public TMessage Decode(Row storage)
+        public TMessage Decode((Row Row, ColumnInfo ColumnInfo) storage)
         {
             if (typeof(TMessage) == typeof(Row))
             {
                 return (TMessage)(object)storage;
             }
 
-            throw new NotImplementedException();
+            return this.OnDecode(storage.Row, storage.ColumnInfo);
         }
 
         /// <inheritdoc/>
         public IEnumerable<TMessage> Decode(QueryResponse storage)
         {
-            foreach (var r in storage.Rows)
+            for (var i = 0; i < storage.Rows.Count; i++)
             {
-                yield return this.Decode(r);
+                var r = storage.Rows[i];
+
+                if (r is null)
+                {
+                    continue;
+                }
+
+                yield return this.Decode((r, storage.ColumnInfo[i]));
             }
+        }
+
+        /// <summary>
+        /// Logic Hook to implement custom deseriailzation logic
+        /// </summary>
+        /// <param name="row">row data</param>
+        /// <param name="columnInfo">column info data</param>
+        /// <returns>TMessage</returns>
+        /// <exception cref="NotImplementedException">error</exception>
+        protected virtual TMessage OnDecode(Row row, ColumnInfo columnInfo)
+        {
+            foreach (var d in row.Data)
+            {
+            }
+
+            throw new NotImplementedException();
         }
     }
 }

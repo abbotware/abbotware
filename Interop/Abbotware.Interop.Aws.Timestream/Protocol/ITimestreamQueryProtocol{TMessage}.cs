@@ -13,7 +13,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
     /// interface for a protocol that decodes Timestream Query response messages
     /// </summary>
     /// <typeparam name="TMessage">message type</typeparam>
-    public interface ITimestreamQueryProtocol<TMessage> : IDecode<TMessage, Row>, IBulkDecode<TMessage, QueryResponse>
+    public interface ITimestreamQueryProtocol<TMessage> : IDecode<TMessage, (Row Row, ColumnInfo ColumnInfo)>, IBulkDecode<TMessage, QueryResponse>
         where TMessage : notnull
     {
     }
