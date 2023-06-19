@@ -24,10 +24,23 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
     public class TimestreamQueryTests : BaseNUnitTest
     {
         [Test]
-        public async Task POCO_TimestreamBasic_SingleMeasureTest()
+        public async Task TimestreamReader_Row()
         {
             var p = new QueryProtocol<Row>();
             using var client = new TimestreamReader<Row>(new(), p, this.LoggerFactory.CreateLogger<TimestreamReader<Row>>());
+
+            var query = @"SELECT* FROM ""test-database"".""test-table"" ORDER BY time DESC LIMIT 10";
+
+            var rows = await client.QueryAsync(query, default).ToListAsync();
+
+            Assert.That(rows, Has.Count.EqualTo(10));
+        }
+
+        [Test]
+        public async Task TimestreamReader_Metric()
+        {
+            var p = new QueryProtocol<Metric>();
+            using var client = new TimestreamReader<Metric>(new(), p, this.LoggerFactory.CreateLogger<TimestreamReader<Metric>>());
 
             var query = @"SELECT* FROM ""test-database"".""test-table"" ORDER BY time DESC LIMIT 10";
 
