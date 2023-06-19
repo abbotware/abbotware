@@ -31,6 +31,7 @@
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Redis\Abbotware.Interop.Redis.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.SharpZipLib\Abbotware.Interop.SharpZipLib.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.SystemTextJson\Abbotware.Interop.SystemTextJson.csproj" />
+    <ProjectReference Include="..\..\Interop\Abbotware.Interop.TDAmeritrade\Abbotware.Interop.TDAmeritrade.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Yubico\Abbotware.Interop.Yubico.csproj" />
     <ProjectReference Include="..\..\Using\Abbotware.Data.Using.Castle\Abbotware.Data.Using.Castle.csproj" />
     <ProjectReference Include="..\..\Using\Abbotware.Using.Castle\Abbotware.Using.Castle.csproj" />
@@ -49,6 +50,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Sample\Data\Average_Daily_Traffic_Counts.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TDAmeritrade\Samples\tsla.option.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
