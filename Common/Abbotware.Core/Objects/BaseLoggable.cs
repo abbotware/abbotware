@@ -12,20 +12,18 @@ namespace Abbotware.Core.Objects
     /// </summary>
     public abstract class BaseLoggable
     {
-        /// <summary>
-        ///     Gets the logger for the class
-        /// </summary>
-        protected ILogger Logger;
-
-        /// <summary>
+         /// <summary>
         ///     Initializes a new instance of the <see cref="BaseLoggable" /> class.
         /// </summary>
         /// <param name="logger">Injected logger for the class</param>
         protected BaseLoggable(ILogger logger)
         {
             this.Logger = Arguments.EnsureNotNull(logger, nameof(logger));
-
-            this.Logger = logger;
         }
+
+        /// <summary>
+        /// gets the logger
+        /// </summary>
+        protected ILogger Logger { get; }
     }
 }
