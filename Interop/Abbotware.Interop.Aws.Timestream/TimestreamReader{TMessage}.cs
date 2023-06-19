@@ -24,6 +24,10 @@ namespace Abbotware.Interop.Aws.Timestream
     public partial class TimestreamReader<TMessage> : AwsConnection<AmazonTimestreamQueryClient, AmazonTimestreamQueryConfig, TimestreamOptions>
         where TMessage : notnull
     {
+        // TODO: remove this when this is implemented correctly:
+        // https://github.com/dotnet/runtime/issues/87747
+        private readonly ILogger doNotUse;
+
         private volatile int recordsReceieved;
 
         /// <summary>
@@ -47,6 +51,7 @@ namespace Abbotware.Interop.Aws.Timestream
         public TimestreamReader(AmazonTimestreamQueryClient client, TimestreamOptions options, ITimestreamQueryProtocol<TMessage> protocol, ILogger logger)
             : base(client, options, logger)
         {
+            this.doNotUse = logger;
             this.Protocol = protocol;
         }
 
