@@ -31,7 +31,7 @@ namespace Abbotware.Interop.TDAmeritrade.Models
         /// <summary>
         /// Gets the session hours
         /// </summary>
-        public IReadOnlyDictionary<string, Hours[]>? SessionHours { get; init; }
+        public IReadOnlyDictionary<string, IReadOnlyCollection<Hours>>? SessionHours { get; init; }
     }
 
     /// <summary>

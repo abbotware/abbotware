@@ -186,7 +186,7 @@ namespace Abbotware.Interop.TDAmeritrade
         /// <param name="searchType">The type of request</param>
         /// <param name="ct">cancellation token</param>
         /// <returns>search result</returns>
-        public Task<RestResponse<IDictionary<string, Instrument>, ErrorResponse>> SearchAsync(string symbol, SearchType searchType, CancellationToken ct)
+        public Task<RestResponse<IReadOnlyDictionary<string, Instrument>, ErrorResponse>> SearchAsync(string symbol, SearchType searchType, CancellationToken ct)
         {
             this.InitializeIfRequired();
 
@@ -194,7 +194,7 @@ namespace Abbotware.Interop.TDAmeritrade
             request.AddQueryParameter("symbol", symbol, false);
             request.AddQueryParameter("projection", EnumHelper.GetEnumMemberValue(searchType), false);
 
-            return this.OnExecuteAsync<IDictionary<string, Instrument>, ErrorResponse>(request, ct);
+            return this.OnExecuteAsync<IReadOnlyDictionary<string, Instrument>, ErrorResponse>(request, ct);
         }
 
         /// <summary>

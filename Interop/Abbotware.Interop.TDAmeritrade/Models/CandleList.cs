@@ -21,6 +21,6 @@ namespace Abbotware.Interop.TDAmeritrade.Models
         /// <summary>
         /// Gets the list of candles
         /// </summary>
-        public ICollection<Candle>? Candles { get; init; }
+        public IReadOnlyCollection<Candle>? Candles { get; init; }
     }
 }

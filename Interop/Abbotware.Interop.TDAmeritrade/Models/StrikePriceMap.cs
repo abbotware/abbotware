@@ -114,16 +114,6 @@ namespace Abbotware.Interop.TDAmeritrade.Models
         /// <summary>
         /// Gets the list of Option Delieverables
         /// </summary>
-        public ICollection<OptionDeliverable>? OptionDeliverablesList { get; init; }
-
-        /// <summary>
-        /// Gets the TradeTime inDateTimeOffset
-        /// </summary>
-        public DateTimeOffset? TradeDateTime => this.TradeTimeInLong.HasValue ? DateTimeOffset.FromUnixTimeMilliseconds(this.TradeTimeInLong.Value) : null;
-
-        /// <summary>
-        /// Gets the QuoteTime in DateTimeOffset
-        /// </summary>
-        public DateTimeOffset? QuoteDateTime => this.QuoteTimeInLong.HasValue ? DateTimeOffset.FromUnixTimeMilliseconds(this.QuoteTimeInLong.Value) : null;
-    }
+        public IReadOnlyCollection<OptionDeliverable>? OptionDeliverablesList { get; init; }
+   }
 }

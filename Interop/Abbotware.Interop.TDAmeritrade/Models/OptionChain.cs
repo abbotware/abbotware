@@ -45,11 +45,11 @@ namespace Abbotware.Interop.TDAmeritrade.Models
         /// <summary>
         /// Gets the call option strike map
         /// </summary>
-        public Dictionary<string, Dictionary<string, List<StrikePriceMap>>>? CallExpDateMap { get; init; }
+        public IReadOnlyDictionary<string, IReadOnlyDictionary<string, IReadOnlyCollection<StrikePriceMap>>>? CallExpDateMap { get; init; }
 
         /// <summary>
         /// Gets the put option strike map
         /// </summary>
-        public Dictionary<string, Dictionary<string, List<StrikePriceMap>>>? PutExpDateMap { get; init; }
+        public IReadOnlyDictionary<string, IReadOnlyDictionary<string, IReadOnlyCollection<StrikePriceMap>>>? PutExpDateMap { get; init; }
     }
 }
