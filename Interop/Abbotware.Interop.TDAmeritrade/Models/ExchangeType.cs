@@ -72,5 +72,11 @@ namespace Abbotware.Interop.TDAmeritrade.Models
         /// </summary>
         [EnumMember(Value = "AMEX")]
         Amex,
+
+        /// <summary>
+        /// OPR
+        /// </summary>
+        [EnumMember(Value = "OPR")]
+        Opr,
     }
 }

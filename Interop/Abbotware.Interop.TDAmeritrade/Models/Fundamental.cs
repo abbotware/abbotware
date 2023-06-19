@@ -59,7 +59,7 @@ namespace Abbotware.Interop.TDAmeritrade.Models
     /// <param name="Vol10DayAvg">Average Trading Volume - 10 Day Average</param>
     /// <param name="Vol3MonthAvg">Average Trading Volume - 3 Month Average</param>
     public record Fundamental(
-        [property: Key][property: MaxLength(10)] string Symbol,
+        [property: Key][property: MaxLength(TDAmeritradeConstants.SymbolLength)] string Symbol,
         decimal? High52,
         decimal? Low52,
         decimal? DividendAmount,

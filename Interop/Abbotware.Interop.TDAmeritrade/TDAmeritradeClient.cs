@@ -93,7 +93,7 @@ namespace Abbotware.Interop.TDAmeritrade
         /// <param name="optionType">Type of contracts to return</param>
         /// <param name="ct">cancellation token</param>
         /// <returns>search result</returns>
-        public Task<RestResponse<IReadOnlyDictionary<string, IReadOnlyDictionary<string, MarketHours>>, ErrorResponse>> Chains(string symbol, ContractType? contractType, int? strikeCount, bool? includeQuotes, OptionStrategyType? strategy, int? interval, decimal? strike, OptionRangeType? range, DateTimeOffset? fromDate, DateTimeOffset? toDate, double? volatility, decimal? underlyingPrice, double? interestRate, int? daysToExpiration, MonthType? expMonth, OptionType? optionType, CancellationToken ct)
+        public Task<RestResponse<IReadOnlyDictionary<string, IReadOnlyDictionary<string, OptionChain>>, ErrorResponse>> Chains(string symbol, ContractType? contractType, int? strikeCount, bool? includeQuotes, OptionStrategyType? strategy, int? interval, decimal? strike, OptionRangeType? range, DateTimeOffset? fromDate, DateTimeOffset? toDate, double? volatility, decimal? underlyingPrice, double? interestRate, int? daysToExpiration, MonthType? expMonth, OptionType? optionType, CancellationToken ct)
         {
             this.InitializeIfRequired();
 
@@ -176,7 +176,7 @@ namespace Abbotware.Interop.TDAmeritrade
                 request.AddQueryParameter("optionType", EnumHelper.GetEnumMemberValue(optionType), false);
             }
 
-            return this.OnExecuteAsync<IReadOnlyDictionary<string, IReadOnlyDictionary<string, MarketHours>>, ErrorResponse>(request, ct);
+            return this.OnExecuteAsync<IReadOnlyDictionary<string, IReadOnlyDictionary<string, OptionChain>>, ErrorResponse>(request, ct);
         }
 
         /// <summary>
