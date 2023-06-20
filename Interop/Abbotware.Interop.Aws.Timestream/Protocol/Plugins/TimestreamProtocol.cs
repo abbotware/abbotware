@@ -215,7 +215,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
         }
 
         /// <inheritdoc/>
-        public TMessage Decode((Row Row, ColumnInfo ColumnInfo) storage)
+        public TMessage Decode((Row Row, IReadOnlyCollection<ColumnInfo> ColumnInfo) storage)
         {
             return this.queryProtocol.Decode(storage);
         }

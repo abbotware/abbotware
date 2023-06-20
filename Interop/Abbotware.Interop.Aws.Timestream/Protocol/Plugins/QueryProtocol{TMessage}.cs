@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="QueryProtocol.cs" company="Abbotware, LLC">
+// <copyright file="QueryProtocol{TMessage}.cs" company="Abbotware, LLC">
 // Copyright © Abbotware, LLC 2012-2023. All rights reserved
 // </copyright>
 // -----------------------------------------------------------------------
@@ -8,6 +8,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using Amazon.TimestreamQuery.Model;
 
     /// <summary>
@@ -18,7 +19,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
         where TMessage : notnull
     {
         /// <inheritdoc/>
-        public TMessage Decode((Row Row, ColumnInfo ColumnInfo) storage)
+        public TMessage Decode((Row Row, IReadOnlyCollection<ColumnInfo> ColumnInfo) storage)
         {
             if (typeof(TMessage) == typeof(Row))
             {
@@ -40,7 +41,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
                     continue;
                 }
 
-                yield return this.Decode((r, storage.ColumnInfo[i]));
+                yield return this.Decode((r, storage.ColumnInfo));
             }
         }
 
@@ -51,7 +52,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
         /// <param name="columnInfo">column info data</param>
         /// <returns>TMessage</returns>
         /// <exception cref="NotImplementedException">error</exception>
-        protected virtual TMessage OnDecode(Row row, ColumnInfo columnInfo)
+        protected virtual TMessage OnDecode(Row row, IReadOnlyCollection<ColumnInfo> columnInfo)
         {
             foreach (var d in row.Data)
             {
