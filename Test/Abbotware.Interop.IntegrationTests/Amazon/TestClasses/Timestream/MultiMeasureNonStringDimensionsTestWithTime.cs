@@ -1,7 +1,6 @@
 ﻿namespace Abbotware.IntegrationTests.Interop.Amazon.TestClasses.Timestream
 {
     using System;
-    using Abbotware.Interop.Aws.Timestream.Attributes;
 
     public class MultiMeasureNonStringDimensionsTestWithTime
     {
@@ -15,21 +14,29 @@
 
         public long IdDimension { get; set; }
 
-        public int ValueA { get; set; }
+        public int Int { get; set; }
 
-        public long? ValueB { get; set; }
+        public long? LongNullable { get; set; }
 
-        public long ValueC { get; set; }
+        public long Long { get; set; }
 
-        public string ValueD { get; set; }
+        public string String { get; set; }
 
-        public double ValueE { get; set; }
+        public double Double { get; set; }
 
-        public decimal ValueF { get; set; }
+        public decimal Decimal { get; set; }
 
-        public DateTime ValueG { get; set; }
+        public DateTime DateTime { get; set; }
 
-        public bool ValueH { get; set; }
+        public DateTime? DateTimeNullable { get; set; }
+
+        public DateOnly DateOnly { get; set; }
+
+        public DateOnly? DateOnlyNullable { get; set; }
+
+        public bool Boolean { get; set; }
+
+        public bool? BooleanNullable { get; set; }
 
         public DateTimeOffset Time { get; set; }
     }

@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
     <Nullable>enable</Nullable>
-    <TargetFrameworks>netstandard2.0;netstandard2.1;net6;net7</TargetFrameworks>
+    <TargetFrameworks>net6;net7</TargetFrameworks>
     <Description>Abbotware Interop Library for Amazon Timestream - Contains helper methods, extension methods, and plugins</Description>
 		<PackageTags>Timestream;Aws;Amazon</PackageTags>
     <PackageProjectUrl>https://github.com/abbotware/abbotware/tree/master/Interop/Abbotware.Interop.Aws.Timestream</PackageProjectUrl>

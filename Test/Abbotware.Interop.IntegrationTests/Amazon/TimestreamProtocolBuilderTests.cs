@@ -73,9 +73,9 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
         public void MultiMeasure_MissingMeasureName()
         {
             var pb = new ProtocolBuilder<MultiMeasureNonStringDimensionsTestWithTime>();
-            pb.AddMeasure(x => x.ValueA);
+            pb.AddMeasure(x => x.Int);
 
-            Assert.Throws<ArgumentException>(() => pb.AddMeasure(x => x.ValueB));
+            Assert.Throws<ArgumentException>(() => pb.AddMeasure(x => x.LongNullable));
         }
 
         [Test]
@@ -87,14 +87,18 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
             pb.AddNullableDimension(x => x.Optional);
             pb.AddNullableDimension(x => x.SetOptional);
             pb.AddDimension(x => x.IdDimension, x => x.Converter = y => y.ToString());
-            pb.AddMeasure(x => x.ValueA);
-            pb.AddMeasure(x => x.ValueB);
-            pb.AddMeasure(x => x.ValueC);
-            pb.AddMeasure(x => x.ValueD);
-            pb.AddMeasure(x => x.ValueE);
-            pb.AddMeasure(x => x.ValueF);
-            pb.AddMeasure(x => x.ValueG);
-            pb.AddMeasure(x => x.ValueH);
+            pb.AddMeasure(x => x.Int);
+            pb.AddMeasure(x => x.LongNullable);
+            pb.AddMeasure(x => x.Long);
+            pb.AddMeasure(x => x.String);
+            pb.AddMeasure(x => x.Double);
+            pb.AddMeasure(x => x.Decimal);
+            pb.AddMeasure(x => x.DateTime);
+            pb.AddMeasure(x => x.DateTimeNullable);
+            pb.AddMeasure(x => x.DateOnly);
+            pb.AddMeasure(x => x.DateOnlyNullable);
+
+            pb.AddMeasure(x => x.Boolean);
             pb.AddTime(x => x.Time, TimeUnitType.Milliseconds);
 
             var options = new TimestreamOptions() { Database = "db", Table = "table" };
@@ -103,7 +107,22 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
             var record_time = DateTime.UtcNow;
             var write_time = DateTimeOffset.UtcNow.AddDays(-1);
 
-            var m = new MultiMeasureNonStringDimensionsTestWithTime { Name = "asdf", Company = "asdfads", SetOptional = "SetOptional", ValueA = 123, ValueB = 345, ValueC = 789, ValueD = "testing", ValueE = 123.23, ValueF = 12.345m, ValueG = record_time, ValueH = false, Time = write_time };
+            var m = new MultiMeasureNonStringDimensionsTestWithTime
+            {
+                Name = "asdf",
+                Company = "asdfads",
+                SetOptional = "SetOptional",
+                Int = 123,
+                LongNullable = 345,
+                Long = 789,
+                String = "testing",
+                Double = 123.23,
+                Decimal = 12.345m,
+                DateTime = record_time,
+                Boolean = false,
+                DateOnly = new DateOnly(11, 12, 14),
+                Time = write_time,
+            };
 
             var encoded = protocol.Encode(m, options);
 
@@ -118,15 +137,18 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
             Assert.That(encoded.CommonAttributes.MeasureName, Is.EqualTo("metrics"));
             Assert.That(encoded.Records.Single().MeasureValueType.Value, Is.EqualTo("MULTI"));
 
-            Assert.That(encoded.Records.Single().MeasureValues.Single(x => x.Name == "ValueA").Value, Is.EqualTo("123"));
-            Assert.That(encoded.Records.Single().MeasureValues.Single(x => x.Name == "ValueB").Value, Is.EqualTo("345"));
-            Assert.That(encoded.Records.Single().MeasureValues.Single(x => x.Name == "ValueC").Value, Is.EqualTo("789"));
-            Assert.That(encoded.Records.Single().MeasureValues.Single(x => x.Name == "ValueD").Value, Is.EqualTo("testing"));
-            Assert.That(encoded.Records.Single().MeasureValues.Single(x => x.Name == "ValueE").Value, Is.EqualTo("123.23"));
-            Assert.That(encoded.Records.Single().MeasureValues.Single(x => x.Name == "ValueF").Value, Is.EqualTo("12.345"));
+            Assert.That(encoded.Records.Single().MeasureValues.Single(x => x.Name == "Int").Value, Is.EqualTo("123"));
+            Assert.That(encoded.Records.Single().MeasureValues.Single(x => x.Name == "LongNullable").Value, Is.EqualTo("345"));
+            Assert.That(encoded.Records.Single().MeasureValues.Single(x => x.Name == "Long").Value, Is.EqualTo("789"));
+            Assert.That(encoded.Records.Single().MeasureValues.Single(x => x.Name == "String").Value, Is.EqualTo("testing"));
+            Assert.That(encoded.Records.Single().MeasureValues.Single(x => x.Name == "Double").Value, Is.EqualTo("123.23"));
+            Assert.That(encoded.Records.Single().MeasureValues.Single(x => x.Name == "Decimal").Value, Is.EqualTo("12.345"));
             var gValue = new DateTimeOffset(record_time).ToUnixTimeMilliseconds().ToString();
-            Assert.That(encoded.Records.Single().MeasureValues.Single(x => x.Name == "ValueG").Value, Is.EqualTo(gValue));
-            Assert.That(encoded.Records.Single().MeasureValues.Single(x => x.Name == "ValueH").Value, Is.EqualTo("False"));
+            Assert.That(encoded.Records.Single().MeasureValues.Single(x => x.Name == "DateTime").Value, Is.EqualTo(gValue));
+            var dateOnlyValue = new DateTimeOffset(11, 12, 14, 0, 0, 0, 0, TimeSpan.Zero).ToUnixTimeMilliseconds().ToString();
+            Assert.That(encoded.Records.Single().MeasureValues.Single(x => x.Name == "DateOnly").Value, Is.EqualTo(dateOnlyValue));
+
+            Assert.That(encoded.Records.Single().MeasureValues.Single(x => x.Name == "Boolean").Value, Is.EqualTo("False"));
 
             // Check Time
             var tValue = write_time.ToUnixTimeMilliseconds().ToString();
@@ -138,7 +160,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
         {
             var pb = new ProtocolBuilder<MultiMeasureNonStringDimensionsTestWithTime>("metrics");
             pb.AddDimension(x => x.Name);
-            pb.AddMeasure(x => x.ValueB);
+            pb.AddMeasure(x => x.LongNullable);
 
             var options = new TimestreamOptions() { Database = "db", Table = "table" };
             var protocol = pb.Build();
@@ -155,12 +177,12 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
         {
             var pb = new ProtocolBuilder<MultiMeasureNonStringDimensionsTestWithTime>("metrics");
             pb.AddNullableDimension(x => x.Optional);
-            pb.AddMeasure(x => x.ValueB);
+            pb.AddMeasure(x => x.LongNullable);
 
             var options = new TimestreamOptions() { Database = "db", Table = "table" };
             var protocol = pb.Build();
 
-            var m = new MultiMeasureNonStringDimensionsTestWithTime { Name = "asdf", ValueB = 123 };
+            var m = new MultiMeasureNonStringDimensionsTestWithTime { Name = "asdf", LongNullable = 123 };
 
             var ex = Assert.Catch<Exception>(() => protocol.Encode(m, options));
 
@@ -172,12 +194,12 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
         {
             var pb = new ProtocolBuilder<MultiMeasureNonStringDimensionsTestWithTime>("metrics");
             pb.AddDimension(x => x.Name);
-            pb.AddMeasure(x => x.ValueB);
+            pb.AddMeasure(x => x.LongNullable);
 
             var options = new TimestreamOptions() { Database = "db", Table = "table" };
             var protocol = pb.Build();
 
-            var m = new MultiMeasureNonStringDimensionsTestWithTime { ValueB = 123 };
+            var m = new MultiMeasureNonStringDimensionsTestWithTime { LongNullable = 123 };
 
             var ex = Assert.Catch<Exception>(() => protocol.Encode(m, options));
 

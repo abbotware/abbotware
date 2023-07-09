@@ -171,14 +171,14 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
             pb.AddNullableDimension(x => x.Optional);
             pb.AddNullableDimension(x => x.SetOptional);
             pb.AddDimension(x => x.IdDimension, x => x.Converter = y => y.ToString());
-            pb.AddMeasure(x => x.ValueA);
-            pb.AddMeasure(x => x.ValueB);
-            pb.AddMeasure(x => x.ValueC);
-            pb.AddMeasure(x => x.ValueD);
-            pb.AddMeasure(x => x.ValueE);
-            pb.AddMeasure(x => x.ValueF);
-            pb.AddMeasure(x => x.ValueG);
-            pb.AddMeasure(x => x.ValueH);
+            pb.AddMeasure(x => x.Int);
+            pb.AddMeasure(x => x.LongNullable);
+            pb.AddMeasure(x => x.Long);
+            pb.AddMeasure(x => x.String);
+            pb.AddMeasure(x => x.Double);
+            pb.AddMeasure(x => x.Decimal);
+            pb.AddMeasure(x => x.DateTime);
+            pb.AddMeasure(x => x.Boolean);
             pb.AddTime(x => x.Time, TimeUnitType.Milliseconds);
 
             var options = ConfigurationHelper.AppSettingsJson(UnitTestSettingsFile).BindSection<TimestreamOptions>(TimestreamOptions.DefaultSection);
@@ -191,7 +191,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
             for (int i = 0; i < 100; ++i)
             {
                 t = t.AddMilliseconds(1);
-                list.Add(new MultiMeasureNonStringDimensionsTestWithTime { Name = Guid.NewGuid().ToString(), Company = "asdfads", ValueA = 123 + i, ValueB = 345 + i, ValueC = 789 + i, ValueD = "testing", ValueE = 123.23 + i, ValueF = 12.345m + i, ValueG = DateTime.UtcNow, ValueH = false, Time = t });
+                list.Add(new MultiMeasureNonStringDimensionsTestWithTime { Name = Guid.NewGuid().ToString(), Company = "asdfads", Int = 123 + i, LongNullable = 345 + i, Long = 789 + i, String = "testing", Double = 123.23 + i, Decimal = 12.345m + i, DateTime = DateTime.UtcNow, Boolean = false, Time = t });
             }
 
             var p = await c.PublishAsync(list, default);
@@ -208,14 +208,14 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
             pb.AddNullableDimension(x => x.Optional);
             pb.AddNullableDimension(x => x.SetOptional);
             pb.AddDimension(x => x.IdDimension, x => x.Converter = y => y.ToString());
-            pb.AddMeasure(x => x.ValueA);
-            pb.AddMeasure(x => x.ValueB);
-            pb.AddMeasure(x => x.ValueC);
-            pb.AddMeasure(x => x.ValueD);
-            pb.AddMeasure(x => x.ValueE);
-            pb.AddMeasure(x => x.ValueF);
-            pb.AddMeasure(x => x.ValueG);
-            pb.AddMeasure(x => x.ValueH);
+            pb.AddMeasure(x => x.Int);
+            pb.AddMeasure(x => x.LongNullable);
+            pb.AddMeasure(x => x.Long);
+            pb.AddMeasure(x => x.String);
+            pb.AddMeasure(x => x.Double);
+            pb.AddMeasure(x => x.Decimal);
+            pb.AddMeasure(x => x.DateTime);
+            pb.AddMeasure(x => x.Boolean);
             pb.AddTime(x => x.Time, TimeUnitType.Milliseconds);
 
             var options = ConfigurationHelper.AppSettingsJson(UnitTestSettingsFile).BindSection<TimestreamOptions>(TimestreamOptions.DefaultSection);
@@ -228,7 +228,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
             for (int i = 0; i < 101; ++i)
             {
                 t = t.AddMilliseconds(1);
-                list.Add(new MultiMeasureNonStringDimensionsTestWithTime { Name = Guid.NewGuid().ToString(), Company = "asdfads", ValueA = 123 + i, ValueB = 345 + i, ValueC = 789 + i, ValueD = "testing", ValueE = 123.23 + i, ValueF = 12.345m + i, ValueG = DateTime.UtcNow, ValueH = false, Time = t });
+                list.Add(new MultiMeasureNonStringDimensionsTestWithTime { Name = Guid.NewGuid().ToString(), Company = "asdfads", Int = 123 + i, LongNullable = 345 + i, Long = 789 + i, String = "testing", Double = 123.23 + i, Decimal = 12.345m + i, DateTime = DateTime.UtcNow, Boolean = false, Time = t });
             }
 
             var p = await c.PublishAsync(list, default);

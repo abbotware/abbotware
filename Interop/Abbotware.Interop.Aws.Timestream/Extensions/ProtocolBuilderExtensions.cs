@@ -321,6 +321,23 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         }
 
         /// <summary>
+        /// Adds a TIMESTAMP (from DateOnly)
+        /// </summary>
+        /// <typeparam name="TMessage">message types</typeparam>
+        /// <param name="builder">extended builder</param>
+        /// <param name="expression">property accessor expression</param>
+        /// <param name="configure">configure callback</param>
+        /// <returns>builder</returns>
+        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, DateOnly>> expression, Action<MeasureValueBuilderOptions<TMessage, DateOnly>>? configure = null)
+               where TMessage : notnull
+        {
+            var o = new MeasureValueBuilderOptions<TMessage, DateOnly>(MeasureValueType.TIMESTAMP, BuildTimestampFromDateTime);
+            configure?.Invoke(o);
+
+            return builder.AddMeasure(expression, o);
+        }
+
+        /// <summary>
         /// Adds a TIMESTAMP (from DateTime)
         /// </summary>
         /// <typeparam name="TMessage">message types</typeparam>
@@ -559,6 +576,23 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         }
 
         /// <summary>
+        /// Adds an optional TIMESTAMP (from DateOnly?)
+        /// </summary>
+        /// <typeparam name="TMessage">message types</typeparam>
+        /// <param name="builder">extended builder</param>
+        /// <param name="expression">property accessor expression</param>
+        /// <param name="configure">configure callback</param>
+        /// <returns>builder</returns>
+        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, DateOnly?>> expression, Action<NullableMeasureValueBuilderOptions<TMessage, DateOnly?>>? configure = null)
+               where TMessage : notnull
+        {
+            var o = new NullableMeasureValueBuilderOptions<TMessage, DateOnly?>(MeasureValueType.TIMESTAMP, BuildTimestampFromNullableDateOnly);
+            configure?.Invoke(o);
+
+            return builder.AddNullableMeasure(expression, o);
+        }
+
+        /// <summary>
         /// Adds an optional TIMESTAMP (from DateTime?)
         /// </summary>
         /// <typeparam name="TMessage">message types</typeparam>
@@ -593,6 +627,17 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static string? BuildTimestampFromNullableDateOnly(DateOnly? date)
+        {
+            if (date is null)
+            {
+                return null;
+            }
+
+            return BuildTimestampFromDateTime(date.Value);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static string? BuildTimestampFromNullableDateTime(DateTime? dateTime)
         {
             if (dateTime is null)
@@ -601,6 +646,12 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
             }
 
             return BuildTimestampFromDateTime(dateTime.Value);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static string BuildTimestampFromDateTime(DateOnly date)
+        {
+            return BuildTimestampFromDateTime(date.ToDateTime(TimeOnly.MinValue, DateTimeKind.Utc));
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

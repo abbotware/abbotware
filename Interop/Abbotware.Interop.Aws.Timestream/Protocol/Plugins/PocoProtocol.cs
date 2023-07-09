@@ -77,7 +77,26 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
 
                     var c = TypeDescriptorHelper.GetConverter(type);
 
-                    if (type == typeof(DateTime))
+                    if (type == typeof(DateOnly))
+                    {
+                        ms.Add(targetName, new MeasureValueOptions<TMessage, DateOnly>(
+                            mvt,
+                            x =>
+                            {
+                                var v = p.GetValue(x);
+
+                                if (v is null)
+                                {
+                                    throw new InvalidOperationException($"unexpected null for:{sourceName}");
+                                }
+
+                                return (DateOnly)v;
+                            },
+                            x => new DateTimeOffset(x.ToDateTime(TimeOnly.MinValue, DateTimeKind.Utc)).ToUnixTimeMilliseconds().ToString(CultureInfo.InvariantCulture),
+                            sourceName,
+                            targetName));
+                    }
+                    else if (type == typeof(DateTime))
                     {
                         ms.Add(targetName, new MeasureValueOptions<TMessage, DateTime>(
                             mvt,

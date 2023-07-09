@@ -54,6 +54,9 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
                 typeof(decimal), MeasureValueType.DOUBLE
             },
             {
+                typeof(DateOnly), MeasureValueType.TIMESTAMP
+            },
+            {
                 typeof(DateTime), MeasureValueType.TIMESTAMP
             },
             {
