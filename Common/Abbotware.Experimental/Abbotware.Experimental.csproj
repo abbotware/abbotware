@@ -50,11 +50,19 @@
     <Compile Remove="UnitTests\Interop.RabbitMQ\StringPublisherUnitTests.cs" />
     <Compile Remove="UnitTests\Messaging\ConsumerManagerUnitTests.cs" />
     <Compile Remove="UnitTests\Messaging\ExchangePublisherUnitTests.cs" />
+    <Compile Remove="Web\ExtensionPoints\BaseController.cs" />
+    <Compile Remove="Web\ExtensionPoints\BaseDataAccessController{TDataAccess}.cs" />
+    <Compile Remove="Web\ExtensionPoints\Breadcrumb.cs" />
+    <Compile Remove="Web\ExtensionPoints\IBreadcrumbManager.cs" />
+    <Compile Remove="Web\Extensions\IApplicationBuilderExtensions.cs" />
     <Compile Remove="Web\Extensions\InfoButtonExtensions.cs" />
     <Compile Remove="Web\Extensions\PrivateEyeExtensions.cs" />
+    <Compile Remove="Web\Extensions\RewriteOptionsExtensions.cs" />
     <Compile Remove="Web\Extensions\StringExtensions.cs" />
     <Compile Remove="Web\Helpers\HtmlExtensions.cs" />
     <Compile Remove="Web\Helpers\IncludeHelper.cs" />
+    <Compile Remove="Web\Plugins\BreadcrumbManager.cs" />
+    <Compile Remove="Web\Plugins\RedirectToProxiedHttpsRule.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Core\" />
@@ -97,15 +105,23 @@
     <None Include="UnitTests\Interop.RabbitMQ\StringPublisherUnitTests.cs" />
     <None Include="UnitTests\Messaging\ConsumerManagerUnitTests.cs" />
     <None Include="UnitTests\Messaging\ExchangePublisherUnitTests.cs" />
+    <None Include="Web\ExtensionPoints\BaseController.cs" />
+    <None Include="Web\ExtensionPoints\BaseDataAccessController{TDataAccess}.cs" />
+    <None Include="Web\ExtensionPoints\Breadcrumb.cs" />
+    <None Include="Web\ExtensionPoints\IBreadcrumbManager.cs" />
+    <None Include="Web\Extensions\IApplicationBuilderExtensions.cs" />
     <None Include="Web\Extensions\InfoButtonExtensions.cs" />
     <None Include="Web\Extensions\PrivateEyeExtensions.cs" />
+    <None Include="Web\Extensions\RewriteOptionsExtensions.cs" />
     <None Include="Web\Extensions\StringExtensions.cs" />
     <None Include="Web\Helpers\HtmlExtensions.cs" />
     <None Include="Web\Helpers\IncludeHelper.cs" />
+    <None Include="Web\Plugins\BreadcrumbManager.cs" />
+    <None Include="Web\Plugins\RedirectToProxiedHttpsRule.cs" />
   </ItemGroup>
   <ItemGroup>
-	  <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
-	  <PackageReference Include="Microsoft.AspNetCore.Rewrite" Version="2.2.0" />
+	  <!--<PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
+	  <PackageReference Include="Microsoft.AspNetCore.Rewrite" Version="2.2.0" />-->
 	  <PackageReference Include="QuickGraph.All" Version="3.6.61119.8" />
 	  <PackageReference Include="LumenWorks.Framework.IO.Core" Version="1.0.1" />
 	  <PackageReference Include="CsvHelper" Version="30.0.1" />
