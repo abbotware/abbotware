@@ -2,25 +2,16 @@
 
   <PropertyGroup>
     <Nullable>enable</Nullable>
-    <TargetFrameworks>netstandard2.0;netstandard2.1;net6;net7</TargetFrameworks>
+    <TargetFrameworks>netstandard2.1;net6;net7</TargetFrameworks>
     <Description>Abbotware Interop Library for AutoMapper - Contains helper methods, extension methods, and plugins</Description>
     <PackageTags>AutoMapper</PackageTags>
   </PropertyGroup>
-
-  <Choose>
-    <When Condition="'$(TargetFramework)' == 'netstandard2.0'">
-      <ItemGroup>
-        <PackageReference Include="Automapper" Version="10.1.1" />
-        <PackageReference Include="AutoMapper.Extensions.ExpressionMapping" Version="4.1.3" />
-      </ItemGroup>
-    </When>
-    <Otherwise>
-      <ItemGroup>
-        <PackageReference Include="Automapper" Version="12.0.1" />
-        <PackageReference Include="AutoMapper.Extensions.ExpressionMapping" Version="6.0.4" />
-      </ItemGroup>
-    </Otherwise>
-  </Choose>
+  
+  <ItemGroup>
+    <PackageReference Include="Automapper" Version="12.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.ExpressionMapping" Version="6.0.4" />
+  </ItemGroup>
+  
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Abbotware.Core\Abbotware.Core.csproj" />
   </ItemGroup>

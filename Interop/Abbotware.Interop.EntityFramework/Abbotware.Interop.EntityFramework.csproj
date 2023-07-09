@@ -1,31 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
     <Nullable>enable</Nullable>
-    <TargetFrameworks>netstandard2.0;netstandard2.1;net6;net7</TargetFrameworks>
+    <TargetFrameworks>net7</TargetFrameworks>
 		<Description>Abbotware Interop Library for EntityFramework - Contains helper methods, extension methods, and plugins</Description>
 		<PackageTags>EntityFramework</PackageTags>
 	</PropertyGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-		<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.1.32" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.32" />
-	</ItemGroup>
-
-	<ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.1'">
-		<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.17" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.17" />
-	</ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'net6'">
-    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.16" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.16" />
-  </ItemGroup>
-
   <ItemGroup Condition="'$(TargetFramework)' == 'net7'">
-    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.7" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.7" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.8" />
   </ItemGroup>
-
 
   <ItemGroup>
 		<PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
