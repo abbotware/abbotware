@@ -253,6 +253,24 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         }
 
         /// <summary>
+        /// Adds a BIGINT (from byte) Measure
+        /// </summary>
+        /// <typeparam name="TMessage">message types</typeparam>
+        /// <param name="builder">extended builder</param>
+        /// <param name="expression">property accessor expression</param>
+        /// <param name="configure">configure callback</param>
+        /// <returns>builder</returns>
+        public static IProtocolBuilder<TMessage> AddMeasure<TMessage, TEnum>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, TEnum>> expression, Action<MeasureValueBuilderOptions<TMessage, TEnum>>? configure = null)
+            where TMessage : notnull
+            where TEnum : Enum
+        {
+            var o = new MeasureValueBuilderOptions<TMessage, TEnum>(MeasureValueType.BIGINT, x => ((long)(object)x).ToString(CultureInfo.InvariantCulture));
+            configure?.Invoke(o);
+
+            return builder.AddMeasure(expression, o);
+        }
+
+        /// <summary>
         /// Adds a BOOLEAN Measure
         /// </summary>
         /// <typeparam name="TMessage">message types</typeparam>

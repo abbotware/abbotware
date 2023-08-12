@@ -11,6 +11,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
     using System.Linq;
     using System.Linq.Expressions;
     using System.Reflection;
+    using System.Xml.Linq;
     using Abbotware.Core.Extensions;
     using Abbotware.Core.Helpers;
     using Abbotware.Interop.Aws.Timestream;
@@ -75,6 +76,15 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
         }
 
         /// <inheritdoc/>
+        public IProtocolBuilder<TMessage> AddDimension<TProperty>(string name, Func<TMessage, TProperty> function, DimensionValueBuilderOptions<TMessage, TProperty> options)
+            where TProperty : notnull
+        {
+            this.dimensions.Add(name, new DimensionValueOptions<TMessage, TProperty>(options.ValueType, function, options.Converter, string.Empty, name));
+
+            return this;
+        }
+
+        /// <inheritdoc/>
         public IProtocolBuilder<TMessage> AddNullableDimension<TProperty>(Expression<Func<TMessage, TProperty?>> expression, NullableDimensionValueBuilderOptions<TMessage, TProperty?> options)
         {
             var (pi, compiled) = this.GetProperty(expression);
@@ -82,6 +92,15 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
             var target = options.Name ?? source;
 
             this.dimensions.Add(target, new NullableDimensionValueOptions<TMessage, TProperty?>(options.ValueType, compiled, options.Converter, source, target));
+
+            return this;
+        }
+
+        /// <inheritdoc/>
+        public IProtocolBuilder<TMessage> AddNullableDimension<TProperty>(string name, Func<TMessage, TProperty> function, NullableDimensionValueBuilderOptions<TMessage, TProperty?> options)
+            where TProperty : notnull
+        {
+            this.dimensions.Add(name, new NullableDimensionValueOptions<TMessage, TProperty>(options.ValueType, function, options.Converter, string.Empty, name));
 
             return this;
         }
