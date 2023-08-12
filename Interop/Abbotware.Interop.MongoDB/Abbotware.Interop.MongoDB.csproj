@@ -8,8 +8,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="MongoDB.Bson" Version="2.20.0" NoWarn="CS8002" />
-		<PackageReference Include="MongoDB.Driver" Version="2.20.0">
+		<PackageReference Include="MongoDB.Bson" Version="2.21.0" NoWarn="CS8002" />
+		<PackageReference Include="MongoDB.Driver" Version="2.21.0">
 			<NoWarn>CS8002</NoWarn>
 		</PackageReference>
 	</ItemGroup>
