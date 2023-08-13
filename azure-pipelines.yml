@@ -25,6 +25,10 @@ steps:
 - checkout: self
   submodules: true
   persistCredentials: true
+
+- task: UseDotNet@2
+  inputs:
+    useGlobalJson: true
   
 - script: dotnet build --configuration $(buildConfiguration) /p:Version=$(buildLabel4) /p:AssemblyVersion=$(buildLabel4) /p:AssemblyInformationalVersion=$(buildLabel4) /p:FileVersion=$(buildLabel4) /p:PackageVersion=$(buildLabel3)
   displayName: 'dotnet build $(buildConfiguration)'
