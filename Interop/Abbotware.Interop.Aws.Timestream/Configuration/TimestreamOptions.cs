@@ -5,6 +5,8 @@
 // -----------------------------------------------------------------------
 // <author>Anthony Abate</author>
 
+using System;
+
 namespace Abbotware.Interop.Aws.Timestream.Configuration
 {
     /// <summary>
@@ -26,5 +28,10 @@ namespace Abbotware.Interop.Aws.Timestream.Configuration
         /// Gets the Table
         /// </summary>
         public string Table { get; init; } = string.Empty;
+
+        /// <summary>
+        /// Gets the minumum time between logging stats
+        /// </summary>
+        public TimeSpan MinimumTimeBetweenLogging { get; init; } = TimeSpan.FromMinutes(10);
     }
 }

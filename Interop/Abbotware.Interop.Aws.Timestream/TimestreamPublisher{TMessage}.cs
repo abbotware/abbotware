@@ -11,6 +11,7 @@ namespace Abbotware.Interop.Aws.Timestream
     using System.Diagnostics;
     using System.Threading;
     using System.Threading.Tasks;
+    using Abbotware.Core.Chrono;
     using Abbotware.Core.Extensions;
     using Abbotware.Core.Messaging.Integration;
     using Abbotware.Interop.Aws.Timestream.Configuration;
@@ -25,9 +26,15 @@ namespace Abbotware.Interop.Aws.Timestream
     public class TimestreamPublisher<TMessage> : AwsConnection<AmazonTimestreamWriteClient, AmazonTimestreamWriteConfig, TimestreamOptions>, IMessageBatchPublisher<TMessage>
         where TMessage : notnull
     {
-        private volatile int recordsInjested;
+        private volatile int globalRecordsPublished;
 
-        private volatile int recordsPublished;
+        private volatile int globalRecordsNotIngested;
+
+        private volatile int currentRecordsPublished;
+
+        private volatile int currentRecordsNotIngested;
+
+        private MinimumTimeSpan loggingTimeSpan;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TimestreamPublisher{TMessage}"/> class.
@@ -51,17 +58,18 @@ namespace Abbotware.Interop.Aws.Timestream
             : base(client, options, logger)
         {
             this.Protocol = protocol;
+            this.loggingTimeSpan = new(options.MinimumTimeBetweenLogging);
         }
 
         /// <summary>
-        /// gets the count of records injested by AWS Timestream
+        /// gets the count of that were not injested by AWS Timestream
         /// </summary>
-        public long RecordsIngested => this.recordsInjested;
+        public long RecordsNotIngested => this.globalRecordsNotIngested;
 
         /// <summary>
         /// gets the count of records published to AWS Timestream
         /// </summary>
-        public long RecordsPublished => this.recordsPublished;
+        public long RecordsPublished => this.globalRecordsPublished;
 
         /// <summary>
         /// gets the protocol encoder
@@ -113,18 +121,31 @@ namespace Abbotware.Interop.Aws.Timestream
 
             sw.Stop();
 
-            var all = result.RecordsIngested.Total == request.Records.Count;
+            var notPublished = result.RecordsIngested.Total - request.Records.Count;
 
-            Interlocked.Add(ref this.recordsPublished, request.Records.Count);
-            Interlocked.Add(ref this.recordsInjested, result.RecordsIngested.Total);
+            // global stats
+            Interlocked.Add(ref this.globalRecordsNotIngested, notPublished);
+            Interlocked.Add(ref this.globalRecordsPublished, request.Records.Count);
 
-            if (!all)
+            // current stats
+            Interlocked.Add(ref this.currentRecordsNotIngested, notPublished);
+            Interlocked.Add(ref this.currentRecordsPublished, request.Records.Count);
+
+            if (notPublished > 0)
             {
                 this.Logger.Warn($"WriteRecordsAsync={result.HttpStatusCode}  time:{sw.Elapsed} records:{request.Records.Count} != injested:{result.RecordsIngested.Total}");
             }
             else
             {
-                this.Logger.Debug($"WriteRecordsAsync={result.HttpStatusCode}  time:{sw.Elapsed} injested:{result.RecordsIngested.Total}");
+                if (this.loggingTimeSpan.IsExpired)
+                {
+                    var global = $"Global [Published:{this.globalRecordsPublished} Not Published:{this.globalRecordsNotIngested}]";
+                    var current = $"Current [TimeSpan:{this.loggingTimeSpan.MinimumWaitTime}  Avg Rate:{this.loggingTimeSpan.MinimumWaitTime.TotalSeconds / (double)this.currentRecordsPublished} Pub/Sec.  Problems:{this.currentRecordsNotIngested}] for this time span";
+                    this.Logger.Debug($"WriteRecordsAsync {global}  {current}");
+
+                    this.currentRecordsNotIngested = 0;
+                    this.currentRecordsPublished = 0;
+                }
             }
 
             if (result.HttpStatusCode != System.Net.HttpStatusCode.OK)
@@ -132,7 +153,7 @@ namespace Abbotware.Interop.Aws.Timestream
                 return PublishStatus.Returned;
             }
 
-            if (!all)
+            if (notPublished > 0)
             {
                 return PublishStatus.Unknown;
             }

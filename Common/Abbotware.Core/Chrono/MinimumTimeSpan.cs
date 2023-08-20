@@ -17,11 +17,6 @@ namespace Abbotware.Core.Chrono
     public class MinimumTimeSpan
     {
         /// <summary>
-        /// minimum time between time checks
-        /// </summary>
-        private readonly TimeSpan minimumWait;
-
-        /// <summary>
         /// time current timespan expires
         /// </summary>
         private DateTime expirationTime;
@@ -32,7 +27,7 @@ namespace Abbotware.Core.Chrono
         /// <param name="minimumWait">minimum time between time checks</param>
         public MinimumTimeSpan(TimeSpan minimumWait)
         {
-            this.minimumWait = minimumWait;
+            this.MinimumWaitTime = minimumWait;
             this.SetExpiration();
         }
 
@@ -55,6 +50,11 @@ namespace Abbotware.Core.Chrono
                 return true;
             }
         }
+
+        /// <summary>
+        /// Gets the minimum time between time checks
+        /// </summary>
+        public TimeSpan MinimumWaitTime { get; }
 
         /// <summary>
         /// Waits for the timespan to expire - this can act as a throttle
@@ -87,7 +87,7 @@ namespace Abbotware.Core.Chrono
 
         private void SetExpired(DateTime time)
         {
-            this.expirationTime = time + this.minimumWait;
+            this.expirationTime = time + this.MinimumWaitTime;
         }
     }
 }

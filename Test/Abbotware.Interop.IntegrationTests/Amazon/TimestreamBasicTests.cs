@@ -235,11 +235,11 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
 
             await Task.Delay(TimeSpan.FromSeconds(.5));
             Assert.That(c.RecordsPublished, Is.EqualTo(100));
-            Assert.That(c.RecordsIngested, Is.EqualTo(100));
+            Assert.That(c.RecordsNotIngested, Is.EqualTo(0));
 
             await Task.Delay(TimeSpan.FromSeconds(.5));
             Assert.That(c.RecordsPublished, Is.EqualTo(101));
-            Assert.That(c.RecordsIngested, Is.EqualTo(101));
+            Assert.That(c.RecordsNotIngested, Is.EqualTo(101));
 
             this.BlockIfDebugging();
         }
