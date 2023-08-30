@@ -140,7 +140,7 @@ namespace Abbotware.Interop.Aws.Timestream
                 if (this.loggingTimeSpan.IsExpired)
                 {
                     var global = $"Global [Published:{this.globalRecordsPublished} Not Published:{this.globalRecordsNotIngested}]";
-                    var current = $"Current [TimeSpan:{this.loggingTimeSpan.MinimumWaitTime}  Avg Rate:{this.loggingTimeSpan.MinimumWaitTime.TotalSeconds / (double)this.currentRecordsPublished} Pub/Sec.  Problems:{this.currentRecordsNotIngested}] for this time span";
+                    var current = $"Current [TimeSpan:{this.loggingTimeSpan.MinimumWaitTime}  Published:{this.currentRecordsPublished} Avg Rate:{(double)this.currentRecordsPublished / this.loggingTimeSpan.MinimumWaitTime.TotalSeconds} Pub/Sec.  Problems:{this.currentRecordsNotIngested}] for this time span";
                     this.Logger.Debug($"WriteRecordsAsync {global}  {current}");
 
                     this.currentRecordsNotIngested = 0;
