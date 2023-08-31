@@ -17,6 +17,7 @@ namespace Abbotware.Interop.Aws.Timestream
     using Abbotware.Interop.Aws.Timestream.Configuration;
     using Abbotware.Interop.Aws.Timestream.Protocol;
     using Amazon.TimestreamWrite;
+    using Amazon.TimestreamWrite.Model;
     using Microsoft.Extensions.Logging;
 
     /// <summary>
@@ -116,49 +117,61 @@ namespace Abbotware.Interop.Aws.Timestream
 
             var sw = Stopwatch.StartNew();
 
-            var result = await this.Client.WriteRecordsAsync(request, ct)
-                .ConfigureAwait(false);
-
-            sw.Stop();
-
-            var notPublished = result.RecordsIngested.Total - request.Records.Count;
-
-            // global stats
-            Interlocked.Add(ref this.globalRecordsNotIngested, notPublished);
-            Interlocked.Add(ref this.globalRecordsPublished, request.Records.Count);
-
-            // current stats
-            Interlocked.Add(ref this.currentRecordsNotIngested, notPublished);
-            Interlocked.Add(ref this.currentRecordsPublished, request.Records.Count);
-
-            if (notPublished > 0)
+            try
             {
-                this.Logger.Warn($"WriteRecordsAsync={result.HttpStatusCode}  time:{sw.Elapsed} records:{request.Records.Count} != injested:{result.RecordsIngested.Total}");
-            }
-            else
-            {
-                if (this.loggingTimeSpan.IsExpired)
+                var result = await this.Client.WriteRecordsAsync(request, ct)
+                    .ConfigureAwait(false);
+
+                sw.Stop();
+
+                var notPublished = result.RecordsIngested.Total - request.Records.Count;
+
+                // global stats
+                Interlocked.Add(ref this.globalRecordsNotIngested, notPublished);
+                Interlocked.Add(ref this.globalRecordsPublished, request.Records.Count);
+
+                // current stats
+                Interlocked.Add(ref this.currentRecordsNotIngested, notPublished);
+                Interlocked.Add(ref this.currentRecordsPublished, request.Records.Count);
+
+                if (notPublished > 0)
                 {
-                    var global = $"Global [Published:{this.globalRecordsPublished} Not Published:{this.globalRecordsNotIngested}]";
-                    var current = $"Current [TimeSpan:{this.loggingTimeSpan.MinimumWaitTime}  Published:{this.currentRecordsPublished} Avg Rate:{(double)this.currentRecordsPublished / this.loggingTimeSpan.MinimumWaitTime.TotalSeconds} Pub/Sec.  Problems:{this.currentRecordsNotIngested}] for this time span";
-                    this.Logger.Debug($"WriteRecordsAsync {global}  {current}");
-
-                    this.currentRecordsNotIngested = 0;
-                    this.currentRecordsPublished = 0;
+                    this.Logger.Warn($"WriteRecordsAsync={result.HttpStatusCode}  time:{sw.Elapsed} records:{request.Records.Count} != injested:{result.RecordsIngested.Total}");
                 }
-            }
+                else
+                {
+                    if (this.loggingTimeSpan.IsExpired)
+                    {
+                        var global = $"Global [Published:{this.globalRecordsPublished} Not Published:{this.globalRecordsNotIngested}]";
+                        var current = $"Current [TimeSpan:{this.loggingTimeSpan.MinimumWaitTime}  Published:{this.currentRecordsPublished} Avg Rate:{(double)this.currentRecordsPublished / this.loggingTimeSpan.MinimumWaitTime.TotalSeconds} Pub/Sec.  Problems:{this.currentRecordsNotIngested}] for this time span";
+                        this.Logger.Debug($"WriteRecordsAsync {global}  {current}");
 
-            if (result.HttpStatusCode != System.Net.HttpStatusCode.OK)
-            {
-                return PublishStatus.Returned;
-            }
+                        this.currentRecordsNotIngested = 0;
+                        this.currentRecordsPublished = 0;
+                    }
+                }
 
-            if (notPublished > 0)
+                if (result.HttpStatusCode != System.Net.HttpStatusCode.OK)
+                {
+                    return PublishStatus.Returned;
+                }
+
+                if (notPublished > 0)
+                {
+                    return PublishStatus.Unknown;
+                }
+
+                return PublishStatus.Confirmed;
+            }
+            catch (RejectedRecordsException ex)
             {
+                foreach (var r in ex.RejectedRecords)
+                {
+                    this.Logger.Error($"RejectedRecords [{r.RecordIndex}][{r.ExistingVersion}] = {r.Reason}");
+                }
+
                 return PublishStatus.Unknown;
             }
-
-            return PublishStatus.Confirmed;
         }
     }
 }
