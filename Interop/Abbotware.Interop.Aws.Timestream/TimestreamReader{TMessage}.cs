@@ -8,6 +8,7 @@ namespace Abbotware.Interop.Aws.Timestream
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Runtime.CompilerServices;
     using System.Threading;
     using Abbotware.Core.Extensions;
@@ -81,26 +82,40 @@ namespace Abbotware.Interop.Aws.Timestream
         {
             var request = new QueryRequest();
             request.QueryString = query;
+            IEnumerable<TMessage> rows = Enumerable.Empty<TMessage>();
+            var nextToken = string.Empty;
 
             do
             {
-                var response = await this.Client.QueryAsync(request, ct)
-                    .ConfigureAwait(false);
-
-                if (response.HttpStatusCode != System.Net.HttpStatusCode.OK)
+                try
                 {
-                    throw new InvalidOperationException($"query failed HTTP Status:{response.HttpStatusCode}");
+                    var response = await this.Client.QueryAsync(request, ct)
+                        .ConfigureAwait(false);
+
+                    if (response.HttpStatusCode != System.Net.HttpStatusCode.OK)
+                    {
+                        throw new InvalidOperationException($"query failed HTTP Status:{response.HttpStatusCode}");
+                    }
+
+                    nextToken = response.NextToken;
+
+                    using var handle = SetupCancellation(response, ct);
+
+                    rows = this.Protocol.Decode(response);
+                }
+                catch (Exception ex)
+                {
+                    this.Logger.Error(ex, "Query/Decode");
+                    throw;
                 }
 
-                using var handle = SetupCancellation(response, ct);
-
-                foreach (var row in this.Protocol.Decode(response))
+                foreach (var row in rows)
                 {
                     Interlocked.Increment(ref this.recordsReceieved);
                     yield return row;
                 }
 
-                request.NextToken = response.NextToken;
+                request.NextToken = nextToken;
             }
             while (request.NextToken.IsNotBlank());
 
@@ -113,9 +128,9 @@ namespace Abbotware.Interop.Aws.Timestream
 
                     this.LogCancelRequest(cqr.QueryId);
 
-                    //// TODO: observe errors if any
                     // it makes no sense to use a second cancellation token here, so we will not use:
-                    _ = this.Client.CancelQueryAsync(cqr, default);
+                    this.Client.CancelQueryAsync(cqr, default)
+                        .Forget(this.Logger);
                 });
                 return handle;
             }
