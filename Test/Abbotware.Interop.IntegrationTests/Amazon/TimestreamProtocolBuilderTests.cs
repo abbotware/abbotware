@@ -15,6 +15,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
     using Abbotware.Interop.Aws.Timestream.Protocol;
     using Abbotware.Interop.Aws.Timestream.Protocol.Plugins;
     using Abbotware.Utility.UnitTest.Using.NUnit;
+    using Microsoft.Extensions.Logging;
     using Newtonsoft.Json.Linq;
     using NUnit.Framework;
 
@@ -178,6 +179,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
             var pb = new ProtocolBuilder<MultiMeasureNonStringDimensionsTestWithTime>("metrics");
             pb.AddDimension(x => x.Name);
             pb.AddMeasure(x => x.LongNullable);
+            pb.AddMeasure(x => x.NullableTime);
             pb.AddNullableTime(x => x.NullableTime, TimeUnitType.Milliseconds, x => x ?? DateTimeOffset.UtcNow);
 
             var options = new TimestreamOptions() { Database = "db", Table = "table" };
@@ -186,6 +188,8 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
             var m = new MultiMeasureNonStringDimensionsTestWithTime { Name = "asdf", LongNullable = 123 };
 
             var encoded = protocol.Encode(m, options);
+
+            using var c = new TimestreamPublisher<MultiMeasureNonStringDimensionsTestWithTime>(options, pb.Build(), this.LoggerFactory.CreateLogger<PocoPublisher<MultiMeasureNonStringDimensionsTestWithTime>>());
         }
 
         [Test]

@@ -160,7 +160,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
                 throw new ArgumentException($"{this.type.FullName} has more than one Time value");
             }
 
-            var (pi, compiled) = this.GetProperty(expression);
+            var (pi, compiled) = this.GetProperty(expression, false);
             var source = pi.Name;
 
             this.time = new TimeValueOptions<TMessage, TProperty>(timeUnitType, compiled, converter, source);
@@ -204,13 +204,19 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
             }
         }
 
-        private (PropertyInfo PropertyInfo, Func<TMessage, TField> Compiled) GetProperty<TField>(Expression<Func<TMessage, TField>> expression)
+        private (PropertyInfo PropertyInfo, Func<TMessage, TField> Compiled) GetProperty<TField>(Expression<Func<TMessage, TField>> expression) 
+            => this.GetProperty(expression, true);
+
+        private (PropertyInfo PropertyInfo, Func<TMessage, TField> Compiled) GetProperty<TField>(Expression<Func<TMessage, TField>> expression, bool requireUnique)
         {
             var (pi, exp) = ExpressionHelper.GetPropertyExpression(expression);
 
-            if (!this.fields.Add(pi.Name))
+            if (requireUnique)
             {
-                throw new ArgumentException($"{pi.Name} already added");
+                if (!this.fields.Add(pi.Name))
+                {
+                    throw new ArgumentException($"{pi.Name} already added");
+                }
             }
 
             return (pi, exp);
