@@ -86,14 +86,13 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         public IProtocolBuilder<TMessage> AddTime(Expression<Func<TMessage, DateTimeOffset>> expression, TimeUnitType timeUnitType);
 
         /// <summary>
-        /// Adds Time
+        /// Adds a Time value that can be nullable - must supply default
         /// </summary>
         /// <typeparam name="TProperty">property type</typeparam>
         /// <param name="expression">propety accessor expression</param>
         /// <param name="timeUnitType">time unit type</param>
         /// <param name="converter">conversion function</param>
         /// <returns>builder</returns>
-        public IProtocolBuilder<TMessage> AddTime<TProperty>(Expression<Func<TMessage, TProperty>> expression, TimeUnitType timeUnitType, Func<TProperty, DateTimeOffset> converter)
-            where TProperty : notnull;
+        public IProtocolBuilder<TMessage> AddNullableTime<TProperty>(Expression<Func<TMessage, TProperty>> expression, TimeUnitType timeUnitType, Func<TProperty, DateTimeOffset> converter);
     }
 }

@@ -23,7 +23,6 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Options
     /// <param name="SourceName">source property name</param>
     public record class TimeValueOptions<TMessage, TProperty>(TimeUnitType Type, Func<TMessage, TProperty> Expression, Func<TProperty, DateTimeOffset> Converter, string SourceName) : MessagePropertyOption<TimeUnitType, TMessage, TProperty, DateTimeOffset>(Type, Expression, Converter, SourceName, "Time"), IRecordUpdater<TMessage>
         where TMessage : notnull
-        where TProperty : notnull
     {
         /// <inheritdoc/>>
         public void Update(TMessage message, Record record)

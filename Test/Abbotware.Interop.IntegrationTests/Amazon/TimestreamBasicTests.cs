@@ -200,6 +200,44 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
         }
 
         [Test]
+        public async Task Builder_LargeData_MultiMeasureNonStringDimensionsTestWithTime()
+        {
+            var pb = new ProtocolBuilder<MultiMeasureNonStringDimensionsTestWithTime>("metrics");
+            pb.AddDimension(x => x.Name);
+            pb.AddDimension(x => x.Company, x => x.Converter = y => y);
+            pb.AddNullableDimension(x => x.Optional);
+            pb.AddNullableDimension(x => x.SetOptional);
+            pb.AddDimension(x => x.IdDimension, x => x.Converter = y => y.ToString());
+            pb.AddMeasure(x => x.Int);
+            pb.AddMeasure(x => x.LongNullable);
+            pb.AddMeasure(x => x.Long);
+            pb.AddMeasure(x => x.String);
+            pb.AddMeasure(x => x.String2);
+            pb.AddMeasure(x => x.String3);
+            pb.AddMeasure(x => x.Double);
+            pb.AddMeasure(x => x.Decimal);
+            pb.AddMeasure(x => x.DateTime);
+            pb.AddMeasure(x => x.Boolean);
+            pb.AddTime(x => x.Time, TimeUnitType.Milliseconds);
+
+            var options = ConfigurationHelper.AppSettingsJson(UnitTestSettingsFile).BindSection<TimestreamOptions>(TimestreamOptions.DefaultSection);
+            using var c = new TimestreamPublisher<MultiMeasureNonStringDimensionsTestWithTime>(options, pb.Build(), NullLogger<TimestreamPublisher<MultiMeasureNonStringDimensionsTestWithTime>>.Instance);
+
+            var list = new List<MultiMeasureNonStringDimensionsTestWithTime>();
+
+            var t = DateTimeOffset.UtcNow;
+
+            var a = new string('a', 1000);
+            var b = new string('a', 5000);
+
+            var r = new MultiMeasureNonStringDimensionsTestWithTime { Name = a, Company = a, Int = 123, LongNullable = 345, Long = 789, String = b, String2 = b, String3 = b, Double = 123.23, Decimal = 12.345m, DateTime = DateTime.UtcNow, Boolean = false, Time = t };
+
+            var p = await c.PublishAsync(r, default);
+
+            Assert.That(p, Is.EqualTo(PublishStatus.Confirmed));
+        }
+
+        [Test]
         public async Task Buffered_Builder_Batch_MultiMeasureNonStringDimensionsTestWithTime()
         {
             var pb = new ProtocolBuilder<MultiMeasureNonStringDimensionsTestWithTime>("metrics");

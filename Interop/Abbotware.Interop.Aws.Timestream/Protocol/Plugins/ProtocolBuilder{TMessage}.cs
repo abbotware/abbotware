@@ -149,12 +149,11 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
         /// <inheritdoc/>
         public IProtocolBuilder<TMessage> AddTime(Expression<Func<TMessage, DateTimeOffset>> expression, TimeUnitType timeUnitType)
         {
-            return this.AddTime(expression, timeUnitType, x => x);
+            return this.AddNullableTime(expression, timeUnitType, x => x);
         }
 
         /// <inheritdoc/>
-        public IProtocolBuilder<TMessage> AddTime<TProperty>(Expression<Func<TMessage, TProperty>> expression, TimeUnitType timeUnitType, Func<TProperty, DateTimeOffset> converter)
-            where TProperty : notnull
+        public IProtocolBuilder<TMessage> AddNullableTime<TProperty>(Expression<Func<TMessage, TProperty>> expression, TimeUnitType timeUnitType, Func<TProperty, DateTimeOffset> converter)
         {
             if (this.time is not null)
             {

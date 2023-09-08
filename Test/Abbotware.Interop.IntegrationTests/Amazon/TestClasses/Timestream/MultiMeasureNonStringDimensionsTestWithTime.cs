@@ -39,5 +39,11 @@
         public bool? BooleanNullable { get; set; }
 
         public DateTimeOffset Time { get; set; }
+
+        public DateTimeOffset? NullableTime { get; set; }
+
+        public string String2 { get; set; }
+
+        public string String3 { get; set; }
     }
 }
