@@ -125,7 +125,7 @@
 	  <PackageReference Include="QuickGraph.All" Version="3.6.61119.8" />
 	  <PackageReference Include="LumenWorks.Framework.IO.Core" Version="1.0.1" />
 	  <PackageReference Include="CsvHelper" Version="30.0.1" />
-	  <PackageReference Include="NLog" Version="5.2.3" />
+	  <PackageReference Include="NLog" Version="5.2.4" />
 	  <PackageReference Include="RabbitMQ.Client" Version="6.5.0" />
   </ItemGroup>
   <ItemGroup>
