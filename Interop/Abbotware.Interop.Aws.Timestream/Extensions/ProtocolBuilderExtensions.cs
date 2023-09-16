@@ -256,6 +256,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// Adds a BIGINT (from byte) Measure
         /// </summary>
         /// <typeparam name="TMessage">message types</typeparam>
+        /// <typeparam name="TEnum">Enum type</typeparam>
         /// <param name="builder">extended builder</param>
         /// <param name="expression">property accessor expression</param>
         /// <param name="configure">configure callback</param>

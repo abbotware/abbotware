@@ -5,10 +5,10 @@
 // -----------------------------------------------------------------------
 // <author>Anthony Abate</author>
 
-using System;
-
 namespace Abbotware.Interop.Aws.Timestream.Configuration
 {
+    using System;
+
     /// <summary>
     ///     POCO class for Teamstream configuration parameters
     /// </summary>

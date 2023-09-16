@@ -63,7 +63,7 @@ namespace Abbotware.Interop.Redis
         /// <returns>redis connection</returns>
         public static IRedisConnection CreateRedisUsingConfiguration(IConnectionOptions cfg, ILogger logger)
         {
-            var cf = new RedisConnectionFactory(cfg, logger);
+            using var cf = new RedisConnectionFactory(cfg, logger);
 
             return cf.Create();
         }
