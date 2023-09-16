@@ -9,7 +9,6 @@ namespace Abbotware.Interop.Aws
 {
     using Abbotware.Core;
     using Abbotware.Core.Extensions;
-    using Abbotware.Core.Logging;
     using Abbotware.Core.Objects;
     using Amazon.Runtime;
     using Microsoft.Extensions.Logging;
@@ -37,7 +36,7 @@ namespace Abbotware.Interop.Aws
 
             this.Client = client;
 
-            this.Client.BeforeRequestEvent += this.OnRequestEventHandler;
+            this.Client.BeforeRequestEvent += this.OnBeforeRequestEvent;
             this.Client.AfterResponseEvent += this.OnAfterResponseEvent;
             this.Client.ExceptionEvent += this.OnExceptionEvent;
         }
@@ -53,7 +52,7 @@ namespace Abbotware.Interop.Aws
         /// <inheritdoc />
         protected override void OnDisposeManagedResources()
         {
-            this.Client.BeforeRequestEvent -= this.OnRequestEventHandler;
+            this.Client.BeforeRequestEvent -= this.OnBeforeRequestEvent;
             this.Client.AfterResponseEvent -= this.OnAfterResponseEvent;
             this.Client.ExceptionEvent -= this.OnExceptionEvent;
 
@@ -77,7 +76,7 @@ namespace Abbotware.Interop.Aws
         {
         }
 
-        private void OnRequestEventHandler(object sender, RequestEventArgs e)
+        private void OnBeforeRequestEvent(object sender, RequestEventArgs e)
         {
         }
     }
