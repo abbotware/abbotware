@@ -90,6 +90,18 @@ namespace Abbotware.Interop.Aws.Timestream
             return this.OnPublishAsync(message, ct);
         }
 
+        /// <inheritdoc/>
+        protected override bool OnShouldLog(Exception exception)
+        {
+            // this is logged by the write caller - will result in a double logged exception
+            if (exception is AmazonTimestreamWriteException)
+            {
+                return false;
+            }
+
+            return base.OnShouldLog(exception);
+        }
+
         /// <summary>
         /// writes records
         /// </summary>

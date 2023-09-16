@@ -7,6 +7,7 @@
 
 namespace Abbotware.Interop.Aws
 {
+    using System;
     using Abbotware.Core;
     using Abbotware.Core.Extensions;
     using Abbotware.Core.Objects;
@@ -59,15 +60,29 @@ namespace Abbotware.Interop.Aws
             this.Client.Dispose();
         }
 
+        /// <summary>
+        /// check if this exception type should be logged by the general error log event
+        /// </summary>
+        /// <param name="exception">exception</param>
+        /// <returns>true if should log</returns>
+        protected virtual bool OnShouldLog(Exception exception)
+        {
+            return true;
+        }
+
         private void OnExceptionEvent(object sender, ExceptionEventArgs e)
         {
             switch (e)
             {
                 case WebServiceExceptionEventArgs wsee:
-                    this.Logger.Error(wsee.Exception, "OnExceptionEvent");
+                    if (this.OnShouldLog(wsee.Exception))
+                    {
+                        this.Logger.Error(wsee.Exception, "OnExceptionEvent");
+                    }
+
                     break;
                 default:
-                    this.Logger.Error(e?.ToString() ?? "unknown exception");
+                    this.Logger.Error($"OnExceptionEvent [{e?.ToString() ?? "unknown exception"}]");
                     break;
             }
         }

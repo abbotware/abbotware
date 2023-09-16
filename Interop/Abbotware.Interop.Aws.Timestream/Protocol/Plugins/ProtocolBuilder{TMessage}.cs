@@ -204,7 +204,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
             }
         }
 
-        private (PropertyInfo PropertyInfo, Func<TMessage, TField> Compiled) GetProperty<TField>(Expression<Func<TMessage, TField>> expression) 
+        private (PropertyInfo PropertyInfo, Func<TMessage, TField> Compiled) GetProperty<TField>(Expression<Func<TMessage, TField>> expression)
             => this.GetProperty(expression, true);
 
         private (PropertyInfo PropertyInfo, Func<TMessage, TField> Compiled) GetProperty<TField>(Expression<Func<TMessage, TField>> expression, bool requireUnique)
