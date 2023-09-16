@@ -9,6 +9,7 @@ namespace Abbotware.Interop.Aws.Timestream
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
+    using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
     using Abbotware.Core.Chrono;
@@ -115,10 +116,10 @@ namespace Abbotware.Interop.Aws.Timestream
                 throw new InvalidOperationException($"Can not send more than {TimesreamConstants.MaxRecordBatch} records to AWS Timestream");
             }
 
-            var sw = Stopwatch.StartNew();
-
             try
             {
+                var sw = Stopwatch.StartNew();
+
                 var result = await this.Client.WriteRecordsAsync(request, ct)
                     .ConfigureAwait(false);
 
@@ -165,10 +166,15 @@ namespace Abbotware.Interop.Aws.Timestream
             }
             catch (RejectedRecordsException ex)
             {
+                var sb = new StringBuilder();
+                sb.Append("RejectedRecords");
+
                 foreach (var r in ex.RejectedRecords)
                 {
-                    this.Logger.Error($"RejectedRecords [{r.RecordIndex}][{r.ExistingVersion}] = {r.Reason}");
+                    sb.Append("[{r.RecordIndex}][{r.ExistingVersion}] = {r.Reason} ");
                 }
+
+                this.Logger.Error(sb.ToString());
 
                 return PublishStatus.Unknown;
             }
