@@ -29,25 +29,6 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
             where TProperty : notnull;
 
         /// <summary>
-        /// Adds a Dimension
-        /// </summary>
-        /// <typeparam name="TProperty">property type</typeparam>
-        /// <param name="expression">propety accessor expression</param>
-        /// <param name="options">builder options</param>
-        /// <returns>builder</returns>
-        public IProtocolBuilder<TMessage> AddDimension<TProperty>(Expression<Func<TMessage, TProperty>> expression, DimensionValueBuilderOptions<TMessage, TProperty> options)
-            where TProperty : notnull;
-
-        /// <summary>
-        /// Adds a Nullable Dimension
-        /// </summary>
-        /// <typeparam name="TProperty">property type</typeparam>
-        /// <param name="expression">propety accessor expression</param>
-        /// <param name="options">builder options</param>
-        /// <returns>builder</returns>
-        public IProtocolBuilder<TMessage> AddNullableDimension<TProperty>(Expression<Func<TMessage, TProperty?>> expression, NullableDimensionValueBuilderOptions<TMessage, TProperty?> options);
-
-        /// <summary>
         /// Adds a Nullable Dimension
         /// </summary>
         /// <typeparam name="TProperty">property type</typeparam>
@@ -55,8 +36,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// <param name="function">property function</param>
         /// <param name="options">builder options</param>
         /// <returns>builder</returns>
-        public IProtocolBuilder<TMessage> AddNullableDimension<TProperty>(string name, Func<TMessage, TProperty> function, NullableDimensionValueBuilderOptions<TMessage, TProperty?> options)
-            where TProperty : notnull;
+        public IProtocolBuilder<TMessage> AddNullableDimension<TProperty>(string name, Func<TMessage, TProperty?> function, NullableDimensionValueBuilderOptions<TMessage, TProperty?> options);
 
         /// <summary>
         /// Adds a Measure

@@ -20,6 +20,7 @@
     <ProjectReference Include="..\..\Common\Abbotware.Host\Abbotware.Host.csproj" />
     <ProjectReference Include="..\..\Common\Abbotware.Web\Abbotware.Web.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.AutoMapper\Abbotware.Interop.AutoMapper.csproj" />
+    <ProjectReference Include="..\..\Interop\Abbotware.Interop.Aws.Timestream\Abbotware.Interop.Aws.Timestream.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Castle\Abbotware.Interop.Castle.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.EntityFramework\Abbotware.Interop.EntityFramework.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Ipify\Abbotware.Interop.Ipify.csproj" />

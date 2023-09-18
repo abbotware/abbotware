@@ -5,7 +5,7 @@
 // <author>Anthony Abate</author>
 //-----------------------------------------------------------------------
 
-namespace Abbotware.IntegrationTests.Interop.Amazon
+namespace Abbotware.UnitTests.Interop.Amazon
 {
     using System;
     using System.Linq;
@@ -16,7 +16,6 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
     using Abbotware.Interop.Aws.Timestream.Protocol.Plugins;
     using Abbotware.Utility.UnitTest.Using.NUnit;
     using Microsoft.Extensions.Logging;
-    using Newtonsoft.Json.Linq;
     using NUnit.Framework;
 
     [TestFixture]
@@ -26,7 +25,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
     public class TimestreamProtocolBuilderTests : BaseNUnitTest
     {
         [Test]
-        public void AddMeasureTwice()
+        public void AddMeasure_Expression_Twice()
         {
             var pb = new ProtocolBuilder<SingleMeasureTest>();
             pb.AddMeasure(x => x.Name);
@@ -35,7 +34,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
         }
 
         [Test]
-        public void AddMeasureTwice_SetName()
+        public void AddMeasure_Expression_Twice_OverrideName()
         {
             var pb = new ProtocolBuilder<SingleMeasureTest>();
             pb.AddMeasure(x => x.Name);
@@ -44,7 +43,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
         }
 
         [Test]
-        public void AddDimensionTwice()
+        public void AddDimension_Expression_Twice()
         {
             var pb = new ProtocolBuilder<SingleMeasureTest>();
             pb.AddDimension(x => x.Name);
@@ -53,7 +52,34 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
         }
 
         [Test]
-        public void AddWithSameName()
+        public void AddDimension_Expression_Twice_OverrideName()
+        {
+            var pb = new ProtocolBuilder<SingleMeasureTest>();
+            pb.AddDimension(x => x.Name);
+
+            Assert.Throws<ArgumentException>(() => pb.AddDimension(x => x.Value, x => x.Name = "Name"));
+        }
+
+        [Test]
+        public void AddDimension_Function_Twice()
+        {
+            var pb = new ProtocolBuilder<SingleMeasureTest>();
+            pb.AddDimension("test", x => x.Name);
+
+            Assert.Throws<ArgumentException>(() => pb.AddDimension("test", x => x.Name));
+        }
+
+        [Test]
+        public void AddDimension_Function_Twice_OverrideName()
+        {
+            var pb = new ProtocolBuilder<SingleMeasureTest>();
+            pb.AddDimension("test2", x => x.Name);
+
+            Assert.Throws<ArgumentException>(() => pb.AddDimension("test3", x => x.Name, x => x.Name = "test2"));
+        }
+
+        [Test]
+        public void AddSameName_Expression()
         {
             var pb = new ProtocolBuilder<SingleMeasureTest>();
             pb.AddMeasure(x => x.Name);
@@ -62,7 +88,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
         }
 
         [Test]
-        public void AddTimeTwice()
+        public void AddTime_Twice()
         {
             var pb = new ProtocolBuilder<MultiMeasureNonStringDimensionsTestWithTime>();
             pb.AddTime(x => x.Time, TimeUnitType.Milliseconds);

@@ -39,8 +39,8 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Builder
         public Func<TProperty, TStorage> Converter { get; set; }
 
         /// <summary>
-        /// Gets or sets the Timestream MeasureValueType
+        /// Gets the Timestream MeasureValueType
         /// </summary>
-        public TValueType ValueType { get; set; }
+        public TValueType ValueType { get; }
     }
 }

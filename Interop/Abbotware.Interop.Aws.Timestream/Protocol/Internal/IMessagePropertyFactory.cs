@@ -16,6 +16,11 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Internal
         where TNative : notnull
     {
         /// <summary>
+        /// gets the target name
+        /// </summary>
+        string TargetName { get; }
+
+        /// <summary>
         /// Creates the native storage from the message
         /// </summary>
         /// <param name="message">message</param>

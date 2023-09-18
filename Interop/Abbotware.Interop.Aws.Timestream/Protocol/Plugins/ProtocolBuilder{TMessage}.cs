@@ -11,7 +11,6 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
     using System.Linq;
     using System.Linq.Expressions;
     using System.Reflection;
-    using System.Xml.Linq;
     using Abbotware.Core.Extensions;
     using Abbotware.Core.Helpers;
     using Abbotware.Interop.Aws.Timestream;
@@ -63,46 +62,18 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
         private string MeasureName { get; }
 
         /// <inheritdoc/>
-        public IProtocolBuilder<TMessage> AddDimension<TProperty>(Expression<Func<TMessage, TProperty>> expression, DimensionValueBuilderOptions<TMessage, TProperty> options)
-            where TProperty : notnull
-        {
-            var (pi, compiled) = this.GetProperty(expression);
-            var source = pi.Name;
-            var target = options.Name ?? source;
-
-            this.dimensions.Add(target, new DimensionValueOptions<TMessage, TProperty>(options.ValueType, compiled, options.Converter, source, target));
-
-            return this;
-        }
-
-        /// <inheritdoc/>
         public IProtocolBuilder<TMessage> AddDimension<TProperty>(string name, Func<TMessage, TProperty> function, DimensionValueBuilderOptions<TMessage, TProperty> options)
             where TProperty : notnull
         {
-            this.dimensions.Add(name, new DimensionValueOptions<TMessage, TProperty>(options.ValueType, function, options.Converter, string.Empty, name));
-
-            return this;
+            var f = new DimensionValueOptions<TMessage, TProperty>(options.ValueType, function, options.Converter, string.Empty, name);
+            return this.OnAddDimension<TMessage>(f);
         }
 
         /// <inheritdoc/>
-        public IProtocolBuilder<TMessage> AddNullableDimension<TProperty>(Expression<Func<TMessage, TProperty?>> expression, NullableDimensionValueBuilderOptions<TMessage, TProperty?> options)
+        public IProtocolBuilder<TMessage> AddNullableDimension<TProperty>(string name, Func<TMessage, TProperty?> function, NullableDimensionValueBuilderOptions<TMessage, TProperty?> options)
         {
-            var (pi, compiled) = this.GetProperty(expression);
-            var source = pi.Name;
-            var target = options.Name ?? source;
-
-            this.dimensions.Add(target, new NullableDimensionValueOptions<TMessage, TProperty?>(options.ValueType, compiled, options.Converter, source, target));
-
-            return this;
-        }
-
-        /// <inheritdoc/>
-        public IProtocolBuilder<TMessage> AddNullableDimension<TProperty>(string name, Func<TMessage, TProperty> function, NullableDimensionValueBuilderOptions<TMessage, TProperty?> options)
-            where TProperty : notnull
-        {
-            this.dimensions.Add(name, new NullableDimensionValueOptions<TMessage, TProperty>(options.ValueType, function, options.Converter, string.Empty, name));
-
-            return this;
+            var f = new NullableDimensionValueOptions<TMessage, TProperty?>(options.ValueType, function, options.Converter, string.Empty, name);
+            return this.OnAddDimension<TMessage>(f);
         }
 
         /// <inheritdoc/>
@@ -202,6 +173,19 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
 
                 return new TimestreamProtocol<TMessage>(this.dimensions, this.measures, logger);
             }
+        }
+
+        private IProtocolBuilder<TMessage> OnAddDimension<TProperty>(IMessagePropertyFactory<TMessage, Dimension> factory)
+            where TProperty : notnull
+        {
+            if (!this.fields.Add(factory.TargetName))
+            {
+                throw new ArgumentException($"{factory.TargetName} already added");
+            }
+
+            this.dimensions.Add(factory.TargetName, factory);
+
+            return this;
         }
 
         private (PropertyInfo PropertyInfo, Func<TMessage, TField> Compiled) GetProperty<TField>(Expression<Func<TMessage, TField>> expression)
