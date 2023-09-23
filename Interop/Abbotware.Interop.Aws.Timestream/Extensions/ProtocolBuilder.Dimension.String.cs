@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="ProtocolBuilder.Dimensions.String.cs" company="Abbotware, LLC">
+// <copyright file="ProtocolBuilder.Dimension.String.cs" company="Abbotware, LLC">
 // Copyright © Abbotware, LLC 2012-2023. All rights reserved
 // </copyright>
 // -----------------------------------------------------------------------
@@ -45,7 +45,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         public static IProtocolBuilder<TMessage> AddDimension<TMessage>(this IProtocolBuilder<TMessage> builder, string name, Func<TMessage, string> function, Action<DimensionValueBuilderOptions<TMessage, string>>? configure = null)
             where TMessage : notnull
         {
-            return builder.AddDimension(name, function, o => { o.Converter = x => x; });
+            return builder.AddDimension<TMessage, string>(name, function, configure);
         }
     }
 }

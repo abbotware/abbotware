@@ -18,6 +18,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
     using Abbotware.Interop.Aws.Timestream.Protocol.Builder;
     using Abbotware.Interop.Aws.Timestream.Protocol.Internal;
     using Abbotware.Interop.Aws.Timestream.Protocol.Options;
+    using Amazon.Runtime.Internal.Transform;
     using Amazon.TimestreamWrite.Model;
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Logging.Abstractions;
@@ -62,59 +63,24 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
         private string MeasureName { get; }
 
         /// <inheritdoc/>
-        public IProtocolBuilder<TMessage> AddDimension<TProperty>(string name, Func<TMessage, TProperty> function, DimensionValueBuilderOptions<TMessage, TProperty> options)
+        public IProtocolBuilder<TMessage> AddDimension<TProperty>(DimensionValueOptions<TMessage, TProperty> options)
+          where TProperty : notnull => this.OnAddDimension<TMessage>(options);
+
+        /// <inheritdoc/>
+        public IProtocolBuilder<TMessage> AddNullableDimension<TProperty>(NullableDimensionValueOptions<TMessage, TProperty?> options)
+            => this.OnAddDimension<TMessage>(options);
+
+        /// <inheritdoc/>
+        public IProtocolBuilder<TMessage> AddMeasure<TProperty>(MeasureValueOptions<TMessage, TProperty> options)
             where TProperty : notnull
         {
-            var f = new DimensionValueOptions<TMessage, TProperty>(options.ValueType, function, options.Converter, string.Empty, name);
-            return this.OnAddDimension<TMessage>(f);
+            return this.OnAddMeasure(options);
         }
 
         /// <inheritdoc/>
-        public IProtocolBuilder<TMessage> AddNullableDimension<TProperty>(string name, Func<TMessage, TProperty?> function, NullableDimensionValueBuilderOptions<TMessage, TProperty?> options)
+        public IProtocolBuilder<TMessage> AddNullableMeasure<TProperty>(MeasureValueOptions<TMessage, TProperty?> options)
         {
-            var f = new NullableDimensionValueOptions<TMessage, TProperty?>(options.ValueType, function, options.Converter, string.Empty, name);
-            return this.OnAddDimension<TMessage>(f);
-        }
-
-        /// <inheritdoc/>
-        public IProtocolBuilder<TMessage> AddMeasure<TProperty>(Expression<Func<TMessage, TProperty>> expression, MeasureValueBuilderOptions<TMessage, TProperty> options)
-            where TProperty : notnull
-        {
-            if (this.measures.Any())
-            {
-                if (this.MeasureName.IsBlank())
-                {
-                    throw new ArgumentException($"{this.type.FullName} has multiple measures - need to use ProtocolBuilder(string meaureName ... ) ");
-                }
-            }
-
-            var (pi, compiled) = this.GetProperty(expression);
-            var source = pi.Name;
-            var target = options.Name ?? source;
-
-            this.measures.Add(target, new MeasureValueOptions<TMessage, TProperty>(options.ValueType, compiled, options.Converter, source, target));
-
-            return this;
-        }
-
-        /// <inheritdoc/>
-        public IProtocolBuilder<TMessage> AddNullableMeasure<TProperty>(Expression<Func<TMessage, TProperty?>> expression, NullableMeasureValueBuilderOptions<TMessage, TProperty?> options)
-        {
-            if (this.measures.Any())
-            {
-                if (this.MeasureName.IsBlank())
-                {
-                    throw new ArgumentException($"{this.type.FullName} has multiple measures - need to use ProtocolBuilder(string meaureName ... ) ");
-                }
-            }
-
-            var (pi, compiled) = this.GetProperty(expression);
-            var source = pi.Name;
-            var target = options.Name ?? source;
-
-            this.measures.Add(target, new MeasureValueOptions<TMessage, TProperty?>(options.ValueType, compiled, options.Converter, source, target));
-
-            return this;
+            return this.OnAddMeasure(options);
         }
 
         /// <inheritdoc/>
@@ -176,7 +142,6 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
         }
 
         private IProtocolBuilder<TMessage> OnAddDimension<TProperty>(IMessagePropertyFactory<TMessage, Dimension> factory)
-            where TProperty : notnull
         {
             if (!this.fields.Add(factory.TargetName))
             {
@@ -188,8 +153,20 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
             return this;
         }
 
-        private (PropertyInfo PropertyInfo, Func<TMessage, TField> Compiled) GetProperty<TField>(Expression<Func<TMessage, TField>> expression)
-            => this.GetProperty(expression, true);
+        private IProtocolBuilder<TMessage> OnAddMeasure<TProperty>(MeasureValueOptions<TMessage, TProperty> options)
+        {
+            if (this.measures.Any())
+            {
+                if (this.MeasureName.IsBlank())
+                {
+                    throw new ArgumentException($"{this.type.FullName} has multiple measures - need to use ProtocolBuilder(string meaureName ... ) ");
+                }
+            }
+
+            this.measures.Add(options.TargetName, options);
+
+            return this;
+        }
 
         private (PropertyInfo PropertyInfo, Func<TMessage, TField> Compiled) GetProperty<TField>(Expression<Func<TMessage, TField>> expression, bool requireUnique)
         {

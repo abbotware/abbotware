@@ -1,0 +1,17 @@
+Timestream.Column	Timestream.Type	Csharp.ShortType	Csharp.FullType	Converter
+Measure	BigInt	sbyte	SByte	
+Measure	BigInt	short	Int16	
+Measure	BigInt	int	Int32	
+Measure	BigInt	long	Int64	
+Measure	BigInt	byte	Byte	
+Measure	BigInt	ushort	UInt16	
+Measure	BigInt	uint	UInt32	
+Measure	BigInt	ulong	UInt64	
+Measure	Boolean	bool	Boolean	
+Measure	Double	float	Single	
+Measure	Double	double	Double	
+Measure	Double	decimal	Decimal	
+Measure	Varchar	string	String	
+Measure	Timestamp	DateOnly	DateOnly	BuildTimestampFrom	
+Measure	Timestamp	DateTime	DateTime	BuildTimestampFrom
+Measure	Timestamp	DateTimeOffset	DateTimeOffset	BuildTimestampFrom

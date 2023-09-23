@@ -1,0 +1,130 @@
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#
+	var path = Host.ResolvePath(string.Empty);
+	var file = Path.Combine(path, "Builder.tsv");
+	using (StreamReader reader = new StreamReader(file))
+	{
+		var hs = new HashSet<string>();
+		var i = 0;
+
+		reader.ReadLine();
+		while (!reader.EndOfStream)
+		{
+			string line = reader.ReadLine();
+			var parts = line.Split('\t');
+			var columnType = parts[0];
+			var tsType = parts[1];
+            var tsTypeCSharp = tsType.ToUpper();
+			var csAliasType = parts[2];
+			var csFullType = parts[3];
+            var csConverter = parts[4];
+            var csNullableConverter = parts[4];
+
+            if (String.IsNullOrWhiteSpace(csConverter)) {
+                csConverter = "x => x.ToString(CultureInfo.InvariantCulture)";
+                csNullableConverter = "x => x?.ToString(CultureInfo.InvariantCulture)";
+            }
+
+            var fileName = "ProtocolBuilder." + columnType + "-" + tsType + "-" + csFullType + ".cs";
+			#>
+// -----------------------------------------------------------------------
+// <copyright file="<#= fileName #>" company="Abbotware, LLC">
+// Copyright © Abbotware, LLC 2012-2023. All rights reserved
+// </copyright>
+// -----------------------------------------------------------------------
+
+namespace Abbotware.Interop.Aws.Timestream.Protocol
+{
+    using System;
+    using System.Globalization;
+    using System.Linq.Expressions;
+    using Abbotware.Interop.Aws.Timestream.Protocol.Builder;
+    using Amazon.TimestreamWrite;
+
+    /// <summary>
+    /// Protocol Builder Extension Methods
+    /// </summary>
+    public static partial class ProtocolBuilderExtensions
+    {
+        /// <summary>
+        /// Adds a <#= tsTypeCSharp #> (from <#= csAliasType #>) Measure
+        /// </summary>
+        /// <typeparam name="TMessage">message types</typeparam>
+        /// <param name="builder">extended builder</param>
+        /// <param name="expression">property accessor expression</param>
+        /// <param name="configure">configure callback</param>
+        /// <returns>builder</returns>
+        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, <#= csAliasType #>>> expression, Action<MeasureValueBuilderOptions<TMessage, <#= csAliasType #>>>? configure = null)
+            where TMessage : notnull => OnAddExpression(builder, expression, configure, AddMeasure);
+
+        /// <summary>
+        /// Adds a <#= tsTypeCSharp #> (from <#= csAliasType #>) Measure
+        /// </summary>
+        /// <typeparam name="TMessage">message types</typeparam>
+        /// <param name="builder">extended builder</param>
+        /// <param name="name">column name</param>
+        /// <param name="function">property function</param>
+        /// <param name="configure">configure callback</param>
+        /// <returns>builder</returns>
+        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, string name, Func<TMessage, <#= csAliasType #>> function, Action<MeasureValueBuilderOptions<TMessage, <#= csAliasType #>>>? configure = null)
+            where TMessage : notnull
+        {
+            var options = new MeasureValueBuilderOptions<TMessage, <#= csAliasType #>>(name, MeasureValueType.<#= tsTypeCSharp #>, function, <#= csConverter #>);
+            return OnAddMeasure(builder, function, options, configure);
+        }
+
+        /// <summary>
+        /// Adds an optional <#= tsTypeCSharp #> (from <#= csAliasType #>?) Measure
+        /// </summary>
+        /// <typeparam name="TMessage">message types</typeparam>
+        /// <param name="builder">extended builder</param>
+        /// <param name="expression">property accessor expression</param>
+        /// <param name="configure">configure callback</param>
+        /// <returns>builder</returns>
+        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, <#= csAliasType #>?>> expression, Action<NullableMeasureValueBuilderOptions<TMessage, <#= csAliasType #>?>>? configure = null)
+            where TMessage : notnull => OnAddNullableExpression(builder, expression, configure, AddMeasure);
+
+        /// <summary>
+        /// Adds an optional <#= tsTypeCSharp #> (from <#= csAliasType #>?) Measure
+        /// </summary>
+        /// <typeparam name="TMessage">message types</typeparam>
+        /// <param name="builder">extended builder</param>
+        /// <param name="name">column name</param>
+        /// <param name="function">property function</param>
+        /// <param name="configure">configure callback</param>
+        /// <returns>builder</returns>
+        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, string name, Func<TMessage, <#= csAliasType #>?> function, Action<NullableMeasureValueBuilderOptions<TMessage, <#= csAliasType #>?>>? configure = null)
+                 where TMessage : notnull
+        {
+            var options = new NullableMeasureValueBuilderOptions<TMessage, <#= csAliasType #>?>(name, MeasureValueType.<#= tsTypeCSharp #>, function, <#= csNullableConverter #>);
+            return OnAddNullableMeasure(builder, function, options, configure);
+        }
+    }
+}
+<#
+			SaveOutput(fileName);
+		}
+	}
+#>
+<#+
+private void SaveOutput(string outputFileName) {
+  string templateDirectory = Path.GetDirectoryName(Host.TemplateFile);
+  string outputFilePath = Path.Combine(templateDirectory, outputFileName);
+  File.WriteAllText(outputFilePath, this.GenerationEnvironment.ToString()); 
+  this.GenerationEnvironment.Clear();
+}
+private void SaveOutputToSubFolder(string folderName, string outputFileName) {
+  string templateDirectory = Path.GetDirectoryName(Host.TemplateFile);
+  string newDirectoryName = Path.Combine(templateDirectory,folderName);
+  if(!Directory.Exists(newDirectoryName))
+    Directory.CreateDirectory(newDirectoryName);
+  string outputFilePath = Path.Combine(newDirectoryName, outputFileName);
+  File.WriteAllText(outputFilePath, this.GenerationEnvironment.ToString()); 
+  this.GenerationEnvironment.Clear();
+}
+#>

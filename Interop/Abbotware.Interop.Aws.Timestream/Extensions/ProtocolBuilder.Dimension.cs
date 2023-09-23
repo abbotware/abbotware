@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="ProtocolBuilder.Dimensions-Nullable.cs" company="Abbotware, LLC">
+// <copyright file="ProtocolBuilder.Dimension.cs" company="Abbotware, LLC">
 // Copyright © Abbotware, LLC 2012-2023. All rights reserved
 // </copyright>
 // -----------------------------------------------------------------------
@@ -26,13 +26,14 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// <param name="expression">property accessor expression</param>
         /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
-        public static IProtocolBuilder<TMessage> AddNullableDimension<TMessage, TProperty>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, TProperty?>> expression, Action<NullableDimensionValueBuilderOptions<TMessage, TProperty?>>? configure = null)
+        public static IProtocolBuilder<TMessage> AddDimension<TMessage, TProperty>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, TProperty>> expression, Action<DimensionValueBuilderOptions<TMessage, TProperty>>? configure = null)
             where TMessage : notnull
+            where TProperty : notnull
         {
             var (pi, f) = ExpressionHelper.GetPropertyExpression(expression);
             var propertyName = pi.Name;
 
-            return builder.AddNullableDimension(propertyName, f, configure);
+            return builder.AddDimension(propertyName, f, configure);
         }
 
         /// <summary>
@@ -45,15 +46,14 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// <param name="function">property function</param>
         /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
-        public static IProtocolBuilder<TMessage> AddNullableDimension<TMessage, TProperty>(this IProtocolBuilder<TMessage> builder, string name, Func<TMessage, TProperty?> function, Action<NullableDimensionValueBuilderOptions<TMessage, TProperty?>>? configure = null)
+        public static IProtocolBuilder<TMessage> AddDimension<TMessage, TProperty>(this IProtocolBuilder<TMessage> builder, string name, Func<TMessage, TProperty> function, Action<DimensionValueBuilderOptions<TMessage, TProperty>>? configure = null)
             where TMessage : notnull
+            where TProperty : notnull
         {
-            var options = new NullableDimensionValueBuilderOptions<TMessage, TProperty?>(DimensionValueType.VARCHAR, x => x?.ToString());
-            options.Name = name;
+            var options = new DimensionValueBuilderOptions<TMessage, TProperty>(name, DimensionValueType.VARCHAR, function, x => x.ToString() ?? string.Empty);
             configure?.Invoke(options);
-            var target = options.Name ?? name;
 
-            return builder.AddNullableDimension(target, function, options);
+            return builder.AddDimension(options.Build());
         }
     }
 }
