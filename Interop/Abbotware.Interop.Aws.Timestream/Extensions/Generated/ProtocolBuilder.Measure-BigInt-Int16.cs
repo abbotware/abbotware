@@ -52,8 +52,8 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// <param name="expression">property accessor expression</param>
         /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
-        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, short?>> expression, Action<NullableMeasureValueBuilderOptions<TMessage, short?>>? configure = null)
-            where TMessage : notnull => OnAddNullableExpression(builder, expression, configure, AddMeasure);
+        public static IProtocolBuilder<TMessage> AddNullableMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, short?>> expression, Action<NullableMeasureValueBuilderOptions<TMessage, short?>>? configure = null)
+            where TMessage : notnull => OnAddNullableExpression(builder, expression, configure, AddNullableMeasure);
 
         /// <summary>
         /// Adds an optional BIGINT (from short?) Measure
@@ -64,7 +64,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// <param name="function">property function</param>
         /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
-        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, string name, Func<TMessage, short?> function, Action<NullableMeasureValueBuilderOptions<TMessage, short?>>? configure = null)
+        public static IProtocolBuilder<TMessage> AddNullableMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, string name, Func<TMessage, short?> function, Action<NullableMeasureValueBuilderOptions<TMessage, short?>>? configure = null)
                  where TMessage : notnull
         {
             var options = new NullableMeasureValueBuilderOptions<TMessage, short?>(name, MeasureValueType.BIGINT, function, x => x?.ToString(CultureInfo.InvariantCulture));

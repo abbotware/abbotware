@@ -10,7 +10,6 @@
 	using (StreamReader reader = new StreamReader(file))
 	{
 		var hs = new HashSet<string>();
-		var i = 0;
 
 		reader.ReadLine();
 		while (!reader.EndOfStream)
@@ -86,8 +85,8 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// <param name="expression">property accessor expression</param>
         /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
-        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, <#= csAliasType #>?>> expression, Action<NullableMeasureValueBuilderOptions<TMessage, <#= csAliasType #>?>>? configure = null)
-            where TMessage : notnull => OnAddNullableExpression(builder, expression, configure, AddMeasure);
+        public static IProtocolBuilder<TMessage> AddNullableMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, <#= csAliasType #>?>> expression, Action<NullableMeasureValueBuilderOptions<TMessage, <#= csAliasType #>?>>? configure = null)
+            where TMessage : notnull => OnAddNullableExpression(builder, expression, configure, AddNullableMeasure);
 
         /// <summary>
         /// Adds an optional <#= tsTypeCSharp #> (from <#= csAliasType #>?) Measure
@@ -98,7 +97,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// <param name="function">property function</param>
         /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
-        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, string name, Func<TMessage, <#= csAliasType #>?> function, Action<NullableMeasureValueBuilderOptions<TMessage, <#= csAliasType #>?>>? configure = null)
+        public static IProtocolBuilder<TMessage> AddNullableMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, string name, Func<TMessage, <#= csAliasType #>?> function, Action<NullableMeasureValueBuilderOptions<TMessage, <#= csAliasType #>?>>? configure = null)
                  where TMessage : notnull
         {
             var options = new NullableMeasureValueBuilderOptions<TMessage, <#= csAliasType #>?>(name, MeasureValueType.<#= tsTypeCSharp #>, function, <#= csNullableConverter #>);

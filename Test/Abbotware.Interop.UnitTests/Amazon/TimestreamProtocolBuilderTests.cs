@@ -102,7 +102,7 @@ namespace Abbotware.UnitTests.Interop.Amazon
             var pb = new ProtocolBuilder<MultiMeasureNonStringDimensionsTestWithTime>();
             pb.AddMeasure(x => x.Int);
 
-            Assert.Throws<ArgumentException>(() => pb.AddMeasure(x => x.LongNullable));
+            Assert.Throws<ArgumentException>(() => pb.AddNullableMeasure(x => x.LongNullable));
         }
 
         [Test]
@@ -115,15 +115,15 @@ namespace Abbotware.UnitTests.Interop.Amazon
             pb.AddNullableDimension(x => x.SetOptional);
             pb.AddDimension(x => x.IdDimension, x => x.Converter = y => y.ToString());
             pb.AddMeasure(x => x.Int);
-            pb.AddMeasure(x => x.LongNullable);
+            pb.AddNullableMeasure(x => x.LongNullable);
             pb.AddMeasure(x => x.Long);
             pb.AddMeasure(x => x.String);
             pb.AddMeasure(x => x.Double);
             pb.AddMeasure(x => x.Decimal);
             pb.AddMeasure(x => x.DateTime);
-            pb.AddMeasure(x => x.DateTimeNullable);
+            pb.AddNullableMeasure(x => x.DateTimeNullable);
             pb.AddMeasure(x => x.DateOnly);
-            pb.AddMeasure(x => x.DateOnlyNullable);
+            pb.AddNullableMeasure(x => x.DateOnlyNullable);
 
             pb.AddMeasure(x => x.Boolean);
             pb.AddTime(x => x.Time, TimeUnitType.Milliseconds);
@@ -187,7 +187,7 @@ namespace Abbotware.UnitTests.Interop.Amazon
         {
             var pb = new ProtocolBuilder<MultiMeasureNonStringDimensionsTestWithTime>("metrics");
             pb.AddDimension(x => x.Name);
-            pb.AddMeasure(x => x.LongNullable);
+            pb.AddNullableMeasure(x => x.LongNullable);
 
             var options = new TimestreamOptions() { Database = "db", Table = "table" };
             var protocol = pb.Build();
@@ -204,8 +204,8 @@ namespace Abbotware.UnitTests.Interop.Amazon
         {
             var pb = new ProtocolBuilder<MultiMeasureNonStringDimensionsTestWithTime>("metrics");
             pb.AddDimension(x => x.Name);
-            pb.AddMeasure(x => x.LongNullable);
-            pb.AddMeasure(x => x.NullableTime);
+            pb.AddNullableMeasure(x => x.LongNullable);
+            pb.AddNullableMeasure(x => x.NullableTime);
             pb.AddNullableTime(x => x.NullableTime, TimeUnitType.Milliseconds, x => x ?? DateTimeOffset.UtcNow);
 
             var options = new TimestreamOptions() { Database = "db", Table = "table" };
@@ -223,7 +223,7 @@ namespace Abbotware.UnitTests.Interop.Amazon
         {
             var pb = new ProtocolBuilder<MultiMeasureNonStringDimensionsTestWithTime>("metrics");
             pb.AddNullableDimension(x => x.Optional);
-            pb.AddMeasure(x => x.LongNullable);
+            pb.AddNullableMeasure(x => x.LongNullable);
 
             var options = new TimestreamOptions() { Database = "db", Table = "table" };
             var protocol = pb.Build();
@@ -240,7 +240,7 @@ namespace Abbotware.UnitTests.Interop.Amazon
         {
             var pb = new ProtocolBuilder<MultiMeasureNonStringDimensionsTestWithTime>("metrics");
             pb.AddDimension(x => x.Name);
-            pb.AddMeasure(x => x.LongNullable);
+            pb.AddNullableMeasure(x => x.LongNullable);
 
             var options = new TimestreamOptions() { Database = "db", Table = "table" };
             var protocol = pb.Build();

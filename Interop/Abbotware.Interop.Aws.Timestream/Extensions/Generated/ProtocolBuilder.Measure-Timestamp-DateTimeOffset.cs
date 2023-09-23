@@ -52,8 +52,8 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// <param name="expression">property accessor expression</param>
         /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
-        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, DateTimeOffset?>> expression, Action<NullableMeasureValueBuilderOptions<TMessage, DateTimeOffset?>>? configure = null)
-            where TMessage : notnull => OnAddNullableExpression(builder, expression, configure, AddMeasure);
+        public static IProtocolBuilder<TMessage> AddNullableMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, Expression<Func<TMessage, DateTimeOffset?>> expression, Action<NullableMeasureValueBuilderOptions<TMessage, DateTimeOffset?>>? configure = null)
+            where TMessage : notnull => OnAddNullableExpression(builder, expression, configure, AddNullableMeasure);
 
         /// <summary>
         /// Adds an optional TIMESTAMP (from DateTimeOffset?) Measure
@@ -64,7 +64,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// <param name="function">property function</param>
         /// <param name="configure">configure callback</param>
         /// <returns>builder</returns>
-        public static IProtocolBuilder<TMessage> AddMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, string name, Func<TMessage, DateTimeOffset?> function, Action<NullableMeasureValueBuilderOptions<TMessage, DateTimeOffset?>>? configure = null)
+        public static IProtocolBuilder<TMessage> AddNullableMeasure<TMessage>(this IProtocolBuilder<TMessage> builder, string name, Func<TMessage, DateTimeOffset?> function, Action<NullableMeasureValueBuilderOptions<TMessage, DateTimeOffset?>>? configure = null)
                  where TMessage : notnull
         {
             var options = new NullableMeasureValueBuilderOptions<TMessage, DateTimeOffset?>(name, MeasureValueType.TIMESTAMP, function, BuildTimestampFrom);

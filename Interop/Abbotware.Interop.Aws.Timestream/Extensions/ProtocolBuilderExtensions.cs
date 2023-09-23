@@ -49,7 +49,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
 
         private static IProtocolBuilder<TMessage> OnAddNullableMeasure<TMessage, TProperty, TOptions>(IProtocolBuilder<TMessage> builder, Func<TMessage, TProperty> f, TOptions options, Action<TOptions>? configure)
             where TMessage : notnull
-            where TOptions : NullableMeasureValueBuilderOptions<TMessage, TProperty>
+            where TOptions : NullableMeasureValueBuilderOptions<TMessage, TProperty?>
         {
             configure?.Invoke(options);
 

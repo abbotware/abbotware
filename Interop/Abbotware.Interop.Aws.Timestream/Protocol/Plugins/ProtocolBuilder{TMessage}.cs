@@ -143,10 +143,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
 
         private IProtocolBuilder<TMessage> OnAddDimension<TProperty>(IMessagePropertyFactory<TMessage, Dimension> factory)
         {
-            if (!this.fields.Add(factory.TargetName))
-            {
-                throw new ArgumentException($"{factory.TargetName} already added");
-            }
+            this.ValidateName(factory);
 
             this.dimensions.Add(factory.TargetName, factory);
 
@@ -163,9 +160,20 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
                 }
             }
 
+            this.ValidateName(options);
+
             this.measures.Add(options.TargetName, options);
 
             return this;
+        }
+
+        private void ValidateName<TNative>(IMessagePropertyFactory<TMessage, TNative> factory)
+            where TNative : notnull
+        {
+            if (!this.fields.Add(factory.TargetName))
+            {
+                throw new ArgumentException($"{factory.TargetName} already added");
+            }
         }
 
         private (PropertyInfo PropertyInfo, Func<TMessage, TField> Compiled) GetProperty<TField>(Expression<Func<TMessage, TField>> expression, bool requireUnique)
