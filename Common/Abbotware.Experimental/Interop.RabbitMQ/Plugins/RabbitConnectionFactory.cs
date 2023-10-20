@@ -145,7 +145,7 @@ namespace Abbotware.Interop.RabbitMQ.Plugins
 
             // Threading Related
             {
-                this.factory.UseBackgroundThreadsForIO = false;
+                // this.factory.UseBackgroundThreadsForIO = false;
 
                 ////this.connectionFactory.TaskScheduler = System.Threading.Tasks.ThreadPoolTaskScheduler;
             }
