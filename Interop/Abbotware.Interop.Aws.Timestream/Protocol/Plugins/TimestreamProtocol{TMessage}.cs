@@ -89,6 +89,11 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
         public TimestreamProtocol(IReadOnlyDictionary<string, IMessagePropertyFactory<TMessage, Dimension>> dimensions, IReadOnlyDictionary<string, IMessagePropertyFactory<TMessage, MeasureValue>> measures, IRecordUpdater<TMessage> time, string measureName, ILogger logger)
             : base(logger)
         {
+            if (!dimensions.Any())
+            {
+                throw new ArgumentException("Protocol is invalid.  There are no dimensions defined");
+            }
+
             this.dimensions = dimensions;
             this.measures = measures;
             this.time = time;
