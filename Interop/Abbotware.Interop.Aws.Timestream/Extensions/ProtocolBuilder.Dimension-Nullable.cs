@@ -20,6 +20,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// <summary>
         /// Adds a Dimension Measure via an expression
         /// </summary>
+        /// <remarks>null and empty strings will not be sent to timestream</remarks>
         /// <typeparam name="TMessage">message types</typeparam>
         /// <typeparam name="TProperty">property type</typeparam>
         /// <param name="builder">extended builder</param>
@@ -38,6 +39,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// <summary>
         /// Adds a Dimension Measure
         /// </summary>
+        /// <remarks>null and empty strings will not be sent to timestream</remarks>
         /// <typeparam name="TMessage">message types</typeparam>
         /// <typeparam name="TProperty">property type</typeparam>
         /// <param name="builder">extended builder</param>

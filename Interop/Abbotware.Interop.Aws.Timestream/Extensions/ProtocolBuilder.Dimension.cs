@@ -20,6 +20,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// <summary>
         /// Adds a Dimension Measure via an expression
         /// </summary>
+        /// <remarks>null and empty strings will result in an timestream write validation error. There needs to be at least 1 non-null/non-empty dimension sent to timestream. If your dimensions are optional, use NullableDimensions</remarks>
         /// <typeparam name="TMessage">message types</typeparam>
         /// <typeparam name="TProperty">property type</typeparam>
         /// <param name="builder">extended builder</param>
@@ -39,6 +40,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// <summary>
         /// Adds a Dimension Measure
         /// </summary>
+        /// <remarks>null and empty strings will result in an timestream write validation error. There needs to be at least 1 non-null/non-empty dimension sent to timestream. If your dimensions are optional, use NullableDimensions</remarks>
         /// <typeparam name="TMessage">message types</typeparam>
         /// <typeparam name="TProperty">property type</typeparam>
         /// <param name="builder">extended builder</param>
@@ -50,7 +52,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
             where TMessage : notnull
             where TProperty : notnull
         {
-            var options = new DimensionValueBuilderOptions<TMessage, TProperty>(name, DimensionValueType.VARCHAR, function, x => x.ToString() ?? string.Empty);
+            var options = new DimensionValueBuilderOptions<TMessage, TProperty>(name, DimensionValueType.VARCHAR, function, x => x?.ToString() ?? string.Empty);
             configure?.Invoke(options);
 
             return builder.AddDimension(options.Build());

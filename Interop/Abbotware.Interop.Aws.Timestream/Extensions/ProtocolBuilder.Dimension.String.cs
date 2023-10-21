@@ -19,6 +19,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// <summary>
         /// Adds a String Dimension Measure via an expression
         /// </summary>
+        /// <remarks>null and empty strings will result in an timestream write validation error. There needs to be at least 1 non-null/non-empty dimension sent to timestream. If your dimensions are optional, use NullableDimensions</remarks>
         /// <typeparam name="TMessage">message types</typeparam>
         /// <param name="builder">extended builder</param>
         /// <param name="expression">property accessor expression</param>
@@ -36,6 +37,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol
         /// <summary>
         /// Adds a String Dimension Measure
         /// </summary>
+        /// <remarks>null and empty strings will result in an timestream write validation error. There needs to be at least 1 non-null/non-empty dimension sent to timestream. If your dimensions are optional, use NullableDimensions</remarks>
         /// <typeparam name="TMessage">message types</typeparam>
         /// <param name="builder">extended builder</param>
         /// <param name="name">column name</param>
