@@ -20,7 +20,8 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Options
     /// <param name="Converter">converter function</param>
     /// <param name="SourceName">source property name</param>
     /// <param name="TargetName">target name</param>
-    public record class MeasureValueOptions<TMessage, TProperty>(MeasureValueType Type, Func<TMessage, TProperty> Expression, Func<TProperty, string?> Converter, string SourceName, string TargetName) : MessagePropertyFactoryOptions<MeasureValueType, TMessage, TProperty, string?, MeasureValue>(Type, Expression, Converter, SourceName, TargetName)
+    public record class MeasureValueOptions<TMessage, TProperty>(MeasureValueType Type, Func<TMessage, TProperty> Expression, Func<TProperty, string?> Converter, string SourceName, string TargetName) 
+        : MessagePropertyFactoryOptions<MeasureValueType, TMessage, TProperty, string?, MeasureValue>(Type, Expression, Converter, SourceName, TargetName)
         where TMessage : notnull
     {
         /// <summary>

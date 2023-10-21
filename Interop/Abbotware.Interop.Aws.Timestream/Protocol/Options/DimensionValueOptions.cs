@@ -7,6 +7,7 @@
 namespace Abbotware.Interop.Aws.Timestream.Protocol.Options
 {
     using System;
+    using Abbotware.Core.Extensions;
     using Amazon.TimestreamWrite;
     using Amazon.TimestreamWrite.Model;
 
@@ -20,7 +21,8 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Options
     /// <param name="Converter">converter function</param>
     /// <param name="SourceName">source property name</param>
     /// <param name="TargetName">target name</param>
-    public record class DimensionValueOptions<TMessage, TProperty>(DimensionValueType Type, Func<TMessage, TProperty> Expression, Func<TProperty, string> Converter, string SourceName, string TargetName) : MessagePropertyFactoryOptions<DimensionValueType, TMessage, TProperty, string, Dimension>(Type, Expression, Converter, SourceName, TargetName)
+    public record class DimensionValueOptions<TMessage, TProperty>(DimensionValueType Type, Func<TMessage, TProperty> Expression, Func<TProperty, string> Converter, string SourceName, string TargetName) 
+        : MessagePropertyFactoryOptions<DimensionValueType, TMessage, TProperty, string, Dimension>(Type, Expression, Converter, SourceName, TargetName)
         where TMessage : notnull
         where TProperty : notnull
     {
@@ -33,16 +35,11 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Options
         {
             var v = this.Expression(message);
 
-            if (v is null)
-            {
-                return null;
-            }
-
             var s = this.Converter(v);
 
-            if (s is null)
+            if (s.IsBlank())
             {
-                return null;
+                throw new ArgumentNullException(this.TargetName, $"Dimension {this.SourceName}->{this.TargetName} is null/empty string even after converter function was called. if this is expected, use a nullable dimension instead");
             }
 
             return new Dimension
