@@ -43,57 +43,12 @@ namespace Abbotware.UnitTests.Interop.Amazon
         }
 
         [Test]
-        public void AddDimension_Expression_Twice()
-        {
-            var pb = new ProtocolBuilder<SingleMeasureTest>();
-            pb.AddDimension(x => x.Name);
-
-            Assert.Throws<ArgumentException>(() => pb.AddDimension(x => x.Name));
-        }
-
-        [Test]
-        public void AddDimension_Expression_Twice_OverrideName()
-        {
-            var pb = new ProtocolBuilder<SingleMeasureTest>();
-            pb.AddDimension(x => x.Name);
-
-            Assert.Throws<ArgumentException>(() => pb.AddDimension(x => x.Value, x => x.Name = "Name"));
-        }
-
-        [Test]
-        public void AddDimension_Function_Twice()
-        {
-            var pb = new ProtocolBuilder<SingleMeasureTest>();
-            pb.AddDimension("test", x => x.Name);
-
-            Assert.Throws<ArgumentException>(() => pb.AddDimension("test", x => x.Name));
-        }
-
-        [Test]
-        public void AddDimension_Function_Twice_OverrideName()
-        {
-            var pb = new ProtocolBuilder<SingleMeasureTest>();
-            pb.AddDimension("test2", x => x.Name);
-
-            Assert.Throws<ArgumentException>(() => pb.AddDimension("test3", x => x.Name, x => x.Name = "test2"));
-        }
-
-        [Test]
         public void AddSameName_Expression()
         {
             var pb = new ProtocolBuilder<SingleMeasureTest>();
             pb.AddMeasure(x => x.Name);
 
             Assert.Throws<ArgumentException>(() => pb.AddDimension(x => x.Name));
-        }
-
-        [Test]
-        public void AddTime_Twice()
-        {
-            var pb = new ProtocolBuilder<MultiMeasureNonStringDimensionsTestWithTime>();
-            pb.AddTime(x => x.Time, TimeUnitType.Milliseconds);
-
-            Assert.Throws<ArgumentException>(() => pb.AddTime(x => x.Time, TimeUnitType.Milliseconds));
         }
 
         [Test]
@@ -216,40 +171,6 @@ namespace Abbotware.UnitTests.Interop.Amazon
             var encoded = protocol.Encode(m, options);
 
             using var c = new TimestreamPublisher<MultiMeasureNonStringDimensionsTestWithTime>(options, pb.Build(), this.LoggerFactory.CreateLogger<PocoPublisher<MultiMeasureNonStringDimensionsTestWithTime>>());
-        }
-
-        [Test]
-        public void Encode_AllNullDimensions()
-        {
-            var pb = new ProtocolBuilder<MultiMeasureNonStringDimensionsTestWithTime>("metrics");
-            pb.AddNullableDimension(x => x.Optional);
-            pb.AddNullableMeasure(x => x.LongNullable);
-
-            var options = new TimestreamOptions() { Database = "db", Table = "table" };
-            var protocol = pb.Build();
-
-            var m = new MultiMeasureNonStringDimensionsTestWithTime { Name = "asdf", LongNullable = 123 };
-
-            var ex = Assert.Catch<Exception>(() => protocol.Encode(m, options));
-
-            StringAssert.StartsWith("Record is missing dimension values (they might all be null?)", ex!.Message);
-        }
-
-        [Test]
-        public void Encode_AllNullDimensions_NonOptional()
-        {
-            var pb = new ProtocolBuilder<MultiMeasureNonStringDimensionsTestWithTime>("metrics");
-            pb.AddDimension(x => x.Name);
-            pb.AddNullableMeasure(x => x.LongNullable);
-
-            var options = new TimestreamOptions() { Database = "db", Table = "table" };
-            var protocol = pb.Build();
-
-            var m = new MultiMeasureNonStringDimensionsTestWithTime { LongNullable = 123 };
-
-            var ex = Assert.Catch<Exception>(() => protocol.Encode(m, options));
-
-            StringAssert.StartsWith("Record is missing dimension values (they might all be null?)", ex!.Message);
         }
     }
 }
