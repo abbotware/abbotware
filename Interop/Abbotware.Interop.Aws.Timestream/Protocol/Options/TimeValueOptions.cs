@@ -21,7 +21,8 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Options
     /// <param name="Expression">property evaluator expression</param>
     /// <param name="Converter">converter function</param>
     /// <param name="SourceName">source property name</param>
-    public record class TimeValueOptions<TMessage, TProperty>(TimeUnitType Type, Func<TMessage, TProperty> Expression, Func<TProperty, DateTimeOffset> Converter, string SourceName) : MessagePropertyOption<TimeUnitType, TMessage, TProperty, DateTimeOffset>(Type, Expression, Converter, SourceName, "Time"), IRecordUpdater<TMessage>
+    public record class TimeValueOptions<TMessage, TProperty>(TimeUnitType Type, Func<TMessage, TProperty> Expression, Func<TProperty, DateTimeOffset> Converter, string SourceName) 
+        : MessagePropertyOption<TimeUnitType, TMessage, TProperty, DateTimeOffset>(Type, Expression, Converter, SourceName, "Time"), IRecordUpdater<TMessage>
         where TMessage : notnull
     {
         /// <inheritdoc/>>
@@ -32,18 +33,35 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Options
 
             switch (this.Type)
             {
-                case TimeUnitType.Milliseconds:
-                    var unix = dto.ToUnixTimeMilliseconds();
 
-                    if (unix < 0)
+                case TimeUnitType.Seconds:
                     {
-                        throw new ArgumentOutOfRangeException($"{unix} is not a valild Unix Time in milliseconds. {this.SourceName}:{t}");
+                        var unix = dto.ToUnixTimeSeconds();
+                        if (unix < 0)
+                        {
+                            throw new ArgumentOutOfRangeException($"{unix} is not a valild Unix Time in milliseconds. {this.SourceName}:{t}");
+                        }
+
+                        record.Time = unix.ToString(CultureInfo.InvariantCulture);
+                        record.TimeUnit = TimeUnit.SECONDS;
+
+                        break;
                     }
 
-                    record.Time = unix.ToString(CultureInfo.InvariantCulture);
-                    record.TimeUnit = TimeUnit.MILLISECONDS;
+                case TimeUnitType.Milliseconds:
+                    {
+                        var unix = dto.ToUnixTimeMilliseconds();
 
-                    break;
+                        if (unix < 0)
+                        {
+                            throw new ArgumentOutOfRangeException($"{unix} is not a valild Unix Time in milliseconds. {this.SourceName}:{t}");
+                        }
+
+                        record.Time = unix.ToString(CultureInfo.InvariantCulture);
+                        record.TimeUnit = TimeUnit.MILLISECONDS;
+
+                        break;
+                    }
                 default:
                     throw new NotSupportedException($"TimeUnitType:{this.Type} currently unsupported");
             }
