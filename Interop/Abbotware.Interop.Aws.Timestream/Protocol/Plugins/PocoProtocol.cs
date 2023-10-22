@@ -10,6 +10,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
     using System.Collections.Generic;
     using System.Globalization;
     using System.Linq;
+    using System.Reflection;
     using Abbotware.Core.Diagnostics;
     using Abbotware.Core.Helpers;
     using Abbotware.Interop.Aws.Timestream.Attributes;
@@ -38,6 +39,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
             var properties = ReflectionHelper.Properties<TMessage>();
             var ds = new Dictionary<string, IMessagePropertyFactory<TMessage, Dimension>>();
             var ms = new Dictionary<string, IMessagePropertyFactory<TMessage, MeasureValue>>();
+            var nullContext = new NullabilityInfoContext();
             IRecordUpdater<TMessage>? time = null;
             MeasureNameAttribute? measureNameAttribute = null;
 
@@ -50,6 +52,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
                 if (da is not null)
                 {
                     var targetName = da.Name ?? sourceName;
+                    var nullability = nullContext.Create(p);
 
                     if (!TimestreamTypes.DimensionTypes.TryGetValue(type, out var dvt))
                     {
@@ -61,7 +64,14 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
                         throw new InvalidOperationException($"{t.FullName}.{p.Name} is not a string");
                     }
 
-                    ds.Add(targetName, new DimensionValueOptions<TMessage, string>(dvt, x => (string)p.GetValue(x)!, x => x, sourceName, targetName));
+                    if (nullability.WriteState is not NullabilityState.Nullable)
+                    {
+                        ds.Add(targetName, new DimensionValueOptions<TMessage, string>(dvt, x => (string)p.GetValue(x)!, x => x, sourceName, targetName));
+                    }
+                    else
+                    {
+                        ds.Add(targetName, new NullableDimensionValueOptions<TMessage, string>(dvt, x => (string)p.GetValue(x)!, x => x, sourceName, targetName));
+                    }
                 }
 
                 var mva = ReflectionHelper.SingleOrDefaultAttribute<MeasureAttribute>(p);
