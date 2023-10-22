@@ -163,7 +163,7 @@ namespace Abbotware.UnitTests.Interop.Amazon
         }
 
         [Test]
-        public void Encode_AllNullMeasures()
+        public void Encode_AllNull()
         {
             var pb = new ProtocolBuilder<MultiMeasureNonStringDimensionsTestWithTime>("metrics");
             pb.AddDimension(x => x.Name);
@@ -177,6 +177,23 @@ namespace Abbotware.UnitTests.Interop.Amazon
             var ex = Assert.Catch<Exception>(() => protocol.Encode(m, options));
 
             StringAssert.StartsWith("Record is missing measure values (they might all be null?)", ex!.Message);
+        }
+
+        [Test]
+        public void Encode_TooLong()
+        {
+            var pb = new ProtocolBuilder<MultiMeasureNonStringDimensionsTestWithTime>("metrics");
+            pb.AddDimension(x => x.Name);
+            pb.AddNullableMeasure(x => x.SetOptional);
+
+            var options = new TimestreamOptions() { Database = "db", Table = "table" };
+            var protocol = pb.Build();
+
+            var m = new MultiMeasureNonStringDimensionsTestWithTime { Name="abc", SetOptional = new string('a', 3000), LongNullable = 123 };
+
+            var ex = Assert.Catch<Exception>(() => protocol.Encode(m, options));
+
+            StringAssert.StartsWith("Measure:SetOptional length(3000) is too long - max length allowed is 2048 (Parameter 'SetOptional')", ex!.Message);
         }
     }
 }

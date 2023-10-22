@@ -45,6 +45,11 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Options
                 return null;
             }
 
+            if (s.Length > TimestreamConstants.MaxValueLength)
+            {
+                throw new ArgumentException($"Measure:{this.TargetName} length({s.Length}) is too long - max length allowed is {TimestreamConstants.MaxValueLength}", this.TargetName);
+            }
+
             return new MeasureValue
             {
                 Type = this.Type,

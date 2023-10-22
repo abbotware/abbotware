@@ -28,8 +28,6 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
     [Category("IntegrationTests")]
     public class TimestreamBasicTests : BaseNUnitTest
     {
-       
-
         [Test]
         public async Task Builder_NullDimension()
         {
@@ -169,6 +167,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
             pb.AddTime(x => x.Time, TimeUnitType.Milliseconds);
 
             var options = ConfigurationHelper.AppSettingsJson(UnitTestSettingsFile).BindSection<TimestreamOptions>(TimestreamOptions.DefaultSection);
+            options = options with { Table = "multi-only" };
             using var c = new TimestreamPublisher<MultiMeasureNonStringDimensionsTestWithTime>(options, pb.Build(), NullLogger<TimestreamPublisher<MultiMeasureNonStringDimensionsTestWithTime>>.Instance);
 
             var list = new List<MultiMeasureNonStringDimensionsTestWithTime>();
@@ -176,7 +175,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
             var t = DateTimeOffset.UtcNow;
 
             var a = new string('a', 1000);
-            var b = new string('a', 5000);
+            var b = new string('a', 700);
 
             var r = new MultiMeasureNonStringDimensionsTestWithTime { Name = a, Company = a, Int = 123, LongNullable = 345, Long = 789, String = b, String2 = b, String3 = b, Double = 123.23, Decimal = 12.345m, DateTime = DateTime.UtcNow, Boolean = false, Time = t };
 
@@ -219,13 +218,13 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
 
             var p = await c.PublishAsync(list, default);
 
-            await Task.Delay(TimeSpan.FromSeconds(.5));
+            await Task.Delay(TimeSpan.FromSeconds(1.4));
             Assert.That(c.RecordsPublished, Is.EqualTo(100));
             Assert.That(c.RecordsNotIngested, Is.EqualTo(0));
 
-            await Task.Delay(TimeSpan.FromSeconds(.5));
+            await Task.Delay(TimeSpan.FromSeconds(1.1));
             Assert.That(c.RecordsPublished, Is.EqualTo(101));
-            Assert.That(c.RecordsNotIngested, Is.EqualTo(101));
+            Assert.That(c.RecordsNotIngested, Is.EqualTo(0));
 
             this.BlockIfDebugging();
         }

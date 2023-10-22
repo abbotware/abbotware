@@ -68,7 +68,7 @@
         [Test]
         [TestCase(null)]
         [TestCase("")]
-        public void Encode_Empty_NullableDimension(string? value)
+        public void Encode_Empty_Optionals(string? value)
         {
             var pb = CommonBuilder();
 
@@ -86,7 +86,7 @@
         [Test]
         [TestCase(null)]
         [TestCase("")]
-        public void Encode_Bad_Dimensions(string? value)
+        public void Encode_Bad_Values(string? value)
         {
             var pb = CommonBuilder();
 
@@ -101,7 +101,7 @@
         }
 
         [Test]
-        public void Encode_Missing_Dimensions()
+        public void Encode_AllNull()
         {
             var pb = new ProtocolBuilder<MultiMeasureNonStringDimensionsTestWithTime>("metrics");
             pb.AddNullableDimension(x => x.Optional);
@@ -118,7 +118,7 @@
         }
 
         [Test]
-        public void Encode_TooLong_Dimensions()
+        public void Encode_TooLong()
         {
             var pb = CommonBuilder();
 
