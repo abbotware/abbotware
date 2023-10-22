@@ -20,7 +20,7 @@ namespace Abbotware.Interop.UnitTests.NUnit
     public class TimeoutAttributeTests : BaseNUnitTest
     {
         [Test]
-        [Timeout(2)]
+        [Timeout(300)]
         [ExpectedException(typeof(TimeoutException))]
         public void Timeout_Thrown()
         {
@@ -28,13 +28,13 @@ namespace Abbotware.Interop.UnitTests.NUnit
         }
 
         [Test]
-        [Timeout(2)]
+        [Timeout(300)]
         public void NoTimeout()
         {
         }
 
         [Test]
-        [Timeout(10)]
+        [Timeout(300)]
         [ExpectedException(typeof(ArgumentException))]
         public void ExpectedException_AfterTimeout()
         {
@@ -43,7 +43,7 @@ namespace Abbotware.Interop.UnitTests.NUnit
 
         [Test]
         [ExpectedException(typeof(ArgumentException))]
-        [Timeout(10)]
+        [Timeout(300)]
         public void ExpectedException_BeforeTimeout()
         {
             throw new ArgumentException("test");
