@@ -101,7 +101,15 @@ namespace Abbotware.Interop.Aws.Timestream
 
                     using var handle = SetupCancellation(response, ct);
 
-                    rows = this.Protocol.Decode(response);
+                    // special case for bypassing the decoder
+                    if (typeof(TMessage) == typeof(Row))
+                    {
+                        rows = response.Rows.Cast<TMessage>().ToList();
+                    }
+                    else
+                    {
+                        rows = this.Protocol.Decode(response);
+                    }
                 }
                 catch (Exception ex)
                 {
