@@ -33,7 +33,16 @@ steps:
 - script: dotnet build --configuration $(buildConfiguration) /p:Version=$(buildLabel4) /p:AssemblyVersion=$(buildLabel4) /p:AssemblyInformationalVersion=$(buildLabel4) /p:FileVersion=$(buildLabel4) /p:PackageVersion=$(buildLabel3)
   displayName: 'dotnet build $(buildConfiguration)'
 
-- script: dotnet test --filter FullyQualifiedName~.UnitTests. /p:GeneratePackageOnBuild=false --configuration $(buildConfiguration) --no-restore --logger trx --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura
+#- script: dotnet test --filter FullyQualifiedName~.UnitTests. /p:GeneratePackageOnBuild=false --configuration $(buildConfiguration) --no-restore --logger trx --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura
+#  displayName: 'dotnet test $(buildConfiguration)'
+
+- task: AWSPowerShellModuleScript@1
+  inputs:
+    awsCredentials: 'aws-unit-test'
+    regionName: 'us-east-1'
+    scriptType: 'inline'
+    inlineScript: |
+      dotnet test --filter FullyQualifiedName~.UnitTests. /p:GeneratePackageOnBuild=false --configuration $(buildConfiguration) --no-restore --logger trx --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura
   displayName: 'dotnet test $(buildConfiguration)'
 
 - task: PublishTestResults@2
