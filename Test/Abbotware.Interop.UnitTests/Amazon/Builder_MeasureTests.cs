@@ -1,5 +1,5 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="TimestreamBasicTests.cs" company="Abbotware, LLC">
+// <copyright file="Builder_MeasureTests.cs" company="Abbotware, LLC">
 // Copyright © Abbotware, LLC 2012-2023. All rights reserved
 // </copyright>
 // <author>Anthony Abate</author>
@@ -15,17 +15,16 @@ namespace Abbotware.UnitTests.Interop.Amazon
     using Abbotware.Interop.Aws.Timestream.Protocol;
     using Abbotware.Interop.Aws.Timestream.Protocol.Plugins;
     using Abbotware.Utility.UnitTest.Using.NUnit;
-    using Microsoft.Extensions.Logging;
     using NUnit.Framework;
 
     [TestFixture]
     [Category("Interop.Amazon")]
     [Category("Interop.Amazon.Integration")]
     [Category("IntegrationTests")]
-    public class TimestreamProtocolBuilderTests : BaseNUnitTest
+    public class Builder_MeasureTests : BaseNUnitTest
     {
         [Test]
-        public void AddMeasure_Expression_Twice()
+        public void Expression_AddTwice()
         {
             var pb = new ProtocolBuilder<SingleMeasureTest>();
             pb.AddMeasure(x => x.Name);
@@ -34,7 +33,16 @@ namespace Abbotware.UnitTests.Interop.Amazon
         }
 
         [Test]
-        public void AddMeasure_Expression_Twice_OverrideName()
+        public void Expression_AddTwice_Name()
+        {
+            var pb = new ProtocolBuilder<SingleMeasureTest>();
+            pb.AddMeasure(x => x.Name);
+
+            Assert.Throws<ArgumentException>(() => pb.AddMeasure("Name", x => x.Value));
+        }
+
+        [Test]
+        public void Expression_AddTwice_OverrideName()
         {
             var pb = new ProtocolBuilder<SingleMeasureTest>();
             pb.AddMeasure(x => x.Name);
@@ -43,12 +51,29 @@ namespace Abbotware.UnitTests.Interop.Amazon
         }
 
         [Test]
-        public void AddSameName_Expression()
+        public void Function_AddTwice()
         {
             var pb = new ProtocolBuilder<SingleMeasureTest>();
-            pb.AddMeasure(x => x.Name);
+            pb.AddMeasure("test", x => x.Name);
 
-            Assert.Throws<ArgumentException>(() => pb.AddDimension(x => x.Name));
+            Assert.Throws<ArgumentException>(() => pb.AddMeasure("test", x => x.Name));
+        }
+
+        [Test]
+        public void Function_AddTwice_OverrideName()
+        {
+            var pb = new ProtocolBuilder<SingleMeasureTest>();
+            pb.AddMeasure("test2", x => x.Name);
+
+            Assert.Throws<ArgumentException>(() => pb.AddMeasure("test3", x => x.Name, x => x.Name = "test2"));
+        }
+
+        [Test]
+        public void Function_AddWithDifferentNames()
+        {
+            var pb = new ProtocolBuilder<SingleMeasureTest>("metrics");
+            pb.AddMeasure("test1", x => x.Name);
+            pb.AddMeasure("test2", x => x.Name);
         }
 
         [Test]
@@ -152,25 +177,6 @@ namespace Abbotware.UnitTests.Interop.Amazon
             var ex = Assert.Catch<Exception>(() => protocol.Encode(m, options));
 
             StringAssert.StartsWith("Record is missing measure values (they might all be null?)", ex!.Message);
-        }
-
-        [Test]
-        public void Encode_NullableTime()
-        {
-            var pb = new ProtocolBuilder<MultiMeasureNonStringDimensionsTestWithTime>("metrics");
-            pb.AddDimension(x => x.Name);
-            pb.AddNullableMeasure(x => x.LongNullable);
-            pb.AddNullableMeasure(x => x.NullableTime);
-            pb.AddNullableTime(x => x.NullableTime, TimeUnitType.Milliseconds, x => x ?? DateTimeOffset.UtcNow);
-
-            var options = new TimestreamOptions() { Database = "db", Table = "table" };
-            var protocol = pb.Build();
-
-            var m = new MultiMeasureNonStringDimensionsTestWithTime { Name = "asdf", LongNullable = 123 };
-
-            var encoded = protocol.Encode(m, options);
-
-            using var c = new TimestreamPublisher<MultiMeasureNonStringDimensionsTestWithTime>(options, pb.Build(), this.LoggerFactory.CreateLogger<PocoPublisher<MultiMeasureNonStringDimensionsTestWithTime>>());
         }
     }
 }

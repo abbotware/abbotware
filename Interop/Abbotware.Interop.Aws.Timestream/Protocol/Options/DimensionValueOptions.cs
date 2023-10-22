@@ -21,7 +21,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Options
     /// <param name="Converter">converter function</param>
     /// <param name="SourceName">source property name</param>
     /// <param name="TargetName">target name</param>
-    public record class DimensionValueOptions<TMessage, TProperty>(DimensionValueType Type, Func<TMessage, TProperty> Expression, Func<TProperty, string> Converter, string SourceName, string TargetName) 
+    public record class DimensionValueOptions<TMessage, TProperty>(DimensionValueType Type, Func<TMessage, TProperty> Expression, Func<TProperty, string> Converter, string SourceName, string TargetName)
         : MessagePropertyFactoryOptions<DimensionValueType, TMessage, TProperty, string, Dimension>(Type, Expression, Converter, SourceName, TargetName)
         where TMessage : notnull
         where TProperty : notnull
@@ -39,7 +39,12 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Options
 
             if (s.IsBlank())
             {
-                throw new ArgumentNullException(this.TargetName, $"Dimension {this.SourceName}->{this.TargetName} is null/empty string even after converter function was called. if this is expected, use a nullable dimension instead");
+                throw new ArgumentNullException(this.TargetName, $"Dimension:{this.TargetName} is null/empty string even after converter function was called. if this is expected, use a nullable dimension instead");
+            }
+
+            if (s.Length > TimestreamConstants.MaxValueLength)
+            {
+                throw new ArgumentException($"Dimension:{this.TargetName} length({s.Length}) is too long - max length allowed is {TimestreamConstants.MaxValueLength}", this.TargetName);
             }
 
             return new Dimension

@@ -21,7 +21,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Options
     /// <param name="Converter">converter function</param>
     /// <param name="SourceName">source property name</param>
     /// <param name="TargetName">target name</param>
-    public record class NullableDimensionValueOptions<TMessage, TProperty>(DimensionValueType Type, Func<TMessage, TProperty?> Expression, Func<TProperty?, string?> Converter, string SourceName, string TargetName) 
+    public record class NullableDimensionValueOptions<TMessage, TProperty>(DimensionValueType Type, Func<TMessage, TProperty?> Expression, Func<TProperty?, string?> Converter, string SourceName, string TargetName)
         : MessagePropertyFactoryOptions<DimensionValueType, TMessage, TProperty?, string?, Dimension>(Type, Expression, Converter, SourceName, TargetName)
         where TMessage : notnull
     {

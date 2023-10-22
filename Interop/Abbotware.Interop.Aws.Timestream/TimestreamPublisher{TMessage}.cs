@@ -123,9 +123,9 @@ namespace Abbotware.Interop.Aws.Timestream
         {
             var request = this.Protocol.Encode(messages, this.Configuration);
 
-            if (request.Records.Count > TimesreamConstants.MaxRecordBatch)
+            if (request.Records.Count > TimestreamConstants.MaxRecordBatch)
             {
-                throw new InvalidOperationException($"Can not send more than {TimesreamConstants.MaxRecordBatch} records to AWS Timestream");
+                throw new InvalidOperationException($"Can not send more than {TimestreamConstants.MaxRecordBatch} records to AWS Timestream");
             }
 
             try

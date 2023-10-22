@@ -67,6 +67,25 @@
             var w = p.Encode(new SingleMeasureTest() { Name = "a", Time = DateTimeOffset.Now });
         }
 
+        [Test]
+        public void Encode_NullableTime()
+        {
+            var pb = new ProtocolBuilder<MultiMeasureNonStringDimensionsTestWithTime>("metrics");
+            pb.AddDimension(x => x.Name);
+            pb.AddNullableMeasure(x => x.LongNullable);
+            pb.AddNullableMeasure(x => x.NullableTime);
+            pb.AddNullableTime(x => x.NullableTime, TimeUnitType.Milliseconds, x => x ?? DateTimeOffset.UtcNow);
+
+            var options = new TimestreamOptions() { Database = "db", Table = "table" };
+            var protocol = pb.Build();
+
+            var m = new MultiMeasureNonStringDimensionsTestWithTime { Name = "asdf", LongNullable = 123 };
+
+            var encoded = protocol.Encode(m, options);
+
+            using var c = new TimestreamPublisher<MultiMeasureNonStringDimensionsTestWithTime>(options, pb.Build(), this.LoggerFactory.CreateLogger<PocoPublisher<MultiMeasureNonStringDimensionsTestWithTime>>());
+        }
+
         private static ProtocolBuilder<SingleMeasureTest> CommonBuilder()
         {
             var pb = new ProtocolBuilder<SingleMeasureTest>();

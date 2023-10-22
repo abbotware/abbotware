@@ -21,7 +21,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Options
     /// <param name="Expression">property evaluator expression</param>
     /// <param name="Converter">converter function</param>
     /// <param name="SourceName">source property name</param>
-    public record class TimeValueOptions<TMessage, TProperty>(TimeUnitType Type, Func<TMessage, TProperty> Expression, Func<TProperty, DateTimeOffset> Converter, string SourceName) 
+    public record class TimeValueOptions<TMessage, TProperty>(TimeUnitType Type, Func<TMessage, TProperty> Expression, Func<TProperty, DateTimeOffset> Converter, string SourceName)
         : MessagePropertyOption<TimeUnitType, TMessage, TProperty, DateTimeOffset>(Type, Expression, Converter, SourceName, "Time"), IRecordUpdater<TMessage>
         where TMessage : notnull
     {
@@ -33,7 +33,6 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Options
 
             switch (this.Type)
             {
-
                 case TimeUnitType.Seconds:
                     {
                         var unix = dto.ToUnixTimeSeconds();
@@ -62,6 +61,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Options
 
                         break;
                     }
+
                 default:
                     throw new NotSupportedException($"TimeUnitType:{this.Type} currently unsupported");
             }

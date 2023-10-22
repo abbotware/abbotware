@@ -89,13 +89,13 @@ namespace Abbotware.Interop.Aws.Timestream
 
                     while (this.channel.Reader.Count > 0)
                     {
-                        var messages = new List<TMessage>(TimesreamConstants.MaxRecordBatch);
+                        var messages = new List<TMessage>(TimestreamConstants.MaxRecordBatch);
 
                         while (this.channel.Reader.TryRead(out var m))
                         {
                             messages.Add(m);
 
-                            if (messages.Count == TimesreamConstants.MaxRecordBatch)
+                            if (messages.Count == TimestreamConstants.MaxRecordBatch)
                             {
                                 break;
                             }
@@ -107,7 +107,7 @@ namespace Abbotware.Interop.Aws.Timestream
 
                         // If the channel has less than a full batch then we will break the inner forcing a delay before writing again
                         // This effectively 'throttles' lots of small writes
-                        if (this.channel.Reader.Count < TimesreamConstants.MaxRecordBatch)
+                        if (this.channel.Reader.Count < TimestreamConstants.MaxRecordBatch)
                         {
                             break;
                         }

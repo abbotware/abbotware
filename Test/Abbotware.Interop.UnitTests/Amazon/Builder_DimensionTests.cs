@@ -1,15 +1,12 @@
-﻿
-namespace Abbotware.UnitTests.Interop.Amazon
+﻿namespace Abbotware.UnitTests.Interop.Amazon
 {
     using System;
     using System.Linq;
     using Abbotware.IntegrationTests.Interop.Amazon.TestClasses.Timestream;
-    using Abbotware.Interop.Aws.Timestream;
     using Abbotware.Interop.Aws.Timestream.Configuration;
     using Abbotware.Interop.Aws.Timestream.Protocol;
     using Abbotware.Interop.Aws.Timestream.Protocol.Plugins;
     using Abbotware.Utility.UnitTest.Using.NUnit;
-    using Microsoft.Extensions.Logging;
     using NUnit.Framework;
 
     [TestFixture]
@@ -100,7 +97,7 @@ namespace Abbotware.UnitTests.Interop.Amazon
 
             var ex = Assert.Catch<Exception>(() => protocol.Encode(m, options));
 
-            StringAssert.StartsWith("Dimension ->Name is null/empty string even after converter function was called. if this is expected, use a nullable dimension instead (Parameter 'Name')", ex!.Message);
+            StringAssert.StartsWith("Dimension:Name is null/empty string even after converter function was called. if this is expected, use a nullable dimension instead (Parameter 'Name')", ex!.Message);
         }
 
         [Test]
@@ -118,6 +115,21 @@ namespace Abbotware.UnitTests.Interop.Amazon
             var ex = Assert.Catch<Exception>(() => protocol.Encode(m, options));
 
             StringAssert.StartsWith("Record is missing dimension values (they might all be null?)", ex!.Message);
+        }
+
+        [Test]
+        public void Encode_TooLong_Dimensions()
+        {
+            var pb = CommonBuilder();
+
+            var options = new TimestreamOptions() { Database = "db", Table = "table" };
+            var protocol = pb.Build();
+
+            var m = new MultiMeasureNonStringDimensionsTestWithTime { Name = new string('a', 3000), LongNullable = 123 };
+
+            var ex = Assert.Catch<Exception>(() => protocol.Encode(m, options));
+
+            StringAssert.StartsWith("Dimension:Name length(3000) is too long - max length allowed is 2048 (Parameter 'Name')", ex!.Message);
         }
 
         private static ProtocolBuilder<MultiMeasureNonStringDimensionsTestWithTime> CommonBuilder()
