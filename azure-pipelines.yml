@@ -15,6 +15,7 @@ variables:
   Version.Revision: $[counter(variables['Abbotware.Core'], 0)]  
   buildLabel3: "$(Version.MajorMinor).$(Version.Revision)"
   buildLabel4: "$(buildLabel3).0"
+  AWS_DEFAULT_REGION: "us-east-1"
 
 steps:
 - task: PowerShell@2
