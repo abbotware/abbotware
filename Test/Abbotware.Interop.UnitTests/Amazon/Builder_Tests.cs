@@ -19,7 +19,7 @@
         [Test]
         public void AddMesureDimension_SameName()
         {
-            var pb = new ProtocolBuilder<SingleMeasureTest>();
+            var pb = new ProtocolBuilder<SingleMeasureWithTime>();
             pb.AddMeasure(x => x.Name);
 
             Assert.Throws<ArgumentException>(() => pb.AddDimension(x => x.Name));

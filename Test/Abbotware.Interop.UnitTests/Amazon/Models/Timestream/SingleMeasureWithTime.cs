@@ -3,12 +3,12 @@
     using System;
     using Abbotware.Interop.Aws.Timestream.Attributes;
 
-    public class SingleMeasureTest
+    public class SingleMeasureWithTime
     {
         [Dimension]
         public string Name { get; set; }
 
-        [MeasureValue]
+        [Measure]
         public int Value { get; set; }
 
         [Time]

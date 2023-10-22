@@ -12,7 +12,7 @@ namespace Abbotware.Interop.Aws.Timestream.Attributes
     /// Attribute to identify a property that is used for measure values
     /// </summary>
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
-    public sealed class MeasureValueAttribute : Attribute
+    public sealed class MeasureAttribute : Attribute
     {
         /// <summary>
         /// Gets or sets the name

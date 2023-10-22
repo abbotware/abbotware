@@ -20,7 +20,7 @@
         [Test]
         public void AddTime_Twice()
         {
-            var pb = new ProtocolBuilder<SingleMeasureTest>();
+            var pb = new ProtocolBuilder<SingleMeasureWithTime>();
             pb.AddTime(x => x.Time, TimeUnitType.Seconds);
             var e = Assert.Throws<ArgumentException>(() => pb.AddTime(x => x.Time, TimeUnitType.Seconds));
         }
@@ -32,7 +32,7 @@
             pb.AddTime(x => x.Time, TimeUnitType.Seconds);
             var p = pb.Build();
 
-            var w = p.Encode(new SingleMeasureTest() { Name = "a", Time = DateTimeOffset.Now });
+            var w = p.Encode(new SingleMeasureWithTime() { Name = "a", Time = DateTimeOffset.Now });
         }
 
         [Test]
@@ -42,7 +42,7 @@
             pb.AddTime(x => x.Time, TimeUnitType.Milliseconds);
             var p = pb.Build();
 
-            var w = p.Encode(new SingleMeasureTest() { Name = "a", Time = DateTimeOffset.Now });
+            var w = p.Encode(new SingleMeasureWithTime() { Name = "a", Time = DateTimeOffset.Now });
         }
 
         [Test]
@@ -53,7 +53,7 @@
             pb.AddTime(x => x.Time, TimeUnitType.Microseconds);
             var p = pb.Build();
 
-            var w = p.Encode(new SingleMeasureTest() { Name = "a", Time = DateTimeOffset.Now });
+            var w = p.Encode(new SingleMeasureWithTime() { Name = "a", Time = DateTimeOffset.Now });
         }
 
         [Test]
@@ -64,7 +64,7 @@
             pb.AddTime(x => x.Time, TimeUnitType.Nanoseconds);
             var p = pb.Build();
 
-            var w = p.Encode(new SingleMeasureTest() { Name = "a", Time = DateTimeOffset.Now });
+            var w = p.Encode(new SingleMeasureWithTime() { Name = "a", Time = DateTimeOffset.Now });
         }
 
         [Test]
@@ -86,9 +86,9 @@
             using var c = new TimestreamPublisher<MultiMeasureNonStringDimensionsTestWithTime>(options, pb.Build(), this.LoggerFactory.CreateLogger<PocoPublisher<MultiMeasureNonStringDimensionsTestWithTime>>());
         }
 
-        private static ProtocolBuilder<SingleMeasureTest> CommonBuilder()
+        private static ProtocolBuilder<SingleMeasureWithTime> CommonBuilder()
         {
-            var pb = new ProtocolBuilder<SingleMeasureTest>();
+            var pb = new ProtocolBuilder<SingleMeasureWithTime>();
             pb.AddDimension(x => x.Name);
             pb.AddMeasure(x => x.Value);
             return pb;

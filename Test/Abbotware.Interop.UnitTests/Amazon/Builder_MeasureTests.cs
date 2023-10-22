@@ -26,7 +26,7 @@ namespace Abbotware.UnitTests.Interop.Amazon
         [Test]
         public void Expression_AddTwice()
         {
-            var pb = new ProtocolBuilder<SingleMeasureTest>();
+            var pb = new ProtocolBuilder<SingleMeasureWithTime>();
             pb.AddMeasure(x => x.Name);
 
             Assert.Throws<ArgumentException>(() => pb.AddMeasure(x => x.Name));
@@ -35,7 +35,7 @@ namespace Abbotware.UnitTests.Interop.Amazon
         [Test]
         public void Expression_AddTwice_Name()
         {
-            var pb = new ProtocolBuilder<SingleMeasureTest>();
+            var pb = new ProtocolBuilder<SingleMeasureWithTime>();
             pb.AddMeasure(x => x.Name);
 
             Assert.Throws<ArgumentException>(() => pb.AddMeasure("Name", x => x.Value));
@@ -44,7 +44,7 @@ namespace Abbotware.UnitTests.Interop.Amazon
         [Test]
         public void Expression_AddTwice_OverrideName()
         {
-            var pb = new ProtocolBuilder<SingleMeasureTest>();
+            var pb = new ProtocolBuilder<SingleMeasureWithTime>();
             pb.AddMeasure(x => x.Name);
 
             Assert.Throws<ArgumentException>(() => pb.AddMeasure(x => x.Value, x => x.Name = "Name"));
@@ -53,7 +53,7 @@ namespace Abbotware.UnitTests.Interop.Amazon
         [Test]
         public void Function_AddTwice()
         {
-            var pb = new ProtocolBuilder<SingleMeasureTest>();
+            var pb = new ProtocolBuilder<SingleMeasureWithTime>();
             pb.AddMeasure("test", x => x.Name);
 
             Assert.Throws<ArgumentException>(() => pb.AddMeasure("test", x => x.Name));
@@ -62,7 +62,7 @@ namespace Abbotware.UnitTests.Interop.Amazon
         [Test]
         public void Function_AddTwice_OverrideName()
         {
-            var pb = new ProtocolBuilder<SingleMeasureTest>();
+            var pb = new ProtocolBuilder<SingleMeasureWithTime>();
             pb.AddMeasure("test2", x => x.Name);
 
             Assert.Throws<ArgumentException>(() => pb.AddMeasure("test3", x => x.Name, x => x.Name = "test2"));
@@ -71,7 +71,7 @@ namespace Abbotware.UnitTests.Interop.Amazon
         [Test]
         public void Function_AddWithDifferentNames()
         {
-            var pb = new ProtocolBuilder<SingleMeasureTest>("metrics");
+            var pb = new ProtocolBuilder<SingleMeasureWithTime>("metrics");
             pb.AddMeasure("test1", x => x.Name);
             pb.AddMeasure("test2", x => x.Name);
         }

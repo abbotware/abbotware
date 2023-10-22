@@ -12,10 +12,10 @@
         [Dimension]
         public string? Optional { get; set; }
 
-        [MeasureValue]
+        [Measure]
         public int Value { get; set; }
 
-        [MeasureValue]
+        [Measure]
         public int? ValueB { get; set; }
 
         [Time]

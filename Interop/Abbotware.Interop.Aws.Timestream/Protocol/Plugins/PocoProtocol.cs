@@ -64,7 +64,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
                     ds.Add(targetName, new DimensionValueOptions<TMessage, string>(dvt, x => (string)p.GetValue(x)!, x => x, sourceName, targetName));
                 }
 
-                var mva = ReflectionHelper.SingleOrDefaultAttribute<MeasureValueAttribute>(p);
+                var mva = ReflectionHelper.SingleOrDefaultAttribute<MeasureAttribute>(p);
 
                 if (mva is not null)
                 {

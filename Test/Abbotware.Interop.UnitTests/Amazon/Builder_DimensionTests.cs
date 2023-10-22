@@ -17,7 +17,7 @@
         [Test]
         public void Expression_AddTwice()
         {
-            var pb = new ProtocolBuilder<SingleMeasureTest>();
+            var pb = new ProtocolBuilder<SingleMeasureWithTime>();
             pb.AddDimension(x => x.Name);
 
             Assert.Throws<ArgumentException>(() => pb.AddDimension(x => x.Name));
@@ -26,7 +26,7 @@
         [Test]
         public void Expression_AddTwice_Name()
         {
-            var pb = new ProtocolBuilder<SingleMeasureTest>();
+            var pb = new ProtocolBuilder<SingleMeasureWithTime>();
             pb.AddDimension(x => x.Name);
             Assert.Throws<ArgumentException>(() => pb.AddDimension("Name", x => x.Value));
         }
@@ -34,7 +34,7 @@
         [Test]
         public void Expression_AddTwice_OverrideName()
         {
-            var pb = new ProtocolBuilder<SingleMeasureTest>();
+            var pb = new ProtocolBuilder<SingleMeasureWithTime>();
             pb.AddDimension(x => x.Name);
             Assert.Throws<ArgumentException>(() => pb.AddDimension(x => x.Value, x => x.Name = "Name"));
         }
@@ -42,7 +42,7 @@
         [Test]
         public void Function_AddTwice()
         {
-            var pb = new ProtocolBuilder<SingleMeasureTest>();
+            var pb = new ProtocolBuilder<SingleMeasureWithTime>();
             pb.AddDimension("test", x => x.Name);
 
             Assert.Throws<ArgumentException>(() => pb.AddDimension("test", x => x.Name));
@@ -51,7 +51,7 @@
         [Test]
         public void Function_AddTwice_OverrideName()
         {
-            var pb = new ProtocolBuilder<SingleMeasureTest>();
+            var pb = new ProtocolBuilder<SingleMeasureWithTime>();
             pb.AddDimension("test2", x => x.Name);
 
             Assert.Throws<ArgumentException>(() => pb.AddDimension("test3", x => x.Name, x => x.Name = "test2"));
@@ -60,7 +60,7 @@
         [Test]
         public void Function_AddWithDifferentNames()
         {
-            var pb = new ProtocolBuilder<SingleMeasureTest>();
+            var pb = new ProtocolBuilder<SingleMeasureWithTime>();
             pb.AddDimension("test1", x => x.Name);
             pb.AddDimension("test2", x => x.Name);
         }

@@ -12,28 +12,28 @@
         [Dimension(Name = "Company2")]
         public string Company { get; set; }
 
-        [MeasureValue]
+        [Measure]
         public int ValueA { get; set; }
 
-        [MeasureValue]
+        [Measure]
         public long? ValueB { get; set; }
 
-        [MeasureValue]
+        [Measure]
         public long ValueC { get; set; }
 
-        [MeasureValue]
+        [Measure]
         public string ValueD { get; set; }
 
-        [MeasureValue]
+        [Measure]
         public double ValueE { get; set; }
 
-        [MeasureValue]
+        [Measure]
         public decimal ValueF { get; set; }
 
-        [MeasureValue]
+        [Measure]
         public DateTime ValueG { get; set; }
 
-        [MeasureValue]
+        [Measure]
         public bool ValueH { get; set; }
     }
 }

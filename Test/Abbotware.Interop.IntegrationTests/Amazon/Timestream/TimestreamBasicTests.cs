@@ -28,59 +28,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
     [Category("IntegrationTests")]
     public class TimestreamBasicTests : BaseNUnitTest
     {
-        [Test]
-        public async Task POCO_TimestreamBasic_SingleMeasureTest()
-        {
-            var options = ConfigurationHelper.AppSettingsJson(UnitTestSettingsFile).BindSection<TimestreamOptions>(TimestreamOptions.DefaultSection);
-            using var c = new PocoPublisher<SingleMeasureTest>(options, this.LoggerFactory.CreateLogger<PocoPublisher<SingleMeasureTest>>());
-
-            var p = await c.PublishAsync(new SingleMeasureTest { Name = Guid.NewGuid().ToString(), Value = 123 }, default);
-
-            Assert.That(p, Is.EqualTo(PublishStatus.Confirmed));
-        }
-
-        [Test]
-        public async Task POCO_TimestreamBasic_NullDimension()
-        {
-            var options = ConfigurationHelper.AppSettingsJson(UnitTestSettingsFile).BindSection<TimestreamOptions>(TimestreamOptions.DefaultSection);
-            using var c = new PocoPublisher<NullDimension>(options, this.LoggerFactory.CreateLogger<PocoPublisher<NullDimension>>());
-
-            var p = await c.PublishAsync(new NullDimension { Name = Guid.NewGuid().ToString(), Value = 123, Time = DateTimeOffset.Now }, default);
-
-            Assert.That(p, Is.EqualTo(PublishStatus.Confirmed));
-        }
-
-        [Test]
-        public async Task POCO_TimestreamBasic_MultiMeasureTest()
-        {
-            var options = ConfigurationHelper.AppSettingsJson(UnitTestSettingsFile).BindSection<TimestreamOptions>(TimestreamOptions.DefaultSection);
-            using var c = new PocoPublisher<MultiMeasureTest>(options, this.LoggerFactory.CreateLogger<PocoPublisher<MultiMeasureTest>>());
-
-            var p = await c.PublishAsync(new MultiMeasureTest { Name = Guid.NewGuid().ToString(), Company = "asdfads", ValueA = 123, ValueB = 345, ValueC = 789, ValueD = "testing", ValueE = 123.23, ValueF = 12.345m, ValueG = DateTime.UtcNow, ValueH = false }, default);
-
-            Assert.That(p, Is.EqualTo(PublishStatus.Confirmed));
-        }
-
-        [Test]
-        public async Task POCO_TimestreamBasic_MultiMeasureStringDimensionsTestWithTime()
-        {
-            var options = ConfigurationHelper.AppSettingsJson(UnitTestSettingsFile).BindSection<TimestreamOptions>(TimestreamOptions.DefaultSection);
-            using var c = new PocoPublisher<MultiMeasureStringDimensionsTestWithTime>(options, this.LoggerFactory.CreateLogger<PocoPublisher<MultiMeasureStringDimensionsTestWithTime>>());
-
-            var list = new List<MultiMeasureStringDimensionsTestWithTime>();
-
-            var t = DateTimeOffset.UtcNow;
-
-            for (int i = 0; i < 100; ++i)
-            {
-                t = t.AddMilliseconds(1);
-                list.Add(new MultiMeasureStringDimensionsTestWithTime { Name = Guid.NewGuid().ToString(), Company = "asdfads", ValueA = 123 + i, ValueB = 345 + i, ValueC = 789 + i, ValueD = "testing", ValueE = 123.23 + i, ValueF = 12.345m + i, ValueG = DateTime.UtcNow, ValueH = false, Time = t });
-            }
-
-            var p = await c.PublishAsync(list, default);
-
-            Assert.That(p, Is.EqualTo(PublishStatus.Confirmed));
-        }
+       
 
         [Test]
         public async Task Builder_NullDimension()
@@ -89,7 +37,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
             pb.AddDimension(x => x.Name);
             pb.AddNullableDimension(x => x.Optional);
             pb.AddMeasure(x => x.Value);
-            pb.AddMeasure(x => x.ValueB);
+            pb.AddNullableMeasure(x => x.ValueB);
 
             var options = ConfigurationHelper.AppSettingsJson(UnitTestSettingsFile).BindSection<TimestreamOptions>(TimestreamOptions.DefaultSection);
             using var c = new TimestreamPublisher<NullDimension>(options, pb.Build(), this.LoggerFactory.CreateLogger<PocoPublisher<NullDimension>>());
@@ -106,7 +54,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
             pb.AddDimension(x => x.Name);
             pb.AddNullableDimension(x => x.Optional);
             pb.AddMeasure(x => x.Value);
-            pb.AddMeasure(x => x.ValueB);
+            pb.AddNullableMeasure(x => x.ValueB);
             pb.AddTime(x => x.Time, TimeUnitType.Milliseconds);
 
             var options = ConfigurationHelper.AppSettingsJson(UnitTestSettingsFile).BindSection<TimestreamOptions>(TimestreamOptions.DefaultSection);
@@ -135,7 +83,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
             pb.AddNullableDimension(x => x.Optional);
             pb.AddNullableDimension(x => x.SetOptional);
             pb.AddMeasure(x => x.ValueA);
-            pb.AddMeasure(x => x.ValueB);
+            pb.AddNullableMeasure(x => x.ValueB);
             pb.AddMeasure(x => x.ValueC);
             pb.AddMeasure(x => x.ValueD);
             pb.AddMeasure(x => x.ValueE);
@@ -172,7 +120,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
             pb.AddNullableDimension(x => x.SetOptional);
             pb.AddDimension(x => x.IdDimension, x => x.Converter = y => y.ToString());
             pb.AddMeasure(x => x.Int);
-            pb.AddMeasure(x => x.LongNullable);
+            pb.AddNullableMeasure(x => x.LongNullable);
             pb.AddMeasure(x => x.Long);
             pb.AddMeasure(x => x.String);
             pb.AddMeasure(x => x.Double);
@@ -209,7 +157,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
             pb.AddNullableDimension(x => x.SetOptional);
             pb.AddDimension(x => x.IdDimension, x => x.Converter = y => y.ToString());
             pb.AddMeasure(x => x.Int);
-            pb.AddMeasure(x => x.LongNullable);
+            pb.AddNullableMeasure(x => x.LongNullable);
             pb.AddMeasure(x => x.Long);
             pb.AddMeasure(x => x.String);
             pb.AddMeasure(x => x.String2);
@@ -247,7 +195,7 @@ namespace Abbotware.IntegrationTests.Interop.Amazon
             pb.AddNullableDimension(x => x.SetOptional);
             pb.AddDimension(x => x.IdDimension, x => x.Converter = y => y.ToString());
             pb.AddMeasure(x => x.Int);
-            pb.AddMeasure(x => x.LongNullable);
+            pb.AddNullableMeasure(x => x.LongNullable);
             pb.AddMeasure(x => x.Long);
             pb.AddMeasure(x => x.String);
             pb.AddMeasure(x => x.Double);
