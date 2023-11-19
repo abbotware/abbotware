@@ -7,13 +7,10 @@
 
 namespace Abbotware.Core.Objects
 {
-    using System;
-    using System.Diagnostics.CodeAnalysis;
     using System.Threading;
     using System.Threading.Tasks;
     using Abbotware.Core.Exceptions;
     using Abbotware.Core.Extensions;
-    using Abbotware.Core.Logging;
     using Microsoft.Extensions.Logging.Abstractions;
 
     /// <summary>
@@ -142,13 +139,10 @@ namespace Abbotware.Core.Objects
             return CancellationTokenSource.CreateLinkedTokenSource(this.DisposeRequested.Token, external);
         }
 
-        /// <summary>
-        /// Disabling Function - should not be called
-        /// </summary>
-        [ExcludeFromCodeCoverage]
+        /// <inheritdoc/>
         protected override sealed void OnInitialize()
         {
-            throw new NotSupportedException();
+            this.InitializeIfRequiredAsync(this.DisposeRequested.Token).GetAwaiter().GetResult();
         }
 
         /// <inheritdoc/>
