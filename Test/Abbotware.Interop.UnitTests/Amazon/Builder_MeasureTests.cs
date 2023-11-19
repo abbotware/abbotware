@@ -189,7 +189,7 @@ namespace Abbotware.UnitTests.Interop.Amazon
             var options = new TimestreamOptions() { Database = "db", Table = "table" };
             var protocol = pb.Build();
 
-            var m = new MultiMeasureNonStringDimensionsTestWithTime { Name="abc", SetOptional = new string('a', 3000), LongNullable = 123 };
+            var m = new MultiMeasureNonStringDimensionsTestWithTime { Name = "abc", SetOptional = new string('a', 3000), LongNullable = 123 };
 
             var ex = Assert.Catch<Exception>(() => protocol.Encode(m, options));
 

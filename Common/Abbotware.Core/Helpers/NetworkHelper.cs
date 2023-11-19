@@ -46,7 +46,7 @@ namespace Abbotware.Core.Helpers
                 var ipArray = ips.Where(x => x.AddressFamily == AddressFamily.InterNetwork && !IPAddress.IsLoopback(x))
                     .ToArray();
 
-                if (ipArray.Any())
+                if (ipArray.Length != 0)
                 {
                     return ipArray;
                 }

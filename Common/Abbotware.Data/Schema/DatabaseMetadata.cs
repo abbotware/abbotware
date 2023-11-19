@@ -74,7 +74,7 @@ namespace Abbotware.Data.Schema
 
             this.InitializeIfRequired();
 
-            return this.tables.SingleOrDefault(x => (x.Schema.ToUpperInvariant() == schemaName.ToUpperInvariant()) && (x.Table.ToUpperInvariant() == tableName.ToUpperInvariant()));
+            return this.tables.SingleOrDefault(x => x.Schema.Equals(schemaName, StringComparison.OrdinalIgnoreCase) && x.Table.Equals(tableName, StringComparison.OrdinalIgnoreCase));
         }
 
         /// <inheritdoc/>

@@ -145,7 +145,7 @@ namespace Abbotware.Interop.Castle.Plugins.Aspects
                 sb.Append(argumentDescription).Append(',');
             }
 
-            if (invocation.Arguments.Any())
+            if (invocation.Arguments.Length != 0)
             {
                 sb.Length--;
             }
