@@ -9,6 +9,7 @@ namespace Abbotware.Core
     using System;
     using System.IO;
     using System.Runtime.CompilerServices;
+    using Abbotware.Core.Diagnostics;
 
     /// <summary>
     /// Collection of entry/guard methods for function arguments
@@ -59,9 +60,13 @@ namespace Abbotware.Core
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void IsSerializable<T>([CallerMemberName] string? method = null)
         {
-            if (!typeof(T).IsSerializable)
+            var t = typeof(T);
+
+            var a = ReflectionHelper.SingleOrDefaultAttribute<SerializableAttribute>(t);
+
+            if (a is null)
             {
-                throw new ArgumentException($"can not serialaize/deserialize '{typeof(T).FullName}'  missing [Serializable] attribute.  Method:{method}");
+                throw new ArgumentException($"can not serialaize/deserialize '{t.FullName}'  missing [Serializable] attribute.  Method:{method}");
             }
         }
 

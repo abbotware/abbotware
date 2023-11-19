@@ -14,7 +14,7 @@ namespace Abbotware.Core.Math
     /// <typeparam name="T">interval type</typeparam>
     public record class Interval<T>
     {
-        private static readonly IComparer<T> Comparer = Comparer<T>.Default;
+        private static readonly Comparer<T> Comparer = Comparer<T>.Default;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Interval{T}"/> class.

@@ -142,7 +142,7 @@ namespace Abbotware.Core.Data.ExtensionPoints.Text
                     string.Join(", ", extraFileHeaders.ToArray()),
                     string.Join(", ", extraProperties.ToArray()));
 
-                var stopFlag = (!this.allowFileToHaveExtraProperties && extraFileHeaders.Any()) || (!this.allowClassToHaveExtraProperties && extraProperties.Any());
+                var stopFlag = (!this.allowFileToHaveExtraProperties && extraFileHeaders.Count != 0) || (!this.allowClassToHaveExtraProperties && extraProperties.Count != 0);
 
                 if (stopFlag)
                 {

@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  
+
   <PropertyGroup>
     <Nullable>enable</Nullable>
-    <TargetFrameworks>netstandard2.0;netstandard2.1;net6;net7</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;net6;net7;net8</TargetFrameworks>
   </PropertyGroup>
 
   <Choose>
@@ -27,7 +27,12 @@
         <Compile Remove="**/*.netstandard2.0.cs" />
       </ItemGroup>
     </When>
-      <When Condition="'$(TargetFramework)' == 'net7'">
+    <When Condition="'$(TargetFramework)' == 'net7'">
+      <ItemGroup>
+        <Compile Remove="**/*.netstandard2.0.cs" />
+      </ItemGroup>
+    </When>
+    <When Condition="'$(TargetFramework)' == 'net8'">
       <ItemGroup>
         <Compile Remove="**/*.netstandard2.0.cs" />
       </ItemGroup>
@@ -42,11 +47,7 @@
     <Compile Remove="Messaging\Integration\Amqp\Plugins\NetDataContract.cs" />
     <Compile Remove="Messaging\Integration\Amqp\Plugins\NetDataContract{TMessage}.cs" />
   </ItemGroup>
-  
-  <ItemGroup>
-    <EmbeddedFiles Remove="Diagnostics\NotNullAttribute.cs" />
-  </ItemGroup>
-  
+
   <ItemGroup>
     <None Include="Messaging\Integration\Amqp\Plugins\NetDataContract.cs" />
     <None Include="Messaging\Integration\Amqp\Plugins\NetDataContract{TMessage}.cs" />

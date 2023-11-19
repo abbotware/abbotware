@@ -120,27 +120,22 @@ namespace Abbotware.Core.Collections
         /// <inheritdoc />
         public bool ContainsKey(T1 key1, T2 key2, T3 key3, T4 key4)
         {
-            if (!this.values.ContainsKey(key1))
+            if (!this.values.TryGetValue(key1, out var level2))
             {
                 return false;
             }
 
-            if (!this.values[key1].ContainsKey(key2))
+            if (!level2.TryGetValue(key2, out var level3))
             {
                 return false;
             }
 
-            if (!this.values[key1][key2].ContainsKey(key3))
+            if (!level3.TryGetValue(key3, out var level4))
             {
                 return false;
             }
 
-            if (!this.values[key1][key2][key3].ContainsKey(key4))
-            {
-                return false;
-            }
-
-            return true;
+            return level4.TryGetValue(key4, out var _);
         }
     }
 }

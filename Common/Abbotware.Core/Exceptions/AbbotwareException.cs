@@ -46,18 +46,6 @@ namespace Abbotware.Core.Exceptions
         }
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="AbbotwareException" /> class.
-        /// </summary>
-        /// <param name="info">serialization info</param>
-        /// <param name="context">streaming context</param>
-        [ExcludeFromCodeCoverage]
-        protected AbbotwareException(SerializationInfo info, StreamingContext context)
-            : base(info, context)
-        {
-            Arguments.NotNull(info, nameof(info));
-        }
-
-        /// <summary>
         ///     create a new <see cref="AbbotwareException" /> and build the string format message
         /// </summary>
         /// <param name="format">exception message</param>

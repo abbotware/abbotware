@@ -20,7 +20,7 @@ namespace Abbotware.Core.Threading.Counters
         /// <summary>
         ///     Internal atomic counter
         /// </summary>
-        private readonly IAccumulator counter = new AtomicCounter();
+        private readonly AtomicCounter counter = new AtomicCounter();
 
         /// <summary>
         ///     max value for counter before wait handle is released

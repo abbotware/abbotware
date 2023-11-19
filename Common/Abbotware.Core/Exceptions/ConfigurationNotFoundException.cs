@@ -41,15 +41,5 @@ namespace Abbotware.Core.Exceptions
             : base(message, innerException)
         {
         }
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="ConfigurationNotFoundException" /> class.
-        /// </summary>
-        /// <param name="info">serialization info</param>
-        /// <param name="context">streaming conted</param>
-        protected ConfigurationNotFoundException(SerializationInfo info, StreamingContext context)
-            : base(info, context)
-        {
-        }
     }
 }
