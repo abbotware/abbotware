@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
     <Nullable>enable</Nullable>
-    <TargetFrameworks>net7</TargetFrameworks>
+    <TargetFrameworks>net8</TargetFrameworks>
 		<Description>Abbotware Interop Library for EntityFramework - Contains helper methods, extension methods, and plugins</Description>
 		<PackageTags>EntityFramework</PackageTags>
 	</PropertyGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net7'">
-    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.12" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.12" />
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.0" />
   </ItemGroup>
 
 	<ItemGroup>
