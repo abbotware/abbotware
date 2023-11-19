@@ -52,7 +52,6 @@ namespace Abbotware.Core.Extensions
             }
 
             var aggregate = extended
-                .OfType<DictionaryEntry>()
                 .OrderBy(s => s.Key)
                 .Aggregate(
                     new StringBuilder(),

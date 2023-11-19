@@ -6,38 +6,16 @@
 
 namespace Abbotware.Quant.Rates.Plugins
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Abbotware.Core.Math;
     using Abbotware.Quant.Assets;
     using Abbotware.Quant.Extensions;
-    using Abbotware.Quant.InterestRates;
 
     /// <summary>
-    /// Zero Rate Curve
+    ///  Zero Rate Curve helper functions
     /// </summary>
-    /// <typeparam name="TDate">date type</typeparam>
-    public class ZeroRateCurve<TDate> : DiscreteCurve<TDate, double>, IRiskFreeRate<TDate>
-              where TDate : struct
+    public static class ZeroRateCurve
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ZeroRateCurve{TDate}"/> class.
-        /// </summary>
-        public ZeroRateCurve()
-            : base(Array.Empty<KeyValuePair<TDate, double>>())
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ZeroRateCurve{TDate}"/> class.
-        /// </summary>
-        /// <param name="points">data points to use for the curve</param>
-        public ZeroRateCurve(params KeyValuePair<TDate, double>[] points)
-            : base(points)
-        {
-        }
-
         /// <summary>
         /// Bootstraps a zero-rate curve from bond prices
         /// </summary>

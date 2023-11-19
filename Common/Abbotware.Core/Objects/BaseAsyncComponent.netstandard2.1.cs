@@ -19,31 +19,10 @@ namespace Abbotware.Core.Objects
         /// <inheritdoc/>
         public async ValueTask DisposeAsync()
         {
+            await this.OnDisposeAsyncCore().ConfigureAwait(false);
+
+            this.Dispose(disposing: false);
             GC.SuppressFinalize(this);
-
-            this.DisposeRequested.Cancel();
-
-            using var cts = new CancellationTokenSource();
-
-            try
-            {
-                await this.OnDisposeAsync(cts.Token)
-                    .ConfigureAwait(true);
-            }
-            finally
-            {
-                cts.Cancel();
-            }
-        }
-
-             /// <summary>
-        ///     Hook to implement custom initialization logic
-        /// </summary>
-        /// <param name="ct">cancellation token</param>
-        /// <returns>async task handle</returns>
-        protected virtual ValueTask OnInitializeAsync(CancellationToken ct)
-        {
-            return default;
         }
 
         /// <summary>
@@ -51,17 +30,23 @@ namespace Abbotware.Core.Objects
         /// </summary>
         /// <param name="ct">cancellation token</param>
         /// <returns>async task handle</returns>
-        protected virtual ValueTask OnDisposeAsync(CancellationToken ct)
-        {
-            return default;
-        }
+        protected virtual ValueTask OnInitializeAsync(CancellationToken ct)
+#if NETSTANDARD2_1
+            => default;
+#else
+            => ValueTask.CompletedTask;
+#endif
 
-        /// <inheritdoc/>
-        protected override sealed void OnDisposeManagedResources()
-        {
-            // this just wires up a Dispose to DisposeAsync
-            this.DisposeAsync().AsTask().GetAwaiter().GetResult();
-        }
+        /// <summary>
+        ///     Hook to implement custom initialization logic
+        /// </summary>
+        /// <returns>async task handle</returns>
+        protected virtual ValueTask OnDisposeAsyncCore()
+#if NETSTANDARD2_1
+            => default;
+#else
+            => ValueTask.CompletedTask;
+#endif
 
         partial void SetInitializeTask(CancellationToken ct)
         {

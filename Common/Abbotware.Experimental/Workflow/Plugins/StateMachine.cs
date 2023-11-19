@@ -158,7 +158,7 @@ namespace Abbotware.Core.Workflow.Plugins
 
             var action = a.Where(x => string.Equals(x.Name, actionName, StringComparison.OrdinalIgnoreCase)).ToList();
 
-            if (!action.Any())
+            if (action.Count == 0)
             {
                 ////var journal = new WorkflowJournal(this.Name, this.Logger);
                 ////var j = journal as IEditableWorkflowJournal;

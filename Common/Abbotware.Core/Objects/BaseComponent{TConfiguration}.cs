@@ -7,7 +7,6 @@
 
 namespace Abbotware.Core.Objects
 {
-    using Abbotware.Core.Logging;
     using Abbotware.Core.Objects.Internal;
 
     /// <summary>

@@ -174,14 +174,14 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
             {
                 var d = this.OnCreateDimensions(message);
 
-                if (!d.Any())
+                if (d.Count == 0)
                 {
                     throw new InvalidOperationException($"Record is missing dimension values (they might all be null?) message:{message}");
                 }
 
                 var m = this.OnCreateMeasures(message);
 
-                if (!m.Any())
+                if (m.Count == 0)
                 {
                     throw new InvalidOperationException($"Record is missing measure values (they might all be null?) message:{message}");
                 }

@@ -54,7 +54,7 @@ namespace Abbotware.Core.Extensions
 
             var mi = t.GetMember(enumeration.ToString());
 
-            if (!mi.Any())
+            if (mi.Length == 0)
             {
                 return enumeration.ToString();
             }

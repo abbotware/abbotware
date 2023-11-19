@@ -13,7 +13,6 @@ namespace Abbotware.Core.Objects
     using System.Globalization;
     using System.Runtime.CompilerServices;
     using Abbotware.Core.Extensions;
-    using Abbotware.Core.Logging;
     using Microsoft.Extensions.Logging.Abstractions;
 
     /// <summary>
@@ -112,10 +111,14 @@ namespace Abbotware.Core.Objects
         /// <param name="method">compiler supplied member name</param>
         protected void ThrowIfDisposed([CallerMemberName] string? method = null)
         {
+#if NET7_0_OR_GREATER
+            ObjectDisposedException.ThrowIf(this.IsDisposedOrDisposing, this);
+#else
             if (this.IsDisposedOrDisposing)
             {
                 throw new ObjectDisposedException($"Can not call method:{method} after object is disposed");
             }
+#endif
         }
 
         /// <summary>

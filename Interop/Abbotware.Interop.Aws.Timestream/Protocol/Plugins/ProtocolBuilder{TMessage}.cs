@@ -150,7 +150,7 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
 
         private IProtocolBuilder<TMessage> OnAddMeasure<TProperty>(MeasureValueOptions<TMessage, TProperty> options)
         {
-            if (this.measures.Any())
+            if (this.measures.Count != 0)
             {
                 if (this.MeasureName.IsBlank())
                 {

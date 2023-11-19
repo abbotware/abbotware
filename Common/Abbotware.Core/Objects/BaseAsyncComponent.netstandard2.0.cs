@@ -21,10 +21,7 @@ namespace Abbotware.Core.Objects
         /// </summary>
         /// <param name="ct">cancellation token</param>
         /// <returns>async task handle</returns>
-        protected virtual Task OnInitializeAsync(CancellationToken ct)
-        {
-            return Task.CompletedTask;
-        }
+        protected virtual Task OnInitializeAsync(CancellationToken ct) => Task.CompletedTask;
 
         /// <inheritdoc/>
         protected override void OnDisposeManagedResources()

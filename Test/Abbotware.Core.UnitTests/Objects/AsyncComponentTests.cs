@@ -9,6 +9,9 @@ namespace Abbotware.UnitTests.Core
     using System.Threading.Tasks;
     using Abbotware.Core.Objects;
     using Abbotware.Interop.NUnit;
+    using Castle.Core.Logging;
+    using Microsoft.Extensions.Logging;
+    using Microsoft.Extensions.Logging.Abstractions;
     using NUnit.Framework;
 
     [TestFixture]
@@ -149,7 +152,7 @@ namespace Abbotware.UnitTests.Core
 
             Assert.IsFalse(a.IsInitialized);
 
-            Thread.Sleep(200);
+            await Task.Delay(200);
 
             await a.InitializeAsync(default);
         }
@@ -183,6 +186,11 @@ namespace Abbotware.UnitTests.Core
 
         internal sealed class AObjectInitThrows : BaseAsyncComponent
         {
+            public AObjectInitThrows()
+                : base(NullLogger<AObjectInitThrows>.Instance)
+            {
+            }
+
             protected override async ValueTask OnInitializeAsync(CancellationToken ct)
             {
                 await Task.Delay(TimeSpan.FromMilliseconds(100), ct);
@@ -198,6 +206,7 @@ namespace Abbotware.UnitTests.Core
             private readonly TimeSpan wait;
 
             public AObject(TimeSpan wait)
+                : base(NullLogger<AObject>.Instance)
             {
                 this.wait = wait;
             }
