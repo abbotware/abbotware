@@ -25,14 +25,6 @@ namespace Abbotware.Core.Objects
         /// <summary>
         ///     Initializes a new instance of the <see cref="BaseAsyncComponent" /> class.
         /// </summary>
-        protected BaseAsyncComponent()
-            : this(NullLogger.Instance)
-        {
-        }
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="BaseAsyncComponent" /> class.
-        /// </summary>
         /// <param name="logger">Injected logger for the class</param>
         protected BaseAsyncComponent(ILogger logger)
             : base(logger)
