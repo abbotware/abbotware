@@ -181,12 +181,12 @@ namespace Abbotware.Interop.Aws.Timestream.Protocol.Plugins
                 }
             }
 
-            if (!ds.Any())
+            if (ds.Count == 0)
             {
                 throw new InvalidOperationException($"{t.FullName} has no Dimension Attributes");
             }
 
-            if (!ms.Any())
+            if (ms.Count == 0)
             {
                 throw new InvalidOperationException($"{t.FullName} has no MeasureValue Attributes");
             }
