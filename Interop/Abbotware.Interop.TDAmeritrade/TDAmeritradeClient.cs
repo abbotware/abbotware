@@ -290,7 +290,7 @@ namespace Abbotware.Interop.TDAmeritrade
 
                 if (periods != null)
                 {
-                    request.AddQueryParameter("period", periods!.ToString()!);
+                    request.AddQueryParameter("period", periods.Value.ToString(CultureInfo.InvariantCulture));
                 }
             }
 
@@ -364,7 +364,7 @@ namespace Abbotware.Interop.TDAmeritrade
 
                 if (frequency != null)
                 {
-                    request.AddQueryParameter("frequency", frequency.ToString()!);
+                    request.AddQueryParameter("frequency", frequency.Value.ToString(CultureInfo.InvariantCulture));
                 }
             }
 

@@ -73,7 +73,7 @@ namespace Abbotware.Interop.Aws.Sqs.Plugins
         /// </summary>
         /// <param name="config">configuration options</param>
         /// <returns>redis connection</returns>
-        private ISqsConnection OnCreate(ISqsSettings config)
+        private SqsConnection OnCreate(ISqsSettings config)
         {
             var sqsConfig = new AmazonSQSConfig
             {
