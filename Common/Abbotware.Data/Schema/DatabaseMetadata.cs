@@ -14,7 +14,6 @@ namespace Abbotware.Data.Schema
     using System.Linq;
     using Abbotware.Core;
     using Abbotware.Core.Extensions;
-    using Abbotware.Core.Logging;
     using Abbotware.Core.Objects;
     using Abbotware.Data.Configuration;
     using Microsoft.Data.SqlClient;

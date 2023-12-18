@@ -66,12 +66,12 @@ namespace Abbotware.Quant.Derivatives
     /// <summary>
     /// Forward Rate Agreement Contract
     /// </summary>
-    /// <typeparam name="TUnderlying1">type of the underlying 1</typeparam>
-    /// <typeparam name="TUnderlying2">type of the underlying 2</typeparam>
+    /// <typeparam name="TLeg1">type of the underlying 1</typeparam>
+    /// <typeparam name="TLeg2">type of the underlying 2</typeparam>
     /// <typeparam name="TDate">date type</typeparam>
     /// <param name="Maturity">Maturity Date</param>
-    public record Swap<TUnderlying1, TUnderlying2, TDate>(TDate Maturity)
-        : Derivative<TUnderlying1, TUnderlying2, TDate>(Maturity)
+    public record Swap<TLeg1, TLeg2, TDate>(TDate Maturity)
+        : Derivative<TLeg1, TLeg2, TDate>(Maturity)
     {
     }
 }

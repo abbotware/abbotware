@@ -176,13 +176,13 @@ namespace Abbotware.Core.Diagnostics.Plugins
                 }
                 else
                 {
-                    if (!bigDelta.ContainsKey(delta))
+                    if (!bigDelta.TryGetValue(delta, out int value))
                     {
                         bigDelta.Add(delta, 1);
                     }
                     else
                     {
-                        ++bigDelta[delta];
+                        bigDelta[delta] = ++value;
                     }
                 }
             }

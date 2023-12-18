@@ -16,7 +16,6 @@
     [Category("Interop.Amazon.Timestream")]
     internal class Builder_TimeTests : BaseNUnitTest
     {
-
         [Test]
         public void AddTime_Twice()
         {

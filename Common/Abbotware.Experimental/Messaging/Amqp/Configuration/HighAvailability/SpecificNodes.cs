@@ -31,7 +31,7 @@ namespace Abbotware.Core.Messaging.Amqp.Configuration.HighAvailability
         {
             Arguments.NotNull(nodes, nameof(nodes));
 
-            if (!nodes.Any())
+            if (nodes.Length == 0)
             {
                 throw new ArgumentException("must provide at least one cluster node name", nameof(nodes));
             }

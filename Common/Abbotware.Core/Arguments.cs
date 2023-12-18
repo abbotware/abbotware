@@ -92,11 +92,26 @@ namespace Abbotware.Core
         /// <param name="name">name of argument</param>
         /// <param name="method">name of method</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void IsPositiveOrZero(long argument, string name, [CallerMemberName] string? method = null)
+        {
+            if (argument < 0)
+            {
+                throw new ArgumentOutOfRangeException(name, $"argument:{argument} is not zero or positive.  Method:{method}");
+            }
+        }
+
+        /// <summary>
+        /// Throws ArgumentException if IntPtr is zero
+        /// </summary>
+        /// <param name="argument">argument value</param>
+        /// <param name="name">name of argument</param>
+        /// <param name="method">name of method</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void IsPositiveAndNotZero(TimeSpan argument, string name, [CallerMemberName] string? method = null)
         {
             if (argument.Ticks <= 0)
             {
-                throw new ArgumentOutOfRangeException($"argument:{argument} is not greater than zero.  Method:{method}", name);
+                throw new ArgumentOutOfRangeException(name, $"argument:{argument} is not greater than zero.  Method:{method}");
             }
         }
 
@@ -111,22 +126,22 @@ namespace Abbotware.Core
         {
             if (argument <= 0)
             {
-                throw new ArgumentOutOfRangeException($"argument:{argument} is not greater than zero.  Method:{method}", name);
+                throw new ArgumentOutOfRangeException(name, $"argument:{argument} is not greater than zero.  Method:{method}");
             }
         }
 
         /// <summary>
-        /// Throws ArgumentException if IntPtr is zero
+        /// Throws ArgumentException if uint is zero
         /// </summary>
         /// <param name="argument">argument value</param>
         /// <param name="name">name of argument</param>
         /// <param name="method">name of method</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void IsPositiveOrZero(long argument, string name, [CallerMemberName] string? method = null)
+        public static void IsPositiveAndNotZero(uint argument, string name, [CallerMemberName] string? method = null)
         {
-            if (argument < 0)
+            if (argument <= 0)
             {
-                throw new ArgumentOutOfRangeException($"argument:{argument} is not zero or positive.  Method:{method}", name);
+                throw new ArgumentOutOfRangeException(name, $"argument:{argument} is zero.  Method:{method}");
             }
         }
 
@@ -147,12 +162,12 @@ namespace Abbotware.Core
 
             if (argument > ceiling)
             {
-                throw new ArgumentOutOfRangeException($"argment out of range:{min} - {max}.  Method:{method}", name);
+                throw new ArgumentOutOfRangeException(name, $"argment out of range:{min} - {max}.  Method:{method}");
             }
 
             if (argument < floor)
             {
-                throw new ArgumentOutOfRangeException($"argment out of range:{min} - {max}.  Method:{method}", name);
+                throw new ArgumentOutOfRangeException(name, $"argment out of range:{min} - {max}.  Method:{method}");
             }
         }
 

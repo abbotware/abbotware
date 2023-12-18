@@ -41,15 +41,5 @@ namespace Abbotware.Interop.Graphviz
             : base(message, innerException)
         {
         }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="GraphvizApiException"/> class.
-        /// </summary>
-        /// <param name="info">Serialization Info</param>
-        /// <param name="context">Streaming Context</param>
-        protected GraphvizApiException(SerializationInfo info, StreamingContext context)
-            : base(info, context)
-        {
-        }
     }
 }

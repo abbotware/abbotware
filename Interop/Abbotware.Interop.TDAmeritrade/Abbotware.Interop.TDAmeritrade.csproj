@@ -5,6 +5,7 @@
     <TargetFrameworks>netstandard2.0;netstandard2.1;net6;net7;net8</TargetFrameworks>
     <Description>Abbotware Interop Library for TD Ameritrade Rest API - Contains helper methods, extension methods, plugins, and models</Description>
     <PackageTags>TD Ameritrade;Rest;</PackageTags>
+    <NoWarn>$(NoWarn);SA1402</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

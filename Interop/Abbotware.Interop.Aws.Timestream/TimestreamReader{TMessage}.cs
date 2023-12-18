@@ -81,6 +81,7 @@ namespace Abbotware.Interop.Aws.Timestream
         public async IAsyncEnumerable<TMessage> QueryAsync(string query, [EnumeratorCancellation] CancellationToken ct)
         {
             var request = new QueryRequest();
+            var response = new QueryResponse();
             request.QueryString = query;
             IEnumerable<TMessage> rows = Enumerable.Empty<TMessage>();
             var nextToken = string.Empty;
@@ -89,17 +90,19 @@ namespace Abbotware.Interop.Aws.Timestream
             {
                 try
                 {
-                    var response = await this.Client.QueryAsync(request, ct)
+                    response = await this.Client.QueryAsync(request, ct)
                         .ConfigureAwait(false);
+
+                    var queryId = response.QueryId;
 
                     if (response.HttpStatusCode != System.Net.HttpStatusCode.OK)
                     {
-                        throw new InvalidOperationException($"query failed HTTP Status:{response.HttpStatusCode}");
+                        throw new InvalidOperationException($"Query Id:{queryId} failed HTTP Status:{response.HttpStatusCode}");
                     }
 
                     nextToken = response.NextToken;
 
-                    using var handle = SetupCancellation(response, ct);
+                    using var handle = SetupCancellation(queryId, ct);
 
                     // special case for bypassing the decoder
                     if (typeof(TMessage) == typeof(Row))
@@ -127,12 +130,12 @@ namespace Abbotware.Interop.Aws.Timestream
             }
             while (request.NextToken.IsNotBlank());
 
-            CancellationTokenRegistration SetupCancellation(QueryResponse response, CancellationToken ct)
+            CancellationTokenRegistration SetupCancellation(string id, CancellationToken ct)
             {
                 var handle = ct.Register(() =>
                 {
                     var cqr = new CancelQueryRequest();
-                    cqr.QueryId = response.QueryId;
+                    cqr.QueryId = id;
 
                     this.LogCancelRequest(cqr.QueryId);
 
