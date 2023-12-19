@@ -59,6 +59,37 @@ namespace Abbotware.Quant.LinearAlgebra
         }
 
         /// <summary>
+        /// Row Vector x Matrix (𝒘ᵗ𝑨) => Row Vector (linear combination of rows)
+        /// </summary>
+        /// <param name="left">row vector</param>
+        /// <param name="right">Matrix</param>
+        /// <returns>dot/inner product</returns>
+        /// <exception cref="InvalidOperationException">error cases</exception>
+        public static RowVector<T> operator *(RowVector<T> left, Matrix<T> right)
+        {
+            if (left.Columns != right.Columns)
+            {
+                throw new InvalidOperationException();
+            }
+
+            var linearCombination = new RowVector<T>(right.Columns);
+
+            for (uint i = 0; i < left.Columns; ++i)
+            {
+                var sum = T.Zero;
+
+                for (uint j = 0; j < right.Rows; ++j)
+                {
+                    sum += left[0, i] * right[j, i];
+                }
+
+                linearCombination[0, i] = sum;
+            }
+
+            return linearCombination;
+        }
+
+        /// <summary>
         /// Inner Product / Dot Product
         /// </summary>
         /// <param name="left">row vector</param>

@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="Matrix.cs" company="Abbotware, LLC">
+// <copyright file="Matrix{T}.cs" company="Abbotware, LLC">
 // Copyright © Abbotware, LLC 2012-2023. All rights reserved
 // </copyright>
 // -----------------------------------------------------------------------
@@ -93,6 +93,25 @@ namespace Abbotware.Quant.LinearAlgebra
             get { return this.m[row][column]; }
             set { this.m[row][column] = value; }
         }
+
+        public Matrix<T> Transpose()
+        {
+            var t = new Matrix<T>(this.Columns, this.Rows);
+
+            for (uint i = 0; i < this.Rows; ++i)
+            {
+                for (uint j = 0; j < this.Columns; ++j)
+                {
+                    t[j, i] = this[i, j];
+                }
+            }
+
+            return t;
+        }
+
+        public bool IsSymmetric() => throw new NotImplementedException();
+
+        public bool IsPseudoInverse() => throw new NotImplementedException();
 
         /// <summary>
         /// Matrix Multiplication

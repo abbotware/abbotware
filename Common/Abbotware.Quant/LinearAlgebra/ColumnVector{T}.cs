@@ -6,6 +6,7 @@
 
 namespace Abbotware.Quant.LinearAlgebra
 {
+    using System;
     using System.Numerics;
 
     /// <summary>
@@ -32,5 +33,45 @@ namespace Abbotware.Quant.LinearAlgebra
         : base(values.Transpose())
         {
         }
+
+        /// <summary>
+        /// Column Vector x Matrix (𝒘ᵗ𝑨) => Column Vector (linear combination of columns)
+        /// </summary>
+        /// <param name="left">Matrix</param>
+        /// <param name="right">column vector</param>
+        /// <returns>linear combination of columns</returns>
+        /// <exception cref="InvalidOperationException">error cases</exception>
+        public static ColumnVector<T> operator *(Matrix<T> left, ColumnVector<T> right)
+        {
+            if (left.Rows != right.Rows)
+            {
+                throw new InvalidOperationException();
+            }
+
+            var linearCombination = new ColumnVector<T>(right.Rows);
+
+            for (uint i = 0; i < left.Columns; ++i)
+            {
+                var sum = T.Zero;
+
+                for (uint j = 0; j < right.Rows; ++j)
+                {
+                    sum += left[j, i] * right[j, 0];
+                }
+
+                linearCombination[i, 0] = sum;
+            }
+
+            return linearCombination;
+        }
+
+        /// <summary>
+        /// Column Vector x Matrix (𝒘ᵗ𝑨) => Column Vector (linear combination of columns)
+        /// </summary>
+        /// <param name="left">Matrix</param>
+        /// <param name="right">column vector</param>
+        /// <returns>linear combination of columns</returns>
+        /// <exception cref="InvalidOperationException">error cases</exception>
+        public static ColumnVector<T> Multiply(ColumnVector<T> left, ColumnVector<T> right) => left * right;
     }
 }

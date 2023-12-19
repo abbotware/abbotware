@@ -78,5 +78,45 @@
 
             Assert.That(s, Is.EqualTo("[5 4 3]\r\n[8 9 5]\r\n[6 5 3]\r\n[11 9 6]\r\n"));
         }
+
+        [TestCase]
+        public void Row_x_Matrix()
+        {
+            var A = new Matrix<double>(
+                [
+                    [1, 0, 1],
+                    [2, 1, 1],
+                    [0, 1, 1],
+                    [1, 1, 2],
+                ]);
+
+            var wᵗ = new RowVector<double>(1, 2, 3);
+
+            var x = wᵗ * A;
+
+            var s = x.ToString();
+
+            Assert.That(s, Is.EqualTo("[4 6 15]\r\n"));
+        }
+
+        [TestCase]
+        public void Matrix_x_Column()
+        {
+            var A = new Matrix<double>(
+                [
+                    [1, 0, 1],
+                    [2, 1, 1],
+                    [0, 1, 1],
+                    [1, 1, 2],
+                ]);
+
+            var v = new ColumnVector<double>(1, 3, 2, 3);
+
+            var x = A * v;
+
+            var s = x.ToString();
+
+            Assert.That(s, Is.EqualTo("[10]\\r\\n[8]\\r\\n[12]\\r\\n[0]\\r\\"));
+        }
     }
 }
