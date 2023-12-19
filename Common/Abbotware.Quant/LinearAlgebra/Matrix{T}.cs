@@ -7,16 +7,20 @@
 namespace Abbotware.Quant.LinearAlgebra
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Numerics;
     using System.Text;
     using Abbotware.Core;
+    using Abbotware.Core.Extensions;
+    using Abbotware.Quant.LinearAlgebra.Extensions;
+    using Abbotware.Quant.LinearAlgebra.Operations;
 
     /// <summary>
     /// Matrix class
     /// </summary>
     /// <typeparam name="T">numeric data type</typeparam>
-    public class Matrix<T>
+    public class Matrix<T> : IRowTransform<T>
         where T : INumber<T>
     {
         private readonly T[][] m;
@@ -32,15 +36,26 @@ namespace Abbotware.Quant.LinearAlgebra
             this.Columns = (uint)m[0].Length;
             Arguments.IsPositiveAndNotZero(this.Columns, nameof(this.Columns));
 
+            this.m = new T[(uint)m.Length][];
+
             for (int i = 0; i < m.Length; ++i)
             {
                 if (m[i].Length != this.Columns)
                 {
                     throw new InvalidOperationException($"Jagged Array is not a complete Rectangular: Row:[{i}] has length:{m[i].Length} instead of expected:{this.Columns}");
                 }
-            }
 
-            this.m = m;
+                this.m[i] = m[i][..];
+            }
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Matrix{T}"/> class.
+        /// </summary>
+        /// <param name="m">matrix to copy</param>
+        public Matrix(Matrix<T> m)
+            : this(m.m)
+        {
         }
 
         /// <summary>
@@ -73,6 +88,11 @@ namespace Abbotware.Quant.LinearAlgebra
         public uint Rows => (uint)this.m.Length;
 
         /// <summary>
+        /// Gets the row transform operations
+        /// </summary>
+        public IRowTransform<T> RowTransform => this;
+
+        /// <summary>
         /// Gets the number of columns in the matrix
         /// </summary>
         public uint Columns { get; }
@@ -81,6 +101,11 @@ namespace Abbotware.Quant.LinearAlgebra
         /// Gets a value indicating whether or not the matrix is a square matrix
         /// </summary>
         public virtual bool IsSquare => this.Rows == this.Columns;
+
+        /// <summary>
+        /// Gets a value indicating whether or not the matrix is symmetric
+        /// </summary>
+        public bool IsSymmetric => this.IsSquare ? this.Equals(this.Transpose()) : false;
 
         /// <summary>
         /// gets or sets the element at row,column position
@@ -94,32 +119,13 @@ namespace Abbotware.Quant.LinearAlgebra
             set { this.m[row][column] = value; }
         }
 
-        public Matrix<T> Transpose()
-        {
-            var t = new Matrix<T>(this.Columns, this.Rows);
-
-            for (uint i = 0; i < this.Rows; ++i)
-            {
-                for (uint j = 0; j < this.Columns; ++j)
-                {
-                    t[j, i] = this[i, j];
-                }
-            }
-
-            return t;
-        }
-
-        public bool IsSymmetric() => throw new NotImplementedException();
-
-        public bool IsPseudoInverse() => throw new NotImplementedException();
-
         /// <summary>
         /// Matrix Multiplication
         /// </summary>
         /// <param name="left">left side</param>
         /// <param name="right">right side</param>
         /// <returns>multiplaction results</returns>
-        /// <exception cref="InvalidOperationException">error cases</exception>
+        /// <exception cref="InvalidOperationException">matrix size mismatch</exception>
         public static Matrix<T> operator *(Matrix<T> left, Matrix<T> right)
         {
             if (left.Columns != right.Rows)
@@ -144,13 +150,100 @@ namespace Abbotware.Quant.LinearAlgebra
         }
 
         /// <summary>
+        /// Scalar x Matrix Multiplication
+        /// </summary>
+        /// <param name="left">left side</param>
+        /// <param name="right">right side</param>
+        /// <returns>multiplaction results</returns>
+        public static Matrix<T> operator *(T left, Matrix<T> right)
+        {
+            var m = new Matrix<T>(right.Rows, right.Columns);
+
+            for (uint i = 0; i < m.Rows; ++i)
+            {
+                for (uint j = 0; j < m.Columns; ++j)
+                {
+                    for (uint k = 0; k < m.Columns; ++k)
+                    {
+                        m[i, j] = left * right[i, j];
+                    }
+                }
+            }
+
+            return m;
+        }
+
+        /// <summary>
         /// Matrix Multiplication
         /// </summary>
         /// <param name="left">left side</param>
         /// <param name="right">right side</param>
         /// <returns>multiplaction results</returns>
-        /// <exception cref="InvalidOperationException">error cases</exception>
+        /// <exception cref="InvalidOperationException">matrix size mismatch</exception>
         public static Matrix<T> Multiply(Matrix<T> left, Matrix<T> right) => left * right;
+
+        /// <summary>
+        /// Computes the transpose of the matrix
+        /// </summary>
+        /// <returns>transposed matrix</returns>
+        public Matrix<T> Transpose()
+        {
+            var t = new Matrix<T>(this.Columns, this.Rows);
+
+            for (uint i = 0; i < this.Rows; ++i)
+            {
+                for (uint j = 0; j < this.Columns; ++j)
+                {
+                    t[j, i] = this[i, j];
+                }
+            }
+
+            return t;
+        }
+
+        /// <summary>
+        /// Computes the covariance matrix
+        /// </summary>
+        /// <returns>covariance matrix</returns>
+        public SquareMatrix<T> CovarianceMatrix()
+        {
+            var u = new RowVector<T>(this.Columns);
+
+            var n = T.One;
+
+            for (uint i = 0; i < this.Columns; ++i)
+            {
+                ++n;
+            }
+
+            var n_minus_one = n - T.One;
+
+            // compute the means
+            for (uint i = 0; i < this.Columns; ++i)
+            {
+                var sum = T.Zero;
+
+                for (uint j = 0; j < this.Rows; ++j)
+                {
+                    sum += this[j, i];
+                }
+
+                u[i] = sum / n;
+            }
+
+            var x = new Matrix<T>(this);
+
+            // subtract mean from each row
+            x.RowTransform.Add(u);
+
+            var t = (T.One / n_minus_one) * (x.Transpose() * x);
+
+            var c = new SquareMatrix<T>(t);
+
+            return c;
+        }
+
+        public bool IsPseudoInverse() => throw new NotImplementedException();
 
         /// <summary>
         /// Gets a row
@@ -185,6 +278,61 @@ namespace Abbotware.Quant.LinearAlgebra
             }
 
             return sb.ToString();
+        }
+
+        /// <inheritdoc/>
+        public override bool Equals(object? obj)
+        {
+            if (!this.ClassPossiblyEquals<Matrix<T>>(obj, out var right))
+            {
+                return false;
+            }
+
+            if (right.Columns != this.Columns)
+            {
+                return false;
+            }
+
+            if (right.Rows != this.Rows)
+            {
+                return false;
+            }
+
+            for (uint i = 0; i < this.Rows; ++i)
+            {
+                for (uint j = 0; j < this.Columns; ++j)
+                {
+                    if (this[i, j] != right[i, j])
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        /// <inheritdoc/>
+        public override int GetHashCode()
+        {
+            return ((IStructuralEquatable)this.m).GetHashCode(EqualityComparer<T>.Default);
+        }
+
+        /// <inheritdoc/>
+        void IRowTransform<T>.Add(RowVector<T> vector)
+        {
+            if (vector.Columns != this.Columns)
+            {
+                throw new InvalidOperationException();
+            }
+
+            for (uint i = 0; i < this.Rows; ++i)
+            {
+                for (uint j = 0; j < this.Columns; ++j)
+                {
+                    this[i, j] += vector[j];
+                }
+            }
         }
     }
 }

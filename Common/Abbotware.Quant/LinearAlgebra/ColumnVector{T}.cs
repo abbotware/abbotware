@@ -7,7 +7,9 @@
 namespace Abbotware.Quant.LinearAlgebra
 {
     using System;
+    using System.Linq;
     using System.Numerics;
+    using Abbotware.Quant.LinearAlgebra.Extensions;
 
     /// <summary>
     /// Column Vector
@@ -35,7 +37,18 @@ namespace Abbotware.Quant.LinearAlgebra
         }
 
         /// <summary>
-        /// Column Vector x Matrix (𝒘ᵗ𝑨) => Column Vector (linear combination of columns)
+        /// gets or sets the element at row position
+        /// </summary>
+        /// <param name="row">row number</param>
+        /// <returns>element</returns>
+        public T this[uint row]
+        {
+            get { return this[row, 0]; }
+            set { this[row, 0] = value; }
+        }
+
+        /// <summary>
+        /// Matrix x Column Vector (𝑨𝑣) => Column Vector (linear combination of columns)
         /// </summary>
         /// <param name="left">Matrix</param>
         /// <param name="right">column vector</param>
@@ -73,5 +86,11 @@ namespace Abbotware.Quant.LinearAlgebra
         /// <returns>linear combination of columns</returns>
         /// <exception cref="InvalidOperationException">error cases</exception>
         public static ColumnVector<T> Multiply(ColumnVector<T> left, ColumnVector<T> right) => left * right;
+
+        /// <summary>
+        /// Transpose a Column Vector to a Row Vector
+        /// </summary>
+        /// <returns>transposed row vector</returns>
+        public new RowVector<T> Transpose() => new RowVector<T>(this.Column(0).ToArray());
     }
 }

@@ -116,7 +116,7 @@
 
             var s = x.ToString();
 
-            Assert.That(s, Is.EqualTo("[10]\\r\\n[8]\\r\\n[12]\\r\\n[0]\\r\\"));
+            Assert.That(s, Is.EqualTo("[10]\r\n[8]\r\n[12]\r\n[0]\r\n"));
         }
     }
 }
