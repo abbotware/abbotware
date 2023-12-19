@@ -12,7 +12,7 @@ namespace Abbotware.Quant.LinearAlgebra
     using Abbotware.Quant.LinearAlgebra.Extensions;
 
     /// <summary>
-    /// Row Vector ( 1xn Vector ) :  𝑣ᵗ = (𝑣₁,𝑣₂, ... 𝑣ₙ)
+    /// Row Vector ( 1xN Matrix ) :  𝑣ᵗ = (𝑣₁,𝑣₂, ... 𝑣ₙ)
     /// </summary>
     /// <typeparam name="T">numeric data type</typeparam>
     public class RowVector<T> : Matrix<T>

@@ -12,7 +12,10 @@ namespace Abbotware.Quant.LinearAlgebra
     using Abbotware.Quant.LinearAlgebra.Extensions;
 
     /// <summary>
-    /// Column Vector
+    /// Column Vector  (Nx1 Matrix )     |𝑣₁|
+    ///                              𝑣 = |𝑣₂|
+    ///                                  |..|
+    ///                                  |𝑣ₙ|
     /// </summary>
     /// <typeparam name="T">numeric data type</typeparam>
     public class ColumnVector<T> : Matrix<T>
