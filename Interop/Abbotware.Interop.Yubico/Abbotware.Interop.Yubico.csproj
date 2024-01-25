@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Nullable>enable</Nullable>
-    <TargetFrameworks>netstandard2.0;netstandard2.1;net6;net7</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;net6;net7;net8</TargetFrameworks>
     <Description>Abbotware Interop Library for Yubico API Client - Contains helper methods, extension methods, and plugins</Description>
     <PackageTags>Yubico</PackageTags>
   </PropertyGroup>

@@ -19,8 +19,8 @@
   </ItemGroup>
 
   <ItemGroup>
-	  <PackageReference Include="AWSSDK.TimestreamQuery" Version="3.7.300.5" />
-	  <PackageReference Include="AWSSDK.TimestreamWrite" Version="3.7.300.5" />
+	  <PackageReference Include="AWSSDK.TimestreamQuery" Version="3.7.300.40" />
+	  <PackageReference Include="AWSSDK.TimestreamWrite" Version="3.7.300.40" />
 	</ItemGroup>
 
   <ItemGroup>

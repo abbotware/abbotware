@@ -1,18 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-    <Nullable>enable</Nullable>
-    <TargetFrameworks>netstandard2.0;netstandard2.1;net6;net7</TargetFrameworks>
+		<Nullable>enable</Nullable>
+		<TargetFrameworks>netstandard2.0;netstandard2.1;net6;net7;net8</TargetFrameworks>
 		<Description>Abbotware Interop Library for Amazon CloudWatch - Contains helper methods, extension methods, and plugins</Description>
 		<PackageTags>Lambda;Aws;Amazon</PackageTags>
 	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Serilog.Sinks.AwsCloudWatch" Version="4.0.178" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Serilog.Sinks.AwsCloudWatch" Version="4.0.182" />
+	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Abbotware.Interop.Aws\Abbotware.Interop.Aws.csproj" />
+	  <ProjectReference Include="..\..\Common\Abbotware.Core\Abbotware.Core.csproj" />
 	</ItemGroup>
 
 </Project>
