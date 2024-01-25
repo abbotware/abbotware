@@ -9,7 +9,9 @@ namespace Abbotware.Quant.LinearAlgebra
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Numerics;
+    using System.Runtime.CompilerServices;
     using System.Text;
     using Abbotware.Core;
     using Abbotware.Core.Extensions;
@@ -20,7 +22,7 @@ namespace Abbotware.Quant.LinearAlgebra
     /// Matrix class
     /// </summary>
     /// <typeparam name="T">numeric data type</typeparam>
-    public class Matrix<T> : IRowTransform<T>
+    public class Matrix<T> : IRowTransform<T>, IColumnStatistics<T>
         where T : INumber<T>
     {
         private readonly T[][] m;
@@ -85,7 +87,11 @@ namespace Abbotware.Quant.LinearAlgebra
         /// <summary>
         /// Gets the number of rows in the matrix
         /// </summary>
-        public uint Rows => (uint)this.m.Length;
+        public uint Rows
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get => (uint)this.m.Length;
+        }
 
         /// <summary>
         /// Gets the row transform operations
@@ -93,9 +99,18 @@ namespace Abbotware.Quant.LinearAlgebra
         public IRowTransform<T> RowTransform => this;
 
         /// <summary>
+        /// Gets the column statistics
+        /// </summary>
+        public IColumnStatistics<T> ColumnStatistics => this;
+
+        /// <summary>
         /// Gets the number of columns in the matrix
         /// </summary>
-        public uint Columns { get; }
+        public uint Columns
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get;
+        }
 
         /// <summary>
         /// Gets a value indicating whether or not the matrix is a square matrix
@@ -115,8 +130,17 @@ namespace Abbotware.Quant.LinearAlgebra
         /// <returns>element</returns>
         public T this[uint row, uint column]
         {
-            get { return this.m[row][column]; }
-            set { this.m[row][column] = value; }
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get
+            {
+                return this.m[row][column];
+            }
+
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            set
+            {
+                this.m[row][column] = value;
+            }
         }
 
         /// <summary>
@@ -186,6 +210,27 @@ namespace Abbotware.Quant.LinearAlgebra
         /// Computes the transpose of the matrix
         /// </summary>
         /// <returns>transposed matrix</returns>
+        public Matrix<T> PercentageChange()
+        {
+            var pc = new Matrix<T>(this.Rows - 1, this.Columns);
+
+            for (uint i = 0; i < this.Rows - 1; ++i)
+            {
+                for (uint j = 0; j < this.Columns; ++j)
+                {
+                    var prev = this[i, j];
+                    var next = this[i + 1, j];
+                    pc[i, j] = (next - prev) / prev;
+                }
+            }
+
+            return pc;
+        }
+
+        /// <summary>
+        /// Computes the transpose of the matrix
+        /// </summary>
+        /// <returns>transposed matrix</returns>
         public Matrix<T> Transpose()
         {
             var t = new Matrix<T>(this.Columns, this.Rows);
@@ -207,34 +252,14 @@ namespace Abbotware.Quant.LinearAlgebra
         /// <returns>covariance matrix</returns>
         public SquareMatrix<T> CovarianceMatrix()
         {
-            var u = new RowVector<T>(this.Columns);
-
-            var n = T.One;
-
-            for (uint i = 0; i < this.Columns; ++i)
-            {
-                ++n;
-            }
-
-            var n_minus_one = n - T.One;
-
-            // compute the means
-            for (uint i = 0; i < this.Columns; ++i)
-            {
-                var sum = T.Zero;
-
-                for (uint j = 0; j < this.Rows; ++j)
-                {
-                    sum += this[j, i];
-                }
-
-                u[i] = sum / n;
-            }
+            var u = this.ColumnStatistics.Mean();
 
             var x = new Matrix<T>(this);
 
             // subtract mean from each row
-            x.RowTransform.Add(u);
+            x.RowTransform.Subtract(u);
+
+            var n_minus_one = ToGenericType(this.Rows - 1);
 
             var t = (T.One / n_minus_one) * (x.Transpose() * x);
 
@@ -250,6 +275,7 @@ namespace Abbotware.Quant.LinearAlgebra
         /// </summary>
         /// <param name="row">row number</param>
         /// <returns>the row</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public IEnumerable<T> Row(uint row) => this.m[row];
 
         /// <summary>
@@ -257,6 +283,7 @@ namespace Abbotware.Quant.LinearAlgebra
         /// </summary>
         /// <param name="column">column number</param>
         /// <returns>the column</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public IEnumerable<T> Column(uint column)
         {
             foreach (var row in this.m)
@@ -319,6 +346,28 @@ namespace Abbotware.Quant.LinearAlgebra
         }
 
         /// <inheritdoc/>
+        RowVector<T> IColumnStatistics<T>.Mean()
+        {
+            var u = new RowVector<T>(this.Columns);
+            var n = ToGenericType(this.Rows);
+
+            // compute the means
+            for (uint j = 0; j < this.Columns; ++j)
+            {
+                var sum = T.Zero;
+
+                for (uint i = 0; i < this.Rows; ++i)
+                {
+                    sum += this[i, j];
+                }
+
+                u[j] = sum / n;
+            }
+
+            return u;
+        }
+
+        /// <inheritdoc/>
         void IRowTransform<T>.Add(RowVector<T> vector)
         {
             if (vector.Columns != this.Columns)
@@ -333,6 +382,28 @@ namespace Abbotware.Quant.LinearAlgebra
                     this[i, j] += vector[j];
                 }
             }
+        }
+
+        /// <inheritdoc/>
+        void IRowTransform<T>.Subtract(RowVector<T> vector)
+        {
+            if (vector.Columns != this.Columns)
+            {
+                throw new InvalidOperationException();
+            }
+
+            for (uint i = 0; i < this.Rows; ++i)
+            {
+                for (uint j = 0; j < this.Columns; ++j)
+                {
+                    this[i, j] -= vector[j];
+                }
+            }
+        }
+
+        protected static T ToGenericType(uint number)
+        {
+            return T.One * (T)Convert.ChangeType(number, typeof(T), CultureInfo.InvariantCulture)!;
         }
     }
 }
