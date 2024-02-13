@@ -42,7 +42,7 @@ namespace Abbotware.Quant.Solvers
             while (iterations < 1000)
             {
                 var m = (u + l) / 2;
-                var mid = func((u + l) / 2);
+                var mid = func(m);
 
                 if (Math.Abs(mid - target) < tolerance)
                 {

@@ -177,6 +177,25 @@ namespace Abbotware.Quant
             };
         }
 
+        /// <summary>
+        /// Computes the D+/- of the Black-Scholes equation
+        /// </summary>
+        /// <param name="S">Underlying price</param>
+        /// <param name="K">Strike price</param>
+        /// <param name="τ">Time to expiration (% of year)</param>
+        /// <param name="σ">Volatility</param>
+        /// <param name="r">continuously compounded risk-free interest rate</param>
+        /// <param name="δ">continuously compounded dividend yield</param>
+        /// <returns>D+ and D-</returns>
+        public static (double D1, double D2) D(double S, double K, double τ, double σ, double r, double δ)
+        {
+            var σSqrtτ = VolSqrtτ(τ: τ, σ: σ);
+            var d1 = D1(S, K, τ, σ, r, δ, σSqrtτ);
+            var d2 = D2(d1, σSqrtτ);
+
+            return (d1, d2);
+        }
+
         private static double D1(double S, double K, double τ, double σ, double r, double δ)
         {
             return D1(S, K, τ, σ, r, δ, VolSqrtτ(τ: τ, σ: σ));
@@ -198,14 +217,5 @@ namespace Abbotware.Quant
         }
 
         private static double VolSqrtτ(double τ, double σ) => σ * Math.Sqrt(τ);
-
-        private static (double D1, double D2) D(double spot, double strike, double τ, double σ, double r, double δ)
-        {
-            var σSqrtτ = VolSqrtτ(τ: τ, σ: σ);
-            var d1 = D1(spot, strike, τ, σ, r, δ, σSqrtτ);
-            var d2 = D2(d1, σSqrtτ);
-
-            return (d1, d2);
-        }
     }
 }

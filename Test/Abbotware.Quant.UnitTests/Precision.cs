@@ -7,5 +7,6 @@
         public const double Medium = .00001;
         public const double High = .0000001;
         public const double VeryHigh = .0000000001;
+        public const double VeryVeryHighTolerance = .0000000000001;
     }
 }
