@@ -1,25 +1,29 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  
-  <PropertyGroup>
-    <Nullable>enable</Nullable>
-    <TargetFrameworks>net7;net8</TargetFrameworks>
-    <Description>Abbotware Quant / Finance / High Frequency Trading (HFT) Library</Description>
-    <PackageTags>Quant;Quantitative;Finance;Hft;High Frequency Trading;</PackageTags>
-    <NoWarn>$(NoWarn);SA1402</NoWarn>
-  </PropertyGroup>
 
-  <PropertyGroup>
-    <PackageVersion>$(Version)-beta</PackageVersion>
-  </PropertyGroup>
+	<PropertyGroup>
+		<Nullable>enable</Nullable>
+		<TargetFrameworks>net7;net8</TargetFrameworks>
+		<Description>Abbotware Quant / Finance / High Frequency Trading (HFT) Library</Description>
+		<PackageTags>Quant;Quantitative;Finance;Hft;High Frequency Trading;</PackageTags>
+		<NoWarn>$(NoWarn);SA1402</NoWarn>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Rates\_cleanup\**" />
-    <EmbeddedResource Remove="Rates\_cleanup\**" />
-    <None Remove="Rates\_cleanup\**" />
-  </ItemGroup>
+	<PropertyGroup>
+		<PackageVersion>$(Version)-beta</PackageVersion>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Abbotware.Core\Abbotware.Core.csproj" />
-  </ItemGroup>
-  
+	<ItemGroup>
+		<Compile Remove="Rates\_cleanup\**" />
+		<EmbeddedResource Remove="Rates\_cleanup\**" />
+		<None Remove="Rates\_cleanup\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Abbotware.Core\Abbotware.Core.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="MathNet.Numerics" Version="5.0.0" />
+	</ItemGroup>
+
 </Project>
