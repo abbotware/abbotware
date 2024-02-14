@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Abbotware.Quant.LinearAlgebra
+namespace Abbotware.Quant.LinearAlgebra.Extensions
 {
     /// <summary>
     /// Extension Methods
