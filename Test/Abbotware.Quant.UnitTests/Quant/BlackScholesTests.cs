@@ -30,5 +30,25 @@
                 Assert.That(put, Is.EqualTo(2.456615353).Within(Precision.High));
             });
         }
+
+        [Test]
+        public void PutCall()
+        {
+            var call = BlackScholes.Premium(ContractType.Call, 33, 34, .5, .25, .045, 0);
+            var put = BlackScholes.Premium(ContractType.Put, 33, 34, .5, .25, .045, 0);
+
+            var callFromPut = PutCallParity.CallFromPut(put, 33, 34, .5, .045, 0);
+            var putFromCall = PutCallParity.PutFromCall(call, 33, 34, .5, .045, 0);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(call, Is.EqualTo(2.213073289).Within(Precision.High));
+                Assert.That(put, Is.EqualTo(2.456615353).Within(Precision.High));
+
+                Assert.That(callFromPut, Is.EqualTo(2.213073289).Within(Precision.High));
+                Assert.That(putFromCall, Is.EqualTo(2.456615353).Within(Precision.High));
+            });
+        }
+
     }
 }
