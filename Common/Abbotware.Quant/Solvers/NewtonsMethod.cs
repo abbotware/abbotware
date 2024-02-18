@@ -32,10 +32,16 @@ namespace Abbotware.Quant.Solvers
             do
             {
                 var f = function(next);
+                if (f == 0)
+                {
+                    return next;
+                }
+
                 var d = derivative(next);
 
                 if (d == 0)
                 {
+                    return null;
                     throw new ArgumentOutOfRangeException(nameof(derivative), $"derivative({next}) = 0 for iteration:{i}");
                 }
 
@@ -58,6 +64,7 @@ namespace Abbotware.Quant.Solvers
             }
             while (i < maxIterations);
 
+            return null;
             throw new ArgumentException("Does Not Converge");
         }
     }

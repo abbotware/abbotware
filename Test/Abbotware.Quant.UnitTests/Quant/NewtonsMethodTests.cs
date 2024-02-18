@@ -78,8 +78,8 @@
             }
             else
             {
+                Assert.That(theirsFound, Is.False, "We found no root, but they found a root?");
                 Assert.That(ours, Is.Null);
-                Assert.That(theirsFound, Is.False, "We found no root, but they found a root");
             }
         }
     }

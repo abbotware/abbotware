@@ -61,7 +61,7 @@ namespace Abbotware.Quant.Solvers
 
             if (!yRange.Within(target))
             {
-                throw new ArgumentOutOfRangeException($"target:{target} not within range:{yRange}");
+                throw new ArgumentOutOfRangeException($"target:{target} not within y search range:{yRange}");
             }
 
             while (iterations < maxIterations)
