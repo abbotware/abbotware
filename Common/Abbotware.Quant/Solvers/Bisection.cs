@@ -18,7 +18,7 @@ namespace Abbotware.Quant.Solvers
         /// Solve the function for the targe value
         /// </summary>
         /// <param name="func">function</param>
-        /// <param name="range">range</param>
+        /// <param name="xRange">range</param>
         /// <param name="target">target</param>
         /// <param name="tolerance">tolerance</param>
         /// <param name="strictlyMonotoniclyIncreasing">mimics other root finding where the function has to cross zero</param>
@@ -26,10 +26,10 @@ namespace Abbotware.Quant.Solvers
         /// <param name="trace">optional trace</param>
         /// <returns>value</returns>
         /// <exception cref="ArgumentOutOfRangeException">target is not within the interval range</exception>
-        public static double? Solve(Func<double, double> func, Interval<double> range, double target, double tolerance, bool strictlyMonotoniclyIncreasing = false, uint maxIterations = SolverConstants.DefaultMaxIterations, double[]? trace = null)
+        public static double? Solve(Func<double, double> func, Interval<double> xRange, double target, double tolerance, bool strictlyMonotoniclyIncreasing = false, uint maxIterations = SolverConstants.DefaultMaxIterations, double[]? trace = null)
         {
-            var u = range.Upper;
-            var l = range.Lower;
+            var u = xRange.Upper;
+            var l = xRange.Lower;
             var iterations = 0;
 
             var upper = func(u);
@@ -44,19 +44,24 @@ namespace Abbotware.Quant.Solvers
                 return lower;
             }
 
-            if (Math.Sign(lower) != -1)
+            if (strictlyMonotoniclyIncreasing)
             {
-                return null;
+                if (Math.Sign(lower) != -1)
+                {
+                    return null;
+                }
+
+                if (Math.Sign(upper) != 1)
+                {
+                    return null;
+                }
             }
 
-            if (Math.Sign(upper) != 1)
-            {
-                return null;
-            }
+            var yRange = new Interval<double>(lower, upper);
 
-            if (!range.Within(target))
+            if (!yRange.Within(target))
             {
-                throw new ArgumentOutOfRangeException($"target:{target} not within range:{range}");
+                throw new ArgumentOutOfRangeException($"target:{target} not within range:{yRange}");
             }
 
             while (iterations < maxIterations)
