@@ -14,7 +14,7 @@ namespace Abbotware.Quant.LinearAlgebra
     /// </summary>
     /// <typeparam name="T">numeric data type</typeparam>
     public class SquareMatrix<T> : Matrix<T>
-              where T : INumber<T>
+          where T : INumber<T>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SquareMatrix{T}"/> class.

@@ -7,6 +7,7 @@
 namespace Abbotware.Quant.Solvers
 {
     using System;
+    using Abbotware.Core.Math;
 
     /// <summary>
     /// Newton's Method
@@ -21,8 +22,9 @@ namespace Abbotware.Quant.Solvers
         /// <param name="guess">range</param>
         /// <param name="tolerance">tolerance</param>
         /// <param name="maxIterations">max iterations to try</param>
+        /// <param name="trace">optional trace of path</param>
         /// <returns>x where function(x) = 0</returns>
-        public static double? Solve(Func<double, double> function, Func<double, double> derivative, double guess, double tolerance, uint maxIterations)
+        public static double? Solve(Func<double, double> function, Func<double, double> derivative, double guess, double tolerance, uint maxIterations = SolverConstants.DefaultMaxIterations, Point<double, double>[]? trace = null)
         {
             var i = 0;
             var next = guess;
@@ -37,9 +39,17 @@ namespace Abbotware.Quant.Solvers
                     throw new ArgumentOutOfRangeException(nameof(derivative), $"derivative({next}) = 0 for iteration:{i}");
                 }
 
-                next = f - (f / d);
+                next = next - (f / d);
 
-                if (Math.Abs(next) < tolerance)
+                var v = function(next);
+
+                if (trace is not null)
+                {
+                    trace[i] = new(next, v);
+                }
+
+                // && Math.Abs(f / d) < tolerance <- not sure why we need to check this too
+                if (Math.Abs(v) < tolerance && Math.Abs(f / d) < tolerance)
                 {
                     return next;
                 }

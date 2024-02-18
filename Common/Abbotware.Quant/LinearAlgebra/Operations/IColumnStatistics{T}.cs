@@ -15,7 +15,6 @@ namespace Abbotware.Quant.LinearAlgebra.Operations
     public interface IColumnStatistics<T>
            where T : INumber<T>
     {
-
         /// <summary>
         /// Compute the column means
         /// </summary>

@@ -21,25 +21,45 @@ namespace Abbotware.Quant.Solvers
         /// <param name="range">range</param>
         /// <param name="target">target</param>
         /// <param name="tolerance">tolerance</param>
+        /// <param name="strictlyMonotoniclyIncreasing">mimics other root finding where the function has to cross zero</param>
+        /// <param name="maxIterations">max iterations</param>
+        /// <param name="trace">optional trace</param>
         /// <returns>value</returns>
         /// <exception cref="ArgumentOutOfRangeException">target is not within the interval range</exception>
-        public static double? Solve(Func<double, double> func, Interval<double> range, double target, double tolerance)
+        public static double? Solve(Func<double, double> func, Interval<double> range, double target, double tolerance, bool strictlyMonotoniclyIncreasing = false, uint maxIterations = SolverConstants.DefaultMaxIterations, double[]? trace = null)
         {
             var u = range.Upper;
             var l = range.Lower;
             var iterations = 0;
 
             var upper = func(u);
+            if (upper == target)
+            {
+                return upper;
+            }
+
             var lower = func(l);
+            if (lower == target)
+            {
+                return lower;
+            }
 
-            var values = new Interval<double>(upper, lower);
+            if (Math.Sign(lower) != -1)
+            {
+                return null;
+            }
 
-            if (!values.Within(target))
+            if (Math.Sign(upper) != 1)
+            {
+                return null;
+            }
+
+            if (!range.Within(target))
             {
                 throw new ArgumentOutOfRangeException($"target:{target} not within range:{range}");
             }
 
-            while (iterations < 1000)
+            while (iterations < maxIterations)
             {
                 var m = (u + l) / 2;
                 var mid = func(m);
@@ -52,7 +72,7 @@ namespace Abbotware.Quant.Solvers
                 // Func is Increasing
                 // | L ---------- M ----T------ U |
                 //  -100          50    75      100
-                if (mid < target && target > lower)
+                if (mid <= target && target >= lower)
                 {
                     l = m;
                     lower = mid;
@@ -61,7 +81,7 @@ namespace Abbotware.Quant.Solvers
                 // Func is Decreasing
                 // | L ----T----- M ----------- U |
                 //  100   75      50         -100
-                else if (mid < target && target < lower)
+                else if (mid <= target && target <= lower)
                 {
                     u = m;
                     upper = mid;
@@ -70,7 +90,7 @@ namespace Abbotware.Quant.Solvers
                 // Func is Increasing
                 // | L -----T----- M ---------- U |
                 //  -100   25     50            100
-                else if (mid > target && target > lower)
+                else if (mid >= target && target >= lower)
                 {
                     u = m;
                     upper = mid;
@@ -79,10 +99,14 @@ namespace Abbotware.Quant.Solvers
                 // Func is Decreasing
                 // | L ---------- M -----T------ U |
                 //  100          50    25    -100
-                else if (mid > target && target < lower)
+                else if (mid >= target && target <= lower)
                 {
                     l = m;
                     lower = mid;
+                }
+                else
+                {
+                    throw new NotSupportedException("bug");
                 }
 
                 ++iterations;

@@ -49,6 +49,5 @@
                 Assert.That(putFromCall, Is.EqualTo(2.456615353).Within(Precision.High));
             });
         }
-
     }
 }

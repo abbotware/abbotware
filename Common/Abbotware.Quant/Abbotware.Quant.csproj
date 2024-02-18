@@ -19,6 +19,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Solvers\WIP\IRootFinder.cs" />
+	  <Compile Remove="Solvers\WIP\ISolver.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="Solvers\WIP\IRootFinder.cs" />
+	  <None Include="Solvers\WIP\ISolver.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<ProjectReference Include="..\Abbotware.Core\Abbotware.Core.csproj" />
 	</ItemGroup>
 

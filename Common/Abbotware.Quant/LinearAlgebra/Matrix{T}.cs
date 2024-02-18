@@ -259,7 +259,7 @@ namespace Abbotware.Quant.LinearAlgebra
             // subtract mean from each row
             x.RowTransform.Subtract(u);
 
-            var n_minus_one = ToGenericType(this.Rows - 1);
+            var n_minus_one = (this.Rows - 1).ToGenericNumber<T>();
 
             var t = (T.One / n_minus_one) * (x.Transpose() * x);
 
@@ -349,7 +349,7 @@ namespace Abbotware.Quant.LinearAlgebra
         RowVector<T> IColumnStatistics<T>.Mean()
         {
             var u = new RowVector<T>(this.Columns);
-            var n = ToGenericType(this.Rows);
+            var n = this.Rows.ToGenericNumber<T>();
 
             // compute the means
             for (uint j = 0; j < this.Columns; ++j)
@@ -399,11 +399,6 @@ namespace Abbotware.Quant.LinearAlgebra
                     this[i, j] -= vector[j];
                 }
             }
-        }
-
-        protected static T ToGenericType(uint number)
-        {
-            return T.One * (T)Convert.ChangeType(number, typeof(T), CultureInfo.InvariantCulture)!;
         }
     }
 }
