@@ -55,7 +55,7 @@ namespace Abbotware.Quant
             double F(double x) => Premium(optionType, S, K, τ, x, r, δ) - marketPrice;
             double Derivative(double x) => Vega(S, K, τ, x, r, δ);
 
-            return RobustNewtonRaphson.FindRoot(F, Derivative, lowerBound: 0, upperBound: 100, accuracy: 0.001);
+            return RobustNewtonRaphson.FindRoot(F, Derivative, lowerBound: -200, upperBound: 200, accuracy: 0.001);
         }
 
         /// <summary>
@@ -132,8 +132,8 @@ namespace Abbotware.Quant
 
             return optionType switch
             {
-                ContractType.Call => Math.Exp(-r * τ) * Normal.CDF(0, 1, d1),
-                ContractType.Put => -Math.Exp(-r * τ) * Normal.CDF(0, 1, -d1),
+                ContractType.Call => Math.Exp(-δ * τ) * Normal.CDF(0, 1, d1),
+                ContractType.Put => -Math.Exp(-δ * τ) * Normal.CDF(0, 1, -d1),
                 _ => throw new NotSupportedException(" Option Type Error:" + optionType + " does not exist!"),
             };
         }

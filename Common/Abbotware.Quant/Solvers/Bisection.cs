@@ -26,7 +26,7 @@ namespace Abbotware.Quant.Solvers
         /// <param name="trace">optional trace</param>
         /// <returns>value</returns>
         /// <exception cref="ArgumentOutOfRangeException">target is not within the interval range</exception>
-        public static double? Solve(Func<double, double> func, Interval<double> xRange, double target, double tolerance, bool strictlyMonotoniclyIncreasing = false, uint maxIterations = SolverConstants.DefaultMaxIterations, double[]? trace = null)
+        public static double? Solve(Func<double, double> func, Interval<double> xRange, double target, double tolerance, bool strictlyMonotoniclyIncreasing = false, uint maxIterations = SolverConstants.DefaultMaxIterations, double?[]? trace = null)
         {
             var u = xRange.Upper;
             var l = xRange.Lower;
@@ -112,6 +112,11 @@ namespace Abbotware.Quant.Solvers
                 else
                 {
                     throw new NotSupportedException("bug");
+                }
+
+                if (trace is not null)
+                {
+                    trace[iterations] = m;
                 }
 
                 ++iterations;

@@ -42,7 +42,7 @@ namespace Abbotware.Quant.Solvers
                 if (d == 0)
                 {
                     return null;
-                    throw new ArgumentOutOfRangeException(nameof(derivative), $"derivative({next}) = 0 for iteration:{i}");
+                    // throw new ArgumentOutOfRangeException(nameof(derivative), $"derivative({next}) = 0 for iteration:{i}");
                 }
 
                 next = next - (f / d);
@@ -65,7 +65,7 @@ namespace Abbotware.Quant.Solvers
             while (i < maxIterations);
 
             return null;
-            throw new ArgumentException("Does Not Converge");
+            // throw new ArgumentException("Does Not Converge");
         }
     }
 }
