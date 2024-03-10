@@ -14,7 +14,7 @@
         {
             var f = (double x) => x;
 
-            var x1 = Bisection.Solve(f, new(lower, upper), 0, Precision.VeryHigh, true, SolverConstants.DefaultMaxIterations, new double[SolverConstants.DefaultMaxIterations]);
+            var x1 = Bisection.Solve(f, new(lower, upper), 0, Precision.VeryHigh, true, SolverConstants.DefaultMaxIterations, new double?[SolverConstants.DefaultMaxIterations]);
             var theirsFound = Alternative.TryFindRoot(f, lower, upper, Precision.VeryHigh, (int)SolverConstants.DefaultMaxIterations, out var x2);
 
             AssertRoot(hasRoot, x1, x2, theirsFound);
@@ -29,7 +29,7 @@
             var f = (double x) => x + offset;
             var answer = -offset;
 
-            var x1 = Bisection.Solve(f, new(lower, upper), 0, Precision.VeryHigh, true, SolverConstants.DefaultMaxIterations, new double[SolverConstants.DefaultMaxIterations]);
+            var x1 = Bisection.Solve(f, new(lower, upper), 0, Precision.VeryHigh, true, SolverConstants.DefaultMaxIterations, new double?[SolverConstants.DefaultMaxIterations]);
             var theirsFound = Alternative.TryFindRoot(f, lower, upper, Precision.VeryHigh, (int)SolverConstants.DefaultMaxIterations, out var x2);
 
             AssertRoot(hasRoot, x1, x2, theirsFound);
@@ -43,7 +43,7 @@
         {
             var f = (double x) => x * x;
 
-            var x1 = Bisection.Solve(f, new(lower, upper), 0, Precision.VeryHigh, true, SolverConstants.DefaultMaxIterations, new double[SolverConstants.DefaultMaxIterations]);
+            var x1 = Bisection.Solve(f, new(lower, upper), 0, Precision.VeryHigh, true, SolverConstants.DefaultMaxIterations, new double?[SolverConstants.DefaultMaxIterations]);
             var theirsFound = Alternative.TryFindRoot(f, lower, upper, Precision.VeryHigh, (int)SolverConstants.DefaultMaxIterations, out var x2);
 
             AssertRoot(hasRoot, x1, x2, theirsFound);
@@ -58,7 +58,7 @@
             var f = (double x) => (x * x) + offset;
             var answer = -offset;
 
-            var x1 = Bisection.Solve(f, new(lower, upper), 0, Precision.VeryHigh, true, SolverConstants.DefaultMaxIterations, new double[SolverConstants.DefaultMaxIterations]);
+            var x1 = Bisection.Solve(f, new(lower, upper), 0, Precision.VeryHigh, true, SolverConstants.DefaultMaxIterations, new double?[SolverConstants.DefaultMaxIterations]);
             var theirsFound = Alternative.TryFindRoot(f, lower, upper, Precision.VeryHigh, (int)SolverConstants.DefaultMaxIterations, out var x2);
 
             AssertRoot(hasRoot, x1, x2, theirsFound);
