@@ -1,4 +1,10 @@
-﻿namespace Abbotware.Quant.Solvers
+﻿// -----------------------------------------------------------------------
+// <copyright file="Methods.cs" company="Abbotware, LLC">
+// Copyright © Abbotware, LLC 2012-2023. All rights reserved
+// </copyright>
+// -----------------------------------------------------------------------
+
+namespace Abbotware.Quant.Solvers
 {
     /// <summary>
     /// Solver Methods
