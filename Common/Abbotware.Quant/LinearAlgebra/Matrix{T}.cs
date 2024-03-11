@@ -268,8 +268,6 @@ namespace Abbotware.Quant.LinearAlgebra
             return c;
         }
 
-        public bool IsPseudoInverse() => throw new NotImplementedException();
-
         /// <summary>
         /// Gets a row
         /// </summary>

@@ -23,8 +23,9 @@ namespace Abbotware.Quant.Solvers
         /// <param name="tolerance">tolerance</param>
         /// <param name="maxIterations">max iterations to try</param>
         /// <param name="trace">optional trace of path</param>
+        /// <param name="throwExceptions">throw exception on non-convergnce / errors</param>
         /// <returns>x where function(x) = 0</returns>
-        public static double? Solve(Func<double, double> function, Func<double, double> derivative, double guess, double tolerance, uint maxIterations = SolverConstants.DefaultMaxIterations, Point<double, double>[]? trace = null)
+        public static double? Solve(Func<double, double> function, Func<double, double> derivative, double guess, double tolerance, uint maxIterations = SolverConstants.DefaultMaxIterations, Point<double, double>[]? trace = null, bool throwExceptions = false)
         {
             var i = 0;
             var next = guess;
@@ -41,8 +42,12 @@ namespace Abbotware.Quant.Solvers
 
                 if (d == 0)
                 {
+                    if (throwExceptions)
+                    {
+                        throw new ArgumentOutOfRangeException(nameof(derivative), $"derivative({next}) = 0 for iteration:{i}");
+                    }
+
                     return null;
-                    // throw new ArgumentOutOfRangeException(nameof(derivative), $"derivative({next}) = 0 for iteration:{i}");
                 }
 
                 next = next - (f / d);
@@ -64,8 +69,12 @@ namespace Abbotware.Quant.Solvers
             }
             while (i < maxIterations);
 
+            if (throwExceptions)
+            {
+                throw new ArgumentException("Does Not Converge");
+            }
+
             return null;
-            // throw new ArgumentException("Does Not Converge");
         }
     }
 }
