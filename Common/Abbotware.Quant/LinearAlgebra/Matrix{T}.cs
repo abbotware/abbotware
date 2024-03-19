@@ -9,7 +9,6 @@ namespace Abbotware.Quant.LinearAlgebra
     using System;
     using System.Collections;
     using System.Collections.Generic;
-    using System.Globalization;
     using System.Numerics;
     using System.Runtime.CompilerServices;
     using System.Text;
