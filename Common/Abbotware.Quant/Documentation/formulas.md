@@ -1,6 +1,7 @@
 (below works in typora, but not github)
 
 Expected Value (Random Variables)
+
 $$
 E[X] =   \sum_{i=1}^n x_i \mathbb{P}(x_i) = \mu
 $$
