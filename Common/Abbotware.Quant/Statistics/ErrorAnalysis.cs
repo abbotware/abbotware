@@ -39,14 +39,15 @@
              where T : INumber<T>
         {
             var sum = T.Zero;
-            var n = T.Zero;
+            var i = 0;
 
             foreach (var (a, f) in actuals.Zip(forecasts))
             {
                 sum += AbsolutePercentageError(a, f);
-                n += T.One;
+                ++i;
             }
 
+            var n = T.CreateChecked(i);
             return sum / n;
         }
     }

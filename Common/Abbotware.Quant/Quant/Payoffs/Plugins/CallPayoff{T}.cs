@@ -1,21 +1,25 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="ShortPayoff.cs" company="Abbotware, LLC">
+// <copyright file="CallPayoff{T}.cs" company="Abbotware, LLC">
 // Copyright © Abbotware, LLC 2012-2023. All rights reserved
 // </copyright>
 // -----------------------------------------------------------------------
 
 namespace Abbotware.Quant.Payoffs.Plugins
 {
+    using System.Numerics;
+
     /// <summary>
-    /// Short Position Payoff
+    /// Call Option Payoff
     /// </summary>
     /// <param name="Strike">strike price</param>
-    public record class ShortPayoff(decimal Strike) : StrikePayoff(Strike)
+    /// <typeparam name="T">number type</typeparam>
+    public record class CallPayoff<T>(T Strike) : LongPayoff<T>(Strike)
+        where T : INumber<T>
     {
         /// <inheritdoc/>
-        public override decimal Compute(decimal spot)
+        public override T Compute(T spot)
         {
-            return this.Strike - spot;
+            return T.Max(base.Compute(spot), T.Zero);
         }
     }
 }
