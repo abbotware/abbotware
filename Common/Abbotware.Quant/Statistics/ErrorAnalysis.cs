@@ -1,5 +1,7 @@
 ﻿namespace Abbotware.Quant.Statistics
 {
+    using Abbotware.Core.Math;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Numerics;
@@ -50,5 +52,28 @@
             var n = T.CreateChecked(i);
             return sum / n;
         }
+
+        /// <summary>
+        /// Calculates the Standard Error (SE)
+        /// </summary>
+        /// <typeparam name="T">numeric type</typeparam>
+        /// <param name="standardDeviation">standard deviation of the population or sample</param>
+        /// <param name="n">size of the population or sample</param>
+        /// <returns>standard error</returns>
+        public static T StandardError<T>(T standardDeviation, double n)
+            where T : INumber<T>
+            => standardDeviation / T.CreateChecked(Math.Sqrt(n));
+
+        /// <summary>
+        /// Calculates the Confidence Interval for a critical value given the mean and standard error
+        /// </summary>
+        /// <typeparam name="T">numeric type</typeparam>
+        /// <param name="mean">mean of the population or sample</param>
+        /// <param name="criticalValue">critical value</param>
+        /// <param name="standardError">standard error</param>
+        /// <returns>computed confidence interval</returns>
+        public static Interval<T> ConfidenceInterval<T>(T mean, T criticalValue, T standardError)
+            where T : INumber<T>
+         => new(mean - (criticalValue * standardError), mean + (criticalValue * standardError));
     }
 }
