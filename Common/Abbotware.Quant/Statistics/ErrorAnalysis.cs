@@ -1,11 +1,12 @@
 ﻿namespace Abbotware.Quant.Statistics
 {
-    using Abbotware.Core.Math;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Numerics;
     using System.Runtime.CompilerServices;
+    using Abbotware.Core.Math;
+    using MathNet.Numerics.Distributions;
 
     /// <summary>
     /// Statistics Error Analysis
@@ -75,5 +76,13 @@
         public static Interval<T> ConfidenceInterval<T>(T mean, T criticalValue, T standardError)
             where T : INumber<T>
          => new(mean - (criticalValue * standardError), mean + (criticalValue * standardError));
+
+        /// <summary>
+        /// Normal Distribution Critical Value Calculation
+        /// </summary>
+        /// <param name="confidenceLevel">confidence level</param>
+        /// <returns>critical value for the supplied confidence level</returns>
+        public static double NormalCriticalValue(double confidenceLevel)
+            => Normal.InvCDF(0, 1, (1 - (1 - confidenceLevel)) / 2);
     }
 }
