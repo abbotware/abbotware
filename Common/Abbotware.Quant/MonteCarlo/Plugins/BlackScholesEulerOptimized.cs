@@ -1,4 +1,10 @@
-﻿namespace Abbotware.Quant.MonteCarlo.Plugins
+﻿// -----------------------------------------------------------------------
+// <copyright file="BlackScholesEulerOptimized.cs" company="Abbotware, LLC">
+// Copyright © Abbotware, LLC 2012-2023. All rights reserved
+// </copyright>
+// -----------------------------------------------------------------------
+
+namespace Abbotware.Quant.MonteCarlo.Plugins
 {
     using System;
 
@@ -23,7 +29,7 @@
         /// <inheridoc/>
         public double Next(double Si, double Zi)
         {
-            return Si * (C1 + (C2 * Zi));
+            return Si * (this.C1 + (this.C2 * Zi));
         }
     }
 

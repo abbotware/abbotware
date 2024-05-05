@@ -8,6 +8,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="CsvHelper" Version="32.0.1" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<ProjectReference Include="..\..\Common\Abbotware.Core\Abbotware.Core.csproj" />
 	</ItemGroup>
 

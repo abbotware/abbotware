@@ -1,4 +1,10 @@
-﻿namespace Abbotware.Quant.Pricers.Trees
+﻿// -----------------------------------------------------------------------
+// <copyright file="TreeVariables.cs" company="Abbotware, LLC">
+// Copyright © Abbotware, LLC 2012-2023. All rights reserved
+// </copyright>
+// -----------------------------------------------------------------------
+
+namespace Abbotware.Quant.Pricers.Trees
 {
     public record class TreeVariables(uint Height, double T, double σ, double RiskFreeRate, double DividendYield)
     {

@@ -1,4 +1,10 @@
-﻿namespace Abbotware.Quant.MonteCarlo
+﻿// -----------------------------------------------------------------------
+// <copyright file="IStockMovement.cs" company="Abbotware, LLC">
+// Copyright © Abbotware, LLC 2012-2023. All rights reserved
+// </copyright>
+// -----------------------------------------------------------------------
+
+namespace Abbotware.Quant.MonteCarlo
 {
     /// <summary>
     /// Stock Price movement simulator

@@ -1,4 +1,10 @@
-﻿namespace Abbotware.Quant.Statistics
+﻿// -----------------------------------------------------------------------
+// <copyright file="ErrorAnalysis.cs" company="Abbotware, LLC">
+// Copyright © Abbotware, LLC 2012-2023. All rights reserved
+// </copyright>
+// -----------------------------------------------------------------------
+
+namespace Abbotware.Quant.Statistics
 {
     using System;
     using System.Collections.Generic;

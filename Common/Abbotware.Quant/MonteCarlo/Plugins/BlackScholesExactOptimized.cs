@@ -26,5 +26,4 @@
             return Si * this.C1 * Math.Pow(this.C2, Zi);
         }
     }
-
 }

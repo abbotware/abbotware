@@ -23,3 +23,4 @@ using System.Diagnostics.CodeAnalysis;
 [assembly: SuppressMessage("StyleCop.CSharp.NamingRules", "SA1313:Parameter names should begin with lower-case letter", Justification = "Reviewed AA", Scope = "type", Target = "Abbotware.Quant.Options.PutCallParity")]
 [assembly: SuppressMessage("StyleCop.CSharp.NamingRules", "SA1312:Variable names should begin with lower-case letter", Justification = "Reviewed AA", Scope = "type", Target = "Abbotware.Quant.Options.PutCallParity")]
 [assembly: SuppressMessage("Design", "CA1065:Do not raise exceptions in unexpected locations", Justification = "Reviewed AA", Scope = "member", Target = "~P:Abbotware.Quant.Rates.Plugins.ConstantRiskFreeRate`1.Range")]
+[assembly: SuppressMessage("StyleCop.CSharp.NamingRules", "SA1313:Parameter names should begin with lower-case letter", Justification = "<Pending>", Scope = "member", Target = "~M:Abbotware.Quant.MonteCarlo.IStockMovement.Next(System.Double,System.Double)~System.Double")]
