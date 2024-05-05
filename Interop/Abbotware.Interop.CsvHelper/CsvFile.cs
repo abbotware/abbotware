@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="ParserHelper.cs" company="Abbotware, LLC">
+// <copyright file="CsvFile.cs" company="Abbotware, LLC">
 // Copyright © Abbotware, LLC 2012-2023. All rights reserved
 // </copyright>
 // -----------------------------------------------------------------------
@@ -12,9 +12,8 @@ namespace Abbotware.Interop.CsvHelper
     using System.IO;
     using System.Linq;
     using Abbotware.Core;
-    using Abbotware.Core.Data.Plugins.Configuration;
     using Abbotware.Core.Extensions;
-    using global::CsvHelper;
+    using Microsoft.Extensions.Logging;
 
     /// <summary>
     ///     Helper class that provides ease of use functions for the parser class
