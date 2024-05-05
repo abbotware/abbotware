@@ -5,15 +5,15 @@
     /// <summary>
     /// Black-Scholes - Exact Simulation using Gemoetric Brownian Motion
     /// </summary>
-    /// <param name="r">risk free rate</param>
+    /// <param name="μ">rate of return/drift</param>
     /// <param name="σ">volatility</param>
     /// <param name="Δt">time increment</param>
-    public readonly struct BlackScholesExactOptimized(double r, double σ, double Δt) : IStockMovement
+    public readonly struct BlackScholesExactOptimized(double μ, double σ, double Δt) : IStockMovement
     {
         /// <summary>
         /// Gets constant C1 for this set of parameters
         /// </summary>
-        public double C1 { get; } = Math.Exp(r - (.5 * σ * σ * Δt));
+        public double C1 { get; } = Math.Exp((μ - (σ * σ * .5)) * Δt);
 
         /// <summary>
         /// Gets constant C2 for this set of parameters
@@ -23,7 +23,7 @@
         /// <inheridoc/>
         public double Next(double Si, double Zi)
         {
-            return Si * C1 * Math.Pow(C2, Zi);
+            return Si * this.C1 * Math.Pow(this.C2, Zi);
         }
     }
 
