@@ -49,7 +49,6 @@ namespace Abbotware.Quant.Statistics
             T median = T.Zero;
             T sum = T.Zero;
             T product = T.One;
-            T count = T.Zero;
             int i = 0;
 
             foreach (var x in sorted)
@@ -62,13 +61,14 @@ namespace Abbotware.Quant.Statistics
                 }
 
                 sum += x;
-                count++;
 
                 // for geometric mean
                 product *= x;
             }
 
+            var count = T.CreateChecked(i);
             var arithmeticMean = sum / count;
+            ////var geometricMean = Math.Pow(T.Crea<double>(product), (double)(T.One / count));
 
             return new PopulationStatistics<T>(arithmeticMean, default, default, median, mode);
         }

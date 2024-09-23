@@ -10,6 +10,7 @@ namespace Abbotware.UnitTests.Core
     using Abbotware.Core.Threading.Counters;
     using Abbotware.Utility.UnitTest.Using.NUnit;
     using NUnit.Framework;
+    using Assert = Abbotware.Interop.NUnit.LegacyAssert;
 
     [Category("Core")]
     [Category("Core.Threading")]

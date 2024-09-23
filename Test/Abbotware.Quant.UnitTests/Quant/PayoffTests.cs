@@ -16,7 +16,7 @@
         [TestCase(0, 1, ExpectedResult = 1)]
         public decimal LongTests(decimal strike, decimal spot)
         {
-            var p = new LongPayoff(strike);
+            var p = new LongPayoff<decimal>(strike);
 
             return p.Compute(spot);
         }
@@ -32,7 +32,7 @@
         [TestCase(0, 1, ExpectedResult = -1)]
         public decimal ShortTests(decimal strike, decimal spot)
         {
-            var p = new ShortPayoff(strike);
+            var p = new ShortPayoff<decimal>(strike);
 
             return p.Compute(spot);
         }
@@ -48,7 +48,7 @@
         [TestCase(0, 1, ExpectedResult = 1)]
         public decimal CallTests(decimal strike, decimal spot)
         {
-            var p = new CallPayoff(strike);
+            var p = new CallPayoff<decimal>(strike);
 
             return p.Compute(spot);
         }
@@ -64,7 +64,7 @@
         [TestCase(0, 1, ExpectedResult = 0)]
         public decimal PutTests(decimal strike, decimal spot)
         {
-            var p = new PutPayoff(strike);
+            var p = new PutPayoff<decimal>(strike);
 
             return p.Compute(spot);
         }

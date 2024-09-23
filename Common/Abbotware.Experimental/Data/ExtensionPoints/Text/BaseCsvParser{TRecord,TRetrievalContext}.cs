@@ -10,13 +10,11 @@ namespace Abbotware.Core.Data.ExtensionPoints.Text
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
-    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Net;
     using System.Threading;
     using Abbotware.Core.Data.ExtensionPoints.Retrieval;
-    using Abbotware.Core.Data.Plugins.Configuration;
-    using Abbotware.Core.Logging;
+    using Abbotware.Core.Data.Serialization.Options;
     using Abbotware.Core.Objects;
 
     /// <summary>

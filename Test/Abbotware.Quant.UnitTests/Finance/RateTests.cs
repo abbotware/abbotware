@@ -1,6 +1,5 @@
 ﻿namespace Abbotware.UnitTests.Quant.Finance
 {
-    using Abbotware.Quant.Finance.Equations;
     using Abbotware.Quant.Finance.Rates;
     using NUnit.Framework;
 
@@ -9,27 +8,27 @@
         [Test]
         public void Yield_Basic()
         {
-            var y = new Yield(.12,  1);
-            Assert.AreEqual(y.Rate, .12);
-            Assert.AreEqual(y.TimePeriod.Lower, 0);
-            Assert.AreEqual(y.TimePeriod.Upper, 1);
-            Assert.AreEqual(y.RatePerPeriod, .12);
-            Assert.AreEqual(y.PeriodsPerYear, 1);
-            Assert.AreEqual(y.PeriodLength, 1);
-            Assert.AreEqual(y.IsContinuous, true);
+            var y = new Yield(.12, 1);
+            Assert.That(y.Rate, Is.EqualTo(.12));
+            Assert.That(y.TimePeriod.Lower, Is.EqualTo(0));
+            Assert.That(y.TimePeriod.Upper, Is.EqualTo(1));
+            Assert.That(y.RatePerPeriod, Is.EqualTo(.12));
+            Assert.That(y.PeriodsPerYear, Is.EqualTo(1));
+            Assert.That(y.PeriodLength, Is.EqualTo(1));
+            Assert.That(y.IsContinuous, Is.EqualTo(true));
         }
 
         [Test]
         public void ZeroRate_Basic()
         {
             var zr = new ZeroRate(.12, 1.25);
-            Assert.AreEqual(zr.Rate, .12);
-            Assert.AreEqual(zr.TimePeriod.Lower, 0);
-            Assert.AreEqual(zr.TimePeriod.Upper, 1.25);
-            Assert.AreEqual(zr.RatePerPeriod, .12);
-            Assert.AreEqual(zr.PeriodsPerYear, 0.8);
-            Assert.AreEqual(zr.PeriodLength, 1.25);
-            Assert.AreEqual(zr.IsContinuous, true);
+            Assert.That(zr.Rate, Is.EqualTo(.12));
+            Assert.That(zr.TimePeriod.Lower, Is.EqualTo(0));
+            Assert.That(zr.TimePeriod.Upper, Is.EqualTo(1.25));
+            Assert.That(zr.RatePerPeriod, Is.EqualTo(.12));
+            Assert.That(zr.PeriodsPerYear, Is.EqualTo(0.8));
+            Assert.That(zr.PeriodLength, Is.EqualTo(1.25));
+            Assert.That(zr.IsContinuous, Is.EqualTo(true));
         }
     }
 }

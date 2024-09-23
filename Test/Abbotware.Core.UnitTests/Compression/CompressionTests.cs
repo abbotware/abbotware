@@ -7,6 +7,7 @@
     using Abbotware.Interop.NUnit;
     using Abbotware.Utility.UnitTest.Using.NUnit;
     using NUnit.Framework;
+    using Assert = Abbotware.Interop.NUnit.LegacyAssert;
 
     [Category("Core")]
     [Category("Core.Compression")]

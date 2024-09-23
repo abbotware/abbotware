@@ -1,4 +1,10 @@
-﻿namespace Abbotware.Quant
+﻿// -----------------------------------------------------------------------
+// <copyright file="Analysis.cs" company="Abbotware, LLC">
+// Copyright © Abbotware, LLC 2012-2023. All rights reserved
+// </copyright>
+// -----------------------------------------------------------------------
+
+namespace Abbotware.Quant
 {
     using System.Numerics;
     using System.Runtime.CompilerServices;

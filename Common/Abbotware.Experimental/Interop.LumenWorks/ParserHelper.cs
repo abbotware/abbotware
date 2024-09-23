@@ -11,7 +11,7 @@ namespace Abbotware.Interop.LumenWorks
     using System.Collections.Generic;
     using System.IO;
     using Abbotware.Core.Data.Plugins.Configuration;
-    using Abbotware.Core.Logging;
+    using Abbotware.Core.Data.Serialization.Options;
 
     // TODO: consolidate parsers via ParserHelper<T>
 

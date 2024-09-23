@@ -1,4 +1,10 @@
-﻿namespace Abbotware.Quant.Pricers.Trees.Plugins
+﻿// -----------------------------------------------------------------------
+// <copyright file="EqualProbabilityBinomial.cs" company="Abbotware, LLC">
+// Copyright © Abbotware, LLC 2012-2023. All rights reserved
+// </copyright>
+// -----------------------------------------------------------------------
+
+namespace Abbotware.Quant.Pricers.Trees.Plugins
 {
     using System;
 

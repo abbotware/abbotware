@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------
 // <author>Anthony Abate</author>
 
-namespace Abbotware.Core.Data.Plugins.Configuration
+namespace Abbotware.Core.Data.Serialization.Options
 {
     using System;
     using System.Collections.Generic;
@@ -31,15 +31,6 @@ namespace Abbotware.Core.Data.Plugins.Configuration
 
             this.LogOptions = false;
         }
-
-        ////[Obsolete("future use")]
-        ////public string Preprocess { get; set; }
-
-        ////[Obsolete("future use")]
-        ////public NetworkCredential Credential { get; set; }
-
-        ////[Obsolete("future use")]
-        ////public string FileNamePattern { get; set; }
 
         /// <summary>
         ///     Gets or sets a value indicating whether the file has headers

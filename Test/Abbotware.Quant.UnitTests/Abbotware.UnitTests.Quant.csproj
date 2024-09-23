@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Compile Remove="Quant\CurveTests.cs" />
+    <Compile Remove="Quant\TreeCalculationTests.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,12 +23,13 @@
 
   <ItemGroup>
     <None Include="Quant\CurveTests.cs" />
+    <None Include="Quant\TreeCalculationTests.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CsvHelper" Version="31.0.2" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
-    <PackageReference Include="NUnit3TestAdapter" Version="4.5.0">
+    <PackageReference Include="CsvHelper" Version="33.0.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.6.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

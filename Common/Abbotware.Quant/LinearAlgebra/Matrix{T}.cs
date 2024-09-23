@@ -9,7 +9,6 @@ namespace Abbotware.Quant.LinearAlgebra
     using System;
     using System.Collections;
     using System.Collections.Generic;
-    using System.Globalization;
     using System.Numerics;
     using System.Runtime.CompilerServices;
     using System.Text;
@@ -259,7 +258,7 @@ namespace Abbotware.Quant.LinearAlgebra
             // subtract mean from each row
             x.RowTransform.Subtract(u);
 
-            var n_minus_one = (this.Rows - 1).ToGenericNumber<T>();
+            var n_minus_one = T.CreateChecked(this.Rows - 1);
 
             var t = (T.One / n_minus_one) * (x.Transpose() * x);
 
@@ -347,7 +346,7 @@ namespace Abbotware.Quant.LinearAlgebra
         RowVector<T> IColumnStatistics<T>.Mean()
         {
             var u = new RowVector<T>(this.Columns);
-            var n = this.Rows.ToGenericNumber<T>();
+            var n = T.CreateChecked(this.Rows);
 
             // compute the means
             for (uint j = 0; j < this.Columns; ++j)

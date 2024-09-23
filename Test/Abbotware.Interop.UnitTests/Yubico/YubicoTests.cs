@@ -19,9 +19,9 @@ namespace Abbotware.UnitTests.Interop.Yubico
         [Category("Interop.Yubico")]
         public void GetOtpId()
         {
-            Assert.AreEqual("ccccccggkthb", YubicoHelper.GetOtpId("ccccccggkthbkvrnclltrlijncurndkgvjubfkttfrre"));
+            Assert.That("ccccccggkthb", Is.EqualTo(YubicoHelper.GetOtpId("ccccccggkthbkvrnclltrlijncurndkgvjubfkttfrre")));
 
-            Assert.AreEqual("cccccclkcctj", YubicoHelper.GetOtpId("cccccclkcctjbvehrebjlttdlvhuehhudkbeijcbkdtf"));
+            Assert.That("cccccclkcctj", Is.EqualTo(YubicoHelper.GetOtpId("cccccclkcctjbvehrebjlttdlvhuehhudkbeijcbkdtf")));
         }
     }
 }

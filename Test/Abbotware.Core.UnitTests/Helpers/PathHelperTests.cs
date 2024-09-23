@@ -3,6 +3,7 @@ namespace Abbotware.UnitTests.Core
     using Abbotware.Core.Helpers;
     using Abbotware.Utility.UnitTest.Using.NUnit;
     using NUnit.Framework;
+    using Assert = Abbotware.Interop.NUnit.LegacyAssert;
 
     [TestFixture]
     [Category("Core")]

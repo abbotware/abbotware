@@ -25,7 +25,7 @@ namespace Abbotware.UnitTests.Interop.TDAmeritrade
 
             var oc = JsonHelper.FromString<OptionChain>(text);
 
-            Assert.IsNotNull(oc);
+            Assert.That(oc, Is.Not.Null);
 
             Assert.That(oc!.CallExpDateMap, Has.Count.EqualTo(2));
             Assert.That(oc!.PutExpDateMap, Has.Count.EqualTo(2));

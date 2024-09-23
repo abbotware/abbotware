@@ -1,23 +1,25 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="PutPayoff.cs" company="Abbotware, LLC">
+// <copyright file="LongPayoff{T}.cs" company="Abbotware, LLC">
 // Copyright © Abbotware, LLC 2012-2023. All rights reserved
 // </copyright>
 // -----------------------------------------------------------------------
 
 namespace Abbotware.Quant.Payoffs.Plugins
 {
-    using System;
+    using System.Numerics;
 
     /// <summary>
-    /// Put Option Payoff
+    /// Long Position Payoff
     /// </summary>
     /// <param name="Strike">strike price</param>
-    public record class PutPayoff(decimal Strike) : ShortPayoff(Strike)
+    /// <typeparam name="T">number type</typeparam>
+    public record class LongPayoff<T>(T Strike) : StrikePayoff<T>(Strike)
+        where T : INumber<T>
     {
         /// <inheritdoc/>
-        public override decimal Compute(decimal spot)
+        public override T Compute(T spot)
         {
-            return Math.Max(base.Compute(spot), 0);
+            return spot - this.Strike;
         }
     }
 }

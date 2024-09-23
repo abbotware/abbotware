@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<Nullable>enable</Nullable>
+		<TargetFrameworks>netstandard2.1;net6;net7;net8</TargetFrameworks>
+		<Description>Abbotware Interop Library for CsvHelper - Contains helper methods, extension methods, and plugins</Description>
+		<PackageTags>CsvHelper</PackageTags>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="CsvHelper" Version="33.0.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\Common\Abbotware.Core\Abbotware.Core.csproj" />
+	</ItemGroup>
+
+</Project>

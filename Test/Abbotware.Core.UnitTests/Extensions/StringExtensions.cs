@@ -6,6 +6,7 @@ namespace Abbotware.UnitTests.Core
 {
     using Abbotware.Core.Extensions;
     using NUnit.Framework;
+    using Assert = Abbotware.Interop.NUnit.LegacyAssert;
 
     /// <summary>
     ///     Arguments class unit tests

@@ -14,35 +14,23 @@ namespace Abbotware.UnitTests.Core
         public void RuntimeName()
         {
             this.SkipTestOnLinux();
-
             var e = new ApplicationInformation();
 
 #if NETCOREAPP2_1
-            Assert.AreEqual("2.1.13", e.RuntimeName);
-            Assert.AreEqual(new Version("4.6.28008.1"), e.RuntimeVersion);
-#elif NETCOREAPP2_2
-            if (Environment.GetEnvironmentVariable("NetCoreSdk") == "2.2.401")
-            {
-                Assert.AreEqual("2.2.6", e.RuntimeName);
-                Assert.AreEqual(new Version("4.6.27817.3"), e.RuntimeVersion);
-            }
-            else
-            {
-                Assert.AreEqual("2.2.7", e.RuntimeName);
-                Assert.AreEqual(new Version("4.6.28008.2"), e.RuntimeVersion);
-            }
+            Assert.That(e.RuntimeName, Is.EqualTo("2.1.13"));
+            Assert.That(e.RuntimeVersion, Is.EqualTo(new Version("4.6.28008.1")));
 #elif NETCOREAPP3_1
-            Assert.AreEqual("3.1.21", e.RuntimeName);
-            Assert.AreEqual(new Version("3.1.21"), e.RuntimeVersion);
+            Assert.That(e.RuntimeName, Is.EqualTo("3.1.21"));
+            Assert.That(e.RuntimeVersion, Is.EqualTo(new Version("3.1.21")));
 #elif NET6_0
-            Assert.AreEqual("6.0.12", e.RuntimeName);
-            Assert.AreEqual(new Version("6.0.12"), e.RuntimeVersion);
+            Assert.That(e.RuntimeName, Is.EqualTo("6.0.12"));
+            Assert.That(e.RuntimeVersion, Is.EqualTo(new Version("6.0.12")));
 #elif NET7_0
-            Assert.AreEqual("7.0.12", e.RuntimeName);
-            Assert.AreEqual(new Version("7.0.12"), e.RuntimeVersion);
+            Assert.That(e.RuntimeName, Is.EqualTo("7.0.12"));
+            Assert.That(e.RuntimeVersion, Is.EqualTo(new Version("7.0.12")));
 #elif NET8_0
-            Assert.AreEqual("8.0.3", e.RuntimeName);
-            Assert.AreEqual(new Version("8.0.3"), e.RuntimeVersion);
+            Assert.That(e.RuntimeName, Is.EqualTo("8.0.8"));
+            Assert.That(e.RuntimeVersion, Is.EqualTo(new Version("8.0.8")));
 #else
             Assert.Fail("Unexpected");
 #endif

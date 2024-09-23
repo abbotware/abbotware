@@ -8,6 +8,7 @@ namespace Abbotware.UnitTests.Core
     using Abbotware.Core.Threading;
     using Microsoft.Extensions.Logging.Abstractions;
     using NUnit.Framework;
+    using Assert = Abbotware.Interop.NUnit.LegacyAssert;
 
     [TestFixture]
     [Category("Experimental")]

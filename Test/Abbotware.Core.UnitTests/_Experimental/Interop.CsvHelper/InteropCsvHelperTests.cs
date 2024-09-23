@@ -15,6 +15,7 @@ namespace Abbotware.UnitTests.Interop.CsvHelper
     using Abbotware.Utility.UnitTest.Using.NUnit;
     using global::CsvHelper;
     using global::NUnit.Framework;
+    using Assert = Abbotware.Interop.NUnit.LegacyAssert;
 
     [TestFixture]
     [Category("Experimental")]

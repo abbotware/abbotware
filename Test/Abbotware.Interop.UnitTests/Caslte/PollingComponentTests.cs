@@ -28,7 +28,7 @@ namespace Abbotware.UnitTests.Interop.Castle
         {
             using var a = new AwaitCounter(this.Logger);
 
-            Assert.AreEqual(a.Counter, 0);
+            Assert.That(a.Counter, Is.Zero);
 
             a.Start();
 
@@ -36,7 +36,7 @@ namespace Abbotware.UnitTests.Interop.Castle
 
             a.Stop();
 
-            Assert.GreaterOrEqual(a.Counter, 8);
+            Assert.That(a.Counter, Is.GreaterThanOrEqualTo(8));
         }
 
         private sealed class MsecCounter : StartablePollingComponent

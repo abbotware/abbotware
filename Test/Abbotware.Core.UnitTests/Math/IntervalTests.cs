@@ -1,9 +1,9 @@
 ﻿namespace Abbotware.UnitTests.Core
 {
-    using System;
-    using Abbotware.Interop.NUnit;
     using global::Abbotware.Core.Math;
     using NUnit.Framework;
+    using Assert = Abbotware.Interop.NUnit.LegacyAssert;
+    using NewAssert = NUnit.Framework.Assert;
 
     [Category("Core")]
     [Category("Core.Math")]
@@ -50,9 +50,9 @@
             // upper > lower -> exception
             var i = new Interval<int>(100, 5, false, false);
 
-            Assert.That(i.Lower, Is.Not.EqualTo(i.Upper));
-            Assert.That(i.Lower, Is.EqualTo(5));
-            Assert.That(i.Upper, Is.EqualTo(100));
+            NewAssert.That(i.Lower, Is.Not.EqualTo(i.Upper));
+            NewAssert.That(i.Lower, Is.EqualTo(5));
+            NewAssert.That(i.Upper, Is.EqualTo(100));
         }
 
         [Test]

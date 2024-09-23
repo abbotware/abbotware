@@ -12,7 +12,7 @@ namespace Abbotware.Interop.CsvHelper
     using System.IO;
     using System.Linq;
     using Abbotware.Core;
-    using Abbotware.Core.Data.Plugins.Configuration;
+    using Abbotware.Core.Data.Serialization.Options;
     using Abbotware.Core.Extensions;
     using global::CsvHelper;
 

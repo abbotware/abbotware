@@ -57,10 +57,7 @@ namespace Abbotware.Core
 
                 this.value.TryGetTarget(out TDisposable? target);
 
-                if (target == null)
-                {
-                    throw new ObjectDisposedException("some how object was already disposed");
-                }
+                ObjectDisposedException.ThrowIf(target == null, target);
 
                 return target;
             }

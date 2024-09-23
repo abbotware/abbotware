@@ -13,6 +13,8 @@ namespace Abbotware.UnitTests.Core
     using Abbotware.ShellCommand.Configuration.Models;
     using Abbotware.Utility.UnitTest.Using.NUnit;
     using NUnit.Framework;
+    using Assert = Abbotware.Interop.NUnit.LegacyAssert;
+    using NewAssert = NUnit.Framework.Assert;
 
     [TestFixture]
     [Category("ShellCommand")]
@@ -65,8 +67,8 @@ namespace Abbotware.UnitTests.Core
                 Assert.AreSame(result, await child.Exited.ConfigureAwait(false));
             }
 
-            Assert.That(result.ErrorOutput, Has.Count.EqualTo(0));
-            Assert.That(result.StandardOutput, Has.Count.GreaterThan(1));
+            NewAssert.That(result.ErrorOutput, Has.Count.EqualTo(0));
+            NewAssert.That(result.StandardOutput, Has.Count.GreaterThan(1));
 
             try
             {
@@ -79,7 +81,7 @@ namespace Abbotware.UnitTests.Core
                 return;
             }
 
-            Assert.Fail("Child process should have exited");
+            NewAssert.Fail("Child process should have exited");
         }
 
         [Test]
@@ -116,7 +118,7 @@ namespace Abbotware.UnitTests.Core
                 return;
             }
 
-            Assert.Fail("Child process should have been killed");
+            NewAssert.Fail("Child process should have been killed");
         }
 
         private static ShellCommandOptions CreateCommandConfig(int count, TimeSpan timeout)
