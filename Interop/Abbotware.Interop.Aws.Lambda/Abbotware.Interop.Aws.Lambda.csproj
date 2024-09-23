@@ -8,9 +8,9 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Amazon.Lambda.Core" Version="2.2.0" />
-		<PackageReference Include="Amazon.Lambda.RuntimeSupport" Version="1.10.0" />
-		<PackageReference Include="Amazon.Lambda.Serialization.Json" Version="2.2.1" />
+		<PackageReference Include="Amazon.Lambda.Core" Version="2.3.0" />
+		<PackageReference Include="Amazon.Lambda.RuntimeSupport" Version="1.11.0" />
+		<PackageReference Include="Amazon.Lambda.Serialization.Json" Version="2.2.3" />
 	</ItemGroup>
 
 	<ItemGroup>
