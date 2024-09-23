@@ -33,13 +33,13 @@ namespace Abbotware.UnitTests.Interop.Newtonsoft
 
             var b = JsonHelper.FromString<TestClass>(text)!;
 
-            Assert.IsNull(b.IpAddressNull);
-            Assert.AreEqual(a.IpAddressValue, b.IpAddressValue);
-            Assert.AreEqual(a.IPEndPointValue, b.IPEndPointValue);
-            Assert.IsNull(b.IPEndPointNull);
-            Assert.AreEqual(a.TimeSpan, b.TimeSpan);
-            Assert.IsNull(b.TimeSpanNullableWithNoValue);
-            Assert.AreEqual(a.TimeSpanNullableWithValue, b.TimeSpanNullableWithValue);
+            Assert.That(b.IpAddressNull, Is.Null);
+            Assert.That(a.IpAddressValue, Is.EqualTo(b.IpAddressValue));
+            Assert.That(a.IPEndPointValue, Is.EqualTo(b.IPEndPointValue));
+            Assert.That(b.IPEndPointNull, Is.Null);
+            Assert.That(a.TimeSpan, Is.EqualTo(b.TimeSpan));
+            Assert.That(b.TimeSpanNullableWithNoValue, Is.Null);
+            Assert.That(a.TimeSpanNullableWithValue, Is.EqualTo(b.TimeSpanNullableWithValue));
         }
     }
 }

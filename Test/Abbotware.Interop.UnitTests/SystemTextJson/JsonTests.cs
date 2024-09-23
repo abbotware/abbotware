@@ -34,9 +34,9 @@ namespace Abbotware.UnitTests.Interop.SystemTextJson
 
             var b = JsonSerializer.Deserialize<TestClass>(text, opts)!;
 
-            Assert.AreEqual(a.TimeSpan, b.TimeSpan);
-            Assert.IsNull(b.TimeSpanNullableWithNoValue);
-            Assert.AreEqual(a.TimeSpanNullableWithValue, b.TimeSpanNullableWithValue);
+            Assert.That(a.TimeSpan, Is.EqualTo(b.TimeSpan));
+            Assert.That(b.TimeSpanNullableWithNoValue, Is.Null);
+            Assert.That(a.TimeSpanNullableWithValue, Is.EqualTo(b.TimeSpanNullableWithValue));
         }
     }
 }

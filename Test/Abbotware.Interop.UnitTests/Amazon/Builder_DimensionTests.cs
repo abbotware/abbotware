@@ -97,7 +97,7 @@
 
             var ex = Assert.Catch<Exception>(() => protocol.Encode(m, options));
 
-            StringAssert.StartsWith("Dimension:Name is null/empty string even after converter function was called. if this is expected, use a nullable dimension instead (Parameter 'Name')", ex!.Message);
+            Assert.That(ex!.Message, Does.StartWith("Dimension:Name is null/empty string even after converter function was called. if this is expected, use a nullable dimension instead (Parameter 'Name')"));
         }
 
         [Test]
@@ -114,7 +114,7 @@
 
             var ex = Assert.Catch<Exception>(() => protocol.Encode(m, options));
 
-            StringAssert.StartsWith("Record is missing dimension values (they might all be null?)", ex!.Message);
+            Assert.That(ex!.Message, Does.StartWith("Record is missing dimension values (they might all be null?)"));
         }
 
         [Test]
@@ -129,7 +129,7 @@
 
             var ex = Assert.Catch<Exception>(() => protocol.Encode(m, options));
 
-            StringAssert.StartsWith("Dimension:Name length(3000) is too long - max length allowed is 2048 (Parameter 'Name')", ex!.Message);
+            Assert.That(ex!.Message, Does.StartWith("Dimension:Name length(3000) is too long - max length allowed is 2048 (Parameter 'Name')"));
         }
 
         private static ProtocolBuilder<MultiMeasureNonStringDimensionsTestWithTime> CommonBuilder()

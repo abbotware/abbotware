@@ -29,14 +29,14 @@ namespace Abbotware.UnitTests.Interop.CsvHelper
         {
             var row1 = ParserHelper.CsvFile<DataRow>(DirectoryHelper.FindFilePath("data.csv", "Sample"), this.Logger).First();
 
-            Assert.AreEqual(new DateTime(2011, 11, 11), row1.DateTime);
-            Assert.AreEqual(TestEnumType.Enum1, row1.Enum);
-            Assert.AreEqual(null, row1.Enum2);
-            Assert.AreEqual(123, row1.Int);
-            Assert.AreEqual("data", row1.String);
+            Assert.That(row1.DateTime, Is.EqualTo(new DateTime(2011, 11, 11)));
+            Assert.That(row1.Enum, Is.EqualTo(TestEnumType.Enum1));
+            Assert.That(row1.Enum2, Is.EqualTo(null));
+            Assert.That(row1.Int, Is.EqualTo(123));
+            Assert.That(row1.String, Is.EqualTo("data"));
 
             var row2 = ParserHelper.CsvFile<DataRow>(DirectoryHelper.FindFilePath("data.csv", "Sample"), this.Logger).Last();
-            Assert.AreEqual(TestEnumType.Enum2, row2.Enum2);
+            Assert.That(row2.Enum2, Is.EqualTo(TestEnumType.Enum2));
         }
 
         public class DataRow

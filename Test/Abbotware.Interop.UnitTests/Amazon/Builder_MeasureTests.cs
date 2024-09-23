@@ -176,7 +176,7 @@ namespace Abbotware.UnitTests.Interop.Amazon
 
             var ex = Assert.Catch<Exception>(() => protocol.Encode(m, options));
 
-            StringAssert.StartsWith("Record is missing measure values (they might all be null?)", ex!.Message);
+            Assert.That(ex!.Message, Does.StartWith("Record is missing measure values (they might all be null?)"));
         }
 
         [Test]
@@ -193,7 +193,7 @@ namespace Abbotware.UnitTests.Interop.Amazon
 
             var ex = Assert.Catch<Exception>(() => protocol.Encode(m, options));
 
-            StringAssert.StartsWith("Measure:SetOptional length(3000) is too long - max length allowed is 2048 (Parameter 'SetOptional')", ex!.Message);
+            Assert.That(ex!.Message, Does.StartWith("Measure:SetOptional length(3000) is too long - max length allowed is 2048 (Parameter 'SetOptional')"));
         }
     }
 }

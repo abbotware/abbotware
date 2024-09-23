@@ -16,9 +16,9 @@ namespace Abbotware.Interop.LumenWorks
     using Abbotware.Core.Data.ExtensionPoints.Retrieval;
     using Abbotware.Core.Data.ExtensionPoints.Text;
     using Abbotware.Core.Data.Plugins.Configuration;
+    using Abbotware.Core.Data.Serialization.Options;
     using Abbotware.Core.Diagnostics;
     using Abbotware.Core.Extensions;
-    using Abbotware.Core.Logging;
     using global::LumenWorks.Framework.IO.Csv;
 
     /// <summary>

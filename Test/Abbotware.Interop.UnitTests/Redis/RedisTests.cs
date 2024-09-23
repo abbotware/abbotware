@@ -30,48 +30,48 @@ namespace Abbotware.UnitTests.Interop.Redis
         {
             {
                 var cfg = RedisHelper.GetRedisConfiguration(Path.Combine("Redis", "redis.localhost.json"));
-                Assert.AreEqual("127.1.2.3", cfg.Endpoint.Host);
-                Assert.AreEqual(1234, cfg.Endpoint.Port);
-                Assert.AreEqual("redis", cfg.Endpoint.Scheme);
-                Assert.AreEqual("user", cfg.Credential!.UserName);
-                Assert.AreEqual("pass", cfg.Credential.Password);
-                Assert.IsEmpty(cfg.Endpoint.UserInfo);
+                Assert.That("127.1.2.3", Is.EqualTo(cfg.Endpoint.Host));
+                Assert.That(1234, Is.EqualTo(cfg.Endpoint.Port));
+                Assert.That("redis", Is.EqualTo(cfg.Endpoint.Scheme));
+                Assert.That("user", Is.EqualTo(cfg.Credential!.UserName));
+                Assert.That("pass", Is.EqualTo(cfg.Credential.Password));
+                Assert.That(cfg.Endpoint.UserInfo, Is.Empty);
             }
 
             {
                 var cfg = new ConnectionOptions(new Uri("redis://127.0.0.1:6379"), Defaults.Credential);
 
-                Assert.AreEqual("redis://guest:guest@127.0.0.1:6379/", cfg.ToServiceStackUri().ToString());
+                Assert.That("redis://guest:guest@127.0.0.1:6379/", Is.EqualTo(cfg.ToServiceStackUri().ToString()));
             }
 
             {
                 var cfg = new ConnectionOptions(new Uri("redis://127.0.0.1:6379"), Defaults.Credential);
 
-                Assert.AreEqual("redis://guest:guest@127.0.0.1:6379/", cfg.ToServiceStackUri().ToString());
+                Assert.That("redis://guest:guest@127.0.0.1:6379/", Is.EqualTo(cfg.ToServiceStackUri().ToString()));
             }
 
             {
                 var cfg = new ConnectionOptions(new Uri("redis://127.0.0.1"), Defaults.Credential);
 
-                Assert.AreEqual("redis://guest:guest@127.0.0.1:6379/", cfg.ToServiceStackUri().ToString());
+                Assert.That("redis://guest:guest@127.0.0.1:6379/", Is.EqualTo(cfg.ToServiceStackUri().ToString()));
             }
 
             {
                 var cfg = new ConnectionOptions(new Uri("redis://127.0.0.1/asdf/asdf/"), Defaults.Credential);
 
-                Assert.AreEqual("redis://guest:guest@127.0.0.1:6379/", cfg.ToServiceStackUri().ToString());
+                Assert.That("redis://guest:guest@127.0.0.1:6379/", Is.EqualTo(cfg.ToServiceStackUri().ToString()));
             }
 
             {
                 var cfg = new ConnectionOptions(new Uri("redis://127.0.0.1/asdf/asdf/"), new NetworkCredential("asdf", "qwer"));
 
-                Assert.AreEqual("redis://asdf:qwer@127.0.0.1:6379/", cfg.ToServiceStackUri().ToString());
+                Assert.That("redis://asdf:qwer@127.0.0.1:6379/", Is.EqualTo(cfg.ToServiceStackUri().ToString()));
             }
 
             {
                 var cfg = new ConnectionOptions(new Uri("redis://127.0.0.1/asdf/asdf/?ssl=true&db=1"), new NetworkCredential("asdf", "qwer"));
 
-                Assert.AreEqual("redis://asdf:qwer@127.0.0.1:6379/?ssl=true&db=1", cfg.ToServiceStackUri().ToString());
+                Assert.That("redis://asdf:qwer@127.0.0.1:6379/?ssl=true&db=1", Is.EqualTo(cfg.ToServiceStackUri().ToString()));
             }
         }
 

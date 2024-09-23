@@ -74,7 +74,7 @@ namespace Abbotware.Utility.UnitTest.Using.NUnit
         /// <inheritdoc/>
         public override void AssertEqual(object? left, object? right)
         {
-            Assert.AreEqual(left, right);
+            Assert.That(left, Is.EqualTo(right));
         }
 
         /// <inheritdoc />

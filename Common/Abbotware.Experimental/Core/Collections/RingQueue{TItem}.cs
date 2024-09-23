@@ -520,10 +520,7 @@ namespace Abbotware.Core.Collections
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void ThrowIfDisposed()
         {
-            if (this.IsDisposed)
-            {
-                throw new ObjectDisposedException(IsDisposedMessage);
-            }
+            ObjectDisposedException.ThrowIf(this.IsDisposed, this);
         }
 
         /// <summary>
