@@ -10,6 +10,7 @@ namespace Abbotware.UnitTests.Core
     using System.Xml.Serialization;
     using Abbotware.Core.Serialization.Helpers;
     using NUnit.Framework;
+    using Assert = Abbotware.Interop.NUnit.LegacyAssert;
 
     /// <summary>
     ///     Arguments class unit tests

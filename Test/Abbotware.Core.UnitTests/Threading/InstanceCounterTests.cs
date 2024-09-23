@@ -9,6 +9,7 @@ namespace Abbotware.UnitTests.Core
     using Abbotware.Utility.UnitTest.Using.NUnit;
     using Microsoft.Extensions.Logging;
     using NUnit.Framework;
+    using Assert = Abbotware.Interop.NUnit.LegacyAssert;
 
     [TestFixture]
     [Category("Core")]

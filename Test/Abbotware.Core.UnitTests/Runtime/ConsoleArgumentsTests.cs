@@ -7,6 +7,7 @@ namespace Abbotware.UnitTests.Core
     using System.Collections.Generic;
     using Abbotware.Core.Runtime;
     using NUnit.Framework;
+    using Assert = Abbotware.Interop.NUnit.LegacyAssert;
 
     [Category("Core")]
     [Category("Core.Runtime")]

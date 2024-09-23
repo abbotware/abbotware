@@ -7,6 +7,7 @@
     using Abbotware.Core.Workflow.Plugins;
     using Abbotware.Interop.NUnit;
     using NUnit.Framework;
+    using Assert = Abbotware.Interop.NUnit.LegacyAssert;
 
     [TestFixture]
     [Category("Experimental")]

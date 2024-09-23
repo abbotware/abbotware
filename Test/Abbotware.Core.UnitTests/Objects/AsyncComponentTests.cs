@@ -9,10 +9,9 @@ namespace Abbotware.UnitTests.Core
     using System.Threading.Tasks;
     using Abbotware.Core.Objects;
     using Abbotware.Interop.NUnit;
-    using Castle.Core.Logging;
-    using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Logging.Abstractions;
     using NUnit.Framework;
+    using Assert = Abbotware.Interop.NUnit.LegacyAssert;
 
     [TestFixture]
     [Category("Core")]

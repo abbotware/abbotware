@@ -17,7 +17,7 @@
         {
             var e = new Base64Encoding();
             var decoded = e.GetBytes(EncodedMessage);
-            Assert.AreEqual(Message, decoded);
+            Assert.That(Message, Is.EqualTo(decoded));
         }
 
         [Test]
@@ -25,7 +25,7 @@
         {
             var e = new Base64Encoding();
 
-            Assert.AreEqual(EncodedMessage, e.GetString(e.GetBytes(EncodedMessage)));
+            Assert.That(EncodedMessage, Is.EqualTo(e.GetString(e.GetBytes(EncodedMessage))));
         }
     }
 }

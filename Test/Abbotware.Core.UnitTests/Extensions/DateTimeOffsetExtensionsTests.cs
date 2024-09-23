@@ -7,6 +7,8 @@ namespace Abbotware.UnitTests.Core
     using System;
     using Abbotware.Core.Extensions;
     using NUnit.Framework;
+    using Assert = Abbotware.Interop.NUnit.LegacyAssert;
+    using NewAssert = NUnit.Framework.Assert;
 
     [TestFixture]
     [Category("Core")]
@@ -20,7 +22,7 @@ namespace Abbotware.UnitTests.Core
 
             if (localZone.BaseUtcOffset != TimeSpan.FromHours(-5))
             {
-                Assert.Ignore("Expects local timezone to be -5");
+                NewAssert.Ignore("Expects local timezone to be -5");
             }
 
             var s1 = DateTimeOffset.Parse("12/13/02 14:30:23.4343232211132").ToIso8601();
@@ -43,7 +45,7 @@ namespace Abbotware.UnitTests.Core
 
             if (localZone.BaseUtcOffset != TimeSpan.FromHours(-5))
             {
-                Assert.Ignore("Expects local timezone to be -5");
+                NewAssert.Ignore("Expects local timezone to be -5");
             }
 
             var s1 = DateTimeOffset.Parse("12/13/02 14:30:23.4343232211132").ToIso8601WithPrecision();

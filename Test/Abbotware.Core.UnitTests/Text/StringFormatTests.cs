@@ -2,6 +2,7 @@
 {
     using Abbotware.Core.Text;
     using NUnit.Framework;
+    using Assert = Abbotware.Interop.NUnit.LegacyAssert;
 
     [Category("Core")]
     [Category("Core.Text")]
