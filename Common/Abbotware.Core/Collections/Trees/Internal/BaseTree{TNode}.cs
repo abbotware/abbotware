@@ -7,6 +7,7 @@
 namespace Abbotware.Core.Collections.Trees.Internal
 {
     using System;
+    using System.Collections;
     using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Collections.Immutable;
@@ -101,6 +102,11 @@ namespace Abbotware.Core.Collections.Trees.Internal
         public uint Height { get; }
 
         /// <summary>
+        /// Gets the Level -> Node Ids mapping
+        /// </summary>
+        public IReadOnlyDictionary<uint, IReadOnlySet<ulong>> Levels { get; }
+
+        /// <summary>
         /// Gets the Node Id -> Children mapping
         /// </summary>
         protected IReadOnlyDictionary<ulong, IReadOnlySet<ulong>> Children { get; }
@@ -111,9 +117,11 @@ namespace Abbotware.Core.Collections.Trees.Internal
         protected IReadOnlyDictionary<ulong, IReadOnlySet<ulong>> Parents { get; }
 
         /// <summary>
-        /// Gets the Level -> Node Ids mapping
+        /// gets the node by id
         /// </summary>
-        protected IReadOnlyDictionary<uint, IReadOnlySet<ulong>> Levels { get; }
+        /// <param name="nodeId">Node Id</param>
+        /// <returns>node</returns>
+        public TNode this[ulong nodeId] => this.Nodes[(int)nodeId];
 
         /// <summary>
         /// Upward Walk
@@ -142,7 +150,7 @@ namespace Abbotware.Core.Collections.Trees.Internal
         }
 
         /// <summary>
-        /// Downard walk - semi-optimized for recombining trees
+        /// Downward walk - semi-optimized for recombining trees
         /// </summary>
         /// <param name="onRootNode">callback for root node visitor</param>
         /// <param name="onInteriorNode">callback for interior node visitor</param>
@@ -184,6 +192,126 @@ namespace Abbotware.Core.Collections.Trees.Internal
                 }
             }
         }
+
+        /// <summary>
+        /// Downward walk - semi-optimized for recombining trees
+        /// </summary>
+        /// <param name="onRootNode">callback for root node visitor</param>
+        /// <param name="onInteriorNode">callback for interior node visitor</param>
+        /// <param name="onLeafNode">callback for leaf node visitor</param>
+        public void TraverseDownDepthFirst(Action<TNode> onRootNode, Action<TNode> onInteriorNode, Action<TNode> onLeafNode)
+        {
+            var visited = new HashSet<ulong>();
+            var found = new HashSet<ulong>();
+
+            var walk = new Stack<ulong>();
+
+            // node 0 = root node
+            walk.Push(0);
+
+            onRootNode(this.Nodes[0]);
+
+            while (walk.Count != 0)
+            {
+                var t = walk.Pop();
+                visited.Add(t);
+                var n = this.Nodes[(int)t];
+
+                if (n.ChildIds.Any())
+                {
+                    onInteriorNode(n);
+
+                    foreach (var c in this.Nodes[(int)t].ChildIds)
+                    {
+                        if (!visited.Contains(c) && !found.Contains(c))
+                        {
+                            walk.Push(c);
+                            found.Add(c);
+                        }
+                    }
+                }
+                else
+                {
+                    onLeafNode(n);
+                }
+            }
+        }
+
+
+        /// <summary>
+        /// Downward walk - semi-optimized for recombining trees
+        /// </summary>
+        /// <param name="onRootNode">callback for root node visitor</param>
+        /// <param name="onMiddleNode"></param>
+        /// <param name="onUpperInteriorNode"></param>
+        /// <param name="onLowerInteriorNode"></param>
+        /// <param name="onUpperFroniterNode"></param>
+        /// <param name="onLowerFroniterNode"></param>
+        /// <param name="onInteriorNode">callback for interior node visitor</param>
+        /// <param name="onLeafNode">callback for leaf node visitor</param>
+        public void TraverseDownMiddleOut(Action<TNode> onRootNode, Action<TNode> onMiddleNode, Action<TNode> onUpperInteriorNode, Action<TNode> onLowerInteriorNode, Action<TNode> onUpperFrontierNode, Action<TNode> onLowerFrontierNode)
+        {
+            for (uint i = 0; i < this.Levels.Count; ++i)
+            {
+                if (i == 0)
+                {
+                    onRootNode(this.Nodes[0]);
+                    continue;
+                }
+
+                var (lower, middle, upper) = SplitSortedList(this.Levels[i].ToList());
+
+                if (middle is not null)
+                {
+                    onMiddleNode(this.Nodes[(int)middle.Value]);
+                }
+
+                var u = 0;
+                for (u = 0; u < upper.Count - 1; ++u)
+                {
+                    onUpperInteriorNode(this.Nodes[(int)upper[u]]);
+                }
+
+                onUpperFrontierNode(this.Nodes[(int)upper[u]]);
+
+                var l = 0;
+                for (l = 0; l < lower.Count - 1; ++l)
+                {
+                    onLowerInteriorNode(this.Nodes[(int)lower[l]]);
+                }
+
+                onLowerFrontierNode(this.Nodes[(int)lower[l]]);
+            }
+
+            static (IReadOnlyList<ulong> Lower, ulong? Middle, IReadOnlyList<ulong> Upper) SplitSortedList(IReadOnlyList<ulong> list)
+            {
+                int n = list.Count;
+                int midpoint = n / 2;
+
+                List<ulong> lowerHalf;
+                ulong? middle;
+                List<ulong> upperHalf;
+
+                if (n % 2 == 1)
+                {
+                    // Odd length: single middle element
+                    lowerHalf = new List<ulong>(list.Take(midpoint));
+                    middle = list[midpoint];
+                    upperHalf = new List<ulong>(list.Skip(midpoint + 1));
+                }
+                else
+                {
+                    // Even length: no middle element
+                    lowerHalf = new List<ulong>(list.Take(midpoint));
+                    middle = null;
+                    upperHalf = new List<ulong>(list.Skip(midpoint));
+                }
+
+                lowerHalf.Reverse();
+                return (lowerHalf, middle, upperHalf);
+            }
+        }
+
 
         /// <summary>
         /// Computes the node count for tree of given a height

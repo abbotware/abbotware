@@ -117,6 +117,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abbotware.Using.Castle.With
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abbotware.Interop.CsvHelper", "Interop\Abbotware.Interop.CsvHelper\Abbotware.Interop.CsvHelper.csproj", "{46F500D7-0E55-48A1-BFF3-B2649268840A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FE680", "FE680\FE680.csproj", "{057DB52B-3D14-4BA3-85A8-54224F01990D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -317,6 +319,10 @@ Global
 		{46F500D7-0E55-48A1-BFF3-B2649268840A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{46F500D7-0E55-48A1-BFF3-B2649268840A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{46F500D7-0E55-48A1-BFF3-B2649268840A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{057DB52B-3D14-4BA3-85A8-54224F01990D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{057DB52B-3D14-4BA3-85A8-54224F01990D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{057DB52B-3D14-4BA3-85A8-54224F01990D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{057DB52B-3D14-4BA3-85A8-54224F01990D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -372,6 +378,7 @@ Global
 		{329AA8B4-762F-4682-9DF4-BD060038B04A} = {63414C79-BEF0-4A80-834A-4B47ABF9676F}
 		{16FBB2D8-E0A7-4694-B608-7120CCFC7AEB} = {D2B93B89-97F6-466C-9C72-9FAF871422EF}
 		{46F500D7-0E55-48A1-BFF3-B2649268840A} = {63414C79-BEF0-4A80-834A-4B47ABF9676F}
+		{057DB52B-3D14-4BA3-85A8-54224F01990D} = {FF27A93C-91D0-400F-854F-D4C54BAC491E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7EE1C721-9604-4A41-B647-816294134415}
