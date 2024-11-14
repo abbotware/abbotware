@@ -254,8 +254,8 @@ void PrintMermaid(RecombingHeapTree<Node<State>, State, double> rht)
         var nodes = rht.Levels[l];
         foreach(var n in nodes)
         {
-            Console.WriteLine($"{rht[n].State.Rate:n5} -->|{rht.Edges[CreateEdge(rht[n], rht[n].Children[1])]:n5} | {rht[n].Children[1].State.Rate:n5}");
-            Console.WriteLine($"{rht[n].State.Rate:n5} -->|{rht.Edges[CreateEdge(rht[n], rht[n].Children[0])]:n5} | {rht[n].Children[0].State.Rate:n5}");
+            Console.WriteLine($"{rht[n].State.Rate:n5} -->|{rht.Edges[CreateEdge(rht[n], rht[n].Children[1])]:n7} | {rht[n].Children[1].State.Rate:n5}");
+            Console.WriteLine($"{rht[n].State.Rate:n5} -->|{rht.Edges[CreateEdge(rht[n], rht[n].Children[0])]:n7} | {rht[n].Children[0].State.Rate:n5}");
         }
 
     }
