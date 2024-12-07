@@ -1,32 +1,28 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <Nullable>enable</Nullable>
-    <TargetFrameworks>netstandard2.0;netstandard2.1;net6;net7;net8</TargetFrameworks>
-  </PropertyGroup>
+	<PropertyGroup>
+		<Nullable>enable</Nullable>
+		<TargetFrameworks>netstandard2.0;netstandard2.1;net8;net9</TargetFrameworks>
+	</PropertyGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-    <Compile Remove="**/*.netstandard2.1.cs" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.1'">
-    <Compile Remove="**/*.netstandard2.0.cs" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'net6'">
-    <Compile Remove="**/*.netstandard2.0.cs" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'net7'">
-    <Compile Remove="**/*.netstandard2.0.cs" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'net8'">
-    <Compile Remove="**/*.netstandard2.0.cs" />
-  </ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+		<Compile Remove="**/*.netstandard2.1.cs" />
+	</ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.1'">
+		<Compile Remove="**/*.netstandard2.0.cs" />
+	</ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'net8'">
+		<Compile Remove="**/*.netstandard2.0.cs" />
+	</ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'net9'">
+		<Compile Remove="**/*.netstandard2.0.cs" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="System.Reactive" Version="6.0.1" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="System.Reactive" Version="6.0.1" />
-  </ItemGroup>
-  
-  <ItemGroup>
-    <ProjectReference Include="..\Abbotware.Core\Abbotware.Core.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Abbotware.Core\Abbotware.Core.csproj" />
+	</ItemGroup>
 
 </Project>

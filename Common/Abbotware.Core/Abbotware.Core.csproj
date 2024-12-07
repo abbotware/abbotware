@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Nullable>enable</Nullable>
-    <TargetFrameworks>netstandard2.0;netstandard2.1;net6;net7;net8</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;net8;net9</TargetFrameworks>
   </PropertyGroup>
 
   <Choose>
@@ -11,12 +11,7 @@
         <Compile Remove="**/*.netstandard2.0.cs" />
       </ItemGroup>
     </When>
-    <When Condition="'$(TargetFramework)' == 'net7'">
-      <ItemGroup>
-        <Compile Remove="**/*.netstandard2.0.cs" />
-      </ItemGroup>
-    </When>
-    <When Condition="'$(TargetFramework)' == 'net6'">
+    <When Condition="'$(TargetFramework)' == 'net9'">
       <ItemGroup>
         <Compile Remove="**/*.netstandard2.0.cs" />
       </ItemGroup>

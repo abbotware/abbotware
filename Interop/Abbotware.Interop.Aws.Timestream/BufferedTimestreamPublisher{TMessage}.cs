@@ -84,7 +84,7 @@ namespace Abbotware.Interop.Aws.Timestream
                 try
                 {
                     // TODO: wire up cancellation token
-                    await Task.Delay(TimeSpan.FromSeconds(1), default)
+                    await Task.Delay(TimeSpan.FromSeconds(1), default(CancellationToken))
                         .ConfigureAwait(false);
 
                     while (this.channel.Reader.Count > 0)

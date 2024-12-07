@@ -13,25 +13,21 @@ namespace Abbotware.Interop.Yubico.Plugins
     using System.Threading.Tasks;
     using Abbotware.Core.Extensions;
     using Abbotware.Core.Objects;
-    using Abbotware.Interop.Yubico.ExtensionPoints;
+    using Abbotware.Interop.Yubico;
     using Microsoft.Extensions.Logging;
     using YubicoDotNetClient;
 
     /// <summary>
     /// Yubico Client
     /// </summary>
-    public class YubicoClient : BaseComponent<NetworkCredential>, IYubicoClient
+    /// <remarks>
+    /// Initializes a new instance of the <see cref="YubicoClient"/> class.
+    /// </remarks>
+    /// <param name="credential">api credential</param>
+    /// <param name="logger">injected logger</param>
+    public class YubicoClient(NetworkCredential credential, ILogger logger)
+        : BaseComponent<NetworkCredential>(credential, logger), IYubicoClient
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="YubicoClient"/> class.
-        /// </summary>
-        /// <param name="credential">api credential</param>
-        /// <param name="logger">injected logger</param>
-        public YubicoClient(NetworkCredential credential, ILogger logger)
-            : base(credential, logger)
-        {
-        }
-
         /// <inheritdoc/>
         public async Task<bool> VerifyAsync(string otp, CancellationToken ct)
         {
