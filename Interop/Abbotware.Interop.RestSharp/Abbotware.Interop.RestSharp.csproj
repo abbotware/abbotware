@@ -9,11 +9,11 @@
   
   <ItemGroup>
     <PackageReference Include="RestSharp" Version="112.1.0" />
-    <PackageReference Include="RestSharp.Serializers.NewtonsoftJson" Version="112.1.0" />
   </ItemGroup>
-
+  
   <ItemGroup>
-    <ProjectReference Include="..\Abbotware.Interop.Newtonsoft\Abbotware.Interop.Newtonsoft.csproj" />
+    <ProjectReference Include="..\..\Common\Abbotware.Core\Abbotware.Core.csproj" />
+    <ProjectReference Include="..\Abbotware.Interop.SystemTextJson\Abbotware.Interop.SystemTextJson.csproj" />
   </ItemGroup>
   
 </Project>

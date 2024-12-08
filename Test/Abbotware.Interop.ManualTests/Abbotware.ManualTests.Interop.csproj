@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFrameworks>net9</TargetFrameworks>
-    <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
-    <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
+    <!--<TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
+    <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>-->
   </PropertyGroup>
 
   <ItemGroup>
@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Interop\Abbotware.Interop.SecApi\Abbotware.Interop.SecApi.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Windows\Abbotware.Interop.Windows.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Yubico\Abbotware.Interop.Yubico.csproj" />
     <ProjectReference Include="..\..\Utility\Abbotware.Utility.UnitTest.Using.NUnit\Abbotware.Utility.UnitTest.Using.NUnit.csproj" />

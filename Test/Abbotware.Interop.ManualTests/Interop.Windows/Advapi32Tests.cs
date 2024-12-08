@@ -28,8 +28,8 @@ namespace Abbotware.ManualTests.Interop.Windows
         public void Advapi32_LogonUser_GoodPassword()
         {
             var token = Advapi32Methods.LogonUser("unittest", "abbotware", "some password", LogOnType.Network, LogOnProviderType.Default);
-            Assert.IsNotNull(token);
-            Assert.IsTrue(!token.IsInvalid);
+            Assert.That(token, Is.Not.Null);
+            Assert.That(token.IsInvalid, Is.False);
         }
     }
 }
