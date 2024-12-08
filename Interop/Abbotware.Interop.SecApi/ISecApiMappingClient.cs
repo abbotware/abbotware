@@ -22,6 +22,6 @@ namespace Abbotware.Interop.SecApi
         /// <param name="cusip">CUSIP code</param>
         /// <param name="ct">cancellation token</param>
         /// <returns>search result</returns>
-        Task<RestResponse<CompanyDetails[], ErrorMessage>> CusipAsync(string cusip, CancellationToken ct);
+        Task<RestResponse<CompanyDetails, ErrorMessage>> CusipAsync(string cusip, CancellationToken ct);
     }
 }
