@@ -7,7 +7,6 @@
 namespace Abbotware.Interop.SecApi.Model
 {
     using System.Text.Json.Serialization;
-    using Abbotware.Interop.Iso;
 
     /// <summary>
     /// Company Details POCO

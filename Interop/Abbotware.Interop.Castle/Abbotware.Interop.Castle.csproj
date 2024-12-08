@@ -14,6 +14,7 @@
   
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Abbotware.Core\Abbotware.Core.csproj" />
+    <ProjectReference Include="..\Abbotware.Interop.BouncyCastle\Abbotware.Interop.BouncyCastle.csproj" />
     <ProjectReference Include="..\Abbotware.Interop.Newtonsoft\Abbotware.Interop.Newtonsoft.csproj" />
     <ProjectReference Include="..\Abbotware.Interop.SystemTextJson\Abbotware.Interop.SystemTextJson.csproj" />
   </ItemGroup>
