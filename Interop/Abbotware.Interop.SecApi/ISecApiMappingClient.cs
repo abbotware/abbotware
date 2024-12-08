@@ -12,16 +12,16 @@ namespace Abbotware.Interop.SecApi
     using Abbotware.Interop.SecApi.Model;
 
     /// <summary>
-    /// Fundamentals subset api
+    /// Mapping Subset the Sec API
     /// </summary>
     public interface ISecApiMappingClient
     {
         /// <summary>
-        /// retrieve Comapny Details via CUSIP
+        /// Get Company Details via CUSIP
         /// </summary>
         /// <param name="cusip">CUSIP code</param>
         /// <param name="ct">cancellation token</param>
         /// <returns>search result</returns>
-        Task<RestResponse<CompanyDetails[], ErrorMessage>> CusipAsync(string cusip, CancellationToken ct);
+        Task<RestResponse<CompanyDetails, ErrorMessage>> CusipAsync(string cusip, CancellationToken ct);
     }
 }
