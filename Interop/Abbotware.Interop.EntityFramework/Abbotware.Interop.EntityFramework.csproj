@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
     <Nullable>enable</Nullable>
-    <TargetFrameworks>net8</TargetFrameworks>
+    <TargetFrameworks>net9</TargetFrameworks>
 		<Description>Abbotware Interop Library for EntityFramework - Contains helper methods, extension methods, and plugins</Description>
 		<PackageTags>EntityFramework</PackageTags>
 	</PropertyGroup>
