@@ -7,12 +7,20 @@
 		<PackageTags>MongoDB</PackageTags>
 	</PropertyGroup>
 
-	<ItemGroup>
-		<PackageReference Include="MongoDB.Bson" Version="3.1.0" NoWarn="CS8002" />
-		<PackageReference Include="MongoDB.Driver" Version="3.1.0">
-			<NoWarn>CS8002</NoWarn>
-		</PackageReference>
-	</ItemGroup>
+	<Choose>
+		<When Condition="'$(TargetFramework)' == 'netstandard2.0'">
+			<ItemGroup>
+				<PackageReference Include="MongoDB.Bson" Version="2.*" NoWarn="CS8002" />
+				<PackageReference Include="MongoDB.Driver" Version="2.*" NoWarn="CS8002" />
+			</ItemGroup>
+		</When>
+		<Otherwise>
+			<ItemGroup>
+				<PackageReference Include="MongoDB.Bson" Version="*" NoWarn="CS8002" />
+				<PackageReference Include="MongoDB.Driver" Version="*" NoWarn="CS8002" />
+			</ItemGroup>
+		</Otherwise>
+	</Choose>
 
 	<ItemGroup>
 	  <ProjectReference Include="..\..\Common\Abbotware.Core\Abbotware.Core.csproj" />
