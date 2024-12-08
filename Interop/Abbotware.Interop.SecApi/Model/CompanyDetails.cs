@@ -34,7 +34,7 @@ namespace Abbotware.Interop.SecApi.Model
         [property:JsonPropertyName("ticker")]
         string Ticker,
         [property:JsonPropertyName("cik")]
-        long Cik,
+        string Cik,
         [property:JsonPropertyName("cusip")]
         string Cusip,
         [property:JsonPropertyName("exchange")]
