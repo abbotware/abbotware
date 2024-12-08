@@ -3,8 +3,8 @@
   <PropertyGroup>
     <Nullable>enable</Nullable>
     <TargetFrameworks>netstandard2.0;netstandard2.1;net8;net9</TargetFrameworks>
-    <Description>Abbotware Interop Library for EOD Historical Data Rest API - Contains helper methods, extension methods, plugins, and models</Description>
-    <PackageTags>EOD Historical Data;Rest;</PackageTags>
+    <Description>Abbotware Interop Library for Sec API - Contains helper methods, extension methods, plugins, and models</Description>
+    <PackageTags>SEC API;sec-api.io</PackageTags>
     <NoWarn>$(NoWarn);SA1402</NoWarn>
   </PropertyGroup>
 
@@ -14,7 +14,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Abbotware.Interop.Iso\Abbotware.Interop.Iso.csproj" />
-    <ProjectReference Include="..\Abbotware.Interop.Newtonsoft\Abbotware.Interop.Newtonsoft.csproj" />
     <ProjectReference Include="..\Abbotware.Interop.RestSharp\Abbotware.Interop.RestSharp.csproj" />
   </ItemGroup>
 
