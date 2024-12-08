@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<Nullable>enable</Nullable>
-		<TargetFrameworks>net7;net8</TargetFrameworks>
+		<TargetFrameworks>net8;net9</TargetFrameworks>
 		<Description>Abbotware Quant / Finance / High Frequency Trading (HFT) Library</Description>
 		<PackageTags>Quant;Quantitative;Finance;Hft;High Frequency Trading;</PackageTags>
 		<NoWarn>$(NoWarn);SA1402</NoWarn>
