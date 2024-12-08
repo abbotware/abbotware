@@ -31,6 +31,9 @@ namespace Abbotware.UnitTests.Core
 #elif NET8_0
             Assert.That(e.RuntimeName, Is.EqualTo("8.0.8"));
             Assert.That(e.RuntimeVersion, Is.EqualTo(new Version("8.0.8")));
+#elif NET9_0
+            Assert.That(e.RuntimeName, Is.EqualTo("9.0.0"));
+            Assert.That(e.RuntimeVersion, Is.EqualTo(new Version("9.0.0")));
 #else
             Assert.Fail("Unexpected");
 #endif

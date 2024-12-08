@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Nullable>enable</Nullable>
-    <TargetFrameworks>net8</TargetFrameworks>
+    <TargetFrameworks>net9</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup>

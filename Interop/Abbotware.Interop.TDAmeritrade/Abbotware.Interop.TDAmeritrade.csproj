@@ -2,14 +2,14 @@
 
   <PropertyGroup>
     <Nullable>enable</Nullable>
-    <TargetFrameworks>netstandard2.0;netstandard2.1;net6;net7;net8</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;net8;net9</TargetFrameworks>
     <Description>Abbotware Interop Library for TD Ameritrade Rest API - Contains helper methods, extension methods, plugins, and models</Description>
     <PackageTags>TD Ameritrade;Rest;</PackageTags>
     <NoWarn>$(NoWarn);SA1402</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NodaTime" Version="3.1.12" />
+    <PackageReference Include="NodaTime" Version="3.2.0" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
   </ItemGroup>
 

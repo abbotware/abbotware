@@ -2,7 +2,7 @@
   
   <PropertyGroup>
     <Nullable>enable</Nullable>
-    <TargetFrameworks>net8</TargetFrameworks>
+    <TargetFrameworks>net9</TargetFrameworks>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -126,7 +126,7 @@
 	  <PackageReference Include="LumenWorks.Framework.IO.Core" Version="1.0.1" />
 	  <PackageReference Include="CsvHelper" Version="33.0.1" />
 	  <PackageReference Include="NLog" Version="5.3.4" />
-	  <PackageReference Include="RabbitMQ.Client" Version="6.6.0" />
+	  <PackageReference Include="RabbitMQ.Client" Version="6.*" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.AutoMapper\Abbotware.Interop.AutoMapper.csproj" />

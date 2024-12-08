@@ -2,13 +2,13 @@
 
 	<PropertyGroup>
     <Nullable>enable</Nullable>
-    <TargetFrameworks>netstandard2.0;netstandard2.1;net6;net7;net8</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;net8;net9</TargetFrameworks>
 		<Description>Abbotware Interop Library for Aws DynamoDB - Contains helper methods, extension methods, and plugins</Description>
 		<PackageTags>DynamoDB;Aws;Amazon</PackageTags>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="AWSSDK.DynamoDBv2" Version="3.7.401" />
+		<PackageReference Include="AWSSDK.DynamoDBv2" Version="3.7.404" />
 	</ItemGroup>
 
 	<ItemGroup>

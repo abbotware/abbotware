@@ -2,13 +2,13 @@
 
   <PropertyGroup>
     <Nullable>enable</Nullable>
-    <TargetFrameworks>netstandard2.1;net6;net7</TargetFrameworks>
+    <TargetFrameworks>netstandard2.1;net8;net9</TargetFrameworks>
     <Description>Abbotware Interop Library for Redis - Contains helper methods, extension methods, and plugins</Description>
     <PackageTags>Redis</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="StackExchange.Redis" Version="2.7.27" />
+    <PackageReference Include="StackExchange.Redis" Version="2.8.22" />
   </ItemGroup>
 
   <ItemGroup>

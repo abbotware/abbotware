@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Nullable>enable</Nullable>
-    <TargetFrameworks>netstandard2.0;netstandard2.1;net6;net7;net8</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;net8;net9</TargetFrameworks>
     <Description>Abbotware Interop Library for EOD Historical Data Rest API - Contains helper methods, extension methods, plugins, and models</Description>
     <PackageTags>EOD Historical Data;Rest;</PackageTags>
     <NoWarn>$(NoWarn);SA1402</NoWarn>
