@@ -27,7 +27,11 @@ namespace Abbotware.Core.Helpers
         public static IEnumerable<TEnum> GetValues<TEnum>()
             where TEnum : struct, Enum
         {
+#if NET7_0_OR_GREATER
+            return Enum.GetValues<TEnum>();
+#else
             return (TEnum[])Enum.GetValues(typeof(TEnum));
+#endif
         }
 
         /// <summary>
