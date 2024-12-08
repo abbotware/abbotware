@@ -37,17 +37,15 @@ namespace Abbotware.Interop.SecApi
         public ISecApiMappingClient Mapping => this;
 
         /// <inheritdoc/>
-        async Task<RestResponse<CompanyDetails, ErrorMessage>> ISecApiMappingClient.CusipAsync(string cusip, CancellationToken ct)
+        async Task<RestResponse<CompanyDetails[], ErrorMessage>> ISecApiMappingClient.CusipAsync(string cusip, CancellationToken ct)
         {
             _ = this.InitializeIfRequired();
 
             var request = new RestRequest("mapping/cusip/{CUSIP}", Method.Get);
             _ = request.AddUrlSegment("CUSIP", cusip);
 
-            var r = await this.OnExecuteAsync<CompanyDetails[], ErrorMessage>(request, ct)
+            return await this.OnExecuteAsync<CompanyDetails[], ErrorMessage>(request, ct)
                 .ConfigureAwait(false);
-
-            return r.TransformResponse(r.Response?.Single());
         }
     }
 }
