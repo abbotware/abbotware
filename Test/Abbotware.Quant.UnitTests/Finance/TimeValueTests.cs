@@ -37,7 +37,7 @@
         [TestCase(1500000, .0634, 10, 2773689.35)]
         public void FutureValue_BaseCases(decimal pv, double i, double n, double expected)
         {
-            Assert.That(TimeValue.Discrete.FutureValue(pv, i, n), Is.EqualTo(expected).Within(Precision.VeryLow));
+            Assert.That(TimeValue.Discrete.FutureValue(pv, i, n), Is.EqualTo(expected).Within(DoublePrecision.VeryLow));
         }
     }
 }

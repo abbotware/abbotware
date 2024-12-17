@@ -1,6 +1,6 @@
 ﻿namespace Abbotware.UnitTests.Quant
 {
-    public static class Precision
+    public static class DoublePrecision
     {
         public const double VeryLow = .01;
         public const double Low = .0001;

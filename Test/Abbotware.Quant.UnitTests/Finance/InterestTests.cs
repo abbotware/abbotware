@@ -10,8 +10,8 @@
         public void Simple(decimal p, double r, double t, decimal i)
         {
             var s = new Simple(new(r));
-            Assert.That(s.Interest(p, t), Is.EqualTo(i).Within(Precision.VeryLow));
-            Assert.That(s.AccruedAmount(p, t), Is.EqualTo(p + i).Within(Precision.VeryLow));
+            Assert.That(s.Interest(p, t), Is.EqualTo(i).Within(DecimalPrecision.VeryLow));
+            Assert.That(s.AccruedAmount(p, t), Is.EqualTo(p + i).Within(DecimalPrecision.VeryLow));
         }
 
         [TestCase(1234, 0, 1.5, 0)]
@@ -20,16 +20,16 @@
         public void Simple_ZeroCases(decimal p, double r, double t, decimal i)
         {
             var s = new Simple(new(r));
-            Assert.That(s.Interest(p, t), Is.EqualTo(i).Within(Precision.VeryLow));
-            Assert.That(s.AccruedAmount(p, t), Is.EqualTo(p + i).Within(Precision.VeryLow));
+            Assert.That(s.Interest(p, t), Is.EqualTo(i).Within(DecimalPrecision.VeryLow));
+            Assert.That(s.AccruedAmount(p, t), Is.EqualTo(p + i).Within(DecimalPrecision.VeryLow));
         }
 
         [TestCase(1000, 0.08, 5, 1491.82)]
         public void Continuous(decimal p, double r, double t, decimal p_i)
         {
             var s = new Continuous(new(r));
-            Assert.That(s.Interest(p, t), Is.EqualTo(p_i - p).Within(Precision.VeryLow));
-            Assert.That(s.AccruedAmount(p, t), Is.EqualTo(p_i).Within(Precision.VeryLow));
+            Assert.That(s.Interest(p, t), Is.EqualTo(p_i - p).Within(DecimalPrecision.VeryLow));
+            Assert.That(s.AccruedAmount(p, t), Is.EqualTo(p_i).Within(DecimalPrecision.VeryLow));
         }
 
         [TestCase(0, 0.08, 5)]
@@ -38,8 +38,8 @@
         public void Continuous_ZeroCases(decimal p, double r, double t)
         {
             var s = new Continuous(new(r));
-            Assert.That(s.Interest(p, t), Is.EqualTo(0).Within(Precision.VeryLow));
-            Assert.That(s.AccruedAmount(p, t), Is.EqualTo(p).Within(Precision.VeryLow));
+            Assert.That(s.Interest(p, t), Is.EqualTo(0M).Within(DecimalPrecision.VeryLow));
+            Assert.That(s.AccruedAmount(p, t), Is.EqualTo(p).Within(DecimalPrecision.VeryLow));
         }
 
         [TestCase(12345.00, .12, 7.8, CompoundingFrequency.Weekly, 31442.89)]
@@ -47,8 +47,8 @@
         public void Discrete(decimal p, double r, double t, CompoundingFrequency frequency, decimal p_i)
         {
             var s = new Discrete(new(r), frequency);
-            Assert.That(s.Interest(p, t), Is.EqualTo(p_i - p).Within(Precision.VeryLow));
-            Assert.That(s.AccruedAmount(p, t), Is.EqualTo(p_i).Within(Precision.VeryLow));
+            Assert.That(s.Interest(p, t), Is.EqualTo(p_i - p).Within(DecimalPrecision.VeryLow));
+            Assert.That(s.AccruedAmount(p, t), Is.EqualTo(p_i).Within(DecimalPrecision.VeryLow));
         }
 
         [TestCase(0, .12, 7.8, CompoundingFrequency.Quarterly)]
@@ -57,8 +57,8 @@
         public void Discrete_ZeroCases(decimal p, double r, double t, CompoundingFrequency frequency)
         {
             var s = new Discrete(new(r), frequency);
-            Assert.That(s.Interest(p, t), Is.EqualTo(0).Within(Precision.VeryLow));
-            Assert.That(s.AccruedAmount(p, t), Is.EqualTo(p).Within(Precision.VeryLow));
+            Assert.That(s.Interest(p, t), Is.EqualTo(0M).Within(DecimalPrecision.VeryLow));
+            Assert.That(s.AccruedAmount(p, t), Is.EqualTo(p).Within(DecimalPrecision.VeryLow));
         }
 
         [TestCase(100, .1, CompoundingFrequency.Yearly, ExpectedResult = 110)]

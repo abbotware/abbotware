@@ -16,8 +16,8 @@
             var f = (double x) => x;
             var f1 = (double x) => 1d;
 
-            var x1 = NewtonsMethod.Solve(f, f1, upper, Precision.VeryHigh, SolverConstants.DefaultMaxIterations, new Point<double, double>[SolverConstants.DefaultMaxIterations]);
-            var theirsFound = Alternative.TryFindRoot(f, f1, upper, lower, upper, Precision.VeryHigh, (int)SolverConstants.DefaultMaxIterations, out var x2);
+            var x1 = NewtonsMethod.Solve(f, f1, upper, DoublePrecision.VeryHigh, SolverConstants.DefaultMaxIterations, new Point<double, double>[SolverConstants.DefaultMaxIterations]);
+            var theirsFound = Alternative.TryFindRoot(f, f1, upper, lower, upper, DoublePrecision.VeryHigh, (int)SolverConstants.DefaultMaxIterations, out var x2);
 
             AssertRoot(hasRoot, x1, x2, theirsFound);
         }
@@ -32,8 +32,8 @@
             var f1 = (double x) => 1d;
             var answer = -offset;
 
-            var x1 = NewtonsMethod.Solve(f, f1, upper, Precision.VeryHigh, SolverConstants.DefaultMaxIterations, new Point<double, double>[SolverConstants.DefaultMaxIterations]);
-            var theirsFound = Alternative.TryFindRoot(f, f1, upper, lower, upper, Precision.VeryHigh, (int)SolverConstants.DefaultMaxIterations, out var x2);
+            var x1 = NewtonsMethod.Solve(f, f1, upper, DoublePrecision.VeryHigh, SolverConstants.DefaultMaxIterations, new Point<double, double>[SolverConstants.DefaultMaxIterations]);
+            var theirsFound = Alternative.TryFindRoot(f, f1, upper, lower, upper, DoublePrecision.VeryHigh, (int)SolverConstants.DefaultMaxIterations, out var x2);
 
             AssertRoot(hasRoot, x1, x2, theirsFound);
         }
@@ -47,8 +47,8 @@
             var f = (double x) => x * x;
             var f1 = (double x) => 2 * x;
 
-            var x1 = NewtonsMethod.Solve(f, f1, upper, Precision.VeryHigh, SolverConstants.DefaultMaxIterations, new Point<double, double>[SolverConstants.DefaultMaxIterations]);
-            var theirsFound = Alternative.TryFindRoot(f, f1, upper, lower, upper, Precision.VeryHigh, (int)SolverConstants.DefaultMaxIterations, out var x2);
+            var x1 = NewtonsMethod.Solve(f, f1, upper, DoublePrecision.VeryHigh, SolverConstants.DefaultMaxIterations, new Point<double, double>[SolverConstants.DefaultMaxIterations]);
+            var theirsFound = Alternative.TryFindRoot(f, f1, upper, lower, upper, DoublePrecision.VeryHigh, (int)SolverConstants.DefaultMaxIterations, out var x2);
 
             AssertRoot(hasRoot, x1, x2, theirsFound);
         }
@@ -63,8 +63,8 @@
             var f1 = (double x) => 2 * x;
             var answer = -offset;
 
-            var x1 = NewtonsMethod.Solve(f, f1, upper, Precision.VeryHigh, SolverConstants.DefaultMaxIterations, new Point<double, double>[SolverConstants.DefaultMaxIterations]);
-            var theirsFound = Alternative.TryFindRoot(f, f1, upper, lower, upper, Precision.VeryHigh, (int)SolverConstants.DefaultMaxIterations, out var x2);
+            var x1 = NewtonsMethod.Solve(f, f1, upper, DoublePrecision.VeryHigh, SolverConstants.DefaultMaxIterations, new Point<double, double>[SolverConstants.DefaultMaxIterations]);
+            var theirsFound = Alternative.TryFindRoot(f, f1, upper, lower, upper, DoublePrecision.VeryHigh, (int)SolverConstants.DefaultMaxIterations, out var x2);
 
             AssertRoot(hasRoot, x1, x2, theirsFound);
         }
@@ -74,7 +74,7 @@
             if (hasRoot)
             {
                 Assert.That(theirsFound, Is.True, "We found a root, but they found no root?");
-                Assert.That(ours, Is.EqualTo(theirs).Within(Precision.VeryHigh));
+                Assert.That(ours, Is.EqualTo(theirs).Within(DoublePrecision.VeryHigh));
             }
             else
             {

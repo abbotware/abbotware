@@ -13,7 +13,7 @@
         {
             var equationResult = InterestRate.PeriodicToContinuous(.1, 2);
 
-            Assert.That(equationResult, Is.EqualTo(.09758).Within(Precision.Medium));
+            Assert.That(equationResult, Is.EqualTo(.09758).Within(DoublePrecision.Medium));
 
             var r = new CompoundingRate(.1, TimePeriod.SemiAnnually);
             Assert.That(r.AsYearlyContinuous().Rate, Is.EqualTo(equationResult));
@@ -24,7 +24,7 @@
         {
             var equationResult = InterestRate.ContinousToPeriodic(.08, 4);
 
-            Assert.That(equationResult, Is.EqualTo(.0808).Within(Precision.Medium));
+            Assert.That(equationResult, Is.EqualTo(.0808).Within(DoublePrecision.Medium));
 
             var r = new ContinuousRate(.08);
             Assert.That(r.AsYearlyPeriodic(4).Rate, Is.EqualTo(equationResult));
@@ -35,7 +35,7 @@
         {
             var equationResult = InterestRate.ContinousToPeriodic(.08, 4);
 
-            Assert.That(equationResult, Is.EqualTo(.0808).Within(Precision.Medium));
+            Assert.That(equationResult, Is.EqualTo(.0808).Within(DoublePrecision.Medium));
 
             var r = new ContinuousRate(.08);
             Assert.That(r.AsYearlyPeriodic(4).Rate, Is.EqualTo(equationResult));
