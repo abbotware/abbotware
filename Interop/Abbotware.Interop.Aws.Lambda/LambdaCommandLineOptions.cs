@@ -7,7 +7,7 @@
 
 namespace Abbotware.Interop.Aws.Lambda
 {
-    using Abbotware.Host;
+    using Abbotware.Host.Configuration;
     using CommandLine;
 
     /// <summary>

@@ -7,6 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Caslte\PollingComponentTests.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Caslte\PollingComponentTests.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.6.0">
       <PrivateAssets>all</PrivateAssets>
@@ -17,11 +25,9 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Common\Abbotware.Core\Abbotware.Core.csproj" />
     <ProjectReference Include="..\..\Common\Abbotware.Data\Abbotware.Data.csproj" />
-    <ProjectReference Include="..\..\Common\Abbotware.Host\Abbotware.Host.csproj" />
     <ProjectReference Include="..\..\Common\Abbotware.Web\Abbotware.Web.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.AutoMapper\Abbotware.Interop.AutoMapper.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Aws.Timestream\Abbotware.Interop.Aws.Timestream.csproj" />
-    <ProjectReference Include="..\..\Interop\Abbotware.Interop.Castle\Abbotware.Interop.Castle.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.EntityFramework\Abbotware.Interop.EntityFramework.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Ipify\Abbotware.Interop.Ipify.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Iso\Abbotware.Interop.Iso.csproj" />
@@ -34,8 +40,6 @@
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.SystemTextJson\Abbotware.Interop.SystemTextJson.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.TDAmeritrade\Abbotware.Interop.TDAmeritrade.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Yubico\Abbotware.Interop.Yubico.csproj" />
-    <ProjectReference Include="..\..\Using\Abbotware.Data.Using.Castle\Abbotware.Data.Using.Castle.csproj" />
-    <ProjectReference Include="..\..\Using\Abbotware.Using.Castle\Abbotware.Using.Castle.csproj" />
     <ProjectReference Include="..\..\Utility\Abbotware.Utility.UnitTest.Using.NUnit\Abbotware.Utility.UnitTest.Using.NUnit.csproj" />
     <ProjectReference Include="..\..\Utility\Abbotware.Utility.UnitTest\Abbotware.Utility.UnitTest.csproj" />
   </ItemGroup>

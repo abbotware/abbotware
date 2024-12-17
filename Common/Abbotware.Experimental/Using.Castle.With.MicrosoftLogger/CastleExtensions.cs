@@ -16,7 +16,7 @@ namespace Abbotware.Using.Castle
     /// <summary>
     /// Extension methods for castle registraion
     /// </summary>
-    public static class CastleExtensions
+    public static class CastleExtensions3
     {
         /// <summary>
         /// Adds and configures Log4net for the container

@@ -19,7 +19,7 @@ namespace Abbotware.Using.Castle
     /// <summary>
     /// Extension methods for castle registraion
     /// </summary>
-    public static class CastleExtensions
+    public static class CastleExtensions2
     {
         /// <summary>
         /// Adds and configures default facilities for the container

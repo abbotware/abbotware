@@ -8,13 +8,20 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="LambdaFunctionHost.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="LambdaFunctionHost.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="Amazon.Lambda.Core" Version="2.5.0" />
 		<PackageReference Include="Amazon.Lambda.RuntimeSupport" Version="1.12.2" />
 		<PackageReference Include="Amazon.Lambda.Serialization.Json" Version="2.2.4" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\Common\Abbotware.Host\Abbotware.Host.csproj" />
 		<ProjectReference Include="..\Abbotware.Interop.Aws.Sqs\Abbotware.Interop.Aws.Sqs.csproj" />
 	</ItemGroup>
 
