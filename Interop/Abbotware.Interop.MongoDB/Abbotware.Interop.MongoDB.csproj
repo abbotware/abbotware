@@ -10,8 +10,8 @@
 	<Choose>
 		<When Condition="'$(TargetFramework)' == 'netstandard2.0'">
 			<ItemGroup>
-				<PackageReference Include="MongoDB.Bson" Version="2.*" NoWarn="CS8002" />
-				<PackageReference Include="MongoDB.Driver" Version="2.*" NoWarn="CS8002" />
+				<PackageReference Include="MongoDB.Bson" Version="3.1.0" NoWarn="CS8002" />
+				<PackageReference Include="MongoDB.Driver" Version="3.1.0" NoWarn="CS8002" />
 			</ItemGroup>
 		</When>
 		<Otherwise>

@@ -10,10 +10,10 @@
         public void Lecture_02_Slide12()
         {
             var r1 = InterestRate.PeriodicToContinuous(.1, 2);
-            Assert.That(r1, Is.EqualTo(.097580328338864084).Within(Precision.VeryHigh));
+            Assert.That(r1, Is.EqualTo(.097580328338864084).Within(DoublePrecision.VeryHigh));
 
             var r2 = InterestRate.ContinousToPeriodic(.08, 4);
-            Assert.That(r2, Is.EqualTo(.080805360107023105d).Within(Precision.VeryHigh));
+            Assert.That(r2, Is.EqualTo(.080805360107023105d).Within(DoublePrecision.VeryHigh));
         }
 
         [TestCase(.1, CompoundingFrequency.Yearly, CompoundingFrequency.Weekly)]

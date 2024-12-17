@@ -28,7 +28,7 @@
 
             var price = bond.Price(zeroRateCurve);
 
-            Assert.That(price, Is.EqualTo(xls).Within(Precision.High));
+            Assert.That(price, Is.EqualTo(xls).Within(DoublePrecision.High));
         }
     }
 }
