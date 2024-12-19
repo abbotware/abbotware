@@ -5,121 +5,119 @@
 // -----------------------------------------------------------------------
 // <author>Anthony Abate</author>
 
-namespace Abbotware.Host
+namespace Abbotware.Host;
+
+using System;
+using System.Threading;
+using System.Threading.Tasks;
+using Abbotware.Core;
+using Abbotware.Core.Extensions;
+using Abbotware.Core.Objects;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+
+/// <summary>
+///     base class for a startable component
+/// </summary>
+public abstract class BaseStartableComponent : BaseComponent, IHostedService
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using Abbotware.Core;
-    using Abbotware.Core.Extensions;
-    using Abbotware.Core.Objects;
-    using Microsoft.Extensions.Hosting;
-    using Microsoft.Extensions.Logging;
+    /// <summary>
+    ///     wait handle used to signify shutdown
+    /// </summary>
+    private readonly CancellationTokenSource cts = new();
 
     /// <summary>
-    ///     base class for a startable component
+    ///     Initializes a new instance of the <see cref="BaseStartableComponent" /> class.
     /// </summary>
-    public abstract class BaseStartableComponent : BaseComponent, IHostedService
+    /// <param name="logger">injected logger</param>
+    protected BaseStartableComponent(ILogger logger)
+        : base(logger) => Arguments.NotNull(logger, nameof(logger));
+
+    /// <summary>
+    ///     Gets the cancellation token for shutdown notification
+    /// </summary>
+    /// <returns>cancellation token</returns>
+    protected CancellationToken CancellationToken => this.cts.Token;
+
+    /// <summary>
+    /// Start method
+    /// </summary>
+    public void Start()
     {
-        /// <summary>
-        ///     wait handle used to signify shutdown
-        /// </summary>
-        private readonly CancellationTokenSource cts = new();
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="BaseStartableComponent" /> class.
-        /// </summary>
-        /// <param name="logger">injected logger</param>
-        protected BaseStartableComponent(ILogger logger)
-            : base(logger)
+        try
         {
-            Arguments.NotNull(logger, nameof(logger));
+            this.Logger.Info("Start Requested");
+
+            this.OnStart();
+
+            this.Logger.Info("Exiting Start");
         }
-
-        /// <summary>
-        ///     Gets the cancellation token for shutdown notification
-        /// </summary>
-        /// <returns>cancellation token</returns>
-        protected CancellationToken CancellationToken => this.cts.Token;
-
-        /// <inheritdoc />
-        public void Start()
+        catch (Exception ex)
         {
-            try
-            {
-                this.Logger.Info("Start Requested");
-
-                this.OnStart();
-
-                this.Logger.Info("Exiting Start");
-            }
-            catch (Exception ex)
-            {
-                this.Logger.Error(ex, $"Error Stopping:{this.GetType()}");
-                throw;
-            }
+            this.Logger.Error(ex, $"Error Stopping:{this.GetType()}");
+            throw;
         }
+    }
 
-        /// <inheritdoc />
-        public void Stop()
+    /// <summary>
+    /// Stop method
+    /// </summary>
+    public void Stop()
+    {
+        try
         {
-            try
-            {
-                this.Logger.Info("Stop Requested");
+            this.Logger.Info("Stop Requested");
 
-                this.cts.Cancel();
+            this.cts.Cancel();
 
-                this.OnStop();
+            this.OnStop();
 
-                this.Logger.Info("Exiting Stop");
-            }
-            catch (Exception ex)
-            {
-                this.Logger.Error(ex, $"Error Stopping:{this.GetType()}");
-
-                throw;
-            }
+            this.Logger.Info("Exiting Stop");
         }
-
-        /// <inheritdoc/>
-        public Task StartAsync(CancellationToken cancellationToken)
+        catch (Exception ex)
         {
-            this.Start();
-            return Task.CompletedTask;
-        }
+            this.Logger.Error(ex, $"Error Stopping:{this.GetType()}");
 
-        /// <inheritdoc/>
-        public Task StopAsync(CancellationToken cancellationToken)
-        {
-            this.Stop();
-            return Task.CompletedTask;
+            throw;
         }
+    }
 
-        /// <summary>
-        ///     Hook to implement custom start logic
-        /// </summary>
-        protected virtual void OnStart()
-        {
-        }
+    /// <inheritdoc/>
+    public Task StartAsync(CancellationToken cancellationToken)
+    {
+        this.Start();
+        return Task.CompletedTask;
+    }
 
-        /// <summary>
-        ///     Hook to implement custom stop logic
-        /// </summary>
-        protected virtual void OnStop()
-        {
-        }
+    /// <inheritdoc/>
+    public Task StopAsync(CancellationToken cancellationToken)
+    {
+        this.Stop();
+        return Task.CompletedTask;
+    }
 
-        /// <inheritdoc/>
-        protected sealed override void OnInitialize()
-        {
-            this.Start();
-        }
+    /// <summary>
+    ///     Hook to implement custom start logic
+    /// </summary>
+    protected virtual void OnStart()
+    {
+    }
 
-        /// <inheritdoc/>
-        protected override void OnDisposeManagedResources()
-        {
-            base.OnDisposeManagedResources();
-            this.cts.Dispose();
-        }
+    /// <summary>
+    ///     Hook to implement custom stop logic
+    /// </summary>
+    protected virtual void OnStop()
+    {
+    }
+
+    /// <inheritdoc/>
+    protected sealed override void OnInitialize()
+        => this.Start();
+
+    /// <inheritdoc/>
+    protected override void OnDisposeManagedResources()
+    {
+        base.OnDisposeManagedResources();
+        this.cts.Dispose();
     }
 }

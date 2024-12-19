@@ -4,40 +4,33 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Abbotware.Core.Serialization
+namespace Abbotware.Core.Serialization;
+
+using System;
+
+/// <summary>
+/// base class for binary serialization
+/// </summary>
+public abstract class BaseBinarySerialization : IBinarySerializaton
 {
-    using System;
+    /// <inheritdoc />
+    public abstract object? Decode(byte[] storage, Type type);
 
-    /// <summary>
-    /// base class for binary serialization
-    /// </summary>
-    public abstract class BaseBinarySerialization : IBinarySerializaton
-    {
-        /// <inheritdoc />
-        public abstract object? Decode(byte[] storage, Type type);
+    /// <inheritdoc />
+    public abstract byte[] Encode<T>(T value);
 
-        /// <inheritdoc />
-        public abstract byte[] Encode<T>(T value);
+    /// <inheritdoc />
+    public abstract T Decode<T>(byte[] storage);
 
-        /// <inheritdoc />
-        public abstract T Decode<T>(byte[] storage);
+    /// <inheritdoc />
+    public object? Decode(ReadOnlyMemory<byte> storage, Type type)
+        => this.Decode(storage.ToArray(), type);
 
-        /// <inheritdoc />
-        public object? Decode(ReadOnlyMemory<byte> storage, Type type)
-        {
-            return this.Decode(storage.ToArray(), type);
-        }
+    /// <inheritdoc />
+    ReadOnlyMemory<byte> IEncode<ReadOnlyMemory<byte>>.Encode<T>(T value)
+        => new(this.Encode(value));
 
-        /// <inheritdoc />
-        ReadOnlyMemory<byte> IEncode<ReadOnlyMemory<byte>>.Encode<T>(T value)
-        {
-            return new ReadOnlyMemory<byte>(this.Encode(value));
-        }
-
-        /// <inheritdoc />
-        public T Decode<T>(ReadOnlyMemory<byte> storage)
-        {
-            return this.Decode<T>(storage.ToArray());
-        }
-    }
+    /// <inheritdoc />
+    public T Decode<T>(ReadOnlyMemory<byte> storage)
+        => this.Decode<T>(storage.ToArray());
 }

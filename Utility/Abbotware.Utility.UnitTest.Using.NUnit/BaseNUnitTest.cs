@@ -10,6 +10,7 @@ namespace Abbotware.Utility.UnitTest.Using.NUnit
     using System.Diagnostics.CodeAnalysis;
     using global::NUnit.Framework;
     using Microsoft.Extensions.Logging;
+    using Microsoft.Extensions.Logging.Abstractions;
 
     /// <summary>
     ///     Base class for creating NUnit unit tests
@@ -21,7 +22,7 @@ namespace Abbotware.Utility.UnitTest.Using.NUnit
         ///     Initializes a new instance of the <see cref="BaseNUnitTest"/> class.
         /// </summary>
         protected BaseNUnitTest()
-            : this(null, null)
+            : this(NullLogger.Instance, NullLoggerFactory.Instance)
         {
         }
 

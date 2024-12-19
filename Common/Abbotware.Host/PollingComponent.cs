@@ -5,106 +5,95 @@
 // -----------------------------------------------------------------------
 // <author>Anthony Abate</author>
 
-namespace Abbotware.Host
+namespace Abbotware.Host;
+
+using System;
+using System.Threading.Tasks;
+using Abbotware.Core;
+using Abbotware.Core.Extensions;
+using Microsoft.Extensions.Logging;
+
+/// <summary>
+///     base class for an application component that runs on a polling schedule
+/// </summary>
+public abstract class PollingComponent : BaseStartableComponent
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using Abbotware.Core;
-    using Abbotware.Core.Extensions;
-    using Microsoft.Extensions.Logging;
+    /// <summary>
+    ///     timespan between polling intervals
+    /// </summary>
+    private readonly TimeSpan pollingTimeSpan;
 
     /// <summary>
-    ///     base class for an application component that runs on a polling schedule
+    ///     the handle to the loop task
     /// </summary>
-    public abstract class PollingComponent : BaseStartableComponent
+    private Task? loopTask;
+
+    /// <summary>
+    ///     Initializes a new instance of the <see cref="PollingComponent" /> class.
+    /// </summary>
+    /// <param name="pollingTimeSpan">time span to use for polling intervals</param>
+    /// <param name="logger">injected logger</param>
+    protected PollingComponent(TimeSpan pollingTimeSpan, ILogger logger)
+        : base(logger)
     {
-        /// <summary>
-        /// cancellation source
-        /// </summary>
-        private readonly CancellationTokenSource cts = new();
+        Arguments.NotNull(logger, nameof(logger));
+        Arguments.NotValue(pollingTimeSpan, TimeSpan.Zero, nameof(pollingTimeSpan));
 
-        /// <summary>
-        ///     timespan between polling intervals
-        /// </summary>
-        private readonly TimeSpan pollingTimeSpan;
+        this.pollingTimeSpan = pollingTimeSpan;
+    }
 
-        /// <summary>
-        ///     the handle to the loop task
-        /// </summary>
-        private Task? loopTask;
+    /// <inheritdoc />
+    protected override void OnStart()
+    {
+        var loopTask = Task.Run(this.OnDispatchAsync, this.CancellationToken);
+    }
 
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="PollingComponent" /> class.
-        /// </summary>
-        /// <param name="pollingTimeSpan">time span to use for polling intervals</param>
-        /// <param name="logger">injected logger</param>
-        protected PollingComponent(TimeSpan pollingTimeSpan, ILogger logger)
-            : base(logger)
+    /// <inheritdoc />
+    protected override void OnStop()
+    {
+        this.loopTask?.Dispose();
+
+        this.loopTask = null;
+    }
+
+    /// <summary>
+    ///     Hook to implement custom polling interval logic
+    /// </summary>
+    /// <returns>async task</returns>
+    protected abstract Task OnIterationAsync();
+
+    /// <inheritdoc />
+    protected override void OnDisposeManagedResources()
+    {
+        base.OnDisposeManagedResources();
+
+        this.loopTask?.Dispose();
+    }
+
+    /// <summary>
+    ///     task entry point for polling via await / async
+    /// </summary>
+    /// <returns>async task</returns>
+    private async Task OnDispatchAsync()
+    {
+        this.Logger.Debug($"started with polling interval:{this.pollingTimeSpan}");
+
+        while (!this.CancellationToken.IsCancellationRequested)
         {
-            Arguments.NotNull(logger, nameof(logger));
-            Arguments.NotValue(pollingTimeSpan, TimeSpan.Zero, nameof(pollingTimeSpan));
-
-            this.pollingTimeSpan = pollingTimeSpan;
-        }
-
-        /// <inheritdoc />
-        protected override void OnStart()
-        {
-            var loopTask = Task.Run(OnDispatchAsync, cts.Token);
-        }
-
-        /// <inheritdoc />
-        protected override void OnStop()
-        {
-            cts.Cancel();
-
-            loopTask?.Dispose();
-
-            loopTask = null;
-        }
-
-        /// <summary>
-        ///     Hook to implement custom polling interval logic
-        /// </summary>
-        /// <returns>async task</returns>
-        protected abstract Task OnIterationAsync();
-
-        /// <inheritdoc />
-        protected override void OnDisposeManagedResources()
-        {
-            base.OnDisposeManagedResources();
-
-            loopTask?.Dispose();
-
-            cts.Dispose();
-        }
-
-        /// <summary>
-        ///     task entry point for polling via await / async
-        /// </summary>
-        /// <returns>async task</returns>
-        private async Task OnDispatchAsync()
-        {
-            Logger.Debug($"started with polling interval:{pollingTimeSpan}");
-
-            while (!cts.IsCancellationRequested)
+            try
             {
-                try
-                {
-                    await OnIterationAsync()
-                        .ConfigureAwait(false);
-                }
-                catch (Exception ex)
-                {
-                    Logger.Error(ex, "Iteration");
-                }
-
-                await Task.Delay(pollingTimeSpan, cts.Token)
+                await this.OnIterationAsync()
                     .ConfigureAwait(false);
             }
+            catch (Exception ex)
+            {
+                this.Logger.Error(ex, "Iteration");
+            }
 
-            Logger.Debug("exiting loop");
+            await Task.Delay(this.pollingTimeSpan, this.CancellationToken)
+                .ConfigureAwait(false);
         }
+
+        this.Logger.Debug("exiting loop");
     }
 }

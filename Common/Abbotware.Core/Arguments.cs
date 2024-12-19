@@ -61,13 +61,7 @@ namespace Abbotware.Core
         public static void IsSerializable<T>([CallerMemberName] string? method = null)
         {
             var t = typeof(T);
-
-            var a = ReflectionHelper.SingleOrDefaultAttribute<SerializableAttribute>(t);
-
-            if (a is null)
-            {
-                throw new ArgumentException($"can not serialaize/deserialize '{t.FullName}'  missing [Serializable] attribute.  Method:{method}");
-            }
+            _ = ReflectionHelper.SingleOrDefaultAttribute<SerializableAttribute>(t) ?? throw new ArgumentException($"can not serialaize/deserialize '{t.FullName}'  missing [Serializable] attribute.  Method:{method}");
         }
 
         /// <summary>

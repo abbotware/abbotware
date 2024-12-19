@@ -107,7 +107,7 @@ namespace Abbotware.ShellCommand.Configuration.Models
 
                 if (v is bool b)
                 {
-                    if (b == false)
+                    if (!b)
                     {
                         continue;
                     }

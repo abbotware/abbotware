@@ -4,9 +4,8 @@
     <Nullable>enable</Nullable>
     <TargetFrameworks>net8;net9</TargetFrameworks>
     <Description>Abbotware Interop Library for Amazon Timestream - Contains helper methods, extension methods, and plugins</Description>
-		<PackageTags>Timestream;Aws;Amazon</PackageTags>
+	<PackageTags>Timestream;Aws;Amazon</PackageTags>
     <PackageProjectUrl>https://github.com/abbotware/abbotware/tree/master/Interop/Abbotware.Interop.Aws.Timestream</PackageProjectUrl>
-    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
 	<ItemGroup>
@@ -15,7 +14,6 @@
 
   <ItemGroup>
     <None Include="Extensions\ProtocolBuilderExtensions.Prototypes.cs" />
-    <None Include="README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
   <ItemGroup>

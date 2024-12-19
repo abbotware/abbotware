@@ -82,7 +82,7 @@ namespace Abbotware.Interop.Windows.Kernel32
         {
             var mem = default(MemoryStatusEx);
 
-            mem.Length = (uint)Marshal.SizeOf(typeof(MemoryStatusEx));
+            mem.Length = (uint)Marshal.SizeOf<MemoryStatusEx>();
 
             if (!NativeMethods.GlobalMemoryStatusEx(ref mem))
             {
