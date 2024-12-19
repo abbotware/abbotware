@@ -10,7 +10,6 @@ namespace Abbotware.Host.Configuration
     using Abbotware.Core.Configuration;
     using Abbotware.Core.Configuration.Models;
     using Abbotware.Core.Runtime;
-    using Abbotware.Host;
 
     /// <summary>
     /// Host Options class

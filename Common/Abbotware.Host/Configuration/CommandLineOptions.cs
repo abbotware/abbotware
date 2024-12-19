@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Abbotware.Host
+namespace Abbotware.Host.Configuration
 {
     using CommandLine;
 

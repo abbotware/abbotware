@@ -4,7 +4,7 @@
     <Nullable>enable</Nullable>
     <TargetFrameworks>netstandard2.0;netstandard2.1;net8;net9</TargetFrameworks>
   </PropertyGroup>
-
+  
   <ItemGroup>
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Newtonsoft\Abbotware.Interop.Newtonsoft.csproj" />
     <ProjectReference Include="..\Abbotware.Core\Abbotware.Core.csproj" />

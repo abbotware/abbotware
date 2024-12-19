@@ -12,7 +12,7 @@ namespace Abbotware.Interop.Aws.Sqs.Plugins
     using System.Threading.Tasks;
     using Abbotware.Core;
     using Abbotware.Core.Messaging.Integration;
-    using Abbotware.Interop.Castle.ExtensionPoints;
+    using Abbotware.Host;
     using global::Microsoft.Extensions.Logging;
 
     /// <summary>

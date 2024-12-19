@@ -94,10 +94,8 @@ namespace Abbotware.Interop.Microsoft
         /// </summary>
         /// <param name="file">name of file</param>
         /// <returns>IConfiguration loaded from file</returns>
-        public static IConfiguration AppSettingsJson(string file = AppSettingsFileName)
-        {
-            return AppSettingsJson(file, string.Empty);
-        }
+        public static IConfiguration AppSettingsJson(string file)
+            => AppSettingsJson(file, string.Empty);
 
         /// <summary>
         /// Loads an IConfiguration from an appsettings file
@@ -105,7 +103,7 @@ namespace Abbotware.Interop.Microsoft
         /// <param name="file">name of file</param>
         /// <param name="environment">current environment</param>
         /// <returns>IConfiguration loaded from file</returns>
-        public static IConfiguration AppSettingsJson(string file, string environment)
+        public static IConfiguration AppSettingsJson(string file = AppSettingsFileName, string environment = "")
         {
             var builder = new ConfigurationBuilder()
                 .AddJsonFile(file);

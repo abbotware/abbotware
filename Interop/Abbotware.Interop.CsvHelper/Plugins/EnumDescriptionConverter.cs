@@ -45,7 +45,7 @@ public class EnumDescriptionConverter<TEnum> : DefaultTypeConverter
         foreach (var field in fields)
         {
             var attribute = field.GetCustomAttribute<DescriptionAttribute>();
-            if (attribute != null && attribute.Description.Equals(text, StringComparison.InvariantCultureIgnoreCase))
+            if (attribute != null && attribute.Description.Equals(text, StringComparison.OrdinalIgnoreCase))
             {
                 return Enum.Parse(typeof(TEnum), field.Name);
             }

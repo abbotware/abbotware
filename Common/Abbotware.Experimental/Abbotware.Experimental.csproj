@@ -17,6 +17,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Cleanup\ExtensionPoints\IAddOrUpdateRepository{TEntity,TKey}.cs" />
+    <Compile Remove="Host.Service\Program.cs" />
+    <Compile Remove="Host\AbbotwareHostService.cs" />
+    <Compile Remove="Host\AbbotwareHostService{TConfiguration}.cs" />
+    <Compile Remove="Host\Template.cs" />
     <Compile Remove="Interop.NLog\Plugins\Logger.cs" />
     <Compile Remove="Interop.NLog\Plugins\LoggerFactory.cs" />
     <Compile Remove="Interop.NLog\Plugins\MemoryLoggerFactory.cs" />
@@ -72,6 +76,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Cleanup\ExtensionPoints\IAddOrUpdateRepository{TEntity,TKey}.cs" />
+    <None Include="Host.Service\Program.cs" />
+    <None Include="Host\AbbotwareHostService.cs" />
+    <None Include="Host\AbbotwareHostService{TConfiguration}.cs" />
+    <None Include="Host\Template.cs" />
     <None Include="Interop.NLog\Plugins\Logger.cs" />
     <None Include="Interop.NLog\Plugins\LoggerFactory.cs" />
     <None Include="Interop.NLog\Plugins\MemoryLoggerFactory.cs" />
@@ -130,10 +138,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.AutoMapper\Abbotware.Interop.AutoMapper.csproj" />
+    <ProjectReference Include="..\..\Interop\Abbotware.Interop.Castle\Abbotware.Interop.Castle.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.EntityFramework\Abbotware.Interop.EntityFramework.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Log4net\Abbotware.Interop.Log4net.csproj" />
-    <ProjectReference Include="..\..\Using\Abbotware.Using.Castle\Abbotware.Using.Castle.csproj" />
     <ProjectReference Include="..\Abbotware.Core\Abbotware.Core.csproj" />
+    <ProjectReference Include="..\Abbotware.Host\Abbotware.Host.csproj" />
     <ProjectReference Include="..\Abbotware.ShellCommand\Abbotware.ShellCommand.csproj" />
   </ItemGroup>
 

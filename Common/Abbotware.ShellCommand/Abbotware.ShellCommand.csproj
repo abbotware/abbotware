@@ -17,6 +17,7 @@
 	<ItemGroup Condition="'$(TargetFramework)' == 'net9'">
 		<Compile Remove="**/*.netstandard2.0.cs" />
 	</ItemGroup>
+
 	<ItemGroup>
 		<PackageReference Include="System.Reactive" Version="6.0.1" />
 	</ItemGroup>

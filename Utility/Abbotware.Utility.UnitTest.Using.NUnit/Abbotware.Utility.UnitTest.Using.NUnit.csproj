@@ -7,7 +7,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.NUnit\Abbotware.Interop.NUnit.csproj" />
-    <ProjectReference Include="..\..\Using\Abbotware.Using.Castle.With.MicrosoftLogger\Abbotware.Using.Castle.With.MicrosoftLogger.csproj" />
     <ProjectReference Include="..\Abbotware.Utility.UnitTest\Abbotware.Utility.UnitTest.csproj" />
   </ItemGroup>
 
