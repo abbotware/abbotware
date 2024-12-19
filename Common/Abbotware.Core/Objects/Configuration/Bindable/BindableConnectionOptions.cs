@@ -15,7 +15,7 @@ namespace Abbotware.Core.Objects.Configuration.Models
     public class BindableConnectionOptions : IConnectionOptions
     {
         /// <inheritdoc/>
-        public Uri Endpoint { get; set; } = new(string.Empty);
+        public Uri Endpoint { get; set; }
 
         /// <inheritdoc/>
         public NetworkCredential? Credential { get; set; }
