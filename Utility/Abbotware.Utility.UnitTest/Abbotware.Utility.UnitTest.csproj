@@ -17,4 +17,10 @@
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Newtonsoft\Abbotware.Interop.Newtonsoft.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Sample\**\*.*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

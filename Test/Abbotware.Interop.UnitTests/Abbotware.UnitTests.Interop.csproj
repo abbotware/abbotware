@@ -28,6 +28,7 @@
     <ProjectReference Include="..\..\Common\Abbotware.Web\Abbotware.Web.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.AutoMapper\Abbotware.Interop.AutoMapper.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Aws.Timestream\Abbotware.Interop.Aws.Timestream.csproj" />
+    <ProjectReference Include="..\..\Interop\Abbotware.Interop.CsvHelper\Abbotware.Interop.CsvHelper.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.EntityFramework\Abbotware.Interop.EntityFramework.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Ipify\Abbotware.Interop.Ipify.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Iso\Abbotware.Interop.Iso.csproj" />

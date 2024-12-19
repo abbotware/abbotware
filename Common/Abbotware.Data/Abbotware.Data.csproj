@@ -2,13 +2,8 @@
 
   <PropertyGroup>
     <Nullable>enable</Nullable>
-    <TargetFrameworks>netstandard2.1;net8;net9</TargetFrameworks>
+    <TargetFrameworks>net8;net9</TargetFrameworks>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.2" />
-    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
-  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Abbotware.Core\Abbotware.Core.csproj" />

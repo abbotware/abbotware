@@ -21,6 +21,7 @@
     <Compile Remove="Host\AbbotwareHostService.cs" />
     <Compile Remove="Host\AbbotwareHostService{TConfiguration}.cs" />
     <Compile Remove="Host\Template.cs" />
+    <Compile Remove="Interop.CsvHelper\ParserHelper.cs" />
     <Compile Remove="Interop.NLog\Plugins\Logger.cs" />
     <Compile Remove="Interop.NLog\Plugins\LoggerFactory.cs" />
     <Compile Remove="Interop.NLog\Plugins\MemoryLoggerFactory.cs" />
@@ -80,6 +81,7 @@
     <None Include="Host\AbbotwareHostService.cs" />
     <None Include="Host\AbbotwareHostService{TConfiguration}.cs" />
     <None Include="Host\Template.cs" />
+    <None Include="Interop.CsvHelper\ParserHelper.cs" />
     <None Include="Interop.NLog\Plugins\Logger.cs" />
     <None Include="Interop.NLog\Plugins\LoggerFactory.cs" />
     <None Include="Interop.NLog\Plugins\MemoryLoggerFactory.cs" />
