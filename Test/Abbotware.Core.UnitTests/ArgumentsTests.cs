@@ -237,7 +237,7 @@
         [Test]
         public void FilePathIsRooted_NoThrow()
         {
-            string value = "/Test/asdf";
+            var value = "/Test/asdf";
 
             void Execute() => Arguments.FilePathIsRooted(value, nameof(value));
 

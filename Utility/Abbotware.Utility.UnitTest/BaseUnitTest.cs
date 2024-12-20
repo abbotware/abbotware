@@ -9,6 +9,7 @@ namespace Abbotware.Utility.UnitTest
     using System;
     using System.Diagnostics;
     using System.Diagnostics.CodeAnalysis;
+    using System.IO;
     using System.Threading;
     using Abbotware.Core;
     using Abbotware.Core.Diagnostics;
@@ -42,24 +43,17 @@ namespace Abbotware.Utility.UnitTest
         /// Gets the name of the settings file
         /// </summary>
         /// <returns>name of settings file</returns>
-        public static string UnitTestSettingsFile
-        {
-            get
-            {
-                return AppSettings.Locate();
-            }
-        }
+        public static string UnitTestSettingsFile => AppSettings.Locate();
 
         /// <summary>
         ///  Gets the path for unit test exports
         /// </summary>
-        public static Uri UnitTestExportPath
-        {
-            get
-            {
-                return new Uri(Environment.CurrentDirectory);
-            }
-        }
+        public static Uri UnitTestExportPath => new(Environment.CurrentDirectory);
+
+        /// <summary>
+        /// Get the rootpath
+        /// </summary>
+        public static DirectoryInfo RootFolder => new(Environment.CurrentDirectory);
 
         /// <summary>
         /// Gets a json serializer using strings

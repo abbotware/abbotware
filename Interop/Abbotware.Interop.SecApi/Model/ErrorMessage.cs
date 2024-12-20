@@ -4,14 +4,13 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Abbotware.Interop.SecApi.Model
-{
-    /// <summary>
-    /// Error Message
-    /// </summary>
-    /// <param name="Status">status code</param>
-    /// <param name="Error">error text</param>
-    public record ErrorMessage(
-        long Status,
-        string Error);
-}
+namespace Abbotware.Interop.SecApi.Model;
+
+/// <summary>
+/// Error Message
+/// </summary>
+/// <param name="Status">status code</param>
+/// <param name="Error">error text</param>
+public record ErrorMessage(
+    long Status,
+    string Error);

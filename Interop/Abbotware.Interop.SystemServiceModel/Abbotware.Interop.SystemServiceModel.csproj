@@ -5,6 +5,7 @@
     <TargetFrameworks>net9</TargetFrameworks>
     <Description>Abbotware Interop Library for System.ServiceModel - Contains helper methods, extension methods, and plugins</Description>
     <PackageTags>System.Text.Json;Json;TimeSpan;TimeSpanConverter</PackageTags>
+	<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>

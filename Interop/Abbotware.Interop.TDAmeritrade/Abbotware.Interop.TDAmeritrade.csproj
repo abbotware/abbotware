@@ -6,6 +6,7 @@
     <Description>Abbotware Interop Library for TD Ameritrade Rest API - Contains helper methods, extension methods, plugins, and models</Description>
     <PackageTags>TD Ameritrade;Rest;</PackageTags>
     <NoWarn>$(NoWarn);SA1402</NoWarn>
+	<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>

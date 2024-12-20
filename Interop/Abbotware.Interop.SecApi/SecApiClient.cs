@@ -4,48 +4,43 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Abbotware.Interop.SecApi
+namespace Abbotware.Interop.SecApi;
+
+using System.Threading;
+using System.Threading.Tasks;
+using Abbotware.Core.Net.Http;
+using Abbotware.Interop.RestSharp;
+using Abbotware.Interop.SecApi.Configuration;
+using Abbotware.Interop.SecApi.Model;
+using global::RestSharp;
+using Microsoft.Extensions.Logging;
+
+/// <summary>
+/// Sec Api Client
+/// </summary>
+/// <remarks>
+/// Initializes a new instance of the <see cref="SecApiClient"/> class.
+/// </remarks>
+/// <param name="settings">api settings</param>
+/// <param name="logger">injected logger</param>
+public class SecApiClient(ISecApiSettings settings, ILogger logger)
+    : BaseRestClient<ISecApiSettings>(new("https://api.sec-api.io/"), settings, logger),
+    ISecApiMappingClient
 {
-    using System.Linq;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using Abbotware.Core.Net.Http;
-    using Abbotware.Interop.RestSharp;
-    using Abbotware.Interop.SecApi.Configuration;
-    using Abbotware.Interop.SecApi.Model;
-    using global::RestSharp;
-    using Microsoft.Extensions.Logging;
-
     /// <summary>
-    /// Sec Api Client
+    /// Gets the Mapping api subset
     /// </summary>
-    public sealed class SecApiClient : BaseRestClient<ISecApiSettings>, ISecApiMappingClient
+    public ISecApiMappingClient Mapping => this;
+
+    /// <inheritdoc/>
+    public async Task<RestResponse<CompanyDetails[], ErrorMessage>> CusipAsync(string cusip, CancellationToken ct)
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SecApiClient"/> class.
-        /// </summary>
-        /// <param name="settings">api settings</param>
-        /// <param name="logger">injected logger</param>
-        public SecApiClient(ISecApiSettings settings, ILogger logger)
-            : base(new("https://api.sec-api.io/"), settings, logger)
-        {
-        }
+        _ = this.InitializeIfRequired();
 
-        /// <summary>
-        /// Gets the Mapping api subset
-        /// </summary>
-        public ISecApiMappingClient Mapping => this;
+        var request = new RestRequest("mapping/cusip/{CUSIP}", Method.Get)
+            .AddUrlSegment("CUSIP", cusip);
 
-        /// <inheritdoc/>
-        async Task<RestResponse<CompanyDetails[], ErrorMessage>> ISecApiMappingClient.CusipAsync(string cusip, CancellationToken ct)
-        {
-            _ = this.InitializeIfRequired();
-
-            var request = new RestRequest("mapping/cusip/{CUSIP}", Method.Get);
-            _ = request.AddUrlSegment("CUSIP", cusip);
-
-            return await this.OnExecuteAsync<CompanyDetails[], ErrorMessage>(request, ct)
-                .ConfigureAwait(false);
-        }
+        return await this.OnExecuteAsync<CompanyDetails[], ErrorMessage>(request, ct)
+            .ConfigureAwait(false);
     }
 }

@@ -5,149 +5,230 @@
 // -----------------------------------------------------------------------
 // <author>Anthony Abate</author>
 
-namespace Abbotware.Interop.CsvHelper
+namespace Abbotware.Interop.CsvHelper;
+
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using Abbotware.Core;
+using Abbotware.Core.Data.Serialization.Options;
+using Abbotware.Core.Extensions;
+using global::CsvHelper;
+using global::CsvHelper.Configuration;
+using Microsoft.Extensions.Logging;
+
+/// <summary>
+///     Helper class that provides ease of use functions for the parser class
+/// </summary>
+public static class Csv
 {
-    using System.Collections.Generic;
-    using System.Globalization;
-    using System.IO;
-    using System.Linq;
-    using Abbotware.Core;
-    using Abbotware.Core.Data.Serialization.Options;
-    using Abbotware.Core.Extensions;
-    using global::CsvHelper;
-    using Microsoft.Extensions.Logging;
+    /// <summary>
+    /// Parse a file into C# Models
+    /// </summary>
+    /// <typeparam name="TRow">row model type</typeparam>
+    /// <param name="directory">directory of file</param>
+    /// <param name="file">file name</param>
+    /// <param name="configuration">csv parsing configuraiton</param>
+    /// <returns>parsed rows</returns>
+    public static IEnumerable<TRow> Parse<TRow>(DirectoryInfo directory, string file, IReaderConfiguration configuration)
+        => Parse<TRow>(new FileInfo(Path.Combine(directory.FullName, file)), configuration);
 
     /// <summary>
-    ///     Helper class that provides ease of use functions for the parser class
+    /// Parse a file into C# Models
     /// </summary>
-    public static class Csv
+    /// <typeparam name="TRow">row model type</typeparam>
+    /// <param name="file">file info</param>
+    /// <param name="configuration">csv parsing configuraiton</param>
+    /// <returns>parsed rows</returns>
+    public static IEnumerable<TRow> Parse<TRow>(FileInfo file, IReaderConfiguration configuration)
     {
-        /// <summary>
-        ///     Parses a Csv file using the supplied model
-        /// </summary>
-        /// <typeparam name="TDataRow">model type for csv file row</typeparam>
-        /// <param name="filePath">path to file</param>
-        /// <param name="logger">injected logger</param>
-        /// <returns>data rows</returns>
-        public static IEnumerable<TDataRow> Parse<TDataRow>(string filePath, ILogger logger)
-            where TDataRow : new()
+        using var reader = new StreamReader(file.FullName);
+        using var csv = new CsvReader(reader, configuration);
+        return csv.GetRecords<TRow>().ToList();
+    }
+
+    /// <summary>
+    /// Asynchronously Parse a file into C# Models
+    /// </summary>
+    /// <typeparam name="TRow">row model type</typeparam>
+    /// <typeparam name="TState">state type</typeparam>
+    /// <param name="file">file info</param>
+    /// <param name="configuration">csv parsing configuraiton</param>
+    /// <param name="state">state to pass to callback</param>
+    /// <param name="callback">callback action</param>
+    /// <param name="ct">cancellation token</param>
+    /// <returns>async handle</returns>
+    public static async ValueTask ParseWithCallbackAsync<TRow, TState>(FileInfo file, IReaderConfiguration configuration, TState state, Action<TState, TRow> callback, CancellationToken ct)
+    {
+        using var reader = new StreamReader(file.FullName);
+        using var csv = new CsvReader(reader, configuration);
+
+        await foreach (var r in csv.GetRecordsAsync<TRow>(ct).ConfigureAwait(false))
         {
-            var cfg = new ParserConfiguration();
-
-            return Parse<TDataRow>(filePath, cfg, logger);
+            callback(state, r);
         }
+    }
 
-        /// <summary>
-        ///     Parses a Csv file using the supplied model.  File and Class must match exactly
-        /// </summary>
-        /// <typeparam name="TDataRow">model type for csv file row</typeparam>
-        /// <param name="reader">text reader</param>
-        /// <param name="logger">injected logger</param>
-        /// <returns>data rows</returns>
-        public static IEnumerable<TDataRow> Parse<TDataRow>(TextReader reader, ILogger logger)
-            where TDataRow : new()
-        {
-            Arguments.NotNull(reader, nameof(reader));
-            Arguments.NotNull(logger, nameof(logger));
+    /// <summary>
+    /// Asynchronously write rows (C# Models) to a file
+    /// </summary>
+    /// <typeparam name="TRow">row model type</typeparam>
+    /// <param name="directory">directory of file</param>
+    /// <param name="file">file name</param>
+    /// <param name="rows">models to write</param>
+    /// <param name="configuration">csv parsing configuraiton</param>
+    /// <param name="ct">cancellation token</param>
+    /// <returns>parsed rows</returns>
+    public static ValueTask WriteAsync<TRow>(DirectoryInfo directory, string file, IEnumerable<TRow> rows, IWriterConfiguration configuration, CancellationToken ct)
+        => WriteAsync(new FileInfo(Path.Combine(directory.FullName, file)), rows, configuration, ct);
 
-            var cfg = new ParserConfiguration();
+    /// <summary>
+    /// Asynchronously write rows (C# Models) to a file
+    /// </summary>
+    /// <typeparam name="TRow">row model type</typeparam>
+    /// <param name="file">file</param>
+    /// <param name="rows">models to write</param>
+    /// <param name="configuration">csv parsing configuraiton</param>
+    /// <param name="ct">cancellation token</param>
+    /// <returns>parsed rows</returns>
+    public static async ValueTask WriteAsync<TRow>(FileInfo file, IEnumerable<TRow> rows, IWriterConfiguration configuration, CancellationToken ct)
+    {
+        using var writer = new StreamWriter(file.FullName);
+        using var csv = new CsvWriter(writer, configuration);
 
-            return Parse<TDataRow>(reader, cfg, logger);
-        }
+        await csv.WriteRecordsAsync(rows, ct)
+            .ConfigureAwait(false);
+    }
 
-        /// <summary>
-        ///     Parses a Csv file using the supplied model.  File and Class must match exactly
-        /// </summary>
-        /// <typeparam name="TDataRow">model type for csv file row</typeparam>
-        /// <param name="reader">text reader</param>
-        /// <param name="logger">injected logger</param>
-        /// <returns>data rows</returns>
-        public static IEnumerable<TDataRow> ParseExact<TDataRow>(TextReader reader, ILogger logger)
-            where TDataRow : new()
-        {
-            Arguments.NotNull(reader, nameof(reader));
-            Arguments.NotNull(logger, nameof(logger));
-
-            var cfg = new ParserConfiguration
-            {
-                AllowClassToHaveExtraProperties = false,
-                AllowFileToHaveExtraProperties = false,
-            };
-
-            return Parse<TDataRow>(reader, cfg, logger);
-        }
-
-        /// <summary>
-        ///     Parses a Csv file using the supplied model.  File and Class must match exactly
-        /// </summary>
-        /// <typeparam name="TDataRow">model type for csv file row</typeparam>
-        /// <param name="filePath">path to file</param>
-        /// <param name="logger">injected logger</param>
-        /// <returns>data rows</returns>
-        public static IEnumerable<TDataRow> ParseExact<TDataRow>(string filePath, ILogger logger)
-            where TDataRow : new()
-        {
-            var cfg = new ParserConfiguration
-            {
-                AllowClassToHaveExtraProperties = false,
-                AllowFileToHaveExtraProperties = false,
-            };
-
-            return Parse<TDataRow>(filePath, cfg, logger);
-        }
-
-        /// <summary>
-        ///     Parses a Csv file using the supplied model.  File and Class must match exactly
-        /// </summary>
-        /// <typeparam name="TDataRow">model type for csv file row</typeparam>
-        /// <param name="filePath">path to file</param>
-        /// <param name="cfg">parser configuration</param>
-        /// <param name="logger">injected logger</param>
-        /// <returns>data rows</returns>
-        private static IEnumerable<TDataRow> Parse<TDataRow>(string filePath, ParserConfiguration cfg, ILogger logger)
-            where TDataRow : new()
-        {
-            logger = Arguments.EnsureNotNull(logger, nameof(logger));
-
-            logger.Info($"Csv File:{filePath}");
-
-            using var reader = new StreamReader(filePath);
-
-            return Parse<TDataRow>(reader, cfg, logger);
-        }
-
-        /// <summary>
-        ///     Parses a Csv file using the supplied model.  File and Class must match exactly
-        /// </summary>
-        /// <typeparam name="TDataRow">model type for csv file row</typeparam>
-        /// <param name="reader">text reader</param>
-        /// <param name="cfg">parser configuration</param>
-        /// <param name="logger">injected logger</param>
-        /// <returns>data rows</returns>
-        private static IEnumerable<TDataRow> Parse<TDataRow>(TextReader reader, ParserConfiguration cfg, ILogger logger)
+    /// <summary>
+    ///     Parses a Csv file using the supplied model
+    /// </summary>
+    /// <typeparam name="TDataRow">model type for csv file row</typeparam>
+    /// <param name="filePath">path to file</param>
+    /// <param name="logger">injected logger</param>
+    /// <returns>data rows</returns>
+    public static IEnumerable<TDataRow> Parse<TDataRow>(string filePath, ILogger logger)
         where TDataRow : new()
+    {
+        var cfg = new ParserConfiguration();
+
+        return Parse<TDataRow>(filePath, cfg, logger);
+    }
+
+    /// <summary>
+    ///     Parses a Csv file using the supplied model.  File and Class must match exactly
+    /// </summary>
+    /// <typeparam name="TDataRow">model type for csv file row</typeparam>
+    /// <param name="reader">text reader</param>
+    /// <param name="logger">injected logger</param>
+    /// <returns>data rows</returns>
+    public static IEnumerable<TDataRow> Parse<TDataRow>(TextReader reader, ILogger logger)
+        where TDataRow : new()
+    {
+        Arguments.NotNull(reader, nameof(reader));
+        Arguments.NotNull(logger, nameof(logger));
+
+        var cfg = new ParserConfiguration();
+
+        return Parse<TDataRow>(reader, cfg, logger);
+    }
+
+    /// <summary>
+    ///     Parses a Csv file using the supplied model.  File and Class must match exactly
+    /// </summary>
+    /// <typeparam name="TDataRow">model type for csv file row</typeparam>
+    /// <param name="reader">text reader</param>
+    /// <param name="logger">injected logger</param>
+    /// <returns>data rows</returns>
+    public static IEnumerable<TDataRow> ParseExact<TDataRow>(TextReader reader, ILogger logger)
+        where TDataRow : new()
+    {
+        Arguments.NotNull(reader, nameof(reader));
+        Arguments.NotNull(logger, nameof(logger));
+
+        var cfg = new ParserConfiguration
         {
-            var c = new global::CsvHelper.Configuration.CsvConfiguration(CultureInfo.InvariantCulture)
-            {
-                BufferSize = cfg.BufferSize,
-                HasHeaderRecord = cfg.HasHeaders,
-            };
+            AllowClassToHaveExtraProperties = false,
+            AllowFileToHaveExtraProperties = false,
+        };
 
-            using var csv = new CsvReader(reader, c);
+        return Parse<TDataRow>(reader, cfg, logger);
+    }
 
-            ////csv.Read();
+    /// <summary>
+    ///     Parses a Csv file using the supplied model.  File and Class must match exactly
+    /// </summary>
+    /// <typeparam name="TDataRow">model type for csv file row</typeparam>
+    /// <param name="filePath">path to file</param>
+    /// <param name="logger">injected logger</param>
+    /// <returns>data rows</returns>
+    public static IEnumerable<TDataRow> ParseExact<TDataRow>(string filePath, ILogger logger)
+        where TDataRow : new()
+    {
+        var cfg = new ParserConfiguration
+        {
+            AllowClassToHaveExtraProperties = false,
+            AllowFileToHaveExtraProperties = false,
+        };
 
-            ////csv.ReadHeader();
+        return Parse<TDataRow>(filePath, cfg, logger);
+    }
 
-            ////csv.ValidateHeader<TDataRow>();
+    /// <summary>
+    ///     Parses a Csv file using the supplied model.  File and Class must match exactly
+    /// </summary>
+    /// <typeparam name="TDataRow">model type for csv file row</typeparam>
+    /// <param name="filePath">path to file</param>
+    /// <param name="cfg">parser configuration</param>
+    /// <param name="logger">injected logger</param>
+    /// <returns>data rows</returns>
+    private static IEnumerable<TDataRow> Parse<TDataRow>(string filePath, ParserConfiguration cfg, ILogger logger)
+        where TDataRow : new()
+    {
+        logger = Arguments.EnsureNotNull(logger, nameof(logger));
 
-            ////csv.Read();
+        logger.Info($"Csv File:{filePath}");
 
-            var records = csv.GetRecords<TDataRow>();
+        using var reader = new StreamReader(filePath);
 
-            logger.Info($"rows parsed::{records.Count()}");
+        return Parse<TDataRow>(reader, cfg, logger);
+    }
 
-            return records;
-        }
+    /// <summary>
+    ///     Parses a Csv file using the supplied model.  File and Class must match exactly
+    /// </summary>
+    /// <typeparam name="TDataRow">model type for csv file row</typeparam>
+    /// <param name="reader">text reader</param>
+    /// <param name="cfg">parser configuration</param>
+    /// <param name="logger">injected logger</param>
+    /// <returns>data rows</returns>
+    private static IEnumerable<TDataRow> Parse<TDataRow>(TextReader reader, ParserConfiguration cfg, ILogger logger)
+    where TDataRow : new()
+    {
+        var c = new CsvConfiguration(CultureInfo.InvariantCulture)
+        {
+            BufferSize = cfg.BufferSize,
+            HasHeaderRecord = cfg.HasHeaders,
+        };
+
+        using var csv = new CsvReader(reader, c);
+
+        ////csv.Read();
+
+        ////csv.ReadHeader();
+
+        ////csv.ValidateHeader<TDataRow>();
+
+        ////csv.Read();
+
+        var records = csv.GetRecords<TDataRow>();
+
+        logger.Info($"rows parsed::{records.Count()}");
+
+        return records;
     }
 }
