@@ -7,12 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Caslte\PollingComponentTests.cs" />
+    <Compile Remove="Castle\PollingComponentTests.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Caslte\PollingComponentTests.cs" />
+    <None Include="Castle\PollingComponentTests.cs" />
   </ItemGroup>
+
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />

@@ -19,7 +19,7 @@
         {
             var gz = new GZipCompression();
 
-            gz.Compress(null!);
+            _ = gz.Compress(null!);
         }
 
         [Test]
@@ -28,7 +28,7 @@
         {
             var gz = new GZipCompression();
 
-            gz.Decompress(null!);
+            _ = gz.Decompress(null!);
         }
 
         [Test]
@@ -50,7 +50,6 @@
             var input = "alaksjdflkajsd;lfkja;slkdfj;alksdjf;lkasjd;lfkasdlkfj;alkdsjf;lkasjd;lfkjas;ldkfja;lskdjf;laksjdf;lkajsd;lkjfa;slkdfj;laskdjf;laskdjf;laksdjf";
 
             var b = gz.CompressString(input);
-
 
             Assert.That(b.Length, Is.LessThan(input.Length));
 

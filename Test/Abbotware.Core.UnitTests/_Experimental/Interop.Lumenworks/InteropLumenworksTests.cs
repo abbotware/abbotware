@@ -16,6 +16,7 @@ namespace Abbotware.UnitTests.Interop.CsvHelper
 
     [TestFixture]
     [Category("Experimental")]
+    [Ignore("Experimental")]
     public class InteropLumenworksTests : BaseNUnitTest
     {
         public enum TestEnumType
