@@ -21,8 +21,6 @@ namespace Abbotware.UnitTests.Interop.Iso
         {
             var us = IsoHelpers.Country.Lookup(Country.USA);
 
-
-
             Assert.That(us, Is.SameAs(IsoHelpers.Country[us.Id]));
             Assert.That(us, Is.SameAs(IsoHelpers.Country.Lookup((ushort)us.Id)));
             Assert.That(us, Is.SameAs(IsoHelpers.Country.LookupAlpha3("USA")));

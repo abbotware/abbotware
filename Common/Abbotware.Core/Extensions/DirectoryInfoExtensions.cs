@@ -53,5 +53,4 @@ public static class DirectoryInfoExtensions
 
         return fi;
     }
-
 }

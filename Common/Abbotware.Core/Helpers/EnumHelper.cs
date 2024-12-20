@@ -3,124 +3,162 @@
 // Copyright © Abbotware, LLC 2012-2023. All rights reserved
 // </copyright>
 // -----------------------------------------------------------------------
-// <author>Anthony Abate</author>
 
-namespace Abbotware.Core.Helpers
+namespace Abbotware.Core.Helpers;
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.Serialization;
+using Abbotware.Core.Diagnostics;
+
+/// <summary>
+///     Helper methods related to enums
+/// </summary>
+public static class EnumHelper
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Reflection;
-    using System.Runtime.Serialization;
-    using Abbotware.Core.Diagnostics;
+    /// <summary>
+    /// Gets all the values of the enum
+    /// </summary>
+    /// <typeparam name="TEnum">Enum type</typeparam>
+    /// <returns>all values of the enum</returns>
+    public static IEnumerable<TEnum> GetValues<TEnum>()
+        where TEnum : struct, Enum
+#if NET7_0_OR_GREATER
+        => Enum.GetValues<TEnum>();
+#else
+       => (TEnum[])Enum.GetValues(typeof(TEnum));
+#endif
 
     /// <summary>
-    ///     Helper methods related to enums
+    /// Parses a string into an enum value
     /// </summary>
-    public static class EnumHelper
+    /// <typeparam name="TEnum">Enum type</typeparam>
+    /// <param name="value">string version of enum</param>
+    /// <returns>enum value</returns>
+    public static TEnum ParseExact<TEnum>(string value)
+        where TEnum : struct, Enum
     {
-        /// <summary>
-        /// Gets all the values of the enum
-        /// </summary>
-        /// <typeparam name="TEnum">Enum type</typeparam>
-        /// <returns>all values of the enum</returns>
-        public static IEnumerable<TEnum> GetValues<TEnum>()
-            where TEnum : struct, Enum
+        if (!Enum.TryParse<TEnum>(value, false, out var parsed))
         {
-#if NET7_0_OR_GREATER
-            return Enum.GetValues<TEnum>();
-#else
-            return (TEnum[])Enum.GetValues(typeof(TEnum));
-#endif
+            throw new ArgumentException($"{value} is not valid for enum:{typeof(TEnum).Name}");
         }
 
-        /// <summary>
-        /// Parses a string into an enum value
-        /// </summary>
-        /// <typeparam name="TEnum">Enum type</typeparam>
-        /// <param name="value">string version of enum</param>
-        /// <returns>enum value</returns>
-        public static TEnum ParseExact<TEnum>(string value)
-            where TEnum : struct, Enum
-        {
-            if (!Enum.TryParse(value, false, out TEnum parsed))
-            {
-                throw new ArgumentException($"{value} is not valid for enum:{typeof(TEnum).Name}");
-            }
+        return parsed;
+    }
 
-            return parsed;
+    /// <summary>
+    /// Gets the EnumMemberAttribute value of the enum
+    /// </summary>
+    /// <typeparam name="TEnum">Enum type</typeparam>
+    /// <param name="value">value of enum</param>
+    /// <returns>enum as string, or EnumMemberAttribute value</returns>
+    public static string? GetEnumMemberValue<TEnum>(TEnum? value)
+        where TEnum : struct, Enum
+    {
+        if (value is null)
+        {
+            return null;
         }
 
-        /// <summary>
-        /// Gets the EnumMemberAttribute value of the enum
-        /// </summary>
-        /// <typeparam name="TEnum">Enum type</typeparam>
-        /// <param name="value">value of enum</param>
-        /// <returns>enum as string, or EnumMemberAttribute value</returns>
-        public static string GetEnumMemberValue<TEnum>(TEnum? value)
-            where TEnum : struct, Enum
+        return GetEnumMemberValue(value.Value);
+    }
+
+    /// <summary>
+    /// Gets the EnumMemberAttribute value of the enum
+    /// </summary>
+    /// <typeparam name="TEnum">Enum type</typeparam>
+    /// <param name="value">value of enum</param>
+    /// <returns>enum as string, or EnumMemberAttribute value</returns>
+    public static string GetEnumMemberValue<TEnum>(TEnum value)
+        where TEnum : struct, Enum
+    {
+        var attribute = GetAttribute<TEnum, EnumMemberAttribute>(value);
+
+        return attribute?.Value ?? value.ToString();
+    }
+
+    /// <summary>
+    /// Gets a value indicating whether or not the enum is marked obsolete
+    /// </summary>
+    /// <typeparam name="TEnum">Enum type</typeparam>
+    /// <param name="value">value of enum</param>
+    /// <returns>true if obsolete</returns>
+    public static bool IsEnumObsolete<TEnum>(TEnum value)
+        where TEnum : struct, Enum
+    {
+        var attribute = GetAttribute<TEnum, ObsoleteAttribute>(value);
+
+        return attribute != null;
+    }
+
+    /// <summary>
+    /// Gets the display name value of the enum
+    /// </summary>
+    /// <typeparam name="TEnum">Enum type</typeparam>
+    /// <param name="value">value of enum</param>
+    /// <returns>enum as string, or display name value</returns>
+    public static string GetDescription<TEnum>(TEnum value)
+        where TEnum : struct, Enum
+    {
+        var attribute = GetAttribute<TEnum, DescriptionAttribute>(value);
+        return attribute?.Description ?? value.ToString();
+    }
+
+    /// <summary>
+    /// Gets a specific attribute from the enum member
+    /// </summary>
+    /// <typeparam name="TEnum">Enum type</typeparam>
+    /// <typeparam name="TAttribute">Attribute type</typeparam>
+    /// <param name="value">Enum value</param>
+    /// <returns>Attribute instance if found, otherwise null</returns>
+    public static TAttribute? GetAttribute<TEnum, TAttribute>(TEnum value)
+        where TEnum : struct, Enum
+        where TAttribute : Attribute
+    {
+        var (_, memberInfo) = GetMemberInfo<TEnum>(value);
+        return ReflectionHelper.SingleOrDefaultAttribute<TAttribute>(memberInfo);
+    }
+
+    /// <summary>
+    /// Gets a dictionary of enum values to their EnumMemberAttribute values
+    /// </summary>
+    /// <typeparam name="TEnum">Enum type</typeparam>
+    /// <returns>Dictionary of enum values to EnumMemberAttribute values</returns>
+    public static IReadOnlyDictionary<TEnum, string> GetEnumToEnumMemberDictionary<TEnum>()
+        where TEnum : struct, Enum
+        => GetValues<TEnum>().ToDictionary(
+            enumValue => enumValue,
+            enumValue => GetEnumMemberValue(enumValue));
+
+    /// <summary>
+    /// Gets a dictionary of EnumMemberAttribute values to their enum values
+    /// </summary>
+    /// <typeparam name="TEnum">Enum type</typeparam>
+    /// <returns>Dictionary of EnumMemberAttribute values to enum values</returns>
+    public static IReadOnlyDictionary<string, TEnum> GetEnumMemberToEnumDictionary<TEnum>()
+        where TEnum : struct, Enum
+        => GetValues<TEnum>().ToDictionary(
+            enumValue => GetEnumMemberValue(enumValue),
+            enumValue => enumValue);
+
+    private static (string Value, MemberInfo MemberInfo) GetMemberInfo<TEnum>(TEnum? value)
+        where TEnum : struct, Enum
+    {
+        var valueString = value.ToString()!;
+
+        var t = value!.GetType();
+
+        var memberInfo = t.GetMember(valueString).
+            FirstOrDefault();
+
+        if (memberInfo == null)
         {
-            if (value == null)
-            {
-                return string.Empty;
-            }
-
-            var (s, m) = GetEnumMemberInfo(value);
-
-            var attribute = ReflectionHelper.SingleOrDefaultAttribute<EnumMemberAttribute>(m);
-
-            return attribute?.Value ?? s;
+            throw new InvalidOperationException($"{value} not part of enum");
         }
 
-        /// <summary>
-        /// Gets a value indicating whether or not the enum is marked obsolete
-        /// </summary>
-        /// <typeparam name="TEnum">Enum type</typeparam>
-        /// <param name="value">value of enum</param>
-        /// <returns>true if obsolete</returns>
-        public static bool IsEnumObsolete<TEnum>(TEnum? value)
-            where TEnum : struct, Enum
-        {
-            if (value == null)
-            {
-                return false;
-            }
-
-            var (_, m) = GetEnumMemberInfo(value);
-
-            var a = ReflectionHelper.SingleOrDefaultAttribute<ObsoleteAttribute>(m);
-
-            return a != null;
-        }
-
-        /// <summary>
-        /// Gets the display name value of the enum
-        /// </summary>
-        /// <typeparam name="TEnum">Enum type</typeparam>
-        /// <param name="value">value of enum</param>
-        /// <returns>enum as string, or display name value</returns>
-        public static string GetEnumMemberValue<TEnum>(TEnum value)
-            where TEnum : struct, Enum
-        {
-            return GetEnumMemberValue((TEnum?)value);
-        }
-
-        private static (string Value, MemberInfo MemberInfo) GetEnumMemberInfo<TEnum>(TEnum? value)
-            where TEnum : struct, Enum
-        {
-            var valueString = value.ToString()!;
-
-            var t = value!.GetType();
-
-            var memberInfo = t.GetMember(valueString).
-                FirstOrDefault();
-
-            if (memberInfo == null)
-            {
-                throw new InvalidOperationException($"{value} not part of enum");
-            }
-
-            return (valueString, memberInfo);
-        }
+        return (valueString, memberInfo);
     }
 }

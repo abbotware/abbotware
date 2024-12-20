@@ -6,6 +6,7 @@
 
 namespace Abbotware.Interop.CsvHelper.Plugins;
 
+using Abbotware.Core.Extensions;
 using global::CsvHelper;
 using global::CsvHelper.TypeConversion;
 
@@ -17,13 +18,16 @@ public class YesNoBooleanConverter : DefaultTypeConverter
     /// <inheritdoc/>
     public override object ConvertFromString(string? text, IReaderRow row, global::CsvHelper.Configuration.MemberMapData memberMapData)
     {
-        if (string.IsNullOrWhiteSpace(text))
+        if (text.IsBlank())
         {
-            return false; // Default to false if the value is empty/null.
+            return false;
         }
 
-        text = text.Trim().ToUpperInvariant();
-        return text == "Y";
+        return text.Trim() switch
+        {
+            "Y" or "y" => true,
+            _ => false,
+        };
     }
 
     /// <inheritdoc/>

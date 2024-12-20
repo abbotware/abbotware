@@ -3,6 +3,7 @@
   <PropertyGroup>
     <Nullable>enable</Nullable>
     <TargetFrameworks>net9</TargetFrameworks>
+	<DisableSourceAnalysis>true</DisableSourceAnalysis>
   </PropertyGroup>
 
   <PropertyGroup>
