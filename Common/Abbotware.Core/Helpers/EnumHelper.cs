@@ -7,6 +7,9 @@
 namespace Abbotware.Core.Helpers;
 
 using System;
+#if NET8_0_OR_GREATER
+using System.Collections.Frozen;
+#endif
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -131,7 +134,12 @@ public static class EnumHelper
         where TEnum : struct, Enum
         => GetValues<TEnum>().ToDictionary(
             enumValue => enumValue,
-            enumValue => GetEnumMemberValue(enumValue));
+            enumValue => GetEnumMemberValue(enumValue))
+#if NET8_0_OR_GREATER
+            .ToFrozenDictionary();
+#else
+            ;
+#endif
 
     /// <summary>
     /// Gets a dictionary of EnumMemberAttribute values to their enum values
@@ -142,7 +150,12 @@ public static class EnumHelper
         where TEnum : struct, Enum
         => GetValues<TEnum>().ToDictionary(
             enumValue => GetEnumMemberValue(enumValue),
-            enumValue => enumValue);
+            enumValue => enumValue)
+#if NET8_0_OR_GREATER
+            .ToFrozenDictionary();
+#else
+            ;
+#endif
 
     private static (string Value, MemberInfo MemberInfo) GetMemberInfo<TEnum>(TEnum? value)
         where TEnum : struct, Enum
