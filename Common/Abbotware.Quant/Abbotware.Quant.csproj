@@ -29,6 +29,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\..\Interop\Abbotware.Interop.CsvHelper\Abbotware.Interop.CsvHelper.csproj" />
 		<ProjectReference Include="..\Abbotware.Core\Abbotware.Core.csproj" />
 	</ItemGroup>
 

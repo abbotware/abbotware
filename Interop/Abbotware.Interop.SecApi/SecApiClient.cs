@@ -23,7 +23,7 @@ using Microsoft.Extensions.Logging;
 /// </remarks>
 /// <param name="settings">api settings</param>
 /// <param name="logger">injected logger</param>
-public class SecApiClient(ISecApiSettings settings, ILogger logger)
+public sealed class SecApiClient(ISecApiSettings settings, ILogger logger)
     : BaseRestClient<ISecApiSettings>(new("https://api.sec-api.io/"), settings, logger),
     ISecApiMappingClient
 {
@@ -33,14 +33,13 @@ public class SecApiClient(ISecApiSettings settings, ILogger logger)
     public ISecApiMappingClient Mapping => this;
 
     /// <inheritdoc/>
-    public async Task<RestResponse<CompanyDetails[], ErrorMessage>> CusipAsync(string cusip, CancellationToken ct)
+    Task<RestResponse<CompanyDetails[], ErrorMessage>> ISecApiMappingClient.CusipAsync(string cusip, CancellationToken ct)
     {
         _ = this.InitializeIfRequired();
 
         var request = new RestRequest("mapping/cusip/{CUSIP}", Method.Get)
             .AddUrlSegment("CUSIP", cusip);
 
-        return await this.OnExecuteAsync<CompanyDetails[], ErrorMessage>(request, ct)
-            .ConfigureAwait(false);
+        return this.OnExecuteAsync<CompanyDetails[], ErrorMessage>(request, ct);
     }
 }
