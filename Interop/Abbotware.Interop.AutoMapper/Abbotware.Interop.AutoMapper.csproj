@@ -2,14 +2,14 @@
 
   <PropertyGroup>
     <Nullable>enable</Nullable>
-    <TargetFrameworks>netstandard2.1;net8;net9</TargetFrameworks>
+    <TargetFrameworks>net8;net9</TargetFrameworks>
     <Description>Abbotware Interop Library for AutoMapper - Contains helper methods, extension methods, and plugins</Description>
     <PackageTags>AutoMapper</PackageTags>
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="Automapper" Version="12.0.1" />
-    <PackageReference Include="AutoMapper.Extensions.ExpressionMapping" Version="6.0.4" />
+    <PackageReference Include="Automapper" Version="13.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.ExpressionMapping" Version="7.0.2" />
   </ItemGroup>
   
   <ItemGroup>
