@@ -29,6 +29,6 @@ public static class EdgarHelper
             _ => throw new InvalidOperationException($"{q}"),
         };
 
-        return quarter; ;
+        return quarter;
     }
 }
