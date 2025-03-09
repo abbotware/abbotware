@@ -15,8 +15,8 @@ using System.Net;
 public class BindableConnectionOptions : IConnectionOptions
 {
     /// <inheritdoc/>
-    public Uri Endpoint { get; init; } = new(string.Empty);
+    public Uri Endpoint { get; set; }
 
     /// <inheritdoc/>
-    public NetworkCredential? Credential { get; init; }
+    public NetworkCredential? Credential { get; set; }
 }
