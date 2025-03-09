@@ -51,7 +51,7 @@ namespace Abbotware.Utility.UnitTest
         public static Uri UnitTestExportPath => new(Environment.CurrentDirectory);
 
         /// <summary>
-        /// Get the rootpath
+        /// Gets the rootpath
         /// </summary>
         public static DirectoryInfo RootFolder => new(Environment.CurrentDirectory);
 
