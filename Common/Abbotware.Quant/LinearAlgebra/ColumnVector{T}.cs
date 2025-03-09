@@ -46,8 +46,8 @@ namespace Abbotware.Quant.LinearAlgebra
         /// <returns>element</returns>
         public T this[uint row]
         {
-            get { return this[row, 0]; }
-            set { this[row, 0] = value; }
+            get => this[row, 0];
+            set => this[row, 0] = value;
         }
 
         /// <summary>

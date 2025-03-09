@@ -8,7 +8,7 @@ namespace Abbotware.UnitTests.Core
     [TestFixture]
     [Category("Core")]
     [Category("Core.Runtime")]
-    public class ApplicationInformatnTests : BaseNUnitTest
+    public class ApplicationInformationTests : BaseNUnitTest
     {
         [Test]
         public void RuntimeName()
@@ -32,8 +32,8 @@ namespace Abbotware.UnitTests.Core
             Assert.That(e.RuntimeName, Is.EqualTo("8.0.8"));
             Assert.That(e.RuntimeVersion, Is.EqualTo(new Version("8.0.8")));
 #elif NET9_0
-            Assert.That(e.RuntimeName, Is.EqualTo("9.0.0"));
-            Assert.That(e.RuntimeVersion, Is.EqualTo(new Version("9.0.0")));
+            Assert.That(e.RuntimeName, Is.EqualTo("9.0.2"));
+            Assert.That(e.RuntimeVersion, Is.EqualTo(new Version("9.0.2")));
 #else
             Assert.Fail("Unexpected");
 #endif

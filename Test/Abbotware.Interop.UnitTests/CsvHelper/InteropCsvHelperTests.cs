@@ -77,7 +77,7 @@ public class InteropCsvHelperTests : BaseNUnitTest
 
         public TestEnumeration Enum { get; set; }
 
-        //public TestEnumeration NullableEnum { get; set; }
+        //// public TestEnumeration NullableEnum { get; set; }
 
         [TypeConverter(typeof(EnumMemberConverter<TestEnumeration2>))]
         public TestEnumeration2 EnumMember { get; set; }
