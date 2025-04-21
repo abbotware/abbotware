@@ -53,6 +53,8 @@ public class EnumMemberConverter<TEnum> : DefaultTypeConverter
             }
         }
 
+        text = text.Trim();
+
         if (!this.stringToEnum.TryGetValue(text, out var parsed))
         {
             throw new ArgumentException($"Cannot convert '{text}' to {typeof(TEnum).Name}");
@@ -64,22 +66,23 @@ public class EnumMemberConverter<TEnum> : DefaultTypeConverter
     /// <inheritdoc/>
     public override string? ConvertToString(object? value, IWriterRow row, MemberMapData memberMapData)
     {
-        if (this.Nullable && value is null)
+        if (value is null)
         {
-            return null;
-        }
-        else if (!this.Nullable)
-        {
-            throw new ArgumentException($"Cannot convert {typeof(TEnum).Name} to null");
-        }
-        else
-        {
-            if (!this.enumToString.TryGetValue((TEnum)value!, out var asString))
+            if (this.Nullable)
             {
-                throw new ArgumentException($"Cannot convert '{value}' to {typeof(TEnum).Name}");
+                return string.Empty;
             }
-
-            return asString;
+            else
+            {
+                throw new ArgumentException($"Cannot convert {typeof(TEnum).Name} to null");
+            }
         }
+
+        if (!this.enumToString.TryGetValue((TEnum)value!, out var asString))
+        {
+            throw new ArgumentException($"Cannot convert '{value}' to {typeof(TEnum).Name}");
+        }
+
+        return asString;
     }
 }
