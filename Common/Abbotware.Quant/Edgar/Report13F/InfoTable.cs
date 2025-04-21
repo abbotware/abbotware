@@ -26,36 +26,59 @@ using CsvHelper.Configuration.Attributes;
 /// <param name="VotingAuthorityNone">Voting authority none.</param>
 public record class InfoTable(
     [property:Key]
-    [Name("ACCESSION_NUMBER")]
+    [param:Name("ACCESSION_NUMBER")]
+    [property:Name("ACCESSION_NUMBER")]
     string AccessionNumber,
     [property:Key]
-    [Name("INFOTABLE_SK")]
+    [param:Name("INFOTABLE_SK")]
+    [property:Name("INFOTABLE_SK")]
     long InfoTableKey,
-    [Name("NAMEOFISSUER")]
+    [param:Name("NAMEOFISSUER")]
+    [property:Name("NAMEOFISSUER")]
     string NameOfIssuer,
-    [Name("TITLEOFCLASS")]
+    [param:Name("TITLEOFCLASS")]
+    [property:Name("TITLEOFCLASS")]
     string TitleOfClass,
-    [Name("CUSIP")]
+    [param:Name("CUSIP")]
+    [property:Name("CUSIP")]
     string? Cusip,
-    [Name("FIGI")]
+    [param:Name("FIGI")]
+    [property:Name("FIGI")]
     string? Figi,
-    [Name("VALUE")]
+    [param:Name("VALUE")]
+    [property:Name("VALUE")]
     decimal? Value,
-    [Name("SSHPRNAMT")]
+    [param:Name("SSHPRNAMT")]
+    [property:Name("SSHPRNAMT")]
     decimal Amount,
-    [Name("SSHPRNAMTTYPE")]
-    [TypeConverter(typeof(EnumMemberConverter<AmountType>))]
+    [param:Name("SSHPRNAMTTYPE")]
+    [property:Name("SSHPRNAMTTYPE")]
+    [param:TypeConverter(typeof(EnumMemberConverter<AmountType>))]
+    [property:TypeConverter(typeof(EnumMemberConverter<AmountType>))]
     AmountType AmountType,
-    [Name("PUTCALL")]
-    [TypeConverter(typeof(NullableEnumMemberConverter<PutCallType>))]
+    [param:Name("PUTCALL")]
+    [property:Name("PUTCALL")]
+    [param:TypeConverter(typeof(NullableEnumMemberConverter<PutCallType>))]
+    [property:TypeConverter(typeof(NullableEnumMemberConverter<PutCallType>))]
     PutCallType? PutCallType,
-    [Name("INVESTMENTDISCRETION")]
+    [param:Name("INVESTMENTDISCRETION")]
+    [property:Name("INVESTMENTDISCRETION")]
     string? InvestmentDiscretion,
-    [Name("OTHERMANAGER")]
+    [param:Name("OTHERMANAGER")]
+    [property:Name("OTHERMANAGER")]
     string? OtherManager,
-    [Name("VOTING_AUTH_SOLE")]
+    [param:Name("VOTING_AUTH_SOLE")]
+    [property:Name("VOTING_AUTH_SOLE")]
     long? VotingAuthoritySole,
-    [Name("VOTING_AUTH_SHARED")]
+    [param:Name("VOTING_AUTH_SHARED")]
+    [property:Name("VOTING_AUTH_SHARED")]
     long? VotingAuthorityShared,
-    [Name("VOTING_AUTH_NONE")]
-    long? VotingAuthorityNone);
+    [param:Name("VOTING_AUTH_NONE")]
+    [property:Name("VOTING_AUTH_NONE")]
+    long? VotingAuthorityNone)
+{
+    /// <summary>
+    /// Gets the file name
+    /// </summary>
+    public const string FileName = "INFOTABLE.TSV";
+}

@@ -1,14 +1,28 @@
 ﻿namespace Abbotware.Quant.Edgar.Report13F;
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Threading;
+using Abbotware.Interop.CsvHelper;
+using CsvHelper.Configuration;
 
 /// <summary>
 /// Edgar Helper Functions
 /// </summary>
 public static class EdgarHelper
 {
+    /// <summary>
+    /// Gets the Csv Configuration
+    /// </summary>
+    public static readonly CsvConfiguration CsvHelperConfiguration = new CsvConfiguration(CultureInfo.InvariantCulture)
+    {
+        Delimiter = "\t",
+        HasHeaderRecord = true,
+        TrimOptions = TrimOptions.Trim,
+    };
+
     /// <summary>
     /// Converts the directory name into a date
     /// </summary>
@@ -31,4 +45,23 @@ public static class EdgarHelper
 
         return quarter;
     }
+
+    /// <summary>
+    /// Reads the file
+    /// </summary>
+    /// <typeparam name="TRow">row type</typeparam>
+    /// <param name="file">file path</param>
+    /// <param name="ct">cancellation token</param>
+    /// <returns>async rows</returns>
+    public static IAsyncEnumerable<TRow> ReadAsAsync<TRow>(FileInfo file, CancellationToken ct)
+        => Csv.ParseAsync<TRow>(file, CsvHelperConfiguration, ct);
+
+    /// <summary>
+    /// Reads the file
+    /// </summary>
+    /// <typeparam name="TRow">row type</typeparam>
+    /// <param name="file">file path</param>
+    /// <returns>rows</returns>
+    public static IEnumerable<TRow> Read<TRow>(FileInfo file)
+        => Csv.Parse<TRow>(file, CsvHelperConfiguration);
 }

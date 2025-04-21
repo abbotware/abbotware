@@ -105,7 +105,7 @@ public class SubDirectoryScanner(DirectoryInfo root, ILogger<SubDirectoryScanner
 
         var dirs = root.GetDirectories();
 
-        this.Logger.Info($"Found {dirs.Length} directories");
+        this.Logger.Info($"Found {dirs.Length} directories in {root}");
 
         var ts = Stopwatch.StartNew();
 

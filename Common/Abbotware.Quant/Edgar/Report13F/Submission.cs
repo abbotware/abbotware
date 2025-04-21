@@ -17,14 +17,26 @@ using CsvHelper.Configuration.Attributes;
 /// <param name="PeriodOfReport">Period of report in (DD-MON-YYYY) format.</param>
 public record Submission(
     [property:Key]
-    [Name("ACCESSION_NUMBER")]
+    [property:Name("ACCESSION_NUMBER")]
+    [param:Name("ACCESSION_NUMBER")]
     string AccessionNumber,
-    [Name("FILING_DATE")]
+    [property:Name("FILING_DATE")]
+    [param:Name("FILING_DATE")]
     DateOnly FilingDate,
-    [Name("SUBMISSIONTYPE"),
-    TypeConverter(typeof(EnumMemberConverter<SubmissionType>))]
+    [property:Name("SUBMISSIONTYPE")]
+    [param:Name("SUBMISSIONTYPE")]
+    [property:TypeConverter(typeof(EnumMemberConverter<SubmissionType>))]
+    [param:TypeConverter(typeof(EnumMemberConverter<SubmissionType>))]
     SubmissionType SubmissionType,
-    [Name("CIK")]
+    [property:Name("CIK")]
+    [param:Name("CIK")]
     long Cik,
-    [Name("PERIODOFREPORT")]
-    DateOnly PeriodOfReport);
+    [property:Name("PERIODOFREPORT")]
+    [param:Name("PERIODOFREPORT")]
+    DateOnly PeriodOfReport)
+{
+    /// <summary>
+    /// Gets the file name
+    /// </summary>
+    public const string FileName = "SUBMISSION.TSV";
+}

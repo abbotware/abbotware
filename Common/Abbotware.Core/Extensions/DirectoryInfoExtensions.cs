@@ -34,6 +34,7 @@ public static class DirectoryInfoExtensions
         return di;
     }
 
+
     /// <summary>
     /// Gets a FileInfo for a specified sub file (if it exists)
     /// </summary>
@@ -42,11 +43,22 @@ public static class DirectoryInfoExtensions
     /// <returns>DirectoryInfo object</returns>
     /// <exception cref="DirectoryNotFoundException">if sub directory does not exist</exception>
     public static FileInfo FileInfo(this DirectoryInfo extend, params IList<string> parts)
+        => extend.FileInfo(true, parts);
+
+    /// <summary>
+    /// Gets a FileInfo for a specified sub file (if it exists)
+    /// </summary>
+    /// <param name="extend">extended directory info</param>
+    /// <param name="throwIfNotExist">throw if file doesnt exist</param>
+    /// <param name="parts">path parts names</param>
+    /// <returns>DirectoryInfo object</returns>
+    /// <exception cref="DirectoryNotFoundException">if sub directory does not exist</exception>
+    public static FileInfo FileInfo(this DirectoryInfo extend, bool throwIfNotExist, params IList<string> parts)
     {
         parts.Insert(0, extend.FullName);
         var fi = new FileInfo(Path.Combine([.. parts]));
 
-        if (!fi.Exists)
+        if (throwIfNotExist & !fi.Exists)
         {
             throw new FileNotFoundException($"{fi.FullName} not found");
         }

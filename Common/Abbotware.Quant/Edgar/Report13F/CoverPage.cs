@@ -32,51 +32,103 @@ using CsvHelper.Configuration.Attributes;
 /// <param name="ProvideInfoForInstruction5">Do you wish to provide information pursuant to instruction 5?</param>
 /// <param name="AdditionalInformation">Additional information.</param>
 public record CoverPage(
-    [property:Key]
-    [Name("ACCESSION_NUMBER")]
+    [property: Key]
+    [param: Name("ACCESSION_NUMBER")]
+    [property: Name("ACCESSION_NUMBER")]
     string AccessionNumber,
-    [Name("REPORTCALENDARORQUARTER")]
+
+    [param: Name("REPORTCALENDARORQUARTER")]
+    [property: Name("REPORTCALENDARORQUARTER")]
     DateOnly ReportCalendarOrQuarter,
-    [Name("ISAMENDMENT")]
-    [TypeConverter(typeof(YesNoBooleanConverter))]
+
+    [param: Name("ISAMENDMENT")]
+    [property: Name("ISAMENDMENT")]
+    [param: TypeConverter(typeof(YesNoBooleanConverter))]
+    [property: TypeConverter(typeof(YesNoBooleanConverter))]
     bool IsAmendment,
-    [Name("AMENDMENTNO")]
+
+    [param: Name("AMENDMENTNO")]
+    [property: Name("AMENDMENTNO")]
     int? AmendmentNumber,
-    [Name("AMENDMENTTYPE")]
-    [TypeConverter(typeof(NullableEnumMemberConverter<AmendmentType>))]
+
+    [param: Name("AMENDMENTTYPE")]
+    [property: Name("AMENDMENTTYPE")]
+    [param: TypeConverter(typeof(NullableEnumMemberConverter<AmendmentType>))]
+    [property: TypeConverter(typeof(NullableEnumMemberConverter<AmendmentType>))]
     AmendmentType? AmendmentType,
-    [Name("CONFDENIEDEXPIRED")]
-    [TypeConverter(typeof(YesNoBooleanConverter))]
+
+    [param: Name("CONFDENIEDEXPIRED")]
+    [property: Name("CONFDENIEDEXPIRED")]
+    [param: TypeConverter(typeof(YesNoBooleanConverter))]
+    [property: TypeConverter(typeof(YesNoBooleanConverter))]
     bool? ConfDeniedExpired,
-    [Name("DATEDENIEDEXPIRED")]
+
+    [param: Name("DATEDENIEDEXPIRED")]
+    [property: Name("DATEDENIEDEXPIRED")]
     DateOnly? DateDeniedExpired,
-    [Name("DATEREPORTED")]
+
+    [param: Name("DATEREPORTED")]
+    [property: Name("DATEREPORTED")]
     DateOnly? DateReported,
-    [Name("REASONFORNONCONFIDENTIALITY")]
+
+    [param: Name("REASONFORNONCONFIDENTIALITY")]
+    [property: Name("REASONFORNONCONFIDENTIALITY")]
     string? ReasonForNonconfidentiality,
-    [Name("FILINGMANAGER_NAME")]
+
+    [param: Name("FILINGMANAGER_NAME")]
+    [property: Name("FILINGMANAGER_NAME")]
     string FilingManagerName,
-    [Name("FILINGMANAGER_STREET1")]
+
+    [param: Name("FILINGMANAGER_STREET1")]
+    [property: Name("FILINGMANAGER_STREET1")]
     string FilingManagerStreet1,
-    [Name("FILINGMANAGER_STREET2")]
+
+    [param: Name("FILINGMANAGER_STREET2")]
+    [property: Name("FILINGMANAGER_STREET2")]
     string FilingManagerStreet2,
-    [Name("FILINGMANAGER_CITY")]
+
+    [param: Name("FILINGMANAGER_CITY")]
+    [property: Name("FILINGMANAGER_CITY")]
     string FilingManagerCity,
-    [Name("FILINGMANAGER_STATEORCOUNTRY")]
+
+    [param: Name("FILINGMANAGER_STATEORCOUNTRY")]
+    [property: Name("FILINGMANAGER_STATEORCOUNTRY")]
     string FilingManagerStateOrCountry,
-    [Name("FILINGMANAGER_ZIPCODE")]
+
+    [param: Name("FILINGMANAGER_ZIPCODE")]
+    [property: Name("FILINGMANAGER_ZIPCODE")]
     string FilingManagerZipCode,
-    [Name("REPORTTYPE")]
-    [TypeConverter(typeof(EnumMemberConverter<ReportType>))]
+
+    [param: Name("REPORTTYPE")]
+    [property: Name("REPORTTYPE")]
+    [param: TypeConverter(typeof(EnumMemberConverter<ReportType>))]
+    [property: TypeConverter(typeof(EnumMemberConverter<ReportType>))]
     ReportType ReportType,
-    [Name("FORM13FFILENUMBER")]
+
+    [param: Name("FORM13FFILENUMBER")]
+    [property: Name("FORM13FFILENUMBER")]
     string? Form13FFileNumber,
-    [Name("CRDNUMBER")]
+
+    [param: Name("CRDNUMBER")]
+    [property: Name("CRDNUMBER")]
     string? CrdNumber,
-    [Name("SECFILENUMBER")]
+
+    [param: Name("SECFILENUMBER")]
+    [property: Name("SECFILENUMBER")]
     string? SecFileNumber,
-    [Name("PROVIDEINFOFORINSTRUCTION5")]
-    [TypeConverter(typeof(YesNoBooleanConverter))]
+
+    [param: Name("PROVIDEINFOFORINSTRUCTION5")]
+    [property: Name("PROVIDEINFOFORINSTRUCTION5")]
+    [param: TypeConverter(typeof(YesNoBooleanConverter))]
+    [property: TypeConverter(typeof(YesNoBooleanConverter))]
     bool ProvideInfoForInstruction5,
-    [Name("ADDITIONALINFORMATION")]
-    string? AdditionalInformation);
+
+    [param: Name("ADDITIONALINFORMATION")]
+    [property: Name("ADDITIONALINFORMATION")]
+    string? AdditionalInformation)
+{
+    /// <summary>
+    /// Gets the file name
+    /// </summary>
+    public const string FileName = "COVERPAGE.TSV";
+}
