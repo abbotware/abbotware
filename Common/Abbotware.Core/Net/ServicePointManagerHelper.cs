@@ -14,6 +14,7 @@ namespace Abbotware.Core.Net
     /// <summary>
     /// helper class for the ServicePointManager
     /// </summary>
+    [Obsolete("not in use")]
     public static class ServicePointManagerHelper
     {
         /// <summary>

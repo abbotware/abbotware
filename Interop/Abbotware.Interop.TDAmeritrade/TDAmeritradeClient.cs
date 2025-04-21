@@ -31,7 +31,7 @@ namespace Abbotware.Interop.TDAmeritrade
         /// Initializes a new instance of the <see cref="TDAmeritradeClient"/> class.
         /// </summary>
         /// <param name="settings">api settings</param>
-        /// <param name="logger">injectted logger</param>
+        /// <param name="logger">injected logger</param>
         public TDAmeritradeClient(ITDAmeritradeSettings settings, ILogger logger)
             : base(new("https://api.tdameritrade.com/v1/"), settings, logger)
         {

@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------
 // <author>Anthony Abate</author>
 
-namespace Abbotware.Interop.Yubico.ExtensionPoints
+namespace Abbotware.Interop.Yubico
 {
     using System.Threading;
     using System.Threading.Tasks;

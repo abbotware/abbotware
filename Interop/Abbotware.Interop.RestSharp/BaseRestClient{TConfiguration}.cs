@@ -12,10 +12,9 @@ namespace Abbotware.Interop.RestSharp
     using Abbotware.Core;
     using Abbotware.Core.Net.Http;
     using Abbotware.Core.Objects;
-    using Abbotware.Interop.Newtonsoft;
     using Abbotware.Interop.RestSharp.Configuration;
     using global::RestSharp;
-    using global::RestSharp.Serializers.NewtonsoftJson;
+    using global::RestSharp.Serializers.Json;
     using Microsoft.Extensions.Logging;
 
     /// <summary>
@@ -34,7 +33,7 @@ namespace Abbotware.Interop.RestSharp
         protected BaseRestClient(Uri baseUri, TConfiguration configuration, ILogger logger)
             : base(configuration, logger)
         {
-            this.Client = new RestClient(baseUri, configureSerialization: s => s.UseNewtonsoftJson(JsonHelper.CreateDefaultSettings()));
+            this.Client = new RestClient(baseUri, configureSerialization: s => s.UseSystemTextJson());
         }
 
         /// <summary>
@@ -59,6 +58,11 @@ namespace Abbotware.Interop.RestSharp
             var response = await this.Client.ExecuteAsync<TResponse>(request, ct)
                 .ConfigureAwait(false);
 
+            if (response.ErrorException is not null)
+            {
+                throw response.ErrorException;
+            }
+
             var responseUri = response.ResponseUri?.ToString() ?? string.Empty;
 
             if (!response.IsSuccessful)
@@ -66,25 +70,17 @@ namespace Abbotware.Interop.RestSharp
                 // for string, just pass along the content
                 if (typeof(TError) == typeof(string))
                 {
-                    var error = (TError)(object)(response.Content ?? string.Empty);
-                    return new RestResponse<TResponse, TError>(response.StatusCode, responseUri, response.Content) with { Error = error };
+                    var errorString = (TError)(object)(response.Content ?? string.Empty);
+                    return new RestResponse<TResponse, TError>(response.StatusCode, responseUri, response.Content) { Error = errorString };
                 }
 
-                try
-                {
-                    var error = JsonHelper.FromString<TError>(response.Content);
-                    return new RestResponse<TResponse, TError>(response.StatusCode, responseUri, response.Content) with { Error = error };
-                }
-                catch (Exception)
-                {
-                    if (response.ErrorException != null)
-                    {
-                        throw response.ErrorException;
-                    }
-                }
+                var error = await this.Client.Deserialize<TError>(response, ct)
+                    .ConfigureAwait(false);
+
+                return new RestResponse<TResponse, TError>(response.StatusCode, responseUri, response.Content) { Error = error.Data };
             }
 
-            return new RestResponse<TResponse, TError>(response.StatusCode, responseUri, response.Content) with { Response = response.Data };
+            return new RestResponse<TResponse, TError>(response.StatusCode, responseUri, response.Content) { Response = response.Data };
         }
 
         /// <summary>

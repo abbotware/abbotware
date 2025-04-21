@@ -27,7 +27,7 @@ namespace Abbotware.Interop.Windows.Psapi
 
             var mem = default(ProcessMemoryCounters);
 
-            mem.cb = (uint)Marshal.SizeOf(typeof(ProcessMemoryCounters));
+            mem.cb = (uint)Marshal.SizeOf<ProcessMemoryCounters>();
 
             if (!NativeMethods.GetProcessMemoryInfo(currentProcessHandle, out mem, mem.cb))
             {

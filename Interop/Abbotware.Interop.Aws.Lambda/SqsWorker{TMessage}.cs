@@ -15,8 +15,8 @@ namespace Abbotware.Interop.Aws.Lambda
     using Abbotware.Core;
     using Abbotware.Core.Extensions;
     using Abbotware.Core.Messaging;
+    using Abbotware.Host;
     using Abbotware.Interop.Aws.Sqs.Plugins;
-    using Abbotware.Interop.Castle.ExtensionPoints;
     using global::Microsoft.Extensions.Logging;
     using ProtoBuf;
 

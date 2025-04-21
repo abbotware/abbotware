@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Nullable>enable</Nullable>
-    <TargetFrameworks>netstandard2.0;netstandard2.1;net6;net7;net8</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;net8;net9</TargetFrameworks>
   </PropertyGroup>
 
   <Choose>
@@ -11,12 +11,7 @@
         <Compile Remove="**/*.netstandard2.0.cs" />
       </ItemGroup>
     </When>
-    <When Condition="'$(TargetFramework)' == 'net7'">
-      <ItemGroup>
-        <Compile Remove="**/*.netstandard2.0.cs" />
-      </ItemGroup>
-    </When>
-    <When Condition="'$(TargetFramework)' == 'net6'">
+    <When Condition="'$(TargetFramework)' == 'net9'">
       <ItemGroup>
         <Compile Remove="**/*.netstandard2.0.cs" />
       </ItemGroup>
@@ -25,22 +20,23 @@
       <ItemGroup>
         <Compile Remove="**/*.netstandard2.0.cs" />
         <Compile Remove="**/*.net5.cs" />
-        <PackageReference Include="System.Threading.Channels" Version="8.0.0" />
+        <PackageReference Include="System.Threading.Channels" Version="9.0.4" />
       </ItemGroup>
     </When>
     <When Condition="'$(TargetFramework)' == 'netstandard2.0'">
       <ItemGroup>
         <Compile Remove="**/*.netstandard2.1.cs" />
         <Compile Remove="**/*.net5.cs" />
-        <PackageReference Include="System.Memory" Version="4.5.5" />
-        <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
-        <PackageReference Include="System.Threading.Channels" Version="8.0.0" />
+        <PackageReference Include="System.Memory" Version="4.6.3" />
+        <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.6.3" />
+        <PackageReference Include="System.Threading.Channels" Version="9.0.4" />
       </ItemGroup>
     </When>
   </Choose>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.4" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.4" />
   </ItemGroup>
 
   <ItemGroup>

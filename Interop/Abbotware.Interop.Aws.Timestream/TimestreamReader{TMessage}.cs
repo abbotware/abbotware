@@ -83,7 +83,7 @@ namespace Abbotware.Interop.Aws.Timestream
             var request = new QueryRequest();
             var response = new QueryResponse();
             request.QueryString = query;
-            IEnumerable<TMessage> rows = Enumerable.Empty<TMessage>();
+            var rows = Enumerable.Empty<TMessage>();
             var nextToken = string.Empty;
 
             do
@@ -122,7 +122,7 @@ namespace Abbotware.Interop.Aws.Timestream
 
                 foreach (var row in rows)
                 {
-                    Interlocked.Increment(ref this.recordsReceieved);
+                    _ = Interlocked.Increment(ref this.recordsReceieved);
                     yield return row;
                 }
 
@@ -134,8 +134,10 @@ namespace Abbotware.Interop.Aws.Timestream
             {
                 var handle = ct.Register(() =>
                 {
-                    var cqr = new CancelQueryRequest();
-                    cqr.QueryId = id;
+                    var cqr = new CancelQueryRequest
+                    {
+                        QueryId = id,
+                    };
 
                     this.LogCancelRequest(cqr.QueryId);
 

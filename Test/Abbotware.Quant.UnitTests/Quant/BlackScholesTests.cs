@@ -13,8 +13,8 @@
 
             Assert.Multiple(() =>
             {
-                Assert.That(d1, Is.EqualTo(0.046793707).Within(Precision.High));
-                Assert.That(d2, Is.EqualTo(-0.129982988).Within(Precision.High));
+                Assert.That(d1, Is.EqualTo(0.046793707).Within(DoublePrecision.High));
+                Assert.That(d2, Is.EqualTo(-0.129982988).Within(DoublePrecision.High));
             });
         }
 
@@ -26,8 +26,8 @@
 
             Assert.Multiple(() =>
             {
-                Assert.That(call, Is.EqualTo(2.213073289).Within(Precision.High));
-                Assert.That(put, Is.EqualTo(2.456615353).Within(Precision.High));
+                Assert.That(call, Is.EqualTo(2.213073289).Within(DoublePrecision.High));
+                Assert.That(put, Is.EqualTo(2.456615353).Within(DoublePrecision.High));
             });
         }
 
@@ -42,11 +42,11 @@
 
             Assert.Multiple(() =>
             {
-                Assert.That(call, Is.EqualTo(2.213073289).Within(Precision.High));
-                Assert.That(put, Is.EqualTo(2.456615353).Within(Precision.High));
+                Assert.That(call, Is.EqualTo(2.213073289).Within(DoublePrecision.High));
+                Assert.That(put, Is.EqualTo(2.456615353).Within(DoublePrecision.High));
 
-                Assert.That(callFromPut, Is.EqualTo(2.213073289).Within(Precision.High));
-                Assert.That(putFromCall, Is.EqualTo(2.456615353).Within(Precision.High));
+                Assert.That(callFromPut, Is.EqualTo(2.213073289).Within(DoublePrecision.High));
+                Assert.That(putFromCall, Is.EqualTo(2.456615353).Within(DoublePrecision.High));
             });
         }
     }

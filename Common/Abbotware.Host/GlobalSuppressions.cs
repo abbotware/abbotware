@@ -4,4 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Security", "CA5359:Do Not Disable Certificate Validation", Justification = "<Reviewed AA>", Scope = "member", Target = "~M:Abbotware.Host.AbbotwareHostService`1.StartAsync(System.Threading.CancellationToken)~System.Threading.Tasks.Task")]
+using System.Diagnostics.CodeAnalysis;
+
+[assembly: SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Bottom of Stack", Scope = "member", Target = "~M:Abbotware.Host.PollingComponent.OnDispatchAsync~System.Threading.Tasks.Task")]
+[assembly: SuppressMessage("Usage", "CA2213:Disposable fields should be disposed", Justification = "Disposed in Virtual", Scope = "member", Target = "~F:Abbotware.Host.BaseStartableComponent.cts")]

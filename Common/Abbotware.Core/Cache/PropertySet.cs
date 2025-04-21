@@ -14,28 +14,22 @@ namespace Abbotware.Core.Cache
     using System.Threading;
     using System.Threading.Tasks;
     using Abbotware.Core.Cache.ExtensionPoints;
-    using Abbotware.Core.Cache.LocalOperations;
 
     /// <summary>
     /// Key/Value property cache with timestamp
     /// </summary>
-    public class PropertySet
+    /// <remarks>
+    /// Initializes a new instance of the <see cref="PropertySet"/> class.
+    /// </remarks>
+    /// <param name="type">type of item (part of compositie key)</param>
+    /// <param name="id">id of item (part of compositie key)</param>
+    /// <param name="manager">cache manager</param>
+    public class PropertySet(string type, string id, IRemoteCache manager)
     {
         /// <summary>
         /// categorized field-value set store
         /// </summary>
-        private readonly ICacheable<ICategorizedFieldValues> categorizedFieldSet;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PropertySet"/> class.
-        /// </summary>
-        /// <param name="type">type of item (part of compositie key)</param>
-        /// <param name="id">id of item (part of compositie key)</param>
-        /// <param name="manager">cache manager</param>
-        public PropertySet(string type, string id, IRemoteCache manager)
-        {
-            this.categorizedFieldSet = new CategorizedFieldValues(type, id, manager);
-        }
+        private readonly CategorizedFieldValues categorizedFieldSet = new(type, id, manager);
 
         /// <summary>
         /// Gets the categories

@@ -16,7 +16,7 @@
         {
             var equationResult = TimeValue.Continuous.FutureValue(100m, .05, 5);
 
-            Assert.That(equationResult, Is.EqualTo(128.40).Within(Precision.VeryLow));
+            Assert.That(equationResult, Is.EqualTo(128.40).Within(DoublePrecision.VeryLow));
         }
 
         [Test]
@@ -34,7 +34,7 @@
 
             var price = bond.Price(zeroRateCurve);
 
-            Assert.That(price, Is.EqualTo(98.39).Within(Precision.VeryLow));
+            Assert.That(price, Is.EqualTo(98.39).Within(DoublePrecision.VeryLow));
         }
 
         [Test]
@@ -44,7 +44,7 @@
 
             var price = bond.Yield(98.39m);
 
-            Assert.That(price.Rate, Is.EqualTo(.0676).Within(Precision.Low));
+            Assert.That(price.Rate, Is.EqualTo(.0676).Within(DoublePrecision.Low));
         }
 
         [Test]
@@ -61,7 +61,7 @@
 
             var yield = bond.ParYield(zeroRateCurve);
 
-            Assert.That(yield.Rate, Is.EqualTo(.0687).Within(Precision.Low));
+            Assert.That(yield.Rate, Is.EqualTo(.0687).Within(DoublePrecision.Low));
         }
 
         [Test]
@@ -69,18 +69,18 @@
         {
             var r1 = TimeValue.Continuous.Rate(99.6m, 100m, .25);
             var r1a = InterestRate.ContinousToPeriodic(r1, 4);
-            Assert.That(r1, Is.EqualTo(.01603).Within(Precision.Medium));
-            Assert.That(r1a, Is.EqualTo(.016064).Within(Precision.Medium));
+            Assert.That(r1, Is.EqualTo(.01603).Within(DoublePrecision.Medium));
+            Assert.That(r1a, Is.EqualTo(.016064).Within(DoublePrecision.Medium));
 
             var r2 = TimeValue.Continuous.Rate(99m, 100m, .5);
             var r2a = InterestRate.ContinousToPeriodic(r2, 2);
-            Assert.That(r2, Is.EqualTo(.02010).Within(Precision.Medium));
-            Assert.That(r2a, Is.EqualTo(.020202).Within(Precision.Medium));
+            Assert.That(r2, Is.EqualTo(.02010).Within(DoublePrecision.Medium));
+            Assert.That(r2a, Is.EqualTo(.020202).Within(DoublePrecision.Medium));
 
             var r3 = TimeValue.Continuous.Rate(97.8m, 100m, 1);
             var r3a = InterestRate.ContinousToPeriodic(r3, 1);
-            Assert.That(r3, Is.EqualTo(.02225).Within(Precision.Medium));
-            Assert.That(r3a, Is.EqualTo(.022495).Within(Precision.Medium));
+            Assert.That(r3, Is.EqualTo(.02225).Within(DoublePrecision.Medium));
+            Assert.That(r3a, Is.EqualTo(.022495).Within(DoublePrecision.Medium));
 
             var b1 = new ZeroCouponBond(.25);
             Assert.That(b1.Yield(99.6m).Rate, Is.EqualTo(r1));
@@ -107,9 +107,9 @@
             var b = new Bond(3, Coupon.Simple(.1, TimePeriod.SemiAnnually));
             var y = new Yield(.12, 1);
             var p = b.Price(y.AsDiscountRate());
-            Assert.That(p, Is.EqualTo(94.213).Within(Precision.Low));
+            Assert.That(p, Is.EqualTo(94.213).Within(DoublePrecision.Low));
             ////var d = b.MacaulayDuration(p);
-            Assert.That(p, Is.EqualTo(94.213).Within(Precision.Low));
+            Assert.That(p, Is.EqualTo(94.213).Within(DoublePrecision.Low));
 
             Assert.Inconclusive();
         }

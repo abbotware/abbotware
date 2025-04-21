@@ -4,15 +4,15 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Abbotware.Core.Logging
-{
-    /// <summary>
-    /// Log Location Details
-    /// </summary>
-    /// <param name="Line">line number</param>
-    /// <param name="Member">class member name</param>
-    /// <param name="File">file path</param>
-    public record class LogLocationDetail(int? Line, string? Member, string? File)
-    {
-    }
-}
+namespace Abbotware.Core.Logging;
+
+using System;
+
+/// <summary>
+/// Log Location Details
+/// </summary>
+/// <param name="Line">line number</param>
+/// <param name="Member">class member name</param>
+/// <param name="File">file path</param>
+/// <param name="Message">message function</param>
+public record class LogLocationDetail(int? Line, string? Member, string? File, Func<string> Message);

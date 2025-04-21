@@ -52,7 +52,7 @@ namespace Abbotware.Core.Threading
                     {
                         var data = await this.Reader.ReadAsync(this.DisposeRequested.Token).ConfigureAwait(false);
 #else
-                    await foreach (var data in this.Reader.ReadAllAsync(this.DisposeRequested.Token))
+                    await foreach (var data in this.Reader.ReadAllAsync(this.DisposeRequested.Token).ConfigureAwait(false))
                     {
 #endif
                         try

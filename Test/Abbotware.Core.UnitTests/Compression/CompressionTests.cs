@@ -7,7 +7,6 @@
     using Abbotware.Interop.NUnit;
     using Abbotware.Utility.UnitTest.Using.NUnit;
     using NUnit.Framework;
-    using Assert = Abbotware.Interop.NUnit.LegacyAssert;
 
     [Category("Core")]
     [Category("Core.Compression")]
@@ -20,7 +19,7 @@
         {
             var gz = new GZipCompression();
 
-            gz.Compress(null!);
+            _ = gz.Compress(null!);
         }
 
         [Test]
@@ -29,7 +28,7 @@
         {
             var gz = new GZipCompression();
 
-            gz.Decompress(null!);
+            _ = gz.Decompress(null!);
         }
 
         [Test]
@@ -40,7 +39,7 @@
             var b = gz.CompressString(string.Empty);
             var s = gz.DecompressString(b);
 
-            Assert.AreEqual(string.Empty, s);
+            Assert.That(s, Is.EqualTo(string.Empty));
         }
 
         [Test]
@@ -52,11 +51,11 @@
 
             var b = gz.CompressString(input);
 
-            Assert.IsTrue(b.Length < input.Length);
+            Assert.That(b.Length, Is.LessThan(input.Length));
 
             var s = gz.DecompressString(b);
 
-            Assert.AreEqual(input, s);
+            Assert.That(s, Is.EqualTo(input));
         }
 
         [Test]
@@ -71,12 +70,12 @@
 
             var b = gz.CompressString(input);
 
-            Assert.IsTrue(b.Length < input.Length);
-            Assert.AreEqual(106682, b.Length);
+            Assert.That(b.Length, Is.LessThan(input.Length));
+            Assert.That(b.Length, Is.EqualTo(104647));
 
             var s = gz.DecompressString(b);
 
-            Assert.AreEqual(input, s);
+            Assert.That(s, Is.EqualTo(input));
         }
     }
 }

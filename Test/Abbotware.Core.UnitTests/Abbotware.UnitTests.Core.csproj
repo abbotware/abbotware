@@ -1,14 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net8</TargetFrameworks>
+    <TargetFrameworks>net9</TargetFrameworks>
     <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
     <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
-    <PackageReference Include="NUnit3TestAdapter" Version="4.6.0">
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
+    <PackageReference Include="NUnit" Version="4.3.2" />
+    <PackageReference Include="NUnit3TestAdapter" Version="5.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -18,7 +19,6 @@
     <ProjectReference Include="..\..\Common\Abbotware.Core\Abbotware.Core.csproj" />
     <ProjectReference Include="..\..\Common\Abbotware.Data\Abbotware.Data.csproj" />
     <ProjectReference Include="..\..\Common\Abbotware.Experimental\Abbotware.Experimental.csproj" />
-    <ProjectReference Include="..\..\Common\Abbotware.Host\Abbotware.Host.csproj" />
     <ProjectReference Include="..\..\Common\Abbotware.ShellCommand\Abbotware.ShellCommand.csproj" />
     <ProjectReference Include="..\..\Common\Abbotware.Web\Abbotware.Web.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.AutoMapper\Abbotware.Interop.AutoMapper.csproj" />
@@ -27,7 +27,6 @@
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Aws.Sqs\Abbotware.Interop.Aws.Sqs.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Aws\Abbotware.Interop.Aws.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.BouncyCastle\Abbotware.Interop.BouncyCastle.csproj" />
-    <ProjectReference Include="..\..\Interop\Abbotware.Interop.Castle\Abbotware.Interop.Castle.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.EntityFramework\Abbotware.Interop.EntityFramework.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.EodHistoricalData\Abbotware.Interop.EodHistoricalData.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Ipify\Abbotware.Interop.Ipify.csproj" />
@@ -46,33 +45,10 @@
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.TDAmeritrade\Abbotware.Interop.TDAmeritrade.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Windows\Abbotware.Interop.Windows.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Yubico\Abbotware.Interop.Yubico.csproj" />
-    <ProjectReference Include="..\..\Using\Abbotware.Data.Using.Castle\Abbotware.Data.Using.Castle.csproj" />
-    <ProjectReference Include="..\..\Using\Abbotware.Using.Castle\Abbotware.Using.Castle.csproj" />
     <ProjectReference Include="..\..\Utility\Abbotware.Utility.UnitTest.Using.EntityFramework\Abbotware.Utility.UnitTest.Using.EntityFramework.csproj" />
     <ProjectReference Include="..\..\Utility\Abbotware.Utility.UnitTest.Using.NUnit\Abbotware.Utility.UnitTest.Using.NUnit.csproj" />
     <ProjectReference Include="..\..\Utility\Abbotware.Utility.UnitTest\Abbotware.Utility.UnitTest.csproj" />
     <ProjectReference Include="..\Abbotware.Interop.UnitTests\Abbotware.UnitTests.Interop.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Sample\data.csv">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Sample\dataset.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Sample\Data\Average_Daily_Traffic_Counts.csv">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Sample\Data\Average_Daily_Traffic_Counts.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Sample\Data\Average_Daily_Traffic_Counts.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Sample\file.csv">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
 </Project>

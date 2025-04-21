@@ -30,10 +30,10 @@ namespace Abbotware.IntegrationTests.Interop.EodHistoricalData
             var res = await client.Fundamentals.GetAsync("VTI", "US", default)
                 .ConfigureAwait(false);
 
-            Assert.IsNotNull(res);
-            Assert.IsNotNull(res.Response);
-            Assert.IsNull(res.Error);
-            Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
+            Assert.That(res, Is.Not.Null);
+            Assert.That(res.Response, Is.Not.Null);
+            Assert.That(res.Error, Is.Null);
+            Assert.That(res.StatusCode, Is.EqualTo(HttpStatusCode.OK));
         }
 
         [Test]
@@ -46,10 +46,10 @@ namespace Abbotware.IntegrationTests.Interop.EodHistoricalData
             var res = await client.Fundamentals.GetAsync("AAPL", "US", default)
                 .ConfigureAwait(false);
 
-            Assert.IsNotNull(res);
-            Assert.IsNotNull(res.Response);
-            Assert.IsNull(res.Error);
-            Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
+            Assert.That(res, Is.Not.Null);
+            Assert.That(res.Response, Is.Not.Null);
+            Assert.That(res.Error, Is.Null);
+            Assert.That(res.StatusCode, Is.EqualTo(HttpStatusCode.OK));
         }
 
         [Test]
@@ -62,10 +62,10 @@ namespace Abbotware.IntegrationTests.Interop.EodHistoricalData
             var res = await client.Fundamentals.GeneralAsync("AAPL", "US", default)
                 .ConfigureAwait(false);
 
-            Assert.IsNotNull(res);
-            Assert.IsNotNull(res.Response);
-            Assert.IsNull(res.Error);
-            Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
+            Assert.That(res, Is.Not.Null);
+            Assert.That(res.Response, Is.Not.Null);
+            Assert.That(res.Error, Is.Null);
+            Assert.That(res.StatusCode, Is.EqualTo(HttpStatusCode.OK));
         }
 
         [Test]
@@ -78,10 +78,10 @@ namespace Abbotware.IntegrationTests.Interop.EodHistoricalData
             var res = await client.Fundamentals.HighlightsAsync("AAPL", "US", default)
                 .ConfigureAwait(false);
 
-            Assert.IsNotNull(res);
-            Assert.IsNotNull(res.Response);
-            Assert.IsNull(res.Error);
-            Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
+            Assert.That(res, Is.Not.Null);
+            Assert.That(res.Response, Is.Not.Null);
+            Assert.That(res.Error, Is.Null);
+            Assert.That(res.StatusCode, Is.EqualTo(HttpStatusCode.OK));
         }
 
         [Test]
@@ -94,10 +94,10 @@ namespace Abbotware.IntegrationTests.Interop.EodHistoricalData
             var res = await client.Fundamentals.EarningsAsync("AAPL", "US", default)
                 .ConfigureAwait(false);
 
-            Assert.IsNotNull(res);
-            Assert.IsNotNull(res.Response);
-            Assert.IsNull(res.Error);
-            Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
+            Assert.That(res, Is.Not.Null);
+            Assert.That(res.Response, Is.Not.Null);
+            Assert.That(res.Error, Is.Null);
+            Assert.That(res.StatusCode, Is.EqualTo(HttpStatusCode.OK));
         }
 
         [Test]
@@ -110,10 +110,10 @@ namespace Abbotware.IntegrationTests.Interop.EodHistoricalData
             var res = await client.Fundamentals.FinancialsAsync("AAPL", "US", default)
                 .ConfigureAwait(false);
 
-            Assert.IsNotNull(res);
-            Assert.IsNotNull(res.Response);
-            Assert.IsNull(res.Error);
-            Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
+            Assert.That(res, Is.Not.Null);
+            Assert.That(res.Response, Is.Not.Null);
+            Assert.That(res.Error, Is.Null);
+            Assert.That(res.StatusCode, Is.EqualTo(HttpStatusCode.OK));
         }
 
         [Test]
@@ -126,10 +126,10 @@ namespace Abbotware.IntegrationTests.Interop.EodHistoricalData
             var res = await client.Fundamentals.ValuationAsync("AAPL", "US", default)
                 .ConfigureAwait(false);
 
-            Assert.IsNotNull(res);
-            Assert.IsNotNull(res.Response);
-            Assert.IsNull(res.Error);
-            Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
+            Assert.That(res, Is.Not.Null);
+            Assert.That(res.Response, Is.Not.Null);
+            Assert.That(res.Error, Is.Null);
+            Assert.That(res.StatusCode, Is.EqualTo(HttpStatusCode.OK));
         }
 
         [Test]
@@ -142,10 +142,10 @@ namespace Abbotware.IntegrationTests.Interop.EodHistoricalData
             var res = await client.Fundamentals.SharesStatsAsync("AAPL", "US", default)
                 .ConfigureAwait(false);
 
-            Assert.IsNotNull(res);
-            Assert.IsNotNull(res.Response);
-            Assert.IsNull(res.Error);
-            Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
+            Assert.That(res, Is.Not.Null);
+            Assert.That(res.Response, Is.Not.Null);
+            Assert.That(res.Error, Is.Null);
+            Assert.That(res.StatusCode, Is.EqualTo(HttpStatusCode.OK));
         }
 
         [Test]
@@ -158,10 +158,10 @@ namespace Abbotware.IntegrationTests.Interop.EodHistoricalData
             var res = await client.Fundamentals.TechnicalsAsync("AAPL", "US", default)
                 .ConfigureAwait(false);
 
-            Assert.IsNotNull(res);
-            Assert.IsNotNull(res.Response);
-            Assert.IsNull(res.Error);
-            Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
+            Assert.That(res, Is.Not.Null);
+            Assert.That(res.Response, Is.Not.Null);
+            Assert.That(res.Error, Is.Null);
+            Assert.That(res.StatusCode, Is.EqualTo(HttpStatusCode.OK));
         }
 
         [Test]
@@ -174,10 +174,10 @@ namespace Abbotware.IntegrationTests.Interop.EodHistoricalData
             var res = await client.Fundamentals.SplitsDividendsAsync("AAPL", "US", default)
                 .ConfigureAwait(false);
 
-            Assert.IsNotNull(res);
-            Assert.IsNotNull(res.Response);
-            Assert.IsNull(res.Error);
-            Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
+            Assert.That(res, Is.Not.Null);
+            Assert.That(res.Response, Is.Not.Null);
+            Assert.That(res.Error, Is.Null);
+            Assert.That(res.StatusCode, Is.EqualTo(HttpStatusCode.OK));
         }
 
         [Test]
@@ -190,10 +190,10 @@ namespace Abbotware.IntegrationTests.Interop.EodHistoricalData
             var res = await client.Fundamentals.AnalystRatingsAsync("AAPL", "US", default)
                 .ConfigureAwait(false);
 
-            Assert.IsNotNull(res);
-            Assert.IsNotNull(res.Response);
-            Assert.IsNull(res.Error);
-            Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
+            Assert.That(res, Is.Not.Null);
+            Assert.That(res.Response, Is.Not.Null);
+            Assert.That(res.Error, Is.Null);
+            Assert.That(res.StatusCode, Is.EqualTo(HttpStatusCode.OK));
         }
 
         [Test]
@@ -206,10 +206,10 @@ namespace Abbotware.IntegrationTests.Interop.EodHistoricalData
             var res = await client.Fundamentals.InsiderTransactionsAsync("AAPL", "US", default)
                 .ConfigureAwait(false);
 
-            Assert.IsNotNull(res);
-            Assert.IsNotNull(res.Response);
-            Assert.IsNull(res.Error);
-            Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
+            Assert.That(res, Is.Not.Null);
+            Assert.That(res.Response, Is.Not.Null);
+            Assert.That(res.Error, Is.Null);
+            Assert.That(res.StatusCode, Is.EqualTo(HttpStatusCode.OK));
         }
 
         [Test]
@@ -222,10 +222,10 @@ namespace Abbotware.IntegrationTests.Interop.EodHistoricalData
             var res = await client.Fundamentals.HoldersAsync("AAPL", "US", default)
                 .ConfigureAwait(false);
 
-            Assert.IsNotNull(res);
-            Assert.IsNotNull(res.Response);
-            Assert.IsNull(res.Error);
-            Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
+            Assert.That(res, Is.Not.Null);
+            Assert.That(res.Response, Is.Not.Null);
+            Assert.That(res.Error, Is.Null);
+            Assert.That(res.StatusCode, Is.EqualTo(HttpStatusCode.OK));
         }
 
         [Test]
@@ -238,10 +238,10 @@ namespace Abbotware.IntegrationTests.Interop.EodHistoricalData
             var res = await client.Fundamentals.EsgScoresAsync("AAPL", "US", default)
                 .ConfigureAwait(false);
 
-            Assert.IsNotNull(res);
-            Assert.IsNotNull(res.Response);
-            Assert.IsNull(res.Error);
-            Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
+            Assert.That(res, Is.Not.Null);
+            Assert.That(res.Response, Is.Not.Null);
+            Assert.That(res.Error, Is.Null);
+            Assert.That(res.StatusCode, Is.EqualTo(HttpStatusCode.OK));
         }
 
         [Test]
@@ -254,10 +254,10 @@ namespace Abbotware.IntegrationTests.Interop.EodHistoricalData
             var res = await client.Fundamentals.OutstandingSharesAsync("AAPL", "US", default)
                 .ConfigureAwait(false);
 
-            Assert.IsNotNull(res);
-            Assert.IsNotNull(res.Response);
-            Assert.IsNull(res.Error);
-            Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
+            Assert.That(res, Is.Not.Null);
+            Assert.That(res.Response, Is.Not.Null);
+            Assert.That(res.Error, Is.Null);
+            Assert.That(res.StatusCode, Is.EqualTo(HttpStatusCode.OK));
         }
 
         private static EodHistoricalDataSettings InitSettings(string overrideApikey)

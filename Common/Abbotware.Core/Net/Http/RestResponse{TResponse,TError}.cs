@@ -28,5 +28,29 @@ namespace Abbotware.Core.Net.Http
         /// Gets the error
         /// </summary>
         public TError? Error { get; init; }
+
+        /// <summary>
+        /// Replace the response with another (usually transformed)
+        /// </summary>
+        /// <typeparam name="TTransform">other type to transform</typeparam>
+        /// <param name="transform">transformed</param>
+        /// <returns>new response with a different response type</returns>
+        public RestResponse<TTransform, TError> TransformResponse<TTransform>(TTransform? transform)
+        {
+            return new RestResponse<TTransform, TError>(this.StatusCode, this.RawRequest, this.RawResponse)
+            { Response = transform, Error = this.Error };
+        }
+
+        /// <summary>
+        /// Replace the error with another (usually transformed)
+        /// </summary>
+        /// <typeparam name="TTransform">other type to transform</typeparam>
+        /// <param name="transform">transformed</param>
+        /// <returns>new response with a different error type</returns>
+        public RestResponse<TResponse, TTransform> TransformError<TTransform>(TTransform? transform)
+        {
+            return new RestResponse<TResponse, TTransform>(this.StatusCode, this.RawRequest, this.RawResponse)
+            { Response = this.Response, Error = transform };
+        }
     }
 }

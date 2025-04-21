@@ -2,18 +2,18 @@
 
   <PropertyGroup>
     <Nullable>enable</Nullable>
-    <TargetFrameworks>netstandard2.0;netstandard2.1;net6;net7;net8</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;net8;net9</TargetFrameworks>
     <Description>Abbotware Interop Library for RestSharp - Contains helper methods, extension methods, wrappers, and plugins</Description>
     <PackageTags>RestSharp</PackageTags>
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="RestSharp" Version="112.0.0" />
-    <PackageReference Include="RestSharp.Serializers.NewtonsoftJson" Version="112.0.0" />
+    <PackageReference Include="RestSharp" Version="112.1.0" />
   </ItemGroup>
-
+  
   <ItemGroup>
-    <ProjectReference Include="..\Abbotware.Interop.Newtonsoft\Abbotware.Interop.Newtonsoft.csproj" />
+    <ProjectReference Include="..\..\Common\Abbotware.Core\Abbotware.Core.csproj" />
+    <ProjectReference Include="..\Abbotware.Interop.SystemTextJson\Abbotware.Interop.SystemTextJson.csproj" />
   </ItemGroup>
   
 </Project>

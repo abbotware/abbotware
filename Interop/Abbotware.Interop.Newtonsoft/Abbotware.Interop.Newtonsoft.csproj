@@ -2,15 +2,15 @@
 
   <PropertyGroup>
     <Nullable>enable</Nullable>
-    <TargetFrameworks>netstandard2.0;netstandard2.1;net6;net7;net8</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;net8;net9</TargetFrameworks>
     <Description>Abbotware Interop Library for Newtonsoft libraries - Contains helper methods, extension methods, and plugins</Description>
     <PackageTags>Newtonsoft;Json;Bson</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="Newtonsoft.Json.Bson" Version="1.0.2" />
-    <PackageReference Include="NodaTime.Serialization.JsonNet" Version="3.1.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="*" />
+    <PackageReference Include="Newtonsoft.Json.Bson" Version="*" />
+    <PackageReference Include="NodaTime.Serialization.JsonNet" Version="*" />
   </ItemGroup>
 
   <ItemGroup>

@@ -2,19 +2,26 @@
 
 	<PropertyGroup>
     <Nullable>enable</Nullable>
-    <TargetFrameworks>netstandard2.1;net6;net7</TargetFrameworks>
+    <TargetFrameworks>netstandard2.1;net8;net9</TargetFrameworks>
 		<Description>Abbotware Interop Library for Aws Lambda - Contains helper methods, extension methods, and plugins</Description>
 		<PackageTags>Lambda;Aws;Amazon</PackageTags>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Amazon.Lambda.Core" Version="2.3.0" />
-		<PackageReference Include="Amazon.Lambda.RuntimeSupport" Version="1.11.0" />
-		<PackageReference Include="Amazon.Lambda.Serialization.Json" Version="2.2.3" />
+	  <Compile Remove="LambdaFunctionHost.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\Common\Abbotware.Host\Abbotware.Host.csproj" />
+	  <None Include="LambdaFunctionHost.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Amazon.Lambda.Core" Version="2.5.1" />
+		<PackageReference Include="Amazon.Lambda.RuntimeSupport" Version="1.13.0" />
+		<PackageReference Include="Amazon.Lambda.Serialization.Json" Version="2.2.4" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<ProjectReference Include="..\Abbotware.Interop.Aws.Sqs\Abbotware.Interop.Aws.Sqs.csproj" />
 	</ItemGroup>
 

@@ -29,7 +29,7 @@
 
             var price = bond.Price(zeroRateCurve);
 
-            Assert.That(price, Is.EqualTo(xls).Within(Precision.High));
+            Assert.That(price, Is.EqualTo(xls).Within(DoublePrecision.High));
         }
 
         [Test]
@@ -39,7 +39,7 @@
 
             var ytm = zcb.Yield(742.47m);
 
-            Assert.That(ytm.Rate, Is.EqualTo(.03).Within(Precision.VeryLow));
+            Assert.That(ytm.Rate, Is.EqualTo(.03).Within(DoublePrecision.VeryLow));
         }
 
         [Test]
@@ -57,7 +57,7 @@
 
             var price = bond.Price(new ConstantRiskFreeRate<double>(.0676));
 
-            Assert.That(price, Is.EqualTo(98.39).Within(Precision.VeryLow));
+            Assert.That(price, Is.EqualTo(98.39).Within(DoublePrecision.VeryLow));
         }
 
         [Test]
@@ -75,13 +75,13 @@
             { Notional = 1000 };
 
             var yield = bond.Yield(920);
-            Assert.That(yield.AsYearlyPeriodic(2).Rate, Is.EqualTo(.11359).Within(Precision.Low));
+            Assert.That(yield.AsYearlyPeriodic(2).Rate, Is.EqualTo(.11359).Within(DoublePrecision.Low));
 
             ////var yieldEstimate = bond.YieldEstimate(920);
             ////Assert.That(yieldEstimate.AsYearlyPeriodic(2).Rate, Is.EqualTo(.11250).Within(Precision.Low));
 
             var currentYield = bond.CurrentYield(920);
-            Assert.That(currentYield.Rate, Is.EqualTo(.10870).Within(Precision.Low));
+            Assert.That(currentYield.Rate, Is.EqualTo(.10870).Within(DoublePrecision.Low));
         }
 
         [Test]
@@ -94,7 +94,7 @@
 
             var yield = bond.Yield(900);
 
-            Assert.That(yield.AsYearlyPeriodic(2).Rate, Is.EqualTo(.1063).Within(Precision.Low));
+            Assert.That(yield.AsYearlyPeriodic(2).Rate, Is.EqualTo(.1063).Within(DoublePrecision.Low));
         }
 
         [Test]
@@ -107,7 +107,7 @@
             ////var ytm = new Yield(.08, 2);
             var d = bond.MacaulayDuration(963.7m);
 
-            Assert.That(d, Is.EqualTo(1.9124).Within(Precision.Low));
+            Assert.That(d, Is.EqualTo(1.9124).Within(DoublePrecision.Low));
 
             Assert.Inconclusive();
         }
@@ -121,7 +121,7 @@
             var ytm = new Yield(.12, 3);
             var d = bond.MacaulayDuration(94.213m, ytm);
 
-            Assert.That(d, Is.EqualTo(2.653).Within(Precision.Low));
+            Assert.That(d, Is.EqualTo(2.653).Within(DoublePrecision.Low));
         }
 
         [Test]
@@ -134,7 +134,7 @@
             ////var ytm = new Yield<double>(new ContinuousRate(.08), new(0, 2));
             var d = bond.MacaulayDuration(963.7m);
 
-            Assert.That(d, Is.EqualTo(1.9124).Within(Precision.Low));
+            Assert.That(d, Is.EqualTo(1.9124).Within(DoublePrecision.Low));
 
             Assert.Inconclusive();
         }

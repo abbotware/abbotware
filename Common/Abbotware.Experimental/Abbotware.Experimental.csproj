@@ -2,7 +2,8 @@
   
   <PropertyGroup>
     <Nullable>enable</Nullable>
-    <TargetFrameworks>net8</TargetFrameworks>
+    <TargetFrameworks>net9</TargetFrameworks>
+	<DisableSourceAnalysis>true</DisableSourceAnalysis>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -17,6 +18,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Cleanup\ExtensionPoints\IAddOrUpdateRepository{TEntity,TKey}.cs" />
+    <Compile Remove="Host.Service\Program.cs" />
+    <Compile Remove="Host\AbbotwareHostService.cs" />
+    <Compile Remove="Host\AbbotwareHostService{TConfiguration}.cs" />
+    <Compile Remove="Host\Template.cs" />
+    <Compile Remove="Interop.CsvHelper\ParserHelper.cs" />
     <Compile Remove="Interop.NLog\Plugins\Logger.cs" />
     <Compile Remove="Interop.NLog\Plugins\LoggerFactory.cs" />
     <Compile Remove="Interop.NLog\Plugins\MemoryLoggerFactory.cs" />
@@ -72,6 +78,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Cleanup\ExtensionPoints\IAddOrUpdateRepository{TEntity,TKey}.cs" />
+    <None Include="Host.Service\Program.cs" />
+    <None Include="Host\AbbotwareHostService.cs" />
+    <None Include="Host\AbbotwareHostService{TConfiguration}.cs" />
+    <None Include="Host\Template.cs" />
+    <None Include="Interop.CsvHelper\ParserHelper.cs" />
     <None Include="Interop.NLog\Plugins\Logger.cs" />
     <None Include="Interop.NLog\Plugins\LoggerFactory.cs" />
     <None Include="Interop.NLog\Plugins\MemoryLoggerFactory.cs" />
@@ -125,15 +136,16 @@
 	  <PackageReference Include="QuickGraph.All" Version="3.6.61119.8" />
 	  <PackageReference Include="LumenWorks.Framework.IO.Core" Version="1.0.1" />
 	  <PackageReference Include="CsvHelper" Version="33.0.1" />
-	  <PackageReference Include="NLog" Version="5.3.4" />
-	  <PackageReference Include="RabbitMQ.Client" Version="6.6.0" />
+	  <PackageReference Include="NLog" Version="5.4.0" />
+	  <PackageReference Include="RabbitMQ.Client" Version="6.*" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.AutoMapper\Abbotware.Interop.AutoMapper.csproj" />
+    <ProjectReference Include="..\..\Interop\Abbotware.Interop.Castle\Abbotware.Interop.Castle.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.EntityFramework\Abbotware.Interop.EntityFramework.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Log4net\Abbotware.Interop.Log4net.csproj" />
-    <ProjectReference Include="..\..\Using\Abbotware.Using.Castle\Abbotware.Using.Castle.csproj" />
     <ProjectReference Include="..\Abbotware.Core\Abbotware.Core.csproj" />
+    <ProjectReference Include="..\Abbotware.Host\Abbotware.Host.csproj" />
     <ProjectReference Include="..\Abbotware.ShellCommand\Abbotware.ShellCommand.csproj" />
   </ItemGroup>
 

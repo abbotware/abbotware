@@ -1,20 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-    <Nullable>enable</Nullable>
-    <TargetFrameworks>netstandard2.0;netstandard2.1;net6;net7;net8</TargetFrameworks>
+		<Nullable>enable</Nullable>
+		<TargetFrameworks>netstandard2.1;net8;net9</TargetFrameworks>
 		<Description>Abbotware Interop Library for Aws SQS - Contains helper methods, extension methods, and plugins</Description>
 		<PackageTags>SQS;Aws;Amazon</PackageTags>
+		<UserSecretsId>aef6b3c4-c666-424b-8a8b-a084a4b89848</UserSecretsId>
 	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="AWSSDK.SQS" Version="3.7.400.22" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="AWSSDK.SQS" Version="3.7.400.133" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Abbotware.Interop.Castle\Abbotware.Interop.Castle.csproj" />
-    <ProjectReference Include="..\Abbotware.Interop.Microsoft\Abbotware.Interop.Microsoft.csproj" />
-    <ProjectReference Include="..\Abbotware.Interop.ProtoBufNet\Abbotware.Interop.ProtoBufNet.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\Common\Abbotware.Host\Abbotware.Host.csproj" />
+		<ProjectReference Include="..\Abbotware.Interop.Microsoft\Abbotware.Interop.Microsoft.csproj" />
+		<ProjectReference Include="..\Abbotware.Interop.ProtoBufNet\Abbotware.Interop.ProtoBufNet.csproj" />
+	</ItemGroup>
 
 </Project>

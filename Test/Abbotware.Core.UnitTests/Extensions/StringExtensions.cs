@@ -2,7 +2,7 @@
 // Copyright © Abbotware, LLC 2012-2023. All rights reserved
 // </copyright>
 
-namespace Abbotware.UnitTests.Core
+namespace Abbotware.UnitTests.Core.Extensions
 {
     using Abbotware.Core.Extensions;
     using NUnit.Framework;

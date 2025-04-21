@@ -2,17 +2,25 @@
 
 	<PropertyGroup>
     <Nullable>enable</Nullable>
-    <TargetFrameworks>netstandard2.0;netstandard2.1;net6;net7;net8</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;net8;net9</TargetFrameworks>
 		<Description>Abbotware Interop Library for MongoDB - Contains helper methods, extension methods, and plugins</Description>
 		<PackageTags>MongoDB</PackageTags>
 	</PropertyGroup>
 
-	<ItemGroup>
-		<PackageReference Include="MongoDB.Bson" Version="2.29.0" NoWarn="CS8002" />
-		<PackageReference Include="MongoDB.Driver" Version="2.29.0">
-			<NoWarn>CS8002</NoWarn>
-		</PackageReference>
-	</ItemGroup>
+	<Choose>
+		<When Condition="'$(TargetFramework)' == 'netstandard2.0'">
+			<ItemGroup>
+				<PackageReference Include="MongoDB.Bson" Version="3.2.1" NoWarn="CS8002;NU1701" />
+				<PackageReference Include="MongoDB.Driver" Version="3.2.1" NoWarn="CS8002;NU1701" />
+			</ItemGroup>
+		</When>
+		<Otherwise>
+			<ItemGroup>
+				<PackageReference Include="MongoDB.Bson" Version="*" NoWarn="CS8002;NU1701" />
+				<PackageReference Include="MongoDB.Driver" Version="*" NoWarn="CS8002;NU1701" />
+			</ItemGroup>
+		</Otherwise>
+	</Choose>
 
 	<ItemGroup>
 	  <ProjectReference Include="..\..\Common\Abbotware.Core\Abbotware.Core.csproj" />
