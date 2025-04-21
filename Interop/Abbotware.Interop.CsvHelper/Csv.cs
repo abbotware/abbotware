@@ -72,7 +72,7 @@ public static class Csv
             yield return r;
         }
     }
-  
+
     /// <summary>
     /// Asynchronously Parse a file into C# Models
     /// </summary>

@@ -26,11 +26,10 @@ namespace Abbotware.Quant.MonteCarlo.Plugins
         /// </summary>
         public double C2 { get; } = σ * Math.Sqrt(Δt);
 
-        /// <inheridoc/>
+        /// <inheritdoc/>
         public double Next(double Si, double Zi)
         {
             return Si * (this.C1 + (this.C2 * Zi));
         }
     }
-
 }

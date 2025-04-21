@@ -24,5 +24,4 @@ namespace Abbotware.Quant.MonteCarlo.Plugins
             return Si + a + b;
         }
     }
-
 }
