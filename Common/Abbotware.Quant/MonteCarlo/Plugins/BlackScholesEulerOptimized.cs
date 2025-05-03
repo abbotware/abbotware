@@ -14,7 +14,7 @@ namespace Abbotware.Quant.MonteCarlo.Plugins
     /// <param name="μ">rate of return/drift</param>
     /// <param name="σ">volatility</param>
     /// <param name="Δt">time increment</param>
-    public readonly struct BlackScholesEulerOptimized(double μ, double σ, double Δt) : IStockMovement
+    public readonly record struct BlackScholesEulerOptimized(double μ, double σ, double Δt) : IStockMovement
     {
         /// <summary>
         /// Gets constant C1 for this set of parameters

@@ -14,7 +14,7 @@ namespace Abbotware.Quant.MonteCarlo.Plugins
     /// <param name="μ">rate of return/drift</param>
     /// <param name="σ">volatility</param>
     /// <param name="Δt">time increment</param>
-    public readonly struct BlackScholesExactOptimized(double μ, double σ, double Δt) : IStockMovement
+    public readonly record struct BlackScholesExactOptimized(double μ, double σ, double Δt) : IStockMovement
     {
         /// <summary>
         /// Gets constant C1 for this set of parameters
@@ -26,7 +26,7 @@ namespace Abbotware.Quant.MonteCarlo.Plugins
         /// </summary>
         public double C2 { get; } = Math.Exp(σ * Math.Sqrt(Δt));
 
-        /// <inheridoc/>
+        /// <inheritdoc/>
         public double Next(double Si, double Zi)
         {
             return Si * this.C1 * Math.Pow(this.C2, Zi);

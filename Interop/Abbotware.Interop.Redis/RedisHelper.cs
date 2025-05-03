@@ -7,7 +7,7 @@
 namespace Abbotware.Interop.Redis
 {
     using Abbotware.Core.Objects;
-    using Abbotware.Core.Objects.Configuration.Models;
+    using Abbotware.Core.Objects.Configuration.Bindable;
     using Abbotware.Interop.Microsoft;
     using Abbotware.Interop.Redis.Configuration;
     using Abbotware.Interop.Redis.ExtensionPoints;

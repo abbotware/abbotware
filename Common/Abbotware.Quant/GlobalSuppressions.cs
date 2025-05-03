@@ -30,3 +30,4 @@ using System.Diagnostics.CodeAnalysis;
 [assembly: SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:Elements should be documented", Justification = "Reviewed AA", Scope = "type", Target = "~T:Abbotware.Quant.Edgar.Report13F.Submission.Fields")]
 [assembly: SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:Elements should be documented", Justification = "Reviewed AA", Scope = "type", Target = "~T:Abbotware.Quant.Edgar.Report13F.InfoTable.Fields")]
 [assembly: SuppressMessage("StyleCop.CSharp.NamingRules", "SA1313:Parameter names should begin with lower-case letter", Justification = "Reviewed AA", Scope = "type", Target = "~T:Abbotware.Quant.MonteCarlo.Plugins.BlackScholesEuler")]
+[assembly: SuppressMessage("Design", "CA1034:Nested types should not be visible", Justification = "Reviewed AA", Scope = "type", Target = "~T:Abbotware.Quant.Edgar.Report13F.Submission.Fields")]

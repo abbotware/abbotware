@@ -13,7 +13,7 @@ using CsvHelper.Configuration.Attributes;
 
 /// <summary>
 /// Table / File Definition for SUBMISSION.tsv
-/// 
+///
 /// SUBMISSION identifies the XML submissions, filer and report information, with each row having the primary key ACCESSION_NUMBER.
 /// </summary>
 /// <param name="AccessionNumber">Unique identifier assigned by the SEC to each EDGAR submission.</param>

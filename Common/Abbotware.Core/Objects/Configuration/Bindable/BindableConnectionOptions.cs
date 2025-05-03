@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Abbotware.Core.Objects.Configuration.Models;
+namespace Abbotware.Core.Objects.Configuration.Bindable;
 
 using System;
 using System.Net;
@@ -15,7 +15,7 @@ using System.Net;
 public class BindableConnectionOptions : IConnectionOptions
 {
     /// <inheritdoc/>
-    public Uri Endpoint { get; set; }
+    public Uri Endpoint { get; set; } = null!;
 
     /// <inheritdoc/>
     public NetworkCredential? Credential { get; set; }

@@ -34,7 +34,6 @@ public static class DirectoryInfoExtensions
         return di;
     }
 
-
     /// <summary>
     /// Gets a FileInfo for a specified sub file (if it exists)
     /// </summary>

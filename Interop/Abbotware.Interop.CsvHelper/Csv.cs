@@ -58,6 +58,7 @@ public static class Csv
     /// <typeparam name="TRow">row model type</typeparam>
     /// <param name="file">file info</param>
     /// <param name="configuration">csv parsing configuraiton</param>
+    /// <param name="ct">cancellation token</param>
     /// <returns>parsed rows</returns>
     public static async IAsyncEnumerable<TRow> ParseAsync<TRow>(FileInfo file, IReaderConfiguration configuration, [EnumeratorCancellation] CancellationToken ct)
     {

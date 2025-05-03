@@ -12,7 +12,7 @@ using CsvHelper.Configuration.Attributes;
 
 /// <summary>
 /// Table / File Definition for INFOTABLE.tsv
-/// 
+///
 /// INFOTABLE data contains the information table with each row having ACCESSION_NUMBER and INFOTABLE_SK as the primary keys.
 /// </summary>
 /// <param name="AccessionNumber">Unique identifier assigned by the SEC to each EDGAR submission.</param>
@@ -91,7 +91,8 @@ public record class InfoTable(
     /// <summary>
     /// Names of the fields
     /// </summary>
-    public static class Fields {
+    public static class Fields
+    {
         public const string AccessionNumber = "ACCESSION_NUMBER";
         public const string InfoTableKey = "INFOTABLE_SK";
         public const string NameOfIssuer = "NAMEOFISSUER";
