@@ -7,12 +7,14 @@
 namespace Abbotware.Interop.RestSharp
 {
     using System;
+    using System.Text.Json;
     using System.Threading;
     using System.Threading.Tasks;
     using Abbotware.Core;
     using Abbotware.Core.Net.Http;
     using Abbotware.Core.Objects;
     using Abbotware.Interop.RestSharp.Configuration;
+    using Abbotware.Interop.SystemTextJson;
     using global::RestSharp;
     using global::RestSharp.Serializers.Json;
     using Microsoft.Extensions.Logging;
@@ -33,7 +35,9 @@ namespace Abbotware.Interop.RestSharp
         protected BaseRestClient(Uri baseUri, TConfiguration configuration, ILogger logger)
             : base(configuration, logger)
         {
-            this.Client = new RestClient(baseUri, configureSerialization: s => s.UseSystemTextJson());
+            this.Client = new RestClient(
+                baseUri,
+                configureSerialization: s => s.UseSystemTextJson(DefaultOptions.EnforceStructure));
         }
 
         /// <summary>
@@ -55,8 +59,34 @@ namespace Abbotware.Interop.RestSharp
 
             this.OnApplyAuthentication(request);
 
-            var response = await this.Client.ExecuteAsync<TResponse>(request, ct)
+            global::RestSharp.RestResponse<TResponse> response = null!;
+
+            if (typeof(TResponse) == typeof(string))
+            {
+                var r = await this.Client.ExecuteAsync(request, ct)
+                    .ConfigureAwait(false);
+
+                var sr = new global::RestSharp.RestResponse<string>(request);
+                sr.StatusCode = r.StatusCode;
+                sr.ResponseStatus = r.ResponseStatus;
+                sr.IsSuccessStatusCode = r.IsSuccessStatusCode;
+                sr.Content = r.Content;
+                sr.ContentEncoding = r.ContentEncoding;
+                sr.ContentHeaders = r.ContentHeaders;
+                sr.ContentLength = r.ContentLength;
+                sr.Data = r.Content;
+                sr.ErrorException = r.ErrorException;
+                sr.ErrorMessage = r.ErrorMessage;
+
+                // ugly - but no other way? - we know the types match so this is going to not throw
+                // performance?
+                response = (global::RestSharp.RestResponse<TResponse>)(object)sr;
+            }
+            else
+            {
+                response = await this.Client.ExecuteAsync<TResponse>(request, ct)
                 .ConfigureAwait(false);
+            }
 
             if (response.ErrorException is not null)
             {

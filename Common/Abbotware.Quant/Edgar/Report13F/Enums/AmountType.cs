@@ -29,10 +29,4 @@ public enum AmountType
     /// </summary>
     [EnumMember(Value = "PRN")]
     Principal,
-
-    /// <summary>
-    /// Amount is in index?
-    /// </summary>
-    [EnumMember(Value = "INDEXED")]
-    Indexed,
 }

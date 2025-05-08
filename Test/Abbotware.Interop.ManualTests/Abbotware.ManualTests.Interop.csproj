@@ -1,25 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFrameworks>net9</TargetFrameworks>
-    <!--<TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
-    <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>-->
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>net9</TargetFrameworks>
+		<TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
+		<SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
-    <PackageReference Include="NUnit" Version="4.3.2" />
-    <PackageReference Include="NUnit3TestAdapter" Version="5.0.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
+		<PackageReference Include="NUnit" Version="4.3.2" />
+		<PackageReference Include="NUnit3TestAdapter" Version="5.0.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\Interop\Abbotware.Interop.SecApi\Abbotware.Interop.SecApi.csproj" />
-    <ProjectReference Include="..\..\Interop\Abbotware.Interop.Windows\Abbotware.Interop.Windows.csproj" />
-    <ProjectReference Include="..\..\Interop\Abbotware.Interop.Yubico\Abbotware.Interop.Yubico.csproj" />
-    <ProjectReference Include="..\..\Utility\Abbotware.Utility.UnitTest.Using.NUnit\Abbotware.Utility.UnitTest.Using.NUnit.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\Interop\Abbotware.Interop.SecApi\Abbotware.Interop.SecApi.csproj" />
+		<ProjectReference Include="..\..\Interop\Abbotware.Interop.Windows\Abbotware.Interop.Windows.csproj" />
+		<ProjectReference Include="..\..\Interop\Abbotware.Interop.Yubico\Abbotware.Interop.Yubico.csproj" />
+		<ProjectReference Include="..\..\Utility\Abbotware.Utility.UnitTest.Using.NUnit\Abbotware.Utility.UnitTest.Using.NUnit.csproj" />
+	</ItemGroup>
 
 </Project>
