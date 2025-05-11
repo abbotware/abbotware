@@ -17,6 +17,21 @@ using Abbotware.Core.IO;
 public static partial class DirectoryInfoExtensions
 {
     /// <summary>
+    /// Ensures that the specified <see cref="DirectoryInfo"/> exists on disk.
+    /// If it does not exist, the directory is created.
+    /// </summary>
+    /// <param name="extended">The <see cref="DirectoryInfo"/> instance to check or create.</param>
+    public static void EnsureCreated(this DirectoryInfo extended)
+    {
+        // Check if the directory exists
+        if (!extended.Exists)
+        {
+            // Create the directory (and any missing parent directories)
+            extended.Create();
+        }
+    }
+
+    /// <summary>
     /// Gets a DirectoryInfo for a specified sub directory (if it exists)
     /// </summary>
     /// <param name="extend">extended directory info</param>
@@ -43,8 +58,26 @@ public static partial class DirectoryInfoExtensions
     /// <param name="parts">path parts names</param>
     /// <returns>FileInfo object</returns>
     /// <exception cref="FileNotFoundException">if file does not exist</exception>
-    public static FileInfo FileInfo(this DirectoryInfo extend, params IList<string> parts)
+    public static FileInfo FileInfoForExisting(this DirectoryInfo extend, params IList<string> parts)
         => extend.FileInfo(FileExistenceBehavior.ThrowIfNotExists, parts);
+
+    /// <summary>
+    /// Gets FileInfo for a new file in the directory
+    /// </summary>
+    /// <param name="extend">extended directory info</param>
+    /// <param name="parts">path parts names</param>
+    /// <returns>FileInfo object</returns>
+    public static FileInfo FileInfo(this DirectoryInfo extend, params IList<string> parts)
+        => extend.FileInfo(FileExistenceBehavior.NotSpecified, parts);
+
+    /// <summary>
+    /// Gets FileInfo for a new file in the directory
+    /// </summary>
+    /// <param name="extend">extended directory info</param>
+    /// <param name="parts">path parts names</param>
+    /// <returns>FileInfo object</returns>
+    public static FileInfo FileInfoForNew(this DirectoryInfo extend, params IList<string> parts)
+        => extend.FileInfo(FileExistenceBehavior.ThrowIfExists, parts);
 
     /// <summary>
     /// Gets FileInfo for a file in the directory (if it exists)
@@ -54,7 +87,7 @@ public static partial class DirectoryInfoExtensions
     /// <param name="parts">path parts names</param>
     /// <returns>FileInfo object</returns>
     /// <exception cref="FileNotFoundException">if file does not exist</exception>
-    public static FileInfo FileInfo(this DirectoryInfo extend, FileExistenceBehavior behavior, params IList<string> parts)
+    private static FileInfo FileInfo(this DirectoryInfo extend, FileExistenceBehavior behavior, params IList<string> parts)
     {
         parts.Insert(0, extend.FullName);
         var fi = new FileInfo(Path.Combine([.. parts]));
@@ -83,13 +116,4 @@ public static partial class DirectoryInfoExtensions
 
         return fi;
     }
-
-    /// <summary>
-    /// Gets FileInfo for a new file in the directory
-    /// </summary>
-    /// <param name="extend">extended directory info</param>
-    /// <param name="parts">path parts names</param>
-    /// <returns>FileInfo object</returns>
-    public static FileInfo NewFileInfo(this DirectoryInfo extend, params IList<string> parts)
-        => extend.FileInfo(FileExistenceBehavior.ThrowIfExists, parts);
 }
