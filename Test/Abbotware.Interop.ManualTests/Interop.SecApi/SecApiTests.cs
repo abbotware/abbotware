@@ -19,13 +19,15 @@ namespace Abbotware.ManualTests.Interop.SecApi
     [Category("Interop.SecApi.ManualTests")]
     public class SecApiTests : BaseNUnitTest
     {
+        private readonly string key = string.Empty;
+
         [Test]
         public async Task CusipAsync_OK()
         {
-           // Assert.Inconclusive();
+            Assert.Inconclusive();
 
             var settings = new SecApiSettings();
-            settings.ApiKey = string.Empty;
+            settings.ApiKey = key;
 
             using var client = new SecApiClient(settings, this.Logger);
             var res = await client.Mapping.CusipAsync("375558103", default);
@@ -39,10 +41,10 @@ namespace Abbotware.ManualTests.Interop.SecApi
         [Test]
         public async Task RawCusipAsync_OK()
         {
-            // Assert.Inconclusive();
+            Assert.Inconclusive();
 
             var settings = new SecApiSettings();
-            settings.ApiKey = "23dfbe1e40975ea165805035fde50bb9154da55d764746dde58f20a999fcf204";
+            settings.ApiKey = key;
 
             using var client = new SecApiClient(settings, this.Logger);
             var res = await client.Mapping.RawCusipAsync("375558103", default);
@@ -57,10 +59,10 @@ namespace Abbotware.ManualTests.Interop.SecApi
         [Test]
         public async Task BulkCusipToTickerAsync_OK()
         {
-            // Assert.Inconclusive();
+            Assert.Inconclusive();
 
             var settings = new SecApiSettings();
-            settings.ApiKey = "23dfbe1e40975ea165805035fde50bb9154da55d764746dde58f20a999fcf204";
+            settings.ApiKey = key;
 
             using var client = new SecApiClient(settings, this.Logger);
             var res = await client.Mapping.BulkCusipToTickerAsync("375558103", default);
