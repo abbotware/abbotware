@@ -13,21 +13,16 @@ namespace Abbotware.Core.Chrono
     ///     this class is used to check cool down time between discrete events.  There needs to be a minimum cool down time
     ///     between for a time to be considered a new event
     /// </summary>
-    public class EventSpan
+    /// <remarks>
+    ///     Initializes a new instance of the <see cref="EventSpan" /> class.
+    /// </remarks>
+    /// <param name="coolDownInterval">time span to use as an interval</param>
+    public class EventSpan(TimeSpan coolDownInterval)
     {
         /// <summary>
         ///     internal lock object
         /// </summary>
-        private readonly object syncObject = new();
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="EventSpan" /> class.
-        /// </summary>
-        /// <param name="coolDownInterval">time span to use as an interval</param>
-        public EventSpan(TimeSpan coolDownInterval)
-        {
-            this.CoolDownInterval = coolDownInterval;
-        }
+        private readonly Lock mutex = new();
 
         /// <summary>
         ///     Gets or sets the time of the first event
@@ -42,14 +37,14 @@ namespace Abbotware.Core.Chrono
         /// <summary>
         ///     Gets the minimum cool down timespan between events
         /// </summary>
-        public TimeSpan CoolDownInterval { get; }
+        public TimeSpan CoolDownInterval { get; } = coolDownInterval;
 
         /// <summary>
         ///     resets the EventSpan object as if new event previously occurred
         /// </summary>
         public void Clear()
         {
-            lock (this.syncObject)
+            lock (this.mutex)
             {
                 this.First = null;
                 this.Last = null;
@@ -61,9 +56,7 @@ namespace Abbotware.Core.Chrono
         /// </summary>
         /// <returns>true if the now is considered a new event</returns>
         public bool IsNowAnEvent()
-        {
-            return this.IsNewEvent(DateTimeOffset.Now);
-        }
+            => this.IsNewEvent(DateTimeOffset.Now);
 
         /// <summary>
         ///     checks if the specified time is considered a new event
@@ -72,7 +65,7 @@ namespace Abbotware.Core.Chrono
         /// <returns>true if the time supplied is considered a new event</returns>
         public bool IsNewEvent(DateTimeOffset timeToCheck)
         {
-            lock (this.syncObject)
+            lock (this.mutex)
             {
                 if (!this.Last.HasValue)
                 {

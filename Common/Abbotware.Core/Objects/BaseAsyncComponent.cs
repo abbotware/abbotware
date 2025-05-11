@@ -18,7 +18,7 @@ namespace Abbotware.Core.Objects
     /// </summary>
     public abstract partial class BaseAsyncComponent : BaseComponent, IAsyncComponent
     {
-        private readonly object initializeAsyncLock = new();
+        private readonly Lock initializeAsyncLock = new();
 
         private Task? initializeTask;
 
