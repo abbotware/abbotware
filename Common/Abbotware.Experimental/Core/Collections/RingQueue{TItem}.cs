@@ -257,7 +257,7 @@ public class RingQueue<TItem> : IDisposable
         //-----------------------------------------------------------------
         //  Set a termination time point to prevent from looping forever
         //-----------------------------------------------------------------
-        var timer = new HighResolutionTimeSpan(timeout);
+        var timer = HighResolutionTimeSpan.Future(timeout);
 
         return this.Enqueue(ref element, timer);
     }

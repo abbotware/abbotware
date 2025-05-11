@@ -1,4 +1,10 @@
-﻿namespace Abbotware.Quant.Edgar.Report13F;
+﻿// -----------------------------------------------------------------------
+// <copyright file="InfoTable.cs" company="Abbotware, LLC">
+// Copyright © Abbotware, LLC 2012-2023. All rights reserved
+// </copyright>
+// -----------------------------------------------------------------------
+
+namespace Abbotware.Quant.Edgar.Report13F;
 
 using System.ComponentModel.DataAnnotations;
 using Abbotware.Interop.CsvHelper.Plugins;
@@ -6,7 +12,7 @@ using CsvHelper.Configuration.Attributes;
 
 /// <summary>
 /// Table / File Definition for INFOTABLE.tsv
-/// 
+///
 /// INFOTABLE data contains the information table with each row having ACCESSION_NUMBER and INFOTABLE_SK as the primary keys.
 /// </summary>
 /// <param name="AccessionNumber">Unique identifier assigned by the SEC to each EDGAR submission.</param>
@@ -26,59 +32,81 @@ using CsvHelper.Configuration.Attributes;
 /// <param name="VotingAuthorityNone">Voting authority none.</param>
 public record class InfoTable(
     [property:Key]
-    [param:Name("ACCESSION_NUMBER")]
-    [property:Name("ACCESSION_NUMBER")]
+    [param:Name(InfoTable.Fields.AccessionNumber)]
+    [property:Name(InfoTable.Fields.AccessionNumber)]
     string AccessionNumber,
     [property:Key]
-    [param:Name("INFOTABLE_SK")]
-    [property:Name("INFOTABLE_SK")]
+    [param:Name(InfoTable.Fields.InfoTableKey)]
+    [property:Name(InfoTable.Fields.InfoTableKey)]
     long InfoTableKey,
-    [param:Name("NAMEOFISSUER")]
-    [property:Name("NAMEOFISSUER")]
+    [param:Name(InfoTable.Fields.NameOfIssuer)]
+    [property:Name(InfoTable.Fields.NameOfIssuer)]
     string NameOfIssuer,
-    [param:Name("TITLEOFCLASS")]
-    [property:Name("TITLEOFCLASS")]
+    [param:Name(InfoTable.Fields.TitleOfClass)]
+    [property:Name(InfoTable.Fields.TitleOfClass)]
     string TitleOfClass,
-    [param:Name("CUSIP")]
-    [property:Name("CUSIP")]
+    [param:Name(InfoTable.Fields.Cusip)]
+    [property:Name(InfoTable.Fields.Cusip)]
     string? Cusip,
-    [param:Name("FIGI")]
-    [property:Name("FIGI")]
+    [param:Name(InfoTable.Fields.Figi)]
+    [property:Name(InfoTable.Fields.Figi)]
     string? Figi,
-    [param:Name("VALUE")]
-    [property:Name("VALUE")]
+    [param:Name(InfoTable.Fields.Value)]
+    [property:Name(InfoTable.Fields.Value)]
     decimal? Value,
-    [param:Name("SSHPRNAMT")]
-    [property:Name("SSHPRNAMT")]
+    [param:Name(InfoTable.Fields.Amount)]
+    [property:Name(InfoTable.Fields.Amount)]
     decimal Amount,
-    [param:Name("SSHPRNAMTTYPE")]
-    [property:Name("SSHPRNAMTTYPE")]
+    [param:Name(InfoTable.Fields.AmountType)]
+    [property:Name(InfoTable.Fields.AmountType)]
     [param:TypeConverter(typeof(EnumMemberConverter<AmountType>))]
     [property:TypeConverter(typeof(EnumMemberConverter<AmountType>))]
     AmountType AmountType,
-    [param:Name("PUTCALL")]
-    [property:Name("PUTCALL")]
+    [param:Name(InfoTable.Fields.PutCallType)]
+    [property:Name(InfoTable.Fields.PutCallType)]
     [param:TypeConverter(typeof(NullableEnumMemberConverter<PutCallType>))]
     [property:TypeConverter(typeof(NullableEnumMemberConverter<PutCallType>))]
     PutCallType? PutCallType,
-    [param:Name("INVESTMENTDISCRETION")]
-    [property:Name("INVESTMENTDISCRETION")]
+    [param:Name(InfoTable.Fields.InvestmentDiscretion)]
+    [property:Name(InfoTable.Fields.InvestmentDiscretion)]
     string? InvestmentDiscretion,
-    [param:Name("OTHERMANAGER")]
-    [property:Name("OTHERMANAGER")]
+    [param:Name(InfoTable.Fields.OtherManager)]
+    [property:Name(InfoTable.Fields.OtherManager)]
     string? OtherManager,
-    [param:Name("VOTING_AUTH_SOLE")]
-    [property:Name("VOTING_AUTH_SOLE")]
+    [param:Name(InfoTable.Fields.VotingAuthoritySole)]
+    [property:Name(InfoTable.Fields.VotingAuthoritySole)]
     long? VotingAuthoritySole,
-    [param:Name("VOTING_AUTH_SHARED")]
-    [property:Name("VOTING_AUTH_SHARED")]
+    [param:Name(InfoTable.Fields.VotingAuthorityShared)]
+    [property:Name(InfoTable.Fields.VotingAuthorityShared)]
     long? VotingAuthorityShared,
-    [param:Name("VOTING_AUTH_NONE")]
-    [property:Name("VOTING_AUTH_NONE")]
+    [param:Name(InfoTable.Fields.VotingAuthorityNone)]
+    [property:Name(InfoTable.Fields.VotingAuthorityNone)]
     long? VotingAuthorityNone)
 {
     /// <summary>
     /// Gets the file name
     /// </summary>
     public const string FileName = "INFOTABLE.TSV";
+
+    /// <summary>
+    /// Names of the fields
+    /// </summary>
+    public static class Fields
+    {
+        public const string AccessionNumber = "ACCESSION_NUMBER";
+        public const string InfoTableKey = "INFOTABLE_SK";
+        public const string NameOfIssuer = "NAMEOFISSUER";
+        public const string TitleOfClass = "TITLEOFCLASS";
+        public const string Cusip = "CUSIP";
+        public const string Figi = "FIGI";
+        public const string Value = "VALUE";
+        public const string Amount = "SSHPRNAMT";
+        public const string AmountType = "SSHPRNAMTTYPE";
+        public const string PutCallType = "PUTCALL";
+        public const string InvestmentDiscretion = "INVESTMENTDISCRETION";
+        public const string OtherManager = "OTHERMANAGER";
+        public const string VotingAuthoritySole = "VOTING_AUTH_SOLE";
+        public const string VotingAuthorityShared = "VOTING_AUTH_SHARED";
+        public const string VotingAuthorityNone = "VOTING_AUTH_NONE";
+    }
 }

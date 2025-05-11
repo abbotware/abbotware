@@ -6,6 +6,7 @@
 
 namespace Abbotware.Interop.SecApi;
 
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Abbotware.Core.Net.Http;
@@ -22,5 +23,21 @@ public interface ISecApiMappingClient
     /// <param name="cusip">CUSIP code</param>
     /// <param name="ct">cancellation token</param>
     /// <returns>search result</returns>
+    Task<RestResponse<string, string>> RawCusipAsync(string cusip, CancellationToken ct);
+
+    /// <summary>
+    /// Get Company Details via CUSIP
+    /// </summary>
+    /// <param name="cusip">CUSIP code</param>
+    /// <param name="ct">cancellation token</param>
+    /// <returns>search result</returns>
     Task<RestResponse<CompanyDetails[], ErrorMessage>> CusipAsync(string cusip, CancellationToken ct);
+
+    /// <summary>
+    /// Get BulkDetails via CUSIP
+    /// </summary>
+    /// <param name="cusip">CUSIP code</param>
+    /// <param name="ct">cancellation token</param>
+    /// <returns>search result</returns>
+    Task<RestResponse<IReadOnlyDictionary<string, string[]>, ErrorMessage>> BulkCusipToTickerAsync(string cusip, CancellationToken ct);
 }

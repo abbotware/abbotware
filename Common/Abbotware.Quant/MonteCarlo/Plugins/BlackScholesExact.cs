@@ -14,15 +14,15 @@ namespace Abbotware.Quant.MonteCarlo.Plugins
     /// <param name="μ">rate of return/drift</param>
     /// <param name="σ">volatility</param>
     /// <param name="Δt">time increment</param>
-    public readonly struct BlackScholesExact(double μ, double σ, double Δt) : IStockMovement
+    public readonly record struct BlackScholesExact(double μ, double σ, double Δt) : IStockMovement
     {
-        /// <inheridoc/>
+
+        /// <inheritdoc/>
         public double Next(double Si, double Zi)
         {
-            var a = (μ - (σ * σ * .5)) * Δt;
-            var b = σ * Math.Sqrt(Δt) * Zi;
+            var a = (this.μ - (this.σ * this.σ * .5)) * this.Δt;
+            var b = this.σ * Math.Sqrt(this.Δt) * Zi;
             return Si * Math.Exp(a + b);
         }
     }
-
 }

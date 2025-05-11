@@ -150,9 +150,10 @@ public static class EnumHelper
         where TEnum : struct, Enum
         => GetValues<TEnum>().ToDictionary(
             enumValue => GetEnumMemberValue(enumValue),
-            enumValue => enumValue)
+            enumValue => enumValue,
+            StringComparer.InvariantCultureIgnoreCase)
 #if NET8_0_OR_GREATER
-            .ToFrozenDictionary();
+            .ToFrozenDictionary(StringComparer.InvariantCultureIgnoreCase);
 #else
             ;
 #endif

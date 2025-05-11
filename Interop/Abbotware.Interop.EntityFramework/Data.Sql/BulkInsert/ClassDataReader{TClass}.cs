@@ -10,10 +10,10 @@ namespace Abbotware.Data.BulkInsert
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using Abbotware.Core;
     using Abbotware.Core.Extensions;
-    using Abbotware.Core.Logging;
     using Abbotware.Core.Objects;
     using Microsoft.Extensions.Logging;
 
@@ -58,78 +58,39 @@ namespace Abbotware.Data.BulkInsert
 
         /// <inheritdoc />
         public int Depth
-        {
-            get
-            {
-                this.ThrowIfDisposed();
-
-                throw new NotImplementedException("this is a minimum implementation for bulk insert with streaming support");
-            }
-        }
+            => this.DontCallFunction<int>();
 
         /// <inheritdoc />
         public int RecordsAffected
-        {
-            get
-            {
-                this.ThrowIfDisposed();
-
-                throw new NotImplementedException("this is a minimum implementation for bulk insert with streaming support");
-            }
-        }
+            => this.DontCallFunction<int>();
 
         /// <inheritdoc />
         public bool IsClosed
-        {
-            get { return this.IsDisposedOrDisposing; }
-        }
+            => this.IsDisposedOrDisposing;
 
         /// <inheritdoc />
-        public int FieldCount => this.meta.PropertyCount;
+        public int FieldCount
+            => this.meta.PropertyCount;
 
         /// <inheritdoc />
         object IDataRecord.this[int i]
-        {
-            get
-            {
-                this.ThrowIfDisposed();
-                throw new NotImplementedException("this is a minimum implementation for bulk insert with streaming support");
-            }
-        }
+            => this.DontCallFunction<int>();
 
         /// <inheritdoc />
         object IDataRecord.this[string name]
-        {
-            get
-            {
-                this.ThrowIfDisposed();
-                throw new NotImplementedException("this is a minimum implementation for bulk insert with streaming support");
-            }
-        }
+            => this.DontCallFunction<int>();
 
         /// <inheritdoc />
         public string GetName(int i)
-        {
-            this.ThrowIfDisposed();
-
-            throw new NotImplementedException("this is a minimum implementation for bulk insert with streaming support");
-        }
+            => this.DontCallFunction<string>();
 
         /// <inheritdoc />
         public string GetDataTypeName(int i)
-        {
-            this.ThrowIfDisposed();
-
-            throw new NotImplementedException("this is a minimum implementation for bulk insert with streaming support");
-        }
+            => this.DontCallFunction<string>();
 
         /// <inheritdoc />
         public Type GetFieldType(int i)
-        {
-            this.ThrowIfDisposed();
-
-            throw new NotImplementedException("this is a minimum implementation for bulk insert with streaming support");
-        }
+            => this.DontCallFunction<Type>();
 
         /// <inheritdoc />
         public object GetValue(int i)
@@ -146,11 +107,7 @@ namespace Abbotware.Data.BulkInsert
 
         /// <inheritdoc />
         public int GetValues(object[] values)
-        {
-            this.ThrowIfDisposed();
-
-            throw new NotImplementedException("this is a minimum implementation for bulk insert with streaming support");
-        }
+            => this.DontCallFunction<int>();
 
         /// <inheritdoc />
         public int GetOrdinal(string name)
@@ -162,123 +119,63 @@ namespace Abbotware.Data.BulkInsert
 
         /// <inheritdoc />
         public bool GetBoolean(int i)
-        {
-            this.ThrowIfDisposed();
-
-            throw new NotImplementedException("this is a minimum implementation for bulk insert with streaming support");
-        }
+            => this.DontCallFunction<bool>();
 
         /// <inheritdoc />
         public byte GetByte(int i)
-        {
-            this.ThrowIfDisposed();
-
-            throw new NotImplementedException("this is a minimum implementation for bulk insert with streaming support");
-        }
+            => this.DontCallFunction<byte>();
 
         /// <inheritdoc />
         public long GetBytes(int i, long fieldOffset, byte[]? buffer, int bufferoffset, int length)
-        {
-            this.ThrowIfDisposed();
-
-            throw new NotImplementedException("this is a minimum implementation for bulk insert with streaming support");
-        }
+            => this.DontCallFunction<int>();
 
         /// <inheritdoc />
         public char GetChar(int i)
-        {
-            this.ThrowIfDisposed();
-
-            throw new NotImplementedException("this is a minimum implementation for bulk insert with streaming support");
-        }
+            => this.DontCallFunction<char>();
 
         /// <inheritdoc />
         public long GetChars(int i, long fieldoffset, char[]? buffer, int bufferoffset, int length)
-        {
-            this.ThrowIfDisposed();
-
-            throw new NotImplementedException("this is a minimum implementation for bulk insert with streaming support");
-        }
+            => this.DontCallFunction<int>();
 
         /// <inheritdoc />
         public Guid GetGuid(int i)
-        {
-            this.ThrowIfDisposed();
-
-            throw new NotImplementedException("this is a minimum implementation for bulk insert with streaming support");
-        }
+            => this.DontCallFunction<Guid>();
 
         /// <inheritdoc />
         public short GetInt16(int i)
-        {
-            this.ThrowIfDisposed();
-
-            throw new NotImplementedException("this is a minimum implementation for bulk insert with streaming support");
-        }
+            => this.DontCallFunction<short>();
 
         /// <inheritdoc />
         public int GetInt32(int i)
-        {
-            this.ThrowIfDisposed();
-
-            throw new NotImplementedException("this is a minimum implementation for bulk insert with streaming support");
-        }
+            => this.DontCallFunction<int>();
 
         /// <inheritdoc />
         public long GetInt64(int i)
-        {
-            this.ThrowIfDisposed();
-
-            throw new NotImplementedException("this is a minimum implementation for bulk insert with streaming support");
-        }
+            => this.DontCallFunction<long>();
 
         /// <inheritdoc />
         public float GetFloat(int i)
-        {
-            this.ThrowIfDisposed();
-
-            throw new NotImplementedException("this is a minimum implementation for bulk insert with streaming support");
-        }
+            => this.DontCallFunction<float>();
 
         /// <inheritdoc />
         public double GetDouble(int i)
-        {
-            this.ThrowIfDisposed();
-
-            throw new NotImplementedException("this is a minimum implementation for bulk insert with streaming support");
-        }
+            => this.DontCallFunction<double>();
 
         /// <inheritdoc />
         public string GetString(int i)
-        {
-            this.ThrowIfDisposed();
-
-            throw new NotImplementedException("this is a minimum implementation for bulk insert with streaming support");
-        }
+            => this.DontCallFunction<string>();
 
         /// <inheritdoc />
         public decimal GetDecimal(int i)
-        {
-            this.ThrowIfDisposed();
-
-            throw new NotImplementedException("this is a minimum implementation for bulk insert with streaming support");
-        }
+            => this.DontCallFunction<decimal>();
 
         /// <inheritdoc />
         public DateTime GetDateTime(int i)
-        {
-            this.ThrowIfDisposed();
-
-            throw new NotImplementedException("this is a minimum implementation for bulk insert with streaming support");
-        }
+            => this.DontCallFunction<DateTime>();
 
         /// <inheritdoc />
         public IDataReader GetData(int i)
-        {
-            this.ThrowIfDisposed();
-
-            throw new NotImplementedException("this is a minimum implementation for bulk insert with streaming support");
-        }
+            => this.DontCallFunction<IDataReader>();
 
         /// <inheritdoc />
         public bool IsDBNull(int i)
@@ -301,19 +198,11 @@ namespace Abbotware.Data.BulkInsert
 
         /// <inheritdoc />
         public DataTable GetSchemaTable()
-        {
-            this.ThrowIfDisposed();
-
-            throw new NotImplementedException("this is a minimum implementation for bulk insert with streaming support");
-        }
+            => this.DontCallFunction<DataTable>();
 
         /// <inheritdoc />
         public bool NextResult()
-        {
-            this.ThrowIfDisposed();
-
-            throw new NotImplementedException("this is a minimum implementation for bulk insert with streaming support");
-        }
+            => this.DontCallFunction<bool>();
 
         /// <inheritdoc />
         public bool Read()
@@ -329,6 +218,14 @@ namespace Abbotware.Data.BulkInsert
             this.iterator?.Dispose();
 
             base.OnDisposeManagedResources();
+        }
+
+        [DoesNotReturn]
+        private T DontCallFunction<T>()
+        {
+            this.ThrowIfDisposed();
+
+            throw new NotImplementedException("this is a minimum implementation for bulk insert with streaming support");
         }
     }
 }

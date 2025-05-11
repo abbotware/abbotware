@@ -1,4 +1,10 @@
-﻿namespace Abbotware.Quant.SecurityIdentifiers;
+﻿// -----------------------------------------------------------------------
+// <copyright file="Figi.cs" company="Abbotware, LLC">
+// Copyright © Abbotware, LLC 2012-2023. All rights reserved
+// </copyright>
+// -----------------------------------------------------------------------
+
+namespace Abbotware.Quant.SecurityIdentifiers;
 
 using System;
 

@@ -1,4 +1,10 @@
-﻿namespace Abbotware.Quant.Pricers.Trees
+﻿// -----------------------------------------------------------------------
+// <copyright file="IBinomialCalculations.cs" company="Abbotware, LLC">
+// Copyright © Abbotware, LLC 2012-2023. All rights reserved
+// </copyright>
+// -----------------------------------------------------------------------
+
+namespace Abbotware.Quant.Pricers.Trees
 {
     public interface IBinomialCalculations
     {

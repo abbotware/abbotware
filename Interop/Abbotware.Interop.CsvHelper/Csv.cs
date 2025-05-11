@@ -58,6 +58,7 @@ public static class Csv
     /// <typeparam name="TRow">row model type</typeparam>
     /// <param name="file">file info</param>
     /// <param name="configuration">csv parsing configuraiton</param>
+    /// <param name="ct">cancellation token</param>
     /// <returns>parsed rows</returns>
     public static async IAsyncEnumerable<TRow> ParseAsync<TRow>(FileInfo file, IReaderConfiguration configuration, [EnumeratorCancellation] CancellationToken ct)
     {
@@ -72,48 +73,36 @@ public static class Csv
             yield return r;
         }
     }
-  
+
     /// <summary>
     /// Asynchronously Parse a file into C# Models
     /// </summary>
-    /// <typeparam name="TRow">row model type</typeparam>
     /// <param name="file">file info</param>
     /// <param name="configuration">csv parsing configuraiton</param>
     /// <param name="callback">callback action</param>
     /// <param name="ct">cancellation token</param>
     /// <returns>async handle</returns>
-    public static async IAsyncEnumerable<TRow> ParseAsync<TRow>(
+    public static async ValueTask ReadAsync(
        FileInfo file,
        CsvConfiguration configuration,
-       Func<CsvReader, CancellationToken, TRow> callback,
-       [EnumeratorCancellation] CancellationToken ct)
+       Action<CsvReader, CancellationToken> callback,
+       CancellationToken ct)
     {
         using var reader = new StreamReader(file.FullName);
         using var csv = new CsvReader(reader, configuration);
 
         if (configuration.HasHeaderRecord)
         {
-            VerifyAction(await csv.ReadAsync().ConfigureAwait(false));
-            VerifyAction(csv.ReadHeader());
+            VerifyReadHeader(await csv.ReadAsync().ConfigureAwait(false));
+            VerifyReadHeader(csv.ReadHeader());
         }
 
         while (await csv.ReadAsync().ConfigureAwait(false))
         {
-            if (ct.IsCancellationRequested)
-            {
-                yield break;
-            }
+            ct.ThrowIfCancellationRequested();
 
             // Call the lambda function to read fields individually
-            yield return callback(csv, ct);
-        }
-
-        static void VerifyAction(bool readHeader)
-        {
-            if (!readHeader)
-            {
-                throw new InvalidOperationException("failed on header read");
-            }
+            callback(csv, ct);
         }
     }
 
@@ -133,6 +122,12 @@ public static class Csv
         using var reader = new StreamReader(file.FullName);
         using var csv = new CsvReader(reader, configuration);
 
+        if (configuration.HasHeaderRecord)
+        {
+            VerifyReadHeader(await csv.ReadAsync().ConfigureAwait(false));
+            VerifyReadHeader(csv.ReadHeader());
+        }
+
         await foreach (var r in csv.GetRecordsAsync<TRow>(ct).ConfigureAwait(false))
         {
             callback(state, r);
@@ -150,7 +145,7 @@ public static class Csv
     /// <param name="ct">cancellation token</param>
     /// <returns>parsed rows</returns>
     public static ValueTask WriteAsync<TRow>(DirectoryInfo directory, string file, IEnumerable<TRow> rows, IWriterConfiguration configuration, CancellationToken ct)
-        => WriteAsync(directory.FileInfo(false, file), rows, configuration, ct);
+        => WriteAsync(directory.NewFileInfo(file), rows, configuration, ct);
 
     /// <summary>
     /// Asynchronously write rows (C# Models) to a file
@@ -296,5 +291,13 @@ public static class Csv
         logger.Info($"rows parsed::{records.Count()}");
 
         return records;
+    }
+
+    private static void VerifyReadHeader(bool readHeader)
+    {
+        if (!readHeader)
+        {
+            throw new InvalidOperationException("failed on header read");
+        }
     }
 }

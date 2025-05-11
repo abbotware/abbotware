@@ -23,17 +23,17 @@ namespace Abbotware.Data.BulkInsert
         /// <summary>
         ///     provides property name to ordinal lookups
         /// </summary>
-        private readonly Dictionary<string, int> ordinal = new();
+        private readonly Dictionary<string, int> ordinal = [];
 
         /// <summary>
         ///     list of functions to retrieve property value in ordinal order
         /// </summary>
-        private readonly List<Func<TClass, object>> propertyFunctors = new();
+        private readonly List<Func<TClass, object>> propertyFunctors = [];
 
         /// <summary>
         ///     list of all PropertyInfo in ordinal order
         /// </summary>
-        private readonly List<PropertyInfo> propertyInfo = new();
+        private readonly List<PropertyInfo> propertyInfo = [];
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="ClassMetadata{TClass}" /> class.
