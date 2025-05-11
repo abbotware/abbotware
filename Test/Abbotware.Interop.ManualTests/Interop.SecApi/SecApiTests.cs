@@ -25,7 +25,7 @@ namespace Abbotware.ManualTests.Interop.SecApi
            // Assert.Inconclusive();
 
             var settings = new SecApiSettings();
-            settings.ApiKey = "23dfbe1e40975ea165805035fde50bb9154da55d764746dde58f20a999fcf204";
+            settings.ApiKey = string.Empty;
 
             using var client = new SecApiClient(settings, this.Logger);
             var res = await client.Mapping.CusipAsync("375558103", default);
