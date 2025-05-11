@@ -39,7 +39,7 @@ public class InteropCsvHelperTests : BaseNUnitTest
     [Test]
     public void SimpleData()
     {
-        var fi = RootFolder.FileInfo("sample", "data.csv");
+        var fi = RootFolder.FileInfoForExisting("sample", "data.csv");
         var row1 = Csv.Parse<DataRow>(fi, new CsvConfiguration(CultureInfo.InvariantCulture)).First();
 
         Assert.That(row1.DateTime, Is.EqualTo(new DateTime(2011, 11, 11)));
@@ -61,7 +61,7 @@ public class InteropCsvHelperTests : BaseNUnitTest
     [Test]
     public void SampleCode()
     {
-        var fi = RootFolder.FileInfo("sample", "file.csv");
+        var fi = RootFolder.FileInfoForExisting("sample", "file.csv");
         var records = Csv.Parse<Foo>(fi, new CsvConfiguration(CultureInfo.InvariantCulture));
 
         Assert.That(records, Is.Not.Null);

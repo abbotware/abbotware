@@ -145,7 +145,7 @@ public static class Csv
     /// <param name="ct">cancellation token</param>
     /// <returns>parsed rows</returns>
     public static ValueTask WriteAsync<TRow>(DirectoryInfo directory, string file, IEnumerable<TRow> rows, IWriterConfiguration configuration, CancellationToken ct)
-        => WriteAsync(directory.NewFileInfo(file), rows, configuration, ct);
+        => WriteAsync(directory.FileInfoForNew(file), rows, configuration, ct);
 
     /// <summary>
     /// Asynchronously write rows (C# Models) to a file
