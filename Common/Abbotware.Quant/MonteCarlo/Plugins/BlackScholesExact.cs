@@ -16,7 +16,6 @@ namespace Abbotware.Quant.MonteCarlo.Plugins
     /// <param name="Δt">time increment</param>
     public readonly record struct BlackScholesExact(double μ, double σ, double Δt) : IStockMovement
     {
-
         /// <inheritdoc/>
         public double Next(double Si, double Zi)
         {

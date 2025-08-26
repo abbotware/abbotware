@@ -6,9 +6,23 @@
 
 namespace Abbotware.Core.IO;
 
+/// <summary>
+/// Behavior for File Existence
+/// </summary>
 public enum FileExistenceBehavior
 {
+    /// <summary>
+    /// Do nothing
+    /// </summary>
     NotSpecified,
+
+    /// <summary>
+    /// Throw only if file exists
+    /// </summary>
     ThrowIfExists,
+
+    /// <summary>
+    /// Throw only if file does not exist
+    /// </summary>
     ThrowIfNotExists,
 }
