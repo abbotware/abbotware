@@ -52,4 +52,17 @@ public static class AmountTypeExtensions
             ReportType.Notice => 'N',
             _ => null,
         };
+
+    public static char? ToChar(this SubmissionType extended)
+    => ((SubmissionType?)extended).ToChar();
+
+    public static char? ToChar(this SubmissionType? extended)
+        => extended switch
+        {
+            SubmissionType.Holdings => 'H',
+            SubmissionType.HoldingsAmendment => 'H',
+            SubmissionType.Notice => 'N',
+            SubmissionType.NoticeAmendment => 'N',
+            _ => null,
+        };
 }
