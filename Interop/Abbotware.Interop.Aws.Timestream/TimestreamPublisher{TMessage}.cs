@@ -137,7 +137,7 @@ namespace Abbotware.Interop.Aws.Timestream
 
                 sw.Stop();
 
-                var notPublished = result.RecordsIngested.Total - request.Records.Count;
+                var notPublished = result.RecordsIngested.Total - request.Records.Count ?? 0;
 
                 // global stats
                 Interlocked.Add(ref this.globalRecordsNotIngested, notPublished);
