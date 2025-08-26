@@ -135,13 +135,13 @@
 	  <PackageReference Include="Microsoft.AspNetCore.Rewrite" Version="2.2.0" />-->
 	  <PackageReference Include="QuickGraph.All" Version="3.6.61119.8" />
 	  <PackageReference Include="LumenWorks.Framework.IO.Core" Version="1.0.1" />
-	  <PackageReference Include="CsvHelper" Version="33.0.1" />
 	  <PackageReference Include="NLog" Version="5.4.0" />
 	  <PackageReference Include="RabbitMQ.Client" Version="6.*" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.AutoMapper\Abbotware.Interop.AutoMapper.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Castle\Abbotware.Interop.Castle.csproj" />
+    <ProjectReference Include="..\..\Interop\Abbotware.Interop.CsvHelper\Abbotware.Interop.CsvHelper.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.EntityFramework\Abbotware.Interop.EntityFramework.csproj" />
     <ProjectReference Include="..\..\Interop\Abbotware.Interop.Log4net\Abbotware.Interop.Log4net.csproj" />
     <ProjectReference Include="..\Abbotware.Core\Abbotware.Core.csproj" />
