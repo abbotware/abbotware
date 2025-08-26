@@ -6,11 +6,24 @@
 
 namespace Abbotware.Quant.Edgar.Report13F;
 
+/// <summary>
+/// Edgar Amount Type Extension methods
+/// </summary>
 public static class AmountTypeExtensions
 {
+    /// <summary>
+    /// Convert AmountType back to char
+    /// </summary>
+    /// <param name="extended">enum</param>
+    /// <returns>char</returns>
     public static char? ToChar(this AmountType extended)
         => ((AmountType?)extended).ToChar();
 
+    /// <summary>
+    /// Convert AmountType back to char
+    /// </summary>
+    /// <param name="extended">enum</param>
+    /// <returns>char</returns>
     public static char? ToChar(this AmountType? extended)
         => extended switch
         {
@@ -19,6 +32,11 @@ public static class AmountTypeExtensions
             _ => null,
         };
 
+    /// <summary>
+    /// Convert PutCallType back to char
+    /// </summary>
+    /// <param name="extended">enum</param>
+    /// <returns>char</returns>
     public static char? ToChar(this PutCallType? extended)
         => extended switch
         {
@@ -28,9 +46,19 @@ public static class AmountTypeExtensions
             _ => null,
         };
 
+    /// <summary>
+    /// Convert AmendmentType back to char
+    /// </summary>
+    /// <param name="extended">enum</param>
+    /// <returns>char</returns>
     public static char? ToChar(this AmendmentType extended)
         => ((AmendmentType?)extended).ToChar();
 
+    /// <summary>
+    /// Convert AmendmentType back to char
+    /// </summary>
+    /// <param name="extended">enum</param>
+    /// <returns>char</returns>
     public static char? ToChar(this AmendmentType? extended)
         => extended switch
         {
@@ -39,11 +67,19 @@ public static class AmountTypeExtensions
             _ => null,
         };
 
-
+    /// <summary>
+    /// Convert ReportType back to char
+    /// </summary>
+    /// <param name="extended">enum</param>
+    /// <returns>char</returns>
     public static char? ToChar(this ReportType extended)
         => ((ReportType?)extended).ToChar();
 
-
+    /// <summary>
+    /// Convert ReportType back to char
+    /// </summary>
+    /// <param name="extended">enum</param>
+    /// <returns>char</returns>
     public static char? ToChar(this ReportType? extended)
         => extended switch
         {
@@ -53,9 +89,19 @@ public static class AmountTypeExtensions
             _ => null,
         };
 
+    /// <summary>
+    /// Convert SubmissionType back to char
+    /// </summary>
+    /// <param name="extended">enum</param>
+    /// <returns>char</returns>
     public static char? ToChar(this SubmissionType extended)
     => ((SubmissionType?)extended).ToChar();
 
+    /// <summary>
+    /// Convert SubmissionType back to char
+    /// </summary>
+    /// <param name="extended">enum</param>
+    /// <returns>char</returns>
     public static char? ToChar(this SubmissionType? extended)
         => extended switch
         {

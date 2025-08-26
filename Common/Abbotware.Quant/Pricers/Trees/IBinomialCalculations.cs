@@ -6,6 +6,9 @@
 
 namespace Abbotware.Quant.Pricers.Trees
 {
+    /// <summary>
+    /// Interface for Binomial Tree Calculations
+    /// </summary>
     public interface IBinomialCalculations
     {
         /// <summary>
