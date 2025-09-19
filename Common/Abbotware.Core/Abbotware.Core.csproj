@@ -20,7 +20,7 @@
       <ItemGroup>
         <Compile Remove="**/*.netstandard2.0.cs" />
         <Compile Remove="**/*.net5.cs" />
-        <PackageReference Include="System.Threading.Channels" Version="9.0.8" />
+        <PackageReference Include="System.Threading.Channels" Version="9.0.9" />
       </ItemGroup>
     </When>
     <When Condition="'$(TargetFramework)' == 'netstandard2.0'">
@@ -35,8 +35,8 @@
   </Choose>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.8" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.8" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.9" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.9" />
   </ItemGroup>
 
   <ItemGroup>

@@ -9,7 +9,7 @@ namespace Abbotware.Core.Messaging.Integration.Amqp.Plugins
 {
     using System.Text;
     using Abbotware.Core.Messaging.Integration.Amqp;
-    using Abbotware.Core.Plugins.Serialization;
+    using Abbotware.Core.Serialization.Plugins;
 
     /// <summary>
     ///     Binary protocol that performs no data alterations

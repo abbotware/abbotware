@@ -10,9 +10,9 @@ namespace Abbotware.Core.ExtensionPoints
     using System;
     using System.Collections.Generic;
     using System.Threading;
-    using Abbotware.Core.Collections;
     using Abbotware.Core.Extensions;
     using Abbotware.Core.Objects;
+    using Abbotware.Experimental.Core.Collections;
 
     /// <summary>
     ///     base class for producer/consumer queue

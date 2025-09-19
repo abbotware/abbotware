@@ -5,12 +5,13 @@
 // -----------------------------------------------------------------------
 // <author>Anthony Abate</author>
 
-namespace Abbotware.Core.Security
+namespace Abbotware.Experimental.Cleanup.Security
 {
     using System;
     using System.Globalization;
     using System.IO;
     using System.Security.Cryptography.X509Certificates;
+    using Abbotware.Core;
     using Abbotware.Core.Exceptions;
     using Abbotware.ShellCommand;
     using Abbotware.ShellCommand.Configuration.Models;

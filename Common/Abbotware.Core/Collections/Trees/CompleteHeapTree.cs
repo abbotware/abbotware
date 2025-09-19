@@ -13,19 +13,15 @@ namespace Abbotware.Core.Collections.Trees
     /// Complete Heap Base Tree
     /// </summary>
     /// <typeparam name="TNode">node type</typeparam>
-    public class CompleteHeapTree<TNode> : BaseTree<TNode>
+    /// <remarks>
+    /// Initializes a new instance of the <see cref="CompleteHeapTree{T}"/> class.
+    /// </remarks>
+    /// <param name="branches">number of branches per node</param>
+    /// <param name="height">height of tree</param>
+    public class CompleteHeapTree<TNode>(ushort branches, uint height)
+        : BaseTree<TNode>(branches, height)
         where TNode : class, ITreeNode<TNode>, new()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CompleteHeapTree{T}"/> class.
-        /// </summary>
-        /// <param name="branches">number of branches per node</param>
-        /// <param name="height">height of tree</param>
-        public CompleteHeapTree(ushort branches, uint height)
-            : base(branches, height)
-        {
-        }
-
         /// <inheritdoc/>
         public override ulong OnComputeNodeCount(uint height)
         {
@@ -56,7 +52,7 @@ namespace Abbotware.Core.Collections.Trees
         /// <inheritdoc/>
         public override ulong[] OnComputeParentIndices(ulong position)
         {
-            return new[] { (position - 1) / this.Branches };
+            return [(position - 1) / this.Branches];
         }
     }
 }

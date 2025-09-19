@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------
 // <author>Anthony Abate</author>
 
-namespace Abbotware.Core.Plugins.Serialization
+namespace Abbotware.Core.Serialization.Plugins
 {
     using System;
     using System.Text;

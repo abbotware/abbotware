@@ -5,7 +5,7 @@
 // -----------------------------------------------------------------------
 // <author>Anthony Abate</author>
 
-namespace Abbotware.Core.Collections
+namespace Abbotware.Experimental.Core.Collections
 {
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
@@ -13,6 +13,7 @@ namespace Abbotware.Core.Collections
     using System.ComponentModel;
     using System.Linq;
     using System.Threading;
+    using Abbotware.Core;
 
     /// <summary>
     ///     An ObservableCollection collection that can be used for asynchronous UI updates

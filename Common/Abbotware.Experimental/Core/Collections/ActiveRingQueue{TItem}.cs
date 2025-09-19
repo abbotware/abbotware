@@ -5,10 +5,11 @@
 // -----------------------------------------------------------------------
 // <author>Sid Sacek</author>
 
-namespace Abbotware.Core.Collections;
+namespace Abbotware.Experimental.Core.Collections;
 
 using System;
 using System.Threading;
+using Abbotware.Core;
 using Abbotware.Core.Chrono;
 
 /// <summary>
